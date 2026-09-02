@@ -119,7 +119,7 @@ Artix-7 bank**, and that bank's VCCO must track the module's selectable rail
 pin does not give an extension LVDS — the bank VCCO does — and say which
 banks feed which connectors.
 
-**7. Gameboy gap.** From step 5, state whether a parallel-RGB or SPI LCD,
+**7. Gameboy gap.** From step 6, state whether a parallel-RGB or SPI LCD,
 8–10 buttons, and a PWM or DAC audio path can all be done on an extension
 alone. List anything the base board must add. Be concrete about pin counts.
 
