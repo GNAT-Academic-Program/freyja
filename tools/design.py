@@ -64,12 +64,41 @@ class Design:
     def F(self, val, a, b):
         return self.add(self.seq('F'), 'Device:Polyfuse', val, R0603, {'1': a, '2': b})
 
+# --------------------------------------------------- feedback dividers
+E96 = sorted({round(10 ** (k / 96.0), 2) for k in range(96)})
+
+def e96(x):
+    """Nearest E96 value, returned as (ohms, label)."""
+    import math
+    best = None
+    for dec in range(0, 7):
+        for m in E96:
+            v = m * 10 ** dec
+            if best is None or abs(math.log(v / x)) < abs(math.log(best / x)): best = v
+    lab = (f"{best/1e6:g}M" if best >= 1e6 else f"{best/1e3:g}k" if best >= 1e3
+           else f"{best:g}")
+    return best, lab
+
+def fb_divider(vout, vref, rtop=100e3):
+    """Vout = Vref * (1 + Rtop/Rbot). Solve for Rbot, snap to E96, verify."""
+    rbot = rtop / (vout / vref - 1.0)
+    rb, rb_lab = e96(rbot)
+    rt, rt_lab = e96(rtop)
+    actual = vref * (1 + rt / rb)
+    err = abs(actual - vout) / vout
+    if err > 0.02:
+        raise ValueError(f"FB divider for {vout}V off by {err*100:.1f}% (got {actual:.3f}V)")
+    return rt_lab, rb_lab, actual
+
 # ---------------------------------------------------------------- rails
 V12, V5, V33, V25, V18, V10, V12MGT = '+12V', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
 V10MGT, GND = '+1V0_MGT', 'GND'
 VCCIO = {'14': V33, '15': 'VCCIO_1', '34': 'VCCIO_2'}
 
+RAIL_CHECK = []
+
 def build():
+    RAIL_CHECK.clear()
     d = Design()
     assigned, psram, sb, slots, io, other = assign()
 
@@ -239,14 +268,18 @@ def build():
           {'VIN': V12, 'GND': GND, 'EN': 'EN_5V', 'FB': 'FB_5V',
            'SW': 'SW_5V', 'BOOT': 'BOOT_5V'}, LCSC['TPS54202DDC'])
     d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('4.7uH', 'SW_5V', V5)
-    d.R('100k', V5, 'FB_5V', R0603); d.R('16.2k', 'FB_5V', GND, R0603)
+    rt, rb, act = fb_divider(5.0, 0.596)          # TPS54202 Vref = 0.596 V
+    d.R(rt, V5, 'FB_5V', R0603); d.R(rb, 'FB_5V', GND, R0603)
+    RAIL_CHECK.append(('+5V', 5.0, act, rt, rb))
     for _ in range(3): d.C('22uF', V5, GND, C0805)
     # 5V -> the low rails
-    for ref, rail, en, top, bot in (('U12', V33, 'EN_3V3', '100k', '33.2k'),
-                                    ('U13', V25, 'EN_2V5', '100k', '49.9k'),
-                                    ('U14', V18, 'EN_1V8', '100k', '80.6k'),
-                                    ('U15', V10, 'EN_1V0', '100k', '200k'),
-                                    ('U16', V12MGT, 'EN_1V2', '100k', '150k')):
+    for ref, rail, en, vtgt in (('U12', V33, 'EN_3V3', 3.3),
+                                ('U13', V25, 'EN_2V5', 2.5),
+                                ('U14', V18, 'EN_1V8', 1.8),
+                                ('U15', V10, 'EN_1V0', 1.0),
+                                ('U16', V12MGT, 'EN_1V2', 1.2)):
+        top, bot, act = fb_divider(vtgt, 0.600)   # TLV62569 Vfb = 0.600 V
+        RAIL_CHECK.append((rail, vtgt, act, top, bot))
         fb = f'FB{rail}'; sw = f'SW{rail}'
         d.add(ref, 'Regulator_Switching:TLV62569DRL', 'TLV62569DRL', SOT236,
               {'VIN': V5, 'GND': GND, 'EN': en, 'FB': fb, 'SW': sw},
@@ -269,6 +302,10 @@ def build():
 
 if __name__ == '__main__':
     d = build()
+    print("rail  target  actual   Rtop/Rbot")
+    for rail, tgt, act, rt, rb in RAIL_CHECK:
+        flag = 'OK' if abs(act-tgt)/tgt < 0.02 else 'FAIL'
+        print(f"  {rail:9s} {tgt:5.2f}V {act:6.3f}V  {rt}/{rb}  {flag}")
     print(f"parts: {len(d.parts)}")
     nets = {}
     for p in d.parts:
