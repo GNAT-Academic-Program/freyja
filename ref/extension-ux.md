@@ -9,12 +9,17 @@ a **16**, a **32** or a **64**. Modules are identical and adjacent, so two 32s
 sit side by side exactly where a 64 goes.
 
 ```
-        1    2    3    4    5    6    7    8
- row A  IO0  IO1  GND  IO2  IO3  IO4  VCCIO  +5V
- row B  IO5  IO6  GND  IO7  IO8  IO9  +3V3   AUX
+        1     2     3     4     5     6     7      8
+ row A  P0+   P1+   GND   P2+   P3+   P4+   VCCIO  +5V
+ row B  P0-   P1-   GND   P2-   P3-   P4-   +3V3   AUX
 ```
 
 10 IO, 2 GND, 4 rails. Pin 1 is keyed.
+
+**Every column is a differential pair.** All ten I/O are true LVDS-capable
+pairs on the FPGA, arranged so `P+` and `P-` are vertically adjacent on the
+header. Doing single-ended? Ignore the signs and call them `IO0..IO9`. Nothing
+is wasted either way.
 
 ## The four rails, and why you are never blocked
 
@@ -40,40 +45,51 @@ become 2.5V pins, LVDS-capable. Jumper it to 3.3V and they are 3.3V pins.
 **The rail on the connector and the logic level of the pins can never
 disagree.** You do not have to know this to use the board. That is the point.
 
-## Bank alignment: what a 16 / 32 / 64 actually buys you
+## The slots, and the two voltage domains
 
-`VCCO` is per bank, not per pin, so module independence is limited by how many
-banks the FPGA has. Modules are paired into banks:
+Nine slots. `XC7A50T-CSG325` has exactly **three** I/O banks, and `VCCO` is per
+bank, so three is the hard ceiling on voltage domains — one of which is spent
+on the config flash. That leaves **two settable domains**:
 
-| You plug in a | You get | VCCIO independence |
+| Slots | Bank | VCCIO | Path |
+|---|---|---|---|
+| **L** | 14 | fixed 3.3V | **buffered**, 5V tolerant |
+| **A B C D** | 15 | **settable** 3.3 / 2.5 / 1.8V | direct |
+| **E F G H** | 34 | **settable** 3.3 / 2.5 / 1.8V | direct |
+
+| You plug in a | You get | VCCIO |
 |---|---|---|
-| **16** (1 module) | 10 IO | shares VCCIO with its partner slot |
-| **32** (2 modules) | 20 IO | **owns its bank — set VCCIO freely** |
-| **64** (4 modules) | 40 IO | owns two banks, two independent VCCIO |
+| **16** (1 module) | 10 IO | shares the domain with 3 neighbours |
+| **32** (2 modules) | 20 IO | shares the domain with 2 neighbours |
+| **64** (4 modules) | 40 IO | **owns its domain outright — set it freely** |
 
-If you need a voltage nobody else on the board is using, **use a 32**. That is
-the whole rule.
+**Only a 64 gets a private voltage.** If your extension needs 2.5V or 1.8V
+signalling, build it as a 64 and take a whole bank, or agree the voltage with
+whatever else is sharing your domain. Two extensions at different voltages
+means one in the A–D domain and one in E–H.
 
-## Buffered slots vs direct slots
+## Slot L — the buffered one
 
-Two slots run through `SN74LXCH8T245` auto-direction level shifters. The rest
-go straight to the FPGA ball.
+Slot L runs through `SN74LXCH8T245` auto-direction level shifters. Everything
+else goes straight to the FPGA ball.
 
-| Slots | Path | 5V tolerant | Speed | LVDS |
-|---|---|---|---|---|
-| **A, B** | buffered | yes | low — tens of MHz, auto-direction | no |
-| **C–H** | direct | no (VCCIO max 3.3V) | full FPGA speed | yes, on pairs |
+| | Slot L | Slots A–H |
+|---|---|---|
+| 5V tolerant | **yes** | no (3.3V max) |
+| Speed | low — tens of MHz | full FPGA speed |
+| LVDS | no | **yes, 5 pairs** |
+| VCCIO | fixed 3.3V | settable per domain |
 
-**Building with junk 5V parts?** Slots A/B. The shifter handles it.
-**Building anything fast — LVDS, DDR, video, RJ45?** Slots C–H. Nothing in the
-signal path.
-
-That is the trade and it is the only reason the two kinds exist.
+**Junk 5V parts?** Slot L. The shifter handles it, and it costs no voltage
+domain because bank 14 is pinned at 3.3V by the config flash anyway.
+**Anything fast — LVDS, video, RJ45?** Any of A–H. Nothing in the path.
 
 ## Differential pairs
 
-On direct slots, IO0/IO1 and IO3/IO4 and IO7/IO8 are routed as matched pairs
-with GND at A3/B3 between them. Use those for LVDS. Set VCCIO to 2.5V first.
+Every column is a pair, with GND at column 3. At moderate rates this is fine
+over a short ribbon. A 0.1" header is not a great LVDS medium at any price, so
+keep aggressive links short and set VCCIO to 2.5V first — Artix-7 HR banks only
+do true LVDS outputs at 2.5V.
 
 ## Rules
 
@@ -82,13 +98,13 @@ with GND at A3/B3 between them. Use those for LVDS. Set VCCIO to 2.5V first.
   board down.
 - Each module has board-ID pins so the supervisor knows what you plugged in
   and can refuse to power a rail into a board that does not want it.
-- IO are numbered globally `IO_1..IO_80`, ten per module, so a slot's identity
+- IO are numbered globally `IO_1..IO_90`, ten per module, so a slot's identity
   is readable from the net name.
+- Exact FPGA ball for every pin: `ref/ballmap.md`.
 
-## Still to be confirmed against the datasheet
+## Confirmed against the package file
 
-The bank count on `XC7A50T-2CSG325I` sets how many modules pair per bank; the
-2-per-bank figure above assumes four usable I/O banks and must be checked
-against DS181. The 3× shifter count for two buffered slots (20 IO, 24
-channels) assumes the four `SN74LXCH8T245` in the current schematic are
-available for this. Both are flagged in `findings.md`.
+Bank count, pair count and every ball assignment come from AMD's
+`xc7a50tcsg325` package file, checked into `ref/xc7a50tcsg325pkg.txt` and
+processed by `tools/ballmap.py`. Three banks, 50 HR I/O each, 24 differential
+pairs each. 126 of 150 I/O assigned, 24 free for base-board peripherals.
