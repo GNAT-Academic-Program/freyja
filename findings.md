@@ -171,3 +171,34 @@ stock 3), `1SMA5918A` (C19077487, stock 71), `FT232HQ-REEL` (C82158, stock 28)
 only `0603WAF8202T5E`, `0603WAF5101T5E`, `0603WAF200JT5E` are Basic. Most of
 the Extended lines are ordinary 0402/0603 passives with Basic equivalents;
 that consolidation pass is worth doing once the BOM is re-exported, not now.
+
+
+---
+
+## 5. should-fix — confirm the differential oscillator pinout before ordering
+
+**Entities:** `X2`, symbol `odin:OSC_DIFF_6P_3225`, footprint
+`Oscillator_SMD_SiTime_SiT9121-6Pin_3.2x2.5mm`.
+
+Six-pin differential oscillators are **not pin-compatible between vendors**.
+The generated symbol uses the common arrangement (1 OE, 2 GND, 3 NC, 4 OUT-,
+5 OUT+, 6 VDD) but this was not taken from a specific datasheet. Pick the
+actual 125 MHz LVDS part, check its pinout, and correct
+`OSC_PINS` in `tools/gen_kicad.py` before the board is fabricated. Getting
+this wrong costs the four fast lanes and nothing else, but it costs them
+completely.
+
+## 6. should-fix — confirm the MGTRREF resistor value
+
+**Entities:** `R30`, 100R 0603, from `U1.A6` (`MGTRREF_216`) to GND.
+
+The transceiver reference resistor sets internal bias currents and must be a
+precision part of the exact value the family requires. 100R is used here;
+confirm against UG482 (7 Series Transceivers) and set the tolerance to 1%.
+
+## 7. nit — board outline is a placeholder
+
+`kicad/odin.kicad_pcb` is 120 x 100 mm. That was a guess made before the SFP
+cages existed; a cage is ~14 mm wide and ~47 mm deep, and there are four
+positions. Expect the board to grow along one edge. Adjust before placement —
+`tools/gen_pcb.py` regenerates it, but only do that before you start routing.

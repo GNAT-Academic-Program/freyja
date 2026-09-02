@@ -174,11 +174,38 @@ def gen_flash():
         o += pin(Wd/2 + 5.08, top - i*2.54, 180, et, name, num)
     return o + '\t\t)\n\t)\n'
 
+OSC_PINS = [('1','OE','input','L'), ('2','GND','power_in','L'), ('3','NC','no_connect','L'),
+            ('4','OUT-','output','R'), ('5','OUT+','output','R'), ('6','VDD','power_in','R')]
+
+def gen_osc():
+    """Generic 6-pin differential (LVDS) oscillator, 3.2x2.5mm.
+    PINOUT IS GENERIC - confirm against the chosen part before ordering."""
+    nm = 'OSC_DIFF_6P_3225'
+    left  = [p for p in OSC_PINS if p[3] == 'L']
+    right = [p for p in OSC_PINS if p[3] == 'R']
+    h = max(len(left), len(right)); top = (h - 1) * 2.54 / 2; Wd = 25.4
+    o  = f'\t(symbol "{nm}"\n\t\t(pin_names (offset 1.016))\n'
+    o += '\t\t(exclude_from_sim no)\n\t\t(in_bom yes)\n\t\t(on_board yes)\n'
+    for i,(k,v,hide) in enumerate([('Reference','X',False), ('Value',nm,False),
+            ('Footprint','Oscillator:Oscillator_SMD_SiTime_SiT9121-6Pin_3.2x2.5mm',True),
+            ('Datasheet','',True),
+            ('Description','Generic 6-pin differential LVDS oscillator - CONFIRM PINOUT',True)]):
+        o += (f'\t\t(property "{k}" "{esc(v)}"\n\t\t\t(at 0 {12-i*2.54:.2f} 0)\n'
+              f'\t\t\t(effects (font (size 1.27 1.27)){" (hide yes)" if hide else ""})\n\t\t)\n')
+    o += f'\t\t(symbol "{nm}_1_1"\n'
+    o += (f'\t\t\t(rectangle (start {-Wd/2:.2f} {top+2.54:.2f}) (end {Wd/2:.2f} {top-(h-1)*2.54-2.54:.2f})\n'
+          f'\t\t\t\t(stroke (width 0.254) (type default)) (fill (type background))\n\t\t\t)\n')
+    for i,(num,name,et,_s) in enumerate(left):
+        o += pin(-Wd/2 - 5.08, top - i*2.54, 0, et, name, num)
+    for i,(num,name,et,_s) in enumerate(right):
+        o += pin(Wd/2 + 5.08, top - i*2.54, 180, et, name, num)
+    return o + '\t\t)\n\t)\n'
+
 if __name__ == '__main__':
     pins = load()
     units = gen_symbol(pins)
     t = open(SYM).read()
-    open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + ')\n')
+    open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + gen_osc() + ')\n')
     npads = gen_footprint()
     print(f"symbol  {SYM}: {len(pins)} pins in {len(units)} units")
     for k, v in units.items(): print(f"   unit {k:18s} {len(v):3d} pins")

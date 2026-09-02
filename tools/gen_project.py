@@ -9,11 +9,26 @@ OUT, PRO = 'kicad/odin.kicad_sch', 'kicad/odin.kicad_pro'
 PWRLIB = '/usr/share/kicad/symbols/power.kicad_sym'
 SHEET_W, LBL, MARGIN = 1120.0, 33.0, 12.0
 RAILS = ('GND','+1V0','+1V1','+1V8','+2V5','+3V3','+5V','+12V',
-         'VCCIO_1','VCCIO_2','+1V0_MGT','+1V2_MGT','VBUS')
+         'VCCIO_1','VCCIO_2','+1V0_MGT','+1V2_MGT','VBUS','SFP_VCC')
 
 def snap(v): return round(round(v / 1.27) * 1.27, 2)
 def uid(*a): return str(uuid.UUID(hashlib.md5(('odin'+''.join(map(str,a))).encode()).hexdigest()))
 def esc(s): return s.replace('\\','\\\\').replace('"','\\"')
+
+def top_props(blk):
+    """Yield (start, end) of each top-level (property ...) in a symbol block."""
+    out, i = [], 0
+    while True:
+        i = blk.find('\n\t\t(property "', i)
+        if i < 0: return out
+        j, dep = i + 1, 0
+        while True:
+            if blk[j] == '(': dep += 1
+            elif blk[j] == ')':
+                dep -= 1
+                if dep == 0: break
+            j += 1
+        out.append((i, j + 1)); i = j
 
 def flatten(lib_id):
     """Return a self-contained lib_symbols block for lib_id (resolving `extends`)."""
@@ -27,12 +42,12 @@ def flatten(lib_id):
         bname = ext.group(1)
         blk = re.sub(r'\(symbol "%s(_\d+_\d+)?"' % re.escape(bname),
                      lambda m: f'(symbol "{name}{m.group(1) or ""}"', base)
-        # derived properties win
-        dprops = dict(re.findall(r'\(property "([^"]+)" "([^"]*)"', der))
-        def repl(m):
-            k = m.group(1)
-            return f'(property "{k}" "{esc(dprops[k])}"' if k in dprops else m.group(0)
-        blk = re.sub(r'\(property "([^"]+)" "[^"]*"', repl, blk)
+        # the derived symbol's property blocks replace the base's wholesale --
+        # KiCad compares position and effects too, not just the value string
+        dtext = [der[a:b] for a, b in top_props(der)]
+        spans = top_props(blk)
+        if spans and dtext:
+            blk = blk[:spans[0][0]] + ''.join(dtext) + blk[spans[-1][1]:]
         blk = blk.replace(f'(extends "{bname}")', '', 1)
     # top-level name carries the library prefix; sub-unit names must not
     return '\t\t' + re.sub(r'^\(symbol "%s"' % re.escape(name),

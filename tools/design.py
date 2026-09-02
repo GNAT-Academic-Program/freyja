@@ -160,9 +160,13 @@ def build():
           15:'SUP_DBG_TCK', 16:'SUP_DBG_TMS', 17:'SUP_DBG_TDI', 18:'SUP_DBG_TDO',
           19:'SUP_UART_TX', 20:'SUP_UART_RX',
           21:'EN_3V3', 22:'EN_2V5', 23:'EN_1V8', 24:'EN_1V0', 25:'EN_1V2', 26:'EN_5V',
-          27:'BOARDID_0', 28:'BOARDID_1', 29:'BOARDID_2', 30:'BOARDID_3'}
+          27:'BOARDID_0', 28:'BOARDID_1', 29:'BOARDID_2', 30:'BOARDID_3',
+          14:'SFP_SCL', 31:'SFP_SDA',
+          32:'SFP0_MOD_ABS', 33:'SFP0_TX_DIS', 34:'SFP0_TX_FAULT', 35:'SFP0_LOS',
+          36:'SFP1_MOD_ABS', 37:'SFP1_TX_DIS', 38:'SFP1_TX_FAULT', 39:'SFP1_LOS'}
     for g, n in gp.items(): sup[f'GPIO{g}'] = n
-    for a, n in enumerate(['MON_12V','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0','MON_1V2','MON_VCCIO1']):
+    sup['GPIO47/ADC7'] = 'EN_SFP_N'
+    for a, n in enumerate(['MON_12V','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0','MON_1V2']):
         sup[f'GPIO{40+a}/ADC{a}'] = n
     d.add('U7', 'MCU_RaspberryPi:RP2350B', 'RP2350B', QFN80, sup)
     for _ in range(8): d.C('100nF', V33, GND)
@@ -256,6 +260,57 @@ def build():
         jn += 1
         for _ in range(2): d.C('22uF', net, GND, C0805)
 
+    # ------------------------------------------------ four fast serial lanes
+    # Lanes 0/1 get populated SFP cages; 2/3 get identical footprints left
+    # empty, so filling them later is a soldering iron, not a respin.
+    d.add('X2', 'odin:OSC_DIFF_6P_3225', '125MHz LVDS',
+          'Oscillator:Oscillator_SMD_SiTime_SiT9121-6Pin_3.2x2.5mm',
+          {'VDD': V33, 'GND': GND, 'OE': V33, 'OUT+': 'REFCLK_OSC_P',
+           'OUT-': 'REFCLK_OSC_N'})
+    d.C('100nF', V33, GND); d.C('4.7uF', V33, GND, C0603)
+    d.C('100nF', 'REFCLK_OSC_P', 'MGTREFCLK0P')      # AC-couple the reference clock
+    d.C('100nF', 'REFCLK_OSC_N', 'MGTREFCLK0N')
+    d.R('100', 'MGTRREF', GND, R0603)                # value to confirm vs UG482
+    # high-side switch: gate pulled to +3V3 so the cages are OFF until the
+    # supervisor has booted and decided a module is safe to power
+    d.add('Q1', 'Device:Q_PMOS', 'SFP power gate', 'Package_TO_SOT_SMD:SOT-23',
+          {'S': V33, 'D': 'SFP_VCC', 'G': 'EN_SFP_N'})
+    d.R('100k', 'EN_SFP_N', V33)
+    d.C('10uF', 'SFP_VCC', GND, C0805)
+    for n in ('SFP_SCL', 'SFP_SDA'): d.R('4.7k', n, V33)
+    for c in range(4):
+        pop = c < 2
+        p = f'SFP{c}_'
+        ctl = (lambda k: p + k) if pop else (lambda k: f'SFP{c}_{k}_NP')
+        d.add(f'J{60+c}', 'Interface_Optical:SFP', f'SFP cage {c}',
+              'Connector:Connector_SFP_and_Cage',
+              {'TD+': p+'TD_P', 'TD-': p+'TD_N', 'RD+': p+'RD_P', 'RD-': p+'RD_N',
+               'MOD_DEF1': 'SFP_SCL', 'MOD_DEF2': 'SFP_SDA',
+               'MOD_DEF0': ctl('MOD_ABS'), 'TX_DISABLE': ctl('TX_DIS'),
+               'TX_FAULT': ctl('TX_FAULT'), 'RX_LOS': ctl('LOS'),
+               'RATE_SELECT': GND, 'VccT': 'SFP_VCC', 'VccR': 'SFP_VCC',
+               'VeeT': GND, 'VeeR': GND, 'CAGE': GND}, dnp=not pop)
+        # AC coupling: 100nF in series on all four high-speed lines
+        d.C('100nF', f'MGTPTXP{c}', p+'TD_P'); d.C('100nF', f'MGTPTXN{c}', p+'TD_N')
+        d.C('100nF', p+'RD_P', f'MGTPRXP{c}'); d.C('100nF', p+'RD_N', f'MGTPRXN{c}')
+        d.C('100nF', 'SFP_VCC', GND)
+        if pop:                                       # open-collector status lines
+            for k in ('MOD_ABS', 'TX_FAULT', 'LOS'): d.R('4.7k', p+k, V33)
+
+    # Cages 2/3 are unpopulated, so their control lines have no supervisor pin
+    # left. An I2C expander footprint (also unpopulated) sits on the SFP bus:
+    # fit it together with the cages and all four are fully controllable.
+    d.add('U17', 'Interface_Expansion:PCF8574T', 'PCF8574T',
+          'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm',
+          {'VDD': V33, 'GND': GND, 'SCL': 'SFP_SCL', 'SDA': 'SFP_SDA',
+           'A0': GND, 'A1': GND, 'A2': V33, '~{INT}': 'SFP_EXP_INT',
+           'P0': 'SFP2_MOD_ABS_NP', 'P1': 'SFP2_TX_DIS_NP',
+           'P2': 'SFP2_TX_FAULT_NP', 'P3': 'SFP2_LOS_NP',
+           'P4': 'SFP3_MOD_ABS_NP', 'P5': 'SFP3_TX_DIS_NP',
+           'P6': 'SFP3_TX_FAULT_NP', 'P7': 'SFP3_LOS_NP'}, dnp=True)
+    d.C('100nF', V33, GND)
+    d.R('4.7k', 'SFP_EXP_INT', V33)
+
     # ------------------------------------------------ power tree
     d.add('J50', 'Connector_Generic:Conn_01x02', 'VIN 12V', HDR1x2,
           {'Pin_1': V12, 'Pin_2': GND})
@@ -294,7 +349,7 @@ def build():
     d.R('100k', V12, 'MON_12V', R0603); d.R('33k', 'MON_12V', GND, R0603)
     d.R('100k', V5,  'MON_5V',  R0603); d.R('100k', 'MON_5V', GND, R0603)
     for rail, mon in ((V33,'MON_3V3'), (V25,'MON_2V5'), (V18,'MON_1V8'),
-                      (V10,'MON_1V0'), (V12MGT,'MON_1V2'), ('VCCIO_1','MON_VCCIO1')):
+                      (V10,'MON_1V0'), (V12MGT,'MON_1V2')):
         d.R('1k', rail, mon, R0603)
     # board-ID pull-downs
     for i in range(4): d.R('10k', f'BOARDID_{i}', GND)

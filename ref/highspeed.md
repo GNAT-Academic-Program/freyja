@@ -13,7 +13,7 @@ using TMDS — no fast lane required. Video belongs on an extension board or on
 spare base-board I/O. Spend the fast lanes on what ordinary pins genuinely
 cannot do: multi-gigabit serial.
 
-## The recommendation: SFP cages
+## Built: SFP cages
 
 An SFP cage is a socket you plug a **module** into — which is the same idea as
 Odin's extension slots, one level up. One socket, many personalities:
@@ -62,9 +62,22 @@ Cost: about 6 supervisor pins for two cages, and the supervisor has spare.
   side take 28 mm of one edge. Four take 56 mm, which is most of a 100 mm
   edge — a real reason to populate two and leave two as footprints.
 
-## If you would rather not
+## What is actually in the schematic
 
-The alternative is to accept the lanes are dead and save the connectors, the
-area and the routing care. That is a legitimate call for a first revision.
-What is *not* legitimate is leaving it undecided — the pads have to be routed
-before layout, or the option is gone for the life of the board.
+| Ref | Part | Note |
+|---|---|---|
+| `J60`, `J61` | SFP cage, **populated** | lanes 0 and 1 |
+| `J62`, `J63` | SFP cage, **not populated** | lanes 2 and 3, footprints only |
+| `X2` | 125 MHz differential oscillator | the reference clock the lanes need |
+| `Q1` | P-channel high-side switch | gate pulled high, so cages are **off until the supervisor turns them on** |
+| `U17` | I2C port expander, **not populated** | fit it with cages 2/3 and all four become controllable |
+| `R30` | `MGTRREF` precision resistor | value to confirm, see `findings.md` |
+
+Coupling capacitors sit in series on all sixteen high-speed lines. Both status
+buses and the two-wire identification bus run to the supervisor, with pull-ups.
+`MGTREFCLK1` is left free for a second clock source.
+
+Two things need checking before you order — both are in `findings.md`: the
+oscillator symbol uses a **generic** 6-pin pinout that must be matched to the
+part you actually buy, and the `MGTRREF` resistor value must be confirmed
+against UG482.
