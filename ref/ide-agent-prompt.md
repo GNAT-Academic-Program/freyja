@@ -24,6 +24,9 @@ by hand, then re-exports.
   product.** One page, written for the human building an extension, not for
   you. Your job in step 6 is to make the schematic match it, and to keep it
   one page. If it grows past two, you have failed.
+- `ref/psram.md` — PSRAM wiring and why it is four independent ports. The
+  PSRAM is not an accessory; it is what makes projects bigger than BRAM
+  possible without a DDR nightmare.
 - `ref/gameboy-extension.md` — the worked reference extension (LCD, speaker,
   gamepad) that proves the module sizing. Step 7 verifies it.
 - `ref/salvage-from-odin0.md` — **read this too.** What in last year's board
@@ -145,6 +148,14 @@ the real schematic. Specifically: are there 6 direct slots in a contiguous
 run, can +5V source 1 A beyond the board's own load, is the PSRAM reachable
 from fabric for a framebuffer, and where do the real bank boundaries fall.
 Report what the base board must add. Update that file with verified numbers.
+
+**7b. PSRAM.** Check the four `APS1604M-3SQR-SN` against `ref/psram.md`.
+Are they wired as four independent QSPI buses (24 pins) or sharing one bus
+with four chip selects (9 pins)? Shared is a should-fix — it costs the
+video-plus-CPU-without-arbitration property the reference design depends on.
+Confirm the bank they sit in has `VCCO` fixed at 3.3V and is not one of the
+VCCIO-selectable extension banks. Correct the capacity figure in that file
+from the datasheet.
 
 **8. BOM.** Every placed part has an LCSC number. Flag Extended parts that
 have a Basic equivalent. Flag zero-stock and near-zero-stock parts.
