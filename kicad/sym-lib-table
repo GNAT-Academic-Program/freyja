@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "odin")(type "KiCad")(uri "${KIPRJMOD}/odin.kicad_sym")(options "")(descr "Odin generated symbols"))
+  (lib (name "power")(type "KiCad")(uri "${KICAD9_SYMBOL_DIR}/power.kicad_sym")(options "")(descr ""))
+)

@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "odin")(type "KiCad")(uri "${KIPRJMOD}/odin.pretty")(options "")(descr "Odin generated footprints"))
+)

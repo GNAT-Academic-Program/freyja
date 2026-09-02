@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 ref/adabmp/
+kicad/*-backups/
+kicad/production/
