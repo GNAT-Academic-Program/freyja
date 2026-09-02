@@ -139,9 +139,46 @@ def gen_footprint():
     open(f'{PRET}/{FPNAME}.kicad_mod', 'w').write(o)
     return n
 
+FLASH_PINS = [  # standard 8-pin SPI/QSPI NOR flash pinout (SOIC-8 / SOP-8)
+    ('1', '~{CS}',        'input',         'L'),
+    ('2', 'DO/IO1',       'bidirectional', 'R'),
+    ('3', '~{WP}/IO2',    'bidirectional', 'L'),
+    ('4', 'GND',          'power_in',      'L'),
+    ('5', 'DI/IO0',       'bidirectional', 'L'),
+    ('6', 'CLK',          'input',         'L'),
+    ('7', '~{HOLD}/IO3',  'bidirectional', 'R'),
+    ('8', 'VCC',          'power_in',      'R'),
+]
+
+def gen_flash():
+    """W25Q256JVEIQ - 256Mbit QSPI NOR. KiCad ships no W25Q256; the 8-pin pinout
+    is the industry-standard one shared with W25Q128JV, which KiCad does ship."""
+    nm = 'W25Q256JVEIQ'
+    left  = [p for p in FLASH_PINS if p[3] == 'L']
+    right = [p for p in FLASH_PINS if p[3] == 'R']
+    h = max(len(left), len(right)); top = (h - 1) * 2.54 / 2; Wd = 25.4
+    o  = f'\t(symbol "{nm}"\n\t\t(pin_names (offset 1.016))\n'
+    o += '\t\t(exclude_from_sim no)\n\t\t(in_bom yes)\n\t\t(on_board yes)\n'
+    for i,(k,v,hide) in enumerate([('Reference','U',False), ('Value',nm,False),
+            ('Footprint','Package_SO:SOIC-8_5.3x5.3mm_P1.27mm',True),
+            ('Datasheet','https://www.winbond.com/hq/product/code-storage-flash-memory/qspiflash/?__locale=en&partNo=W25Q256JV',True),
+            ('Description','256Mbit QSPI NOR flash, SOIC-8',True), ('LCSC','C97522',True)]):
+        o += (f'\t\t(property "{k}" "{esc(v)}"\n\t\t\t(at 0 {12-i*2.54:.2f} 0)\n'
+              f'\t\t\t(effects (font (size 1.27 1.27)){" (hide yes)" if hide else ""})\n\t\t)\n')
+    o += f'\t\t(symbol "{nm}_1_1"\n'
+    o += (f'\t\t\t(rectangle (start {-Wd/2:.2f} {top+2.54:.2f}) (end {Wd/2:.2f} {top-(h-1)*2.54-2.54:.2f})\n'
+          f'\t\t\t\t(stroke (width 0.254) (type default)) (fill (type background))\n\t\t\t)\n')
+    for i,(num,name,et,_s) in enumerate(left):
+        o += pin(-Wd/2 - 5.08, top - i*2.54, 0, et, name, num)
+    for i,(num,name,et,_s) in enumerate(right):
+        o += pin(Wd/2 + 5.08, top - i*2.54, 180, et, name, num)
+    return o + '\t\t)\n\t)\n'
+
 if __name__ == '__main__':
     pins = load()
     units = gen_symbol(pins)
+    t = open(SYM).read()
+    open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + ')\n')
     npads = gen_footprint()
     print(f"symbol  {SYM}: {len(pins)} pins in {len(units)} units")
     for k, v in units.items(): print(f"   unit {k:18s} {len(v):3d} pins")

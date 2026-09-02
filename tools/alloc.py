@@ -65,6 +65,16 @@ def assign():
     sb = [b for pr in _take(fp14, used, 3) for b in pr]
     for b, n in zip(sb, SIDEBAND): net[b] = n
 
+    # level-shifter direction control for slot L: bank 14 has leftover
+    # single-ended balls (true singles plus the unused halves of the pairs
+    # that config took), which is exactly what these low-speed pins want.
+    _, sg14 = pairs_and_singles(io['14'])
+    spare14 = [b for b in sg14 if b not in used]
+    halves = [b for pr in pairs_and_singles(io['14'])[0]
+              for b in pr[:2] if b not in used]
+    for i, b in enumerate((spare14 + halves)[:2]):
+        used.add(b); net[b] = f'SLOTL_DIR{i}'
+
     pools = {'14': fp14}
     for bk in ('15', '34'):
         fp, _ = pairs_and_singles(io[bk])

@@ -129,4 +129,5 @@ def main():
     print(f"wrote {OUT}: {sum(len(v) for v in units.values())} pins, "
           f"{len(nets_used)} nets, {ncount} no-connects, {len(rails)} power flags")
 
-main()
+if __name__ == '__main__':
+    main()
