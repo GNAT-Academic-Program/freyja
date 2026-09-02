@@ -20,7 +20,11 @@ by hand, then re-exports.
   `odin.bomdiff`, `odin.srcdiff`. Run `python3 extract.py` from the repo root.
   Read it before changing it.
 - `findings.md` — what is already known. Extend it, don't restart it.
-- `ref/salvage-from-odin0.md` — **read this first.** What in last year's board
+- `ref/extension-ux.md` — **the extension connector spec. This is the
+  product.** One page, written for the human building an extension, not for
+  you. Your job in step 6 is to make the schematic match it, and to keep it
+  one page. If it grows past two, you have failed.
+- `ref/salvage-from-odin0.md` — **read this too.** What in last year's board
   is worth keeping, derived from its netlist, with the reasoning. The
   modulo-16 IO slot scheme described there is the core idea of the product.
 - `ref/adabmp/` — clone of github.com/greerelias/adabmp. Working RP2040
@@ -56,15 +60,25 @@ explicitly out of scope for now but must not be designed out.
 4. Host side is one USB-C on the supervisor: CDC + BOOTSEL. Nothing else on
    the board has firmware.
 
-## The one open question
+## The design has been decided — see `ref/extension-ux.md`
 
-**How does a 16-slot carry more than three rails?** A 2×7 module has room for
-exactly 3 rail pins and Odin_0 spent them on 3.3V / 5V / 9V; the goal also
-wants 2.5V, 1.8V and VIN available to extensions. `ref/salvage-from-odin0.md`
-lays out three options and recommends making slot offset +14 a
-jumper-selected rail, using the 1×3 headers already present in the new
-schematic. Confirm this before drawing `ref/extension-pinout.md`. Everything
-else you can decide yourself.
+The module is 2×8 = 16 pins: 10 IO, 2 GND, and four rails (VCCIO, +5V, +3V3,
+AUX). Odin_0's 2×7 had **no GND pin at all** — ground returned through a
+separate 2-pin header. That is fixed here and is not up for rediscussion.
+
+Three properties are load-bearing. Do not quietly trade them away:
+
+1. **VCCIO on the connector *is* the FPGA bank's `VCCO`**, moved by one
+   jumper. A rail pin whose voltage can disagree with the bank's logic level
+   is the exact trap this design exists to remove.
+2. **+3V3 is fixed and always present**, independent of VCCIO, so an
+   extension running 1.8V signalling can still power a normal part.
+3. **Two slots are buffered through the level shifters, the rest are
+   direct.** Junk 5V parts go in the buffered slots; anything fast goes in a
+   direct slot with nothing in the path. Both kinds must exist.
+
+Your job is to verify the schematic can deliver this and report where it
+cannot — not to redesign it.
 
 ## Steps
 
@@ -107,8 +121,11 @@ firmware change list: new pin map, direct-SPI flash path replacing
 spiOverJtag, slave-serial load, power sequencing commands, board-ID read.
 
 **6. Extension connector.** Extract every net reaching the male/female
-headers. Produce `ref/extension-pinout.md`: position, net, FPGA pin, bank,
-**bank VCCO**, LVDS-capable yes/no, rail current budget. Verify keying,
+headers. Check the schematic against `ref/extension-ux.md` line by line and
+report every divergence. Then produce `ref/extension-pinout.md` — the
+per-position table backing the spec: position, net, FPGA ball, bank, VCCO
+source, buffered or direct, LVDS pair yes/no, rail current budget. Verify
+keying,
 prefix compatibility (a 32 and a 32 sit side by side exactly where a 64
 would go, because slot boundaries are fixed and the in-slot layout is
 identical), GND adjacency for differential pairs, a resettable fuse per
