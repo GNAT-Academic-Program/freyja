@@ -1,0 +1,85 @@
+# part types in the schdoc export but not the netlist (schdoc symbol count)
+schdoc-only 0402WGF220JTCE symbols=2
+schdoc-only 2.54-2*7P_ symbols=8
+schdoc-only 2.54-2*8P_ symbols=6
+schdoc-only 4.7k_ symbols=7
+schdoc-only ADS7950SBRGET symbols=1
+schdoc-only APH252010T2R2M symbols=7
+schdoc-only APS1604M-3SQR-SN_C18214056 symbols=4
+schdoc-only CI7476 symbols=1
+schdoc-only CL10B223KB8NNNC symbols=58
+schdoc-only FRC0402F3002TS symbols=62
+schdoc-only FTSH-105-01-F-DV-K symbols=1
+schdoc-only GT-3528U39FC-T30-2 symbols=2
+schdoc-only M12000E058 symbols=1
+schdoc-only PESD5V0V1BL symbols=2
+schdoc-only PH2.54-01-03PZD symbols=4
+schdoc-only PM004MNIATR symbols=1
+schdoc-only PM2.54-1X8PM-H85 symbols=4
+schdoc-only PZ2.54V-1208P-H25 symbols=1
+schdoc-only RP2040_C2040 symbols=1
+schdoc-only SMBJ5.0A_C83333 symbols=1
+schdoc-only SN74LXCH8T245PWR symbols=4
+schdoc-only SS34_C8678 symbols=1
+schdoc-only TPS25940ARVCR symbols=1
+schdoc-only TPS55340RTER symbols=1
+schdoc-only TPS563257DRLR symbols=6
+schdoc-only TS-1087S-03526 symbols=3
+schdoc-only TYPE-C 16P QTWT symbols=1
+schdoc-only USBLC6-2SC6_C2827654 symbols=1
+schdoc-only W25Q32JVZPIQ symbols=1
+schdoc-only XC7A50T-2CSG325I symbols=8
+schdoc-only ZX-PZ2.54-2-4PZZ symbols=4
+# part types in the netlist but not the schdoc export (netlist instance count)
+netlist-only 1.5kΩ instances=1
+netlist-only 10.5kΩ instances=2
+netlist-only 100kΩ instances=7
+netlist-only 100nF instances=13
+netlist-only 100Ω instances=1
+netlist-only 10kΩ instances=1
+netlist-only 10pF instances=4
+netlist-only 10uF instances=14
+netlist-only 120kΩ instances=1
+netlist-only 150kΩ instances=1
+netlist-only 15uH instances=4
+netlist-only 1SMA5918A_C19077487 instances=1
+netlist-only 1SMA5924BT3G instances=1
+netlist-only 2.2uH instances=3
+netlist-only 2.54-1*1P针 instances=8
+netlist-only 2.54-2*7P母 instances=8
+netlist-only 200kΩ instances=1
+netlist-only 20Ω instances=2
+netlist-only 22uF instances=10
+netlist-only 300Ω instances=1
+netlist-only 360kΩ instances=1
+netlist-only 4.7kΩ instances=5
+netlist-only 5.1kΩ instances=3
+netlist-only 500kΩ instances=7
+netlist-only 75pF instances=4
+netlist-only 82kΩ instances=2
+netlist-only ARG05BTC5000 instances=1
+netlist-only CR0805F255KP05Z instances=1
+netlist-only FC-DA1608HRK-620D instances=4
+netlist-only FM25V02A-GTR instances=1
+netlist-only FRC0603J101 TS instances=2
+netlist-only FT232HQ-REEL instances=1
+netlist-only IS61WV25616BLL-10BLI instances=1
+netlist-only PS-1049SVD-4PN instances=1
+netlist-only RC0402FR-0712KL instances=1
+netlist-only RT0603BRE0713K3L instances=2
+netlist-only SN74CB3T3245PWR instances=1
+netlist-only SS54_C22452 instances=1
+netlist-only TLV62569DRLR instances=3
+netlist-only TPS54202DDCR instances=4
+netlist-only TYPE-C-31-E-07 instances=1
+netlist-only TYPE-C-31-M-12 instances=1
+# part types in both
+both 10nF schdoc_symbols=1 netlist_instances=1
+both 27MHz schdoc_symbols=1 netlist_instances=1
+both 3-644456-2 schdoc_symbols=8 netlist_instances=8
+both C0603X104K050T schdoc_symbols=1 netlist_instances=1
+both CS3225X7R106K500NRL schdoc_symbols=1 netlist_instances=1
+both LFE5U-25F-6BG256C schdoc_symbols=9 netlist_instances=1
+both MS5351M schdoc_symbols=1 netlist_instances=1
+both RC0603FR-074K7L schdoc_symbols=2 netlist_instances=2
+both W25Q256JVEIQ_C97522 schdoc_symbols=1 netlist_instances=1

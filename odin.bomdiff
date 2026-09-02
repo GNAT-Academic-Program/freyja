@@ -1,0 +1,3 @@
+# designators in the netlist but not the BOM
+# designators in the BOM but not the netlist
+# placed parts with no LCSC supplier part
