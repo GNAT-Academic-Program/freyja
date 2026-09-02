@@ -24,6 +24,8 @@ by hand, then re-exports.
   product.** One page, written for the human building an extension, not for
   you. Your job in step 6 is to make the schematic match it, and to keep it
   one page. If it grows past two, you have failed.
+- `ref/gameboy-extension.md` — the worked reference extension (LCD, speaker,
+  gamepad) that proves the module sizing. Step 7 verifies it.
 - `ref/salvage-from-odin0.md` — **read this too.** What in last year's board
   is worth keeping, derived from its netlist, with the reasoning. The
   modulo-16 IO slot scheme described there is the core idea of the product.
@@ -136,9 +138,13 @@ Artix-7 bank**, and that bank's VCCO must track the module's selectable rail
 pin does not give an extension LVDS — the bank VCCO does — and say which
 banks feed which connectors.
 
-**7. Gameboy gap.** From step 6, state whether a parallel-RGB or SPI LCD,
-8–10 buttons, and a PWM or DAC audio path can all be done on an extension
-alone. List anything the base board must add. Be concrete about pin counts.
+**7. Gameboy gap.** `ref/gameboy-extension.md` already does this fit on
+paper: a 32 in slots C+D for an SPI LCD build, a 64 in slots C–F for parallel
+RGB565 + I2S + microSD, 40 IO with 3 spare. Your job is to confirm it against
+the real schematic. Specifically: are there 6 direct slots in a contiguous
+run, can +5V source 1 A beyond the board's own load, is the PSRAM reachable
+from fabric for a framebuffer, and where do the real bank boundaries fall.
+Report what the base board must add. Update that file with verified numbers.
 
 **8. BOM.** Every placed part has an LCSC number. Flag Extended parts that
 have a Basic equivalent. Flag zero-stock and near-zero-stock parts.
