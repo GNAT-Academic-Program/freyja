@@ -3,6 +3,14 @@
 You are reviewing and fixing the Odin FPGA dev board. Work in
 `/home/henley/Desktop/odin`.
 
+## Read `README.md` first
+
+It is the design thesis: remove the accidental complexity so what's left is
+the actual project. Every decision in this repo traces to a row of the table
+in it. When you hit a tradeoff not covered below, apply its test — *does this
+remove work that was never the point, or add work that looks like the point?*
+— and say which way you applied it.
+
 ## Source of truth
 
 EasyEDA Pro is the source of truth. You never edit the board. You read derived
