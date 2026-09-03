@@ -84,6 +84,7 @@ Apply it to anything proposed for this board.
 
 - [`ref/extension-ux.md`](ref/extension-ux.md) — the extension connector spec. One page. Read this first.
 - [`ref/psram.md`](ref/psram.md) — memory: four independent ports, and why four.
+- [`ref/power-input.md`](ref/power-input.md) — one USB-C, PD at 9V, and why there is no battery on the board.
 - [`ref/highspeed.md`](ref/highspeed.md) — the four fast serial lanes, and the one decision that cannot be deferred.
 - [`ref/gameboy-extension.md`](ref/gameboy-extension.md) — worked example: LCD, speaker, gamepad.
 - [`ref/salvage-from-odin0.md`](ref/salvage-from-odin0.md) — what survives from last year's board.

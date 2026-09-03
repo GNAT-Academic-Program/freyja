@@ -96,8 +96,10 @@ do true LVDS outputs at 2.5V.
 - **The 1.0V FPGA core never reaches a connector.** Do not look for it.
 - Every rail is individually fused. Shorting your extension does not take the
   board down.
-- Each module has board-ID pins so the supervisor knows what you plugged in
-  and can refuse to power a rail into a board that does not want it.
+- **Not implemented yet:** board-ID pins. All 16 positions are spoken for, so
+  there is nowhere to put them without giving up an I/O. See `findings.md`
+  item 8. The supervisor still fuses and power-gates every rail; it just
+  cannot yet tell *what* you plugged in.
 - IO are numbered globally `IO_1..IO_90`, ten per module, so a slot's identity
   is readable from the net name.
 - Exact FPGA ball for every pin: `ref/ballmap.md`.

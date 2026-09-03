@@ -98,7 +98,7 @@ def fb_divider(vout, vref, rtop=100e3):
     return rt_lab, rb_lab, actual
 
 # ---------------------------------------------------------------- rails
-V12, V5, V33, V25, V18, V10, V12MGT = '+12V', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
+V12, V5, V33, V25, V18, V10, V12MGT = 'VSYS', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
 V10MGT, GND = '+1V0_MGT', 'GND'
 VCCIO = {'14': V33, '15': 'VCCIO_1', '34': 'VCCIO_2'}
 
@@ -177,13 +177,13 @@ def build():
           15:'SUP_DBG_TCK', 16:'SUP_DBG_TMS', 17:'SUP_DBG_TDI', 18:'SUP_DBG_TDO',
           19:'SUP_UART_TX', 20:'SUP_UART_RX',
           21:'EN_3V3', 22:'EN_2V5', 23:'EN_1V8', 24:'EN_1V0', 25:'EN_1V2', 26:'EN_5V',
-          27:'BOARDID_0', 28:'BOARDID_1', 29:'BOARDID_2', 30:'BOARDID_3',
+          27:'PD_CFG1', 28:'PD_CFG2', 29:'PD_CFG3', 30:'PD_PG',
           14:'SFP_SCL', 31:'SFP_SDA',
           32:'SFP0_MOD_ABS', 33:'SFP0_TX_DIS', 34:'SFP0_TX_FAULT', 35:'SFP0_LOS',
           36:'SFP1_MOD_ABS', 37:'SFP1_TX_DIS', 38:'SFP1_TX_FAULT', 39:'SFP1_LOS'}
     for g, n in gp.items(): sup[f'GPIO{g}'] = n
     sup['GPIO47/ADC7'] = 'EN_SFP_N'
-    for a, n in enumerate(['MON_12V','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0','MON_1V2']):
+    for a, n in enumerate(['MON_VSYS','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0','MON_1V2']):
         sup[f'GPIO{40+a}/ADC{a}'] = n
     d.group('U7  supervisor')
     d.add('U7', 'MCU_RaspberryPi:RP2350B', 'RP2350B', QFN80, sup)
@@ -207,7 +207,17 @@ def build():
     d.add('J1', 'Connector:USB_C_Receptacle_USB2.0_16P', 'USB-C', USBC,
           {'VBUS': 'VBUS', 'GND': GND, 'SHIELD': GND, 'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
            'D+': 'USB_DP', 'D-': 'USB_DM'})
-    d.R('5.1k', 'USB_CC1', GND); d.R('5.1k', 'USB_CC2', GND)
+    # CH224K owns the CC lines and negotiates; no plain 5.1k pull-downs here.
+    # The supervisor drives CFG1..3, so the requested voltage is firmware, not
+    # a strap, and it reads PG to know whether the request succeeded.
+    d.group('USB-PD sink')
+    d.add('U18', 'Interface_USB:CH224K', 'CH224K', 'Package_DFN_QFN:QFN-12-1EP_3x3mm_P0.5mm_EP1.45x1.45mm',
+          {'VDD': 'PD_VDD', 'VBUS': 'VBUS', 'GND': GND,
+           'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
+           'CFG1': 'PD_CFG1', 'CFG2': 'PD_CFG2', 'CFG3': 'PD_CFG3',
+           'PG': 'PD_PG', 'DP': '', 'DM': ''})
+    d.C('1uF', 'PD_VDD', GND)      # VDD is the chip's own LDO output, decouple only
+    d.R('10k', V33, 'PD_PG')
     d.add('SW1', 'Switch:SW_Push', 'BOOTSEL', 'Button_Switch_SMD:SW_SPST_B3U-1000P',
           {'1': 'SUPF_CS', '2': GND})
 
@@ -348,9 +358,13 @@ def build():
 
     d.sheet('Power')
     # ------------------------------------------------ power tree
-    d.group('12V input')
-    d.add('J50', 'Connector_Generic:Conn_01x02', 'VIN 12V', HDR1x2,
-          {'Pin_1': V12, 'Pin_2': GND})
+    d.group('input OR-ing')
+    d.add('J50', 'Connector_Generic:Conn_01x02', 'VIN (optional)', HDR1x2,
+          {'Pin_1': 'VIN_EXT', 'Pin_2': GND})
+    d.add('D3', 'Device:D_Schottky', 'SS34', 'Diode_SMD:D_SMA',
+          {'A': 'VBUS', 'K': V12})          # USB-C, normally 9V after negotiation
+    d.add('D4', 'Device:D_Schottky', 'SS34', 'Diode_SMD:D_SMA',
+          {'A': 'VIN_EXT', 'K': V12})       # optional external supply, higher wins
     d.C('22uF', V12, GND, C0805); d.C('22uF', V12, GND, C0805)
     d.add('D2', 'Device:D_Schottky', 'SS34', 'Diode_SMD:D_SMA',
           {'A': 'VBUS', 'K': V5})          # USB can power the board when VIN is absent
@@ -387,14 +401,12 @@ def build():
     d.L('1uH', V10MGT, V10); d.C('4.7uF', V10MGT, GND, C0603)
     d.group('rail monitors')
     # rail monitors into the supervisor ADC (divide the ones above 3.3V)
-    d.R('100k', V12, 'MON_12V', R0603); d.R('33k', 'MON_12V', GND, R0603)
+    d.R('100k', V12, 'MON_VSYS', R0603); d.R('33k', 'MON_VSYS', GND, R0603)
     d.R('100k', V5,  'MON_5V',  R0603); d.R('100k', 'MON_5V', GND, R0603)
     for rail, mon in ((V33,'MON_3V3'), (V25,'MON_2V5'), (V18,'MON_1V8'),
                       (V10,'MON_1V0'), (V12MGT,'MON_1V2')):
         d.R('1k', rail, mon, R0603)
-    d.group('board-ID pull-downs')
-    # board-ID pull-downs
-    for i in range(4): d.R('10k', f'BOARDID_{i}', GND)
+
     return d
 
 if __name__ == '__main__':

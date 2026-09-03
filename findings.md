@@ -202,3 +202,28 @@ confirm against UG482 (7 Series Transceivers) and set the tolerance to 1%.
 cages existed; a cage is ~14 mm wide and ~47 mm deep, and there are four
 positions. Expect the board to grow along one edge. Adjust before placement —
 `tools/gen_pcb.py` regenerates it, but only do that before you start routing.
+
+
+## 8. should-fix — the extension board-ID pins promised by the spec do not exist
+
+**Entities:** `ref/extension-ux.md`, the nine slot connectors, `PD_CFG1..3`.
+
+`ref/extension-ux.md` states that each module has board-ID pins so the
+supervisor can tell what is plugged in. **It has none.** The 16-pin module is
+fully allocated — 10 I/O, 2 GND, 4 rails — with no pin left over. The four
+`BOARDID_*` nets that existed went to the supervisor and a pull-down each and
+reached no connector; they have since been repurposed for the USB-PD sink,
+which genuinely needed them.
+
+Three ways out, none free:
+
+1. **Give up one I/O per module** — 9 I/O plus a strapped ID pin. Cleanest,
+   costs 9 I/O across the board, and breaks the "ten per slot" rule that the
+   Gameboy pin budget was built on.
+2. **Drop the claim.** Extensions are identified by the human. Honest, and
+   costs nothing but the feature.
+3. **Widen the module** beyond 16 pins, which breaks the 16/32/64 scheme.
+
+Until this is decided, the sentence in `ref/extension-ux.md` has been marked
+as not implemented. The supervisor still power-gates rails and still reports
+SFP module identity — only extension identity is missing.

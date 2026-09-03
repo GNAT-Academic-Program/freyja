@@ -201,7 +201,7 @@ def gen_osc():
         o += pin(Wd/2 + 5.08, top - i*2.54, 180, et, name, num)
     return o + '\t\t)\n\t)\n'
 
-CUSTOM_RAILS = ['VCCIO_1', 'VCCIO_2', '+1V0_MGT', '+1V2_MGT', 'SFP_VCC']
+CUSTOM_RAILS = ['VCCIO_1', 'VCCIO_2', '+1V0_MGT', '+1V2_MGT', 'SFP_VCC', 'VSYS', 'PD_VDD']
 
 def gen_rails():
     """Clone KiCad's +3V3 power symbol for the rails it does not ship."""
