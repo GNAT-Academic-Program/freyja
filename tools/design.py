@@ -221,8 +221,12 @@ def build():
            'PG': 'PD_PG', 'DP': '', 'DM': ''})
     d.C('1uF', 'PD_VDD', GND)      # VDD is the chip's own LDO output, decouple only
     d.R('10k', V33, 'PD_PG')
+    d.group('BOOTSEL')
+    # series resistor so pressing the button cannot fight the RP2350 actively
+    # driving chip-select high; it only needs to win during the reset window
     d.add('SW1', 'Switch:SW_Push', 'BOOTSEL', 'Button_Switch_SMD:SW_SPST_B3U-1000P',
-          {'1': 'SUPF_CS', '2': GND})
+          {'1': 'BOOTSEL_SW', '2': GND})
+    d.R('1k', 'SUPF_CS', 'BOOTSEL_SW')
 
     d.group('supervisor SWD')
     d.add('J51', 'Connector_Generic:Conn_01x03', 'SUP_SWD',
