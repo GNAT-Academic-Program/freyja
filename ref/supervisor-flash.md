@@ -31,6 +31,49 @@ most important property of the whole supervisor design: the thing that owns
 every power rail on the board can always be recovered by a human with a USB
 cable.
 
+## Programming it the first time — you don't
+
+This is the part that surprises people: **a virgin board with a blank flash
+needs no programmer at all.**
+
+On reset the RP2350's mask ROM looks for a valid image in the QSPI flash.
+Blank flash means no valid image, so the ROM falls straight through into its
+USB bootloader and the board enumerates as a **mass-storage device**. Plug in
+the USB-C cable, a drive appears, drag the firmware file onto it, done. You do
+not even need to hold `SW1` — the button exists for *later*, when there is a
+working image and you want to override it.
+
+The flash is soldered blank from the factory and never touched by a
+programmer. The RP2350 writes it itself, through its own ROM, over the same
+cable you were going to plug in anyway.
+
+For this to work the supervisor must be alive the instant USB power appears,
+before any firmware has run. That drives the power sequencing below.
+
+## Why +3V3 is not switchable
+
+The supervisor runs on +3V3. If the supervisor also had to *enable* +3V3, it
+could never start — it would be waiting for a rail only it can turn on.
+
+So **+3V3 is always on**: a wide-input buck (`U12`) straight off `VSYS`, with
+its enable tied high through a resistor, not wired to any GPIO. Power appears,
++3V3 appears, the supervisor boots, and only then does it bring up the rails
+it actually controls. That is also why `U12` is a `TPS54202` rather than the
+`TLV62569` used for the other rails: it has to run from either 5 V or 9 V at
+the input, since it comes up before anything has negotiated anything.
+
+The order, on a virgin board:
+
+1. USB-C plugged in. `VBUS` = 5 V, the default before any negotiation.
+2. `U12` sees `VSYS` and produces +3V3 unconditionally.
+3. RP2350 boots. Flash is blank, so its ROM enters USB bootloader mode.
+4. You drag firmware on. It writes the flash and resets.
+5. Now firmware runs: it measures `VSYS`, decides whether to ask the source
+   for 9 V, closes or opens the `VBUS` pass switch accordingly, and brings up
+   +5V, +2V5, +1V8, +1V0, +1V2 and the 12 V boost in order.
+
+Steps 1–4 need nothing but a cable.
+
 ## What else lives in the 4 MB
 
 Firmware is maybe 400 KB. The rest is the interesting part:

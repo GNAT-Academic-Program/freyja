@@ -227,3 +227,25 @@ Three ways out, none free:
 Until this is decided, the sentence in `ref/extension-ux.md` has been marked
 as not implemented. The supervisor still power-gates rails and still reports
 SFP module identity — only extension identity is missing.
+
+
+## 9. FIXED — the supervisor could not enable its own power rail
+
+`EN_3V3` was driven by supervisor GPIO21 and gated `U12`, which produced the
++3V3 that powers the supervisor. A deadlock: the board could never start.
+`EN_5V` compounded it, since +3V3 was derived from +5V.
+
+Fixed: +3V3 is now always on, from a wide-input `TPS54202` (`U12`) straight off
+`VSYS`, enable tied high through a resistor. GPIO21 was freed and reused for
+the VBUS pass switch below.
+
+## 10. FIXED — a Schottky from VBUS to the 5V rail was an overvoltage hazard
+
+`D2` fed USB `VBUS` into the +5V rail so the board could run from a plain 5 V
+source. The moment the PD sink negotiated 9 V, that diode would have put
+~8.6 V onto a rail feeding four `TLV62569` regulators rated 5.5 V maximum —
+destroying them on the first PD handshake.
+
+Fixed: replaced with a supervisor-commanded high-side switch (`Q2` P-MOS,
+`Q3` gate driver), **default open**. Firmware measures `VSYS` and only closes
+it when the input really is 5 V.

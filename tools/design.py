@@ -178,7 +178,7 @@ def build():
           9:'SUP_FCS_B', 10:'SUP_FD0', 11:'SUP_FD1', 12:'SUP_FD2', 13:'SUP_FD3',
           15:'SUP_DBG_TCK', 16:'SUP_DBG_TMS', 17:'SUP_DBG_TDI', 18:'SUP_DBG_TDO',
           19:'SUP_UART_TX', 20:'SUP_UART_RX',
-          21:'EN_3V3', 22:'EN_2V5', 23:'EN_1V8', 24:'EN_1V0', 25:'EN_1V2', 26:'EN_5V',
+          21:'EN_VBUS5', 22:'EN_2V5', 23:'EN_1V8', 24:'EN_1V0', 25:'EN_1V2', 26:'EN_5V',
           27:'PD_CFG1', 28:'PD_CFG2', 29:'PD_CFG3', 30:'PD_PG',
           14:'SFP_SCL', 31:'SFP_SDA',
           32:'SFP0_MOD_ABS', 33:'SFP0_TX_DIS', 34:'SFP0_TX_FAULT', 35:'SFP0_LOS',
@@ -365,6 +365,18 @@ def build():
 
     d.sheet('Power')
     # ------------------------------------------------ power tree
+    d.group('VBUS pass switch to +5V')
+    # On a plain 5V source the buck cannot make 5V from 5V, so VBUS feeds the
+    # rail directly -- but ONLY then. Once PD negotiates 9V this must be open
+    # or 8.6V lands on regulators rated 5.5V. Hence a switch the supervisor
+    # commands, default OFF, not a diode that cannot be told to stop.
+    d.add('Q2', 'Device:Q_PMOS', 'VBUS pass', 'Package_TO_SOT_SMD:SOT-23',
+          {'S': 'VBUS', 'D': V5, 'G': 'VBUS5_GATE'})
+    d.R('100k', 'VBUS', 'VBUS5_GATE', R0603)      # default open
+    d.add('Q3', 'Device:Q_NMOS', 'gate driver', 'Package_TO_SOT_SMD:SOT-23',
+          {'D': 'VBUS5_GATE', 'S': GND, 'G': 'EN_VBUS5_G'})
+    d.R('10k', 'EN_VBUS5', 'EN_VBUS5_G'); d.R('100k', 'EN_VBUS5_G', GND)
+
     d.group('input OR-ing')
     d.add('J50', 'Connector_Generic:Conn_01x02', 'VIN (optional)', HDR1x2,
           {'Pin_1': 'VIN_EXT', 'Pin_2': GND})
@@ -373,8 +385,6 @@ def build():
     d.add('D4', 'Device:D_Schottky', 'SS34', 'Diode_SMD:D_SMA',
           {'A': 'VIN_EXT', 'K': V12})       # optional external supply, higher wins
     d.C('22uF', V12, GND, C0805); d.C('22uF', V12, GND, C0805)
-    d.add('D2', 'Device:D_Schottky', 'SS34', 'Diode_SMD:D_SMA',
-          {'A': 'VBUS', 'K': V5})          # USB can power the board when VIN is absent
     d.C('10uF', 'VBUS', GND, C0805)
     # 12V -> 5V
     d.group('U11  12V to 5V')
@@ -387,8 +397,21 @@ def build():
     RAIL_CHECK.append(('+5V', 5.0, act, rt, rb))
     for _ in range(3): d.C('22uF', V5, GND, C0805)
     # 5V -> the low rails
-    for ref, rail, en, vtgt in (('U12', V33, 'EN_3V3', 3.3),
-                                ('U13', V25, 'EN_2V5', 2.5),
+    # +3V3 is ALWAYS ON: it powers the supervisor, so the supervisor must not
+    # be able to gate it. Wide-input buck straight off VSYS (5V or 9V), EN
+    # pulled up. Everything else is supervisor-controlled.
+    d.group('U12  VSYS to +3V3  (always on)')
+    rt3, rb3, act3 = fb_divider(3.3, 0.596)       # TPS54202 Vref
+    RAIL_CHECK.append((V33, 3.3, act3, rt3, rb3))
+    d.add('U12', 'Regulator_Switching:TPS54202DDC', 'TPS54202DDC', SOT236,
+          {'VIN': V12, 'GND': GND, 'EN': 'EN_3V3_AO', 'FB': 'FB_3V3',
+           'SW': 'SW_3V3', 'BOOT': 'BOOT_3V3'}, LCSC['TPS54202DDC'])
+    d.R('100k', V12, 'EN_3V3_AO', R0603)          # tied on, not gated
+    d.C('100nF', 'BOOT_3V3', 'SW_3V3'); d.L('4.7uH', V33, 'SW_3V3')
+    d.R(rt3, V33, 'FB_3V3', R0603); d.R(rb3, 'FB_3V3', GND, R0603)
+    for _ in range(3): d.C('22uF', V33, GND, C0805)
+
+    for ref, rail, en, vtgt in (('U13', V25, 'EN_2V5', 2.5),
                                 ('U14', V18, 'EN_1V8', 1.8),
                                 ('U15', V10, 'EN_1V0', 1.0),
                                 ('U16', V12MGT, 'EN_1V2', 1.2)):
