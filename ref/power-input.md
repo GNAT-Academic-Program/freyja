@@ -27,33 +27,67 @@ That matters, because it rules something out. **Plain 5 V USB is not enough.**
 A laptop port often gives 5 V at 0.9 A — 4.5 W. Even a good 5 V/3 A source is
 15 W, which is the budget with nothing to spare.
 
-## So: USB Power Delivery, negotiating 9 V
+## How reliable is 9 V, really?
 
-A `CH224K` sink chip owns the connector's CC lines and asks the source for a
-higher voltage. At 9 V a normal 3 A source gives **27 W** — roughly twice the
-budget — and the current at the connector drops to about 1.4 A.
+Reliable **from a charger**, and often absent **from a computer** — which is
+the awkward part, because a dev board spends its life plugged into a computer.
 
-**Why 9 V and not 12 V.** 12 V is *optional* in the USB-PD specification and
-plenty of chargers skip it. Every PD source supports 5 V and 9 V. 9 V also
-happens to be what the AUX rail wants for an LCD backlight, so nothing has to
-be boosted back up.
+The USB-PD Power Rules make this precise. A source's fixed voltages are
+determined by its rating:
+
+| Source rating | Must offer |
+|---|---|
+| up to 15 W | 5 V |
+| 15–27 W | 5 V, **9 V** |
+| 27–45 W | 5 V, 9 V, 15 V |
+| 45–60 W | 5 V, 9 V, 15 V, 20 V |
+
+So **9 V is mandatory on any PD source above 15 W** — every phone charger,
+laptop brick and decent power bank has it. Note what is *not* in that table:
+**12 V is not a PD Power Rules voltage at all.** It is an optional extra some
+sources add, which is why this board does not depend on it.
+
+The catch is the other end. Plenty of laptop and desktop USB-C ports do no PD
+negotiation whatsoever and simply offer 5 V at 0.9 A or 3 A. That is the port
+you are plugged into while you write HDL.
+
+## Therefore: 5 V is the design assumption, PD is headroom
+
+The board is built so that **everything works at 5 V**. Power Delivery changes
+how much current you can draw, not what functions. Specifically, the 12 V AUX
+rail is **boosted from the 5 V rail** rather than taken from the input, so an
+extension's backlight or motor works whether you are on a laptop port or a
+45 W charger.
+
+What PD actually buys you: at 9 V a 3 A source delivers 27 W against a 13 W
+budget, and the current through the connector drops from ~2.6 A to ~1.4 A.
+Headroom and less loss — not features.
+
+## The negotiation, in the schematic
+
+A `CH224K` sink chip owns the connector's CC lines and asks for 9 V. If the
+source cannot supply it, the board stays on 5 V and keeps working.
 
 The supervisor drives the sink's three configuration pins, so **the requested
 voltage is firmware, not a soldered strap.** It can ask for something else if
 your extension needs it, and it reads the sink's power-good pin to find out
 whether the request actually succeeded.
 
-## What happens on a dumb 5 V source
+## What actually changes on a plain 5 V source
 
-The board still runs. `VSYS` sits at 5 V instead of 9 V, and:
+Only two things:
 
-- the 5 V rail comes straight from USB through a Schottky instead of from the
-  buck, so it lands near 4.6 V;
-- the AUX rail cannot offer 9 V, only 5 V or 3.3 V;
-- the supervisor **measures `VSYS` on its ADC and says so** over the USB
-  console, and refuses to enable AUX for an extension that asked for 9 V.
+- **The 5 V rail sits near 4.6 V**, because it comes straight from USB through
+  a Schottky instead of from the buck. Class-D amps, servos and backlight
+  drivers do not care; check yours if it is fussy.
+- **You have less power.** 15 W at best, 4.5 W from a weak laptop port,
+  against a 13 W budget. Populate two SFP modules and a loud speaker on a
+  laptop port and you will run out.
 
-Degraded, documented, and it tells you. Not a mystery brownout at 2am.
+Everything still *functions*, including 12 V AUX. The supervisor measures
+`VSYS` on its ADC, reports the negotiated voltage over the console, and can
+refuse to enable rails the source cannot sustain. Not a mystery brownout at
+2am.
 
 ## Autonomy: use a USB-C power bank
 
@@ -87,3 +121,4 @@ respin.
 | `D3`, `D4` | Schottky | OR-ing USB-C and the optional input into `VSYS` |
 | `U11` | `TPS54202` | `VSYS` (9 V) down to 5 V |
 | `U12`–`U16` | `TLV62569` x5 | 5 V down to 3.3 / 2.5 / 1.8 / 1.0 / 1.2 V |
+| `U19` | `TPS61085` | 5 V **up** to 12 V for AUX — works on any source |

@@ -19,6 +19,7 @@ SOIC8W  = 'Package_SO:SOIC-8_5.3x5.3mm_P1.27mm'
 USON8   = 'Package_SON:Winbond_USON-8-1EP_3x2mm_P0.5mm_EP0.2x1.6mm'
 QFN80   = 'Package_DFN_QFN:QFN-80-1EP_10x10mm_P0.4mm_EP3.4x3.4mm_ThermalVias'
 TSSOP24 = 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'
+TSSOP8  = 'Package_SO:TSSOP-8_3x3mm_P0.65mm'
 HDR2x8  = 'Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical_SMD'
 HDR2x3  = 'Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical'
 HDR2x5  = 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical'
@@ -100,6 +101,7 @@ def fb_divider(vout, vref, rtop=100e3):
 # ---------------------------------------------------------------- rails
 V12, V5, V33, V25, V18, V10, V12MGT = 'VSYS', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
 V10MGT, GND = '+1V0_MGT', 'GND'
+V12B = '+12V'          # boosted from 5V, so AUX works on any USB source
 VCCIO = {'14': V33, '15': 'VCCIO_1', '34': 'VCCIO_2'}
 
 RAIL_CHECK = []
@@ -183,7 +185,8 @@ def build():
           36:'SFP1_MOD_ABS', 37:'SFP1_TX_DIS', 38:'SFP1_TX_FAULT', 39:'SFP1_LOS'}
     for g, n in gp.items(): sup[f'GPIO{g}'] = n
     sup['GPIO47/ADC7'] = 'EN_SFP_N'
-    for a, n in enumerate(['MON_VSYS','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0','MON_1V2']):
+    sup['GPIO46/ADC6'] = 'EN_12V'
+    for a, n in enumerate(['MON_VSYS','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0']):
         sup[f'GPIO{40+a}/ADC{a}'] = n
     d.group('U7  supervisor')
     d.add('U7', 'MCU_RaspberryPi:RP2350B', 'RP2350B', QFN80, sup)
@@ -285,7 +288,7 @@ def build():
         d.F('500mA', V33, f'V33_{s}'); d.F('500mA', f'AUXSEL_{s}', aux)
         # AUX selector: 2x3, jumper picks VIN / +5V / +3V3
         d.add(f'J{jn}', 'Connector_Generic:Conn_02x03_Odd_Even', f'AUX_SEL_{s}', HDR2x3,
-              {'Pin_1': V12, 'Pin_2': f'AUXSEL_{s}', 'Pin_3': V5,
+              {'Pin_1': V12B, 'Pin_2': f'AUXSEL_{s}', 'Pin_3': V5,
                'Pin_4': f'AUXSEL_{s}', 'Pin_5': V33, 'Pin_6': f'AUXSEL_{s}'})
         jn += 1
         d.C('10uF', f'VIO_{s}', GND, C0805); d.C('100nF', f'V33_{s}', GND)
@@ -397,6 +400,24 @@ def build():
         for _ in range(2): d.C('22uF', rail, GND, C0805)
         d.C('100nF', V5, GND)
     d.group('MGTAVCC filter')
+    d.group('U19  5V to 12V boost (AUX)')
+    # AUX must work on a plain 5V port too, so 12V is boosted from the 5V rail
+    # rather than taken from VSYS. PD then buys headroom, not functionality.
+    rt, rb, act = fb_divider(12.0, 1.238)         # TPS61085 Vref = 1.238 V
+    RAIL_CHECK.append((V12B, 12.0, act, rt, rb))
+    d.add('U19', 'Regulator_Switching:TPS61085PW', 'TPS61085PW', TSSOP8,
+          {'VIN': V5, 'GND': GND, 'EN': 'EN_12V', 'SW': 'SW_12V', 'FB': 'FB_12V',
+           'COMP': 'COMP_12V', 'FREQ': GND, 'SS': 'SS_12V'})
+    d.L('4.7uH', V5, 'SW_12V')
+    d.add('D5', 'Device:D_Schottky', 'SS34', 'Diode_SMD:D_SMA',
+          {'A': 'SW_12V', 'K': V12B})
+    d.R(rt, V12B, 'FB_12V', R0603); d.R(rb, 'FB_12V', GND, R0603)
+    d.R('47k', 'COMP_12V', 'COMP_12V_C'); d.C('2.2nF', 'COMP_12V_C', GND)
+    d.C('10nF', 'SS_12V', GND)
+    for _ in range(2): d.C('10uF', V12B, GND, C0805)
+    d.C('10uF', V5, GND, C0805)
+
+    d.group('MGTAVCC filter')
     # MGTAVCC 1.0V filtered off +1V0
     d.L('1uH', V10MGT, V10); d.C('4.7uF', V10MGT, GND, C0603)
     d.group('rail monitors')
@@ -404,7 +425,7 @@ def build():
     d.R('100k', V12, 'MON_VSYS', R0603); d.R('33k', 'MON_VSYS', GND, R0603)
     d.R('100k', V5,  'MON_5V',  R0603); d.R('100k', 'MON_5V', GND, R0603)
     for rail, mon in ((V33,'MON_3V3'), (V25,'MON_2V5'), (V18,'MON_1V8'),
-                      (V10,'MON_1V0'), (V12MGT,'MON_1V2')):
+                      (V10,'MON_1V0')):
         d.R('1k', rail, mon, R0603)
 
     return d

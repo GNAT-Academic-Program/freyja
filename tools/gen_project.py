@@ -22,14 +22,14 @@ TITLE  = {'FPGA':'FPGA, decoupling and configuration straps',
 GNDS   = {'GND'}
 RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
           '+2V5':'power:+2V5', '+3V3':'power:+3V3', '+5V':'power:+5V',
-          'VSYS':'odin:VSYS', 'VBUS':'power:VBUS',
+          'VSYS':'odin:VSYS', '+12V':'power:+12V', 'VBUS':'power:VBUS',
           'VCCIO_1':'odin:VCCIO_1', 'VCCIO_2':'odin:VCCIO_2',
           '+1V0_MGT':'odin:+1V0_MGT', '+1V2_MGT':'odin:+1V2_MGT',
           'PD_VDD':'odin:PD_VDD',
           'SFP_VCC':'odin:SFP_VCC'}
 PWRSYM = dict(RAILS); PWRSYM['GND'] = 'power:GND'
 # a rail's flag belongs on the page where that rail is actually made
-RAIL_HOME = {'GND':'Power', 'VSYS':'Power', '+5V':'Power', '+3V3':'Power',
+RAIL_HOME = {'GND':'Power', 'VSYS':'Power', '+12V':'Power', '+5V':'Power', '+3V3':'Power',
              '+2V5':'Power', '+1V8':'Power', '+1V0':'Power',
              '+1V2_MGT':'Power', '+1V0_MGT':'Power',
              '+1V1':'Supervisor', 'VBUS':'Supervisor', 'PD_VDD':'Supervisor',
