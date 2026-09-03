@@ -17,7 +17,7 @@ L_IND   = 'Inductor_SMD:L_Bourns-SRN4018'
 SOT236  = 'Package_TO_SOT_SMD:SOT-23-6'
 SOIC8W  = 'Package_SO:SOIC-8_5.3x5.3mm_P1.27mm'
 USON8   = 'Package_SON:Winbond_USON-8-1EP_3x2mm_P0.5mm_EP0.2x1.6mm'
-QFN80   = 'Package_DFN_QFN:QFN-80-1EP_10x10mm_P0.4mm_EP3.4x3.4mm_ThermalVias'
+QFN80   = 'Package_DFN_QFN:QFN-80-1EP_10x10mm_P0.4mm_EP3.4x3.4mm'
 TSSOP24 = 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'
 TSSOP8  = 'Package_SO:TSSOP-8_3x3mm_P0.65mm'
 HDR2x8  = 'Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical_SMD'
@@ -213,6 +213,16 @@ def build():
     # CH224K owns the CC lines and negotiates; no plain 5.1k pull-downs here.
     # The supervisor drives CFG1..3, so the requested voltage is firmware, not
     # a strap, and it reads PG to know whether the request succeeded.
+    d.group('USB protection')
+    # A student board gets its USB cable handled constantly. Protect the data
+    # and CC lines, and clamp VBUS above the highest voltage PD will negotiate.
+    d.add('D6', 'Power_Protection:ESDA6V1BC6', 'ESDA6V1BC6',
+          'Package_TO_SOT_SMD:SOT-666',
+          {'COM': GND, 'TVS1': 'USB_DP', 'TVS2': 'USB_DM',
+           'TVS3': 'USB_CC1', 'TVS4': 'USB_CC2'})
+    d.add('D7', 'Device:D_TVS', 'SMBJ13A', 'Diode_SMD:D_SMB',
+          {'A1': 'VBUS', 'A2': GND})
+
     d.group('USB-PD sink')
     d.add('U18', 'Interface_USB:CH224K', 'CH224K', 'Package_DFN_QFN:QFN-12-1EP_3x3mm_P0.5mm_EP1.45x1.45mm',
           {'VDD': 'PD_VDD', 'VBUS': 'VBUS', 'GND': GND,
@@ -264,7 +274,7 @@ def build():
             idx = k*8 + i
             conn[f'A{i+1}'] = lsl[idx] if idx < 10 else ''
             conn[f'B{i+1}'] = f'SLOTL_IO{idx}' if idx < 10 else ''
-        d.add(f'U{9+k}', 'Logic_LevelTranslator:SN74AVC8T245PW', 'SN74AVC8T245PW',
+        d.add(f'U{9+k}', 'odin:SN74LXC8T245PW', 'SN74LXC8T245PW',
               TSSOP24, {k_: v for k_, v in conn.items() if v})
         d.C('100nF', V33, GND); d.C('100nF', V5, GND)
 
@@ -287,6 +297,11 @@ def build():
             pins[f'Pin_{2*i+2}'] = rowB[i]
         d.add(f'J{jn}', 'Connector_Generic:Conn_02x08_Odd_Even', f'SLOT_{s}', HDR2x8, pins)
         jn += 1
+        # polarising post: the 2x8 header alone cannot stop a reversed
+        # extension. Odin_0 solved this with a 1x1 male post; same trick here.
+        d.add(f'MK{ord(s)}', 'Connector_Generic:Conn_01x01', f'key {s}',
+              'Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical',
+              {'Pin_1': GND})
         # per-module resettable fuse on every exported rail
         d.F('500mA', vio, f'VIO_{s}'); d.F('1A', V5, f'V5_{s}')
         d.F('500mA', V33, f'V33_{s}'); d.F('500mA', f'AUXSEL_{s}', aux)
@@ -322,7 +337,7 @@ def build():
     # high-side switch: gate pulled to +3V3 so the cages are OFF until the
     # supervisor has booted and decided a module is safe to power
     d.group('SFP power gate')
-    d.add('Q1', 'Device:Q_PMOS', 'SFP power gate', 'Package_TO_SOT_SMD:SOT-23',
+    d.add('Q1', 'Transistor_FET:Q_PMOS_GSD', 'SFP power gate', 'Package_TO_SOT_SMD:SOT-23',
           {'S': V33, 'D': 'SFP_VCC', 'G': 'EN_SFP_N'})
     d.R('100k', V33, 'EN_SFP_N')
     d.C('10uF', 'SFP_VCC', GND, C0805)
@@ -370,10 +385,10 @@ def build():
     # rail directly -- but ONLY then. Once PD negotiates 9V this must be open
     # or 8.6V lands on regulators rated 5.5V. Hence a switch the supervisor
     # commands, default OFF, not a diode that cannot be told to stop.
-    d.add('Q2', 'Device:Q_PMOS', 'VBUS pass', 'Package_TO_SOT_SMD:SOT-23',
+    d.add('Q2', 'Transistor_FET:Q_PMOS_GSD', 'VBUS pass', 'Package_TO_SOT_SMD:SOT-23',
           {'S': 'VBUS', 'D': V5, 'G': 'VBUS5_GATE'})
     d.R('100k', 'VBUS', 'VBUS5_GATE', R0603)      # default open
-    d.add('Q3', 'Device:Q_NMOS', 'gate driver', 'Package_TO_SOT_SMD:SOT-23',
+    d.add('Q3', 'Transistor_FET:Q_NMOS_GSD', 'gate driver', 'Package_TO_SOT_SMD:SOT-23',
           {'D': 'VBUS5_GATE', 'S': GND, 'G': 'EN_VBUS5_G'})
     d.R('10k', 'EN_VBUS5', 'EN_VBUS5_G'); d.R('100k', 'EN_VBUS5_G', GND)
 

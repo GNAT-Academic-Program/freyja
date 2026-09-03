@@ -14,7 +14,12 @@ sit side by side exactly where a 64 goes.
  row B  P0-   P1-   GND   P2-   P3-   P4-   +3V3   AUX
 ```
 
-10 IO, 2 GND, 4 rails. Pin 1 is keyed.
+10 IO, 2 GND, 4 rails.
+
+**Keying is a separate post,** not the header itself: a 1x1 pin beside each
+slot that only lines up one way round. A bare 2x8 header cannot stop reversed
+insertion on its own, and pretending otherwise would be the expensive kind of
+wrong. This is the same trick Odin_0 used.
 
 **Every column is a differential pair.** All ten I/O are true LVDS-capable
 pairs on the FPGA, arranged so `P+` and `P-` are vertically adjacent on the
@@ -28,7 +33,7 @@ is wasted either way.
 | A7 | **VCCIO** | **set per module: 3.3 / 2.5 / 1.8V** | Powers the FPGA bank *and* your logic. See below. |
 | A8 | **+5V** | fixed | Crappy 5V parts, LCD backlights, servos. |
 | B7 | **+3V3** | fixed | Always there even when VCCIO is 1.8V. Power your sensor here. |
-| B8 | **AUX** | set per module: VIN / +12V / +9V | Motors, relays, op-amps, boost-fed backlights. |
+| B8 | **AUX** | set per module: **+12V / +5V / +3V3** | Motors, relays, op-amps, backlights. 12V is boosted on-board, so it is there on any USB source. |
 
 **+3V3 is fixed on purpose.** If VCCIO is jumpered to 1.8V you still have a
 normal 3.3V supply for the part you are powering. Signalling level and supply
@@ -68,21 +73,40 @@ signalling, build it as a 64 and take a whole bank, or agree the voltage with
 whatever else is sharing your domain. Two extensions at different voltages
 means one in the A–D domain and one in E–H.
 
-## Slot L — the buffered one
+## Slot L — the buffered one, and what it is not
 
-Slot L runs through `SN74LXCH8T245` auto-direction level shifters. Everything
-else goes straight to the FPGA ball.
+Slot L runs through two `SN74LXC8T245` translators (1.1–5.5V both sides).
+Everything else goes straight to the FPGA ball.
+
+**Read this before designing for slot L.** These are *direction-controlled*
+translators, not per-bit auto-direction parts. One `DIR` pin steers eight
+signals together:
+
+| Group | Signals | Direction |
+|---|---|---|
+| `U9` | slot L I/O 0–7 | one shared `DIR`, driven by the fabric |
+| `U10` | slot L I/O 8–9 | a second shared `DIR` |
+
+So slot L is **a 5V-tolerant 8-bit bus plus a 2-bit bus**, each turning
+around as a unit. It is *not* ten independent bidirectional GPIOs, and no
+part gives you that at 5V without either weak drivers or a direction pin.
+It suits exactly what it was meant for: parallel LCDs, legacy 8-bit
+peripherals, anything with a data bus and a read/write line.
+
+Those two `DIR` pins cost two FPGA balls, so slot L consumes **12** I/O for
+its 10 connector signals.
 
 | | Slot L | Slots A–H |
 |---|---|---|
 | 5V tolerant | **yes** | no (3.3V max) |
-| Speed | low — tens of MHz | full FPGA speed |
+| Speed | moderate | full FPGA speed |
 | LVDS | no | **yes, 5 pairs** |
+| Direction | shared, 8+2 | per pin, it is a raw FPGA ball |
 | VCCIO | fixed 3.3V | settable per domain |
 
-**Junk 5V parts?** Slot L. The shifter handles it, and it costs no voltage
-domain because bank 14 is pinned at 3.3V by the config flash anyway.
-**Anything fast — LVDS, video, RJ45?** Any of A–H. Nothing in the path.
+**Junk 5V parts?** Slot L. It costs no voltage domain, because bank 14 is
+pinned at 3.3V by the config flash anyway.
+**Anything fast, or needing per-pin direction?** Any of A–H.
 
 ## Differential pairs
 

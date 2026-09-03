@@ -32,7 +32,7 @@ of architecture.
 | **Self-observation.** No rail telemetry, no software power control | Superstition-driven debugging | Supervisor drives every enable, reads back every rail |
 | **A real expansion standard.** Pmod is 8 pins/3.3V; FMC is a $200 connector and a 400-page spec | Every extension is bespoke, nothing composes | Keyed 16-pin modules, 16/32/64, documented in one page |
 | **Rails on the connector.** 3.3V and 5V, take it or leave it | Half of every extension BOM is regulators | Four rails per module: VCCIO, +5V, fixed +3V3, selectable AUX |
-| **A level-shifting story.** All-shifted (slow) or none (no 5V parts) | You find out which by burning a part | Two buffered slots, six direct. One table says which and why |
+| **A level-shifting story.** All-shifted (slow) or none (no 5V parts) | You find out which by burning a part | One buffered slot, eight direct. One table says which and why |
 | **Docs a human reads.** 400-page reference manual | Nobody reads it; everyone guesses | One page per subsystem. Over two pages is a bug |
 
 Each row of that table is a decision in this repo, and each one exists to

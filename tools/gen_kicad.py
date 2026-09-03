@@ -220,11 +220,29 @@ def gen_rails():
         out += '\t' + b + '\n'
     return out
 
+def gen_lxc():
+    """SN74LXC8T245PW: 1.1-5.5V both rails, direction-controlled. KiCad ships
+    no symbol; TI's 8-bit '245 translators are pin-compatible in TSSOP-24, so
+    this is AVC8T245's symbol renamed. Pinout flagged in findings.md."""
+    t = open('/usr/share/kicad/symbols/Logic_LevelTranslator.kicad_sym').read()
+    i = t.index('(symbol "SN74AVC8T245PW"')
+    d, j = 1, i + len('(symbol "SN74AVC8T245PW"')
+    while d > 0:
+        if t[j] == '(': d += 1
+        elif t[j] == ')': d -= 1
+        j += 1
+    b = t[i:j]
+    for a, c in (('"SN74AVC8T245PW"', '"SN74LXC8T245PW"'),
+                 ('"SN74AVC8T245PW_0_1"', '"SN74LXC8T245PW_0_1"'),
+                 ('"SN74AVC8T245PW_1_1"', '"SN74LXC8T245PW_1_1"')):
+        b = b.replace(a, c)
+    return '\t' + b + '\n'
+
 if __name__ == '__main__':
     pins = load()
     units = gen_symbol(pins)
     t = open(SYM).read()
-    open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + gen_osc() + gen_rails() + ')\n')
+    open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + gen_osc() + gen_rails() + gen_lxc() + ')\n')
     npads = gen_footprint()
     print(f"symbol  {SYM}: {len(pins)} pins in {len(units)} units")
     for k, v in units.items(): print(f"   unit {k:18s} {len(v):3d} pins")

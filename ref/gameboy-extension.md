@@ -3,54 +3,56 @@
 A worked example, and the proof that the module scheme is sized right. A
 student builds against this without touching the base board.
 
-Global IO numbering is `IO_1..IO_80`, ten per slot:
+Global IO numbering is `IO_1..IO_90`, ten per slot:
 
-| Slot | IO | Path |
-|---|---|---|
-| A | IO_1–10  | buffered |
-| B | IO_11–20 | buffered |
-| C | IO_21–30 | direct |
-| D | IO_31–40 | direct |
-| E | IO_41–50 | direct |
-| F | IO_51–60 | direct |
-| G | IO_61–70 | direct |
-| H | IO_71–80 | direct |
+| Slot | IO | Bank | Path |
+|---|---|---|---|
+| L | IO_1–10  | 14 | **buffered**, 5V tolerant, shared direction |
+| A | IO_11–20 | 15 | direct |
+| B | IO_21–30 | 15 | direct |
+| C | IO_31–40 | 15 | direct |
+| D | IO_41–50 | 15 | direct |
+| E | IO_51–60 | 34 | direct |
+| F | IO_61–70 | 34 | direct |
+| G | IO_71–80 | 34 | direct |
+| H | IO_81–90 | 34 | direct |
 
-**Use direct slots.** A parallel LCD clocks pixels at 25 MHz+; the
-auto-direction shifters on A/B will not do that and are the wrong part for a
-unidirectional video bus anyway.
+**Use direct slots.** A parallel LCD clocks pixels at 25 MHz+, and it needs
+per-pin direction control that slot L's shared-direction translators cannot
+give. Slots A–D are one bank and one voltage domain, so a 64 built there owns
+its `VCCIO` outright.
 
 ---
 
-## Tier 1 — the easy one: a 32 in slots C+D (20 IO)
+## Tier 1 — the easy one: a 32 in slots A+B (20 IO)
 
 | Function | Pins | IO |
 |---|---|---|
-| SPI LCD (ST7789 / ILI9341): SCK, MOSI, CS, DC, RST | 5 | IO_21–25 |
-| LCD backlight PWM | 1 | IO_26 |
-| Audio: PWM out + amp shutdown | 2 | IO_27–28 |
-| Buttons: Up, Down, Left, Right, A, B, Start, Select | 8 | IO_29–36 |
-| **spare** | **4** | IO_37–40 |
+| SPI LCD (ST7789 / ILI9341): SCK, MOSI, CS, DC, RST | 5 | IO_11–15 |
+| LCD backlight PWM | 1 | IO_16 |
+| Audio: PWM out + amp shutdown | 2 | IO_17–18 |
+| Buttons: Up, Down, Left, Right, A, B, Start, Select | 8 | IO_19–26 |
+| **spare** | **4** | IO_27–30 |
 
 Everything runs at 3.3V. Set VCCIO = 3.3V; it is the default.
 
-## Tier 2 — the real one: a 64 in slots C–F (40 IO)
+## Tier 2 — the real one: a 64 in slots A–D (40 IO, one whole bank)
 
 Parallel RGB565. The FPGA generates video timing in fabric, which is the
 reason to own an FPGA at all.
 
 | Function | Pins | IO |
 |---|---|---|
-| LCD RGB565 data: R[4:0], G[5:0], B[4:0] | 16 | IO_21–36 |
-| LCD sync: PCLK, HSYNC, VSYNC, DE | 4 | IO_37–40 |
-| Buttons ×8 | 8 | IO_41–48 |
-| LCD RESET, backlight PWM | 2 | IO_49–50 |
-| Audio I2S: BCLK, LRCLK, SDATA (PCM5102, no MCLK needed) | 3 | IO_51–53 |
-| microSD SPI: SCK, MOSI, MISO, CS — for ROMs and assets | 4 | IO_54–57 |
-| **spare** | **3** | IO_58–60 |
+| LCD RGB565 data: R[4:0], G[5:0], B[4:0] | 16 | IO_11–26 |
+| LCD sync: PCLK, HSYNC, VSYNC, DE | 4 | IO_27–30 |
+| Buttons x8 | 8 | IO_31–38 |
+| LCD RESET, backlight PWM | 2 | IO_39–40 |
+| Audio I2S: BCLK, LRCLK, SDATA (PCM5102, no MCLK needed) | 3 | IO_41–43 |
+| microSD SPI: SCK, MOSI, MISO, CS — for ROMs and assets | 4 | IO_44–47 |
+| **spare** | **3** | IO_48–50 |
 
-Fits in 40 with slack. Slots C+D are one bank, E+F the next, both at
-VCCIO = 3.3V.
+Fits in 40 with slack. Slots A–D are bank 15 in its entirety, so this
+extension owns the `VCCIO` domain and can set it without consulting anyone.
 
 ---
 
@@ -77,12 +79,11 @@ gives it four times the single-module current budget.
 
 | Requirement | Why |
 |---|---|
-| 4 contiguous **direct** slots | Tier 2 needs a 64 with nothing in the signal path |
+| 4 contiguous **direct** slots in one bank | Tier 2 needs a 64 with nothing in the signal path and one voltage domain |
 | +5V able to source **≥1 A** to extensions | class-D amp peaks |
-| AUX jumperable to 12V on those slots | backlight |
+| AUX jumperable to 12V on those slots | backlight; 12V is boosted on-board so it works on any USB source |
 | **PSRAM reachable from fabric** | see framebuffer note below |
 | Board oscillator + MMCM | extension carries no crystal |
-| Board-ID pins per module | supervisor only enables 12V for a board that asked |
 
 **Framebuffer.** 320×240 RGB565 is 150 KB; `XC7A50T` has ~337 KB of BRAM, so
 it fits but eats most of it. 480×272 is 261 KB and does not leave room for a
@@ -101,8 +102,8 @@ USB-C. Plug the extension in, set two jumpers, write HDL.
 ## Unverified
 
 This is a paper fit against `ref/extension-ux.md`, not against the schematic.
-Not yet checked: that the current design actually has 6 direct slots in a
-contiguous run, that the +5V buck can deliver 1 A beyond the board's own load,
-that the PSRAM is wired to fabric rather than reserved, and the real bank
-boundaries on `XC7A50T-2CSG325I`. All are step 6/7 work in
-`ref/ide-agent-prompt.md`.
+Bank boundaries and slot-to-bank mapping are now confirmed against the AMD
+package file (`ref/ballmap.md`). Still unchecked: that the +5V rail can
+deliver 1 A beyond the board's own load on a given USB source, and the real
+current draw of a chosen LCD and amplifier. Both are measurements, not
+paperwork.

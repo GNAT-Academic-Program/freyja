@@ -77,9 +77,9 @@ whether the request actually succeeded.
 
 Only two things:
 
-- **The 5 V rail sits near 4.6 V**, because it comes straight from USB through
-  a Schottky instead of from the buck. Class-D amps, servos and backlight
-  drivers do not care; check yours if it is fussy.
+- **The 5 V rail is USB `VBUS` itself**, passed through a MOSFET switch
+  (`Q2`) rather than the buck, so it sits a few tens of millivolts below
+  whatever the host supplies — not the ~0.4 V a diode would have cost.
 - **You have less power.** 15 W at best, 4.5 W from a weak laptop port,
   against a 13 W budget. Populate two SFP modules and a loud speaker on a
   laptop port and you will run out.
@@ -117,8 +117,14 @@ respin.
 |---|---|---|
 | `J1` | USB-C receptacle | the only required input |
 | `U18` | `CH224K` | PD sink; supervisor drives CFG1..3, reads PG |
-| `D2` | Schottky | USB 5 V straight to the 5 V rail (degraded mode) |
+| `D6`, `D7` | ESD array, TVS | protects D+/D-/CC and clamps `VBUS` |
+| `Q2`, `Q3` | P-MOS + gate driver | passes `VBUS` to the 5 V rail, **default open**; firmware closes it only when the input really is 5 V |
 | `D3`, `D4` | Schottky | OR-ing USB-C and the optional input into `VSYS` |
+| `U12` | `TPS54202` | `VSYS` down to **3.3 V, always on** — the supervisor's own rail, ungated |
 | `U11` | `TPS54202` | `VSYS` (9 V) down to 5 V |
-| `U12`–`U16` | `TLV62569` x5 | 5 V down to 3.3 / 2.5 / 1.8 / 1.0 / 1.2 V |
+| `U13`–`U16` | `TLV62569` x4 | 5 V down to 2.5 / 1.8 / 1.0 / 1.2 V |
 | `U19` | `TPS61085` | 5 V **up** to 12 V for AUX — works on any source |
+
+`U12` is deliberately a wide-input `TPS54202` rather than a `TLV62569` like
+the rest: it must run from 5 V or 9 V, because it comes up before anything has
+negotiated anything. See `ref/supervisor-flash.md`.

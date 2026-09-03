@@ -26,8 +26,13 @@ the design settles, just know that is the moment you make it.
 python3 tools/gen_kicad.py      # XC7A50T symbol + CSG325 footprint + W25Q256 symbol
 python3 tools/ballmap.py > ref/ballmap.md
 python3 tools/gen_project.py    # schematic from tools/design.py
-python3 tools/gen_pcb.py        # empty 4-layer board (only if you have not started routing)
+python3 tools/gen_pcb.py        # 4-layer board: outline, stackup, design rules
+python3 tools/load_pcb.py       # load every footprint and net into that board
 ```
+
+**`gen_pcb.py` destroys any routing.** Run it only before you start laying out.
+`load_pcb.py` re-imports footprints and nets and is safe to re-run, but it
+replaces the footprints, so it also discards placement.
 
 `tools/alloc.py` is the single source for ball allocation; `ref/ballmap.md` and
 the schematic both come from it and cannot drift.
@@ -40,15 +45,28 @@ kicad-cli pcb drc --severity-all -o drc.rpt odin.kicad_pcb
 kicad-cli sch export netlist --format kicadsexpr -o odin.net odin.kicad_sch
 ```
 
+```bash
+kicad-cli pcb drc --schematic-parity --severity-all -o drc.rpt odin.kicad_pcb
+```
+
 Expected ERC: **6 violations, all intentional** — the unused `DXP`/`DXN`
-temperature diode and the spare `MGTREFCLK1` reference clock input. Anything
-else is a regression.
+temperature diode and the spare `MGTREFCLK1` reference clock input.
+
+Expected DRC before placement: **0 schematic parity issues**, ~499
+`unconnected_items` (the ratsnest — nothing is routed yet), and about a dozen
+silk/courtyard/hole-clearance complaints from the dump placement. A parity
+issue, or a footprint count other than 359, is a regression.
 
 ## Your workflow from here
 
-1. Open `odin.kicad_pcb`, press **F8** (Update PCB from Schematic) to pull in
-   all 289 footprints.
-2. Place and route.
+1. Open `odin.kicad_pcb`. **All 359 footprints and 392 nets are already
+   loaded** — `tools/load_pcb.py` does what F8 does in the GUI, so the board
+   in git is a real board rather than an empty outline. Press F8 anyway if you
+   have edited the schematic since.
+2. Everything sits in a coarse grid *below* the board outline. Drag the groups
+   in and place them. That dump position is why DRC currently reports silk and
+   courtyard overlaps — they are placement artifacts, not design errors.
+3. Route.
 3. Fabrication outputs:
    ```bash
    jlcpcb-export -p "$PWD/odin.kicad_pcb" --autoTranslate --autoFill --excludeDNP --noBackup
