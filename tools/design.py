@@ -34,6 +34,12 @@ class Design:
     def __init__(self):
         self.parts = []
         self._n = {}
+        self.cur = 'misc'
+        self.grp = ''
+    def sheet(self, name):
+        self.cur = name; self.grp = name
+    def group(self, name):
+        self.grp = name
     def add(self, ref, lib_id, value, fp, conn, lcsc='', dnp=False):
         if any(q['ref'] == ref for q in self.parts):
             raise ValueError(f"duplicate designator {ref}")
@@ -50,7 +56,8 @@ class Design:
         if missing: raise KeyError(f"{ref} {lib_id}: no such pin {missing}; "
                                    f"have {sorted(sym['pins'])[:14]}")
         self.parts.append(dict(ref=ref, lib_id=lib_id, value=value, fp=fp,
-                               pins=pins, lcsc=lcsc, dnp=dnp, sym=sym))
+                               pins=pins, lcsc=lcsc, dnp=dnp, sym=sym,
+                               sheet=self.cur, group=self.grp))
         return ref
     def seq(self, pre):
         self._n[pre] = self._n.get(pre, 0) + 1
@@ -102,6 +109,7 @@ def build():
     d = Design()
     assigned, psram, sb, slots, io, other = assign()
 
+    d.sheet('FPGA')
     # ------------------------------------------------ U1 : the FPGA
     from gen_sch import net_for            # reuse the ball->net policy
     fpga_pins = {}
@@ -109,6 +117,7 @@ def build():
         for ball, name in lst:
             n = net_for(ball, name, assigned)
             if n: fpga_pins[ball] = n
+    d.group('U1  FPGA')
     d.add('U1', 'odin:XC7A50T-2CSG325I', 'XC7A50T-2CSG325I', FP_FPGA, fpga_pins)
 
     # FPGA decoupling: one 100nF per supply ball, plus bulk per rail
@@ -116,33 +125,41 @@ def build():
                     list(io.items()) + list(other.items()) for b, n in lst
                     if net_for(b, n, assigned) in
                     (V10, V18, V33, 'VCCIO_1', 'VCCIO_2', V10MGT, V12MGT)]
-    for ball, rail in supply_balls: d.C('100nF', rail, GND)
+    for ball, rail in supply_balls:
+        d.group(f'decoupling {rail}'); d.C('100nF', rail, GND)
     for rail, n in ((V10, 4), (V18, 2), (V33, 2), ('VCCIO_1', 2), ('VCCIO_2', 2),
                     (V10MGT, 1), (V12MGT, 1)):
+        d.group(f'bulk {rail}')
         for _ in range(n): d.C('4.7uF', rail, GND, C0603)
 
+    d.group('config straps (UG470)')
     # config straps (UG470)
-    d.R('4.7k', 'CFG_M0', V33); d.R('4.7k', 'CFG_M1', GND); d.R('4.7k', 'CFG_M2', GND)
-    d.R('4.7k', 'CFG_PROG_B', V33); d.R('4.7k', 'CFG_INIT_B', V33)
+    d.R('4.7k', V33, 'CFG_M0'); d.R('4.7k', 'CFG_M1', GND); d.R('4.7k', 'CFG_M2', GND)
+    d.R('4.7k', V33, 'CFG_PROG_B'); d.R('4.7k', V33, 'CFG_INIT_B')
     d.R('4.7k', 'PUDC_B', GND)                    # pull-ups enabled during config
     d.R('330', 'CFG_DONE', 'DONE_LED_A')
     d.add('D1', 'Device:LED', 'green', LED0603, {'K': GND, 'A': 'DONE_LED_A'})
 
+    d.sheet('Memory')
     # ------------------------------------------------ PSRAM x4
     for c in range(4):
         p = f'PSRAM{c}_'
+        d.group(f'PSRAM{c}')
         d.add(f'U{2+c}', 'Memory_RAM:APS1604M-3SQRx-SN', 'APS1604M-3SQR-SN', SOIC8W,
               {'~{CE}': p+'CE_B', 'SCLK': p+'SCK', 'SI/SIO0': p+'IO0', 'SO/SIO1': p+'IO1',
                'SIO2': p+'IO2', 'SIO3': p+'IO3', 'VDD': V33, 'VSS': GND}, LCSC['APS1604M-3SQRx-SN'])
         d.C('100nF', V33, GND)
 
+    d.sheet('Memory')
     # ------------------------------------------------ config flash (FPGA master SPI)
+    d.group('config flash')
     d.add('U6', 'odin:W25Q256JVEIQ', 'W25Q256JVEIQ', SOIC8W,
           {'~{CS}': 'FLASH_CS_B', 'CLK': 'CFG_CCLK', 'DI/IO0': 'FLASH_D0_MOSI',
            'DO/IO1': 'FLASH_D1_MISO', '~{WP}/IO2': 'FLASH_D2_WP',
            '~{HOLD}/IO3': 'FLASH_D3_HOLD', 'VCC': V33, 'GND': GND}, 'C97522')
     d.C('100nF', V33, GND)
 
+    d.sheet('Supervisor')
     # ------------------------------------------------ U7 : RP2350B supervisor
     sup = {'GND': GND, 'IOVDD': V33, 'DVDD': '+1V1', 'ADC_AVDD': V33,
            'QSPI_IOVDD': V33, 'USB_OTP_VDD': V33,
@@ -168,21 +185,25 @@ def build():
     sup['GPIO47/ADC7'] = 'EN_SFP_N'
     for a, n in enumerate(['MON_12V','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0','MON_1V2']):
         sup[f'GPIO{40+a}/ADC{a}'] = n
+    d.group('U7  supervisor')
     d.add('U7', 'MCU_RaspberryPi:RP2350B', 'RP2350B', QFN80, sup)
     for _ in range(8): d.C('100nF', V33, GND)
     for _ in range(4): d.C('100nF', '+1V1', GND)
     d.C('4.7uF', '+1V1', GND, C0603); d.C('10uF', V33, GND, C0805)
-    d.L('3.3uH', 'SUP_LX', '+1V1')
+    d.L('3.3uH', '+1V1', 'SUP_LX')
+    d.group('crystal')
     d.add('Y1', 'Device:Crystal_GND24', '12MHz', XTAL,
           {'1': 'SUP_XIN', '3': 'SUP_XOUT', 'G': GND})
     d.C('15pF', 'SUP_XIN', GND); d.C('15pF', 'SUP_XOUT', GND)
-    d.R('1k', 'SUP_RUN', V33); d.C('100nF', 'SUP_RUN', GND)
+    d.R('1k', V33, 'SUP_RUN'); d.C('100nF', 'SUP_RUN', GND)
+    d.group('supervisor boot flash')
     d.add('U8', 'Memory_Flash:W25Q32JVZP', 'W25Q32JVZP', USON8,
           {'~{CS}': 'SUPF_CS', 'CLK': 'SUPF_CLK', 'DI/IO_{0}': 'SUPF_D0',
            'DO/IO_{1}': 'SUPF_D1', '~{WP}/IO_{2}': 'SUPF_D2',
            '~{HOLD}/~{RESET}/IO_{3}': 'SUPF_D3', 'VCC': V33, 'GND': GND, 'EP': GND},
           LCSC['W25Q32JVZP'])
     d.C('100nF', V33, GND)
+    d.group('USB-C')
     d.add('J1', 'Connector:USB_C_Receptacle_USB2.0_16P', 'USB-C', USBC,
           {'VBUS': 'VBUS', 'GND': GND, 'SHIELD': GND, 'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
            'D+': 'USB_DP', 'D-': 'USB_DM'})
@@ -190,11 +211,13 @@ def build():
     d.add('SW1', 'Switch:SW_Push', 'BOOTSEL', 'Button_Switch_SMD:SW_SPST_B3U-1000P',
           {'1': 'SUPF_CS', '2': GND})
 
+    d.group('supervisor SWD')
     d.add('J51', 'Connector_Generic:Conn_01x03', 'SUP_SWD',
           'Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical',
           {'Pin_1': 'SUP_SWCLK', 'Pin_2': GND, 'Pin_3': 'SUP_SWDIO'})
 
     # series resistors on every supervisor<->FPGA shared line (33R)
+    d.group('series resistors to FPGA')
     for a, b in [('SUP_JTAG_TCK','JTAG_TCK'), ('SUP_JTAG_TMS','JTAG_TMS'),
                  ('SUP_JTAG_TDI','JTAG_TDI'), ('SUP_JTAG_TDO','JTAG_TDO'),
                  ('SUP_PROG_B','CFG_PROG_B'), ('SUP_INIT_B','CFG_INIT_B'),
@@ -207,14 +230,17 @@ def build():
                  ('SUP_UART_TX','SB_UART_RX'), ('SUP_UART_RX','SB_UART_TX')]:
         d.R('33', a, b)
     # manual JTAG header in parallel, jumper isolates the supervisor
+    d.group('manual JTAG header')
     d.add('J2', 'Connector_Generic:Conn_02x05_Odd_Even', 'JTAG', HDR2x5,
           {'Pin_1': V33, 'Pin_2': GND, 'Pin_3': 'JTAG_TMS', 'Pin_4': GND,
            'Pin_5': 'JTAG_TCK', 'Pin_6': GND, 'Pin_7': 'JTAG_TDO', 'Pin_8': GND,
            'Pin_9': 'JTAG_TDI', 'Pin_10': GND})
 
+    d.sheet('Slots')
     # ------------------------------------------------ slot L level shifters
     lsl = [f'SLOTL_P{i}_{s}' for i in range(5) for s in ('P', 'N')]
     for k in range(2):
+        d.group(f'slot L level shifter {k}')
         conn = {'VCCA': V33, 'VCCB': V5, 'GND': GND,
                 'DIR': f'SLOTL_DIR{k}', '~{OE}': GND}
         for i in range(8):
@@ -225,9 +251,11 @@ def build():
               TSSOP24, {k_: v for k_, v in conn.items() if v})
         d.C('100nF', V33, GND); d.C('100nF', V5, GND)
 
+    d.sheet('Slots')
     # ------------------------------------------------ nine slots
     jn = 3
     for s, (bank, prs) in slots.items():
+        d.group(f'SLOT {s}')
         vio = VCCIO[bank]
         aux = f'AUX_{s}'
         sig = ([f'SLOTL_IO{i}' for i in range(10)] if s == 'L'
@@ -254,15 +282,18 @@ def build():
 
     # VCCIO domain selectors (bank 15 and bank 34)
     for dom, net in (('1', 'VCCIO_1'), ('2', 'VCCIO_2')):
+        d.group(f'VCCIO_{dom} selector')
         d.add(f'J{jn}', 'Connector_Generic:Conn_02x03_Odd_Even', f'VCCIO{dom}_SEL', HDR2x3,
               {'Pin_1': V33, 'Pin_2': net, 'Pin_3': V25, 'Pin_4': net,
                'Pin_5': V18, 'Pin_6': net})
         jn += 1
         for _ in range(2): d.C('22uF', net, GND, C0805)
 
+    d.sheet('HighSpeed')
     # ------------------------------------------------ four fast serial lanes
     # Lanes 0/1 get populated SFP cages; 2/3 get identical footprints left
     # empty, so filling them later is a soldering iron, not a respin.
+    d.group('125MHz reference clock')
     d.add('X2', 'odin:OSC_DIFF_6P_3225', '125MHz LVDS',
           'Oscillator:Oscillator_SMD_SiTime_SiT9121-6Pin_3.2x2.5mm',
           {'VDD': V33, 'GND': GND, 'OE': V33, 'OUT+': 'REFCLK_OSC_P',
@@ -273,12 +304,15 @@ def build():
     d.R('100', 'MGTRREF', GND, R0603)                # value to confirm vs UG482
     # high-side switch: gate pulled to +3V3 so the cages are OFF until the
     # supervisor has booted and decided a module is safe to power
+    d.group('SFP power gate')
     d.add('Q1', 'Device:Q_PMOS', 'SFP power gate', 'Package_TO_SOT_SMD:SOT-23',
           {'S': V33, 'D': 'SFP_VCC', 'G': 'EN_SFP_N'})
-    d.R('100k', 'EN_SFP_N', V33)
+    d.R('100k', V33, 'EN_SFP_N')
     d.C('10uF', 'SFP_VCC', GND, C0805)
-    for n in ('SFP_SCL', 'SFP_SDA'): d.R('4.7k', n, V33)
+    d.group('SFP I2C bus')
+    for n in ('SFP_SCL', 'SFP_SDA'): d.R('4.7k', V33, n)
     for c in range(4):
+        d.group(f'SFP cage {c}' + ('' if c < 2 else ' (not fitted)'))
         pop = c < 2
         p = f'SFP{c}_'
         ctl = (lambda k: p + k) if pop else (lambda k: f'SFP{c}_{k}_NP')
@@ -295,11 +329,12 @@ def build():
         d.C('100nF', p+'RD_P', f'MGTPRXP{c}'); d.C('100nF', p+'RD_N', f'MGTPRXN{c}')
         d.C('100nF', 'SFP_VCC', GND)
         if pop:                                       # open-collector status lines
-            for k in ('MOD_ABS', 'TX_FAULT', 'LOS'): d.R('4.7k', p+k, V33)
+            for k in ('MOD_ABS', 'TX_FAULT', 'LOS'): d.R('4.7k', V33, p+k)
 
     # Cages 2/3 are unpopulated, so their control lines have no supervisor pin
     # left. An I2C expander footprint (also unpopulated) sits on the SFP bus:
     # fit it together with the cages and all four are fully controllable.
+    d.group('SFP port expander (not fitted)')
     d.add('U17', 'Interface_Expansion:PCF8574T', 'PCF8574T',
           'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm',
           {'VDD': V33, 'GND': GND, 'SCL': 'SFP_SCL', 'SDA': 'SFP_SDA',
@@ -309,9 +344,11 @@ def build():
            'P4': 'SFP3_MOD_ABS_NP', 'P5': 'SFP3_TX_DIS_NP',
            'P6': 'SFP3_TX_FAULT_NP', 'P7': 'SFP3_LOS_NP'}, dnp=True)
     d.C('100nF', V33, GND)
-    d.R('4.7k', 'SFP_EXP_INT', V33)
+    d.R('4.7k', V33, 'SFP_EXP_INT')
 
+    d.sheet('Power')
     # ------------------------------------------------ power tree
+    d.group('12V input')
     d.add('J50', 'Connector_Generic:Conn_01x02', 'VIN 12V', HDR1x2,
           {'Pin_1': V12, 'Pin_2': GND})
     d.C('22uF', V12, GND, C0805); d.C('22uF', V12, GND, C0805)
@@ -319,10 +356,11 @@ def build():
           {'A': 'VBUS', 'K': V5})          # USB can power the board when VIN is absent
     d.C('10uF', 'VBUS', GND, C0805)
     # 12V -> 5V
+    d.group('U11  12V to 5V')
     d.add('U11', 'Regulator_Switching:TPS54202DDC', 'TPS54202DDC', SOT236,
           {'VIN': V12, 'GND': GND, 'EN': 'EN_5V', 'FB': 'FB_5V',
            'SW': 'SW_5V', 'BOOT': 'BOOT_5V'}, LCSC['TPS54202DDC'])
-    d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('4.7uH', 'SW_5V', V5)
+    d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('4.7uH', V5, 'SW_5V')
     rt, rb, act = fb_divider(5.0, 0.596)          # TPS54202 Vref = 0.596 V
     d.R(rt, V5, 'FB_5V', R0603); d.R(rb, 'FB_5V', GND, R0603)
     RAIL_CHECK.append(('+5V', 5.0, act, rt, rb))
@@ -335,22 +373,26 @@ def build():
                                 ('U16', V12MGT, 'EN_1V2', 1.2)):
         top, bot, act = fb_divider(vtgt, 0.600)   # TLV62569 Vfb = 0.600 V
         RAIL_CHECK.append((rail, vtgt, act, top, bot))
+        d.group(f'{ref}  5V to {rail}')
         fb = f'FB{rail}'; sw = f'SW{rail}'
         d.add(ref, 'Regulator_Switching:TLV62569DRL', 'TLV62569DRL', SOT236,
               {'VIN': V5, 'GND': GND, 'EN': en, 'FB': fb, 'SW': sw},
               LCSC['TLV62569DRL'])
-        d.L('1.5uH', sw, rail)
+        d.L('1.5uH', rail, sw)
         d.R(top, rail, fb, R0603); d.R(bot, fb, GND, R0603)
         for _ in range(2): d.C('22uF', rail, GND, C0805)
         d.C('100nF', V5, GND)
+    d.group('MGTAVCC filter')
     # MGTAVCC 1.0V filtered off +1V0
-    d.L('1uH', V10, V10MGT); d.C('4.7uF', V10MGT, GND, C0603)
+    d.L('1uH', V10MGT, V10); d.C('4.7uF', V10MGT, GND, C0603)
+    d.group('rail monitors')
     # rail monitors into the supervisor ADC (divide the ones above 3.3V)
     d.R('100k', V12, 'MON_12V', R0603); d.R('33k', 'MON_12V', GND, R0603)
     d.R('100k', V5,  'MON_5V',  R0603); d.R('100k', 'MON_5V', GND, R0603)
     for rail, mon in ((V33,'MON_3V3'), (V25,'MON_2V5'), (V18,'MON_1V8'),
                       (V10,'MON_1V0'), (V12MGT,'MON_1V2')):
         d.R('1k', rail, mon, R0603)
+    d.group('board-ID pull-downs')
     # board-ID pull-downs
     for i in range(4): d.R('10k', f'BOARDID_{i}', GND)
     return d

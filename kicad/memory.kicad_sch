@@ -1,0 +1,999 @@
+(kicad_sch
+	(version 20250114)
+	(generator "odin-tools")
+	(generator_version "9.0")
+	(uuid "97100407-f2fb-0487-90af-0c60df3be2db")
+	(paper "User" 333 506)
+	(lib_symbols
+		(symbol "Device:C"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0.254)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "C"
+			(at 0.635 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762) (xy 2.032 0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -2.032 -0.762) (xy 2.032 -0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+		(symbol "Memory_RAM:APS1604M-3SQRx-SN"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at -6.35 11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "APS1604M-3SQRx-SN"
+			(at 11.684 11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
+			(at 0 -15.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.mouser.com/datasheet/2/1127/APM_PSRAM_QSPI_APS1604M_3SQR_v2_7_PKG-1954896.pdf"
+			(at 0 -17.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "16 Mbit / 2M x 8-bits serial pseudo SRAM MEMORY, up to 133MHz, 2.7-3.6V supply, SOIC-8 (SOP-8)"
+			(at 0 -20.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "qspi qpi spi psram"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ki_fp_filters" "*SOIC*3.9x4.9mm*P1.27mm*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "APS1604M-3SQRx-SN_0_1"
+			(rectangle
+				(start -7.62 10.16)
+				(end 7.62 -10.16)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "APS1604M-3SQRx-SN_1_1"
+			(pin input line
+				(at -10.16 7.62 0)
+				(length 2.54)
+				(name "~{CE}"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 5.08 0)
+				(length 2.54)
+				(name "SCLK"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -10.16 2.54 0)
+				(length 2.54)
+				(name "SI/SIO0"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -10.16 0 0)
+				(length 2.54)
+				(name "SO/SIO1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -10.16 -2.54 0)
+				(length 2.54)
+				(name "SIO2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -10.16 -5.08 0)
+				(length 2.54)
+				(name "SIO3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 12.7 270)
+				(length 2.54)
+				(name "VDD"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 -12.7 90)
+				(length 2.54)
+				(name "VSS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+		(symbol "odin:W25Q256JVEIQ"
+		(pin_names (offset 1.016))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 12.00 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "W25Q256JVEIQ"
+			(at 0 9.46 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Package_SO:SOIC-8_5.3x5.3mm_P1.27mm"
+			(at 0 6.92 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "https://www.winbond.com/hq/product/code-storage-flash-memory/qspiflash/?__locale=en&partNo=W25Q256JV"
+			(at 0 4.38 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "256Mbit QSPI NOR flash, SOIC-8"
+			(at 0 1.84 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "LCSC" "C97522"
+			(at 0 -0.70 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "W25Q256JVEIQ_1_1"
+			(rectangle (start -12.70 7.62) (end 12.70 -7.62)
+				(stroke (width 0.254) (type default)) (fill (type background))
+			)
+			(pin input line
+				(at -17.78 5.08 0)
+				(length 5.08)
+				(name "~{CS}" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin bidirectional line
+				(at -17.78 2.54 0)
+				(length 5.08)
+				(name "~{WP}/IO2" (effects (font (size 1.27 1.27))))
+				(number "3" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at -17.78 0.00 0)
+				(length 5.08)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "4" (effects (font (size 1.27 1.27))))
+			)
+			(pin bidirectional line
+				(at -17.78 -2.54 0)
+				(length 5.08)
+				(name "DI/IO0" (effects (font (size 1.27 1.27))))
+				(number "5" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 -5.08 0)
+				(length 5.08)
+				(name "CLK" (effects (font (size 1.27 1.27))))
+				(number "6" (effects (font (size 1.27 1.27))))
+			)
+			(pin bidirectional line
+				(at 17.78 5.08 180)
+				(length 5.08)
+				(name "DO/IO1" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin bidirectional line
+				(at 17.78 2.54 180)
+				(length 5.08)
+				(name "~{HOLD}/IO3" (effects (font (size 1.27 1.27))))
+				(number "7" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at 17.78 0.00 180)
+				(length 5.08)
+				(name "VCC" (effects (font (size 1.27 1.27))))
+				(number "8" (effects (font (size 1.27 1.27))))
+			)
+		)
+	)
+		(symbol "power:+3V3"
+		(power)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "#PWR"
+			(at 0 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 0 3.556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "+3V3_0_1"
+			(polyline
+				(pts
+					(xy -0.762 1.27) (xy 0 2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 2.54) (xy 0.762 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "+3V3_1_1"
+			(pin power_in line
+				(at 0 0 90)
+				(length 0)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+		(symbol "power:GND"
+		(power)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "#PWR"
+			(at 0 -6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 0 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "GND_0_1"
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "GND_1_1"
+			(pin power_in line
+				(at 0 0 270)
+				(length 0)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	)
+	(text "MEMORY  —  PSRAM x4 (independent buses) and configuration flash" (at 40 20 0) (effects (font (size 4 4) (thickness 0.6)) (justify left)))
+	(rectangle (start 30.48 41.91) (end 144.78 165.1) (stroke (width 0.15) (type dash)) (fill (type none)) (uuid "4ae04aab-5386-d64e-4176-eb6aa4baef08"))
+	(text "PSRAM0" (at 33.02 45.72 0) (effects (font (size 2.2 2.2) (thickness 0.3)) (justify left)))
+	(rectangle (start 156.21 41.91) (end 270.51 165.1) (stroke (width 0.15) (type dash)) (fill (type none)) (uuid "4f0c068e-e117-7c97-36d4-36565b4ad527"))
+	(text "PSRAM1" (at 158.75 45.72 0) (effects (font (size 2.2 2.2) (thickness 0.3)) (justify left)))
+	(rectangle (start 30.48 185.42) (end 144.78 308.61) (stroke (width 0.15) (type dash)) (fill (type none)) (uuid "649fd6db-44e3-508b-c954-221962d2e897"))
+	(text "PSRAM2" (at 33.02 189.23 0) (effects (font (size 2.2 2.2) (thickness 0.3)) (justify left)))
+	(rectangle (start 156.21 185.42) (end 270.51 308.61) (stroke (width 0.15) (type dash)) (fill (type none)) (uuid "85466ef6-5687-4797-7828-06fdd822a0da"))
+	(text "PSRAM3" (at 158.75 189.23 0) (effects (font (size 2.2 2.2) (thickness 0.3)) (justify left)))
+	(rectangle (start 30.48 327.66) (end 160.02 435.61) (stroke (width 0.15) (type dash)) (fill (type none)) (uuid "b074a18b-26dd-e370-f0c9-f2ebbe513586"))
+	(text "config flash" (at 33.02 331.47 0) (effects (font (size 2.2 2.2) (thickness 0.3)) (justify left)))
+	(symbol (lib_id "Memory_RAM:APS1604M-3SQRx-SN") (at 87.63 83.82 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "4ba5129f-4288-68f7-4819-63bff3af4d77")
+		(property "Reference" "U2" (at 87.63 67.31 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "APS1604M-3SQR-SN" (at 87.63 100.33 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Package_SO:SOIC-8_5.3x5.3mm_P1.27mm" (at 87.63 100.33 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "LCSC" "C18214056" (at 87.63 100.33 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "U2") (unit 1))))
+	)
+	(wire (pts (xy 77.47 76.2) (xy 74.93 76.2)) (stroke (width 0) (type default)) (uuid "100b3075-6a66-8bc6-1908-30043fbc9add"))
+	(global_label "PSRAM0_CE_B" (shape passive) (at 74.93 76.2 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "726f9c13-df38-f2cb-48d5-52c59cec16ed"))
+	(wire (pts (xy 77.47 78.74) (xy 74.93 78.74)) (stroke (width 0) (type default)) (uuid "c423900b-4764-5850-b0f6-14ac9f509988"))
+	(global_label "PSRAM0_SCK" (shape passive) (at 74.93 78.74 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "bed50145-bf02-b8b5-d541-68ec6d73a9d4"))
+	(wire (pts (xy 77.47 81.28) (xy 74.93 81.28)) (stroke (width 0) (type default)) (uuid "c3a9b998-1fc4-9e5d-e622-3d942b6788d6"))
+	(global_label "PSRAM0_IO0" (shape passive) (at 74.93 81.28 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "42be2bb3-2213-2a13-a03c-28f4d6e1d6d3"))
+	(wire (pts (xy 77.47 83.82) (xy 74.93 83.82)) (stroke (width 0) (type default)) (uuid "cbc63e20-7fab-d6a6-733f-af6a8a702dcc"))
+	(global_label "PSRAM0_IO1" (shape passive) (at 74.93 83.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c858888f-ffb2-f38c-3946-6894aff3428a"))
+	(wire (pts (xy 77.47 86.36) (xy 74.93 86.36)) (stroke (width 0) (type default)) (uuid "7d2c8598-df75-b18d-9bdc-17820d1e0b58"))
+	(global_label "PSRAM0_IO2" (shape passive) (at 74.93 86.36 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6339a617-5492-26b9-67c1-de588ac44151"))
+	(wire (pts (xy 77.47 88.9) (xy 74.93 88.9)) (stroke (width 0) (type default)) (uuid "983eb3c0-b77c-6b41-e66b-ae14cdbc5719"))
+	(global_label "PSRAM0_IO3" (shape passive) (at 74.93 88.9 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "795a5d24-01b8-4070-f1a5-9cbddc44535e"))
+	(wire (pts (xy 87.63 71.12) (xy 87.63 68.58)) (stroke (width 0) (type default)) (uuid "fe228043-ea1b-b92a-7e3d-eeb96b5f9de6"))
+	(symbol (lib_id "power:+3V3") (at 87.63 68.58 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "769b5bc2-ad00-a8e4-45b7-dac9f0a5fc83")
+		(property "Reference" "#PWR0398" (at 87.63 68.58 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 87.63 64.77 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0398") (unit 1))))
+	)
+	(wire (pts (xy 87.63 96.52) (xy 87.63 99.06)) (stroke (width 0) (type default)) (uuid "64bee5db-f2ca-4e82-333c-cc4960e8233b"))
+	(symbol (lib_id "power:GND") (at 87.63 99.06 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "2643769a-cf2d-663d-12b7-60c16b3c4d8a")
+		(property "Reference" "#PWR0399" (at 87.63 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 87.63 102.87 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0399") (unit 1))))
+	)
+	(symbol (lib_id "Device:C") (at 55.88 139.7 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "2b76ef25-ab75-24ac-4051-f2aec6f3ad3c")
+		(property "Reference" "C75" (at 55.88 132.08 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "100nF" (at 55.88 147.32 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 55.88 147.32 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "C75") (unit 1))))
+	)
+	(wire (pts (xy 55.88 135.89) (xy 55.88 133.35)) (stroke (width 0) (type default)) (uuid "5ce35812-e631-1341-b76c-6c6a3a0a6fb8"))
+	(symbol (lib_id "power:+3V3") (at 55.88 133.35 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "7f196a99-a6c1-766a-f4eb-0c0ea51094f2")
+		(property "Reference" "#PWR0400" (at 55.88 133.35 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 55.88 129.54 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0400") (unit 1))))
+	)
+	(wire (pts (xy 55.88 143.51) (xy 55.88 146.05)) (stroke (width 0) (type default)) (uuid "35e980ab-0fb1-4111-5b20-46af828cdc4a"))
+	(symbol (lib_id "power:GND") (at 55.88 146.05 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "4b39a480-65f2-70eb-5bc8-18c81f325ac4")
+		(property "Reference" "#PWR0401" (at 55.88 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 55.88 149.86 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0401") (unit 1))))
+	)
+	(symbol (lib_id "Memory_RAM:APS1604M-3SQRx-SN") (at 213.36 83.82 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "ee338379-7cb8-cc2a-7dca-a120e931c8bb")
+		(property "Reference" "U3" (at 213.36 67.31 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "APS1604M-3SQR-SN" (at 213.36 100.33 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Package_SO:SOIC-8_5.3x5.3mm_P1.27mm" (at 213.36 100.33 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "LCSC" "C18214056" (at 213.36 100.33 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "U3") (unit 1))))
+	)
+	(wire (pts (xy 203.2 76.2) (xy 200.66 76.2)) (stroke (width 0) (type default)) (uuid "6f1f90f8-b668-81cb-2a3f-62e57cfdf206"))
+	(global_label "PSRAM1_CE_B" (shape passive) (at 200.66 76.2 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "00528d40-aca3-ddc3-c434-9df10cdb0568"))
+	(wire (pts (xy 203.2 78.74) (xy 200.66 78.74)) (stroke (width 0) (type default)) (uuid "d1ead39c-1f78-ccc2-00b2-d9d7a726a987"))
+	(global_label "PSRAM1_SCK" (shape passive) (at 200.66 78.74 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9c2c4bf2-ddb2-b752-0b1b-3243d91cf443"))
+	(wire (pts (xy 203.2 81.28) (xy 200.66 81.28)) (stroke (width 0) (type default)) (uuid "8f795057-f9dc-b0ea-3797-cf053b3454cb"))
+	(global_label "PSRAM1_IO0" (shape passive) (at 200.66 81.28 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d3ebac75-e46f-9ca1-4ef0-11d25cf5d1c7"))
+	(wire (pts (xy 203.2 83.82) (xy 200.66 83.82)) (stroke (width 0) (type default)) (uuid "a93cfa2e-9d01-09ae-6198-8e66799b2284"))
+	(global_label "PSRAM1_IO1" (shape passive) (at 200.66 83.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2ea40214-2f14-539f-7e08-80ac7887e276"))
+	(wire (pts (xy 203.2 86.36) (xy 200.66 86.36)) (stroke (width 0) (type default)) (uuid "c1277cdd-ae75-0670-bf22-86e4788c846c"))
+	(global_label "PSRAM1_IO2" (shape passive) (at 200.66 86.36 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "58d71309-7d40-195b-b9d8-55b0ac2a109f"))
+	(wire (pts (xy 203.2 88.9) (xy 200.66 88.9)) (stroke (width 0) (type default)) (uuid "57c666de-0fa4-500c-6704-7ee962fe7066"))
+	(global_label "PSRAM1_IO3" (shape passive) (at 200.66 88.9 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a56129c0-a7af-5a6a-43ee-9002d8a95516"))
+	(wire (pts (xy 213.36 71.12) (xy 213.36 68.58)) (stroke (width 0) (type default)) (uuid "7527b728-ca50-21a5-ea73-c683efc76f67"))
+	(symbol (lib_id "power:+3V3") (at 213.36 68.58 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "83b23d24-0f48-fda8-2617-969abe01b5f8")
+		(property "Reference" "#PWR0402" (at 213.36 68.58 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 213.36 64.77 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0402") (unit 1))))
+	)
+	(wire (pts (xy 213.36 96.52) (xy 213.36 99.06)) (stroke (width 0) (type default)) (uuid "18248d70-a355-474b-d4f2-573405678084"))
+	(symbol (lib_id "power:GND") (at 213.36 99.06 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "bc869186-40ef-5662-54ce-87ce83cd8776")
+		(property "Reference" "#PWR0403" (at 213.36 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 213.36 102.87 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0403") (unit 1))))
+	)
+	(symbol (lib_id "Device:C") (at 181.61 139.7 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "a30ee82a-a5f2-49cf-d34f-a21bdd0b6040")
+		(property "Reference" "C76" (at 181.61 132.08 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "100nF" (at 181.61 147.32 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 181.61 147.32 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "C76") (unit 1))))
+	)
+	(wire (pts (xy 181.61 135.89) (xy 181.61 133.35)) (stroke (width 0) (type default)) (uuid "1a57e3f6-6104-9a7c-ba90-eea63806c075"))
+	(symbol (lib_id "power:+3V3") (at 181.61 133.35 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "a524b383-2b98-dd2d-bbff-4fc0584502b3")
+		(property "Reference" "#PWR0404" (at 181.61 133.35 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 181.61 129.54 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0404") (unit 1))))
+	)
+	(wire (pts (xy 181.61 143.51) (xy 181.61 146.05)) (stroke (width 0) (type default)) (uuid "35cc14dd-1960-2e6b-46f6-6af60592d16a"))
+	(symbol (lib_id "power:GND") (at 181.61 146.05 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "f3ae116d-dce6-69f4-65e5-94f19b9cd82c")
+		(property "Reference" "#PWR0405" (at 181.61 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 181.61 149.86 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0405") (unit 1))))
+	)
+	(symbol (lib_id "Memory_RAM:APS1604M-3SQRx-SN") (at 87.63 227.33 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "66f3e606-b7a6-99d7-f356-3c7bceffa2d9")
+		(property "Reference" "U4" (at 87.63 210.82 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "APS1604M-3SQR-SN" (at 87.63 243.84 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Package_SO:SOIC-8_5.3x5.3mm_P1.27mm" (at 87.63 243.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "LCSC" "C18214056" (at 87.63 243.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "U4") (unit 1))))
+	)
+	(wire (pts (xy 77.47 219.71) (xy 74.93 219.71)) (stroke (width 0) (type default)) (uuid "3bdddb1f-cd9a-c964-806d-5ef07d888843"))
+	(global_label "PSRAM2_CE_B" (shape passive) (at 74.93 219.71 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "868d35cb-ba29-75cf-47ce-83b43e17f212"))
+	(wire (pts (xy 77.47 222.25) (xy 74.93 222.25)) (stroke (width 0) (type default)) (uuid "78b7e271-053c-375f-3c88-f98a961014a8"))
+	(global_label "PSRAM2_SCK" (shape passive) (at 74.93 222.25 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "8dc50d4e-ee04-98ca-2aa8-5b6d8a19eaf7"))
+	(wire (pts (xy 77.47 224.79) (xy 74.93 224.79)) (stroke (width 0) (type default)) (uuid "2760b2f1-f954-04eb-0caa-156d5fd66bc4"))
+	(global_label "PSRAM2_IO0" (shape passive) (at 74.93 224.79 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "dbe2bf4d-16a1-ec10-ede3-237d13f6c8c8"))
+	(wire (pts (xy 77.47 227.33) (xy 74.93 227.33)) (stroke (width 0) (type default)) (uuid "b8330141-0bc0-d74a-5857-89aaa6163a9c"))
+	(global_label "PSRAM2_IO1" (shape passive) (at 74.93 227.33 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d00787d9-d6e8-c4e2-50dd-415fe0d8a5dc"))
+	(wire (pts (xy 77.47 229.87) (xy 74.93 229.87)) (stroke (width 0) (type default)) (uuid "ca145e97-6f65-855c-3c9d-c26297c61b5a"))
+	(global_label "PSRAM2_IO2" (shape passive) (at 74.93 229.87 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "bf0b9f3f-1d49-c051-77d0-2796b3a94319"))
+	(wire (pts (xy 77.47 232.41) (xy 74.93 232.41)) (stroke (width 0) (type default)) (uuid "799e5d07-86e4-a739-37b4-4fe738e677ec"))
+	(global_label "PSRAM2_IO3" (shape passive) (at 74.93 232.41 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9789c848-3f86-f2f6-8986-ecf5bf25f20b"))
+	(wire (pts (xy 87.63 214.63) (xy 87.63 212.09)) (stroke (width 0) (type default)) (uuid "2ba35202-bf4b-b27c-7a7d-4c00eeb88409"))
+	(symbol (lib_id "power:+3V3") (at 87.63 212.09 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "4b2e572c-07c1-4f8d-fa37-fc20564d28ca")
+		(property "Reference" "#PWR0406" (at 87.63 212.09 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 87.63 208.28 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0406") (unit 1))))
+	)
+	(wire (pts (xy 87.63 240.03) (xy 87.63 242.57)) (stroke (width 0) (type default)) (uuid "e1aa9f5b-7595-1f56-71c7-f44fe2d23604"))
+	(symbol (lib_id "power:GND") (at 87.63 242.57 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "1ad9521c-e50d-d62c-e79b-a00a4b968012")
+		(property "Reference" "#PWR0407" (at 87.63 242.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 87.63 246.38 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0407") (unit 1))))
+	)
+	(symbol (lib_id "Device:C") (at 55.88 283.21 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "8927c247-e615-4744-7203-4d9bdd4edba1")
+		(property "Reference" "C77" (at 55.88 275.59 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "100nF" (at 55.88 290.83 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 55.88 290.83 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "C77") (unit 1))))
+	)
+	(wire (pts (xy 55.88 279.4) (xy 55.88 276.86)) (stroke (width 0) (type default)) (uuid "28286e77-f91b-9636-8e68-43b71b2347cf"))
+	(symbol (lib_id "power:+3V3") (at 55.88 276.86 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "ad80fc1d-604e-b0b7-005b-d0fd1d423ccc")
+		(property "Reference" "#PWR0408" (at 55.88 276.86 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 55.88 273.05 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0408") (unit 1))))
+	)
+	(wire (pts (xy 55.88 287.02) (xy 55.88 289.56)) (stroke (width 0) (type default)) (uuid "8e4b148a-863c-eb06-f351-60a7c72a47b0"))
+	(symbol (lib_id "power:GND") (at 55.88 289.56 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "04f23956-c156-5f79-cc51-00d68f23fd0f")
+		(property "Reference" "#PWR0409" (at 55.88 289.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 55.88 293.37 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0409") (unit 1))))
+	)
+	(symbol (lib_id "Memory_RAM:APS1604M-3SQRx-SN") (at 213.36 227.33 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "ad1939b9-8787-e3c5-25d0-acd8700c9f1f")
+		(property "Reference" "U5" (at 213.36 210.82 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "APS1604M-3SQR-SN" (at 213.36 243.84 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Package_SO:SOIC-8_5.3x5.3mm_P1.27mm" (at 213.36 243.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "LCSC" "C18214056" (at 213.36 243.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "U5") (unit 1))))
+	)
+	(wire (pts (xy 203.2 219.71) (xy 200.66 219.71)) (stroke (width 0) (type default)) (uuid "b9c0ed1e-5b8a-d65f-35ce-68f2f1205b08"))
+	(global_label "PSRAM3_CE_B" (shape passive) (at 200.66 219.71 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b38400eb-a3fd-faf0-011d-d91660fda185"))
+	(wire (pts (xy 203.2 222.25) (xy 200.66 222.25)) (stroke (width 0) (type default)) (uuid "83102eb4-0417-d436-c98b-24783ecb7960"))
+	(global_label "PSRAM3_SCK" (shape passive) (at 200.66 222.25 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e3405b1d-aeb3-d643-6afe-82b1dbd73a41"))
+	(wire (pts (xy 203.2 224.79) (xy 200.66 224.79)) (stroke (width 0) (type default)) (uuid "4b1db46c-d40c-6912-bec8-c7ab87c361f1"))
+	(global_label "PSRAM3_IO0" (shape passive) (at 200.66 224.79 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2fcfcc5a-e8b9-2382-9d5b-ad0dacb95461"))
+	(wire (pts (xy 203.2 227.33) (xy 200.66 227.33)) (stroke (width 0) (type default)) (uuid "189d1dd7-582c-84c2-3e02-db11c98d59d9"))
+	(global_label "PSRAM3_IO1" (shape passive) (at 200.66 227.33 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "97a5d5c2-3e09-eed5-3bc3-fff4669576b7"))
+	(wire (pts (xy 203.2 229.87) (xy 200.66 229.87)) (stroke (width 0) (type default)) (uuid "b13c87e3-92a8-4045-c27f-075aff973938"))
+	(global_label "PSRAM3_IO2" (shape passive) (at 200.66 229.87 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "af887f97-e589-b559-7686-3a00138863a0"))
+	(wire (pts (xy 203.2 232.41) (xy 200.66 232.41)) (stroke (width 0) (type default)) (uuid "f738d5c5-c3c4-8c00-5517-7e6eecebca9a"))
+	(global_label "PSRAM3_IO3" (shape passive) (at 200.66 232.41 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0c3e65fa-45fc-9cd1-9b18-6416aaa780df"))
+	(wire (pts (xy 213.36 214.63) (xy 213.36 212.09)) (stroke (width 0) (type default)) (uuid "e34a61c8-fe9a-f8e8-e046-5d2b50dde05e"))
+	(symbol (lib_id "power:+3V3") (at 213.36 212.09 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "5d194f2e-92d2-4b7c-f34e-8b9874b81ccd")
+		(property "Reference" "#PWR0410" (at 213.36 212.09 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 213.36 208.28 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0410") (unit 1))))
+	)
+	(wire (pts (xy 213.36 240.03) (xy 213.36 242.57)) (stroke (width 0) (type default)) (uuid "f2b4b3aa-83ef-8086-4f91-89d6aca4c57b"))
+	(symbol (lib_id "power:GND") (at 213.36 242.57 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "418154e0-e348-f229-c72e-b055abf16507")
+		(property "Reference" "#PWR0411" (at 213.36 242.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 213.36 246.38 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0411") (unit 1))))
+	)
+	(symbol (lib_id "Device:C") (at 181.61 283.21 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "a2726973-65d7-c694-e568-761a88363cda")
+		(property "Reference" "C78" (at 181.61 275.59 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "100nF" (at 181.61 290.83 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 181.61 290.83 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "C78") (unit 1))))
+	)
+	(wire (pts (xy 181.61 279.4) (xy 181.61 276.86)) (stroke (width 0) (type default)) (uuid "9ab202ef-e485-71ba-2e4c-17ee8e861bc4"))
+	(symbol (lib_id "power:+3V3") (at 181.61 276.86 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "61b27ab4-e3d5-a62a-baab-da9dc56992bb")
+		(property "Reference" "#PWR0412" (at 181.61 276.86 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 181.61 273.05 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0412") (unit 1))))
+	)
+	(wire (pts (xy 181.61 287.02) (xy 181.61 289.56)) (stroke (width 0) (type default)) (uuid "af312ebb-86a4-32dc-2989-e94dd3a0a88d"))
+	(symbol (lib_id "power:GND") (at 181.61 289.56 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "487bdc26-0b41-11ef-e4bb-5e49a84d6b5b")
+		(property "Reference" "#PWR0413" (at 181.61 289.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 181.61 293.37 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0413") (unit 1))))
+	)
+	(symbol (lib_id "odin:W25Q256JVEIQ") (at 95.25 361.95 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "251e1bbc-ef94-2325-ce97-f0bea2d6eb96")
+		(property "Reference" "U6" (at 95.25 353.06 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "W25Q256JVEIQ" (at 95.25 370.84 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Package_SO:SOIC-8_5.3x5.3mm_P1.27mm" (at 95.25 370.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "LCSC" "C97522" (at 95.25 370.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "U6") (unit 1))))
+	)
+	(wire (pts (xy 77.47 356.87) (xy 74.93 356.87)) (stroke (width 0) (type default)) (uuid "8fd60e6e-e5f4-38ea-5b4a-ec19bece4cc8"))
+	(global_label "FLASH_CS_B" (shape passive) (at 74.93 356.87 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a8461cd7-37eb-9270-0a18-3e93cdcdd8f2"))
+	(wire (pts (xy 77.47 359.41) (xy 74.93 359.41)) (stroke (width 0) (type default)) (uuid "50c58594-3c4a-8add-5b3d-24596429ca3b"))
+	(global_label "FLASH_D2_WP" (shape passive) (at 74.93 359.41 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e7924eab-0ac5-4c73-20c4-fd041dc82975"))
+	(wire (pts (xy 77.47 361.95) (xy 74.93 361.95)) (stroke (width 0) (type default)) (uuid "7c14976a-7e35-552f-9ede-ade75fde2896"))
+	(symbol (lib_id "power:GND") (at 74.93 361.95 90) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "36c87917-bd92-6be8-ed51-dc0aa934edd2")
+		(property "Reference" "#PWR0414" (at 74.93 361.95 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 71.12 361.95 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0414") (unit 1))))
+	)
+	(wire (pts (xy 77.47 364.49) (xy 74.93 364.49)) (stroke (width 0) (type default)) (uuid "eced590d-2428-9b98-ba61-91d0460d4a50"))
+	(global_label "FLASH_D0_MOSI" (shape passive) (at 74.93 364.49 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "94c91d52-cfd1-7f28-5cf5-2413959e114b"))
+	(wire (pts (xy 77.47 367.03) (xy 74.93 367.03)) (stroke (width 0) (type default)) (uuid "afcc764e-56d3-e11e-46b7-e642c50ebc15"))
+	(global_label "CFG_CCLK" (shape passive) (at 74.93 367.03 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e295a1f8-f470-7345-3287-398f4b23c46d"))
+	(wire (pts (xy 113.03 356.87) (xy 115.57 356.87)) (stroke (width 0) (type default)) (uuid "7441349c-d27a-33f2-7b0d-86445c8cc599"))
+	(global_label "FLASH_D1_MISO" (shape passive) (at 115.57 356.87 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a1d92ccd-e84f-b72f-9d7a-94b28a7c5efe"))
+	(wire (pts (xy 113.03 359.41) (xy 115.57 359.41)) (stroke (width 0) (type default)) (uuid "09044564-685b-b485-9a1a-07c3a5f26f68"))
+	(global_label "FLASH_D3_HOLD" (shape passive) (at 115.57 359.41 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "06c71cd2-389d-bdb5-4f07-eb3e96f9faf1"))
+	(wire (pts (xy 113.03 361.95) (xy 115.57 361.95)) (stroke (width 0) (type default)) (uuid "5121de82-d00c-720a-2add-be5b8fa58f75"))
+	(symbol (lib_id "power:+3V3") (at 115.57 361.95 270) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "c61c3450-ea8b-0a51-00fc-3f0e9ad7a545")
+		(property "Reference" "#PWR0415" (at 115.57 361.95 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 119.38 361.95 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0415") (unit 1))))
+	)
+	(symbol (lib_id "Device:C") (at 55.88 411.48 0) (unit 1)
+		(exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+		(uuid "b61d9af9-587b-a125-ac5d-c75fb5decb19")
+		(property "Reference" "C79" (at 55.88 403.86 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "100nF" (at 55.88 419.1 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 55.88 419.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "C79") (unit 1))))
+	)
+	(wire (pts (xy 55.88 407.67) (xy 55.88 405.13)) (stroke (width 0) (type default)) (uuid "8b2ba261-526f-80b7-75f6-c997f59efa41"))
+	(symbol (lib_id "power:+3V3") (at 55.88 405.13 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "44a3d225-f0cf-81a4-1b45-69d2c8ac2b56")
+		(property "Reference" "#PWR0416" (at 55.88 405.13 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "+3V3" (at 55.88 401.32 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0416") (unit 1))))
+	)
+	(wire (pts (xy 55.88 415.29) (xy 55.88 417.83)) (stroke (width 0) (type default)) (uuid "3aea4b44-7829-43f0-b084-bff31ac54f2c"))
+	(symbol (lib_id "power:GND") (at 55.88 417.83 0) (unit 1)
+		(exclude_from_sim no) (in_bom no) (on_board yes) (dnp no)
+		(uuid "4ae13318-dfbf-c91e-3315-8870292e416f")
+		(property "Reference" "#PWR0417" (at 55.88 417.83 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 55.88 421.64 0) (effects (font (size 1.27 1.27))))
+		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "#PWR0417") (unit 1))))
+	)
+)

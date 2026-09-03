@@ -1,11 +1,24 @@
 # Odin KiCad project
 
-**Everything here is generated.** Do not hand-edit `odin.kicad_sch`,
-`odin.kicad_sym` or `odin.pretty/` — edit the generators and re-run. The
-schematic is laid out mechanically (every pin carries a global label); it is
-electrically correct and editable, but it is not pretty. Rearranging it by
-hand means giving up regeneration, which is a fair trade once the design
-settles — just know that is the moment you make it.
+**Everything here is generated.** Do not hand-edit the `.kicad_sch` files,
+`odin.kicad_sym` or `odin.pretty/` — edit the generators and re-run.
+
+Six pages, one per functional block, from `odin.kicad_sch` (the root):
+
+| Page | Contents |
+|---|---|
+| `fpga.kicad_sch` | FPGA, decoupling, configuration straps |
+| `power.kicad_sch` | 12V input to every rail, with monitoring |
+| `memory.kicad_sch` | PSRAM x4 and configuration flash |
+| `supervisor.kicad_sch` | RP2350B, USB-C, flash, links to the FPGA |
+| `slots.kicad_sch` | Nine extension slots, rail selection, fusing, shifting |
+| `highspeed.kicad_sch` | SFP cages, reference clock, power gate |
+
+Parts are grouped: each regulator sits in a dashed box with its own inductor,
+feedback divider and capacitors; each slot with its jumper and its fuses.
+Rails and grounds use real power symbols, so only actual signals carry a
+label. Rearranging by hand means giving up regeneration — a fair trade once
+the design settles, just know that is the moment you make it.
 
 ## Regenerate
 
@@ -27,9 +40,9 @@ kicad-cli pcb drc --severity-all -o drc.rpt odin.kicad_pcb
 kicad-cli sch export netlist --format kicadsexpr -o odin.net odin.kicad_sch
 ```
 
-Expected ERC: **35 violations, all of them the reserved GTP transceivers** —
-23 dangling labels and 12 undriven inputs on `MGTP*`/`MGTREFCLK*`, plus the
-unused `DXP`/`DXN` temperature diode. Anything else is a regression.
+Expected ERC: **6 violations, all intentional** — the unused `DXP`/`DXN`
+temperature diode and the spare `MGTREFCLK1` reference clock input. Anything
+else is a regression.
 
 ## Your workflow from here
 

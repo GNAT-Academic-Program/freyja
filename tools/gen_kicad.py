@@ -201,11 +201,30 @@ def gen_osc():
         o += pin(Wd/2 + 5.08, top - i*2.54, 180, et, name, num)
     return o + '\t\t)\n\t)\n'
 
+CUSTOM_RAILS = ['VCCIO_1', 'VCCIO_2', '+1V0_MGT', '+1V2_MGT', 'SFP_VCC']
+
+def gen_rails():
+    """Clone KiCad's +3V3 power symbol for the rails it does not ship."""
+    t = open('/usr/share/kicad/symbols/power.kicad_sym').read()
+    i = t.index('(symbol "+3V3"')
+    dep, j = 1, i + len('(symbol "+3V3"')
+    while dep > 0:
+        if t[j] == '(': dep += 1
+        elif t[j] == ')': dep -= 1
+        j += 1
+    proto = t[i:j]
+    out = ''
+    for r in CUSTOM_RAILS:
+        b = proto.replace('"+3V3"', f'"{r}"').replace('"+3V3_0_1"', f'"{r}_0_1"')
+        b = b.replace('"+3V3_1_1"', f'"{r}_1_1"')
+        out += '\t' + b + '\n'
+    return out
+
 if __name__ == '__main__':
     pins = load()
     units = gen_symbol(pins)
     t = open(SYM).read()
-    open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + gen_osc() + ')\n')
+    open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + gen_osc() + gen_rails() + ')\n')
     npads = gen_footprint()
     print(f"symbol  {SYM}: {len(pins)} pins in {len(units)} units")
     for k, v in units.items(): print(f"   unit {k:18s} {len(v):3d} pins")
