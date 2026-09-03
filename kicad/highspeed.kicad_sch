@@ -3025,7 +3025,7 @@
 		(uuid "35ff6a9e-49f6-8143-3ee8-e3429168a2cc")
 		(property "Reference" "U17" (at 87.63 648.97 0) (effects (font (size 1.27 1.27))))
 		(property "Value" "PCF8574T" (at 87.63 687.07 0) (effects (font (size 1.27 1.27))))
-		(property "Footprint" "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" (at 87.63 687.07 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Footprint" "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm" (at 87.63 687.07 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/e9248ad1-6b14-c545-7edc-53de7184d0bd" (reference "U17") (unit 1))))
 	)
 	(wire (pts (xy 77.47 657.86) (xy 74.93 657.86)) (stroke (width 0) (type default)) (uuid "e420ad65-9a11-a7a9-8b3a-241b0acfcd6e"))

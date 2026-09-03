@@ -33,8 +33,11 @@ def get(lib_id):
         u = int(m.group(1)); units.add(u)
         for pm in re.finditer(r'\(pin \w+ line.*?\(name "([^"]*)".*?\(number "([^"]*)"', m.group(3), re.S):
             pins.setdefault(pm.group(1), []).append((pm.group(2), u))
-    return {'name': name, 'lib': lib, 'block': blk, 'base': base,
-            'pins': pins, 'units': sorted(u for u in units if u > 0) or [1]}
+    filt = re.search(r'\(property "ki_fp_filters" "([^"]*)"', blk) \
+        or re.search(r'\(property "ki_fp_filters" "([^"]*)"', base)
+    return {'name': name, 'lib': lib, 'block': blk, 'base': base, 'pins': pins,
+            'units': sorted(u for u in units if u > 0) or [1],
+            'fp_filters': filt.group(1).split() if filt else []}
 
 if __name__ == '__main__':
     import sys

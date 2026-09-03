@@ -15,11 +15,17 @@ R0402   = 'Resistor_SMD:R_0402_1005Metric'
 R0603   = 'Resistor_SMD:R_0603_1608Metric'
 L_IND   = 'Inductor_SMD:L_Bourns-SRN4018'
 SOT236  = 'Package_TO_SOT_SMD:SOT-23-6'
-SOIC8W  = 'Package_SO:SOIC-8_5.3x5.3mm_P1.27mm'
-USON8   = 'Package_SON:Winbond_USON-8-1EP_3x2mm_P0.5mm_EP0.2x1.6mm'
+SOIC8N  = 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'          # SOP-8 150mil, the PSRAM
+WSON8_6 = 'Package_SON:WSON-8-1EP_6x5mm_P1.27mm_EP3.4x4mm'   # Winbond ZP
+WSON8_8 = 'Package_SON:WSON-8-1EP_8x6mm_P1.27mm_EP3.4x4.3mm' # Winbond E
+PTC1206 = 'Fuse:Fuse_1206_3216Metric'
+SOT563  = 'Package_TO_SOT_SMD:SOT-563'
+SOT236B = 'Package_TO_SOT_SMD:SOT-23-6'
+SSOP10  = 'Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm_ThermalVias'
+SOIC16W = 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'
+TSSOP8  = 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'
 QFN80   = 'Package_DFN_QFN:QFN-80-1EP_10x10mm_P0.4mm_EP3.4x3.4mm'
 TSSOP24 = 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'
-TSSOP8  = 'Package_SO:TSSOP-8_3x3mm_P0.65mm'
 HDR2x8  = 'Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical_SMD'
 HDR2x3  = 'Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical'
 HDR2x5  = 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical'
@@ -41,9 +47,10 @@ class Design:
         self.cur = name; self.grp = name
     def group(self, name):
         self.grp = name
-    def add(self, ref, lib_id, value, fp, conn, lcsc='', dnp=False):
+    def add(self, ref, lib_id, value, fp, conn, lcsc='', dnp=False, fp_ok=''):
         if any(q['ref'] == ref for q in self.parts):
             raise ValueError(f"duplicate designator {ref}")
+        if not fp_ok: self._check_package(ref, lib_id, fp)
         sym = symlib.get(lib_id)
         pins = {}
         conn = {k: v for k, v in conn.items() if v}
@@ -60,6 +67,20 @@ class Design:
                                pins=pins, lcsc=lcsc, dnp=dnp, sym=sym,
                                sheet=self.cur, group=self.grp))
         return ref
+    @staticmethod
+    def _check_package(ref, lib_id, fp):
+        """A wrong footprint is invisible to ERC and to schematic parity, and it
+        is only discovered when the board will not assemble. KiCad symbols carry
+        ki_fp_filters for exactly this; hold the design to them."""
+        import fnmatch
+        pats = symlib.get(lib_id).get('fp_filters') or []
+        if not pats: return
+        name = fp.split(':', 1)[-1]
+        if not any(fnmatch.fnmatch(fp if ':' in p else name, p) for p in pats):
+            raise ValueError(
+                f"{ref} ({lib_id}): footprint {name!r} does not match the "
+                f"symbol's permitted packages {pats}")
+
     def seq(self, pre):
         self._n[pre] = self._n.get(pre, 0) + 1
         return f'{pre}{self._n[pre]}'
@@ -70,7 +91,10 @@ class Design:
     def L(self, val, a, b):
         return self.add(self.seq('L'), 'Device:L', val, L_IND, {'1': a, '2': b})
     def F(self, val, a, b):
-        return self.add(self.seq('F'), 'Device:Polyfuse', val, R0603, {'1': a, '2': b})
+        # KiCad ships no *polyfuse* footprint, which is what the symbol's filter
+        # asks for; a 1206 chip PTC is the physically correct package.
+        return self.add(self.seq('F'), 'Device:Polyfuse', val, PTC1206,
+                        {'1': a, '2': b}, fp_ok='no polyfuse footprint in KiCad')
 
 # --------------------------------------------------- feedback dividers
 E96 = sorted({round(10 ** (k / 96.0), 2) for k in range(96)})
@@ -147,7 +171,7 @@ def build():
     for c in range(4):
         p = f'PSRAM{c}_'
         d.group(f'PSRAM{c}')
-        d.add(f'U{2+c}', 'Memory_RAM:APS1604M-3SQRx-SN', 'APS1604M-3SQR-SN', SOIC8W,
+        d.add(f'U{2+c}', 'Memory_RAM:APS1604M-3SQRx-SN', 'APS1604M-3SQR-SN', SOIC8N,
               {'~{CE}': p+'CE_B', 'SCLK': p+'SCK', 'SI/SIO0': p+'IO0', 'SO/SIO1': p+'IO1',
                'SIO2': p+'IO2', 'SIO3': p+'IO3', 'VDD': V33, 'VSS': GND}, LCSC['APS1604M-3SQRx-SN'])
         d.C('100nF', V33, GND)
@@ -155,7 +179,7 @@ def build():
     d.sheet('Memory')
     # ------------------------------------------------ config flash (FPGA master SPI)
     d.group('config flash')
-    d.add('U6', 'odin:W25Q256JVEIQ', 'W25Q256JVEIQ', SOIC8W,
+    d.add('U6', 'odin:W25Q256JVEIQ', 'W25Q256JVEIQ', WSON8_8,
           {'~{CS}': 'FLASH_CS_B', 'CLK': 'CFG_CCLK', 'DI/IO0': 'FLASH_D0_MOSI',
            'DO/IO1': 'FLASH_D1_MISO', '~{WP}/IO2': 'FLASH_D2_WP',
            '~{HOLD}/IO3': 'FLASH_D3_HOLD', 'VCC': V33, 'GND': GND}, 'C97522')
@@ -200,7 +224,7 @@ def build():
     d.C('15pF', 'SUP_XIN', GND); d.C('15pF', 'SUP_XOUT', GND)
     d.R('1k', V33, 'SUP_RUN'); d.C('100nF', 'SUP_RUN', GND)
     d.group('supervisor boot flash')
-    d.add('U8', 'Memory_Flash:W25Q32JVZP', 'W25Q32JVZP', USON8,
+    d.add('U8', 'Memory_Flash:W25Q32JVZP', 'W25Q32JVZP', WSON8_6,
           {'~{CS}': 'SUPF_CS', 'CLK': 'SUPF_CLK', 'DI/IO_{0}': 'SUPF_D0',
            'DO/IO_{1}': 'SUPF_D1', '~{WP}/IO_{2}': 'SUPF_D2',
            '~{HOLD}/~{RESET}/IO_{3}': 'SUPF_D3', 'VCC': V33, 'GND': GND, 'EP': GND},
@@ -216,15 +240,14 @@ def build():
     d.group('USB protection')
     # A student board gets its USB cable handled constantly. Protect the data
     # and CC lines, and clamp VBUS above the highest voltage PD will negotiate.
-    d.add('D6', 'Power_Protection:ESDA6V1BC6', 'ESDA6V1BC6',
-          'Package_TO_SOT_SMD:SOT-666',
+    d.add('D6', 'Power_Protection:ESDA6V1BC6', 'ESDA6V1BC6', SOT236B,
           {'COM': GND, 'TVS1': 'USB_DP', 'TVS2': 'USB_DM',
            'TVS3': 'USB_CC1', 'TVS4': 'USB_CC2'})
     d.add('D7', 'Device:D_TVS', 'SMBJ13A', 'Diode_SMD:D_SMB',
           {'A1': 'VBUS', 'A2': GND})
 
     d.group('USB-PD sink')
-    d.add('U18', 'Interface_USB:CH224K', 'CH224K', 'Package_DFN_QFN:QFN-12-1EP_3x3mm_P0.5mm_EP1.45x1.45mm',
+    d.add('U18', 'Interface_USB:CH224K', 'CH224K', SSOP10,
           {'VDD': 'PD_VDD', 'VBUS': 'VBUS', 'GND': GND,
            'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
            'CFG1': 'PD_CFG1', 'CFG2': 'PD_CFG2', 'CFG3': 'PD_CFG3',
@@ -256,7 +279,10 @@ def build():
                  ('SUP_DBG_TDI','DBG_TDI'), ('SUP_DBG_TDO','DBG_TDO'),
                  ('SUP_UART_TX','SB_UART_RX'), ('SUP_UART_RX','SB_UART_TX')]:
         d.R('33', a, b)
-    # manual JTAG header in parallel, jumper isolates the supervisor
+    # Manual JTAG header, wired in PARALLEL with the supervisor's JTAG. There
+    # is no isolation jumper: separation is the 33R series resistors plus a
+    # firmware contract that the supervisor tri-states GPIO0-3 whenever an
+    # external programmer may be attached. See findings.md item 15.
     d.group('manual JTAG header')
     d.add('J2', 'Connector_Generic:Conn_02x05_Odd_Even', 'JTAG', HDR2x5,
           {'Pin_1': V33, 'Pin_2': GND, 'Pin_3': 'JTAG_TMS', 'Pin_4': GND,
@@ -303,8 +329,11 @@ def build():
               'Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical',
               {'Pin_1': GND})
         # per-module resettable fuse on every exported rail
-        d.F('500mA', vio, f'VIO_{s}'); d.F('1A', V5, f'V5_{s}')
-        d.F('500mA', V33, f'V33_{s}'); d.F('500mA', f'AUXSEL_{s}', aux)
+        # Per-slot fuses are FAULT protection, not a current allocation. The
+        # shared source budgets are far smaller than 9 x these ratings; see
+        # ref/extension-ux.md. Sized so one slot cannot take the whole rail.
+        d.F('500mA', vio, f'VIO_{s}'); d.F('500mA', V5, f'V5_{s}')
+        d.F('300mA', V33, f'V33_{s}'); d.F('200mA', f'AUXSEL_{s}', aux)
         # AUX selector: 2x3, jumper picks VIN / +5V / +3V3
         d.add(f'J{jn}', 'Connector_Generic:Conn_02x03_Odd_Even', f'AUX_SEL_{s}', HDR2x3,
               {'Pin_1': V12B, 'Pin_2': f'AUXSEL_{s}', 'Pin_3': V5,
@@ -367,8 +396,7 @@ def build():
     # left. An I2C expander footprint (also unpopulated) sits on the SFP bus:
     # fit it together with the cages and all four are fully controllable.
     d.group('SFP port expander (not fitted)')
-    d.add('U17', 'Interface_Expansion:PCF8574T', 'PCF8574T',
-          'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm',
+    d.add('U17', 'Interface_Expansion:PCF8574T', 'PCF8574T', SOIC16W,
           {'VDD': V33, 'GND': GND, 'SCL': 'SFP_SCL', 'SDA': 'SFP_SDA',
            'A0': GND, 'A1': GND, 'A2': V33, '~{INT}': 'SFP_EXP_INT',
            'P0': 'SFP2_MOD_ABS_NP', 'P1': 'SFP2_TX_DIS_NP',
@@ -434,7 +462,7 @@ def build():
         RAIL_CHECK.append((rail, vtgt, act, top, bot))
         d.group(f'{ref}  5V to {rail}')
         fb = f'FB{rail}'; sw = f'SW{rail}'
-        d.add(ref, 'Regulator_Switching:TLV62569DRL', 'TLV62569DRL', SOT236,
+        d.add(ref, 'Regulator_Switching:TLV62569DRL', 'TLV62569DRL', SOT563,
               {'VIN': V5, 'GND': GND, 'EN': en, 'FB': fb, 'SW': sw},
               LCSC['TLV62569DRL'])
         d.L('1.5uH', rail, sw)

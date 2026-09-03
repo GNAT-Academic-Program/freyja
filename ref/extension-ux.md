@@ -115,6 +115,27 @@ over a short ribbon. A 0.1" header is not a great LVDS medium at any price, so
 keep aggressive links short and set VCCIO to 2.5V first — Artix-7 HR banks only
 do true LVDS outputs at 2.5V.
 
+## How much current you actually get
+
+**The per-slot fuses are fault protection, not an allowance.** Nine slots x
+500 mA does not mean the board can source 4.5 A. Each rail has one source, and
+all nine slots share it:
+
+| Rail | Source | **Shared total, all slots** | Per-slot fuse |
+|---|---|---|---|
+| VCCIO | `TLV62569` / `TPS54202` | ~1 A after the FPGA banks take theirs | 500 mA |
+| +5V | `TPS54202`, or USB directly | ~2 A, less whatever the board draws | 500 mA |
+| +3V3 | `TPS54202`, shared with the whole board | ~1.5 A spare | 300 mA |
+| **AUX 12V** | one `TPS61085` boost | **~700 mA — the tightest by far** | 200 mA |
+
+The 12 V rail is boosted from 5 V by a single converter with a 2 A switch,
+which at 12 V out works out near 700 mA for **all nine slots together**. One
+backlight is fine. Nine motors are not. If your extension needs more, feed it
+from `J50` and do not take it from the connector.
+
+And remember the whole board is limited by what the USB source gives you —
+see `ref/power-input.md`.
+
 ## Rules
 
 - **The 1.0V FPGA core never reaches a connector.** Do not look for it.

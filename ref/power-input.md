@@ -68,8 +68,13 @@ Headroom and less loss — not features.
 A `CH224K` sink chip owns the connector's CC lines and asks for 9 V. If the
 source cannot supply it, the board stays on 5 V and keeps working.
 
+**Firmware must never request more than 9 V.** `D7` is an `SMBJ13A`, a 13 V
+standoff TVS on `VBUS`; asking for 15 V or 20 V would put the clamp into
+conduction and destroy it. 9 V is the design limit, the protection is chosen
+for it, and the limit belongs in the firmware as an assertion, not a comment.
+
 The supervisor drives the sink's three configuration pins, so **the requested
-voltage is firmware, not a soldered strap.** It can ask for something else if
+voltage is firmware, not a soldered strap** (within that 9 V ceiling). It can ask for something else if
 your extension needs it, and it reads the sink's power-good pin to find out
 whether the request actually succeeded.
 

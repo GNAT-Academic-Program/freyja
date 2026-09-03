@@ -260,7 +260,7 @@ Fixed: replaced with a supervisor-commanded high-side switch (`Q2` P-MOS,
 it when the input really is 5 V.
 
 
-## 11. should-fix — confirm the level translator pinout
+## 11. CLOSED — level translator pinout confirmed
 
 **Entities:** `U9`, `U10`, symbol `odin:SN74LXC8T245PW`.
 
@@ -269,9 +269,9 @@ The original `SN74AVC8T245PW` was wrong: the AVC family is specified for
 replaced with `SN74LXC8T245PW` (1.1–5.5 V both rails).
 
 KiCad ships no symbol for it, so the generated one is AVC8T245's symbol
-renamed. TI's 8-bit '245 translators are pin-compatible in TSSOP-24, but
-**confirm against the datasheet before ordering** — same class of risk as the
-oscillator in item 5.
+renamed. That mapping has since been checked against TI's TSSOP-24 pinout for
+`SN74LXC8T245PW` — 1 `VCCA`, 2 `DIR`, 3–10 `A1..A8`, 11–13 `GND`, 14–21
+`B8..B1`, 22 `OE`, 23–24 `VCCB` — and matches. **Closed.**
 
 ## 12. decision needed — slot L is a bus, not ten GPIOs
 
@@ -306,3 +306,72 @@ on slot pitch, board-edge geometry and the position of the keying posts, none
 of which exist until placement. The electrical numbering supports it. Verify
 it on the board, and until then treat the claim in `ref/extension-ux.md` as an
 intent rather than a fact.
+
+
+## 15. should-fix — the manual JTAG header is not hardware-isolated
+
+`J2` sits directly in parallel with the FPGA's JTAG nets. The supervisor is
+separated only by its 33 R series resistors, so an external programmer and a
+misbehaving supervisor GPIO can both drive the same line. The comment claiming
+a jumper isolates the supervisor was wrong and has been corrected.
+
+Two ways to make it true:
+
+1. **Firmware contract** (currently assumed): the supervisor tri-states
+   GPIO0–3 whenever an external programmer may be attached, and does so as its
+   *reset default*, not only when asked. Free, but it depends on firmware
+   being correct — which is a poor guard for a debug path you reach for
+   precisely when things are broken.
+2. **A bus switch** (`SN74CB3T3245`, the part Odin_0 used) between the
+   supervisor and the JTAG net, with its enable strapped or jumpered. Real
+   isolation. Costs one part and one control line, and there is no spare
+   supervisor GPIO — it would have to be a physical jumper.
+
+Recommendation: option 2 with a jumper, because "hold the board in a known
+state so I can debug it" should not itself depend on working firmware.
+
+## 16. should-fix — RP2350 regulator support parts must match the reference design
+
+`U7`'s internal switcher uses a generic `3.3uH SRN4018` inductor and generic
+15 pF crystal loading capacitors. Raspberry Pi's hardware-design guide is
+explicit that RP2350's on-chip regulator depends on the prescribed inductor
+selection, orientation and placement, and on specific capacitor choices.
+
+This is a **netlist-level** task, not a layout note: copy the exact component
+values and manufacturer part numbers from the RP2350B minimal-board reference
+into `tools/design.py`, then follow the placement guidance during layout.
+Getting this wrong produces a supervisor that mostly works, which is the worst
+failure mode available.
+
+## 17. FIXED — eleven components had footprints for the wrong package
+
+Symbol and footprint disagreed on the physical package for `U2`–`U6`, `U8`,
+`U13`–`U16`, `U17`, `U18`, `U19` and `D6`. Neither ERC nor schematic parity can
+see this class of error; it surfaces at assembly.
+
+Corrected: PSRAM to SOP-8 150 mil, `W25Q256JVEIQ` to WSON-8 8x6, `W25Q32JVZP`
+to WSON-8 6x5, `TLV62569DRL` to SOT-563, `CH224K` to SSOP-10-1EP, `PCF8574T`
+to SOIC-16W, `TPS61085PW` to TSSOP-8 4.4x3, `ESDA6V1BC6` to SOT-23-6.
+
+**Prevented from recurring:** `Design.add()` now checks every footprint against
+the symbol's `ki_fp_filters` and refuses to build on a mismatch. The one
+deliberate exception is the polyfuse, where KiCad ships no `*polyfuse*`
+footprint and a 1206 chip PTC is the physically correct package; that override
+is explicit in the source and carries its reason.
+
+## 18. FIXED — per-slot fuse ratings implied nine times the available current
+
+Nine slots x 500 mA suggested 4.5 A per rail. The real sources are far smaller
+— the 12 V AUX rail is one `TPS61085` giving roughly **700 mA total across all
+nine slots**. Fuse ratings have been rebalanced (AUX 200 mA, +3V3 300 mA, +5V
+500 mA) and `ref/extension-ux.md` now states the shared budget per rail
+explicitly, with the note that fuses are fault protection and not an
+allowance.
+
+## 19. constraint — firmware must never request more than 9 V over USB-PD
+
+`D7` is an `SMBJ13A`, a 13 V standoff TVS on `VBUS`. Requesting a 15 V or 20 V
+PD contract would forward-bias the clamp and destroy it. The `CH224K`
+configuration pins are supervisor-driven, so this limit lives in firmware and
+must be an assertion there, not a comment. Raising the ceiling means
+re-selecting `D7` first.
