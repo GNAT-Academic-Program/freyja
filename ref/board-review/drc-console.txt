@@ -1,0 +1,6 @@
+$ kicad-cli pcb drc --severity-all --schematic-parity -o ref/board-review/odin-drc.rpt kicad/odin.kicad_pcb
+Found 693 violations
+Found 499 unconnected items
+Found 2 schematic parity issues
+Saved DRC Report to ref/board-review/odin-drc.rpt
+Exit status: 0

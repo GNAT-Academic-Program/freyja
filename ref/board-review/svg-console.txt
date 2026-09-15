@@ -1,0 +1,4 @@
+$ kicad-cli pcb export svg --layers F.Cu,Edge.Cuts,F.CrtYd --mode-single --page-size-mode 2 --exclude-drawing-sheet -o ref/board-review/odin-placed.svg kicad/odin.kicad_pcb
+Plotted to 'ref/board-review/odin-placed.svg'.
+Done.
+Exit status: 0

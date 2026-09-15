@@ -1,0 +1,29 @@
+{
+  "footprint_count": 498,
+  "copper_layer_count": 6,
+  "pcb_stackup_copper_layers": [
+    "F.Cu",
+    "In1.Cu",
+    "In2.Cu",
+    "In3.Cu",
+    "In4.Cu",
+    "B.Cu"
+  ],
+  "generator_stackup_copper_layers": [
+    "F.Cu",
+    "In1.Cu",
+    "In2.Cu",
+    "In3.Cu",
+    "In4.Cu",
+    "B.Cu"
+  ],
+  "stackup_matches_generator": true,
+  "footprint_origins_outside_100mm_outline_bbox": 494,
+  "kicad_version": "9.0.8+dfsg-1",
+  "source_sha256": {
+    "kicad/odin.kicad_pcb": "d5e41570771f79c4581539be6bc8fd187263084281b666c97d5760afb21a2a95",
+    "kicad/odin.kicad_pro": "aab4af3f9b3176e228e6d01d39b4b41875c51f3f3ac0478b5703ecfa146bb1fc",
+    "kicad/odin.kicad_dru": "ee78b94df9c1aaeedc33f57a5d68421c429136c4ec1d23bd2fe5c8453606750b",
+    "tools/gen_pcb.py": "ea49957a0eeb507ff65db54a393e4fd57e728473a53bfceec445adcd5bdc355a"
+  }
+}
