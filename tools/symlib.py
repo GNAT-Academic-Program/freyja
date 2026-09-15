@@ -5,6 +5,8 @@ import os, re, glob
 SYSDIRS = ['/usr/share/kicad/symbols', '/usr/local/share/kicad/symbols']
 
 def libpath(lib):
+    if lib == 'EasyEDA' and os.path.exists('easyeda/EasyEDA.kicad_sym'):
+        return 'easyeda/EasyEDA.kicad_sym'
     if os.path.exists(f'kicad/{lib}.kicad_sym'): return f'kicad/{lib}.kicad_sym'
     for d in SYSDIRS:
         p = os.path.join(d, f'{lib}.kicad_sym')

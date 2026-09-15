@@ -1,30 +1,45 @@
 #!/usr/bin/env python3
-"""Single source of truth for XC7A50T-CSG325 ball allocation.
+"""Single source of truth for XC7A100T-FGG676 ball allocation.
 Both ref/ballmap.md and the KiCad schematic are generated from assign()."""
 import re
 from collections import defaultdict, OrderedDict
+from identity import FPGA_PART
 
-PKG = 'ref/xc7a50tcsg325pkg.txt'
+PKG = 'easyeda/EasyEDA.kicad_sym'
+PART = FPGA_PART
+
+def part_block():
+    text = open(PKG, encoding='utf-8').read()
+    start = text.index(f'(symbol "{PART}"')
+    depth, pos = 1, start + len(f'(symbol "{PART}"')
+    while depth:
+        depth += (text[pos] == '(') - (text[pos] == ')')
+        pos += 1
+    return text[start:pos]
 
 CONFIG_USE = OrderedDict([
-    ('K16', 'FLASH_D0_MOSI'), ('L17', 'FLASH_D1_MISO'),
-    ('J15', 'FLASH_D2_WP'),   ('J16', 'FLASH_D3_HOLD'),
-    ('L15', 'FLASH_CS_B'),    ('J18', 'PUDC_B'),
+    ('R14', 'FLASH_D0_MOSI'), ('R15', 'FLASH_D1_MISO'),
+    ('P14', 'FLASH_D2_WP'),   ('N14', 'FLASH_D3_HOLD'),
+    ('P18', 'FLASH_CS_B'),    ('P15', 'PUDC_B'),
 ])
 SIDEBAND = ['DBG_TCK', 'DBG_TMS', 'DBG_TDI', 'DBG_TDO', 'SB_UART_RX', 'SB_UART_TX']
-SLOT_BANK = OrderedDict([('L', '14'),
+SLOT_BANK = OrderedDict([('L', '14'), ('M', '13'),
                          ('A', '15'), ('B', '15'), ('C', '15'), ('D', '15'),
                          ('E', '34'), ('F', '34'), ('G', '34'), ('H', '34')])
 
 def load():
     io, other = defaultdict(list), defaultdict(list)
-    for l in open(PKG, encoding='utf-8', errors='replace'):
-        l = l.replace('\r', '').rstrip()
-        if not l.strip() or l.startswith(('Device/Package', 'Pin ', 'Total Number')): continue
-        f = re.split(r'\s{2,}', l.strip())
-        if len(f) < 7: continue
-        ball, name, _, bank, _, _, iot = f[:7]
-        (io if iot == 'HR' else other)[bank].append((ball, name))
+    text = part_block()
+    for m in re.finditer(r'\(pin [\s\S]*?\(name "([^"]*)"[\s\S]*?'
+                         r'\(number "([^"]*)"', text):
+        name, ball = m.group(1), m.group(2)
+        suffix = re.search(r'_(\d+)$', name)
+        bank = suffix.group(1) if suffix else 'NA'
+        # A bank suffix does not make a ball user I/O: VCCO_15, for example,
+        # is a supply pin. Count and allocate only names that actually begin
+        # IO_. This prevents a seductive but dangerous 56-versus-50 error.
+        (io if name.startswith('IO_') and bank in {'13','14','15','16','34','35'}
+         else other)[bank].append((ball, name))
     return io, other
 
 def pairs_and_singles(pins):
@@ -65,26 +80,28 @@ def assign():
     sb = [b for pr in _take(fp14, used, 3) for b in pr]
     for b, n in zip(sb, SIDEBAND): net[b] = n
 
-    # level-shifter direction control for slot L: bank 14 has leftover
-    # single-ended balls (true singles plus the unused halves of the pairs
-    # that config took), which is exactly what these low-speed pins want.
-    _, sg14 = pairs_and_singles(io['14'])
-    spare14 = [b for b in sg14 if b not in used]
-    halves = [b for pr in pairs_and_singles(io['14'])[0]
-              for b in pr[:2] if b not in used]
-    for i, b in enumerate((spare14 + halves)[:2]):
-        used.add(b); net[b] = f'SLOTL_DIR{i}'
-
     pools = {'14': fp14}
-    for bk in ('15', '34'):
+    for bk in ('13', '15', '34'):
         fp, _ = pairs_and_singles(io[bk])
         pools[bk] = fp
 
     slots = OrderedDict()
     for s, bk in SLOT_BANK.items():
-        prs = _take(pools[bk], used, 5)
+        # L and M are complete eight-bit 5V buses. Direct slots get twelve IO.
+        prs = _take(pools[bk], used, 4 if s in ('L', 'M') else 6)
         slots[s] = (bk, prs)
-        for i, (p, n_) in enumerate(prs):
-            net[p] = f'SLOT{s}_P{i}_P'
-            net[n_] = f'SLOT{s}_P{i}_N'
+        for i, ball in enumerate(b for group in prs for b in group):
+            if s in ('L', 'M'):
+                bus = 0 if s == 'L' else 1
+                net[ball] = f'BUS5V{bus}_IO{i}'
+            else:
+                net[ball] = f'SLOT{s}_IO{i}'
+
+    # One direction control per complete 8-bit bus, kept in the same fixed
+    # 3.3V bank as that bus. These are low-speed controls, so an otherwise
+    # unallocated ordinary IO is appropriate.
+    for bus, bk in ((0, '14'), (1, '13')):
+        candidates = [b for b, _ in io[bk] if b not in used]
+        if not candidates: raise RuntimeError(f'bank {bk}: no IO for BUS5V{bus}_DIR')
+        b = candidates[0]; used.add(b); net[b] = f'BUS5V{bus}_DIR'
     return net, psram, sb, slots, io, other

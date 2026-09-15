@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Emit an empty 4-layer kicad_pcb with outline + stackup + net classes.
 Populate it in the PCB editor with Update PCB from Schematic (F8)."""
-W, H, R = 120.0, 100.0, 3.0        # board size and corner radius
+from identity import PRODUCT, HW_VERSION, FPGA_PART, CONTROLLER_PART
+W, H, R = 100.0, 100.0, 3.0        # board size and corner radius
 X0, Y0 = 30.0, 30.0
 OUT = 'kicad/odin.kicad_pcb'
 
@@ -76,9 +77,10 @@ def main():
           arc(x2, y2-R, x2-k, y2-k, x2-R, y2),
           arc(x1+R, y2, x1+k, y2-k, x1, y2-R),
           arc(x1, y1+R, x1+k, y1+k, x1+R, y1)]
-    for tx, ty, txt, sz in ((x1+4, y1+5, 'ODIN', 3.0),
-                            (x1+4, y1+10, 'XC7A50T + RP2350B  |  4 layer  |  see README.md', 1.5)):
-        o.append(f'\t(gr_text "{txt}" (at {tx} {ty}) (layer "F.SilkS") '
+    for tx, ty, txt, sz, layer in (
+            (x1+4, y1+5, f'{PRODUCT} HW {HW_VERSION}', 2.0, 'F.SilkS'),
+            (x1+4, y1+10, f'{FPGA_PART} + {CONTROLLER_PART}  |  4 layer', 1.5, 'F.Fab')):
+        o.append(f'\t(gr_text "{txt}" (at {tx} {ty}) (layer "{layer}") '
                  f'(effects (font (size {sz} {sz}) (thickness {sz/6:.2f})) (justify left)))')
     o.append(')')
     open(OUT, 'w').write('\n'.join(o) + '\n')

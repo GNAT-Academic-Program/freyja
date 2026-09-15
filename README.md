@@ -82,11 +82,14 @@ Apply it to anything proposed for this board.
 
 ## Reference
 
+- [`ref/user-manual.md`](ref/user-manual.md) — start here: powering, extensions, examples and recovery.
 - [`ref/extension-ux.md`](ref/extension-ux.md) — the extension connector spec. One page. Read this first.
 - [`ref/psram.md`](ref/psram.md) — memory: four independent ports, and why four.
 - [`ref/supervisor-flash.md`](ref/supervisor-flash.md) — the supervisor's boot flash, and why you cannot brick it.
 - [`ref/power-input.md`](ref/power-input.md) — one USB-C, PD at 9V, and why there is no battery on the board.
-- [`ref/highspeed.md`](ref/highspeed.md) — the four fast serial lanes, and the one decision that cannot be deferred.
+- [`ref/power-budget.md`](ref/power-budget.md) — generated: every rail's load, limit and spare, with the basis for each number.
+- [`ref/qualified-parts.md`](ref/qualified-parts.md) — generated: the exact part in every non-generic position, and its ratings.
+- [`ref/highspeed.md`](ref/highspeed.md) — the two fast serial ports and their reference clock.
 - [`ref/gameboy-extension.md`](ref/gameboy-extension.md) — worked example: LCD, speaker, gamepad.
 - [`ref/salvage-from-odin0.md`](ref/salvage-from-odin0.md) — what survives from last year's board.
 - [`ref/ide-agent-prompt.md`](ref/ide-agent-prompt.md) — the review brief for the implementation agent.

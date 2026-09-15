@@ -4,12 +4,13 @@ Every ball gets a net; unassigned I/O get no-connect flags so ERC is meaningful.
 import sys, os, re, uuid, hashlib
 sys.path.insert(0, os.path.dirname(__file__))
 from alloc import assign, load
+from identity import FPGA_PART
 from collections import OrderedDict
 
 SYMLIB = 'kicad/odin.kicad_sym'
 OUT    = 'kicad/odin.kicad_sch'
 PRO    = 'kicad/odin.kicad_pro'
-PART   = 'XC7A50T-2CSG325I'
+PART   = FPGA_PART
 W      = 63.5
 
 def snap(v):
@@ -20,7 +21,9 @@ def uid(*a):
 
 RAIL = {'VCCINT':'+1V0', 'VCCBRAM':'+1V0', 'VCCAUX':'+1V8', 'VCCADC':'+1V8',
         'MGTAVCC':'+1V0_MGT', 'MGTAVTT':'+1V2_MGT',
-        'VCCO_0':'+3V3', 'VCCO_14':'+3V3', 'VCCO_15':'VCCIO_1', 'VCCO_34':'VCCIO_2',
+        'VCCO_0':'+3V3', 'VCCO_12':'+3V3', 'VCCO_13':'+3V3', 'VCCO_14':'+3V3',
+        'VCCO_15':'VCCIO_1', 'VCCO_16':'+3V3', 'VCCO_34':'VCCIO_2',
+        'VCCO_35':'+3V3', 'VCCO_33':'+3V3',
         'GNDADC':'GND', 'VCCBATT':'GND'}
 CFG = {'CCLK_0':'CFG_CCLK', 'PROGRAM_B_0':'CFG_PROG_B', 'INIT_B_0':'CFG_INIT_B',
        'DONE_0':'CFG_DONE', 'M0_0':'CFG_M0', 'M1_0':'CFG_M1', 'M2_0':'CFG_M2',
@@ -36,7 +39,14 @@ def net_for(ball, name, assigned):
     for k, v in RAIL.items():
         if n.startswith(k): return v
     if name in CFG: return CFG[name]
-    if n.startswith('MGT'): return name.replace('_216', '')
+    # Only ports 0/1 and reference clock 0 of quad 216 are wired. Giving the
+    # unused lanes or spare reference input names would create fictional nets.
+    if n.startswith('MGT'):
+        used = ('MGTPTXP0', 'MGTPTXN0', 'MGTPRXP0', 'MGTPRXN0',
+                'MGTPTXP1', 'MGTPTXN1', 'MGTPRXP1', 'MGTPRXN1',
+                'MGTREFCLK0P', 'MGTREFCLK0N', 'MGTRREF')
+        bare = name.replace('_216', '')
+        return bare if n.endswith('_216') and bare in used else None
     return None                      # unassigned HR I/O -> no-connect
 
 def sym_units():
@@ -89,7 +99,7 @@ def main():
         o.append(f'\t\t(uuid "{uid("U1",ui)}")')
         o.append(f'\t\t(property "Reference" "U1" (at {ox} {oy-100} 0) (effects (font (size 1.27 1.27))))')
         o.append(f'\t\t(property "Value" "{PART}" (at {ox} {oy-97} 0) (effects (font (size 1.27 1.27))))')
-        o.append(f'\t\t(property "Footprint" "odin:BGA-324_15x15mm_Layout18x18_P0.8mm" (at {ox} {oy} 0) (effects (font (size 1.27 1.27)) (hide yes)))')
+        o.append(f'\t\t(property "Footprint" "EasyEDA:FBGA-676_L27.0-W27.0-R26-C26-P1.00-BL" (at {ox} {oy} 0) (effects (font (size 1.27 1.27)) (hide yes)))')
         o.append(f'\t\t(instances (project "odin" (path "/{uid("root")}" (reference "U1") (unit {ui}))))')
         o.append('\t)')
         for num, nm, side, px, py in units[ui]:

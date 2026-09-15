@@ -75,7 +75,8 @@ explicitly out of scope for now but must not be designed out.
 
 ## The design has been decided — see `ref/extension-ux.md`
 
-The module is 2×8 = 16 pins: 10 IO, 2 GND, and four rails (VCCIO, +5V, +3V3,
+The module uses a 2×8 signal block plus a separate 1×8 power row: 12 ordinary
+numbered I/O, four signal-row grounds, and four rails (VCCIO, +5V, +3V3,
 AUX). Odin_0's 2×7 had **no GND pin at all** — ground returned through a
 separate 2-pin header. That is fixed here and is not up for rediscussion.
 
@@ -151,7 +152,7 @@ banks feed which connectors.
 
 **7. Gameboy gap.** `ref/gameboy-extension.md` already does this fit on
 paper: a 32 in slots C+D for an SPI LCD build, a 64 in slots C–F for parallel
-RGB565 + I2S + microSD, 40 IO with 3 spare. Your job is to confirm it against
+RGB565 + I2S + microSD, 48 IO with 11 spare. Your job is to confirm it against
 the real schematic. Specifically: are there 6 direct slots in a contiguous
 run, can +5V source 1 A beyond the board's own load, is the PSRAM reachable
 from fabric for a framebuffer, and where do the real bank boundaries fall.

@@ -3,3 +3,6 @@ __pycache__/
 ref/adabmp/
 kicad/*-backups/
 kicad/production/
+*.kicad_*.lck
+kicad/erc.rpt
+kicad/drc.rpt

@@ -68,11 +68,11 @@ Both belong in the HDL controller, not in user code.
 The PSRAM runs at 3.3V, so its FPGA bank `VCCO` must be **fixed at 3.3V**. It
 therefore cannot live in one of the extension slots' VCCIO-selectable banks.
 
-That is not a problem, it is the constraint that makes the numbers work. The
-`CSG325` package has **three** HR banks, not five. Bank 14 is pinned at 3.3V
-by the config flash, so it absorbs PSRAM (24), the supervisor sideband (6),
-the flash pins (6), slot L (10) and its two direction pins — leaving banks 15
-and 34 as the only two settable domains, four slots each. See
+Bank 14 is pinned at 3.3V by the config flash, so it also carries PSRAM (24),
+the board-controller sideband (6), the flash pins (6), and 5V BUS 0 with its
+direction pin. 5V BUS 1 lives in fixed bank 13. Banks 15 and 34 are the two
+settable extension domains, four slots each. Banks 16 and 35 remain reserved
+for future base-board peripherals. See
 `ref/ballmap.md`, which is generated from the package file.
 
 ## Layout note

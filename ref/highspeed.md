@@ -1,6 +1,7 @@
-# The four fast lanes
+# The two fast ports
 
-The `XC7A50T` has four built-in serial lanes, ~6.6 Gb/s each. Ordinary pins
+The `XC7A100T-FGG676` has two four-lane GTP quads. This revision wires two
+lanes in quad 216, up to ~6.6 Gb/s each. The other lanes remain unconnected. Ordinary pins
 are roughly a hundred times slower. These are the only thing on Odin an
 extension board can never add later, because a signal that fast dies in a
 0.1" pin header — it needs a real connector and controlled-impedance copper on
@@ -28,9 +29,8 @@ Odin's extension slots, one level up. One socket, many personalities:
 You wanted two ethernet ports. This gives you two ethernet ports **and** fibre
 **and** board-to-board, and the base board never has to choose which.
 
-**Four cage positions, two populated by default.** Lanes 0 and 1 get real
-cages; lanes 2 and 3 get identical footprints left empty. Populating them
-later costs a soldering iron, not a respin.
+**There are two ports, full stop.** Lanes 0 and 1 reach them. Lanes 2 and 3 do
+not create empty connectors, fake choices or assembly noise.
 
 ## What makes it UX-smart
 
@@ -42,8 +42,8 @@ exactly like the board-ID pins on the extension slots:
   1000BASE-T copper, s/n …` / `SFP1: empty`. No guessing, no label squinting.
 - **It knows when something is inserted or removed.** Each cage has presence,
   transmit-fault and rate-select pins. All go to the supervisor.
-- **The supervisor powers each cage independently.** A module can draw a watt;
-  a faulty or absent one gets no power. Same rule as the extension rails —
+- **The supervisor controls power to both ports together.** A faulty module can
+  be shut down. Same rule as the extension rails —
   a bad thing gets cut by software, not by smoke.
 - **A status LED per cage**, driven by the fabric so your own link logic can
   own it.
@@ -58,26 +58,22 @@ Cost: about 6 supervisor pins for two cages, and the supervisor has spare.
   working link is a project measured in weeks, not an afternoon. The board's
   job is to make sure that project is *possible* — which it is not at all if
   these lanes go nowhere.
-- **Board area.** A cage is roughly 14 mm wide and 47 mm deep. Two side by
-  side take 28 mm of one edge. Four take 56 mm, which is most of a 100 mm
-  edge — a real reason to populate two and leave two as footprints.
+- **Board area.** A cage is roughly 14 mm wide and 47 mm deep. The two ports
+  take about 28 mm of one edge.
 
 ## What is actually in the schematic
 
 | Ref | Part | Note |
 |---|---|---|
-| `J60`, `J61` | SFP cage, **populated** | lanes 0 and 1 |
-| `J62`, `J63` | SFP cage, **not populated** | lanes 2 and 3, footprints only |
+| `J60`, `J61` | SFP electrical connector | lanes 0 and 1 |
 | `X2` | 125 MHz differential oscillator | the reference clock the lanes need |
 | `Q1` | P-channel high-side switch | gate pulled high, so cages are **off until the supervisor turns them on** |
-| `U17` | I2C port expander, **not populated** | fit it with cages 2/3 and all four become controllable |
+| `U17` | SFP power controller | gives the two ports a safe default-off power control |
 | `R30` | `MGTRREF` precision resistor | value to confirm, see `findings.md` |
 
-Coupling capacitors sit in series on all sixteen high-speed lines. Both status
+Coupling capacitors sit in series on all eight high-speed lines. Both status
 buses and the two-wire identification bus run to the supervisor, with pull-ups.
-`MGTREFCLK1` is left free for a second clock source.
+The unused lanes and second reference-clock input are explicit no-connects.
 
-Two things need checking before you order — both are in `findings.md`: the
-oscillator symbol uses a **generic** 6-pin pinout that must be matched to the
-part you actually buy, and the `MGTRREF` resistor value must be confirmed
-against UG482.
+The oscillator is selected and pin-checked. The `MGTRREF` resistor value still
+needs confirmation against UG482.

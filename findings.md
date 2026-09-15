@@ -184,18 +184,14 @@ that consolidation pass is worth doing once the BOM is re-exported, not now.
 
 # Part II — live, against the current KiCad design
 
-## 5. should-fix — confirm the differential oscillator pinout before ordering
+## 5. FIXED — differential oscillator pinout confirmed
 
-**Entities:** `X2`, symbol `odin:OSC_DIFF_6P_3225`, footprint
-`Oscillator_SMD_SiTime_SiT9121-6Pin_3.2x2.5mm`.
+**Entities:** `X2`, `DSC1123CI2-125.0000` (`C617173`), footprint
+`EasyEDA:OSC-SMD_6P-L3.2-W2.5-BL`.
 
-Six-pin differential oscillators are **not pin-compatible between vendors**.
-The generated symbol uses the common arrangement (1 OE, 2 GND, 3 NC, 4 OUT-,
-5 OUT+, 6 VDD) but this was not taken from a specific datasheet. Pick the
-actual 125 MHz LVDS part, check its pinout, and correct
-`OSC_PINS` in `tools/gen_kicad.py` before the board is fabricated. Getting
-this wrong costs the four fast lanes and nothing else, but it costs them
-completely.
+The Microchip datasheet and imported part agree: 1 EN, 2 NC, 3 GND, 4 OUT+,
+5 OUT-, 6 VDD. This differs from the old assumed mapping; the schematic now
+uses the imported exact symbol and footprint.
 
 ## 6. should-fix — confirm the MGTRREF resistor value
 
@@ -205,37 +201,37 @@ The transceiver reference resistor sets internal bias currents and must be a
 precision part of the exact value the family requires. 100R is used here;
 confirm against UG482 (7 Series Transceivers) and set the tolerance to 1%.
 
-## 7. nit — board outline is a placeholder
+## 7. FIXED — board outline now matches the mechanical contract
 
-`kicad/odin.kicad_pcb` is 120 x 100 mm. That was a guess made before the SFP
-cages existed; a cage is ~14 mm wide and ~47 mm deep, and there are four
-positions. Expect the board to grow along one edge. Adjust before placement —
-`tools/gen_pcb.py` regenerates it, but only do that before you start routing.
+`kicad/odin.kicad_pcb` is now 100 x 100 mm, matching the required board size.
+A–H use four continuous 2x16 signal bodies plus four parallel 1x16 power
+bodies (two logical zones per body), plus two complete 5V-bus signal and power
+connector pairs. Placement
+and routing remain deliberately absent. The exact stack-through connector MPN
+is still a mechanical purchasing choice; the schematic fixes 2.54 mm pitch.
 
 
-## 8. should-fix — the extension board-ID pins promised by the spec do not exist
+## 8. FIXED — nonexistent extension board-ID promise removed
 
 **Entities:** `ref/extension-ux.md`, the nine slot connectors, `PD_CFG1..3`.
 
-`ref/extension-ux.md` states that each module has board-ID pins so the
-supervisor can tell what is plugged in. **It has none.** The 16-pin module is
-fully allocated — 10 I/O, 2 GND, 4 rails — with no pin left over. The four
+An earlier `ref/extension-ux.md` stated that each module had board-ID pins so
+the supervisor could tell what was plugged in. **It had none.** The four
 `BOARDID_*` nets that existed went to the supervisor and a pull-down each and
 reached no connector; they have since been repurposed for the USB-PD sink,
 which genuinely needed them.
 
-Three ways out, none free:
+The options considered were:
 
-1. **Give up one I/O per module** — 9 I/O plus a strapped ID pin. Cleanest,
-   costs 9 I/O across the board, and breaks the "ten per slot" rule that the
-   Gameboy pin budget was built on.
+1. **Give up one I/O per module** for a strapped ID pin.
 2. **Drop the claim.** Extensions are identified by the human. Honest, and
    costs nothing but the feature.
-3. **Widen the module** beyond 16 pins, which breaks the 16/32/64 scheme.
+3. **Widen the module** solely to add identification.
 
-Until this is decided, the sentence in `ref/extension-ux.md` has been marked
-as not implemented. The supervisor still power-gates rails and still reports
-SFP module identity — only extension identity is missing.
+Option 2 was chosen. The claim and dead nets are gone. The newer third power
+row is used for clear, well-grounded power distribution, not to silently
+reintroduce an identification protocol. The supervisor still power-gates the
+extension rails and reports SFP module identity.
 
 
 ## 9. FIXED — the supervisor could not enable its own power rail
@@ -244,9 +240,9 @@ SFP module identity — only extension identity is missing.
 +3V3 that powers the supervisor. A deadlock: the board could never start.
 `EN_5V` compounded it, since +3V3 was derived from +5V.
 
-Fixed: +3V3 is now always on, from a wide-input `TPS54202` (`U12`) straight off
-`VSYS`, enable tied high through a resistor. GPIO21 was freed and reused for
-the VBUS pass switch below.
+Fixed: +3V3 is now always on, from a wide-input `AP63300` (`U12`) straight off
+`VSYS`. Its datasheet permits automatic startup with EN floating, so no GPIO
+is involved. GPIO21 was freed and reused for the VBUS pass switch below.
 
 ## 10. FIXED — a Schottky from VBUS to the 5V rail was an overvoltage hazard
 
@@ -273,31 +269,63 @@ renamed. That mapping has since been checked against TI's TSSOP-24 pinout for
 `SN74LXC8T245PW` — 1 `VCCA`, 2 `DIR`, 3–10 `A1..A8`, 11–13 `GND`, 14–21
 `B8..B1`, 22 `OE`, 23–24 `VCCB` — and matches. **Closed.**
 
-## 12. decision needed — slot L is a bus, not ten GPIOs
+## 12. FIXED — two complete 5V buses replace the 8+2 orphan
 
 `SN74LXC8T245` is direction-controlled: one `DIR` pin steers eight signals
-together. Slot L is therefore a 5V-tolerant **8-bit bus plus a 2-bit bus**,
-each turning around as a unit — not ten independent bidirectional pins. It
-also costs **12** FPGA I/O for 10 connector signals, because of the two
-direction lines.
+together. An earlier Slot L was an eight-bit bus plus an awkward two-bit tail,
+costing 12 FPGA I/O for ten connector signals. A two-bit Nexperia converter
+was briefly qualified for that tail, but optimizing the orphan did not fix the
+interface. Odin now provides two identical complete eight-bit 5V buses, each
+with one direction control. The second bus uses fixed bank 13.
 
 `ref/extension-ux.md` now says this plainly. If per-pin bidirectional 5 V is
 actually wanted, the part is a `TXB0108`-class auto-direction translator,
 which trades away drive strength and forbids external pull-ups. There is no
 option that gives strong drive, per-pin direction and 5 V at once.
 
-## 13. should-fix — qualify the placeholder components before layout
-
-Generic parts still carrying no manufacturer selection: `Q1`–`Q3` (MOSFETs),
-`X2` (oscillator, item 5), `R30` (`MGTRREF`, item 6), the SFP cages, the nine
-polyfuses, every inductor (no saturation current or DCR requirement stated),
-and every capacitor (no voltage rating, dielectric or tolerance stated).
+## 13. partly fixed — qualify the placeholder components before layout
 
 Inductor saturation current and capacitor voltage rating are not purchasing
 details — a 22 µF 6.3 V part on the 12 V AUX rail fails immediately, and an
-undersized inductor saturates under load. **These need real part numbers
-before layout**, not before ordering, because package size affects placement.
-The ~340 ordinary passives can take LCSC numbers later via the JLCPCB plugin.
+undersized inductor saturates under load. These need real part numbers
+**before layout**, not before ordering, because package size affects
+placement.
+
+**Done since:**
+
+- **A qualified-parts table exists and is enforced.** `tools/qualified.py`
+  records MPN, manufacturer package code, footprint, the ratings that matter
+  on this board, and how the pin map was confirmed, for every non-generic
+  part. `tools/design.py` refuses to build if a part is missing from it or is
+  fitted with a different footprint, so a new IC cannot enter the netlist
+  anonymously. Rendered to `ref/qualified-parts.md`.
+- **Every inductor is selected and checked.** `tools/budget.py` computes the
+  ripple, peak current and required saturation current per rail and names the
+  part: `SRN6045TA-100M` (10 µH, Isat 4.6 A) on `U11` and the boost,
+  `SRN6045TA-4R7M` (4.7 µH, Isat 6.8 A) on `U12`, `SRN4018-2R2M`
+  (2.2 µH, Isat 3.0 A) on the four `TLV62569`s,
+  `SRN4018-1R0Y` on the MGT filter, and the mandated Abracon part on the
+  supervisor. The tool fails if any of them saturates below its rail's
+  requirement.
+- **MOSFETs are real parts.** `Q1` and `Q2` are `DMG2305UX`; `Q3` is a
+  `BSS138`. Reading the DMG2305UX datasheet is what turned up item 21.
+- **Capacitors on rails above 3.3 V carry their rating in the value field**,
+  set automatically from the net rather than typed: `25V` on `VSYS`, `VBUS`
+  and `+12V`. Everything unmarked is 16 V minimum, X5R or better.
+
+**Still open:**
+
+- The SFP electrical connectors are selected; their separate metal cages are
+  still not encoded because the `C5164658` mechanical import failed.
+- `R30` (`MGTRREF`, item 6) needs its value confirmed and 1% tolerance.
+- The nine 300 mA +3.3 V polyfuses still need an exact MPN. The 200 mA and
+  500 mA positions are selected.
+- **Capacitor DC-bias derating is not accounted for.** A 22 µF 25 V X5R 0805
+  at 12 V retains well under half its nominal value. The bulk capacitance is
+  ample enough that this is unlikely to bite, but "22 µF" on the `VSYS` rail
+  means perhaps 8 µF in circuit and nothing in the design says so yet.
+- The ~340 ordinary passives can take LCSC numbers later via the JLCPCB
+  plugin.
 
 ## 14. open — the 16/32/64 mechanical claim is unproven
 
@@ -308,7 +336,7 @@ it on the board, and until then treat the claim in `ref/extension-ux.md` as an
 intent rather than a fact.
 
 
-## 15. should-fix — the manual JTAG header is not hardware-isolated
+## 15. FIXED — the JTAG owner is now selected in hardware
 
 `J2` sits directly in parallel with the FPGA's JTAG nets. The supervisor is
 separated only by its 33 R series resistors, so an external programmer and a
@@ -330,7 +358,22 @@ Two ways to make it true:
 Recommendation: option 2 with a jumper, because "hold the board in a known
 state so I can debug it" should not itself depend on working firmware.
 
-## 16. should-fix — RP2350 regulator support parts must match the reference design
+**Fixed with option 2.** `U20` is an `SN74CB3Q3384APW` 10-bit FET bus switch;
+the supervisor's four JTAG lines pass through bank 1 (`1A1..1A4` to
+`1B1..1B4`) on their way to the FPGA and to `J2`. `~{1OE}` is held low by a
+10 k pull-down, so the switch is closed and the supervisor owns JTAG in the
+shipped state — that is the primary programming path and it has to work out of
+the box. Fitting **`EXT JTAG` (`J52`)** pulls `~{1OE}` to +3V3
+and takes the supervisor electrically out of the chain, whatever its firmware
+is doing. The controlling net is named `EXTERNAL_JTAG_SELECTED`, so its high
+state says exactly what happened.
+Bank 2 is unused with `~{2OE}` tied high.
+
+This adds one intentional ERC warning: the FPGA's `TDO` output meets a
+tri-state switch pin, which is what a FET bus switch pin always looks like to
+ERC.
+
+## 16. FIXED — RP2350 support parts now match the reference design
 
 `U7`'s internal switcher uses a generic `3.3uH SRN4018` inductor and generic
 15 pF crystal loading capacitors. Raspberry Pi's hardware-design guide is
@@ -342,6 +385,29 @@ values and manufacturer part numbers from the RP2350B minimal-board reference
 into `tools/design.py`, then follow the placement guidance during layout.
 Getting this wrong produces a supervisor that mostly works, which is the worst
 failure mode available.
+
+**Fixed, from RP-008280 sections 2.1, 2.2.1, 3 and 4:**
+
+| Reference | What it is | Now in the netlist |
+|---|---|---|
+| `L1` | `AOTA-B201610S3R3-101-T`, the 3.3 µH part Abracon made for Raspberry Pi with a polarity dot | `L1`, on a generated `odin:L_Abracon_AOTA-B201610S_2.0x1.6mm` land taken from the datasheet's Recommended Land Pattern (1.00 × 1.60 mm pads, 1.00 mm gap) |
+| `C6`, `C7`, `C9` | 4.7 µF 0402 at `VREG_VIN`, at the output, and on `VREG_AVDD` | three 4.7 µF 0402 |
+| `R3` | 33 Ω, RC-filtering the analogue supply | 33 Ω 0402 into net `SUP_VREG_AVDD` |
+| `Y1` | `ABM8-272-T3`, 12 MHz, CL 10 pF, ESR 50 Ω max | named in the value field |
+| `R2` | **1 kΩ in series with `XOUT`**, so the crystal is not over-driven | added; it was missing entirely |
+| `C3`, `C4` | 15 pF at the crystal terminals | were already right, and now sit on the crystal side of `R2` |
+| `R1` | 10 kΩ pull-up on `QSPI_SS`, shipped Do-Not-Fit | added, DNP |
+| decoupling | one 100 nF per supply pin | 11 on +3V3 (8 IOVDD, QSPI_IOVDD, USB_OTP_VDD, ADC_AVDD) and 3 on +1V1 (3 DVDD) |
+
+The 1 kΩ `XOUT` resistor is the important one: without it the crystal is
+over-driven, which is a slow reliability failure rather than an obvious one.
+
+**Still a layout obligation.** Raspberry Pi are explicit that the regulator's
+performance depends on the inductor's *orientation* as well as its part
+number, and on their exact placement. The footprint carries a polarity dot on
+silk and a solid pin-1 marker on `F.Fab` so the requirement survives into the
+assembly drawing, but honouring it is placement work, guided by RP-008280
+Figure 4.
 
 ## 17. FIXED — eleven components had footprints for the wrong package
 
@@ -361,17 +427,207 @@ is explicit in the source and carries its reason.
 
 ## 18. FIXED — per-slot fuse ratings implied nine times the available current
 
-Nine slots x 500 mA suggested 4.5 A per rail. The real sources are far smaller
-— the 12 V AUX rail is one `TPS61085` giving roughly **700 mA total across all
-nine slots**. Fuse ratings have been rebalanced (AUX 200 mA, +3V3 300 mA, +5V
-500 mA) and `ref/extension-ux.md` now states the shared budget per rail
+Nine slots x 500 mA suggested 4.5 A per rail. The real sources are far
+smaller. Fuse ratings have been rebalanced (AUX 200 mA, +3V3 300 mA, +5V
+500 mA) and `ref/extension-ux.md` states the shared budget per rail
 explicitly, with the note that fuses are fault protection and not an
 allowance.
 
+The `~700 mA` first quoted for AUX was `5 V x 2 A x η / 12 V` — an ideal
+upper bound from a nominal switch rating, not an available current. It has
+been replaced by TI's own design procedure (SLVS859B equations 1–4) at the
+worst-case input, run by `tools/budget.py`:
+
+- the boost, with a 10 µH inductor at 650 kHz and the **2.0 A minimum**
+  switch limit, can deliver **622 mA**;
+- but AUX at full output draws 1766 mA from a +5 V rail with 1615 mA spare,
+  so the binding limit is **570 mA**, and the constraint is the 5 V rail, not
+  the boost;
+- and that is still arithmetic at an assumed 90% efficiency with no thermal
+  derating, so it is published as a **provisional design target**.
+
+The inductor changed as part of this: 4.7 µH at 650 kHz sat outside TI's
+recommended 6–13 µH range and gave 69% ripple. 10 µH gives 26% ripple *and*
+more output current.
+
+Every other shared-rail figure was equally unsubstantiated. `+3V3` was
+described as having "~1.5 A spare"; the worst-case load table puts it at
+**500 mA**, because `U12` also carries the supervisor, four PSRAMs, the config
+flash, FPGA bank 14, the oscillator, two SFP modules (610 mA on their own) and
+both VCCIO domains when they are jumpered to 3.3 V. See
+`ref/power-budget.md`.
+
 ## 19. constraint — firmware must never request more than 9 V over USB-PD
 
-`D7` is an `SMBJ13A`, a 13 V standoff TVS on `VBUS`. Requesting a 15 V or 20 V
-PD contract would forward-bias the clamp and destroy it. The `CH224K`
+`D7` is an `SMBJ13A`, a 13 V standoff TVS on `VBUS`. The `CH224K`
 configuration pins are supervisor-driven, so this limit lives in firmware and
 must be an assertion there, not a comment. Raising the ceiling means
 re-selecting `D7` first.
+
+Two corrections to how this was first written. The mechanism is **avalanche,
+not forward conduction**: the part is unidirectional with its cathode on
+`VBUS`, so a 20 V contract drives it into sustained reverse breakdown, which a
+600 W *transient* device does not survive as a DC condition. Forward
+conduction is what happens if it is fitted backwards, which is a different
+failure — and the reason the schematic no longer uses KiCad's bidirectional
+`Device:D_TVS` symbol. And the margin is narrower than "13 V" suggests but not
+zero: `VBR` is 14.4 V minimum, so a 15 V contract sits in the region above the
+rated standoff where leakage climbs steeply rather than in hard avalanche.
+
+## 20. FIXED — the always-on +3V3 rail now starts on a weak 5 V port
+
+**Entities:** `U12` (`AP63300WU-7`), `D3`, `U26`, net `VSYS`.
+
+The original `TPS54202` needed 4.5 V at its input, while the weak-host path
+could provide only about 4.24 V after protection and OR-ing. It was therefore
+wrong for the one rail that must always start.
+
+`U12` is now an `AP63300WU-7`, rated from 3.8–32 V and 3 A. The worst-case
+path is now:
+
+| | |
+|---|---|
+| `VBUS` on a weak host port, guaranteed minimum | 4.75 V |
+| less `D3` forward drop | −0.45 V |
+| less conservative `U26` on-resistance drop | −0.03 V |
+| **`VSYS`** | **4.27 V** |
+| `AP63300` minimum input voltage | **3.8 V** |
+
+That leaves 0.47 V of startup margin. Its 3.3 V feedback network, 4.7 µH
+inductor, input capacitor, three output capacitors, bootstrap capacitor and
+feed-forward capacitor copy the manufacturer's reference circuit.
+`tools/budget.py` checks its full load and inductor peak current and passes.
+
+## 21. should-fix — `Q2`'s gate rating depends on the firmware contract
+
+**Entities:** `Q2` (`DMG2305UX`), `Q3`, `EN_VBUS5`.
+
+The `DMG2305UX` gate is rated **±8 V**. `Q2`'s gate is pulled to `VBUS`
+through 100 k and pulled down through 10 k by `Q3`, so closing the switch puts
+about 0.91 × `VBUS` across the gate: −4.6 V on a 5 V source, which is correct,
+but −8.2 V if firmware ever closes it on a 9 V contract.
+
+That case is already forbidden for a more expensive reason — 8.6 V on the +5V
+rail destroys four `TLV62569`s rated 5.5 V, which is why `Q2` exists as a
+commanded switch rather than a diode (item 10). So the gate rating adds no new
+constraint; it just means a firmware bug damages one more part.
+
+Worth fixing anyway, because it is nearly free: weaken the pull-down to 47 k
+and the gate sees 0.68 × `VBUS`, which is −6.1 V even at 9 V. The cost is a
+weaker drive at 5 V (−3.4 V, where the part is specified to 52 mΩ typical at
+−2.5 V), so about 100 mV of extra drop at 2 A. Not done yet because it trades
+a certain small loss against an uncertain fault.
+
+The always-on input path no longer uses a P-MOS gate divider; `U26` provides
+specified current limiting, controlled rise, reverse blocking and OVLO.
+
+## 22. should-fix — `J50` has no overvoltage clamp
+
+**Entities:** `J50`, `D4`, `VSYS`.
+
+`J50` is a bare 2-pin header feeding `VSYS` through a Schottky. `D4` blocks
+reverse polarity and the `VSYS` capacitors are now 25 V parts, but there is
+nothing to stop a bench supply left at 24 V, and `VSYS` reaches both
+`TPS54202`s (28 V absolute maximum) and the `MON_VSYS` divider.
+
+The monitor divider is now sized so 20 V is survivable on the ADC pin
+(2.76 V), and the documented range has been cut to 9–14 V, so the exposure is
+narrower than it was. A `SMBJ15A` on `VIN_EXT` would close it properly for one
+part. Not added yet because a clamp on an input this board does not require is
+a judgement call about how much protection a bare header deserves.
+
+## 23. FIXED — the `VSYS` monitor divider overdrove the supervisor's ADC
+
+**Entities:** `MON_VSYS`, `MON_5V`, `GPIO40/ADC0`, `GPIO41/ADC1`.
+
+The divider was 100 k / 33 k, which is 33/133 of the input. At 9 V that reads
+2.23 V and is fine. At the 20 V `ref/power-input.md` then permitted on `J50`
+it reads **4.96 V** — onto an RP2350 GPIO whose maximum is `ADC_AVDD`, 3.3 V.
+A rail monitor that destroys the microcontroller in the fault it exists to
+report is the wrong way round.
+
+Fixed by sizing every monitor divider from an **absolute maximum**, not a
+nominal:
+
+| Monitor | Divider | Nominal reading | At absolute maximum |
+|---|---|---|---|
+| `MON_VSYS` | 100 k / 16 k | 1.24 V at 9 V | 2.76 V at 20 V |
+| `MON_5V` | 100 k / 47 k | 1.60 V at 5 V | 2.88 V at 9 V |
+
+`MON_5V` was 100 k / 100 k, safe at 5 V and 4.5 V in the same firmware fault
+item 21 describes; it is now sized for that fault too.
+
+`tools/design.py` computes both from `adc_divider()`, which rounds the bottom
+resistor **down** through E24 — rounding to nearest can put the result back
+over the ceiling — and raises if the absolute maximum would exceed 3.0 V.
+E24 rather than E96 because firmware calibrates a monitor ratio, so precision
+buys nothing and stock availability buys something.
+
+Each of the six monitor nodes also gained a 100 nF capacitor. Two reasons: the
+ADC's sample-and-hold needs charge that a 14 kΩ Thevenin divider cannot
+supply, and firmware compares these readings against thresholds, so switching
+ripple should not be in them.
+
+## 24. FIXED — USB attach inrush exceeded the specification by 5x
+
+**Entities:** `U26`, `D3`, `VBUS`, `VSYS`.
+
+USB limits a device's `VBUS` bypass capacitance to 10 µF, or 50 µC of inrush
+charge; USB-PD raises that to `cSnkBulkPd` = 100 µF only *after* a contract
+exists, and at cable insertion there is no contract. The board presented
+10 µF on `VBUS` plus 44 µF of `VSYS` bulk through a forward-biased `D3` —
+about 54 µF and 270 µC, five times the allowance. Symptoms would have been
+source droop, connector arcing, and starting reliably on some chargers and not
+others.
+
+Fixed with `U26`, a `TPS259470A` eFuse. Its 2.2 nF `dVdt` capacitor sets an
+approximately 0.91 V/ms output rise, so 44 µF charges at about 40 mA. It is
+autonomous rather than firmware-controlled: this path produces +3V3, which
+firmware needs in order to exist. UVLO is about 3.75 V, OVLO about 9.98 V and
+the typical current limit about 2.03 A. The 10 µF left directly on `VBUS` is
+the attach allowance, spent deliberately.
+
+`Q2` got the same treatment: a 10 k series gate resistor and 100 nF gate-source
+capacitor slew it over about a millisecond, because closing it connects `VBUS`
+to 66 µF of +5V bulk.
+
+Unlike the passive RC, the eFuse also controls PD voltage-transition current
+and disconnects on an overvoltage request. `D7` remains the independent TVS;
+firmware must still enforce the 9 V PD ceiling in item 19.
+
+## 25. FIXED — extension power faults could reach the base-board rails
+
+**Entities:** `U21`–`U25`, `EXT_EN`, `EXT_FAULT`, all slot power PTCs.
+
+Every connector rail previously branched directly from an internal rail. A
+short, back-powered shield or large startup capacitor could therefore pull
+down or energize the FPGA, supervisor and memories through the shared source.
+
+There are now five protected connector buses. Four `TPS22950CDDCR` switches
+protect +5 V, +3V3 and the two selectable VCCIO domains. A
+`TPS259470LRPWR` protects +12 V with true reverse blocking, 13.2 V nominal
+OVLO, a 500 mA typical limit, controlled rise and latch-off. All switches have
+a hardware-default-off `EXT_EN`; their fault outputs wire-OR to `EXT_FAULT`.
+The old per-slot PTCs remain downstream.
+
+`TPS22950C` has an off-state output-discharge path. With an extension applying
+5 V, its nominal 160 Ω path draws about 31 mA and dissipates about 0.16 W;
+reverse current into the internal source remains blocked. Its output absolute
+maximum is 6 V, so this closes the stated 5 V-on-low-rail mistake, not an
+arbitrary 12 V miswire. That boundary is now explicit in the user documents.
+
+## 26. FIXED — larger FPGA has a 4 A 1.0 V supply
+
+**Entities:** `U1`, `U15`, the +1V0 inductor, the future FPGA image.
+
+`U1` is now `XC7A100T-2FGG676I` (`C1521803`) in the imported 676-ball,
+27 x 27 mm package. Its 676 symbol pin numbers match all 676 footprint pads,
+every supply ball is connected, and the unused bank-213 GTP signal pins are
+explicit no-connects.
+
+U15 is now a 4 A `SY8047QDC` (`C3018651`) with its datasheet reference circuit
+and a 1 uH `FTC201610S1R0MBCA` (`C5832342`). At the conservative 1.5x FPGA
+transient target, calculated peak inductor current is 2.80 A and the project's
+required saturation rating is 3.64 A; the fitted inductor is rated 4.60 A.
+The power audit passes. AMD XPE remains useful before fabrication, but it is
+no longer needed to justify an undersized regulator.

@@ -9,15 +9,17 @@ import sys, os, re, uuid, hashlib
 sys.path.insert(0, os.path.dirname(__file__))
 import symlib
 from design import build
+from identity import PRODUCT, HW_VERSION
 
 DIR    = 'kicad'
 PWRLIB = '/usr/share/kicad/symbols/power.kicad_sym'
 SHEETS = ['FPGA', 'Power', 'Memory', 'Supervisor', 'Slots', 'HighSpeed']
+DISPLAY_NAME = {'Supervisor': 'Board Controller', 'HighSpeed': 'Fast Links'}
 TITLE  = {'FPGA':'FPGA, decoupling and configuration straps',
           'Power':'Power tree: 12V input to every rail, with monitoring',
           'Memory':'PSRAM x4 (independent buses) and configuration flash',
-          'Supervisor':'RP2350B supervisor, USB-C, flash, and the links to the FPGA',
-          'Slots':'Nine extension slots, rail selection, fusing, level shifting',
+          'Supervisor':'Board controller: RP2350B, USB-C, startup memory and FPGA control',
+          'Slots':'Ten extension ports, rail selection, fusing, level shifting',
           'HighSpeed':'Four serial lanes: SFP cages, reference clock, power gate'}
 GNDS   = {'GND'}
 RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
@@ -25,7 +27,7 @@ RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
           'VSYS':'odin:VSYS', '+12V':'power:+12V', 'VBUS':'power:VBUS',
           'VCCIO_1':'odin:VCCIO_1', 'VCCIO_2':'odin:VCCIO_2',
           '+1V0_MGT':'odin:+1V0_MGT', '+1V2_MGT':'odin:+1V2_MGT',
-          'PD_VDD':'odin:PD_VDD',
+          'PD_VDD':'odin:PD_VDD', 'SUP_VREG_AVDD':'odin:SUP_VREG_AVDD',
           'SFP_VCC':'odin:SFP_VCC'}
 PWRSYM = dict(RAILS); PWRSYM['GND'] = 'power:GND'
 # a rail's flag belongs on the page where that rail is actually made
@@ -33,6 +35,7 @@ RAIL_HOME = {'GND':'Power', 'VSYS':'Power', '+12V':'Power', '+5V':'Power', '+3V3
              '+2V5':'Power', '+1V8':'Power', '+1V0':'Power',
              '+1V2_MGT':'Power', '+1V0_MGT':'Power',
              '+1V1':'Supervisor', 'VBUS':'Supervisor', 'PD_VDD':'Supervisor',
+             'SUP_VREG_AVDD':'Supervisor',
              'SFP_VCC':'HighSpeed', 'VCCIO_1':'Slots', 'VCCIO_2':'Slots'}
 DIRV = {0: (-2.54, 0), 180: (2.54, 0), 90: (0, 2.54), 270: (0, -2.54)}
 JUST = {0: 'right', 180: 'left', 90: 'right', 270: 'left'}
@@ -260,7 +263,7 @@ def render_sheet(name, parts, root_uuid, sheet_uuid):
     for l in libs: o.append(flatten(l))
     for r in sorted(used_pwr): o.append(flatten(PWRSYM[r]))
     o.append('\t)')
-    o.append(f'\t(text "{esc(name.upper())}  —  {esc(TITLE[name])}" (at 40 20 0) '
+    o.append(f'\t(text "{esc(name.upper())}  —  {esc(TITLE[name])}  —  HW {HW_VERSION}" (at 40 20 0) '
              '(effects (font (size 4 4) (thickness 0.6)) (justify left)))')
     o += body
     o.append(')')
@@ -281,7 +284,7 @@ def main():
     r = ['(kicad_sch', '\t(version 20250114)', '\t(generator "odin-tools")',
          '\t(generator_version "9.0")', f'\t(uuid "{root}")', '\t(paper "A3")',
          '\t(lib_symbols\n\t)',
-         '\t(text "ODIN" (at 30 25 0) (effects (font (size 8 8) (thickness 1.2)) (justify left)))',
+         f'\t(text "{PRODUCT} HW {HW_VERSION}" (at 30 25 0) (effects (font (size 8 8) (thickness 1.2)) (justify left)))',
          '\t(text "Artix-7 dev board. Every page is generated — see kicad/README.md"'
          ' (at 30 34 0) (effects (font (size 3 3)) (justify left)))']
     for i, s in enumerate(SHEETS):
@@ -289,7 +292,7 @@ def main():
         r.append(f'\t(sheet (at {x} {y}) (size 95 40)')
         r.append('\t\t(stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0.0000))')
         r.append(f'\t\t(uuid "{sh_uuid[s]}")')
-        r.append(f'\t\t(property "Sheetname" "{s}" (at {x} {y-1} 0) '
+        r.append(f'\t\t(property "Sheetname" "{DISPLAY_NAME.get(s, s)}" (at {x} {y-1} 0) '
                  '(effects (font (size 2.5 2.5)) (justify left bottom)))')
         r.append(f'\t\t(property "Sheetfile" "{s.lower()}.kicad_sch" (at {x} {y+41} 0) '
                  '(effects (font (size 2 2)) (justify left top)))')

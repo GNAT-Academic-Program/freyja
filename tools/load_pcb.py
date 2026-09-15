@@ -15,6 +15,7 @@ LIBS  = ['/usr/share/kicad/footprints', os.path.abspath('kicad')]
 def libdir(fp_id):
     lib, name = fp_id.split(':', 1)
     if lib == 'odin': return os.path.abspath('kicad/odin.pretty'), name
+    if lib == 'EasyEDA': return os.path.abspath('easyeda/EasyEDA.pretty'), name
     for base in LIBS:
         p = os.path.join(base, lib + '.pretty')
         if os.path.isdir(p): return p, name
@@ -95,5 +96,10 @@ def main():
     pcbnew.SaveBoard(BOARD, board)
     print(f"placed {placed} footprints, {len(netmap)} nets"
           + (f", {miss} FAILED TO LOAD" if miss else ", none missing"))
+
+    # References are manufacturing information; functional labels are the
+    # human interface. Keep this true after every netlist reload.
+    from update_silkscreen import main as update_silkscreen
+    update_silkscreen()
 
 main()
