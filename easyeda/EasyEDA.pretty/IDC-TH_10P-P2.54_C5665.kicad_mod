@@ -20,6 +20,9 @@
 	(fp_line (start 10.15 -4.40) (end 10.15 4.40) (layer F.SilkS) (width 0.25))
 	(fp_line (start 10.15 4.40) (end -10.15 4.40) (layer F.SilkS) (width 0.25))
 	(fp_line (start -10.15 4.40) (end -10.15 -4.40) (layer F.SilkS) (width 0.25))
+	(fp_text user "1" (at -5.08 5.25) (layer F.SilkS)
+        (effects (font (size 1 1) (thickness 0.15))))
+
 	(pad 1 thru_hole circle (at -5.08 1.27 0.00) (size 1.524 1.524) (layers *.Cu *.Mask)(drill 0.999998))
 	(pad 2 thru_hole circle (at -5.08 -1.27 0.00) (size 1.524 1.524) (layers *.Cu *.Mask)(drill 0.999998))
 	(pad 3 thru_hole circle (at -2.54 1.27 0.00) (size 1.524 1.524) (layers *.Cu *.Mask)(drill 0.999998))

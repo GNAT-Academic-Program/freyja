@@ -29,7 +29,7 @@ CFG = {'CCLK_0':'CFG_CCLK', 'PROGRAM_B_0':'CFG_PROG_B', 'INIT_B_0':'CFG_INIT_B',
        'DONE_0':'CFG_DONE', 'M0_0':'CFG_M0', 'M1_0':'CFG_M1', 'M2_0':'CFG_M2',
        'CFGBVS_0':'+3V3', 'TCK_0':'JTAG_TCK', 'TMS_0':'JTAG_TMS',
        'TDI_0':'JTAG_TDI', 'TDO_0':'JTAG_TDO',
-       'VP_0':'GND', 'VN_0':'GND', 'VREFP_0':'+1V8', 'VREFN_0':'GND',
+       'VP_0':'GND', 'VN_0':'GND', 'VREFP_0':'GND', 'VREFN_0':'GND',
        'DXP_0':'FPGA_DXP', 'DXN_0':'FPGA_DXN'}
 
 def net_for(ball, name, assigned):
@@ -39,14 +39,22 @@ def net_for(ball, name, assigned):
     for k, v in RAIL.items():
         if n.startswith(k): return v
     if name in CFG: return CFG[name]
-    # Only ports 0/1 and reference clock 0 of quad 216 are wired. Giving the
-    # unused lanes or spare reference input names would create fictional nets.
+    # UG482 Tables 5-5/5-6: both G10 (quad 213) and G11 (quad 216)
+    # stay powered. Unused RX pins go to GND; unused TX/refclk may float.
+    # Each quad has its own calibration resistor to MGTAVTT.
     if n.startswith('MGT'):
-        used = ('MGTPTXP0', 'MGTPTXN0', 'MGTPRXP0', 'MGTPRXN0',
-                'MGTPTXP1', 'MGTPTXN1', 'MGTPRXP1', 'MGTPRXN1',
-                'MGTREFCLK0P', 'MGTREFCLK0N', 'MGTRREF')
-        bare = name.replace('_216', '')
-        return bare if n.endswith('_216') and bare in used else None
+        bare, _, quad = n.rpartition('_')
+        if quad == '213':
+            if bare == 'MGTRREF': return 'MGTRREF_213'
+            if bare.startswith(('MGTPRXP', 'MGTPRXN')): return 'GND'
+            return None
+        if quad == '216':
+            used = ('MGTPTXP0', 'MGTPTXN0', 'MGTPRXP0', 'MGTPRXN0',
+                    'MGTPTXP1', 'MGTPTXN1', 'MGTPRXP1', 'MGTPRXN1',
+                    'MGTREFCLK0P', 'MGTREFCLK0N', 'MGTRREF')
+            if bare in used: return bare
+            if bare.startswith(('MGTPRXP', 'MGTPRXN')): return 'GND'
+        return None
     return None                      # unassigned HR I/O -> no-connect
 
 def sym_units():

@@ -110,7 +110,7 @@ class Design:
     # difference, so it is put there automatically rather than typed.
     # Everything unmarked is 16 V minimum, X5R or better -- see
     # ref/qualified-parts.md.
-    HV = {'VSYS': '25V', 'VBUS': '25V', '+12V': '25V'}
+    HV = {'VSYS': '25V', 'VBUS': '25V', '+12V': '25V', '+12V_EXT': '25V'}
 
     def C(self, val, a, b, fp=C0402):
         hv = [self.HV[n] for n in (a, b) if n in self.HV]
@@ -269,11 +269,12 @@ def build():
     # config straps (UG470)
     d.R('4.7k', V33, 'CFG_M0'); d.R('4.7k', 'CFG_M1', GND); d.R('4.7k', 'CFG_M2', GND)
     d.R('4.7k', V33, 'CFG_PROG_B'); d.R('4.7k', V33, 'CFG_INIT_B')
-    d.R('4.7k', 'PUDC_B', GND)                    # pull-ups enabled during config
-    d.R('330', 'CFG_DONE', 'DONE_LED_A')
+    d.R('1k', 'PUDC_B', GND)  # UG470: <=1k strap low; enables config pull-ups
+    # DONE drives only Q4's gate; LED current comes from +3V3.
+    d.R('330', V33, 'DONE_LED_A')
     d.add('D1', 'EasyEDA:F.0603.00025_P2-0603G1TS2-06T-002',
           'F.0603.00025/P2-0603G1TS2-06T-002', 'EasyEDA:LED0603-RD_GREEN',
-          {'C': GND, 'A': 'DONE_LED_A'}, 'C7496818')
+          {'C': 'DONE_LED_K', 'A': 'DONE_LED_A'}, 'C7496818')
 
     d.sheet('Memory')
     # ------------------------------------------------ PSRAM x4
@@ -281,8 +282,9 @@ def build():
         p = f'PSRAM{c}_'
         d.group(f'PSRAM{c}')
         d.add(f'U{2+c}', 'Memory_RAM:APS1604M-3SQRx-SN', 'APS1604M-3SQR-SN', SOIC8N,
-              {'~{CE}': p+'CE_B', 'SCLK': p+'SCK', 'SI/SIO0': p+'IO0', 'SO/SIO1': p+'IO1',
-               'SIO2': p+'IO2', 'SIO3': p+'IO3', 'VDD': V33, 'VSS': GND}, LCSC['APS1604M-3SQRx-SN'])
+              {'~{CE}': p+'CE_B_MEM', 'SCLK': p+'SCK_MEM',
+               'SI/SIO0': p+'IO0_MEM', 'SO/SIO1': p+'IO1_MEM',
+               'SIO2': p+'IO2_MEM', 'SIO3': p+'IO3_MEM', 'VDD': V33, 'VSS': GND}, LCSC['APS1604M-3SQRx-SN'])
         d.C('100nF', V33, GND)
 
     d.sheet('Memory')
@@ -458,7 +460,7 @@ def build():
     for bus, ref in enumerate(('U9', 'U10')):
         d.group(f'5V BUS {bus} converter')
         conn = {'VCCA': V33, 'VCCB': V5, 'GND': GND,
-                'DIR': f'BUS5V{bus}_DIR', '~{OE}': GND}
+                'DIR': f'BUS5V{bus}_DIR', '~{OE}': f'BUS5V{bus}_OE_N'}
         for i in range(8):
             conn[f'A{i+1}'] = f'BUS5V{bus}_IO{i}'
             conn[f'B{i+1}'] = f'BUS5V{bus}_PIN{i}'
@@ -572,7 +574,8 @@ def build():
     d.C('100nF', V33, GND); d.C('4.7uF', V33, GND, C0603)
     d.C('100nF', 'REFCLK_OSC_P', 'MGTREFCLK0P')      # AC-couple the reference clock
     d.C('100nF', 'REFCLK_OSC_N', 'MGTREFCLK0N')
-    d.R('100', 'MGTRREF', GND, R0603)                # value to confirm vs UG482
+    # UG482 v1.9, Figure 5-1 and pp. 217-219: 100 ohm, 1% to MGTAVTT.
+    d.R('100 1%', 'MGTRREF', '+1V2_MGT', R0603)
     # high-side switch: gate pulled to +3V3 so the cages are OFF until the
     # supervisor has booted and decided a module is safe to power
     d.group('SFP power gate')
@@ -591,16 +594,16 @@ def build():
         d.add(f'J{60+c}', 'Interface_Optical:SFP', sfp_label,
               'EasyEDA:CONN-SMD_20P-P0.80-S8.20_1888247-1',
               {'TD+': p+'TD_P', 'TD-': p+'TD_N', 'RD+': p+'RD_P', 'RD-': p+'RD_N',
-               'MOD_DEF1': 'SFP_SCL', 'MOD_DEF2': 'SFP_SDA',
+               'MOD_DEF1': p+'SCL', 'MOD_DEF2': p+'SDA',
                'MOD_DEF0': ctl('MOD_ABS'), 'TX_DISABLE': ctl('TX_DIS'),
                'TX_FAULT': ctl('TX_FAULT'), 'RX_LOS': ctl('LOS'),
                'RATE_SELECT': GND, 'VccT': 'SFP_VCC', 'VccR': 'SFP_VCC',
                'VeeT': GND, 'VeeR': GND}, 'C305914')
-        # Separate press-fit shield/cage, installed after reflow.  All twenty
+        # Separate solder-tail cage, wave soldered after connector reflow. All twenty
         # mechanical shield tails bond directly to the ground plane.
-        d.add(f'SH{c+1}', 'EasyEDA:2007198-1', '2007198-1',
-              'EasyEDA:TH_HC-SFP-01L',
-              {str(pin): GND for pin in range(1, 21)}, 'C573949')
+        d.add(f'SH{c+1}', 'odin:U77A11133001', 'U77A11133001',
+              'odin:Amphenol_U77A11133001',
+              {str(pin): GND for pin in range(1, 21)}, 'C5355132')
         # AC coupling: 100nF in series on all four high-speed lines
         d.C('100nF', f'MGTPTXP{c}', p+'TD_P'); d.C('100nF', f'MGTPTXN{c}', p+'TD_N')
         d.C('100nF', p+'RD_P', f'MGTPRXP{c}'); d.C('100nF', p+'RD_N', f'MGTPRXN{c}')
@@ -608,14 +611,15 @@ def build():
         for k in ('MOD_ABS', 'TX_FAULT', 'LOS'): d.R('4.7k', V33, p+k)
 
     # P7's power-up-high state safely keeps the active-low SFP gate off and
-    # frees a supervisor pin for EXT_FAULT. The remaining expander pins are
-    # intentionally spare; they are not fictional SFP ports.
+    # frees a supervisor pin for EXT_FAULT. P0-P2 sink status LEDs; P3 reads
+    # core power-good with its output latch held high. P4-P6 remain spare.
     d.group('SFP port expander')
     d.add('U17', 'EasyEDA:PCF8574T_3,518', 'PCF8574T_3,518',
           'EasyEDA:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL',
           {'VDD': V33, 'VSS': GND, 'SCL': 'SFP_SCL', 'SDA': 'SFP_SDA',
            'A0': GND, 'A1': GND, 'A2': V33, '~{INT}': 'SFP_EXP_INT',
-           'P7': 'EN_SFP_N'}, 'C7605')
+           'P0': 'LED_HEARTBEAT_N', 'P1': 'LED_USER1_N', 'P2': 'LED_USER2_N',
+           'P3': 'CORE_1V0_GOOD', 'P7': 'EN_SFP_N'}, 'C7605')
     d.C('100nF', V33, GND)
     d.R('4.7k', V33, 'SFP_EXP_INT')
 
@@ -634,11 +638,11 @@ def build():
           'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
           {'D': 'VBUS5_PULL', 'S': GND, 'G': 'EN_VBUS5_G'}, 'C82045')
     d.R('10k', 'EN_VBUS5', 'EN_VBUS5_G'); d.R('100k', 'EN_VBUS5_G', GND)
-    # Slew the gate rather than slamming it. Closing this switch connects VBUS
-    # to 66uF of +5V bulk; done in a microsecond that is an arc at the
-    # connector and a droop at the source. 10k into 100nF against the 100k
-    # pull-up gives roughly a 1ms ramp, so the inrush is a few hundred mA.
-    d.R('10k', 'VBUS5_PULL', 'VBUS5_GATE', R0603)
+    # 100k to source and 47k through Q3 give VGS=-0.680*VBUS:
+    # -3.40V at 5V, -6.12V at 9V, below the +/-8V gate limit.
+    # With 100nF gate-source capacitance, (100k || 47k)*100nF
+    # is 3.20ms. This is a gate RC time constant, not a current limit.
+    d.R('47k', 'VBUS5_PULL', 'VBUS5_GATE', R0603)
     d.C('100nF', 'VBUS5_GATE', 'VBUS')
 
     d.group('input OR-ing')
@@ -814,6 +818,91 @@ def build():
     # against a threshold. Without it the divided rails read low and noisy.
     for mon in ('MON_VSYS', 'MON_5V', 'MON_3V3', 'MON_2V5', 'MON_1V8', 'MON_1V0'):
         d.C('100nF', mon, GND)
+
+    # Append to preserve existing reference designators. Quad 213 is unused
+    # but its G10 supplies remain powered: UG482 Table 5-5 requires RCAL.
+    d.sheet('HighSpeed')
+    d.group('Unused quad 213 calibration')
+    d.R('100 1%', 'MGTRREF_213', V12MGT, R0603)
+
+    # Append to preserve existing designators; render each pulldown with its
+    # regulator. Hold EN low while RP2350 GPIOs are high-Z (reset/BOOTSEL),
+    # including EN_5V, whose TPS54202 has an internal enable pull-up.
+    d.sheet('Power')
+    for ref, en in (('U11', 'EN_5V'), ('U13', 'EN_2V5'), ('U14', 'EN_1V8'),
+                    ('U16', 'EN_1V2'), ('U15', 'EN_1V0'), ('U19', 'EN_12V')):
+        d.group(next(p['group'] for p in d.parts if p['ref'] == ref))
+        d.R('100k', en, GND, R0603)
+
+    # Default-disable the translators through FPGA configuration. OE is
+    # referenced to VCCA (+3V3); firmware/HDL must set DIR/data before OE low.
+    # Append resistors to keep existing designators stable.
+    d.sheet('Slots')
+    for bus in range(2):
+        d.group(f'5V BUS {bus} converter')
+        d.R('10k', V33, f'BUS5V{bus}_OE_N', R0603)
+
+    # Append to keep existing designators stable. DONE is open-drain by
+    # default (UG470); no DriveDone setting is needed for this buffered LED.
+    d.sheet('FPGA')
+    d.group('config straps (UG470)')
+    d.R('4.7k', V33, 'CFG_DONE')
+    d.add('Q4', 'Transistor_FET:Q_NMOS_GSD', 'BSS138LT1G',
+          'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
+          {'G': 'CFG_DONE', 'S': GND, 'D': 'DONE_LED_K'}, 'C82045')
+
+    # Append to preserve existing reference numbers. Each cage's EEPROM is
+    # at 0x50; never enable both PCA9543A channels simultaneously.
+    d.sheet('HighSpeed')
+    d.group('SFP I2C mux')
+    d.add('U27', 'odin:PCA9543APW', 'PCA9543APW,118',
+          'Package_SO:TSSOP-14_4.4x5mm_P0.65mm',
+          {'VDD': V33, 'VSS': GND, 'A0': GND, 'A1': GND,
+           'SCL': 'SFP_SCL', 'SDA': 'SFP_SDA',
+           'SC0': 'SFP0_SCL', 'SD0': 'SFP0_SDA',
+           'SC1': 'SFP1_SCL', 'SD1': 'SFP1_SDA',
+           '~{RESET}': 'SUP_RUN', '~{INT0}': 'SFP_MUX_INT_UNUSED',
+           '~{INT1}': 'SFP_MUX_INT_UNUSED'}, 'C2652904')
+    d.C('100nF', V33, GND)
+    for c in range(2):
+        for line in ('SCL', 'SDA'):
+            d.R('4.7k', 'SFP_VCC', f'SFP{c}_{line}')
+    # Unused interrupt inputs must be pulled high; INT output is NC.
+    # RESET shares the controller RUN node's existing 1k pull-up/100nF.
+    d.R('10k', V33, 'SFP_MUX_INT_UNUSED')
+
+    # FPGA-side net names/ball assignments remain stable. The _MEM side
+    # reaches only the PSRAM pin; no direct path bypasses these resistors.
+    # Append to preserve all existing reference designators.
+    d.sheet('Memory')
+    for c in range(4):
+        d.group(f'PSRAM{c} series termination')
+        for lane in ('SCK', 'CE_B', 'IO0', 'IO1', 'IO2', 'IO3'):
+            net = f'PSRAM{c}_{lane}'
+            d.R('33', net, net+'_MEM')
+
+    # Local eFuse output reservoir, before selectors/PTCs. Append to avoid
+    # renumbering existing capacitors; place beside U25 OUT and ground return.
+    d.sheet('Power')
+    d.group('U25  +12V to +12V_EXT')
+    d.C('10uF', '+12V_EXT', GND, C0805)
+
+    # Clamp the screw-terminal input before D4. Unidirectional TVS:
+    # cathode to VIN_EXT, anode to ground; keep the surge loop at J50 short.
+    d.sheet('Power')
+    d.group('input OR-ing')
+    d.add('D8', 'Device:D_Zener', 'SMBJ15A-13-F', 'Diode_SMD:D_SMB',
+          {'K': 'VIN_EXT', 'A': GND}, 'C135046')
+
+    # PCF8574 is a strong sink, weak source. Active-low LEDs are dark at
+    # power-on (all output latches high) and need no supervisor GPIOs.
+    d.sheet('HighSpeed')
+    d.group('board status LEDs')
+    for ref, name in (('D9', 'HEARTBEAT'), ('D10', 'USER1'), ('D11', 'USER2')):
+        d.R('1k', V33, f'LED_{name}_A')
+        d.add(ref, 'EasyEDA:F.0603.00025_P2-0603G1TS2-06T-002',
+              'F.0603.00025/P2-0603G1TS2-06T-002', 'EasyEDA:LED0603-RD_GREEN',
+              {'A': f'LED_{name}_A', 'C': f'LED_{name}_N'}, 'C7496818')
 
     # Nothing ships unqualified: every non-generic part must carry a real MPN,
     # package and rating in tools/qualified.py, fitted with the footprint

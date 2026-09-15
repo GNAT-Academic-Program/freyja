@@ -13,8 +13,8 @@ python3 tools/ballmap.py > ref/ballmap.md
 
 This package has **six HR I/O banks** — 13, 14, 15, 16, 34 and 35 — 300 user I/O total.
 `VCCO` is shared by every pin in a bank. Odin uses bank 14 at fixed 3.3V,
-banks 15 and 34 as its two selectable extension domains, and reserves banks
-13, 16 and 35 for later base-board peripherals.
+bank 13 for 5V BUS 1, banks 15 and 34 as selectable extension domains, and reserves
+banks 16 and 35 for later base-board peripherals.
 
 | Bank | HR I/O | Diff pairs | MRCC | SRCC |
 |---|---|---|---|---|
@@ -29,7 +29,7 @@ banks 15 and 34 as its two selectable extension domains, and reserves banks
 `PUDC_B` strap, so its `VCCO` is pinned at 3.3V by the flash. That makes it
 the home for everything else fixed at 3.3V — PSRAM, the supervisor sideband,
 and 5V BUS 0. Bank 13 carries 5V BUS 1. Banks 15 and 34 are the two settable extension
-domains, four slots each. The other three HR banks are powered at 3.3V but
+domains, four slots each. The other two HR banks are powered at 3.3V but
 carry no signals in this revision.
 
 ## Allocation
@@ -40,7 +40,7 @@ carry no signals in this revision.
 | 13 | fixed 3.3V | 5V BUS 1 |
 | 15 | **settable** 3.3 / 2.5 / 1.8 | slots A B C D |
 | 34 | **settable** 3.3 / 2.5 / 1.8 | slots E F G H |
-| 13, 16, 35 | fixed 3.3V | reserved for future base-board peripherals |
+| 16, 35 | fixed 3.3V | reserved for future base-board peripherals |
 
 ## Config flash and strap
 
@@ -99,7 +99,15 @@ an optional capability rather than part of the basic connector UX.
 | **G** | 34 | R3, P3, P4, N4, R1, P1, T4, T3, T2, R2, U2, U1 |
 | **H** | 34 | P6, P5, T5, R5, U6, U5, R8, P8, R7, R6, T8, T7 |
 
-The two 5V buses are buffered; A-H are direct. M19, U24 are their direction controls. Together the buses cost **18** FPGA I/O for 16 connector signals.
+The two 5V buses are buffered; A-H are direct. M19, U24 are their direction controls. Together the buses cost **20** FPGA I/O for 16 connector signals.
+
+| Bus control | FPGA ball | Bank | Default |
+|---|---|---|---|
+| `BUS5V0_OE_N` | P16 | 14 | 10k to +3V3; high disables the bus |
+| `BUS5V1_OE_N` | Y25 | 13 | 10k to +3V3; high disables the bus |
+
+Hold OE_N high while setting DIR and data; drive OE_N low only when ready.
+Raise OE_N again before changing direction.
 
 ## Bank 0 — dedicated configuration pins
 
@@ -129,9 +137,10 @@ The two 5V buses are buffered; A-H are direct. M19, U24 are their direction cont
 | Y14 | `VCCO_0` |
 | Y9 | `M1_0` |
 
-## Bank 216 — four connected GTP transceivers
+## Bank 216 — two connected GTP transceivers
 
-Lanes 0 and 1 go to the two SFP ports. Lanes 2 and 3 are unused.
+Lanes 0 and 1 go to the two SFP ports. Lanes 2 and 3 have RX grounded
+and TX floating; unused reference-clock inputs float (UG482 Table 5-6).
 See `ref/highspeed.md`.
 
 | Ball | Name |
@@ -160,15 +169,18 @@ See `ref/highspeed.md`.
 
 ## Bank 213 — unused GTP transceivers
 
-The second four-lane quad is deliberately unconnected in this revision. Its
-signal balls are explicit no-connects in the schematic, not named one-pin nets.
+The G10 supplies remain powered. All eight RX pins connect to GND;
+MGTRREF_213 connects through its own 100 ohm, 1% resistor to +1V2_MGT.
+TX and reference-clock pins float, per UG482 Table 5-5.
 
 ## Budget
 
 - slots: **96**
 - PSRAM: **24**
-- supervisor sideband: **22**
+- supervisor sideband: **6**
 - config flash + strap: **6**
+- 5V bus data: **16**
 - 5V bus direction: **2**
-- **assigned HR I/O: 150 of 300**
-- **free: 150** for base-board peripherals
+- 5V bus enable: **2**
+- **assigned HR I/O: 152 of 300**
+- **free: 148** for base-board peripherals

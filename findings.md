@@ -193,13 +193,17 @@ The Microchip datasheet and imported part agree: 1 EN, 2 NC, 3 GND, 4 OUT+,
 5 OUT-, 6 VDD. This differs from the old assumed mapping; the schematic now
 uses the imported exact symbol and footprint.
 
-## 6. should-fix — confirm the MGTRREF resistor value
+## 6. FIXED — MGTRREF was connected to the wrong rail
 
-**Entities:** `R30`, 100R 0603, from `U1.A6` (`MGTRREF_216`) to GND.
+**Entities:** `R35` (formerly `R30`), 100R 1% 0603, from `U1.A15`
+(`MGTRREF_216`, FGG676) to `+1V2_MGT` (MGTAVTT).
 
-The transceiver reference resistor sets internal bias currents and must be a
-precision part of the exact value the family requires. 100R is used here;
-confirm against UG482 (7 Series Transceivers) and set the tolerance to 1%.
+The old circuit used 100R to GND with no explicit tolerance. The ground
+connection was wrong. [UG482 v1.9, Figure 5-1 and pp. 217–219](https://0x04.net/~mwk/xidocs/ug/ug482_7Series_GTP_Transceivers.pdf#page=218)
+specifies 100 ohm, 1% to MGTAVTT for Artix-7 GTP calibration, not 499/500 ohm
+to GND. The design source, schematic, netlist and PCB now specify `100 1%`
+and connect the resistor to the 1.2 V MGT supply. This closes the schematic
+error; high-speed link performance still requires hardware validation.
 
 ## 7. FIXED — board outline now matches the mechanical contract
 
@@ -317,7 +321,6 @@ placement.
 
 - The SFP electrical connectors are selected; their separate metal cages are
   still not encoded because the `C5164658` mechanical import failed.
-- `R30` (`MGTRREF`, item 6) needs its value confirmed and 1% tolerance.
 - The nine 300 mA +3.3 V polyfuses still need an exact MPN. The 200 mA and
   500 mA positions are selected.
 - **Capacitor DC-bias derating is not accounted for.** A 22 µF 25 V X5R 0805
@@ -498,43 +501,37 @@ inductor, input capacitor, three output capacitors, bootstrap capacitor and
 feed-forward capacitor copy the manufacturer's reference circuit.
 `tools/budget.py` checks its full load and inductor peak current and passes.
 
-## 21. should-fix — `Q2`'s gate rating depends on the firmware contract
+## 21. FIXED — Q2 gate overvoltage under a 9 V firmware fault
 
-**Entities:** `Q2` (`DMG2305UX`), `Q3`, `EN_VBUS5`.
+**Entities:** Q2 (DMG2305UX), Q3, R49, EN_VBUS5.
 
-The `DMG2305UX` gate is rated **±8 V**. `Q2`'s gate is pulled to `VBUS`
-through 100 k and pulled down through 10 k by `Q3`, so closing the switch puts
-about 0.91 × `VBUS` across the gate: −4.6 V on a 5 V source, which is correct,
-but −8.2 V if firmware ever closes it on a 9 V contract.
+R49, between VBUS5_PULL and VBUS5_GATE, is now **47k**, replacing 10k.
+Together with the existing 100k gate-source pull-up, it sets
+`VGS = -VBUS * 100/(100+47)`: -3.40 V at 5 V and -6.12 V at 9 V.
+Even 9.45 V with 1% resistor tolerances gives only 6.47 V magnitude,
+below the [DMG2305UX's ±8 V gate limit](https://www.diodes.com/datasheet/download/DMG2305UX.pdf).
 
-That case is already forbidden for a more expensive reason — 8.6 V on the +5V
-rail destroys four `TLV62569`s rated 5.5 V, which is why `Q2` exists as a
-commanded switch rather than a diode (item 10). So the gate rating adds no new
-constraint; it just means a firmware bug damages one more part.
+The weaker gate drive at 5 V increases on-resistance compared with -4.5 V
+characterization. With the existing 100nF gate-source capacitor, the gate
+RC time constant becomes approximately **3.20ms**; it is not a specified
+linear output ramp or current limiter. Firmware must still forbid turning
+Q2 on at 9 V, because doing so overvolts the +5V rail and its loads.
 
-Worth fixing anyway, because it is nearly free: weaken the pull-down to 47 k
-and the gate sees 0.68 × `VBUS`, which is −6.1 V even at 9 V. The cost is a
-weaker drive at 5 V (−3.4 V, where the part is specified to 52 mΩ typical at
-−2.5 V), so about 100 mV of extra drop at 2 A. Not done yet because it trades
-a certain small loss against an uncertain fault.
+## 22. FIXED — screw-terminal input lacked a transient clamp
 
-The always-on input path no longer uses a P-MOS gate divider; `U26` provides
-specified current limiting, controlled rise, reverse blocking and OVLO.
+**Entities:** J50, new D8, VIN_EXT, D4, VSYS.
 
-## 22. should-fix — `J50` has no overvoltage clamp
+Added **SMBJ15A-13-F / C135046** on VIN_EXT, before D4, with cathode on
+VIN_EXT and anode on GND. The standard SMB footprint uses pad 1 cathode,
+pad 2 anode. Put it at J50 with a short, wide surge-current return to J50 GND.
 
-**Entities:** `J50`, `D4`, `VSYS`.
-
-`J50` is a bare 2-pin header feeding `VSYS` through a Schottky. `D4` blocks
-reverse polarity and the `VSYS` capacitors are now 25 V parts, but there is
-nothing to stop a bench supply left at 24 V, and `VSYS` reaches both
-`TPS54202`s (28 V absolute maximum) and the `MON_VSYS` divider.
-
-The monitor divider is now sized so 20 V is survivable on the ADC pin
-(2.76 V), and the documented range has been cut to 9–14 V, so the exposure is
-narrower than it was. A `SMBJ15A` on `VIN_EXT` would close it properly for one
-part. Not added yet because a clamp on an input this board does not require is
-a judgement call about how much protection a bare header deserves.
+[Diodes rates this unidirectional TVS](https://www.diodes.com/part/view/SMBJ15A)
+at 15 V standoff, 16.7–19.2 V breakdown, 24.4 V maximum clamp at its rated
+pulse current, and 600 W pulse power. It suppresses transients; it is not a
+15 V regulator or a sustained-overvoltage disconnect. A bench supply left
+at 24 V can still overload the TVS. The permitted input remains **9–14 V**;
+continuous fault protection would require current limiting/fusing or cutoff.
+PCB parasitic overshoot and surge energy still require validation.
 
 ## 23. FIXED — the `VSYS` monitor divider overdrove the supervisor's ADC
 
@@ -587,9 +584,10 @@ firmware needs in order to exist. UVLO is about 3.75 V, OVLO about 9.98 V and
 the typical current limit about 2.03 A. The 10 µF left directly on `VBUS` is
 the attach allowance, spent deliberately.
 
-`Q2` got the same treatment: a 10 k series gate resistor and 100 nF gate-source
-capacitor slew it over about a millisecond, because closing it connects `VBUS`
-to 66 µF of +5V bulk.
+`Q2` has a series gate resistor and 100 nF gate-source capacitor because
+closing it connects `VBUS` to 66 µF of +5V bulk. R49 is now 47k (item 21),
+giving a 3.20ms gate RC time constant with the 100k pull-up. This provides
+slew control, not a specified inrush-current limit.
 
 Unlike the passive RC, the eFuse also controls PD voltage-transition current
 and disconnects on an overvoltage request. `D7` remains the independent TVS;
@@ -622,8 +620,14 @@ arbitrary 12 V miswire. That boundary is now explicit in the user documents.
 
 `U1` is now `XC7A100T-2FGG676I` (`C1521803`) in the imported 676-ball,
 27 x 27 mm package. Its 676 symbol pin numbers match all 676 footprint pads,
-every supply ball is connected, and the unused bank-213 GTP signal pins are
-explicit no-connects.
+every supply ball is connected. Both GTP supply groups remain powered:
+G10 serves quad 213 and G11 serves quad 216 (UG482 Table 5-2).
+
+The unused-quad wiring is now corrected in `tools/gen_sch.py:net_for()`.
+Quad 213 has all eight RX pins grounded and its own 100R 1% resistor (`R89`)
+from `MGTRREF_213` to MGTAVTT; its TX and reference clocks float. Quad 216's
+unused lanes 2/3 also have their RX pins grounded and TX pins floating.
+These follow [UG482 Tables 5-5 and 5-6](https://0x04.net/~mwk/xidocs/ug/ug482_7Series_GTP_Transceivers.pdf#page=223).
 
 U15 is now a 4 A `SY8047QDC` (`C3018651`) with its datasheet reference circuit
 and a 1 uH `FTC201610S1R0MBCA` (`C5832342`). At the conservative 1.5x FPGA
@@ -631,3 +635,118 @@ transient target, calculated peak inductor current is 2.80 A and the project's
 required saturation rating is 3.64 A; the fitted inductor is rated 4.60 A.
 The power audit passes. AMD XPE remains useful before fabrication, but it is
 no longer needed to justify an undersized regulator.
+
+## 27. FIXED — press-fit SFP cages replaced with solder-tail cages
+
+**Entities:** SH1/SH2, J60/J61, `tools/placement.py`.
+
+TE 2007198-1 was a press-fit part unsuitable for the requested JLC solder
+assembly. SH1/SH2 now use **Amphenol U77A11133001 / C5355132**, which JLC lists
+as Extended with wave soldering for Economic and Standard PCBA. The
+standalone cage's host-board pattern matches the TE connector datum, so
+**1888247-1 is retained** and no integrated connector/cage replacement is
+needed. A new drawing-based `odin` footprint replaces the old cage import.
+
+The connector depth is **35.40 mm from PCB edge** (34.50 to cage datum F,
+then 0.90 to the locating-peg centreline), or 42.40 mm from the cage mouth.
+The mouth overhang is 7.00 mm. Placement now uses an explicit edge-datum
+origin and correct relative cage/connector rotations. TE's two connector
+locating holes are also corrected from the import's 1.70 mm plated holes
+to the specified 1.55 mm NPTH.
+
+Amphenol lists this cage at **2.5 Gb/s**; the old TE cage's 16 Gb/s rating
+is not retained. Higher-rate operation remains unqualified. See
+[the source drawings, comparison and assembly notes](ref/sfp-cage.md).
+
+## 28. FIXED — DONE LED loaded the open-drain configuration signal
+
+**Entities:** CFG_DONE, R7, D1, new R98 and Q4, SUP_DONE.
+
+D1 previously drew current directly from DONE through 330 ohms. Its brightness
+and the DONE high level therefore depended on the weak pull-up or an actively
+driven DONE output. The circuit no longer uses DONE as an LED supply.
+
+R98 adds 4.7k from CFG_DONE to +3V3 (bank 0 VCCO). Q4, BSS138LT1G / C82045,
+has gate on CFG_DONE, source on GND and drain on D1's cathode. The LED current
+path is +3V3 → R7 (330 ohms) → D1 → Q4 → GND. With the specified green LED's
+2.0–2.6 V forward drop, expected current is approximately 2–4 mA. DONE sees
+the MOSFET gate and the existing supervisor input path, not that LED current.
+The added pull-up draws about 0.70 mA when DONE is held low.
+
+No `DriveDone=Yes` requirement is imposed on reference bitstreams. The LED
+illuminates when DONE is released high and extinguishes when DONE is low;
+SUP_DONE retains its existing connection. This follows the default open-drain
+behavior described in [AMD UG470](https://docs.amd.com/v/u/en-US/ug470_7Series_Config).
+Q4's low-voltage switching rating is checked against the
+[onsemi BSS138LT1/D datasheet](https://www.onsemi.com/pdf/datasheet/bss138lt1-d.pdf).
+The LED reports the DONE level, not application health, and is not a reliable
+indicator during supply ramp-up.
+
+## 29. FIXED — PUDC_B low strap was too weak
+
+R6 is now **1k** (0402, C11702), from PUDC_B to GND, replacing 4.7k.
+This follows the ≤1k strap recommendation in
+[AMD UG470, Configuration Pins](https://docs.amd.com/v/u/en-US/ug470_7Series_Config)
+and retains the intended internal I/O pull-ups during configuration.
+Generator, schematic, netlist and PCB are synchronized; R6's connections
+and physical placement are unchanged.
+
+## 30. FIXED — two SFP EEPROMs collided on the shared I2C bus
+
+**Entities:** J60/J61, U27, C231, R99–R103, SFP_SCL/SFP_SDA.
+
+Both modules formerly connected their fixed-address 0x50 EEPROMs directly
+to the same bus. Added **PCA9543APW,118 / C2652904** at 0x70, with one
+channel per cage and separate downstream pull-ups. Both modules can remain
+powered while firmware enumerates them separately. This chooses the mux
+option; Q1 and U17 P7 retain shared power control. Documentation now states
+that power removal affects both ports.
+
+Select 0x01 or 0x02, finish selection with STOP, then read 0x50; never
+select 0x03. Deselect with 0x00 before shared power-off. RESET is tied to
+SUP_RUN, providing a hardware recovery path if a module holds I2C low;
+a software controller reset alone may leave the mux selected. These rules,
+startup handling and stuck-bus limits are in [sfp-i2c.md](ref/sfp-i2c.md),
+with the NXP datasheet and procurement links. Firmware remains to be written.
+
+## 31. FIXED — PSRAM series termination was documented but absent
+
+Added **R104–R127**, 24 populated 33 ohm 0402 resistors (C25105), one on
+each port's SCK, CE_B and IO0–IO3. FPGA-side nets and ball allocation remain
+unchanged. Each resistor connects its original FPGA net to a distinct `_MEM`
+net at the PSRAM; connectivity checks verify there is no direct bypass.
+
+The generator, schematic, netlist and PCB are synchronized. `tools/place.py`
+places the resistor bank at U1's right-hand escape edge instead of beside
+the memory chips. Exact positions still require escape routing. 33 ohms is
+a bring-up value; FPGA-end damping does not establish source termination
+for PSRAM-driven reads or guarantee 100 MHz timing. The tuning and placement
+requirements are in [ref/psram.md](ref/psram.md).
+
+## 32. FIXED — +12V_EXT lacked local output capacitance
+
+Added **C232, 10uF 25V**, 0805 X5R, Samsung CL21A106KAYNNNE / C15850,
+from U25 OUT (+12V_EXT) to GND, before the selectors and branch PTCs.
+The generator now explicitly rates capacitors on +12V_EXT at 25V.
+Existing designators and connections are preserved. C232 belongs to U25's
+placement group and must sit close to its OUT pin and ground return.
+
+At the existing approximately 20ms output ramp, the nominal added charging
+current is about 6mA; extension capacitance remains additional. The capacitor
+provides local output charge storage, not a substitute for extension-side
+decoupling. The selected part's voltage and package are confirmed by
+[LCSC C15850](https://www.lcsc.com/product-detail/C15850.html).
+
+## 33. FIXED — no supervisor/user indicators and unused core power-good
+
+U17 P0/P1/P2 now sink three green LEDs (D9/D10/D11), labeled CTRL HB,
+USER 1 and USER 2, with individual 1k resistors R128–R130 from +3V3.
+They default off, need no extra supervisor GPIOs, and use the same qualified
+LED as DONE. P3 now reads CORE_1V0_GOOD with its existing 100k pull-up.
+P7 retains shared SFP power control; P4–P6 remain unused.
+
+The [firmware contract](ref/status-leds.md) requires a shadow output byte,
+P3–P6 always written high, and masked updates so heartbeat/user LEDs cannot
+change SFP power or drive PG low. PG polling and LED control share the SFP
+upstream bus, so a stuck bus also stops heartbeat updates. This implements
+the hardware; supervisor firmware and physical placement/routing remain.

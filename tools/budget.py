@@ -108,6 +108,8 @@ LOADS = [
      'W25Q256JV: 25 mA page-program peak'),
     ('+3V3', 'SFP modules x2 (SFP_VCC, gated by Q1)', 0.61, 'estimate',
      'ref/power-input.md: 2.0 W for two modules'),
+    ('+3V3', 'Heartbeat and user LEDs x3, all on', 0.005, 'estimate',
+     'D9-D11 via 1k each; 5 mA budget allowance'),
     ('+3V3', '125MHz LVDS oscillator', 0.04, 'estimate',
      'typical 6-pin LVDS oscillator'),
     ('+3V3', 'U9/U10 VCCA, U20, pull-ups, LED', 0.03, 'estimate',
@@ -417,7 +419,10 @@ the equations in TI SLVSFJ2B and SLVSFC9C.
 The +12 V switch, not the provisional 569 mA rail calculation, is now the
 connector-facing ceiling. Its OVLO divider is 121 kohm / 12.1 kohm:
 `1.2 x (121+12.1)/12.1 = 13.2 V` nominal. A 3.3 nF `dVdt` capacitor gives
-about 20 ms rise time at 12 V.
+about 20 ms rise time at 12 V. C232 adds 10 uF / 25 V directly on
++12V_EXT after U25, ahead of the selectors and PTCs. At this nominal
+slew rate its added charging current is about 6 mA (`10uF * 12V / 20ms`),
+excluding extension capacitance. Place it close to OUT and its ground return.
 
 Worst-case selectable-rail checks use **620 mA**, the maximum limit of each
 VCCIO switch, for both domains at once:

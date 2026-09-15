@@ -29,7 +29,7 @@ python3 tools/budget.py --write # rail qualification -> ref/power-budget.md
 python3 tools/qualified.py --write   # part table -> ref/qualified-parts.md
 python3 tools/audit_easyeda.py # imported symbol/pad/LCSC consistency
 python3 tools/gen_project.py    # schematic from tools/design.py
-python3 tools/gen_pcb.py        # 4-layer board: outline, stackup, design rules
+python3 tools/gen_pcb.py        # 6-layer board: outline, stackup, design rules
 kicad-cli sch export netlist --format kicadsexpr -o kicad/odin.net kicad/odin.kicad_sch
 python3 tools/load_pcb.py       # load every footprint and net into that board
 ```
@@ -37,9 +37,9 @@ python3 tools/load_pcb.py       # load every footprint and net into that board
 `load_pcb.py` reads `kicad/odin.net`, so export the netlist before running it
 or you will load the previous revision's parts.
 
-**`tools/budget.py` exits non-zero on purpose.** Item 20 in `findings.md` is
-an unresolved input-voltage problem, and the tool refuses to pretend
-otherwise. Every other check in it passes.
+`tools/budget.py --write` currently passes and regenerates the power budget.
+The input-voltage issue in findings item 20 is fixed. The command exits
+non-zero if a load, input-window or inductor qualification check fails.
 
 **`gen_pcb.py` destroys any routing.** Run it only before you start laying out.
 `load_pcb.py` re-imports footprints and nets and is safe to re-run, but it
@@ -60,26 +60,52 @@ kicad-cli sch export netlist --format kicadsexpr -o odin.net odin.kicad_sch
 kicad-cli pcb drc --schematic-parity --severity-all -o drc.rpt odin.kicad_pcb
 ```
 
-Expected ERC: **2 intentional warnings** — the unused `DXP`/`DXN`
-temperature-diode labels.
+## Expected ERC
 
-Expected DRC before placement: **0 schematic parity issues**, ~499
-`unconnected_items` (the ratsnest — nothing is routed yet), and about thirty
-silk/courtyard/hole-clearance complaints from the dump placement. A parity
-issue, or a schematic footprint count other than 432, is a regression.
+Run from the repository root after regenerating the library and schematic:
+
+```bash
+python3 tools/check_erc.py
+```
+
+Expected result: **zero errors and exactly two intentional warnings**:
+
+| Rule | Item | Reason |
+|---|---|---|
+| `global_label_dangling` | `FPGA_DXP` | External temperature-diode terminal is intentionally exposed only as a label. |
+| `global_label_dangling` | `FPGA_DXN` | External temperature-diode terminal is intentionally exposed only as a label. |
+
+The U20 JTAG tri-state paths currently produce **no ERC warning**: the
+existing series link on TDO separates the FPGA output and bus-switch pin.
+There is no U20 blanket exclusion. Any new U20 warning, or any other finding
+outside the exact list above, is a regression and makes `check_erc.py` fail.
+A change to the expected labels also requires updating this table and the
+checker together.
+
+`tools/gen_kicad.py` normalizes imported connector/LED pin types to passive,
+models J51 SWCLK/SWDIO (pins 1/3) as bidirectional debugger connections, and
+assigns the PCF8574's actual supply, input, bidirectional and open-drain pin
+types. J51 ground and mechanical pins remain passive. No project-level
+ERC rule is disabled and no ERC exclusion is added.
+
+Latest KiCad 9.0.8 validation: **498 footprints**, with all design values,
+footprint IDs and connections synchronized to the PCB. DRC remains separate:
+693 violations, 499 unrouted connections and two parity warnings for the
+standard SFP symbol's `CAGE` pin missing from its 20-pad electrical connector.
+The separate cages are SH1/SH2. See [the validation report](../ref/kicad-validation.md).
+Passing the ERC allowlist does not establish fabrication readiness.
 
 ## Your workflow from here
 
-1. Open `odin.kicad_pcb` and update it from the schematic. The schematic now
-   contains **432 footprints**; the checked-in PCB intentionally has not been
-   reloaded after the U15 redesign because `tools/load_pcb.py` would discard
-   placement. Use KiCad's normal schematic-to-PCB update so existing placement
-   is preserved.
-2. Everything sits in a coarse grid *below* the board outline. Drag the groups
-   in and place them. That dump position is why DRC currently reports silk and
-   courtyard overlaps — they are placement artifacts, not design errors.
+1. Open `odin.kicad_pcb`. Its **498 footprints** are synchronized with the
+   schematic. The SFP assemblies follow the mechanical placement contract;
+   much of the remaining circuitry is still staged outside the board.
+2. Complete placement using `tools/placement.py` / `tools/place.py` and verify
+   the result in KiCad. The latest placement and validation status is in
+   [ref/kicad-validation.md](../ref/kicad-validation.md). Resolve DRC findings
+   as well as placement overlaps; the current reports include electrical errors.
 3. Route.
-3. Fabrication outputs:
+4. Fabrication outputs:
    ```bash
    jlcpcb-export -p "$PWD/odin.kicad_pcb" --autoTranslate --autoFill --excludeDNP --noBackup
    ```
@@ -101,20 +127,35 @@ its net. Two generators close that gap and both are enforced from
 
 ## LCSC part numbers — read this
 
-Only the parts carried over from your existing BOM have an `LCSC` field set:
-`APS1604M-3SQR-SN` (C18214056), `W25Q256JVEIQ` (C97522), `W25Q32JVZP`
-(C82317), `TLV62569DRL` (C163217), `TPS54202DDC` (C191884).
-
-**The ~200 generated passives deliberately have none.** I am not going to
-invent LCSC numbers for resistors and capacitors from memory when they feed
-straight into a fab order. Use **Bouni/kicad-jlcpcb-tools** to assign them —
-searching its local parts database for a 100nF 0402 Basic Part is exactly the
-job that plugin exists to do, and it is the right tool here.
+Exact LCSC IDs are carried in the generated schematic/netlist for qualified
+ICs, connectors and selected passives. Other passive values still need BOM
+matching against the required package, tolerance and voltage rating. Use
+[the import checklist](../ref/jlcpcb-import-checklist.md) and the generated
+[qualified-parts table](../ref/qualified-parts.md); do not substitute a nearby
+suffix without checking its package and ratings.
 
 ## Board
 
-100 x 100 mm, 4 layer, ENIG, 1.6 mm. Stackup is F.Cu / In1.Cu (GND plane) /
-In2.Cu (power planes) / B.Cu. A–H are eight logical zones carried by four
+100 x 100 mm, 6 layer, ENIG, nominal 1.6 mm. Stackup is F.Cu (signal) /
+In1.Cu (GND plane) / In2.Cu (signal) / In3.Cu (power planes) /
+In4.Cu (GND plane) / B.Cu (signal). The third routing layer supports the
+FGG676 inner-ball escape. Keep both ground planes continuous for the GTP
+pairs and PSRAM groups.
+
+Dielectric spacings follow [JLC06161H-1080B](https://jlcpcb.com/impedance),
+with 0.0764 mm outer prepregs and 0.1 mm cores next to the inner signal and
+power layers. The central prepreg/core/prepreg spacer is represented as a
+three-sublayer, 1.1208 mm dielectric. Material Dk values and the 100 Ω
+geometry come from JLC's calculator tables; see [PCB impedance](../ref/pcb-impedance.md)
+for the inputs and saved solver responses. MGT outer tracks use 0.099 mm width /
+0.200 mm gap with 0.1 mm maximum intra-pair skew. PSRAM has a 0.1 mm minimum
+width; default clearance is 0.15 mm.
+
+Regenerate stackup and rules without replacing placement or routing:
+`python3 tools/gen_pcb.py --rules-only`. Net classes live in `odin.kicad_pro`;
+DRC constraints live in the generated `odin.kicad_dru`.
+
+A–H are eight logical zones carried by four
 continuous 2x16 signal bodies and four parallel 1x16 power bodies; L is one
 separate 2x8 connector.
 Placement and routing are intentionally not started.

@@ -15,7 +15,7 @@ survive.
 | Ref | Part | Rail | Source | Vin seen | Capability | Board load | Spare |
 |---|---|---|---|---|---|---|---|
 | `U11` | `TPS54202DDC` | +5V | VSYS | 8.52–14.00 V | 2000 mA | 529 mA | 1471 mA |
-| `U12` | `AP63300WU-7` | +3V3 | VSYS | 4.27–14.00 V | 3000 mA | 1362 mA | 1638 mA |
+| `U12` | `AP63300WU-7` | +3V3 | VSYS | 4.27–14.00 V | 3000 mA | 1367 mA | 1633 mA |
 | `U13` | `TLV62569DRL` | +2V5 | +5V | 4.70–5.50 V | 2000 mA | 0 mA | 2000 mA |
 | `U14` | `TLV62569DRL` | +1V8 | +5V | 4.70–5.50 V | 2000 mA | 180 mA | 1820 mA |
 | `U15` | `SY8047QDC` | +1V0 | +5V | 4.70–5.50 V | 4000 mA | 1650 mA | 2350 mA |
@@ -79,14 +79,17 @@ the equations in TI SLVSFJ2B and SLVSFC9C.
 The +12 V switch, not the provisional 569 mA rail calculation, is now the
 connector-facing ceiling. Its OVLO divider is 121 kohm / 12.1 kohm:
 `1.2 x (121+12.1)/12.1 = 13.2 V` nominal. A 3.3 nF `dVdt` capacitor gives
-about 20 ms rise time at 12 V.
+about 20 ms rise time at 12 V. C232 adds 10 uF / 25 V directly on
++12V_EXT after U25, ahead of the selectors and PTCs. At this nominal
+slew rate its added charging current is about 6 mA (`10uF * 12V / 20ms`),
+excluding extension capacitance. Place it close to OUT and its ground return.
 
 Worst-case selectable-rail checks use **620 mA**, the maximum limit of each
 VCCIO switch, for both domains at once:
 
 | Source selected by both domains | Base + two FPGA banks + two switch maxima | Regulator rating |
 |---|---:|---:|
-| +3V3 | 2.602 A | 3.000 A |
+| +3V3 | 2.607 A | 3.000 A |
 | +2V5 | 1.440 A | 2.000 A |
 | +1V8 | 1.620 A | 2.000 A |
 
@@ -128,6 +131,7 @@ and +1V1, which do not. Two part numbers cover seven positions, and
 | +3V3 | PSRAM x4, all active | 200 mA | estimate | ref/power-input.md: 0.66 W across four chips |
 | +3V3 | config flash W25Q256, program | 30 mA | datasheet | W25Q256JV: 25 mA page-program peak |
 | +3V3 | SFP modules x2 (SFP_VCC, gated by Q1) | 610 mA | estimate | ref/power-input.md: 2.0 W for two modules |
+| +3V3 | Heartbeat and user LEDs x3, all on | 5 mA | estimate | D9-D11 via 1k each; 5 mA budget allowance |
 | +3V3 | 125MHz LVDS oscillator | 40 mA | estimate | typical 6-pin LVDS oscillator |
 | +3V3 | U9/U10 VCCA, U20, pull-ups, LED | 30 mA | estimate | quiescent logic |
 | +3V3 | FPGA bank 15 VCCO, worst case jumpered to 3.3V | 100 mA | estimate | bank load only; connector export is checked from switch maximum below |

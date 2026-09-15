@@ -113,7 +113,10 @@ means one in the A–D domain and one in E–H.
 
 5V BUS 0 and 5V BUS 1 are identical complete eight-bit buses. Each uses one
 `SN74LXC8T245`, accepts 3.3 V on the FPGA side and 5 V on the connector side,
-and has one direction control for all eight signals.
+and has one direction control for all eight signals. Each also has a separate
+FPGA-controlled `OE_N`, pulled up to +3V3 by 10k so the bus is disabled during
+configuration. Set direction and data with OE_N high, then drive OE_N low to
+enable; disable again before changing direction.
 
 They are not eight unrelated bidirectional GPIOs: all eight bits on one bus
 turn around together. Use them for parallel displays, legacy byte-wide parts

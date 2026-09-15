@@ -27,7 +27,7 @@ against the manufacturer datasheet.
 | 1 | `SN74CB3Q3384APWR` | JTAG owner switch | C469874 |
 | 2 | `SN74LXC8T245PWR` | Two complete 8-bit 5 V buses | C4363995 |
 | 2 | `DMG2305UX` | switched power | C5261054 |
-| 1 | `BSS138` from a named manufacturer | power-switch drive | C82045 |
+| 2 | `BSS138LT1G` (onsemi) | Q3 power-switch drive; Q4 DONE LED buffer | C82045 |
 | 1 | `TPS259470ARPWR` | USB input protection | C3662799 |
 | 3 | `SS34` from a named manufacturer | power diodes | C8678 |
 | 1 | `TPS54202DDCR` | 5 V supply | `C191884` |
@@ -46,14 +46,15 @@ against the manufacturer datasheet.
 | 10 | `BSMD1206-030-16V` | 3.3 V slot PTC, 300 mA | `C22378340` — imported and linked |
 | 1 | `DSC1123CI2-125.0000` | 125 MHz LVDS clock | `C617173` — imported, pin map confirmed and linked |
 | 2 | `1888247-1` | SFP/SFP+ 20-contact connector | `C305914` — imported and linked |
-| 2 | `2007198-1` | SFP+ press-fit cage | `C573949` — imported and linked |
+| 2 | `U77A11133001` | SFP cage, 3.2 mm solder tails | `C5355132` — JLC Extended, wave solder; drawing-based `odin` footprint |
 | 2 | `SRN6045TA-100M` | 5 V and 12 V supply inductors | C2046332 |
 | 1 | `SRN6045TA-4R7M` | 3.3 V supply inductor | C2044594 |
 | 1 | `2.54-2*5P` | keyed FPGA JTAG header | `C5665` — imported and linked |
 | 1 | `BM03B-SRSS-TB(LF)(SN)` | keyed controller SWD header | `C160389` — imported and linked |
 | 1 | `KF301-5.0-2P` | 9–14 V external power terminal | `C474881` — imported and linked |
-| 1 | `F.0603.00025/P2-0603G1TS2-06T-002` | green FPGA-DONE LED | `C7496818` — imported and linked |
+| 4 | `F.0603.00025/P2-0603G1TS2-06T-002` | green DONE, heartbeat and two user LEDs | `C7496818` — imported and linked |
 | 13 | `F254D-02-PT-B` | removable 2.54 mm selector shunts | `C501335` — imported; loose accessory |
+| 1 | `PCA9543APW,118` | two-channel SFP I²C switch | `C2652904` — generated symbol, standard TSSOP-14 footprint; JLC Economic/Standard PCBA |
 | 1 | `PCF8574T_3,518` | SFP control I/O expander | `C7605` — imported and linked |
 
 Import the exact orderable suffix shown. A nearby family member in the same
@@ -61,7 +62,7 @@ search result is not interchangeable.
 
 ## Import audit result
 
-The fitted design currently uses **127 instances** backed by the EasyEDA
+The fitted design currently uses **129 instances** backed by the EasyEDA
 library. Their connected schematic pin numbers exist in both the imported
 symbol and imported footprint, and their LCSC identities agree.
 
@@ -74,6 +75,21 @@ manufacturer-package footprint.
 The slot fuses, SFP cages and complete extension connector system are selected,
 linked and audited. Only ordinary passive BOM matching remains below.
 
+## SFP cage assembly
+
+SH1/SH2 use [Amphenol U77A11133001, C5355132](https://jlcpcb.com/partdetail/AmphenolICC-U77A11133001/C5355132).
+JLC lists Extended, Wave Soldering, and Economic and Standard PCBA support
+(checked 2026-09-15). Assemble the SMT TE 1888247-1 connector before the cage;
+select the through-hole wave-solder operation in the assembly order. Stock and
+assembly pricing must be refreshed when ordering.
+
+The cage symbol and footprint are generated from Amphenol's drawing, **not an
+EasyEDA import**. Twenty plated shield holes connect to GND. The retained
+connector import has its two locating holes corrected to 1.55 mm NPTH per TE
+1888247 sheet 3. Mechanical datums, assembly clearance and the manufacturer's
+**2.5 Gb/s listing** are documented in [sfp-cage.md](sfp-cage.md). The old
+16 Gb/s cage qualification does not transfer to this part.
+
 ## Extension hardware — imported and linked
 
 | Item | Selected part |
@@ -85,6 +101,26 @@ linked and audited. Only ordinary passive BOM matching remains below.
 | ten guide/key posts | `C42431799` — imported and linked |
 | twelve 2x3 selectors | `C65114` — imported and linked; `C501335` shunts are loose accessories |
 | one 1x2 external-JTAG selector | `C492401` — imported and linked; uses a `C501335` shunt |
+
+## PSRAM series resistors
+
+R104–R127 are 24 populated 33 ohm 0402 resistors, **C25105**, one per
+SCK/CE_B/IO0–IO3 signal across the four PSRAM ports. They use standard KiCad
+resistor footprints. Keep them in the assembly BOM; these are tuning parts,
+not optional unpopulated links.
+
+## +12V_EXT output capacitor
+
+C232 is **10uF 25V**, Samsung CL21A106KAYNNNE / **C15850**, X5R, 0805.
+It connects U25 OUT (+12V_EXT) to GND before the selectors and PTC branches.
+Place it beside U25; the 25V rating is explicit in the generated BOM value.
+
+## Input protection additions
+
+- D8: **SMBJ15A-13-F**, Diodes Incorporated, **C135046**, unidirectional
+  TVS in standard KiCad `Diode_SMD:D_SMB`; cathode pad 1 to VIN_EXT.
+- R49: **47k**, 0603, Q2 gate pulldown path; retain the 100k source pull-up.
+  Use 1% resistors for the documented divider tolerance calculation.
 
 ## Ordinary resistors and capacitors
 

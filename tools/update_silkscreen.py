@@ -13,6 +13,7 @@ BOARD = 'kicad/odin.kicad_pcb'
 NETLIST = 'kicad/odin.net'
 
 USER_LABELS = {
+    'D9': 'CTRL HB', 'D10': 'USER 1', 'D11': 'USER 2',
     'D1': 'FPGA DONE', 'SW1': 'CTRL BOOT',
     'J1': 'USB-C', 'J2': 'FPGA JTAG',
     'J3': 'A | B', 'J4': 'C | D', 'J5': 'E | F', 'J6': 'G | H',
@@ -105,11 +106,12 @@ def main():
         if ref not in USER_LABELS:
             continue
         found.add(ref)
-        fp.SetValue(USER_LABELS[ref])
-        fp.Value().SetLayer(pcbnew.F_SilkS)
-        fp.Value().SetVisible(True)
-        fp.Value().SetTextSize(pcbnew.VECTOR2I(pcbnew.FromMM(1.0), pcbnew.FromMM(1.0)))
-        fp.Value().SetTextThickness(pcbnew.FromMM(0.15))
+        # Keep the schematic value for BOM/parity; UI text is a separate field.
+        label_pos = fp.Value().GetFPRelativePosition()
+        add_field(fp, 'UI_LABEL', USER_LABELS[ref],
+                  pcbnew.ToMM(label_pos.x), pcbnew.ToMM(label_pos.y), 1.0)
+        fp.Value().SetLayer(pcbnew.F_Fab)
+        fp.Value().SetVisible(False)
 
         if ref in {f'J{i}' for i in range(10, 19)} | {'J21'}:
             add_field(fp, 'UI_CHOICES', '12V\n5V\n3V3', -4.0, 0.0)

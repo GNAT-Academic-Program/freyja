@@ -104,4 +104,10 @@ def assign():
         candidates = [b for b, _ in io[bk] if b not in used]
         if not candidates: raise RuntimeError(f'bank {bk}: no IO for BUS5V{bus}_DIR')
         b = candidates[0]; used.add(b); net[b] = f'BUS5V{bus}_DIR'
+    # Allocate OE after DIR to preserve every existing ball assignment.
+    # These active-low enables stay in the buses' fixed 3.3V banks.
+    for bus, bk in ((0, '14'), (1, '13')):
+        candidates = [b for b, _ in io[bk] if b not in used]
+        if not candidates: raise RuntimeError(f'bank {bk}: no IO for BUS5V{bus}_OE_N')
+        b = candidates[0]; used.add(b); net[b] = f'BUS5V{bus}_OE_N'
     return net, psram, sb, slots, io, other

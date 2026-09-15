@@ -70,17 +70,41 @@ therefore cannot live in one of the extension slots' VCCIO-selectable banks.
 
 Bank 14 is pinned at 3.3V by the config flash, so it also carries PSRAM (24),
 the board-controller sideband (6), the flash pins (6), and 5V BUS 0 with its
-direction pin. 5V BUS 1 lives in fixed bank 13. Banks 15 and 34 are the two
+direction and active-low enable pins. 5V BUS 1 lives in fixed bank 13. Banks 15 and 34 are the two
 settable extension domains, four slots each. Banks 16 and 35 remain reserved
 for future base-board peripherals. See
 `ref/ballmap.md`, which is generated from the package file.
 
 ## Layout note
 
-24 single-ended lines at 100 MHz. Series termination at the FPGA, length-match
-within each chip's own 6-line group. Groups do not need matching to each
-other, since the buses are independent — another small win from the
-independent wiring.
+All **24 signals have populated 33 ohm series resistors**, 0402, LCSC
+C25105. The FPGA-side names and ball assignments are unchanged; the PSRAM
+side of each resistor has a `_MEM` suffix. There are no direct bypass nets.
+
+| Port | Resistors, in SCK / CE_B / IO0 / IO1 / IO2 / IO3 order |
+|---|---|
+| PSRAM0 / U2 | R104–R109 |
+| PSRAM1 / U3 | R110–R115 |
+| PSRAM2 / U4 | R116–R121 |
+| PSRAM3 / U5 | R122–R127 |
+
+`tools/place.py` places these at U1's right-hand escape edge, pad 1 toward
+the FPGA and pad 2 toward the memory. The starting column is 15.4 mm from
+U1's centre, with 1 mm pitch, ordered by the assigned ball row/column.
+Refine each position during escape routing to keep the FPGA-to-resistor
+trace short; the resistor must precede the long trace to the PSRAM. Existing
+board placement and routing are unfinished, so this is not routed termination.
+
+**33 ohms is an initial tuning value, not a verified impedance match.** The
+clock and chip-select are driven by the FPGA; IO0–IO3 reverse direction on
+reads. An FPGA-end resistor does not provide source termination at the PSRAM
+end during reads. Check both read and write waveforms and timing, tune drive
+strength/slew and resistance (including 0 ohms if appropriate), and do not
+assume these footprints alone establish 100 MHz operation. Source-end
+placement follows [TI's SPI termination guidance](https://e2e.ti.com/support/microcontrollers/arm-based-microcontrollers-group/arm-based-microcontrollers/f/arm-based-microcontrollers-forum/643087/tm4c1294kcpdt-spi-terminations-for-multiple-slave).
+
+Match timing within each chip's six-signal group, including the FPGA escape
+and resistor. Independent ports do not require matching to each other.
 
 ## Why four, and not two or six
 
@@ -152,8 +176,8 @@ which sets whether unconfigured IO float or pull up).
   not 4. Confirm against the AP Memory datasheet and correct this file.
 - Max clock for the `-3` grade (expect 84–133 MHz) — the 50 MB/s per chip
   figure above assumes 100 MHz.
-- That the current schematic wires all four independently rather than sharing
-  a bus. **If it shares, that is a should-fix finding.**
+- Four independent buses and all 24 series paths are verified in the
+  generated netlist. Physical routing and signal integrity still need checking.
 - Whether the supervisor-preload path above is worth its one GPIO. Depends on
   `PUDC_B` strapping and on whether the supervisor GPIO budget has slack after
   step 5.

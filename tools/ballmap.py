@@ -22,8 +22,8 @@ def main():
     W("## I/O-bank architecture\n")
     W(f"This package has **six HR I/O banks** — 13, 14, 15, 16, 34 and 35 — {tot} user I/O total.")
     W("`VCCO` is shared by every pin in a bank. Odin uses bank 14 at fixed 3.3V,")
-    W("banks 15 and 34 as its two selectable extension domains, and reserves banks")
-    W("13, 16 and 35 for later base-board peripherals.\n")
+    W("bank 13 for 5V BUS 1, banks 15 and 34 as selectable extension domains, and reserves")
+    W("banks 16 and 35 for later base-board peripherals.\n")
     W("| Bank | HR I/O | Diff pairs | MRCC | SRCC |")
     W("|---|---|---|---|---|")
     for bk in ('13', '14', '15', '16', '34', '35'):
@@ -35,7 +35,7 @@ def main():
     W("`PUDC_B` strap, so its `VCCO` is pinned at 3.3V by the flash. That makes it")
     W("the home for everything else fixed at 3.3V — PSRAM, the supervisor sideband,")
     W("and 5V BUS 0. Bank 13 carries 5V BUS 1. Banks 15 and 34 are the two settable extension")
-    W("domains, four slots each. The other three HR banks are powered at 3.3V but")
+    W("domains, four slots each. The other two HR banks are powered at 3.3V but")
     W("carry no signals in this revision.\n")
 
     W("## Allocation\n")
@@ -45,7 +45,7 @@ def main():
     W("| 13 | fixed 3.3V | 5V BUS 1 |")
     W("| 15 | **settable** 3.3 / 2.5 / 1.8 | slots A B C D |")
     W("| 34 | **settable** 3.3 / 2.5 / 1.8 | slots E F G H |")
-    W("| 13, 16, 35 | fixed 3.3V | reserved for future base-board peripherals |")
+    W("| 16, 35 | fixed 3.3V | reserved for future base-board peripherals |")
     W("")
 
     names = {b: n for lst in list(io.values()) + list(other.values()) for b, n in lst}
@@ -53,9 +53,14 @@ def main():
     for ball, n in sorted(net.items()):
         if n.startswith('SLOT') and '_DIR' not in n: groups['slots'].append((ball, n))
         elif n.startswith('BUS5V') and n.endswith('_DIR'): groups['5V bus direction'].append((ball, n))
+        elif n.startswith('BUS5V') and n.endswith('_OE_N'): groups['5V bus enable'].append((ball, n))
+        elif n.startswith('BUS5V'): groups['5V bus data'].append((ball, n))
         elif n.startswith('PSRAM'): groups['PSRAM'].append((ball, n))
         elif n in CONFIG_USE.values(): groups['config flash + strap'].append((ball, n))
-        else: groups['supervisor sideband'].append((ball, n))
+        elif n in SIDEBAND: groups['supervisor sideband'].append((ball, n))
+        else: raise ValueError(f'Unclassified allocated net: {ball} {n}')
+    assert len(groups['supervisor sideband']) == len(sb) == len(SIDEBAND)
+    assert sum(map(len, groups.values())) == len(net)
 
     W("## Config flash and strap\n")
     W("| Ball | Net | Package name |")
@@ -90,27 +95,36 @@ def main():
     dirs = groups['5V bus direction']
     W(f"The two 5V buses are buffered; A-H are direct. "
       f"{', '.join(b for b, _ in dirs)} are their direction controls. "
-      f"Together the buses cost **18** FPGA I/O for 16 connector signals.\n")
+      f"Together the buses cost **20** FPGA I/O for 16 connector signals.\n")
+    W("| Bus control | FPGA ball | Bank | Default |")
+    W("|---|---|---|---|")
+    for ball, n in groups['5V bus enable']:
+        bank = '14' if n.startswith('BUS5V0') else '13'
+        W(f"| `{n}` | {ball} | {bank} | 10k to +3V3; high disables the bus |")
+    W("\nHold OE_N high while setting DIR and data; drive OE_N low only when ready.")
+    W("Raise OE_N again before changing direction.\n")
 
     W("## Bank 0 — dedicated configuration pins\n")
     W("| Ball | Name |")
     W("|---|---|")
     for ball, name in sorted(other['0']): W(f"| {ball} | `{name}` |")
     W("")
-    W("## Bank 216 — four connected GTP transceivers\n")
-    W("Lanes 0 and 1 go to the two SFP ports. Lanes 2 and 3 are unused.")
+    W("## Bank 216 — two connected GTP transceivers\n")
+    W("Lanes 0 and 1 go to the two SFP ports. Lanes 2 and 3 have RX grounded")
+    W("and TX floating; unused reference-clock inputs float (UG482 Table 5-6).")
     W("See `ref/highspeed.md`.\n")
     W("| Ball | Name |")
     W("|---|---|")
     for ball, name in sorted(other['216']): W(f"| {ball} | `{name}` |")
     W("")
     W("## Bank 213 — unused GTP transceivers\n")
-    W("The second four-lane quad is deliberately unconnected in this revision. Its")
-    W("signal balls are explicit no-connects in the schematic, not named one-pin nets.\n")
+    W("The G10 supplies remain powered. All eight RX pins connect to GND;")
+    W("MGTRREF_213 connects through its own 100 ohm, 1% resistor to +1V2_MGT.")
+    W("TX and reference-clock pins float, per UG482 Table 5-5.\n")
 
     W("## Budget\n")
     for k in ('slots', 'PSRAM', 'supervisor sideband', 'config flash + strap',
-              '5V bus direction'):
+              '5V bus data', '5V bus direction', '5V bus enable'):
         W(f"- {k}: **{len(groups[k])}**")
     W(f"- **assigned HR I/O: {len(net)} of {tot}**")
     W(f"- **free: {tot - len(net)}** for base-board peripherals")

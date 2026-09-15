@@ -7,6 +7,7 @@ Outputs kicad/odin.kicad_sym and kicad/odin.pretty/*.kicad_mod
 import re, os
 from collections import defaultdict, OrderedDict
 from identity import FPGA_PART
+import sfp_cage
 
 PKG   = 'easyeda/EasyEDA.kicad_sym'
 SYM   = 'kicad/odin.kicad_sym'
@@ -15,6 +16,43 @@ FPNAME= 'FBGA-676_L27.0-W27.0-R26-C26-P1.00-BL'
 PART  = FPGA_PART
 LCSC  = 'C1521803'
 DS    = 'https://docs.amd.com/v/u/en-US/ds181_Artix_7_Data_Sheet'
+
+def normalize_imported_pin_types():
+    """Replace importer 'unspecified' types with reviewed electrical roles.
+
+    Connectors/LEDs are passive; J51 models the attached SWD debugger at
+    pins 1 and 3. Mechanical shield pins remain passive. PCF8574 ports are
+    quasi-bidirectional, with open-drain INT and supply/input pins typed.
+    This edits the source library, so embedded symbols and library ERC agree.
+    """
+    import symlib
+    passive = {
+        'F.0603.00025_P2-0603G1TS2-06T-002', 'PZ254V-11-02P',
+        'HDR-IDC-2.54-2X5P', 'PM254-2-16-S-8.5', 'ZX-PM2.54-1-16PY',
+        'PM254-2-08-S-8.5', 'Header-Female-2.54_1x8',
+        'PH2.54-1X1P-H25', 'KF301-5.0-2P',
+    }
+    overrides = {
+        'BM03B-SRSS-TB': {'1': 'bidirectional', '2': 'passive',
+                          '3': 'bidirectional', '4': 'passive', '5': 'passive'},
+        'PCF8574T_3,518': {
+            **{str(n): 'input' for n in (1, 2, 3, 14)},
+            **{str(n): 'bidirectional' for n in (4, 5, 6, 7, 9, 10, 11, 12, 15)},
+            '8': 'power_in', '16': 'power_in', '13': 'open_collector'},
+    }
+    text = open(PKG).read()
+    for name in sorted(passive | overrides.keys()):
+        block = symlib._block(text, name)
+        found = set()
+        def typed(m):
+            number = m.group(3); found.add(number)
+            et = 'passive' if name in passive else overrides[name][number]
+            return '(pin ' + et + m.group(2) + number + '"'
+        updated = re.sub(r'\(pin (\w+)( line[\s\S]*?\(number ")([^"]+)"', typed, block)
+        assert found, name
+        if name in overrides: assert found == set(overrides[name]), (name, found)
+        text = text.replace(block, updated, 1)
+    open(PKG, 'w').write(text)
 
 def part_block():
     text = open(PKG, encoding='utf-8').read()
@@ -251,6 +289,20 @@ def gen_box_symbol(name, pins, footprint, datasheet, description):
         o += pin(wd/2 + 5.08, top - i*2.54, 180, et, pname, num)
     return o + '\t\t)\n\t)\n'
 
+def gen_sfp_mux():
+    # NXP PCA9543A/43B rev 8, Table 3; TSSOP14 SOT402-1.
+    pins = [('1','A0','input','L'), ('2','A1','input','L'),
+            ('3','~{RESET}','input','L'), ('4','~{INT0}','input','R'),
+            ('5','SD0','bidirectional','R'), ('6','SC0','passive','R'),
+            ('7','VSS','power_in','L'), ('8','~{INT1}','input','R'),
+            ('9','SD1','bidirectional','R'), ('10','SC1','passive','R'),
+            ('11','~{INT}','open_collector','L'), ('12','SCL','input','L'),
+            ('13','SDA','bidirectional','L'), ('14','VDD','power_in','L')]
+    return gen_box_symbol('PCA9543APW', pins,
+                          'Package_SO:TSSOP-14_4.4x5mm_P0.65mm',
+                          'https://www.nxp.com/docs/en/data-sheet/PCA9543A_43B.pdf',
+                          'Two-channel I2C switch; NXP PCA9543APW,118')
+
 def gen_extension_protection():
     low = [('1','ON','input','L'), ('2','VIN','power_in','L'),
            ('3','GND','power_in','L'), ('4','ILIM','passive','R'),
@@ -322,13 +374,15 @@ def gen_inductor_fp():
     return 2
 
 if __name__ == '__main__':
+    normalize_imported_pin_types()
     pins = load()
     units = gen_symbol(pins)
     t = open(SYM).read()
     open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + gen_osc() + gen_rails() +
-                         gen_lxc() + gen_extension_protection() + ')\n')
+                         gen_lxc() + gen_extension_protection() + gen_sfp_mux() + sfp_cage.symbol(gen_box_symbol) + ')\n')
     npads = gen_footprint()
     nlp = gen_inductor_fp()
+    sfp_cage.generate(PRET)
     print(f"symbol  {SYM}: {len(pins)} pins in {len(units)} units")
     for k, v in units.items(): print(f"   unit {k:18s} {len(v):3d} pins")
     print(f"footprint easyeda/EasyEDA.pretty/{FPNAME}.kicad_mod: {npads} pads")

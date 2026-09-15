@@ -259,7 +259,10 @@ Does it require 1.8 V or 2.5 V?
 
 5V BUS 0 and 5V BUS 1 protect the FPGA from 5 V signals. Each is one complete
 eight-bit bus with one shared direction control. All eight pins on one bus
-turn around together. Use them for old 5 V buses, parallel displays and similar parts.
+turn around together. Each bus also has an independent active-low enable,
+`BUS5V0_OE_N` or `BUS5V1_OE_N`, pulled up to +3V3 through 10k. The translators
+remain disabled during FPGA configuration. Use them for old 5 V buses,
+parallel displays and similar parts.
 Do not use it for I2C, one-wire parts, or a mixture of inputs and outputs that
 must change direction independently.
 
@@ -296,8 +299,14 @@ Data D0-D7            -> 5V BUS 0 I/O 0-7
 Read/write or status  -> 5V BUS 1 I/O 0 (when 5 V compatibility is required)
 ```
 
-In the FPGA design, set BUS 0's direction control before driving or reading
-D0-D7. BUS 1 can independently serve a second byte-wide 5 V interface.
+In the FPGA design, keep `BUS5V0_OE_N` high while setting direction and
+initial data. `BUS5V0_DIR=1` sends FPGA data to the connector; `DIR=0` receives
+connector data (release the FPGA data outputs first). Drive `OE_N` low only
+when ready. Raise it before changing direction and allow the translator's
+disable/enable timing when handing the bus over. Initialize both enables
+high in the bitstream's reset logic. BUS 1 has independent DIR and OE_N
+controls and follows the same sequence. See the
+[SN74LXC8T245 datasheet](https://www.ti.com/lit/ds/symlink/sn74lxc8t245.pdf).
 
 Do not connect a 5 V signal to A-H just because its power comes from their
 5 V pin. Power voltage and signal voltage are separate things.
@@ -412,6 +421,10 @@ exact FPGA build target, pin-map hash and toolchain version.
 ### External JTAG
 
 Normal use needs no external programmer. J2 exists for low-level FPGA debug.
+**J2 is a custom 2.54mm 2×5 header, incompatible with direct Xilinx 2mm 2×7
+or Digilent 1×6 cables:** use an adapter; pins 1/3/5/7/9 are +3V3 reference,
+TMS, TCK, TDO and TDI, and all even pins are GND. Pin 1 is marked `1` on
+silkscreen; +3V3 is the adapter voltage reference, not an external power input.
 Fit **EXT JTAG** (`J52`) before attaching an external programmer.
 That disconnects the board controller from the same four wires. Remove the
 jumper for normal board-controlled programming.
@@ -430,10 +443,19 @@ The FPGA provides the physical serial lane. Your FPGA design still needs the
 protocol logic. Plugging in a copper Ethernet module does not create an
 Ethernet controller by itself.
 
-The lanes top out around 6.6 Gb/s. Use them for 1 Gb/s or suitable 2.5 Gb/s
+The FPGA lanes top out around 6.6 Gb/s, while the fitted Amphenol
+U77A11133001 cage is listed at 2.5 Gb/s. The complete port is unqualified
+above that cage rating. Use them for 1 Gb/s or suitable 2.5 Gb/s
 links, not 10 Gb/s modules.
 
 There are exactly two SFP ports. The FPGA's other fast lanes are unused.
+
+An I²C switch gives each module a separate identity channel, so both can
+remain powered while supervisor firmware reads their EEPROMs at 0x50.
+Firmware must select only one channel at a time; see the
+[management-bus contract](sfp-i2c.md). Module power remains shared: a power
+shutdown stops both ports. The identity console feature still requires
+supervisor firmware.
 
 ## If something goes wrong
 
@@ -494,3 +516,26 @@ before shipping hardware:
 
 Until those are fixed, this is the user contract for the design—not permission
 to fabricate an unchecked revision.
+
+## FPGA DONE indicator
+
+The green **FPGA DONE** LED lights when the FPGA releases DONE high after
+configuration. A BSS138 buffer supplies its current independently of the
+configuration pin, and an external 4.7k pull-up defines the high level.
+Reference bitstreams do **not** need `DriveDone=Yes` for this indicator.
+The supervisor reads the same DONE signal through its existing input path.
+
+A lit LED indicates DONE is high; it does not prove that the user application
+is running correctly. Ignore the indicator while supplies are ramping.
+
+## Controller heartbeat and user indicators
+
+Three additional green indicators are fitted: **CTRL HB**, **USER 1** and
+**USER 2**. They default off. Supervisor firmware can blink CTRL HB from its
+main service loop and expose USER 1/2 to applications; that firmware remains
+to be implemented. A frozen heartbeat indicates lost progress or an I2C-bus
+fault, while a steady lit LED alone does not establish health.
+
+The supervisor can also read the core regulator's **CORE_1V0_GOOD** through
+the same expander, alongside its existing MON_1V0 voltage measurement.
+See [status indicators and firmware rules](status-leds.md).

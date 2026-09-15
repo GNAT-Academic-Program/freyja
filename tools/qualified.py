@@ -145,6 +145,12 @@ PARTS = {
     pinmap='2-pin polarised; KiCad ships no unidirectional TVS symbol, so '
            'the polarised avalanche symbol stands in',
     src='Littelfuse/Diodes SMBJ series datasheet'),
+  'D8': dict(
+    mpn='SMBJ15A-13-F', pkg='SMB / DO-214AA', fp='Diode_SMD:D_SMB',
+    rating='Unidirectional, 15 V standoff, 16.7-19.2 V breakdown, '
+           '24.4 V maximum rated pulse clamp, 600 W. Transient suppression on VIN_EXT',
+    pinmap='1 cathode to VIN_EXT; 2 anode to GND',
+    src='Diodes SMBJ15A https://www.diodes.com/part/view/SMBJ15A; LCSC C135046'),
   'Q1': dict(
     mpn='DMG2305UX-7', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR',
     rating='-20 V VDSS, +/-8 V VGSS, -4.2 A, RDS(on) 52 mohm max at '
@@ -152,15 +158,16 @@ PARTS = {
     pinmap='G-S-D SOT-23, pins 1-2-3', src='Diodes Inc DMG2305UX datasheet'),
   'Q2': dict(
     mpn='DMG2305UX-7', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR',
-    rating='-20 V VDSS, +/-8 V VGSS, -4.2 A, PD 1.4 W. Closed only on a 5 V '
-           'source, which is what keeps VGS inside +/-8 V; the same firmware '
-           'contract already protects the TLV62569s. See findings 21',
+    rating='-20 V VDSS, +/-8 V VGSS, -4.2 A, PD 1.4 W. 100k/47k gate divider: '
+           'VGS -3.40 V at 5 V, -6.12 V at 9 V. Firmware must still forbid '
+           'passing 9 V onto +5V. See findings 21',
     pinmap='G-S-D SOT-23, pins 1-2-3', src='Diodes Inc DMG2305UX datasheet'),
   'Transistor_FET:Q_NMOS_GSD': dict(
     mpn='BSS138LT1G', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
-    rating='50 V, 200 mA, RDS(on) 3.5 ohm at VGS 4.5 V. Q3 only pulls a gate '
-           'through 10k, so drive current is microamps',
-    pinmap='G-S-D SOT-23, pins 1-2-3', src='generic BSS138, multiple vendors'),
+    rating='50 V, 200 mA; RDS(on) max 10 ohm at VGS 2.75 V (-40..85 C). '
+           'Q3 pulls a gate through 47k; Q4 sinks approximately 2-4 mA for DONE LED',
+    pinmap='G-S-D SOT-23, pins 1-2-3',
+    src='onsemi BSS138LT1/D, https://www.onsemi.com/pdf/datasheet/bss138lt1-d.pdf'),
   # ------------------------------------------------------------------ logic
   'odin:SN74LXC8T245PW': dict(
     mpn='SN74LXC8T245PWR', pkg='TSSOP-24 (PW)', fp='EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL_1',
@@ -174,9 +181,16 @@ PARTS = {
            'two banks of 5. Only bank 1 is used; bank 2 OE is tied high',
     pinmap='KiCad 74xx symbol, pins resolved by name',
     src='TI SCDS131'),
+  'odin:PCA9543APW': dict(
+    mpn='PCA9543APW,118', pkg='TSSOP-14, SOT402-1',
+    fp='Package_SO:TSSOP-14_4.4x5mm_P0.65mm',
+    rating='2.3-5.5 V, 400 kHz; fitted at 3.3 V; address 0x70; POR disconnects both channels',
+    pinmap='NXP Table 3: 1 A0, 2 A1, 3 RESET, 4 INT0, 5 SD0, 6 SC0, 7 VSS, '
+           '8 INT1, 9 SD1, 10 SC1, 11 INT, 12 SCL, 13 SDA, 14 VDD',
+    src='NXP PCA9543A_43B rev 8; LCSC C2652904'),
   'EasyEDA:PCF8574T_3,518': dict(
     mpn='PCF8574T_3,518', pkg='SOIC-16W (7.5x10.3 mm)', fp='EasyEDA:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL',
-    rating='2.5-6 V, quasi-bidirectional I/O; P7 provides the hardware-default-off SFP power gate',
+    rating='2.5-6 V, quasi-bidirectional I/O; P0-P2 sink LEDs at about 1 mA each; P3 reads core PG; P7 controls SFP power',
     pinmap='Imported EasyEDA symbol/footprint; LCSC C7605', src='NXP PCF8574 datasheet; LCSC C7605'),
   'EasyEDA:PM254-2-16-S-8.5': dict(
     mpn='PM254-2-16-S-8.5', pkg='2x16 female socket, 2.54 mm, SMT, 8.5 mm',
@@ -237,12 +251,12 @@ PARTS = {
     fp='EasyEDA:CONN-SMD_20P-P0.80-S8.20_1888247-1',
     rating='3.3 V, 1 W per module assumed', pinmap='KiCad Interface_Optical symbol',
     src='TE 1888247 drawing; LCSC C305914'),
-  'EasyEDA:2007198-1': dict(
-    mpn='2007198-1', pkg='SFP+ 1x1 press-fit cage',
-    fp='EasyEDA:TH_HC-SFP-01L',
-    rating='16 Gb/s SFP+ cage; all shield tails bonded to GND',
-    pinmap='Imported C573949 symbol and footprint; 20 press-fit shield tails',
-    src='TE 2007198 drawing; LCSC C573949'),
+  'odin:U77A11133001': dict(
+    mpn='U77A11133001', pkg='SFP 1x1 cage, 3.2 mm solder tails',
+    fp='odin:Amphenol_U77A11133001',
+    rating='Manufacturer lists 2.5 Gb/s; all shield tails GND; JLC wave solder',
+    pinmap='Drawing-based symbol/footprint; 20 solder tails; see ref/sfp-cage.md',
+    src='Amphenol P-U77-A111X-XX0X rev H; JLC/LCSC C5355132'),
   # ------------------------------------------------------------ the rest
   'EasyEDA:F.0603.00025_P2-0603G1TS2-06T-002': dict(
     mpn='F.0603.00025/P2-0603G1TS2-06T-002', pkg='0603 (1608 metric)',
