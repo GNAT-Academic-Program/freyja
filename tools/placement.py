@@ -115,8 +115,9 @@ def contract():
     # --- 5V buses on the bottom edge ------------------------------------
     # L (bank 14) right of M (bank 13)? Bank 13 balls sit lower/right-most on
     # the die (rows U..AC), bank 14 mid-right: M outermost right, L inboard.
+    # J8 sits 25.4 (10 pitches) from J7 so both buses share one lattice.
     for jsig, jpwr, mk, x in (('J7', 'J57', 'MK76', 48.0),
-                              ('J8', 'J58', 'MK77', 74.0)):
+                              ('J8', 'J58', 'MK77', 73.4)):
         out.append(P(jsig, x, BOARD_H - EDGE_SIG, 180, why='5V bus signal 2x8'))
         out.append(P(jpwr, x, BOARD_H - EDGE_PWR, 180, why='5V bus power 1x8'))
         out.append(P(mk, x - 13.0, BOARD_H - KEY_INSET, 0, why='key 5V bus'))

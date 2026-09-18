@@ -477,6 +477,942 @@
       {
         "bus_width": 12,
         "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pcb_color": "rgba(36, 96, 242, 0.800)",
+        "priority": 10001,
+        "schematic_color": "rgba(36, 96, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL02_INPUT_OR_ING",
+        "pcb_color": "rgba(156, 242, 36, 0.800)",
+        "priority": 10002,
+        "schematic_color": "rgba(156, 242, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL03_SLOT_A_BRANCHES",
+        "pcb_color": "rgba(17, 0, 242, 0.800)",
+        "priority": 10003,
+        "schematic_color": "rgba(242, 36, 216, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL04_SLOT_C_BRANCHES",
+        "pcb_color": "rgba(36, 242, 207, 0.800)",
+        "priority": 10004,
+        "schematic_color": "rgba(36, 242, 207, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL05_SLOT_E_BRANCHES",
+        "pcb_color": "rgba(242, 147, 36, 0.800)",
+        "priority": 10005,
+        "schematic_color": "rgba(242, 147, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL06_SLOT_G_BRANCHES",
+        "pcb_color": "rgba(87, 36, 242, 0.800)",
+        "priority": 10006,
+        "schematic_color": "rgba(87, 36, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL07_JTAG_OWNER_SELECTI",
+        "pcb_color": "rgba(45, 242, 36, 0.800)",
+        "priority": 10007,
+        "schematic_color": "rgba(45, 242, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL08_U19_5V_TO_12V_BOOS",
+        "pcb_color": "rgba(242, 36, 105, 0.800)",
+        "priority": 10008,
+        "schematic_color": "rgba(242, 36, 105, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL09_SLOT_L_BRANCHES",
+        "pcb_color": "rgba(36, 165, 242, 0.800)",
+        "priority": 10009,
+        "schematic_color": "rgba(36, 165, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL10_SLOT_M_BRANCHES",
+        "pcb_color": "rgba(225, 242, 36, 0.800)",
+        "priority": 10010,
+        "schematic_color": "rgba(225, 242, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL11_PSRAM0_SERIES_TERM",
+        "pcb_color": "rgba(199, 36, 242, 0.800)",
+        "priority": 10011,
+        "schematic_color": "rgba(199, 36, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL12_PSRAM1_SERIES_TERM",
+        "pcb_color": "rgba(36, 242, 138, 0.800)",
+        "priority": 10012,
+        "schematic_color": "rgba(36, 242, 138, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL13_PSRAM2_SERIES_TERM",
+        "pcb_color": "rgba(242, 78, 36, 0.800)",
+        "priority": 10013,
+        "schematic_color": "rgba(242, 78, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL14_PSRAM3_SERIES_TERM",
+        "pcb_color": "rgba(36, 53, 242, 0.800)",
+        "priority": 10014,
+        "schematic_color": "rgba(36, 53, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL15_SERIES_RESISTORS_T",
+        "pcb_color": "rgba(113, 242, 36, 0.800)",
+        "priority": 10015,
+        "schematic_color": "rgba(113, 242, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL16_VBUS_PASS_SWITCH_T",
+        "pcb_color": "rgba(242, 36, 174, 0.800)",
+        "priority": 10016,
+        "schematic_color": "rgba(242, 36, 174, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL17_U11_12V_TO_5V",
+        "pcb_color": "rgba(36, 234, 242, 0.800)",
+        "priority": 10017,
+        "schematic_color": "rgba(36, 234, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL18_U12_VSYS_TO_3V3_AL",
+        "pcb_color": "rgba(242, 190, 36, 0.800)",
+        "priority": 10018,
+        "schematic_color": "rgba(242, 190, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL19_CONFIG_STRAPS_UG47",
+        "pcb_color": "rgba(130, 36, 242, 0.800)",
+        "priority": 10019,
+        "schematic_color": "rgba(130, 36, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL20_USB_PD_SINK",
+        "pcb_color": "rgba(36, 242, 70, 0.800)",
+        "priority": 10020,
+        "schematic_color": "rgba(36, 242, 70, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL21_U13_5V_TO_2V5",
+        "pcb_color": "rgba(242, 36, 62, 0.800)",
+        "priority": 10021,
+        "schematic_color": "rgba(242, 36, 62, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL22_U14_5V_TO_1V8",
+        "pcb_color": "rgba(36, 122, 242, 0.800)",
+        "priority": 10022,
+        "schematic_color": "rgba(36, 122, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL23_U16_5V_TO_1V2_MGT",
+        "pcb_color": "rgba(182, 242, 36, 0.800)",
+        "priority": 10023,
+        "schematic_color": "rgba(182, 242, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL24_CRYSTAL_RP_008280_",
+        "pcb_color": "rgba(241, 36, 242, 0.800)",
+        "priority": 10024,
+        "schematic_color": "rgba(241, 36, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL25_BOOTSEL",
+        "pcb_color": "rgba(36, 242, 181, 0.800)",
+        "priority": 10025,
+        "schematic_color": "rgba(36, 242, 181, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL26_5V_BUS_0_CONVERTER",
+        "pcb_color": "rgba(242, 121, 36, 0.800)",
+        "priority": 10026,
+        "schematic_color": "rgba(242, 121, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL27_5V_BUS_1_CONVERTER",
+        "pcb_color": "rgba(61, 36, 242, 0.800)",
+        "priority": 10027,
+        "schematic_color": "rgba(61, 36, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL28_125MHZ_REFERENCE_C",
+        "pcb_color": "rgba(71, 242, 36, 0.800)",
+        "priority": 10028,
+        "schematic_color": "rgba(71, 242, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL29_INPUT_OR_ING",
+        "pcb_color": "rgba(242, 36, 131, 0.800)",
+        "priority": 10029,
+        "schematic_color": "rgba(242, 36, 131, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL30_RAIL_MONITORS",
+        "pcb_color": "rgba(36, 191, 242, 0.800)",
+        "priority": 10030,
+        "schematic_color": "rgba(36, 191, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL31_RAIL_MONITORS",
+        "pcb_color": "rgba(242, 232, 36, 0.800)",
+        "priority": 10031,
+        "schematic_color": "rgba(242, 232, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL32_SERIES_RESISTORS_T",
+        "pcb_color": "rgba(172, 36, 242, 0.800)",
+        "priority": 10032,
+        "schematic_color": "rgba(172, 36, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL33_SERIES_RESISTORS_T",
+        "pcb_color": "rgba(36, 242, 112, 0.800)",
+        "priority": 10033,
+        "schematic_color": "rgba(36, 242, 112, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL34_U7_CORE_REGULATOR_",
+        "pcb_color": "rgba(242, 52, 36, 0.800)",
+        "priority": 10034,
+        "schematic_color": "rgba(242, 52, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL35_RAIL_MONITORS",
+        "pcb_color": "rgba(36, 80, 242, 0.800)",
+        "priority": 10035,
+        "schematic_color": "rgba(36, 80, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL36_RAIL_MONITORS",
+        "pcb_color": "rgba(140, 242, 36, 0.800)",
+        "priority": 10036,
+        "schematic_color": "rgba(140, 242, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL37_RAIL_MONITORS",
+        "pcb_color": "rgba(242, 36, 200, 0.800)",
+        "priority": 10037,
+        "schematic_color": "rgba(242, 36, 200, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL38_RAIL_MONITORS",
+        "pcb_color": "rgba(36, 242, 224, 0.800)",
+        "priority": 10038,
+        "schematic_color": "rgba(36, 242, 224, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL39_CONFIG_STRAPS_UG47",
+        "pcb_color": "rgba(242, 163, 36, 0.800)",
+        "priority": 10039,
+        "schematic_color": "rgba(242, 163, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL40_CONFIG_STRAPS_UG47",
+        "pcb_color": "rgba(103, 36, 242, 0.800)",
+        "priority": 10040,
+        "schematic_color": "rgba(103, 36, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL41_CONFIG_STRAPS_UG47",
+        "pcb_color": "rgba(36, 242, 43, 0.800)",
+        "priority": 10041,
+        "schematic_color": "rgba(36, 242, 43, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL42_CONFIG_STRAPS_UG47",
+        "pcb_color": "rgba(242, 36, 88, 0.800)",
+        "priority": 10042,
+        "schematic_color": "rgba(242, 36, 88, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL43_U7_CORE_REGULATOR_",
+        "pcb_color": "rgba(36, 149, 242, 0.800)",
+        "priority": 10043,
+        "schematic_color": "rgba(36, 149, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL44_BOARD_CONTROLLER_S",
+        "pcb_color": "rgba(209, 242, 36, 0.800)",
+        "priority": 10044,
+        "schematic_color": "rgba(209, 242, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL45_SERIES_RESISTORS_T",
+        "pcb_color": "rgba(215, 36, 242, 0.800)",
+        "priority": 10045,
+        "schematic_color": "rgba(215, 36, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL46_SERIES_RESISTORS_T",
+        "pcb_color": "rgba(36, 242, 155, 0.800)",
+        "priority": 10046,
+        "schematic_color": "rgba(36, 242, 155, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL47_SERIES_RESISTORS_T",
+        "pcb_color": "rgba(242, 95, 36, 0.800)",
+        "priority": 10047,
+        "schematic_color": "rgba(242, 95, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL48_SERIES_RESISTORS_T",
+        "pcb_color": "rgba(36, 37, 242, 0.800)",
+        "priority": 10048,
+        "schematic_color": "rgba(36, 37, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL49_SERIES_RESISTORS_T",
+        "pcb_color": "rgba(97, 242, 36, 0.800)",
+        "priority": 10049,
+        "schematic_color": "rgba(97, 242, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL50_SERIES_RESISTORS_T",
+        "pcb_color": "rgba(242, 36, 157, 0.800)",
+        "priority": 10050,
+        "schematic_color": "rgba(242, 36, 157, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL51_125MHZ_REFERENCE_C",
+        "pcb_color": "rgba(36, 217, 242, 0.800)",
+        "priority": 10051,
+        "schematic_color": "rgba(36, 217, 242, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "ISL52_UNUSED_QUAD_213_CA",
+        "pcb_color": "rgba(242, 206, 36, 0.800)",
+        "priority": 10052,
+        "schematic_color": "rgba(242, 206, 36, 0.800)",
+        "track_width": 0.2,
+        "via_diameter": 0.45,
+        "via_drill": 0.2,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
         "diff_pair_gap": 0.2,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.099,
@@ -540,6 +1476,958 @@
       {
         "netclass": "PSRAM",
         "pattern": "PSRAM*"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "CORE_1V0_GOOD"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "CORE_1V0_SS"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "CORE_1V0_SVIN"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "EN_1V0"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "EN_SFP_N"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "FB+1V0"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "LED_HEARTBEAT_A"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "LED_HEARTBEAT_N"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "LED_USER1_A"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "LED_USER1_N"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "LED_USER2_A"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "LED_USER2_N"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP0_LOS"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP0_MOD_ABS"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP0_SCL"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP0_SDA"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP0_TX_DIS"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP0_TX_FAULT"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP1_LOS"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP1_MOD_ABS"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP1_SCL"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP1_SDA"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP1_TX_DIS"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP1_TX_FAULT"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP_EXP_INT"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP_MUX_INT_UNUSED"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP_SCL"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SFP_SDA"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SUP_RUN"
+      },
+      {
+        "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
+        "pattern": "SW+1V0"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "EXT12_DVDT"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "EXT12_ILM"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "EXT12_OVLO"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "EXT_EN"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "EXT_FAULT"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "U21_ILIM"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "U22_ILIM"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "U23_ILIM"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "U24_ILIM"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "VBUS_DVDT"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "VBUS_ILM"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "VBUS_OVLO"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "VBUS_SS"
+      },
+      {
+        "netclass": "ISL02_INPUT_OR_ING",
+        "pattern": "VBUS_UVLO"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_A_3V3"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_A_5V"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_A_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_A_POWER"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_A_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_B_3V3"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_B_5V"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_B_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_B_POWER"
+      },
+      {
+        "netclass": "ISL03_SLOT_A_BRANCHES",
+        "pattern": "SLOT_B_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_C_3V3"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_C_5V"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_C_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_C_POWER"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_C_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_D_3V3"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_D_5V"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_D_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_D_POWER"
+      },
+      {
+        "netclass": "ISL04_SLOT_C_BRANCHES",
+        "pattern": "SLOT_D_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_E_3V3"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_E_5V"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_E_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_E_POWER"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_E_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_F_3V3"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_F_5V"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_F_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_F_POWER"
+      },
+      {
+        "netclass": "ISL05_SLOT_E_BRANCHES",
+        "pattern": "SLOT_F_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_G_3V3"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_G_5V"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_G_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_G_POWER"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_G_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_H_3V3"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_H_5V"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_H_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_H_POWER"
+      },
+      {
+        "netclass": "ISL06_SLOT_G_BRANCHES",
+        "pattern": "SLOT_H_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "EXTERNAL_JTAG_SELECTED"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "JTAG_TCK"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "JTAG_TDI"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "JTAG_TDO"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "JTAG_TDO_SW"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "JTAG_TMS"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "SUP_JTAG_TCK"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "SUP_JTAG_TDI"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "SUP_JTAG_TDO"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "SUP_JTAG_TMS"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "SWJ_TCK"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "SWJ_TDI"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "SWJ_TDO"
+      },
+      {
+        "netclass": "ISL07_JTAG_OWNER_SELECTI",
+        "pattern": "SWJ_TMS"
+      },
+      {
+        "netclass": "ISL08_U19_5V_TO_12V_BOOS",
+        "pattern": "COMP_12V"
+      },
+      {
+        "netclass": "ISL08_U19_5V_TO_12V_BOOS",
+        "pattern": "COMP_12V_C"
+      },
+      {
+        "netclass": "ISL08_U19_5V_TO_12V_BOOS",
+        "pattern": "EN_12V"
+      },
+      {
+        "netclass": "ISL08_U19_5V_TO_12V_BOOS",
+        "pattern": "FB_12V"
+      },
+      {
+        "netclass": "ISL08_U19_5V_TO_12V_BOOS",
+        "pattern": "SS_12V"
+      },
+      {
+        "netclass": "ISL08_U19_5V_TO_12V_BOOS",
+        "pattern": "SW_12V"
+      },
+      {
+        "netclass": "ISL09_SLOT_L_BRANCHES",
+        "pattern": "SLOT_L_3V3"
+      },
+      {
+        "netclass": "ISL09_SLOT_L_BRANCHES",
+        "pattern": "SLOT_L_5V"
+      },
+      {
+        "netclass": "ISL09_SLOT_L_BRANCHES",
+        "pattern": "SLOT_L_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL09_SLOT_L_BRANCHES",
+        "pattern": "SLOT_L_POWER"
+      },
+      {
+        "netclass": "ISL09_SLOT_L_BRANCHES",
+        "pattern": "SLOT_L_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL10_SLOT_M_BRANCHES",
+        "pattern": "SLOT_M_3V3"
+      },
+      {
+        "netclass": "ISL10_SLOT_M_BRANCHES",
+        "pattern": "SLOT_M_5V"
+      },
+      {
+        "netclass": "ISL10_SLOT_M_BRANCHES",
+        "pattern": "SLOT_M_PIN_VOLTAGE"
+      },
+      {
+        "netclass": "ISL10_SLOT_M_BRANCHES",
+        "pattern": "SLOT_M_POWER"
+      },
+      {
+        "netclass": "ISL10_SLOT_M_BRANCHES",
+        "pattern": "SLOT_M_POWER_SELECTED"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "CFG_CCLK"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "FLASH_CS_B"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "FLASH_D0_MOSI"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "FLASH_D1_MISO"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "FLASH_D2_WP"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "FLASH_D3_HOLD"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "SUP_CCLK"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "SUP_FCS_B"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "SUP_FD0"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "SUP_FD1"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "SUP_FD2"
+      },
+      {
+        "netclass": "ISL15_SERIES_RESISTORS_T",
+        "pattern": "SUP_FD3"
+      },
+      {
+        "netclass": "ISL16_VBUS_PASS_SWITCH_T",
+        "pattern": "EN_VBUS5"
+      },
+      {
+        "netclass": "ISL16_VBUS_PASS_SWITCH_T",
+        "pattern": "EN_VBUS5_G"
+      },
+      {
+        "netclass": "ISL16_VBUS_PASS_SWITCH_T",
+        "pattern": "VBUS5_GATE"
+      },
+      {
+        "netclass": "ISL16_VBUS_PASS_SWITCH_T",
+        "pattern": "VBUS5_PULL"
+      },
+      {
+        "netclass": "ISL17_U11_12V_TO_5V",
+        "pattern": "BOOT_5V"
+      },
+      {
+        "netclass": "ISL17_U11_12V_TO_5V",
+        "pattern": "EN_5V"
+      },
+      {
+        "netclass": "ISL17_U11_12V_TO_5V",
+        "pattern": "FB_5V"
+      },
+      {
+        "netclass": "ISL17_U11_12V_TO_5V",
+        "pattern": "SW_5V"
+      },
+      {
+        "netclass": "ISL18_U12_VSYS_TO_3V3_AL",
+        "pattern": "BOOT_3V3"
+      },
+      {
+        "netclass": "ISL18_U12_VSYS_TO_3V3_AL",
+        "pattern": "FB_3V3"
+      },
+      {
+        "netclass": "ISL18_U12_VSYS_TO_3V3_AL",
+        "pattern": "SW_3V3"
+      },
+      {
+        "netclass": "ISL19_CONFIG_STRAPS_UG47",
+        "pattern": "CFG_DONE"
+      },
+      {
+        "netclass": "ISL19_CONFIG_STRAPS_UG47",
+        "pattern": "DONE_LED_A"
+      },
+      {
+        "netclass": "ISL19_CONFIG_STRAPS_UG47",
+        "pattern": "DONE_LED_K"
+      },
+      {
+        "netclass": "ISL19_CONFIG_STRAPS_UG47",
+        "pattern": "SUP_DONE"
+      },
+      {
+        "netclass": "ISL20_USB_PD_SINK",
+        "pattern": "PD_CFG1"
+      },
+      {
+        "netclass": "ISL20_USB_PD_SINK",
+        "pattern": "PD_CFG2"
+      },
+      {
+        "netclass": "ISL20_USB_PD_SINK",
+        "pattern": "PD_CFG3"
+      },
+      {
+        "netclass": "ISL20_USB_PD_SINK",
+        "pattern": "PD_PG"
+      },
+      {
+        "netclass": "ISL20_USB_PD_SINK",
+        "pattern": "PD_VDD"
+      },
+      {
+        "netclass": "ISL20_USB_PD_SINK",
+        "pattern": "USB_CC1"
+      },
+      {
+        "netclass": "ISL20_USB_PD_SINK",
+        "pattern": "USB_CC2"
+      },
+      {
+        "netclass": "ISL20_USB_PD_SINK",
+        "pattern": "USB_DM"
+      },
+      {
+        "netclass": "ISL20_USB_PD_SINK",
+        "pattern": "USB_DP"
+      },
+      {
+        "netclass": "ISL21_U13_5V_TO_2V5",
+        "pattern": "EN_2V5"
+      },
+      {
+        "netclass": "ISL21_U13_5V_TO_2V5",
+        "pattern": "FB+2V5"
+      },
+      {
+        "netclass": "ISL21_U13_5V_TO_2V5",
+        "pattern": "SW+2V5"
+      },
+      {
+        "netclass": "ISL22_U14_5V_TO_1V8",
+        "pattern": "EN_1V8"
+      },
+      {
+        "netclass": "ISL22_U14_5V_TO_1V8",
+        "pattern": "FB+1V8"
+      },
+      {
+        "netclass": "ISL22_U14_5V_TO_1V8",
+        "pattern": "SW+1V8"
+      },
+      {
+        "netclass": "ISL23_U16_5V_TO_1V2_MGT",
+        "pattern": "EN_1V2"
+      },
+      {
+        "netclass": "ISL23_U16_5V_TO_1V2_MGT",
+        "pattern": "FB+1V2_MGT"
+      },
+      {
+        "netclass": "ISL23_U16_5V_TO_1V2_MGT",
+        "pattern": "SW+1V2_MGT"
+      },
+      {
+        "netclass": "ISL24_CRYSTAL_RP_008280_",
+        "pattern": "SUP_XIN"
+      },
+      {
+        "netclass": "ISL24_CRYSTAL_RP_008280_",
+        "pattern": "SUP_XOUT"
+      },
+      {
+        "netclass": "ISL24_CRYSTAL_RP_008280_",
+        "pattern": "SUP_XTAL_OUT"
+      },
+      {
+        "netclass": "ISL25_BOOTSEL",
+        "pattern": "BOOTSEL_SW"
+      },
+      {
+        "netclass": "ISL25_BOOTSEL",
+        "pattern": "SUPF_CLK"
+      },
+      {
+        "netclass": "ISL25_BOOTSEL",
+        "pattern": "SUPF_CS"
+      },
+      {
+        "netclass": "ISL25_BOOTSEL",
+        "pattern": "SUPF_D0"
+      },
+      {
+        "netclass": "ISL25_BOOTSEL",
+        "pattern": "SUPF_D1"
+      },
+      {
+        "netclass": "ISL25_BOOTSEL",
+        "pattern": "SUPF_D2"
+      },
+      {
+        "netclass": "ISL25_BOOTSEL",
+        "pattern": "SUPF_D3"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_DIR"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_IO0"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_IO1"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_IO2"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_IO3"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_IO4"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_IO5"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_IO6"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_IO7"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_OE_N"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_PIN0"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_PIN1"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_PIN2"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_PIN3"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_PIN4"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_PIN5"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_PIN6"
+      },
+      {
+        "netclass": "ISL26_5V_BUS_0_CONVERTER",
+        "pattern": "BUS5V0_PIN7"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_DIR"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_IO0"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_IO1"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_IO2"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_IO3"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_IO4"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_IO5"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_IO6"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_IO7"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_OE_N"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_PIN0"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_PIN1"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_PIN2"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_PIN3"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_PIN4"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_PIN5"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_PIN6"
+      },
+      {
+        "netclass": "ISL27_5V_BUS_1_CONVERTER",
+        "pattern": "BUS5V1_PIN7"
+      },
+      {
+        "netclass": "ISL29_INPUT_OR_ING",
+        "pattern": "VIN_EXT"
+      },
+      {
+        "netclass": "ISL30_RAIL_MONITORS",
+        "pattern": "MON_VSYS"
+      },
+      {
+        "netclass": "ISL31_RAIL_MONITORS",
+        "pattern": "MON_5V"
+      },
+      {
+        "netclass": "ISL32_SERIES_RESISTORS_T",
+        "pattern": "CFG_PROG_B"
+      },
+      {
+        "netclass": "ISL32_SERIES_RESISTORS_T",
+        "pattern": "SUP_PROG_B"
+      },
+      {
+        "netclass": "ISL33_SERIES_RESISTORS_T",
+        "pattern": "CFG_INIT_B"
+      },
+      {
+        "netclass": "ISL33_SERIES_RESISTORS_T",
+        "pattern": "SUP_INIT_B"
+      },
+      {
+        "netclass": "ISL34_U7_CORE_REGULATOR_",
+        "pattern": "SUP_VREG_AVDD"
+      },
+      {
+        "netclass": "ISL35_RAIL_MONITORS",
+        "pattern": "MON_3V3"
+      },
+      {
+        "netclass": "ISL36_RAIL_MONITORS",
+        "pattern": "MON_2V5"
+      },
+      {
+        "netclass": "ISL37_RAIL_MONITORS",
+        "pattern": "MON_1V8"
+      },
+      {
+        "netclass": "ISL38_RAIL_MONITORS",
+        "pattern": "MON_1V0"
+      },
+      {
+        "netclass": "ISL39_CONFIG_STRAPS_UG47",
+        "pattern": "CFG_M0"
+      },
+      {
+        "netclass": "ISL40_CONFIG_STRAPS_UG47",
+        "pattern": "CFG_M1"
+      },
+      {
+        "netclass": "ISL41_CONFIG_STRAPS_UG47",
+        "pattern": "CFG_M2"
+      },
+      {
+        "netclass": "ISL42_CONFIG_STRAPS_UG47",
+        "pattern": "PUDC_B"
+      },
+      {
+        "netclass": "ISL43_U7_CORE_REGULATOR_",
+        "pattern": "SUP_LX"
+      },
+      {
+        "netclass": "ISL44_BOARD_CONTROLLER_S",
+        "pattern": "SUP_SWCLK"
+      },
+      {
+        "netclass": "ISL44_BOARD_CONTROLLER_S",
+        "pattern": "SUP_SWDIO"
+      },
+      {
+        "netclass": "ISL45_SERIES_RESISTORS_T",
+        "pattern": "DBG_TCK"
+      },
+      {
+        "netclass": "ISL45_SERIES_RESISTORS_T",
+        "pattern": "SUP_DBG_TCK"
+      },
+      {
+        "netclass": "ISL46_SERIES_RESISTORS_T",
+        "pattern": "DBG_TMS"
+      },
+      {
+        "netclass": "ISL46_SERIES_RESISTORS_T",
+        "pattern": "SUP_DBG_TMS"
+      },
+      {
+        "netclass": "ISL47_SERIES_RESISTORS_T",
+        "pattern": "DBG_TDI"
+      },
+      {
+        "netclass": "ISL47_SERIES_RESISTORS_T",
+        "pattern": "SUP_DBG_TDI"
+      },
+      {
+        "netclass": "ISL48_SERIES_RESISTORS_T",
+        "pattern": "DBG_TDO"
+      },
+      {
+        "netclass": "ISL48_SERIES_RESISTORS_T",
+        "pattern": "SUP_DBG_TDO"
+      },
+      {
+        "netclass": "ISL49_SERIES_RESISTORS_T",
+        "pattern": "SB_UART_RX"
+      },
+      {
+        "netclass": "ISL49_SERIES_RESISTORS_T",
+        "pattern": "SUP_UART_TX"
+      },
+      {
+        "netclass": "ISL50_SERIES_RESISTORS_T",
+        "pattern": "SB_UART_TX"
+      },
+      {
+        "netclass": "ISL50_SERIES_RESISTORS_T",
+        "pattern": "SUP_UART_RX"
+      },
+      {
+        "netclass": "ISL51_125MHZ_REFERENCE_C",
+        "pattern": "MGTRREF"
+      },
+      {
+        "netclass": "ISL52_UNUSED_QUAD_213_CA",
+        "pattern": "MGTRREF_213"
       }
     ]
   },

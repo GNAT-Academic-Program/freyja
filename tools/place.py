@@ -11,10 +11,9 @@ What it does, in order:
 
   1. CONTRACT   every footprint in placement.contract() is moved to its
                 computed position. These never depend on taste.
-  2. ANCHORS    every other footprint is laid out on a compact grid growing
-                from its schematic group's anchor (placement.ANCHORS).
-                Groups come from tools/design.py, the same source that
-                generated the netlist, so membership cannot drift.
+  2. ISLANDS    every other footprint is staged as a connectivity-island
+                tile right of the board (tools/islands.py, same islands as
+                the ISLxx net classes), to be hand-placed tile by tile.
   3. PSRAM RULE 24 series resistors sit at the FPGA right-hand escape edge.
   4. DECAP RULE the FPGA's per-ball 100nF decoupling flips to B.Cu and lands
                 mirrored under its supply ball.
@@ -53,38 +52,48 @@ def courtyard_wh(fp):
     return mm(bb.GetWidth()), mm(bb.GetHeight())
 
 # ------------------------------------------------------------- tier 2
-def layout_groups(board, fps, contract_refs):
-    """Grid-pack each schematic group around its anchor."""
-    d = build()
-    groups = {}
-    for part in d.parts:
-        groups.setdefault(part['group'], []).append(part['ref'])
-    missing_anchor = []
-    for gname, refs in sorted(groups.items()):
-        refs = [r for r in refs if r in fps and r not in contract_refs]
-        if not refs:
-            continue
-        if gname not in pl.ANCHORS:
-            missing_anchor.append(gname)
-            continue
-        ax, ay, direction = pl.ANCHORS[gname]
-        # ICs first (they anchor the group visually), then passives by ref
-        refs.sort(key=lambda r: (0 if r[0] in 'UQXY' else 1, r))
-        x, y, row_h, x0 = ax, ay, 0.0, ax
-        sx = -1 if direction == 'left' else 1
-        sy = -1 if direction == 'up' else 1
+def layout_islands(fps, skip):
+    """Stage every connectivity island as its own tight tile in columns to
+    the right of the board, in tools/islands.py order, matching the ISLxx
+    net classes one to one. Each tile is a box-selectable cluster: grab it
+    whole, drop it on the board. Hubs not in the contract (U7) and the
+    rail-only bulk groups are staged as tiles too. Parts inside a tile stay
+    contiguous by schematic group."""
+    import islands as isl
+    rows, parts, local, hubs, loose = isl.compute()
+    TILE_W, GAP, X0, Y0, YMAX, COL = 30.0, 4.0, 110.0, 0.0, 100.0, 36.0
+
+    def pack(refs, x0, y0):
+        x, y, row_h = x0, y0, 0.0
         for r in refs:
             w, h = courtyard_wh(fps[r])
-            w, h = w + 0.5, h + 0.5                     # courtyard + air
-            if abs(x - x0) + w > 12.0 and x != x0:      # wrap a 12mm-wide row
-                x, y = x0, y + sy * (row_h + 0.3); row_h = 0.0
-            set_at(fps[r], x + sx * w / 2, y + sy * h / 2, 0)
-            x += sx * w
+            w, h = w + 0.5, h + 0.5
+            if x - x0 + w > TILE_W and x != x0:
+                x, y, row_h = x0, y + row_h + 0.3, 0.0
+            set_at(fps[r], x + w / 2, y + h / 2, 0)
+            x += w
             row_h = max(row_h, h)
-    if missing_anchor:
-        print('groups without an anchor (left where they are):')
-        for g in missing_anchor:
-            print('  ', g)
+        return y - y0 + row_h
+
+    tiles = [[r] for r in sorted(hubs) if r in fps and r not in skip]
+    for members, _ in rows:
+        t = [r for r in members if r in fps and r not in skip]
+        t.sort(key=lambda r: (parts[r]['group'], r[0] not in 'UQXY', r))
+        if t:
+            tiles.append(t)
+    for g in sorted(loose):
+        if g.startswith('decoupling '):
+            continue                # the decap rule re-places these anyway
+        t = sorted(r for r in loose[g] if r in fps and r not in skip)
+        if t:
+            tiles.append(t)
+    x, y = X0, Y0
+    for t in tiles:
+        h = pack(t, x, y)
+        y += h + GAP
+        if y > YMAX:
+            x, y = x + COL, Y0
+    print(f'{len(tiles)} island tiles staged right of the board')
 
 def place_psram_termination(fps):
     """Place 24 tuning resistors just outside U1's right-hand escape edge.
@@ -129,7 +138,22 @@ def mirror_decaps(board, fps):
         if not balls:
             print(f'decap rule: no U1 balls on {rail}?'); continue
         balls.sort(key=lambda p: (p.GetPosition().x, p.GetPosition().y))
-        for cap, ball in zip(sorted(caps), balls):
+        # spread: greedy min-distance ball subset so 0402 caps cannot stack
+        # (adjacent balls sit 1.0mm apart; a cap courtyard is ~1.7mm long)
+        chosen = []
+        for gap in (2.2, 1.8, 1.4, 1.1):
+            chosen = []
+            for b in balls:
+                bp = b.GetPosition()
+                if all((mm(bp.x - c.GetPosition().x)) ** 2 +
+                       (mm(bp.y - c.GetPosition().y)) ** 2 >= gap * gap
+                       for c in chosen):
+                    chosen.append(b)
+            if len(chosen) >= len(caps):
+                break
+        if gap < 2.2:
+            print(f'decap rule: {rail}: crowded, spacing relaxed to {gap}mm')
+        for cap, ball in zip(sorted(caps), chosen):
             if cap not in fps: continue
             fp = fps[cap]
             if fp.GetLayer() != pcbnew.B_Cu:
@@ -139,9 +163,49 @@ def mirror_decaps(board, fps):
         if len(caps) > len(balls):
             print(f'decap rule: {rail}: {len(caps)} caps for {len(balls)} balls')
 
+def report_overlaps(fps):
+    """Courtyard-collision report over the whole board, so anchor tuning is
+    a directed loop, not an eyeball hunt. Pairs entirely outside the board
+    area (the unanchored import pile) are skipped as noise."""
+    inside = lambda fp: 30.0 <= mm(fp.GetPosition().x) <= 130.0 and \
+                        30.0 <= mm(fp.GetPosition().y) <= 130.0
+    items = [(r, fp.GetBoundingBox(False)) for r, fp in fps.items()]
+    hits = []
+    for i in range(len(items)):
+        for j in range(i + 1, len(items)):
+            (ra, ba), (rb, bb) = items[i], items[j]
+            if (inside(fps[ra]) or inside(fps[rb])) and ba.Intersects(bb):
+                hits.append((ra, rb))
+    if hits:
+        print(f'{len(hits)} courtyard overlaps:')
+        for ra, rb in sorted(hits):
+            pa, pb = fps[ra].GetPosition(), fps[rb].GetPosition()
+            print(f'  {ra:6s} ({mm(pa.x):6.1f},{mm(pa.y):6.1f})'
+                  f'  x  {rb:6s} ({mm(pb.x):6.1f},{mm(pb.y):6.1f})')
+    else:
+        print('no courtyard overlaps')
+    return hits
+
 # ------------------------------------------------------------- verify
 def pad_coords(fp, axis):
     return sorted(round(mm(p.GetPosition()[axis]), 3) for p in fp.Pads())
+
+def contact_coords(fp, axis):
+    """Mating-contact positions on the given axis, not solder-pad centroids.
+
+    The SMD header pads splay to +/-2.9 or +/-3.0 off the centreline; the
+    contacts a shield actually bridges sit on the centreline rows at +/-1.27.
+    On the cross-row axis an SMD header shows exactly two pad values, and
+    there we substitute centre +/- 1.27. Along the row, and for every TH
+    part, the pads are the contacts."""
+    pads = pad_coords(fp, axis)
+    if 'HDR-SMD' not in str(fp.GetFPID().GetLibItemName()):
+        return pads
+    if len(set(pads)) != 2:                      # along the row
+        return pads
+    c = round(mm(fp.GetPosition()[axis]), 3)     # cross axis: rows at +/-1.27
+    half = len(pads) // 2
+    return [round(c - 1.27, 3)] * half + [round(c + 1.27, 3)] * half
 
 def lattice_ok(vals, pitch=2.54, tol=0.05):
     base = vals[0]
@@ -177,14 +241,20 @@ def verify(fps):
     errs = verify_sfp(fps)
     # opposite edges share one y-lattice; bottom buses one x-lattice
     for a, b, axis in (('J5', 'J3', 1), ('J6', 'J4', 1), ('J7', 'J8', 0)):
-        ca, cb = pad_coords(fps[a], axis), pad_coords(fps[b], axis)
+        ca, cb = contact_coords(fps[a], axis), contact_coords(fps[b], axis)
+        if a == 'J7':
+            # side-by-side pair: same pattern shifted a whole number of pitches
+            d = mm(fps[b].GetPosition()[axis]) - mm(fps[a].GetPosition()[axis])
+            if abs(d / 2.54 - round(d / 2.54)) * 2.54 > 0.05:
+                errs.append(f'{a}/{b}: centres {d:.2f}mm apart, not a 2.54 multiple')
+            cb = [round(v - d, 3) for v in cb]
         if [round(v, 2) for v in ca] != [round(v, 2) for v in cb]:
             errs.append(f'{a}/{b}: pad lattices differ; a shield cannot bridge')
     # signal row + power row + key post on one 2.54 grid, per edge
     for sig, pwr, key, axis in (('J5', 'J55', 'MK69', 0), ('J3', 'J53', 'MK65', 0),
                                 ('J7', 'J57', 'MK76', 1)):
-        vals = [pad_coords(fps[sig], axis)[0], pad_coords(fps[pwr], axis)[0],
-                pad_coords(fps[key], axis)[0]]
+        vals = [contact_coords(fps[sig], axis)[0], contact_coords(fps[pwr], axis)[0],
+                contact_coords(fps[key], axis)[0]]
         if not lattice_ok(vals):
             errs.append(f'{sig}/{pwr}/{key}: rows off the 2.54 lattice: {vals}')
     # report the column convention so extension-ux can state it as fact
@@ -215,13 +285,14 @@ def main():
             set_at(fps[p.ref], p.x, p.y, p.rot, p.side)
         termination_refs = {p['ref'] for p in build().parts
                             if p['group'].startswith('PSRAM') and p['group'].endswith('series termination')}
-        layout_groups(board, fps, contract_refs | termination_refs)
+        layout_islands(fps, contract_refs | termination_refs)
         place_psram_termination(fps)
         mirror_decaps(board, fps)
     errs = verify(fps)
     if errs:
         print('VERIFY FAILED, board not written:'); [print(' ', e) for e in errs]
         sys.exit(1)
+    report_overlaps(fps)   # informational: overlaps do not block the write
     if not check_only:
         board.Save(BOARD)
         print(f'wrote {BOARD}: {len(contract)} contract, groups anchored, decaps mirrored')
