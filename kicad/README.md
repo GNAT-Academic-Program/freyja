@@ -29,9 +29,11 @@ python3 tools/budget.py --write # rail qualification -> ref/power-budget.md
 python3 tools/qualified.py --write   # part table -> ref/qualified-parts.md
 python3 tools/audit_easyeda.py # imported symbol/pad/LCSC consistency
 python3 tools/gen_project.py    # schematic from tools/design.py
-python3 tools/gen_pcb.py        # 6-layer board: outline, stackup, design rules
+python3 tools/gen_pcb.py --rules-only   # stackup, net classes, design rules; placement kept
 kicad-cli sch export netlist --format kicadsexpr -o kicad/odin.net kicad/odin.kicad_sch
-python3 tools/load_pcb.py       # load every footprint and net into that board
+python3 tools/load_pcb.py       # sync footprints and nets into the board, placement kept
+python3 tools/gen_xdc.py        # ref/freya.xdc and the Vivado gate top from tools/alloc.py
+python3 tools/gate.py           # every phase check in one run (ref/rev-a-report.md numbers)
 ```
 
 `load_pcb.py` reads `kicad/odin.net`, so export the netlist before running it
@@ -53,6 +55,17 @@ and `--compare` to prove that.
 the schematic both come from it and cannot drift.
 
 ## Verify
+
+The allocation is proven on the real part by a throwaway Vivado design that
+uses every constrained ball (`gateware/gate/`): synthesis, place, route and
+`write_bitstream` against `ref/freya.xdc`. It takes minutes, so it is not in
+`gate.py`:
+
+```bash
+python3 tools/gen_xdc.py
+source /tools/Xilinx/2026.1/Vivado/settings64.sh
+vivado -mode batch -nojournal -nolog -source gateware/gate/run.tcl   # ends with GATE BITSTREAM OK
+```
 
 ```bash
 kicad-cli sch erc --severity-all -o erc.rpt odin.kicad_sch

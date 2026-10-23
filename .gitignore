@@ -6,3 +6,6 @@ kicad/production/
 *.kicad_*.lck
 kicad/erc.rpt
 kicad/drc.rpt
+
+# Vivado gate build products
+gateware/gate/build/

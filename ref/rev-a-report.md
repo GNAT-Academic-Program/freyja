@@ -177,3 +177,38 @@ Known: oscillator current and OE behaviour are from the YXC family listing
 still fails (phase B).
 Open questions for the owner: 50 MHz chosen as a safe NEORV32 default; say
 if you want another frequency (any 3225 CMOS part fits the same land).
+
+## Phase A5 2026-10-23
+Parts: 462 (unchanged)
+B.Cu footprints: 0
+Escape depth >= 7: 51 (17 inherent, 34 allocator choice)
+ERC: 0 errors, 2 warnings (allowlisted FPGA_DXP/FPGA_DXN)
+DRC: 9 errors, 324 warnings, 499 unrouted, 0 parity (unchanged)
+PCB sync: none (no netlist change)
+Files changed: tools/gen_xdc.py (new), tools/gate.py, ref/freya.xdc (new),
+gateware/gate/top.v (new, generated), gateware/gate/gate.xdc (new),
+gateware/gate/run.tcl (new), kicad/README.md, .gitignore
+What: `tools/gen_xdc.py` renders `ref/freya.xdc` from `tools/alloc.py`:
+185 constrained balls (bank 13: 22 LVCMOS33, 14: 37 LVCMOS33, 15: 48 and
+34: 48 LVCMOS33 at the 3.3 V jumper position, 16: 14 LVCMOS25 + 16 LVDS_25
+with DIFF_TERM on the eight receive pins), SLEW FAST on the RGMII
+transmit pins, four input clocks (SYS_CLK 50 MHz, PHY_RXC 125 MHz, the two
+link receive clocks at a 100 MHz placeholder) and the SPIx4 configuration
+properties (CFGBVS VCCO, CONFIG_VOLTAGE 3.3, SPI_BUSWIDTH 4, CONFIGRATE 33,
+COMPRESS). The same run writes `gateware/gate/top.v`, a throwaway design
+that uses every constrained port (BUFG on each clock, IBUFDS/OBUFDS on the
+LVDS pairs, IOBUF on every bidirectional pin). `gate.py` now fails on XDC
+drift the way it fails on netlist drift.
+Vivado gate: `vivado v2026.1 (64-bit)` at /tools/Xilinx/2026.1, part
+xc7a100tfgg676-2, `gateware/gate/run.tcl` in batch mode: synthesis, opt,
+place, route, `write_bitstream` -> GATE BITSTREAM OK, 0 DRC checks found
+on the routed design, 0 critical warnings, all timing constraints met
+(worst setup slack 8.739 ns), 578745-byte compressed bitstream. This proves
+the allocation is legal on the real part: clock-capable balls, LVDS_25 at
+VCCO 2.5 V with DIFF_TERM, LVCMOS25/LVDS_25 mixing in bank 16, SPIx4 flash
+pins and PUDC_B as user I/O after configuration.
+Known: Vivado part names carry no temperature grade; the -2 speed grade is
+what the industrial -2I part times to. The link clock periods are
+placeholders until the ports are characterised. Run time about six
+minutes, so the Vivado gate stays a manual step (README "Verify").
+Open questions for the owner: none

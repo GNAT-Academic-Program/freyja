@@ -5,7 +5,8 @@
 
 Read-only. Runs, in order: design.py / budget.py / qualified.py build checks,
 check_erc.py, netlist export to a scratch file compared with kicad/odin.net,
-DRC with schematic parity, place.py --check, depth.py. Exits non-zero if a
+ref/freya.xdc compared with a fresh gen_xdc export, DRC with schematic
+parity, place.py --check, depth.py. Exits non-zero if a
 blocking check fails (build errors, ERC, parity, netlist drift). DRC
 violations and unrouted counts are reported, not gated: the board is not
 routed yet.
@@ -59,6 +60,17 @@ def main():
             if strip(open(net).read()) != strip(open('kicad/odin.net').read()):
                 ok = False; print('NETLIST DRIFT: kicad/odin.net is not the export of the schematic')
             else: print('netlist        matches kicad/odin.net')
+
+        # ref/freya.xdc and the gate top must be the current export of alloc.py
+        r = run([PY, '-c', 'import sys; sys.path.insert(0, "tools"); import gen_xdc; '
+                 'rs = gen_xdc.rows(); print(gen_xdc.xdc(rs)); print("@@@"); print(gen_xdc.verilog(rs))'])
+        if r.returncode: ok = False; print('gen_xdc failed', r.stderr[-500:])
+        else:
+            want_xdc, want_v = r.stdout.split('@@@\n')
+            have_xdc = open('ref/freya.xdc').read(); have_v = open('gateware/gate/top.v').read()
+            if want_xdc.strip() != have_xdc.strip() or want_v.strip() != have_v.strip():
+                ok = False; print('XDC DRIFT: ref/freya.xdc or gateware/gate/top.v is not the export of tools/alloc.py')
+            else: print('xdc            matches ref/freya.xdc and gateware/gate/top.v')
 
         r = run([PY, 'tools/check_erc.py'])
         print('check_erc.py   exit', r.returncode, '|', r.stdout.strip().splitlines()[-1] if r.stdout.strip() else r.stderr.strip()[-200:])
