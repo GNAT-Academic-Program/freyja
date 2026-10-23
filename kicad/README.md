@@ -88,7 +88,7 @@ assigns the PCF8574's actual supply, input, bidirectional and open-drain pin
 types. J51 ground and mechanical pins remain passive. No project-level
 ERC rule is disabled and no ERC exclusion is added.
 
-Latest KiCad 9.0.8 validation: **498 footprints**, with all design values,
+Latest connector-rework validation: **500 footprints**, with all design values,
 footprint IDs and connections synchronized to the PCB. DRC remains separate:
 693 violations, 499 unrouted connections and two parity warnings for the
 standard SFP symbol's `CAGE` pin missing from its 20-pad electrical connector.
@@ -155,7 +155,7 @@ Regenerate stackup and rules without replacing placement or routing:
 `python3 tools/gen_pcb.py --rules-only`. Net classes live in `odin.kicad_pro`;
 DRC constraints live in the generated `odin.kicad_dru`.
 
-A–H are eight logical zones carried by four
-continuous 2x16 signal bodies and four parallel 1x16 power bodies; L is one
-separate 2x8 connector.
-Placement and routing are intentionally not started.
+A–H are eight logical zones carried by one continuous 2x32 through-hole
+signal body on each left/right edge. Every A–H/L/M zone has a position-1 long key post and its own
+1x7 female power body at positions 2..8; L and M each use a separate 2x8
+through-hole signal body.

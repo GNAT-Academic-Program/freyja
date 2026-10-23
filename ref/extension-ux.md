@@ -1,218 +1,123 @@
-# Odin extension connector — the whole spec
+# Odin extension connector
 
-If you are building an extension, this page is all you need.
+## Sections and connector bodies
 
-## The module
+A 16 shield bridges A/E (or another matching section pair) for 24 I/O;
+a 32 spans two section pairs for 48 I/O; a 64 spans all four for 96 I/O.
+A-D use J3 and E-H use J5. The intended contract has J5 on the left and
+J3 on the right, each centred at board-local y=50.00 mm. Each edge is one
+WingTAT 2044-2X32G00SA 2x32 through-hole female body, C49569844, H8.5.
+There is no two-body seam. Smaller shields occupy contiguous sub-ranges
+starting and ending on eight-column section boundaries.
 
-One **module** = one 16-position signal connector (2×8, 0.1") plus its
-separate 8-pin power row on **each of two opposite edges**. An extension is a
-shield that bridges the 100 x 100 mm base board:
+**Placement is not certified.** The authoritative hand-placed PCB was not
+moved to this contract. In the current PCB, J3/J5 remain on their previous,
+opposite edges with unequal longitudinal centres. The posts also retain
+their previous positions. The human must reconcile these positions before
+a shield can mate. Do not build a shield from the contract alone.
 
-```text
-16:       [ A ]================[ E ]
-32:   [ A ][ B ]============[ E ][ F ]
-64: [ A ][ B ][ C ][ D ]==[ E ][ F ][ G ][ H ]
-```
+## Per-section contacts
 
-The name is the connector width on each side:
+Columns are in increasing board-coordinate direction along the row;
+the pattern is identical on both edges, never mirrored.
 
-- a **16** bridges one signal block on each edge: **24 I/O**;
-- a **32** bridges two signal blocks on each edge: **48 I/O**;
-- a **64** bridges four signal blocks on each edge: **96 I/O**.
+| Row / column | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| Signal row 1 | IO0 | IO2 | GND | IO4 | IO6 | GND | IO8 | IO10 |
+| Signal row 2 | IO1 | IO3 | GND | IO5 | IO7 | GND | IO9 | IO11 |
+| Power row | GND POST | PIN V | GND | 3V3 | GND | 5V | GND | AUX |
 
-The schematic divides each edge into four 16-pin electrical sections: A-D on
-one edge and E-H on the other. That does **not** require four separate plastic
-headers. The generated schematic and board use the original arrangement of **two
-continuous 32-pin stack-through signal headers on each edge**, with a parallel
-continuous 32-pin single-row power header. The 16-position boundaries are
-labels that let a small shield occupy part of those headers.
+There are four signal-row GND contacts, three female power-row GND contacts,
+and one grounded mechanical post/probe point. The post is **not a mated
+electrical contact**. Every power rail has a neighboring ground contact.
+Six signal pairs occupy one column each; use the ball map for differential
+capability and bank-voltage requirements.
 
-That gives the extension support at both ends and most of the board area above
-Odin. Each shield carries female sockets underneath and matching male pins on
-top, so another shield can stack over it.
+J7/J8 serve L/M, the two complete eight-bit 5 V buses, using HCTL
+PM254-2-08-Z-8.5, C2897409. Their columns 3 and 6 are also GND in both rows;
+columns 7 and 8 are NC in both rows because only eight bus bits exist.
+Each bus has one shared direction control and an active-low enable with
+a default-disable pull-up. A-H are raw FPGA pins, not 5 V tolerant.
 
-Matching pairs are A/E, B/F, C/G and D/H. Placement must put every pair
-directly opposite, at identical pitch and orientation. This mechanical fit is
-not proven until the base board, a reference shield and the stacking height
-are laid out together.
+## Keyed power row and shield obligations
 
-```text
-             1     2     3     4     5     6     7     8
-signal row 1 IO0   IO2   IO4   IO6   IO8   IO10  GND   GND
-signal row 2 IO1   IO3   IO5   IO7   IO9   IO11  GND   GND
-power row    GND   PIN V GND   3V3   GND   5V    GND   SLOT PWR
-```
+Each zone uses C2832270 (XFCN PM254V-11-07-H85), a 1x7 female at positions
+2..8. A-H retain MK65..MK72; L/M retain MK76/MK77 for the GND post at position 1.
+Female references are A:J53, B:J62, C:J54, D:J63, E:J55, F:J64,
+G:J56, H:J65, L:J57, M:J58.
 
-The two signal rows contain 12 ordinary numbered I/O and four grounds. The
-third row contains all power and four more grounds. Power is never hidden
-between signal pins.
+The shield must provide:
 
-**The guide is a separate post,** not the header itself: a 1x1 pin beside each
-slot with a matching hole in the extension. A bare 2x8 header cannot stop reversed
-insertion on its own, and pretending otherwise would be the expensive kind of
-wrong. This is the same trick Odin_0 used.
+- A male 1x7 strip at positions 2..8; cut a breakaway strip such as C2337.
+- A **bare NPTH >=1.6 mm at position 1**, with **no plated contact** there.
+  A pin rubbing a plated hole is not a contact.
+- Mating pin projection below the shield PCB **<=9 mm**.
+- Seating height of approximately **11 mm** with plain male strips, or
+  **8.5 mm** with a compatible stack-through female option. Verify the
+  actual contact engagement and insulator stack before choosing parts.
+- One male 2x32 signal strip per edge for a 64 shield, or a suitable
+  2x40 breakaway cut to 2x32. Smaller shields populate only their sub-ranges.
+  The L/M male 2x8 counterpart is C779499. Stack-through female options must
+  preserve this pin map and provide the required downward male pins.
 
-Treat the pins as ordinary `IO0..IO11`. The FPGA allocation preserves six
-adjacent differential-capable pairs per slot. Pairing is an optional electrical
-capability, not the connector's identity. The exact pair map is in
-`ref/ballmap.md` for extensions that genuinely need it.
+The post tip must stand **>=18.5 mm above the base board**, so wrong insertion
+is rejected **before any signal or power pin touches any socket**. C51353
+(21 mm donor, cut to 1P, hand/wave soldered) is provisional: total pin length
+is not installed projection. **TODO:** qualify a ~25 mm donor if necessary.
 
-## The four rails, and why you are never blocked
+With the uniform position-1 post, a 180-degree reversal maps position
+p to 9-p: a fixed key would require p=9-p, with no integer solution.
+An in-row shift of 1..7 pitches puts a post under a populated contact or
+solid shield material rather than the sole bare key hole. This argument
+depends on every post occupying exactly position 1, adequate shield coverage
+at its boundary, and sufficient post projection. Signal bodies do not key
+the shield. It does not certify arbitrary out-of-row offsets or abusive tilt.
 
-| Pin | Rail | Fixed or set | What it is for |
-|---|---|---|---|
-| Power 2 | **PIN V** | **set per group: 3.3 / 2.5 / 1.8V** | Powers your voltage-matching logic and sets the FPGA pin voltage. |
-| Power 6 | **+5V** | fixed | Crappy 5V parts, LCD backlights, servos. |
-| Power 4 | **+3V3** | fixed | Always there even when PIN V is 1.8V. Power your sensor here. |
-| Power 8 | **SLOT PWR** | set beside this slot: **+12V / +5V / +3V3** | Motors, relays, op-amps or backlights. |
+## Power and voltage domains
 
-**+3V3 is fixed on purpose.** If PIN VOLTAGE is set to 1.8V you still have a
-normal 3.3V supply for the part you are powering. Signalling level and supply
-rail are separate problems and this is the pin that keeps them separate.
+J19 sets PIN V for A-D (FPGA bank 15); J20 sets E-H (bank 34).
+Selections are 3.3/2.5/1.8 V. Every section in a domain shares the selected
+voltage. L/M PIN V remains 3.3 V; their signal translation is separately 5 V.
 
-## PIN VOLTAGE changes the pins — this is the important bit
+AUX: **9/12/15/24 regulated, or 9-28V raw via AUX IN,
+1A per zone, see power corner.** All ten AUX branches share J66's source.
+The per-zone fitted PTC is C70150, actually **1.1 A hold / 33 V at 25 C**,
+not an exact 1.0 A-hold device; its temperature derating must be respected.
+This remains a deviation from the exact 1 A-hold request, not a silent rating
+change. PIN V/3V3/5V branch PTCs remain 500/300/500 mA.
 
-An FPGA pin has no fixed voltage. Pins live in **banks**, and a bank's `VCCO`
-supply *is* the logic level of every pin in it. Odin calls the connector pin
-`PIN V`; the schematic's technical net name is `VCCIO`. One jumper changes
-both the FPGA pins and the power delivered on `PIN V`.
+Four low-voltage protection channels remain (U21-U24), with EXT_EN/EXT_FAULT.
+AUX no longer has U25's active reverse-blocking/current-limit protection.
+PTCs isolate sustained branch faults; overload can droop the shared source.
+Never backfeed a power contact. A PTC is not instantaneous short protection.
+See [the power manual](power.md) for actual shared allocations and release holds.
 
-So: jumper the module to 2.5V and you get a 2.5V rail on B7… and IO0–IO9
-become 2.5V pins, LVDS-capable. Jumper it to 3.3V and they are 3.3V pins.
-**The rail on the connector and the logic level of the pins can never
-disagree.** You do not have to know this to use the board. That is the point.
+## Tall-part shield keep-outs
 
-## The slots, and the two voltage domains
+Generated from the **current saved PCB**, read-only, by
+`/usr/bin/python3 tools/placement.py --keepouts`. Coordinates are board-local.
+These are XY envelopes to clear, not a claim that an 8.5 or 11 mm seat clears
+the cages/terminals. Provide cutouts or independently verified height clearance
+and screwdriver access. New AUX IN placement must be chosen by the human and
+this table regenerated afterward. The key posts require their NPTHs instead
+of plated sockets.
 
-Ten extension ports: eight direct sections and two complete 5V buses. The
-`XC7A100T-FGG676` has six HR I/O banks. This board deliberately
-uses two as the extension voltage domains: bank 15 for A-D and bank 34 for E-H.
-Bank 14 stays fixed at 3.3V for flash, memory, control signals and 5V BUS 0.
-5V BUS 1 uses fixed-3.3 V bank 13. Banks 16 and 35 remain reserved. Therefore this
-revision has **two settable extension domains**:
+| Ref | Board-local X interval (mm) | Y interval (mm) | Shield obligation |
+|---|---:|---:|---|
+| SH1 | 16.60 to 33.40 | -7.27 to 42.67 | cage cutout/clearance |
+| SH2 | 66.60 to 83.40 | -7.27 to 42.67 | cage cutout/clearance |
+| J50 | 169.09 to 179.14 | -155.08 to -147.43 | terminal cutout and screwdriver access; currently outside board, human placement pending |
+| J68 | 161.43 to 171.48 | 122.48 to 130.13 | terminal cutout and screwdriver access; currently outside board, human placement pending |
+| MK65 | centre 11.90 | centre 22.00 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK66 | centre 143.20 | centre 17.40 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK67 | centre 11.90 | centre 42.30 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK68 | centre 11.90 | centre 62.60 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK69 | centre 11.90 | centre 82.90 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK70 | centre 143.40 | centre 81.80 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK71 | centre -123.67 | centre 100.44 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK72 | centre -123.67 | centre 120.84 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK76 | centre 143.20 | centre 60.20 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK77 | centre 143.20 | centre 38.80 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
 
-| Slots | FPGA group | PIN VOLTAGE | Path |
-|---|---|---|---|
-| **5V BUS 0** | 14 | fixed 3.3V | **buffered**, 5V compatible |
-| **5V BUS 1** | 13 | fixed 3.3V | **buffered**, 5V compatible |
-| **A B C D** | 15 | **settable** 3.3 / 2.5 / 1.8V | direct |
-| **E F G H** | 34 | **settable** 3.3 / 2.5 / 1.8V | direct |
-
-| You plug in a | You get | PIN VOLTAGE |
-|---|---|---|
-| **16** (1 module) | 12 IO per edge, 24 total | shares each domain with 3 neighbours |
-| **32** (2 modules) | 24 IO per edge, 48 total | shares each domain with 2 neighbours |
-| **64** (4 modules) | 48 IO per edge, 96 total | **owns both domains outright** |
-
-**Only a 64 gets a private voltage.** If your extension needs 2.5V or 1.8V
-signalling, build it as a 64 and take a whole bank, or agree the voltage with
-whatever else is sharing your domain. Two extensions at different voltages
-means one in the A–D domain and one in E–H.
-
-## The two 5V buses
-
-5V BUS 0 and 5V BUS 1 are identical complete eight-bit buses. Each uses one
-`SN74LXC8T245`, accepts 3.3 V on the FPGA side and 5 V on the connector side,
-and has one direction control for all eight signals. Each also has a separate
-FPGA-controlled `OE_N`, pulled up to +3V3 by 10k so the bus is disabled during
-configuration. Set direction and data with OE_N high, then drive OE_N low to
-enable; disable again before changing direction.
-
-They are not eight unrelated bidirectional GPIOs: all eight bits on one bus
-turn around together. Use them for parallel displays, legacy byte-wide parts
-and other 5 V buses. Use A-H when pins need independent direction.
-
-| | 5V BUS 0/1 | Slots A–H |
-|---|---|---|
-| 5V tolerant | **yes** | no (3.3V max) |
-| Speed | moderate | full FPGA speed |
-| LVDS | no | **yes, 5 pairs** |
-| Direction | shared per complete 8-bit bus | per pin, it is a raw FPGA ball |
-| VCCIO | fixed 3.3V | settable per domain |
-
-**Junk 5V parts?** Use either 5V BUS. BUS 0 shares fixed bank 14; BUS 1 uses
-fixed bank 13. Neither consumes a selectable extension voltage domain.
-**Anything fast, or needing per-pin direction?** Any of A–H.
-
-## Differential-capable pins
-
-The connector is an ordinary numbered-I/O interface. Underneath that simple
-view, six selected adjacent pin pairs per slot are routed to FPGA pair-capable
-balls. Use the pairing only when it helps; consult the ball map instead of
-assuming every column is a pair. A 0.1" header is not a precision
-high-speed connector, so keep aggressive links short and set PIN V to 2.5V
-for true LVDS output from an Artix-7 HR bank.
-
-## How much current you actually get
-
-**The per-slot fuses are fault protection, not an allowance.** Nine slots x
-500 mA does not mean the board can source 4.5 A. Each rail has one source, and
-all ten extension ports share it:
-
-| Rail | Source | **Shared total, all slots** | Per-slot fuse |
-|---|---|---|---|
-| VCCIO | protected separately for A-D and E-H | **500 mA typical per domain**, subject to source headroom | 500 mA |
-| +5V | `TPS54202`, or USB directly, then protected switch | **1.0 A typical** | 500 mA |
-| +3V3 | `AP63300`, then protected switch | **limited to 500 mA typical at the connector bus** | 300 mA |
-| **AUX 12V** | `TPS61085`, then latch-off eFuse | **500 mA typical** | 200 mA |
-
-Those numbers are computed, not estimated round figures: every one of them
-comes out of [`ref/power-budget.md`](power-budget.md), which
-`tools/budget.py` generates from a worst-case load table and the regulators'
-datasheet limits. Three things about them are worth knowing before you design
-against them.
-
-**+3V3 is the tight one, not AUX.** It carries the supervisor, the PSRAMs, the
-config flash, FPGA bank 14, the oscillator, both SFP modules, and both VCCIO
-domains if you jumper them to 3.3 V. That leaves 500 mA for all extension ports. Two
-SFP modules alone are 610 mA of it — power them down and you get that back.
-
-**AUX and +5V share a pot.** The 12 V rail is boosted *from* +5 V, and at 12 V
-out each milliamp of AUX costs 2.8 mA of +5 V. The boost itself could manage
-620 mA; the +5 V rail can only feed 570 mA of it, and every milliamp a slot
-takes from its +5 V pin comes off that. One backlight is fine. Nine motors are
-not.
-
-## What a bad extension can do
-
-Connector power does not come directly from Odin's internal rails. Five
-shared protection channels sit before the existing slot fuses: +5V, +3V3,
-VCCIO for A-D, VCCIO for E-H, and AUX 12V. They start off, limit startup and
-short-circuit current, block power flowing backward into Odin, and report one
-shared `EXT_FAULT` signal. A fault can turn off every slot using that shared
-bus. It does not turn off the FPGA, memories, supervisor or internal rails.
-
-This protects Odin's **power pins**. It does not make A-H signal pins tolerate
-5 V. Only 5V BUS 0 and 5V BUS 1 have translated 5 V-compatible signals.
-
-**On a plain 5 V source the +5V ceiling is the USB port, not the regulator.**
-1.6 A assumes `U11` is running, which needs 9 V. Plugged into a weak laptop
-port you have 0.9 A total for the whole board. If your extension needs real
-current, feed it from `J50` and do not take it from the connector.
-
-**AUX is marked provisional deliberately.** 570 mA is arithmetic on datasheet
-limits at 90% assumed efficiency; it ignores thermals and board droop. Treat
-it as a design target until a board has been measured.
-
-And remember the whole board is limited by what the USB source gives you —
-see `ref/power-input.md`.
-
-## Rules
-
-- **The 1.0V FPGA core never reaches a connector.** Do not look for it.
-- Every rail is individually fused. Shorting your extension does not take the
-  board down.
-- **Not implemented yet:** board-ID pins. All 16 positions are spoken for, so
-  there is nowhere to put them without giving up an I/O. See `findings.md`
-  item 8. The supervisor still fuses and power-gates every rail; it just
-  cannot yet tell *what* you plugged in.
-- IO are numbered globally `IO_1..IO_112`: eight on each 5V bus, then twelve
-  on each direct slot A-H, so every port's identity is readable from the net name.
-- Exact FPGA ball for every pin: `ref/ballmap.md`.
-- Where every current figure above comes from: `ref/power-budget.md`.
-
-## Confirmed against the package file
-
-Bank count, pair count and every ball assignment come from the imported
-`XC7A100T-2FGG676I` symbol and are processed by `tools/ballmap.py`. Six HR
-banks provide 300 user I/O. The generated `ref/ballmap.md` is authoritative.
+The EDGE_SIG inset remains 4.70 mm. No perfboard-lattice change, placement
+application, island staging, decap movement or BGA fanout was performed.

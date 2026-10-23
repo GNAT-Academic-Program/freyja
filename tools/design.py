@@ -13,6 +13,7 @@ FP_FPGA = 'EasyEDA:FBGA-676_L27.0-W27.0-R26-C26-P1.00-BL'
 C0402   = 'Capacitor_SMD:C_0402_1005Metric'
 C0603   = 'Capacitor_SMD:C_0603_1608Metric'
 C0805   = 'Capacitor_SMD:C_0805_2012Metric'
+C1210   = 'Capacitor_SMD:C_1210_3225Metric'
 R0402   = 'Resistor_SMD:R_0402_1005Metric'
 R0603   = 'Resistor_SMD:R_0603_1608Metric'
 # Inductors are not chosen here. tools/budget.py computes what each rail needs
@@ -23,6 +24,7 @@ WSON8_6 = 'EasyEDA:WSON-8_L6.0-W5.0-P1.27-BL-EP'   # Winbond ZP
 WSON8_8 = 'EasyEDA:WSON-8_L8.0-W6.10-P1.27-BL-EP'
 PTC1206 = 'Fuse:Fuse_1206_3216Metric'
 PTC1206_EASYEDA = 'EasyEDA:F1206'
+PTC2018 = 'odin:Fuse_TECHFUSE_SMD2018'
 SOT563  = 'EasyEDA:SOT-563_L1.6-W1.2-P0.50-LS1.6-BL'
 SOT236_ESD = 'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR'
 SOT236_BUCK = 'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL'
@@ -37,14 +39,16 @@ TSSOP24_XLATE = 'EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL_1'
 VSSOP8_LVC2T45 = 'EasyEDA:VSSOP-8_L2.1-W2.4-P0.50-LS3.2-BL'
 QFN16_SY8047 = 'EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6'
 VQFN10RPU = 'Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm'
-EXT2x8  = 'EasyEDA:HDR-SMD_16P-P2.54-V-F-R2-C8-LS7.1'
-EXT2x16 = 'EasyEDA:HDR-SMD_32P-P2.54-V-F-R2-C16-LS7.1'
-EXT1x16 = 'EasyEDA:HDR-TH_16P-P2.54-V-F-1'
-EXT1x8  = 'EasyEDA:HDR-TH_8P-P2.54-V-F'
+WQFN16_RTE = 'Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.68x1.68mm_ThermalVias'
+EXT2x8  = 'EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54'
+EXT2x32 = 'EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1'
+EXT_PWR = 'EasyEDA:HDR-TH_7P-P2.54-V-F'
+EXT_KEY = 'EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353'
 HDR2x3  = 'EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1'
 HDR2x5  = 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical'
 HDR1x2  = 'Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical'
 HDR1x3  = 'Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical'
+HDR2x4  = 'Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical'
 XTAL    = 'EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL'
 USBC    = 'Connector_USB:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A'
 LED0603 = 'LED_SMD:LED_0603_1608Metric'
@@ -104,13 +108,17 @@ class Design:
     def seq(self, pre):
         self._n[pre] = self._n.get(pre, 0) + 1
         return f'{pre}{self._n[pre]}'
+    def reserve(self, pre, count=1):
+        """Consume deleted sequential references without renumbering survivors."""
+        for _ in range(count): self.seq(pre)
     # Rails that can sit above 3.3 V, and the rating a capacitor on them needs.
     # A 22uF 6.3V part on the 12 V AUX rail fails on first power-up, and the
     # value string is the only place a schematic reader will see the
     # difference, so it is put there automatically rather than typed.
     # Everything unmarked is 16 V minimum, X5R or better -- see
     # ref/qualified-parts.md.
-    HV = {'VSYS': '25V', 'VBUS': '25V', '+12V': '25V', '+12V_EXT': '25V'}
+    HV = {'VSYS': '50V', 'VBUS': '25V', 'AUX_REG': '50V',
+          'AUX_RAW': '50V', 'AUX_RAIL': '50V'}
 
     def C(self, val, a, b, fp=C0402):
         hv = [self.HV[n] for n in (a, b) if n in self.HV]
@@ -125,6 +133,7 @@ class Design:
             (C0603, '4.7uF'): 'C277476',
             (C0805, '10uF'):  'C15850',
             (C0805, '22uF'):  'C86816',
+            (C1210, '10uF'):  'C77102',
         }.get((fp, base), '')
         return self.add(self.seq('C'), 'Device:C', val, fp, {'1': a, '2': b}, lcsc)
     def R(self, val, a, b, fp=R0402, dnp=False):
@@ -148,6 +157,7 @@ class Design:
             '200mA': (PTC1206_EASYEDA, 'C269111'),  # 24 V maximum
             '300mA': (PTC1206_EASYEDA, 'C22378340'), # 16 V maximum
             '500mA': (PTC1206_EASYEDA, 'C269115'),  # 6 V maximum
+            '1.1A 33V': (PTC2018, 'C70150'),
         }.get(val, (PTC1206, ''))
         return self.add(self.seq('F'), 'Device:Polyfuse', val, selected[0],
                         {'1': a, '2': b}, selected[1],
@@ -188,7 +198,7 @@ def fb_divider(vout, vref, rtop=100e3):
 # every divider is sized from an absolute-maximum input, not a nominal one.
 ADC_FS      = 3.3    # ADC_AVDD; also the full-scale reference
 ADC_CEIL    = 3.0    # design ceiling, leaving headroom below ADC_AVDD
-VSYS_ABSMAX = 20.0   # J50 is a bare header: assume someone feeds it 20 V
+VSYS_ABSMAX = 21.0   # official J50 ceiling; D4 only subtracts from this
 V5_ABSMAX   = 9.0    # Q2 closed on a 9 V PD contract -- a firmware fault, but
                      # a monitor that dies in that fault cannot report it
 
@@ -229,9 +239,8 @@ def adc_divider(name, vnom, vabsmax, rtop=100e3):
     return rt_lab, rb_lab
 
 # ---------------------------------------------------------------- rails
-V12, V5, V33, V25, V18, V10, V12MGT = 'VSYS', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
+VSYS, V5, V33, V25, V18, V10, V12MGT = 'VSYS', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
 V10MGT, GND = '+1V0_MGT', 'GND'
-V12B = '+12V'          # boosted from 5V, so AUX works on any USB source
 VCCIO = {'14': V33, '15': 'VCCIO_1', '34': 'VCCIO_2'}
 
 RAIL_CHECK = []
@@ -321,7 +330,7 @@ def build():
           36:'SFP1_MOD_ABS', 37:'SFP1_TX_DIS', 38:'SFP1_TX_FAULT', 39:'SFP1_LOS'}
     for g, n in gp.items(): sup[f'GPIO{g}'] = n
     sup['GPIO47/ADC7'] = 'EXT_FAULT'
-    sup['GPIO46/ADC6'] = 'EN_12V'
+    sup['GPIO46/ADC6'] = 'SFP0_RATE_SELECT'
     for a, n in enumerate(['MON_VSYS','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0']):
         sup[f'GPIO{40+a}/ADC{a}'] = n
     d.group('U7  board controller')
@@ -471,72 +480,85 @@ def build():
     d.sheet('Slots')
     # ------------------------------------------------ shield connectors
     # A-H are eight logical zones.  Each has a 2x8 signal block plus a separate
-    # 1x8 power row.  Adjacent zones share continuous 2x16 + 1x16 connector
-    # bodies: AB, CD, EF and GH.  Power is kept out of the signal rows so the
-    # connector reads plainly and all four exported supplies get nearby ground.
+    # keyed power row. All four sections on an edge share one continuous 2x32
+    # signal body: A-D on the right, E-H on the left. Each zone has its own
+    # long grounded key post at position 1 and a seven-contact female power
+    # socket at positions 2..8.
     rows = {}
     for s, (bank, _prs) in slots.items():
         if s in ('L', 'M'): continue
-        aux = f'SLOT_{s}_POWER'
         sig = [f'SLOT{s}_IO{i}' for i in range(12)]
-        rows[s] = ([sig[i] for i in range(0, 12, 2)] + [GND, GND],
-                   [sig[i] for i in range(1, 12, 2)] + [GND, GND])
+        rows[s] = ([sig[0], sig[2], GND, sig[4], sig[6], GND, sig[8], sig[10]],
+                   [sig[1], sig[3], GND, sig[5], sig[7], GND, sig[9], sig[11]])
 
-    for jn, (sa, sb) in enumerate((('A','B'), ('C','D'), ('E','F'), ('G','H')), 3):
-        d.group(f'SHIELD HEADER {sa}{sb}')
+    for jref, edge_slots in (('J3', 'ABCD'), ('J5', 'EFGH')):
+        d.group(f'SHIELD HEADER {edge_slots}')
         pins = {}
-        for zone, s in enumerate((sa, sb)):
+        for zone, s in enumerate(edge_slots):
             rowa, rowb = rows[s]
             for i in range(8):
                 col = zone * 8 + i
-                # C3975161 numbers one complete physical row 1..16 and the
-                # return row 32..17. Map by connector position, not by the
-                # odd/even numbering of the temporary KiCad header.
-                pins[str(col+1)] = rowa[i]
-                pins[str(32-col)] = rowb[i]
-        d.add(f'J{jn}', 'EasyEDA:PM254-2-16-S-8.5',
-              'PM254-2-16-S-8.5', EXT2x16, pins, 'C3975161')
-
-        power = {}
-        for zone, s in enumerate((sa, sb)):
-            rail = [GND, f'SLOT_{s}_PIN_VOLTAGE', GND, f'SLOT_{s}_3V3',
-                    GND, f'SLOT_{s}_5V', GND, f'SLOT_{s}_POWER']
-            for i, net_name in enumerate(rail):
-                power[str(zone*8+i+1)] = net_name
-        d.add(f'J{50+jn}', 'EasyEDA:ZX-PM2.54-1-16PY',
-              'ZX-PM2.54-1-16PY', EXT1x16, power, 'C7499334')
+                # The imported land pattern uses odd/even pad numbers by
+                # column. The bodies have opposite board rotations, so J5's
+                # local column and row are reversed to keep E-H in the same
+                # board-coordinate directions as A-D. This is a physical-
+                # position map, not an assumed serpentine numbering scheme.
+                physical_col = 31 - col if jref == 'J5' else col
+                if jref == 'J5':
+                    pins[str(2*physical_col+1)] = rowb[i]
+                    pins[str(2*physical_col+2)] = rowa[i]
+                else:
+                    pins[str(2*physical_col+1)] = rowa[i]
+                    pins[str(2*physical_col+2)] = rowb[i]
+        d.add(jref, 'EasyEDA:2044-2X32G00SA',
+              'WingTAT 2044-2X32G00SA', EXT2x32, pins, 'C49569844',
+              fp_ok='imported symbol has no footprint filters')
 
     # Two identical complete 8-bit, 5V-compatible buses. Signals stay on the
     # 2x8 block; all exported power stays on the adjacent 1x8 row.
     for bus, (s, jn) in enumerate((('L', 7), ('M', 8))):
+        d.group(f'SHIELD HEADER {s}')
         sig = [f'BUS5V{bus}_PIN{i}' for i in range(8)]
         pins = {}
-        row0 = [sig[i] for i in range(0, 8, 2)] + [GND]*4
-        row1 = [sig[i] for i in range(1, 8, 2)] + [GND]*4
+        # L/M expose eight bus bits. Keep the same two interleaved ground
+        # columns as every other 16-pin section; the final four contacts are
+        # deliberately NC rather than inventing extra ground contacts.
+        row0 = [sig[0], sig[2], GND, sig[4], sig[6], GND, '', '']
+        row1 = [sig[1], sig[3], GND, sig[5], sig[7], GND, '', '']
         for i in range(8):
             pins[str(2*i+1)] = row0[i]
             pins[str(2*i+2)] = row1[i]
-        d.add(f'J{jn}', 'EasyEDA:PM254-2-08-S-8.5',
-              'PM254-2-08-S-8.5', EXT2x8, pins, 'C3975153')
-        power = [GND, f'SLOT_{s}_PIN_VOLTAGE', GND, f'SLOT_{s}_3V3',
-                 GND, f'SLOT_{s}_5V', GND, f'SLOT_{s}_POWER']
-        d.add(f'J{57+bus}', 'EasyEDA:Header-Female-2.54_1x8',
-              '2.54-1*8P', EXT1x8,
-              {str(i+1): n for i, n in enumerate(power)}, 'C27438')
+        d.add(f'J{jn}', 'EasyEDA:PM254-2-08-Z-8.5',
+              'PM254-2-08-Z-8.5', EXT2x8, pins, 'C2897409',
+              fp_ok='imported symbol has no footprint filters')
 
-    # Each logical zone still owns independent branch fuses, AUX selection and
-    # a key position even though adjacent zones share one connector body.
-    selector_ref = {'L': 10, 'M': 21, **{s: 11+i for i, s in enumerate('ABCDEFGH')}}
+    # Each logical zone owns four branch fuses and a keyed power row even
+    # though adjacent zones share one signal connector body.
+    # Reuse the six former power-body references so update-from-schematic can
+    # swap those footprints in place. Only B/D/F/H need genuinely new refs.
+    power_ref = {'A':'J53', 'B':'J62', 'C':'J54', 'D':'J63',
+                 'E':'J55', 'F':'J64', 'G':'J56', 'H':'J65',
+                 'L':'J57', 'M':'J58'}
     for s, (bank, _prs) in slots.items():
         d.group(f'SLOT {s} branches')
         vio_ext = ('+3V3_EXT' if s in ('L', 'M') else
                    ('VCCIO_1_EXT' if bank == '15' else 'VCCIO_2_EXT'))
-        aux = f'SLOT_{s}_POWER'
-        # A bare header cannot stop a reversed extension. Odin_0 solved this
-        # with a 1x1 male post; retain one key position per logical zone.
-        d.add(f'MK{ord(s)}', 'EasyEDA:PH2.54-1X1P-H25',
-              'PH2.54-1X1P-H25', 'EasyEDA:HDR-TH_1P-P2.54-V-M',
-              {'1': GND}, 'C42431799')
+        aux = f'SLOT_{s}_AUX'
+        # Position 1 is a long grounded male post, cut from a 21 mm 1x40 strip.
+        # It is both the mechanical key and a probe point, not a mated contact.
+        d.add(f'MK{ord(s)}', 'Connector_Generic:Conn_01x01',
+              'BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered', EXT_KEY,
+              {'1': GND}, 'C51353')
+        power = [f'SLOT_{s}_PIN_VOLTAGE', GND, f'SLOT_{s}_3V3', GND,
+                 f'SLOT_{s}_5V', GND, aux]
+        if power.count(GND) != 3 or any(
+                not (power[i-1] == GND if i else False) and
+                not (power[i+1] == GND if i+1 < len(power) else False)
+                for i, n in enumerate(power) if n != GND):
+            raise ValueError(f'SLOT {s}: every power rail needs a GND neighbor')
+        d.add(power_ref[s], 'EasyEDA:PM254V-11-07-H85',
+              'XFCN PM254V-11-07-H85', EXT_PWR,
+              {str(i+1): n for i, n in enumerate(power)}, 'C2832270')
         # per-module resettable fuse on every exported rail
         # Per-slot fuses are FAULT protection, not a current allocation. The
         # shared source budgets are far smaller than 9 x these ratings; see
@@ -544,13 +566,10 @@ def build():
         d.F('500mA', vio_ext, f'SLOT_{s}_PIN_VOLTAGE')
         d.F('500mA', '+5V_EXT', f'SLOT_{s}_5V')
         d.F('300mA', '+3V3_EXT', f'SLOT_{s}_3V3')
-        selected_power = f'SLOT_{s}_POWER_SELECTED'
-        d.F('200mA', selected_power, aux)
-        # AUX selector: 2x3, jumper picks VIN / +5V / +3V3
-        d.add(f'J{selector_ref[s]}', 'EasyEDA:Header-Male-2.54_2x3',
-              '2.54-2*3P', HDR2x3,
-              {'1': '+12V_EXT', '2': selected_power, '3': '+5V_EXT',
-               '4': selected_power, '5': '+3V3_EXT', '6': selected_power}, 'C65114')
+        # C70150 is 1.1 A hold / 2.2 A trip at 25 C and rated 33 V. The ten
+        # branches protect faults independently; AUX_RAIL remains a shared
+        # 5 A aggregate routing class, not ten amperes of source capacity.
+        d.F('1.1A 33V', 'AUX_RAIL', aux)
         d.C('10uF', f'SLOT_{s}_PIN_VOLTAGE', GND, C0805)
         d.C('100nF', f'SLOT_{s}_3V3', GND)
 
@@ -591,14 +610,21 @@ def build():
         p = f'SFP{c}_'
         ctl = lambda k: p + k
         sfp_label = f'SFP {c}'
-        d.add(f'J{60+c}', 'Interface_Optical:SFP', sfp_label,
+        local_vcc = f'SFP{c}_VCC'
+        d.add(f'FB{c+1}', 'Device:FerriteBead',
+              'BLM18PG221SN1D 220R@100MHz 1.4A',
+              'Inductor_SMD:L_0603_1608Metric',
+              {'1': 'SFP_VCC', '2': local_vcc}, 'C80165')
+        d.add(f'J{60+c}', 'odin:SFP_NoCage', sfp_label,
               'EasyEDA:CONN-SMD_20P-P0.80-S8.20_1888247-1',
               {'TD+': p+'TD_P', 'TD-': p+'TD_N', 'RD+': p+'RD_P', 'RD-': p+'RD_N',
                'MOD_DEF1': p+'SCL', 'MOD_DEF2': p+'SDA',
                'MOD_DEF0': ctl('MOD_ABS'), 'TX_DISABLE': ctl('TX_DIS'),
                'TX_FAULT': ctl('TX_FAULT'), 'RX_LOS': ctl('LOS'),
-               'RATE_SELECT': GND, 'VccT': 'SFP_VCC', 'VccR': 'SFP_VCC',
-               'VeeT': GND, 'VeeR': GND}, 'C305914')
+               'RATE_SELECT': ('SFP0_RATE_SELECT' if c == 0 else 'SFP1_RATE_SELECT'),
+               'VccT': local_vcc, 'VccR': local_vcc,
+               'VeeT1': GND, 'VeeT2': GND, 'VeeT3': GND,
+               'VeeR1': GND, 'VeeR2': GND, 'VeeR3': GND, 'VeeR4': GND}, 'C305914')
         # Separate solder-tail cage, wave soldered after connector reflow. All twenty
         # mechanical shield tails bond directly to the ground plane.
         d.add(f'SH{c+1}', 'odin:U77A11133001', 'U77A11133001',
@@ -607,8 +633,13 @@ def build():
         # AC coupling: 100nF in series on all four high-speed lines
         d.C('100nF', f'MGTPTXP{c}', p+'TD_P'); d.C('100nF', f'MGTPTXN{c}', p+'TD_N')
         d.C('100nF', p+'RD_P', f'MGTPRXP{c}'); d.C('100nF', p+'RD_N', f'MGTPRXN{c}')
-        d.C('100nF', 'SFP_VCC', GND)
+        d.C('100nF', local_vcc, GND)
+        d.add(f'C{248+c}', 'Device:C', '22uF 6.3V', C0805,
+              {'1': local_vcc, '2': GND}, 'C86816')
         for k in ('MOD_ABS', 'TX_FAULT', 'LOS'): d.R('4.7k', V33, p+k)
+        if c == 1:
+            d.add('R145', 'Device:R', '4.7k', R0402,
+                  {'1': local_vcc, '2': 'SFP1_RATE_SELECT'}, 'C25900')
 
     # P7's power-up-high state safely keeps the active-low SFP gate off and
     # frees a supervisor pin for EXT_FAULT. P0-P2 sink status LEDs; P3 reads
@@ -646,7 +677,7 @@ def build():
     d.C('100nF', 'VBUS5_GATE', 'VBUS')
 
     d.group('input OR-ing')
-    d.add('J50', 'EasyEDA:KF301-5.0-2P', '9-14V POWER IN',
+    d.add('J50', 'EasyEDA:KF301-5.0-2P', '9-21V POWER IN',
           'EasyEDA:CONN-TH_P5.00_KF301-5.0-2P',
           {'1': 'VIN_EXT', '2': GND}, 'C474881')
     # ---- inrush limiting, because VBUS is a hot-plugged connector
@@ -671,18 +702,19 @@ def build():
     d.R('1.65k', 'VBUS_ILM', GND, R0603)
     d.C('2.2nF 25V', 'VBUS_DVDT', GND)
     d.add('D3', 'Device:D_Schottky', 'SS34', 'EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
-          {'A': 'VBUS_SS', 'K': V12}, 'C8678')
+          {'A': 'VBUS_SS', 'K': VSYS}, 'C8678')
     d.add('D4', 'Device:D_Schottky', 'SS34', 'EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
-          {'A': 'VIN_EXT', 'K': V12}, 'C8678')
-    d.C('22uF', V12, GND, C0805); d.C('22uF', V12, GND, C0805)
+          {'A': 'VIN_EXT', 'K': VSYS}, 'C8678')
+    d.C('10uF', VSYS, GND, C1210); d.C('10uF', VSYS, GND, C1210)
     d.C('10uF', 'VBUS', GND, C0805)
-    # 12V -> 5V
-    d.group('U11  12V to 5V')
-    d.add('U11', 'Regulator_Switching:TPS54202DDC', 'TPS54202DDCR', SOT236_BUCK,
-          {'VIN': V12, 'GND': GND, 'EN': 'EN_5V', 'FB': 'FB_5V',
-           'SW': 'SW_5V', 'BOOT': 'BOOT_5V'}, LCSC['TPS54202DDC'])
-    d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('10uH', V5, 'SW_5V')
-    rt, rb, act = fb_divider(5.0, 0.596)          # TPS54202 Vref = 0.596 V
+    # VSYS -> 5V. AP63300's 32V operating / 40V 400ms transient limits cover
+    # the 21V screw input and the SMBJ22A's 35.5V pulse clamp.
+    d.group('U11  VSYS to +5V')
+    d.add('U11', 'odin:AP63300WU', 'AP63300WU-7', SOT236_AP,
+          {'VIN': VSYS, 'GND': GND, 'EN': 'EN_5V', 'FB': 'FB_5V',
+           'SW': 'SW_5V', 'BST': 'BOOT_5V'}, 'C2158012')
+    d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('4.7uH', V5, 'SW_5V')
+    rt, rb, act = fb_divider(5.0, 0.8)            # AP63300 Vref = 0.8 V
     d.R(rt, V5, 'FB_5V', R0603); d.R(rb, 'FB_5V', GND, R0603)
     RAIL_CHECK.append(('+5V', 5.0, act, rt, rb))
     for _ in range(3): d.C('22uF', V5, GND, C0805)
@@ -695,9 +727,9 @@ def build():
     act3 = 0.8 * (1 + 93.1 / 30.1)
     RAIL_CHECK.append((V33, 3.3, act3, rt3, rb3))
     d.add('U12', 'odin:AP63300WU', 'AP63300WU-7', SOT236_AP,
-          {'VIN': V12, 'GND': GND, 'FB': 'FB_3V3',
+          {'VIN': VSYS, 'GND': GND, 'FB': 'FB_3V3',
            'SW': 'SW_3V3', 'BST': 'BOOT_3V3'}, 'C2158012')
-    d.C('10uF', V12, GND, C0805)
+    d.C('10uF', VSYS, GND, C1210)
     d.C('100nF', 'BOOT_3V3', 'SW_3V3'); d.L('4.7uH', V33, 'SW_3V3')
     d.R(rt3, V33, 'FB_3V3', R0603); d.R(rb3, 'FB_3V3', GND, R0603)
     d.C('56pF', V33, 'FB_3V3')
@@ -735,23 +767,12 @@ def build():
     d.R(top, V10, 'FB+1V0', R0603); d.R(bot, 'FB+1V0', GND, R0603)
     d.C('22pF', V10, 'FB+1V0')
     for _ in range(2): d.C('22uF', V10, GND, C0805)
-    d.group('MGTAVCC filter')
-    d.group('U19  5V to 12V boost (AUX)')
-    # AUX must work on a plain 5V port too, so 12V is boosted from the 5V rail
-    # rather than taken from VSYS. PD then buys headroom, not functionality.
-    rt, rb, act = fb_divider(12.0, 1.238)         # TPS61085 Vref = 1.238 V
-    RAIL_CHECK.append((V12B, 12.0, act, rt, rb))
-    d.add('U19', 'Regulator_Switching:TPS61085PW', 'TPS61085PWR', TSSOP8,
-          {'VIN': V5, 'GND': GND, 'EN': 'EN_12V', 'SW': 'SW_12V', 'FB': 'FB_12V',
-           'COMP': 'COMP_12V', 'FREQ': GND, 'SS': 'SS_12V'}, 'C13505')
-    d.L('10uH', V5, 'SW_12V')
-    d.add('D5', 'Device:D_Schottky', 'SS34', 'EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
-          {'A': 'SW_12V', 'K': V12B}, 'C8678')
-    d.R(rt, V12B, 'FB_12V', R0603); d.R(rb, 'FB_12V', GND, R0603)
-    d.R('47k', 'COMP_12V', 'COMP_12V_C'); d.C('2.2nF', 'COMP_12V_C', GND)
-    d.C('10nF', 'SS_12V', GND)
-    for _ in range(2): d.C('10uF', V12B, GND, C0805)
-    d.C('10uF', V5, GND, C0805)
+    # U19's +12V output fed only U25 and the ten per-zone AUX selectors. Those
+    # consumers are gone: AUX is now one VSYS-fed lab rail below. Consume the
+    # old sequential slots so every later hand-placed L/R/C keeps its identity.
+    d.reserve('L', 1)       # former L8
+    d.reserve('R', 3)       # former R69..R71
+    d.reserve('C', 5)       # former C213..C217
 
     # Extension power is a separate protected tree. Base-board loads remain
     # on the internal rails; only the connector PTC branches use these outputs.
@@ -780,20 +801,10 @@ def build():
         d.R(rilim, f'{ref}_ILIM', GND, R0603)
         d.C('1uF', vin, GND, C0603)
 
-    # Latch-off TPS259470L protects AUX. 6.65k sets 500mA typical
-    # (425..575mA), below the boost's computed 622mA capability. 121k/12.1k
-    # sets 13.2V nominal OVLO. 3.3nF gives about a 20ms 12V rise. ITIMER open
-    # selects the fastest response; AUXOFF is unused.
-    d.group('U25  +12V to +12V_EXT')
-    d.add('U25', 'odin:TPS259470LRPW', 'TPS259470LRPWR', VQFN10RPU,
-          {'EN/UVLO':'EXT_EN', 'OVLO':'EXT12_OVLO', 'FLT':'EXT_FAULT',
-           'IN':V12B, 'OUT':'+12V_EXT', 'dVdt':'EXT12_DVDT',
-           'GND':GND, 'ILM':'EXT12_ILM'}, 'C3662793')
-    d.R('121k', V12B, 'EXT12_OVLO', R0603)
-    d.R('12.1k', 'EXT12_OVLO', GND, R0603)
-    d.R('6.65k', 'EXT12_ILM', GND, R0603)
-    d.C('3.3nF 25V', 'EXT12_DVDT', GND)
-    d.C('1uF', V12B, GND, C0603)
+    # U25 was consumed only by the deleted +12V_EXT selector tree. AUX_RAIL's
+    # ten 33V PTCs now provide branch isolation. Preserve later R/C numbers.
+    d.reserve('R', 3)       # former R78..R80
+    d.reserve('C', 2)       # former C222..C223
 
     d.group('MGTAVCC filter')
     # MGTAVCC 1.0V filtered off +1V0
@@ -802,7 +813,7 @@ def build():
     # Rail monitors into the supervisor ADC. The two rails that can sit above
     # +3V3 are divided; the dividers are sized from the absolute maximum the
     # hardware can present, not from the nominal rail -- see adc_divider().
-    for rail, mon, vnom, vmax in ((V12, 'MON_VSYS', 9.0, VSYS_ABSMAX),
+    for rail, mon, vnom, vmax in ((VSYS, 'MON_VSYS', 9.0, VSYS_ABSMAX),
                                   (V5,  'MON_5V',   5.0, V5_ABSMAX)):
         rt, rb = adc_divider(mon, vnom, vmax)
         d.R(rt, rail, mon, R0603); d.R(rb, mon, GND, R0603)
@@ -830,9 +841,10 @@ def build():
     # including EN_5V, whose TPS54202 has an internal enable pull-up.
     d.sheet('Power')
     for ref, en in (('U11', 'EN_5V'), ('U13', 'EN_2V5'), ('U14', 'EN_1V8'),
-                    ('U16', 'EN_1V2'), ('U15', 'EN_1V0'), ('U19', 'EN_12V')):
+                    ('U16', 'EN_1V2'), ('U15', 'EN_1V0')):
         d.group(next(p['group'] for p in d.parts if p['ref'] == ref))
         d.R('100k', en, GND, R0603)
+    d.reserve('R', 1)       # former R95, U19 enable pulldown
 
     # Default-disable the translators through FPGA configuration. OE is
     # referenced to VCCA (+3V3); firmware/HDL must set DIR/data before OE low.
@@ -881,18 +893,111 @@ def build():
             net = f'PSRAM{c}_{lane}'
             d.R('33', net, net+'_MEM')
 
-    # Local eFuse output reservoir, before selectors/PTCs. Append to avoid
-    # renumbering existing capacitors; place beside U25 OUT and ground return.
-    d.sheet('Power')
-    d.group('U25  +12V to +12V_EXT')
-    d.C('10uF', '+12V_EXT', GND, C0805)
-
     # Clamp the screw-terminal input before D4. Unidirectional TVS:
     # cathode to VIN_EXT, anode to ground; keep the surge loop at J50 short.
     d.sheet('Power')
     d.group('input OR-ing')
-    d.add('D8', 'Device:D_Zener', 'SMBJ15A-13-F', 'Diode_SMD:D_SMB',
-          {'K': 'VIN_EXT', 'A': GND}, 'C135046')
+    d.add('D8', 'Device:D_Zener', 'SMBJ22A', 'Diode_SMD:D_SMB',
+          {'K': 'VIN_EXT', 'A': GND}, 'C151920')
+
+    # ------------------------------------------------ AUX lab rail
+    # LM5157's 2.9 V operating floor is below the weak-USB model:
+    # 4.75 V - SS34/eFuse loss = 4.27 V. BIAS is therefore fed from VSYS,
+    # never VIN_EXT, so the menu also works from USB power.
+    d.group('AUX lab rail')
+    d.add('U28', 'odin:LM5157RTE', 'LM5157RTER', WQFN16_RTE,
+          {'PGND1': GND, 'PGND2': GND, 'AGND': GND, 'EP': GND,
+           'VCC': 'AUX_VCC_PIN', 'BIAS': VSYS, 'RT': 'AUX_RT',
+           'UVLO/SYNC/EN': 'AUX_EN', 'COMP': 'AUX_COMP', 'FB': 'AUX_FB',
+           'SS': 'AUX_SS', 'MODE': 'AUX_MODE',
+           'SW1': 'AUX_SW', 'SW2': 'AUX_SW', 'SW3': 'AUX_SW'}, 'C5219222')
+    # Physical windings are 1-3 and 2-4. This matches the manufacturer's
+    # drawing, not the misleading 1-2 / 3-4 convention of generic symbols.
+    d.add('L10', 'odin:PSSCAQ1285_4R7MP', 'PSSCAQ1285-4R7MP 4.7uH coupled',
+          'odin:L_PROD_PSSCAQ1285',
+          {'PRI_DOT': VSYS, 'PRI': 'AUX_SW',
+           'SEC_DOT': GND, 'SEC': 'AUX_SEPIC'}, 'C54563336')
+    # Nexperia Table 2 and the exact import agree: 1/2 are anodes and 3 is
+    # cathode. A generic two-pin diode silently leaves pad 3 unconnected.
+    d.add('D12', 'EasyEDA:PMEG060V100EPDZ', 'PMEG060V100EPDZ',
+          'EasyEDA:SOT1289_L5.8-W4.4-LS6.5-RD',
+          {'A': 'AUX_SEPIC', 'K': 'AUX_REG'}, 'C552792')
+    # Reference-EVM energy storage, all 50 V X7R where a switching or
+    # selectable high-voltage node is present.
+    for ref in ('C233', 'C234'):
+        d.add(ref, 'Device:C', '10uF 50V X7R', C1210,
+              {'1': VSYS, '2': GND}, 'C77102')
+    d.add('C235', 'Device:C', '100nF 50V', C0603,
+          {'1': VSYS, '2': GND})
+    d.add('R131', 'Device:R', '4.99', R0603,
+          {'1': 'AUX_VCC_PIN', '2': 'AUX_VCC'})
+    d.add('C236', 'Device:C', '1uF 16V', C0603,
+          {'1': 'AUX_VCC', '2': GND}, 'C29936')
+    # ~435 kHz: 2.1 MHz's guaranteed 80% maximum duty cannot cover 5V->24V
+    # SEPIC. Lower frequency also reduces switching losses at the 12 W corner.
+    d.add('R132', 'Device:R', '49.9k', R0603,
+          {'1': 'AUX_RT', '2': GND})
+    d.add('C237', 'Device:C', '47nF 50V', C0603,
+          {'1': 'AUX_SS', '2': GND})
+    d.add('R133', 'Device:R', '62k', R0603,
+          {'1': 'AUX_MODE', '2': GND})
+    d.add('R134', 'Device:R', '2k', R0603,
+          {'1': 'AUX_COMP', '2': 'AUX_COMP_C'})
+    d.add('C238', 'Device:C', '47nF 50V', C0603,
+          {'1': 'AUX_COMP_C', '2': GND})
+    d.add('C239', 'Device:C', '220pF 50V', C0603,
+          {'1': 'AUX_COMP', '2': GND})
+    d.add('C240', 'Device:C', '10uF 50V X7R SEPIC', C1210,
+          {'1': 'AUX_SW', '2': 'AUX_SEPIC'}, 'C77102')
+    for ref in ('C241', 'C242', 'C243', 'C244', 'C245'):
+        d.add(ref, 'Device:C', '10uF 50V X7R', C1210,
+              {'1': 'AUX_REG', '2': GND}, 'C77102')
+    d.add('C246', 'Device:C', '100nF 50V', C0603,
+          {'1': 'AUX_REG', '2': GND})
+
+    # Feedback is one ordered series ladder. The four FETs connect one ladder
+    # tap to FB; if several caps are fitted, the tap nearest AUX_REG wins and
+    # shorts the intervening segments, so the error is always toward LOWER V.
+    d.add('R135', 'Device:R', '10k 1%', R0603,
+          {'1': 'AUX_FB', '2': GND})
+    for ref, value, a, b in (
+            ('R136', '80.6k 1%', 'AUX_REG', 'AUX_TAP_9'),
+            ('R137', '30.1k 1%', 'AUX_TAP_9', 'AUX_TAP_12'),
+            ('R138', '30.1k 1%', 'AUX_TAP_12', 'AUX_TAP_15'),
+            ('R139', '90.9k 1%', 'AUX_TAP_15', 'AUX_TAP_24')):
+        d.add(ref, 'Device:R', value, R0603, {'1': a, '2': b})
+
+    d.add('J67', 'Connector_Generic:Conn_02x04_Odd_Even',
+          'AUX VOLTAGE 9/12/15/24; ONE CAP ONLY', HDR2x4,
+          {'1': 'AUX_SEL_9', '2': GND, '3': 'AUX_SEL_12', '4': GND,
+           '5': 'AUX_SEL_15', '6': GND, '7': 'AUX_SEL_24', '8': GND}, 'C124386')
+    inv = {'VCC': V33, 'GND': GND, 'A5': GND, 'A6': GND}
+    for i, volts in enumerate((9, 12, 15, 24), 1):
+        inv[f'A{i}'] = f'AUX_SEL_{volts}'
+        inv[f'Y{i}'] = f'AUX_SEL_{volts}_ON'
+        d.add(f'R{139+i}', 'Device:R', '100k', R0402,
+              {'1': V33, '2': f'AUX_SEL_{volts}'}, 'C25741')
+        d.add(f'Q{4+i}', 'Transistor_FET:Q_NMOS_GSD', 'BSS138LT1G',
+              'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
+              {'G': f'AUX_SEL_{volts}_ON', 'S': 'AUX_FB',
+               'D': f'AUX_TAP_{volts}'}, 'C82045')
+        d.add(f'D{12+i}', 'Device:D', '1N4148W', 'Diode_SMD:D_SOD-123',
+              {'A': f'AUX_SEL_{volts}_ON', 'K': 'AUX_EN'}, 'C81598')
+    d.add('U29', 'odin:74HC04D', '74HC04D,653',
+          'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', inv, 'C5590')
+    d.add('C247', 'Device:C', '100nF', C0402,
+          {'1': V33, '2': GND}, 'C1525')
+    d.add('R144', 'Device:R', '100k', R0402,
+          {'1': 'AUX_EN', '2': GND}, 'C25741')
+
+    # REG is the only converter-output path to the shared rail. AUX IN is a
+    # separate raw source and touches the board only through this exclusive
+    # one-cap selector.
+    d.add('J66', 'Connector_Generic:Conn_01x03', 'AUX SOURCE REG/AUX/RAW', HDR1x3,
+          {'1': 'AUX_REG', '2': 'AUX_RAIL', '3': 'AUX_RAW'}, 'C2937625')
+    d.add('J68', 'EasyEDA:KF301-5.0-2P', 'AUX IN 9-28V UNREGULATED',
+          'EasyEDA:CONN-TH_P5.00_KF301-5.0-2P',
+          {'1': 'AUX_RAW', '2': GND}, 'C474881')
 
     # PCF8574 is a strong sink, weak source. Active-low LEDs are dark at
     # power-on (all output latches high) and need no supervisor GPIOs.
@@ -903,6 +1008,23 @@ def build():
         d.add(ref, 'EasyEDA:F.0603.00025_P2-0603G1TS2-06T-002',
               'F.0603.00025/P2-0603G1TS2-06T-002', 'EasyEDA:LED0603-RD_GREEN',
               {'A': f'LED_{name}_A', 'C': f'LED_{name}_N'}, 'C7496818')
+
+    # Mandatory connector-accounting gate. A post is a ground probe/key, not
+    # a mated contact; each section separately has four signal grounds plus
+    # the three female power-row grounds.
+    byref = {p['ref']: p for p in d.parts}
+    for s in 'ABCDEFGH':
+        if sum(n == GND for row in rows[s] for n in row) != 4:
+            raise ValueError(f'SLOT {s}: signal section must have exactly 4 GND contacts')
+    for s, jref in (('L', 'J7'), ('M', 'J8')):
+        if sum(n == GND for n in byref[jref]['pins'].values()) != 4:
+            raise ValueError(f'SLOT {s}: signal section must have exactly 4 GND contacts')
+    for s, jref in power_ref.items():
+        if sum(n == GND for n in byref[jref]['pins'].values()) != 3:
+            raise ValueError(f'SLOT {s}: power row must have exactly 3 GND contacts')
+        if set(byref[f'MK{ord(s)}']['pins'].values()) != {GND}:
+            raise ValueError(f'SLOT {s}: inline post is not GND')
+    print('ground sanity: 10 sections x (4 signal GND + 3 power GND + 1 GND post); rail neighbors OK')
 
     # Nothing ships unqualified: every non-generic part must carry a real MPN,
     # package and rating in tools/qualified.py, fitted with the footprint

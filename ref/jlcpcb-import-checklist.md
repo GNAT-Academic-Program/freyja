@@ -1,5 +1,29 @@
 # JLCPCB / EasyEDA import checklist
 
+## AUX rework import checkpoint (2026-09-21; batch not yet validated)
+
+The eight requested imports are present: C5219222, C552792, C70150,
+C5590, C81598, C2937625, C9139 and C151920. Presence is not qualification.
+
+- C54563336 failed to import. Its locally generated symbol and footprint
+  are checked against the manufacturer's winding and land-pattern drawings;
+  see [aux-magnetics.md](aux-magnetics.md). No further import is required.
+- **C9139 is rejected for J67.** Its exact imported MPN is
+  `2.54-2*4P弯简牛`, a right-angle boxed IDC header, not the straight,
+  unshrouded jumper block previously claimed. The draft's C9139 BOM
+  assignment must not be released. Replacement candidate: C124386,
+  Ckmtw B-2100S08P-B110, straight 2x4 through-hole header. Import and
+  physical-pad verification are pending before wiring that replacement.
+- D12 C552792 is not a two-pad diode: manufacturer and imported symbol
+  agree on anodes 1/2 and cathode 3. `design.py` now uses the exact import,
+  connecting both anodes to AUX_SEPIC and the cathode to AUX_REG.
+- C5219222's imported footprint is retained as package evidence; the
+  selected KiCad RTE footprint provides the required exposed-pad via field.
+
+The rest of this document records the older generated project and must be
+reconciled with the completed batch before release. This checkpoint is not
+an ERC, DRC, PCB-sync or complete power-stage qualification result.
+
 The imported library is in `easyeda/` beside `kicad/`. The checked parts below
 are now linked from the textual design by exact footprint and LCSC number.
 `python3 tools/audit_easyeda.py` verifies those links, symbol pin numbers and
@@ -94,11 +118,11 @@ connector import has its two locating holes corrected to 1.55 mm NPTH per TE
 
 | Item | Selected part |
 |---|---|
-| four 2x16 signal sockets | `C3975161` — imported and linked |
-| four 1x16 power sockets | `C7499334` — imported and linked |
+| two 2x32 signal sockets | `C49569844` — imported and linked |
+| ten 1x7 keyed power sockets | `C2832270` — imported and linked |
 | two 5V-bus 2x8 signal sockets | `C3975153` — imported and linked |
-| two 1x8 power sockets | `C27438` — imported and linked |
-| ten guide/key posts | `C42431799` — imported and linked |
+| 2x8 through-hole signal sockets | `C2897409` — imported and linked |
+| ten 21 mm cut-to-1P key posts | `C51353` — imported; custom single-pad cut footprint |
 | twelve 2x3 selectors | `C65114` — imported and linked; `C501335` shunts are loose accessories |
 | one 1x2 external-JTAG selector | `C492401` — imported and linked; uses a `C501335` shunt |
 

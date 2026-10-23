@@ -4,16 +4,15 @@
 Run under KiCad's python (pcbnew required), after load_pcb.py or after a GUI
 "Update PCB from Schematic":
 
-    python3 tools/place.py            # apply + verify
+    python3 tools/place.py            # apply contract/rules + verify
+    python3 tools/place.py --stage    # also restage every connectivity island
     python3 tools/place.py --check    # verify only, move nothing
 
 What it does, in order:
 
   1. CONTRACT   every footprint in placement.contract() is moved to its
                 computed position. These never depend on taste.
-  2. ISLANDS    every other footprint is staged as a connectivity-island
-                tile right of the board (tools/islands.py, same islands as
-                the ISLxx net classes), to be hand-placed tile by tile.
+  2. ISLANDS    only with explicit --stage: stage connectivity-island tiles.
   3. PSRAM RULE 24 series resistors sit at the FPGA right-hand escape edge.
   4. DECAP RULE the FPGA's per-ball 100nF decoupling flips to B.Cu and lands
                 mirrored under its supply ball.
@@ -212,6 +211,17 @@ def lattice_ok(vals, pitch=2.54, tol=0.05):
     return all(abs((v - base) / pitch - round((v - base) / pitch)) * pitch < tol
                for v in vals)
 
+def normalized_signal_pattern(fp):
+    """Nets by board-coordinate column/row, with the slot letter removed."""
+    import re
+    columns = {}
+    for pad in fp.Pads():
+        y = round(mm(pad.GetPosition().y), 3)
+        columns.setdefault(y, []).append((mm(pad.GetPosition().x), pad.GetNetname()))
+    return [[re.sub(r'^SLOT[A-H]_', 'SLOT_', net)
+             for _x, net in sorted(columns[y])]
+            for y in sorted(columns)]
+
 def verify_sfp(fps):
     """Check mechanical datums using actual KiCad pads, not bounding boxes."""
     errs = []
@@ -240,7 +250,7 @@ def verify_sfp(fps):
 def verify(fps):
     errs = verify_sfp(fps)
     # opposite edges share one y-lattice; bottom buses one x-lattice
-    for a, b, axis in (('J5', 'J3', 1), ('J6', 'J4', 1), ('J7', 'J8', 0)):
+    for a, b, axis in (('J5', 'J3', 1), ('J7', 'J8', 0)):
         ca, cb = contact_coords(fps[a], axis), contact_coords(fps[b], axis)
         if a == 'J7':
             # side-by-side pair: same pattern shifted a whole number of pitches
@@ -250,13 +260,55 @@ def verify(fps):
             cb = [round(v - d, 3) for v in cb]
         if [round(v, 2) for v in ca] != [round(v, 2) for v in cb]:
             errs.append(f'{a}/{b}: pad lattices differ; a shield cannot bridge')
-    # signal row + power row + key post on one 2.54 grid, per edge
-    for sig, pwr, key, axis in (('J5', 'J55', 'MK69', 0), ('J3', 'J53', 'MK65', 0),
+    if normalized_signal_pattern(fps['J5']) != normalized_signal_pattern(fps['J3']):
+        errs.append('J5/J3: physical signal/net patterns differ or are mirrored')
+    # Signal rows, keyed power row, and post use one 2.54 lattice per edge.
+    for sig, pwr, key, axis in (('J5', 'J55', 'MK69', 0),
+                                ('J3', 'J53', 'MK65', 0),
                                 ('J7', 'J57', 'MK76', 1)):
         vals = [contact_coords(fps[sig], axis)[0], contact_coords(fps[pwr], axis)[0],
                 contact_coords(fps[key], axis)[0]]
         if not lattice_ok(vals):
             errs.append(f'{sig}/{pwr}/{key}: rows off the 2.54 lattice: {vals}')
+    # Every zone uses the same keyed sequence: post at position 1, followed
+    # exactly one pitch later by female-header pin 1 (position 2).
+    sig_for = {**{s:'J3' for s in 'ABCD'}, **{s:'J5' for s in 'EFGH'},
+               'L':'J7', 'M':'J8'}
+    for s in 'ABCDEFGHLM':
+        key, pwr = fps[f'MK{ord(s)}'], fps[pl.POWER_REFS[s]]
+        axis = 0 if s in 'LM' else 1
+        cross = 1 - axis
+        pin1 = next((p for p in pwr.Pads() if p.GetNumber() == '1'), None)
+        if pin1 is None:
+            errs.append(f'{pl.POWER_REFS[s]}: missing pin 1'); continue
+        along = mm(pin1.GetPosition()[axis]) - mm(key.GetPosition()[axis])
+        across = mm(pin1.GetPosition()[cross]) - mm(key.GetPosition()[cross])
+        if abs(along - 2.54) > .05 or abs(across) > .05:
+            errs.append(f'SLOT {s}: key is not uniform position 1: delta=({along:.2f},{across:.2f})')
+
+        ordered = sorted(pwr.Pads(), key=lambda p: mm(p.GetPosition()[axis]))
+        nets = [p.GetNetname() for p in ordered]
+        if nets.count('GND') != 3:
+            errs.append(f'SLOT {s}: power row has {nets.count("GND")} GND, expected 3')
+        for i, net in enumerate(nets):
+            if net != 'GND' and not ((i and nets[i-1] == 'GND') or
+                                     (i+1 < len(nets) and nets[i+1] == 'GND')):
+                errs.append(f'SLOT {s}: rail {net} has no adjacent GND')
+        if next(iter(key.Pads())).GetNetname() != 'GND':
+            errs.append(f'SLOT {s}: position-1 post is not GND')
+
+        sig = fps[sig_for[s]]
+        pads = list(sig.Pads())
+        if s in 'ABCDEFGH':
+            zone = 'ABCDEFGH'.index(s) % 4
+            local = sorted(pads, key=lambda p: mm(p.GetPosition()[axis]))[zone*16:(zone+1)*16]
+            ng = sum(p.GetNetname() == 'GND' for p in local)
+            if ng != 4:
+                errs.append(f'SLOT {s}: signal section has {ng} GND, expected 4')
+        else:
+            ng = sum(p.GetNetname() == 'GND' for p in pads)
+            if ng != 4:
+                errs.append(f'SLOT {s}: 5V signal section has {ng} GND, expected 4')
     # report the column convention so extension-ux can state it as fact
     ya = {round(mm(p.GetPosition()[1]), 2): p.GetNumber() for p in fps['J5'].Pads()}
     yb = {round(mm(p.GetPosition()[1]), 2): p.GetNumber() for p in fps['J3'].Pads()}
@@ -268,6 +320,7 @@ def verify(fps):
 
 def main():
     check_only = '--check' in sys.argv
+    stage = '--stage' in sys.argv
     board = pcbnew.LoadBoard(BOARD)
     fps = footprints(board)
     contract = pl.contract()
@@ -277,6 +330,9 @@ def main():
         print('placement.py contract violations:'); [print(' ', e) for e in geo_errs]
         sys.exit(1)
     if not check_only:
+        before = {r: (fp.GetPosition().x, fp.GetPosition().y,
+                      round(fp.GetOrientationDegrees(), 3), fp.GetLayer())
+                  for r, fp in fps.items()}
         absent = [p.ref for p in contract if p.ref not in fps]
         if absent:
             print(f'refs missing from the board (stale board? run load_pcb): {absent}')
@@ -285,9 +341,21 @@ def main():
             set_at(fps[p.ref], p.x, p.y, p.rot, p.side)
         termination_refs = {p['ref'] for p in build().parts
                             if p['group'].startswith('PSRAM') and p['group'].endswith('series termination')}
-        layout_islands(fps, contract_refs | termination_refs)
+        if stage:
+            layout_islands(fps, contract_refs | termination_refs)
         place_psram_termination(fps)
         mirror_decaps(board, fps)
+        decap_refs = {p['ref'] for p in build().parts
+                      if p['group'].startswith('decoupling ') and p['ref'].startswith('C')}
+        moved = sorted(r for r, fp in fps.items()
+                       if before[r] != (fp.GetPosition().x, fp.GetPosition().y,
+                                        round(fp.GetOrientationDegrees(), 3), fp.GetLayer()))
+        allowed = contract_refs | termination_refs | decap_refs
+        unexpected = sorted(set(moved) - allowed)
+        print('moved refs: ' + (', '.join(moved) if moved else 'none'))
+        if unexpected and not stage:
+            print('UNEXPECTED MOVES, board not written: ' + ', '.join(unexpected))
+            sys.exit(1)
     errs = verify(fps)
     if errs:
         print('VERIFY FAILED, board not written:'); [print(' ', e) for e in errs]

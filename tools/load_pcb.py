@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """Load every footprint and net from the schematic netlist into odin.kicad_pcb.
 
-This is what 'Update PCB from Schematic' does in the GUI; doing it here means
-the committed board is a real board, not an empty outline. Placement is a
-coarse grid grouped by sheet -- a starting point for human placement, not a
-layout."""
-import re, sys, os
+This is what 'Update PCB from Schematic' does in the GUI. Existing references
+retain their authoritative position, rotation, side and locked state. Only new
+references enter the coarse import band outside the board."""
+import re, sys, os, json
 import pcbnew
 
 BOARD = 'kicad/odin.kicad_pcb'
@@ -45,7 +44,10 @@ def parse():
 def main():
     comps, nets = parse()
     board = pcbnew.LoadBoard(BOARD)
-    for fp in list(board.GetFootprints()): board.Remove(fp)
+    old_fps = {fp.GetReference(): fp for fp in board.GetFootprints()}
+    old = {ref: dict(pos=(fp.GetPosition().x, fp.GetPosition().y),
+                     rot=fp.GetOrientationDegrees(), back=fp.IsFlipped(),
+                     locked=fp.IsLocked()) for ref, fp in old_fps.items()}
 
     netmap = {}
     for name in nets:
@@ -66,40 +68,99 @@ def main():
         bands[s].append(ref)
 
     placed = miss = 0
+    changed = []
+    load_errors = []
     y = 145.0
     for s in order:
         x, rowh = 30.0, 0.0
         for ref in sorted(bands[s]):
             c = comps[ref]
-            if not c['fp'] or ':' not in c['fp']: miss += 1; continue
-            try:
-                d, nm = libdir(c['fp'])
-                fp = pcbnew.FootprintLoad(d, nm)
-            except Exception:
-                fp = None
+            if ref.startswith('#'): continue  # schematic-only power symbols
+            if not c['fp'] or ':' not in c['fp']:
+                miss += 1
+                load_errors.append(f'{ref}: missing footprint assignment')
+                continue
+            nm = c['fp'].split(':', 1)[1]
+            prior = old_fps.get(ref)
+            replace = (prior is None or str(prior.GetFPID().GetLibItemName()) != nm
+                       or str(prior.GetFPID().GetLibNickname()) != c['fp'].split(':', 1)[0])
+            if replace and prior is not None: changed.append(ref)
+            if replace:
+                try:
+                    d, nm = libdir(c['fp'])
+                    fp = pcbnew.FootprintLoad(d, nm)
+                except Exception as exc:
+                    if len(load_errors) < 8:
+                        load_errors.append(f'{ref} {c["fp"]}: {exc}')
+                    fp = None
+            else:
+                fp = prior
             if fp is None: miss += 1; continue
-            lib_nick = c['fp'].split(':', 1)[0]
-            fp.SetFPID(pcbnew.LIB_ID(lib_nick, nm))
+            if replace:
+                lib_nick = c['fp'].split(':', 1)[0]
+                lib_id = pcbnew.LIB_ID(lib_nick, nm)
+                fp.SetFPID(lib_id)
             fp.SetReference(ref); fp.SetValue(c['value'])
-            if c.get('dnp'): fp.SetDNP(True)
+            fp.SetDNP(bool(c.get('dnp')))
+            if replace:
+                if prior is not None:
+                    board.Remove(prior)
+                board.Add(fp)       # Flip() requires a board-owned footprint
             bb = fp.GetBoundingBox()
             w = max(pcbnew.ToMM(bb.GetWidth()), 2.0) + 3.0
             h = max(pcbnew.ToMM(bb.GetHeight()), 2.0) + 3.0
-            if x + w > 330.0: x, y, rowh = 30.0, y + rowh + 2.0, 0.0
-            fp.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(x + w/2), pcbnew.FromMM(y + h/2)))
+            if ref in old:
+                state = old[ref]
+                fp.SetPosition(pcbnew.VECTOR2I(*state['pos']))
+                if fp.IsFlipped() != state['back']:
+                    fp.Flip(fp.GetPosition(), False)
+                fp.SetOrientationDegrees(state['rot'])
+                fp.SetLocked(state['locked'])
+            else:
+                if x + w > 330.0: x, y, rowh = 30.0, y + rowh + 2.0, 0.0
+                fp.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(x + w/2), pcbnew.FromMM(y + h/2)))
             for pad in fp.Pads():
+                pad.SetNetCode(0)
                 nn = pin2net.get((ref, pad.GetNumber()))
                 if nn: pad.SetNet(netmap[nn])
-            board.Add(fp)
-            x += w; rowh = max(rowh, h); placed += 1
+            if ref not in old:
+                x += w; rowh = max(rowh, h)
+            placed += 1
         y += rowh + 6.0
+    for ref, fp in old_fps.items():
+        if ref not in comps:
+            board.Remove(fp)
+    if miss:
+        raise SystemExit('PCB NOT SAVED: missing footprints: ' + '\n'.join(load_errors))
+    current = {fp.GetReference(): fp for fp in board.GetFootprints()}
+    moved = []
+    for ref in old.keys() & current.keys():
+        fp, state = current[ref], old[ref]
+        if ((fp.GetPosition().x, fp.GetPosition().y) != state['pos'] or
+                fp.GetOrientationDegrees() != state['rot'] or
+                fp.IsFlipped() != state['back']):
+            moved.append(ref)
+    if moved:
+        raise SystemExit('PCB NOT SAVED: common references moved: ' + ', '.join(sorted(moved)))
     pcbnew.SaveBoard(BOARD, board)
+    changes = dict(added=sorted(current.keys() - old.keys()),
+                   removed=sorted(old.keys() - current.keys()),
+                   changed_in_place=sorted(changed), moved=moved)
+    with open('/tmp/odin-sync-changes.json', 'w') as report:
+        json.dump(changes, report, indent=2)
+    print(json.dumps(changes, indent=2))
     print(f"placed {placed} footprints, {len(netmap)} nets"
           + (f", {miss} FAILED TO LOAD" if miss else ", none missing"))
+    for err in load_errors:
+        print('  load error:', err)
 
     # References are manufacturing information; functional labels are the
     # human interface. Keep this true after every netlist reload.
-    from update_silkscreen import main as update_silkscreen
-    update_silkscreen()
+    # Reloading hundreds of library footprints exposes a KiCad 9 SWIG lifetime
+    # bug if a second board is opened in this process. Use a clean interpreter.
+    import subprocess
+    subprocess.run([sys.executable, os.path.join('tools', 'update_silkscreen.py')],
+                   check=True)
 
-main()
+if __name__ == '__main__':
+    main()

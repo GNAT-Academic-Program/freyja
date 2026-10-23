@@ -5,6 +5,9 @@
 (rule "PSRAM minimum width"
   (condition "A.hasNetclass('PSRAM')")
   (constraint track_width (min 0.1mm) (opt 0.1mm)))
+(rule "AUX_RAIL 5A aggregate"
+  (condition "A.hasNetclass('AUX_5A')")
+  (constraint track_width (min 2.0mm) (opt 2.0mm)))
 (rule "MGT 100R outer geometry"
   (layer outer)
   (condition "A.hasNetclass('MGT_100R')")

@@ -28,7 +28,7 @@ BOARD_W, BOARD_H = 100.0, 100.0
 ORIGIN_X, ORIGIN_Y = 30.0, 30.0          # must match tools/gen_pcb.py X0, Y0
 
 # ---------------------------------------------------------------- helpers
-def grid(v, pitch=0.1):
+def grid(v, pitch=0.01):
     return round(round(v / pitch) * pitch, 3)
 
 class P:
@@ -42,28 +42,29 @@ class P:
         return f"{self.ref:5s} ({self.x:6.2f},{self.y:6.2f}) r{self.rot:<3d} {self.side}  {self.why}"
 
 # ------------------------------------------------------ the numbers that rule
-# 2x16 signal socket body (courtyard): 41.0 x 6.46, pads centred on origin.
-# 1x16 power row:                      41.1 x 2.54.
+# 2x32 signal socket body (courtyard): 81.90 x 4.90, pads centred on origin.
+# Per-zone keyed power row: one post plus a 1x7 female body.
 # SFP cage: 48.98 x 15.85; origin at board-edge datum, nose at x=-7.
 # FBGA-676:                            27.4 x 27.7 courtyard.
-SIG_LEN   = 41.00       # 2x16 body length
-SIG_W     = 6.46
+SIG_LEN   = 81.90       # 2x32 body length
+SIG_W     = 4.90
 PWR_W     = 2.54
 # THE LATTICE. A shield bridges signal rows, power row and key post, so all
 # of them must sit on one 2.54mm grid RELATIVE to each other. The absolute
 # inset from the board edge is free; the relative spacings are the contract.
-EDGE_SIG  = 4.70                     # signal 2x16 centreline; rows at +/-1.27
+EDGE_SIG  = 4.70                     # signal 2x32 centreline; rows at +/-1.27
 EDGE_PWR  = EDGE_SIG + 1.27 + 3 * 2.54   # 13.59: inner sig row + 3 pitches
-KEY_INSET = EDGE_SIG + 1.27 + 5 * 2.54   # 18.67: same lattice, 2 past power
-BODY_CTR  = (26.50, 73.50)   # the two body centres along an edge (y for L/R
-                             # edges). Gap between bodies: 6.0mm; margins 6.0.
+BODY_CTR  = 50.0                    # one continuous body per left/right edge
 
 # Slot letters per edge. Package geometry decides this, not taste: bank 34
 # balls (E-H) live on package columns 1..8 (left half of U1), banks 15/13/14
 # (A-D, bus M, PSRAM, flash) on columns 14..26 (right half). Crossing the die
 # with 96 escapes would be self-sabotage.
-LEFT_SLOTS  = ('E', 'F', 'G', 'H')   # J5 = EF, J6 = GH
-RIGHT_SLOTS = ('A', 'B', 'C', 'D')   # J3 = AB, J4 = CD
+LEFT_SLOTS  = ('E', 'F', 'G', 'H')   # J5 = E-H
+RIGHT_SLOTS = ('A', 'B', 'C', 'D')   # J3 = A-D
+POWER_REFS = {'A':'J53', 'B':'J62', 'C':'J54', 'D':'J63',
+              'E':'J55', 'F':'J64', 'G':'J56', 'H':'J65',
+              'L':'J57', 'M':'J58'}
 
 # The FPGA. The SFP cages intrude ~44mm from the top edge, so the die sits
 # below centre. Its top rows (A..F) carry the GTP balls: they face the cages.
@@ -84,43 +85,41 @@ def contract():
 
     # --- extension edges -------------------------------------------------
     # Left edge (x small): E-H. Right edge: A-D. Signal bodies vertical.
-    # The same physical body serves both zones of its pair (EF, GH / AB, CD).
-    # Rotations: pad rows must face so that connector column 1 of a left body
-    # and column 1 of its opposite right body share the same y. Both bodies
-    # are placed at the same y-centres with rotations 90 (left) and 270
-    # (right); tools/place.py verifies the resulting pad pairing from real
-    # pad coordinates and refuses to write a board that breaks it.
-    for (jsig, jpwr, y) , edge in (
-            (('J5', 'J55', BODY_CTR[0]), 'L'), (('J6', 'J56', BODY_CTR[1]), 'L'),
-            (('J3', 'J53', BODY_CTR[0]), 'R'), (('J4', 'J54', BODY_CTR[1]), 'R')):
+    # One continuous 2x32 body serves all four zones on each edge. Opposite
+    # rotations face the sockets across the shield; design.py reverses J5's
+    # physical-column map so the electrical pattern itself is not mirrored.
+    # tools/place.py compares all 64 real pad coordinates directly.
+    for jsig, edge in (('J5', 'L'), ('J3', 'R')):
         xs = EDGE_SIG if edge == 'L' else BOARD_W - EDGE_SIG
-        xp = EDGE_PWR if edge == 'L' else BOARD_W - EDGE_PWR
-        r  = 90 if edge == 'L' else 270
-        out.append(P(jsig, xs, y, r, why=f'{edge} edge signal 2x16'))
-        out.append(P(jpwr, xp, y, r, why=f'{edge} edge power 1x16'))
+        r = 90 if edge == 'L' else 270
+        out.append(P(jsig, xs, BODY_CTR, r, why=f'{edge} edge signal 2x32'))
 
-    # Key posts: one per logical zone, inboard of the power row, at the zone
-    # centre. Zone centres: each 2x16 body spans two zones of 8 columns;
-    # zone centre offset from body centre = +/- 8 * 2.54 / 2 = 10.16.
-    zone_dy = 10.16
-    zone_y = {s: BODY_CTR[i // 2] + (-zone_dy if i % 2 == 0 else zone_dy)
-              for i, s in enumerate(LEFT_SLOTS)}
-    zone_y.update({s: BODY_CTR[i // 2] + (-zone_dy if i % 2 == 0 else zone_dy)
-                   for i, s in enumerate(RIGHT_SLOTS)})
+    # Keyed power rows: position 1 is the post; the 1x7 body covers positions
+    # 2..8. Four eight-column sections occupy the body's uninterrupted pitch;
+    # their centres are 20.32 mm apart around the y=50 body centre.
+    zone_y = {s: BODY_CTR + (i - 1.5) * 8 * 2.54
+              for slots in (LEFT_SLOTS, RIGHT_SLOTS)
+              for i, s in enumerate(slots)}
     for s in LEFT_SLOTS:
-        out.append(P(f'MK{ord(s)}', KEY_INSET, zone_y[s], 0, why=f'key {s}'))
+        out.append(P(f'MK{ord(s)}', EDGE_PWR, zone_y[s] - 8.89, 0, why=f'{s} power position 1'))
+        out.append(P(POWER_REFS[s], EDGE_PWR, zone_y[s] + 1.27, 270,
+                     why=f'{s} power positions 2..8'))
     for s in RIGHT_SLOTS:
-        out.append(P(f'MK{ord(s)}', BOARD_W - KEY_INSET, zone_y[s], 0, why=f'key {s}'))
+        x = BOARD_W - EDGE_PWR
+        out.append(P(f'MK{ord(s)}', x, zone_y[s] - 8.89, 0, why=f'{s} power position 1'))
+        out.append(P(POWER_REFS[s], x, zone_y[s] + 1.27, 270,
+                     why=f'{s} power positions 2..8'))
 
     # --- 5V buses on the bottom edge ------------------------------------
     # L (bank 14) right of M (bank 13)? Bank 13 balls sit lower/right-most on
     # the die (rows U..AC), bank 14 mid-right: M outermost right, L inboard.
     # J8 sits 25.4 (10 pitches) from J7 so both buses share one lattice.
-    for jsig, jpwr, mk, x in (('J7', 'J57', 'MK76', 48.0),
-                              ('J8', 'J58', 'MK77', 73.4)):
-        out.append(P(jsig, x, BOARD_H - EDGE_SIG, 180, why='5V bus signal 2x8'))
-        out.append(P(jpwr, x, BOARD_H - EDGE_PWR, 180, why='5V bus power 1x8'))
-        out.append(P(mk, x - 13.0, BOARD_H - KEY_INSET, 0, why='key 5V bus'))
+    for jsig, s, x in (('J7', 'L', 48.0), ('J8', 'M', 73.4)):
+        out.append(P(jsig, x, BOARD_H - EDGE_SIG, 0, why='5V bus signal 2x8'))
+        out.append(P(f'MK{ord(s)}', x - 8.89, BOARD_H - EDGE_PWR, 0,
+                     why=f'{s} power position 1'))
+        out.append(P(POWER_REFS[s], x + 1.27, BOARD_H - EDGE_PWR, 0,
+                     why=f'{s} power positions 2..8'))
 
     # --- FPGA ------------------------------------------------------------
     out.append(P('U1', *FPGA, 0, why='FBGA-676, GTP rows toward cages'))
@@ -133,7 +132,7 @@ def contract():
 
     # --- input corner (top right) ---------------------------------------
     out.append(P('J1', 79.0, 2.6, 0, why='USB-C, mid-mount on top edge'))
-    out.append(P('J50', 60.0, 5.0, 0, why='9-14V screw terminal'))
+    out.append(P('J50', 60.0, 5.0, 0, why='9-21V screw terminal'))
 
     # --- service row (bottom left) ---------------------------------------
     out.append(P('J2', 26.0, BOARD_H - 5.5, 0, why='FPGA JTAG 2x5'))
@@ -159,9 +158,9 @@ ANCHORS = {
     'U16  5V to +1V2_MGT':         (30.0, 44.0, 'left'),
     'U14  5V to +1V8':             (30.0, 66.0, 'left'),
     'U13  5V to +2V5':             (30.0, 72.0, 'left'),
-    'U11  12V to 5V':              (80.0, 14.0, 'down'),
+    'U11  VSYS to +5V':            (80.0, 14.0, 'down'),
     'U12  VSYS to +3V3  (always-on AP63300 reference circuit)': (70.0, 14.0, 'down'),
-    'U19  5V to 12V boost (AUX)':  (60.0, 14.0, 'down'),
+    'AUX lab rail':                (60.0, 14.0, 'down'),
     'VBUS pass switch to +5V':     (90.0, 12.0, 'down'),
     'input OR-ing':                (75.0, 8.0, 'right'),
     'USB protection':              (85.0, 8.0, 'down'),
@@ -182,7 +181,6 @@ ANCHORS = {
     'U22  +3V3 to +3V3_EXT':       (14.0, 26.0, 'down'),
     'U23  VCCIO_1 to VCCIO_1_EXT': (86.0, 26.0, 'down'),
     'U24  VCCIO_2 to VCCIO_2_EXT': (14.0, 32.0, 'down'),
-    'U25  +12V to +12V_EXT':       (52.0, 18.0, 'right'),
     'VCCIO_1 selector':            (86.0, 40.0, 'down'),
     'VCCIO_2 selector':            (14.0, 40.0, 'down'),
     'rail monitors':               (58.0, 88.0, 'right'),
@@ -224,22 +222,16 @@ def _fp_bbox(fpname):
     return None
 
 CONTRACT_FP = {         # ref prefix -> footprint file stem, for the checker
-    'J3': 'HDR-SMD_32P-P2.54-V-F-R2-C16-LS7.1', 'J4': 'HDR-SMD_32P-P2.54-V-F-R2-C16-LS7.1',
-    'J5': 'HDR-SMD_32P-P2.54-V-F-R2-C16-LS7.1', 'J6': 'HDR-SMD_32P-P2.54-V-F-R2-C16-LS7.1',
-    'J53': 'HDR-TH_16P-P2.54-V-F-1', 'J54': 'HDR-TH_16P-P2.54-V-F-1',
-    'J55': 'HDR-TH_16P-P2.54-V-F-1', 'J56': 'HDR-TH_16P-P2.54-V-F-1',
-    'J7': 'HDR-SMD_16P-P2.54-V-F-R2-C8-LS7.1', 'J8': 'HDR-SMD_16P-P2.54-V-F-R2-C8-LS7.1',
-    'J57': 'HDR-TH_8P-P2.54-V-F', 'J58': 'HDR-TH_8P-P2.54-V-F',
+    'J3': 'HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1',
+    'J5': 'HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1',
+    'J7': 'HDR-TH_16P-P2.54-V-F-R2-C8-S2.54', 'J8': 'HDR-TH_16P-P2.54-V-F-R2-C8-S2.54',
+    **{r: 'HDR-TH_7P-P2.54-V-F' for r in POWER_REFS.values()},
     'SH1': 'Amphenol_U77A11133001', 'SH2': 'Amphenol_U77A11133001',
     'J60': 'CONN-SMD_20P-P0.80-S8.20_1888247-1', 'J61': 'CONN-SMD_20P-P0.80-S8.20_1888247-1',
     'U1': 'FBGA-676_L27.0-W27.0-R26-C26-P1.00-BL',
     'J1': 'USB-C-SMD_HC-TYPE-C-16P-01A', 'J50': 'CONN-TH_P5.00_KF301-5.0-2P',
     'J2': 'IDC-TH_10P-P2.54_C5665',
-    'MK65': 'HDR-TH_1P-P2.54-V-M', 'MK66': 'HDR-TH_1P-P2.54-V-M',
-    'MK67': 'HDR-TH_1P-P2.54-V-M', 'MK68': 'HDR-TH_1P-P2.54-V-M',
-    'MK69': 'HDR-TH_1P-P2.54-V-M', 'MK70': 'HDR-TH_1P-P2.54-V-M',
-    'MK71': 'HDR-TH_1P-P2.54-V-M', 'MK72': 'HDR-TH_1P-P2.54-V-M',
-    'MK76': 'HDR-TH_1P-P2.54-V-M', 'MK77': 'HDR-TH_1P-P2.54-V-M',
+    **{f'MK{ord(s)}': 'HDR-TH_1P-P2.54-V-M-21MM-C51353' for s in 'ABCDEFGHLM'},
 }
 
 def _rot_bbox(b, rot):
@@ -270,6 +262,10 @@ def check(placed):
             errs.append(f'{p.ref}: outside the board: {box[1:]}')
         boxes.append(box)
     inside = {frozenset(('SH1', 'J60')), frozenset(('SH2', 'J61'))}
+    # Adjacent cut-strip post and female socket plastics share their nominal
+    # courtyard boundary; this is the intended keyed compound row.
+    inside.update(frozenset((f'MK{ord(s)}', POWER_REFS[t]))
+                  for s in 'ABCDEFGHLM' for t in 'ABCDEFGHLM')
     for i, a in enumerate(boxes):
         for b in boxes[i + 1:]:
             if frozenset((a[0], b[0])) in inside:
@@ -277,6 +273,39 @@ def check(placed):
             if a[1] < b[2] and b[1] < a[2] and a[3] < b[4] and b[3] < a[4]:
                 errs.append(f'contract overlap: {a[0]} x {b[0]}')
     return errs
+
+def shield_keepouts():
+    """Read the authoritative PCB; print tall-part envelopes without moving it."""
+    import pcbnew
+    board = pcbnew.LoadBoard('kicad/odin.kicad_pcb')
+    fps = {f.GetReference(): f for f in board.GetFootprints()}
+    rows = ['| Ref | Board-local X interval (mm) | Y interval (mm) | Shield obligation |',
+            '|---|---:|---:|---|']
+    for ref in ('SH1','SH2','J50','J68'):
+        fp = fps[ref]
+        graphics = [g.GetBoundingBox() for g in fp.GraphicalItems()
+                    if g.GetLayer() == pcbnew.F_CrtYd]
+        if not graphics: graphics = [fp.GetBoundingBox(False)]
+        x0 = min(pcbnew.ToMM(g.GetLeft()) for g in graphics) - ORIGIN_X
+        x1 = max(pcbnew.ToMM(g.GetRight()) for g in graphics) - ORIGIN_X
+        y0 = min(pcbnew.ToMM(g.GetTop()) for g in graphics) - ORIGIN_Y
+        y1 = max(pcbnew.ToMM(g.GetBottom()) for g in graphics) - ORIGIN_Y
+        what = 'cage cutout/clearance' if ref.startswith('SH') else 'terminal cutout and screwdriver access'
+        if not (0 <= fp.GetPosition().x/1e6-ORIGIN_X <= BOARD_W and
+                0 <= fp.GetPosition().y/1e6-ORIGIN_Y <= BOARD_H):
+            what += '; currently outside board, human placement pending'
+        rows.append(f'| {ref} | {x0:.2f} to {x1:.2f} | {y0:.2f} to {y1:.2f} | {what} |')
+    for s in 'ABCDEFGHLM':
+        fp = fps[f'MK{ord(s)}']
+        x = pcbnew.ToMM(fp.GetPosition().x)-ORIGIN_X
+        y = pcbnew.ToMM(fp.GetPosition().y)-ORIGIN_Y
+        rows.append(f'| MK{ord(s)} | centre {x:.2f} | centre {y:.2f} | >=1.6 mm bare NPTH; post tip >=18.5 mm |')
+    return '\n'.join(rows)
+
+
+if __name__ == '__main__' and '--keepouts' in sys.argv:
+    print(shield_keepouts())
+    raise SystemExit(0)
 
 if __name__ == '__main__':
     placed = contract()

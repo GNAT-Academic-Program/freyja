@@ -483,6 +483,24 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
+        "name": "AUX_5A",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 2.0,
+        "via_diameter": 1.0,
+        "via_drill": 0.5,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
         "name": "ISL01_U15_5V_TO_1V0_4A_F",
         "pcb_color": "rgba(36, 96, 242, 0.800)",
         "priority": 10001,
@@ -1454,30 +1472,6 @@
     "netclass_assignments": null,
     "netclass_patterns": [
       {
-        "netclass": "MGT_100R",
-        "pattern": "MGTP*"
-      },
-      {
-        "netclass": "MGT_100R",
-        "pattern": "MGTREFCLK*"
-      },
-      {
-        "netclass": "MGT_100R",
-        "pattern": "SFP?_TD_*"
-      },
-      {
-        "netclass": "MGT_100R",
-        "pattern": "SFP?_RD_*"
-      },
-      {
-        "netclass": "MGT_100R",
-        "pattern": "REFCLK_OSC_*"
-      },
-      {
-        "netclass": "PSRAM",
-        "pattern": "PSRAM*"
-      },
-      {
         "netclass": "ISL01_U15_5V_TO_1V0_4A_F",
         "pattern": "CORE_1V0_GOOD"
       },
@@ -2428,6 +2422,34 @@
       {
         "netclass": "ISL52_UNUSED_QUAD_213_CA",
         "pattern": "MGTRREF_213"
+      },
+      {
+        "netclass": "MGT_100R",
+        "pattern": "MGTP*"
+      },
+      {
+        "netclass": "MGT_100R",
+        "pattern": "MGTREFCLK*"
+      },
+      {
+        "netclass": "MGT_100R",
+        "pattern": "SFP?_TD_*"
+      },
+      {
+        "netclass": "MGT_100R",
+        "pattern": "SFP?_RD_*"
+      },
+      {
+        "netclass": "MGT_100R",
+        "pattern": "REFCLK_OSC_*"
+      },
+      {
+        "netclass": "PSRAM",
+        "pattern": "PSRAM*"
+      },
+      {
+        "netclass": "AUX_5A",
+        "pattern": "AUX_RAIL"
       }
     ]
   },

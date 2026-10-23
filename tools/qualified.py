@@ -81,6 +81,7 @@ PARTS = {
   'odin:AP63300WU': dict(
     mpn='AP63300WU-7', pkg='TSOT26 (WU)', fp='EasyEDA:TSOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR',
     rating='3.8-32 V input, 3 A output, 500 kHz, 0.8 V reference. '
+           '35 V DC absolute maximum and 40 V/400 ms transient limit. '
            '3.3 V reference circuit: 93.1k/30.1k feedback, 56 pF feed-forward, '
            '4.7 uH, 10 uF input, 3x22 uF output',
     pinmap='Diodes TSOT26 top view: 1 FB, 2 EN, 3 VIN, 4 GND, 5 SW, 6 BST',
@@ -105,6 +106,16 @@ PARTS = {
            '650 kHz with FREQ grounded',
     pinmap='KiCad Regulator_Switching symbol',
     src='TI SLVS859B'),
+  'odin:LM5157RTE': dict(
+    mpn='LM5157RTER', pkg='WQFN-16-EP, 3x3 mm, 0.5 mm pitch (TI RTE0016C)',
+    fp='Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.68x1.68mm_ThermalVias',
+    rating='2.9-45 V operating input, 48 V maximum output, integrated 50 V / '
+           '6.5 A minimum peak-current switch; SEPIC from VSYS. LCSC snapshot '
+           '2026-09-21: 5,277 stock, $2.9006 at 1, $2.4697 at 10',
+    pinmap='TI RTE0016C top view: 1/16 PGND, 2 VCC, 3 BIAS, 4 PGOOD, '
+           '5 RT, 6 UVLO/SYNC/EN, 7 AGND, 8 COMP, 9 FB, 10 SS, 11 MODE, '
+           '12-14 SW, 15 NC, exposed pad 17 AGND',
+    src='TI LM5157 datasheet SNVSBK7A; LCSC C5219222'),
   'odin:TPS22950CDDC': dict(
     mpn='TPS22950CDDCR', pkg='SOT-23-THIN-6 (TI DDC)', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL_3',
     rating='1.8-5.5 V in, 6 V absolute max on VIN/VOUT, 3.2 A switch; '
@@ -136,7 +147,7 @@ PARTS = {
   'Device:D_Schottky': dict(
     mpn='SS34', pkg='SMA / DO-214AC', fp='EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
     rating='40 V, 3 A, Vf about 0.45 V at 0.5 A. D3/D4 OR the inputs, '
-           'D5 rectifies the boost at 650 kHz and 2 A peak',
+           'D3/D4 OR the two base-board inputs',
     pinmap='2-pin polarised', src='generic SS34, multiple vendors'),
   'Device:D_Zener': dict(
     mpn='SMBJ13A-TR', pkg='SMB / DO-214AA', fp='EasyEDA:SMB_L4.6-W3.6-LS5.3-RD',
@@ -146,11 +157,19 @@ PARTS = {
            'the polarised avalanche symbol stands in',
     src='Littelfuse/Diodes SMBJ series datasheet'),
   'D8': dict(
-    mpn='SMBJ15A-13-F', pkg='SMB / DO-214AA', fp='Diode_SMD:D_SMB',
-    rating='Unidirectional, 15 V standoff, 16.7-19.2 V breakdown, '
-           '24.4 V maximum rated pulse clamp, 600 W. Transient suppression on VIN_EXT',
+    mpn='SMBJ22A', pkg='SMB / DO-214AA', fp='Diode_SMD:D_SMB',
+    rating='Unidirectional, 22 V standoff, 24.4-26.9 V breakdown, '
+           '35.5 V maximum rated pulse clamp, 600 W. The AP63300 40 V/400 ms '
+           'transient limit is the lowest downstream transient absolute maximum',
     pinmap='1 cathode to VIN_EXT; 2 anode to GND',
-    src='Diodes SMBJ15A https://www.diodes.com/part/view/SMBJ15A; LCSC C135046'),
+    src='BORN SMBJ22A datasheet; LCSC C151920'),
+  'D12': dict(
+    mpn='PMEG060V100EPDZ', pkg='CFP15 / SOT1289',
+    fp='EasyEDA:SOT1289_L5.8-W4.4-LS6.5-RD',
+    rating='60 V, 10 A average, 560 mV maximum at 10 A; SEPIC output rectifier',
+    pinmap='1/2 anode to AUX_SEPIC, 3 cathode to AUX_REG; manufacturer '
+           'Table 2 agrees with imported C552792 symbol and all three pads',
+    src='Nexperia PMEG060V100EPD data sheet; LCSC C552792'),
   'Q1': dict(
     mpn='DMG2305UX-7', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR',
     rating='-20 V VDSS, +/-8 V VGSS, -4.2 A, RDS(on) 52 mohm max at '
@@ -165,7 +184,8 @@ PARTS = {
   'Transistor_FET:Q_NMOS_GSD': dict(
     mpn='BSS138LT1G', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
     rating='50 V, 200 mA; RDS(on) max 10 ohm at VGS 2.75 V (-40..85 C). '
-           'Q3 pulls a gate through 47k; Q4 sinks approximately 2-4 mA for DONE LED',
+           'Q3 pulls a gate through 47k; Q4 sinks the DONE LED; Q5-Q8 select '
+           'high-impedance feedback-ladder taps',
     pinmap='G-S-D SOT-23, pins 1-2-3',
     src='onsemi BSS138LT1/D, https://www.onsemi.com/pdf/datasheet/bss138lt1-d.pdf'),
   # ------------------------------------------------------------------ logic
@@ -188,30 +208,37 @@ PARTS = {
     pinmap='NXP Table 3: 1 A0, 2 A1, 3 RESET, 4 INT0, 5 SD0, 6 SC0, 7 VSS, '
            '8 INT1, 9 SD1, 10 SC1, 11 INT, 12 SCL, 13 SDA, 14 VDD',
     src='NXP PCA9543A_43B rev 8; LCSC C2652904'),
+  'odin:74HC04D': dict(
+    mpn='74HC04D,653', pkg='SOIC-14, 3.9x8.7 mm',
+    fp='Package_SO:SOIC-14_3.9x8.7mm_P1.27mm',
+    rating='2.0-6.0 V hex inverter; 3.3 V here; converts fitted-cap active-low '
+           'signals into feedback-switch and enable commands',
+    pinmap='Nexperia SO14: 1A/1Y pins 1/2 through 6A/6Y pins 13/12, GND 7, VCC 14',
+    src='Nexperia 74HC04 data sheet; LCSC C5590'),
   'EasyEDA:PCF8574T_3,518': dict(
     mpn='PCF8574T_3,518', pkg='SOIC-16W (7.5x10.3 mm)', fp='EasyEDA:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL',
     rating='2.5-6 V, quasi-bidirectional I/O; P0-P2 sink LEDs at about 1 mA each; P3 reads core PG; P7 controls SFP power',
     pinmap='Imported EasyEDA symbol/footprint; LCSC C7605', src='NXP PCF8574 datasheet; LCSC C7605'),
-  'EasyEDA:PM254-2-16-S-8.5': dict(
-    mpn='PM254-2-16-S-8.5', pkg='2x16 female socket, 2.54 mm, SMT, 8.5 mm',
-    fp='EasyEDA:HDR-SMD_32P-P2.54-V-F-R2-C16-LS7.1', rating='3 A per contact',
-    pinmap='physical row 1..16, return row 32..17', src='HCTL drawing; LCSC C3975161'),
-  'EasyEDA:ZX-PM2.54-1-16PY': dict(
-    mpn='ZX-PM2.54-1-16PY', pkg='1x16 female socket, 2.54 mm, THT, 8.5 mm',
-    fp='EasyEDA:HDR-TH_16P-P2.54-V-F-1', rating='3 A per contact',
-    pinmap='pins 1..16 in physical order', src='Megastar drawing; LCSC C7499334'),
-  'EasyEDA:PM254-2-08-S-8.5': dict(
-    mpn='PM254-2-08-S-8.5', pkg='2x8 female socket, 2.54 mm, SMT, 8.5 mm',
-    fp='EasyEDA:HDR-SMD_16P-P2.54-V-F-R2-C8-LS7.1', rating='3 A per contact',
-    pinmap='odd/even pin pairs by physical column', src='HCTL drawing; LCSC C3975153'),
-  'EasyEDA:Header-Female-2.54_1x8': dict(
-    mpn='2.54-1*8P', pkg='1x8 female socket, 2.54 mm, THT',
-    fp='EasyEDA:HDR-TH_8P-P2.54-V-F', rating='3 A per contact',
-    pinmap='pins 1..8 in physical order', src='BOOMELE drawing; LCSC C27438'),
-  'EasyEDA:PH2.54-1X1P-H25': dict(
-    mpn='PH2.54-1X1P-H25', pkg='1x1 male guide post, 2.54 mm, THT',
-    fp='EasyEDA:HDR-TH_1P-P2.54-V-M', rating='3 A; 6 mm mating post',
-    pinmap='single grounded guide pin', src='JXTCONN drawing; LCSC C42431799'),
+  'EasyEDA:2044-2X32G00SA': dict(
+    mpn='2044-2X32G00SA', pkg='2x32 female socket, 2.54 mm, THT, 8.5 mm, gold',
+    fp='EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1', rating='3 A per contact',
+    pinmap='odd/even physical columns verified from imported pad coordinates',
+    src='WingTAT drawing; LCSC C49569844'),
+  'EasyEDA:PM254-2-08-Z-8.5': dict(
+    mpn='PM254-2-08-Z-8.5', pkg='2x8 female socket, 2.54 mm, THT, 8.5 mm',
+    fp='EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54', rating='3 A per contact',
+    pinmap='physical columns verified from imported odd/even pad coordinates', src='HCTL drawing; LCSC C2897409'),
+  'EasyEDA:PM254V-11-07-H85': dict(
+    mpn='PM254V-11-07-H85', pkg='1x7 female socket, 2.54 mm, THT, 8.5 mm',
+    fp='EasyEDA:HDR-TH_7P-P2.54-V-F', rating='3 A per contact',
+    pinmap='pins 1..7 in physical order', src='XFCN drawing; LCSC C2832270'),
+  'EasyEDA:2.54mmlength21mm': dict(
+    mpn='2.54-1x40P-21mm, cut to 1P', pkg='1x1 male long post, 2.54 mm, THT',
+    fp='EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353',
+    rating='21 mm long-pin donor; cut to 1P; hand/wave soldered; installed '
+           'tip must stand >=18.5 mm above the board. TODO qualify a ~25 mm '
+           'donor if C51353 cannot meet that installed projection',
+    pinmap='single grounded key/probe post', src='BOOMELE drawing; LCSC C51353'),
   'EasyEDA:Header-Male-2.54_2x3': dict(
     mpn='2.54-2*3P', pkg='2x3 male selector header, 2.54 mm, THT',
     fp='EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1', rating='selector only',
@@ -246,11 +273,28 @@ PARTS = {
     pinmap='Microchip DSC1103/23 table 2-2: 1 EN, 2 NC, 3 GND, '
            '4 OUT+, 5 OUT-, 6 VDD; imported C617173 agrees',
     src='Microchip DSC1103/23 datasheet; LCSC C617173'),
-  'Interface_Optical:SFP': dict(
+  'odin:SFP_NoCage': dict(
     mpn='1888247-1', pkg='SFP/SFP+ SMT connector, 20 position',
     fp='EasyEDA:CONN-SMD_20P-P0.80-S8.20_1888247-1',
-    rating='3.3 V, 1 W per module assumed', pinmap='KiCad Interface_Optical symbol',
+    rating='3.3 V, 1 W per module assumed',
+    pinmap='TE 20-contact pinout only; no fictitious CAGE pin; SH1/SH2 own cage tails',
     src='TE 1888247 drawing; LCSC C305914'),
+  'Device:FerriteBead': dict(
+    mpn='BLM18PG221SN1D', pkg='0603 (1608 metric)',
+    fp='Inductor_SMD:L_0603_1608Metric',
+    rating='220 ohm at 100 MHz, 1.4 A rated current, 100 mohm maximum DCR',
+    pinmap='two-terminal ferrite; SFP_VCC to one local port supply',
+    src='Murata BLM18PG data sheet; LCSC C80165'),
+  'odin:PSSCAQ1285_4R7MP': dict(
+    mpn='PSSCAQ1285-4R7MP', pkg='coupled inductor, 12.5x12.5x8.5 mm, 4 pad',
+    fp='odin:L_PROD_PSSCAQ1285',
+    rating='4.7 uH +/-20%, 5 A temperature-rise current, 15 A saturation, '
+           '26 mohm maximum DCR, 97.6% coupling; JLC wave-solder assembly, '
+           'Economic and Standard PCBA; stock 90 on 2026-09-21',
+    pinmap='PROD A3.0 p3: windings 1-3 and 2-4, dots 1/2. Page 6: '
+           '2.5x3.85 mm pads on 3.5x9.95 mm centre pitches; '
+           'locally generated, not an EasyEDA import; see ref/aux-magnetics.md',
+    src='PROD PSSCAQ7048-1285 series drawing; LCSC/JLC C54563336'),
   'odin:U77A11133001': dict(
     mpn='U77A11133001', pkg='SFP 1x1 cage, 3.2 mm solder tails',
     fp='odin:Amphenol_U77A11133001',
@@ -274,13 +318,56 @@ PARTS = {
   'EasyEDA:KF301-5.0-2P': dict(
     mpn='KF301-5.0-2P', pkg='2-position 5.0 mm screw terminal, through-hole',
     fp='EasyEDA:CONN-TH_P5.00_KF301-5.0-2P',
-    rating='17 A, 250 V component rating; Odin input limited to 9-14 V',
+    rating='17 A, 250 V component rating; Odin VIN input limited to 9-21 V',
     pinmap='1 VIN_EXT (+), 2 GND (-)', src='LCSC C474881'),
   'Switch:SW_Push': dict(
     mpn='B3U-1000P', pkg='SMD tactile, 3.5x2.9 mm',
     fp='EasyEDA:KEY-SMD_B3U-1000PM', rating='32 V, 50 mA',
     pinmap='2-pin SPST', src='Omron B3U datasheet'),
 }
+
+PARTS['J66'] = dict(
+    mpn='PZ254V-11-03P', pkg='1x3 male header, 2.54 mm, THT',
+    fp='Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical',
+    rating='3 A contacts; one cap makes REG/AUX or AUX/RAW physically exclusive',
+    pinmap='1 AUX_REG, 2 AUX_RAIL, 3 AUX_RAW', src='XFCN; LCSC C2937625')
+PARTS['J67'] = dict(
+    mpn='B-2100S08P-B110', pkg='straight unshrouded 2x4 male, 2.54 mm, THT',
+    fp='Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical',
+    rating='selector only; ships with no cap, so LM5157 is disabled',
+    pinmap='four odd/even cap positions select 9/12/15/24 V',
+    src='Ckmtw 210S-2xXP drawing rev A: 2.54 mm row/column pitch, '
+        '1.02 +/-0.05 mm PCB holes, 6 mm mating pins; LCSC C124386. '
+        'Standard KiCad footprint verified against drawing; not an EasyEDA import')
+PARTS['J68'] = dict(
+    mpn='KF301-5.0-2P', pkg='2-position 5.0 mm screw terminal, through-hole',
+    fp='EasyEDA:CONN-TH_P5.00_KF301-5.0-2P',
+    rating='17 A, 250 V component rating; Odin AUX raw input limited to 9-28 V',
+    pinmap='1 AUX_RAW (+), 2 GND (-); no connection except J66 RAW side',
+    src='LCSC C474881')
+
+_aux_ptc = dict(
+    mpn='SMD2018-100-33V', pkg='2018 PPTC, 5.44x4.93 mm maximum',
+    fp='odin:Fuse_TECHFUSE_SMD2018',
+    rating='33 V maximum, 1.1 A hold / 2.2 A trip at 25 C, 100 A fault, '
+           '60 mohm initial minimum, 360 mohm post-trip maximum',
+    pinmap='manufacturer 1.5x4.6 mm pads on 4.9 mm centres',
+    src='TECHFUSE SMD2018 data sheet; JLC C70150')
+for _ref in (f'F{n}' for n in range(4, 41, 4)):
+    PARTS[_ref] = _aux_ptc
+
+_sense_diode = dict(
+    mpn='1N4148W', pkg='SOD-123', fp='Diode_SMD:D_SOD-123',
+    rating='75 V, 150 mA, 4 ns; selector-output OR into LM5157 enable',
+    pinmap='1 cathode at AUX_EN, 2 anode at inverter output',
+    src='ST(Semtech) 1N4148W data sheet; LCSC C81598')
+for _ref in ('D13', 'D14', 'D15', 'D16'):
+    PARTS[_ref] = _sense_diode
+
+# The physical part is a one-pin cut from the qualified 1x40 strip, while its
+# schematic symbol is deliberately the generic one-pin connector.
+for _slot in 'ABCDEFGHLM':
+    PARTS[f'MK{ord(_slot)}'] = PARTS['EasyEDA:2.54mmlength21mm']
 
 # Connectors and keying posts: generic 2.54 mm headers, qualified as a class
 # rather than one line each, because there is nothing to get wrong beyond the
@@ -290,6 +377,7 @@ HEADER_SYMS = {
     'Connector_Generic:Conn_01x03', 'Connector_Generic:Conn_01x16',
     'Connector_Generic:Conn_01x08',
     'Connector_Generic:Conn_02x03_Odd_Even',
+    'Connector_Generic:Conn_02x04_Odd_Even',
     'Connector_Generic:Conn_02x05_Odd_Even',
     'Connector_Generic:Conn_02x08_Odd_Even',
     'Connector_Generic:Conn_02x16_Odd_Even',
@@ -305,7 +393,7 @@ def check(parts):
     """Raise unless every non-generic part is qualified and fitted as stated."""
     bad = []
     for p in parts:
-        if p['lib_id'] in GENERIC or p['lib_id'] in HEADER_SYMS:
+        if (p['lib_id'] in GENERIC or p['lib_id'] in HEADER_SYMS) and p['ref'] not in PARTS:
             continue
         q = lookup(p['ref'], p['lib_id'])
         if q is None:
@@ -316,8 +404,8 @@ def check(parts):
                        f"{q['fp']!r}")
     if bad:
         raise ValueError('unqualified parts:\n  ' + '\n  '.join(bad))
-    return len([p for p in parts if p['lib_id'] not in GENERIC
-                and p['lib_id'] not in HEADER_SYMS])
+    return len([p for p in parts if (p['lib_id'] not in GENERIC
+                and p['lib_id'] not in HEADER_SYMS) or p['ref'] in PARTS])
 
 
 HEAD = """# Qualified parts
@@ -348,7 +436,7 @@ so the part is named there.
 def table(parts):
     rows, bykey = [], {}
     for p in parts:
-        if p['lib_id'] in GENERIC or p['lib_id'] in HEADER_SYMS:
+        if (p['lib_id'] in GENERIC or p['lib_id'] in HEADER_SYMS) and p['ref'] not in PARTS:
             continue
         key = p['ref'] if p['ref'] in PARTS else p['lib_id']
         bykey.setdefault(key, []).append(p['ref'])

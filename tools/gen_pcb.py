@@ -26,17 +26,20 @@ def emit_rules():
     default = next(c for c in settings['classes'] if c['name'] == 'Default')
     default.update(clearance=0.15, via_diameter=0.45, via_drill=0.2)
     settings['classes'] = [c for c in settings['classes']
-                           if c['name'] not in ('MGT_100R', 'PSRAM')]
+                           if c['name'] not in ('MGT_100R', 'PSRAM', 'AUX_5A')]
     settings['classes'] += [
         dict(default, name='MGT_100R', priority=0, track_width=MGT_WIDTH,
              diff_pair_width=MGT_WIDTH, diff_pair_gap=MGT_GAP),
         dict(default, name='PSRAM', priority=1, track_width=0.1),
+        dict(default, name='AUX_5A', priority=2, track_width=2.0,
+             via_diameter=1.0, via_drill=0.5),
     ]
     settings['netclass_patterns'] = [p for p in settings['netclass_patterns']
-                                    if p['netclass'] not in ('MGT_100R', 'PSRAM')]
+                                    if p['netclass'] not in ('MGT_100R', 'PSRAM', 'AUX_5A')]
     settings['netclass_patterns'] += [dict(netclass='MGT_100R', pattern=p)
                                       for p in MGT_PATTERNS]
     settings['netclass_patterns'].append(dict(netclass='PSRAM', pattern='PSRAM*'))
+    settings['netclass_patterns'].append(dict(netclass='AUX_5A', pattern='AUX_RAIL'))
     project['board']['design_settings']['rules'].update(
         min_clearance=0.15, min_track_width=0.0889,
         min_via_diameter=0.45, min_through_hole_diameter=0.2)
@@ -48,6 +51,9 @@ def emit_rules():
 (rule "PSRAM minimum width"
   (condition "A.hasNetclass('PSRAM')")
   (constraint track_width (min 0.1mm) (opt 0.1mm)))
+(rule "AUX_RAIL 5A aggregate"
+  (condition "A.hasNetclass('AUX_5A')")
+  (constraint track_width (min 2.0mm) (opt 2.0mm)))
 (rule "MGT 100R outer geometry"
   (layer outer)
   (condition "A.hasNetclass('MGT_100R')")

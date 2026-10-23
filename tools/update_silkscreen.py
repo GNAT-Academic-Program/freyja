@@ -16,17 +16,17 @@ USER_LABELS = {
     'D9': 'CTRL HB', 'D10': 'USER 1', 'D11': 'USER 2',
     'D1': 'FPGA DONE', 'SW1': 'CTRL BOOT',
     'J1': 'USB-C', 'J2': 'FPGA JTAG',
-    'J3': 'A | B', 'J4': 'C | D', 'J5': 'E | F', 'J6': 'G | H',
-    'J53': 'A | B POWER', 'J54': 'C | D POWER',
-    'J55': 'E | F POWER', 'J56': 'G | H POWER',
+    'J3': 'A | B | C | D', 'J5': 'E | F | G | H',
     'J7': '5V BUS 0', 'J8': '5V BUS 1',
-    'J57': '5V BUS 0 POWER', 'J58': '5V BUS 1 POWER',
-    **{f'J{10+i}': f'SLOT {s} POWER' for i, s in enumerate('LABCDEFGH')},
-    'J21': '5V BUS 1 POWER SELECT',
+    **{r: f'{s} POWER' for s, r in {
+        'A':'J53', 'B':'J62', 'C':'J54', 'D':'J63', 'E':'J55',
+        'F':'J64', 'G':'J56', 'H':'J65', 'L':'J57', 'M':'J58'}.items()},
     'J19': 'A-D PIN VOLTAGE', 'J20': 'E-H PIN VOLTAGE',
-    'J50': 'OPTIONAL POWER IN', 'J51': 'CTRL SWD', 'J52': 'EXT JTAG',
+    'J50': '9-21V POWER IN', 'J51': 'CTRL SWD', 'J52': 'EXT JTAG',
     'J60': 'SFP 0', 'J61': 'SFP 1',
-    **{f'MK{ord(s)}': f'GUIDE {s}' for s in 'ABCDEFGHLM'},
+    'J66': 'AUX SOURCE', 'J67': 'AUX VOLTAGE',
+    'J68': 'UNREGULATED 9-28V\nYOUR RAIL, YOUR PROBLEM',
+    **{f'MK{ord(s)}': f'KEY {s}' for s in 'ABCDEFGHLM'},
 }
 
 ROLE_LABELS = {
@@ -41,10 +41,11 @@ ROLE_LABELS = {
     'U13': '2V5 SUPPLY', 'U14': '1V8 SUPPLY',
     'U15': '1V0 SUPPLY\nFPGA CORE', 'U16': '1V2 SUPPLY\nFAST LINKS',
     'U17': 'OPTIONAL SFP CONTROL', 'U18': 'USB POWER REQUEST',
-    'U19': '12V SUPPLY\nSLOT POWER', 'U20': 'JTAG OWNER',
+    'U20': 'JTAG OWNER',
     'U21': 'SLOT 5V PROTECTION', 'U22': 'SLOT 3V3 PROTECTION',
     'U23': 'A-D PIN PROTECTION', 'U24': 'E-H PIN PROTECTION',
-    'U25': '12V SLOT PROTECTION', 'U26': 'USB INPUT PROTECTION',
+    'U26': 'USB INPUT PROTECTION', 'U28': 'AUX LAB RAIL',
+    'U29': 'AUX VOLTAGE SELECT',
     'X2': 'LINK CLOCK\n125MHz',
 }
 
@@ -113,16 +114,21 @@ def main():
         fp.Value().SetLayer(pcbnew.F_Fab)
         fp.Value().SetVisible(False)
 
-        if ref in {f'J{i}' for i in range(10, 19)} | {'J21'}:
-            add_field(fp, 'UI_CHOICES', '12V\n5V\n3V3', -4.0, 0.0)
-            add_field(fp, 'UI_RULE', 'ONE ROW ONLY', -4.0, 7.0, 0.7)
-        elif ref in {'J19', 'J20'}:
+        if ref in {'J19', 'J20'}:
             add_field(fp, 'UI_CHOICES', '3V3\n2V5\n1V8', -4.0, 0.0)
             add_field(fp, 'UI_RULE', 'ONE ROW ONLY', -4.0, 7.0, 0.7)
         elif ref == 'J50':
-            add_field(fp, 'UI_PINS', '9-14V +\nGND', -4.0, 0.0)
+            add_field(fp, 'UI_PINS', '9-21V +\nGND', -4.0, 0.0)
         elif ref == 'J52':
             add_field(fp, 'UI_STATES', 'OPEN: CTRL\nFIT: EXT', -4.0, 0.0)
+        elif ref == 'J66':
+            add_field(fp, 'UI_CHOICES', 'REG  AUX  RAW', -4.0, 0.0)
+            add_field(fp, 'UI_RULE', 'ONE CAP ONLY', -4.0, 3.0, 0.7)
+        elif ref == 'J67':
+            add_field(fp, 'UI_CHOICES', '9V  12V  15V  24V', -5.0, 0.0)
+            add_field(fp, 'UI_RULE', 'ONE CAP ONLY', -5.0, 3.0, 0.7)
+        elif ref == 'J68':
+            add_field(fp, 'UI_PINS', 'AUX +\nGND', -4.0, 0.0)
 
     # Role labels explain the board at a glance without replacing exact part
     # identities on F.Fab.

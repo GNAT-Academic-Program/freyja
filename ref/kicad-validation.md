@@ -1,10 +1,32 @@
 # KiCad regeneration and validation
 
-Validated with KiCad CLI / pcbnew 9.0.8 on 2026-09-15.
+Validated with KiCad CLI / pcbnew 9.0.8 on 2026-09-18.
 
 **Current ERC:** zero errors; only FPGA_DXP and FPGA_DXN dangling-label
 warnings. Run `python3 tools/check_erc.py` to enforce the exact list.
 Earlier sections below record historical results before pin-type normalization.
+
+## Through-hole keyed connector rework
+
+Regeneration uses one WingTAT C49569844 2x32 through-hole signal socket per
+left/right edge (J5/J3); J4/J6 are removed. J7/J8 remain the imported HCTL
+2x8 sockets. MK65-MK72 and MK76/MK77 are grounded 21 mm cut-to-one-pin posts,
+and the ten power sockets use J53-J58 plus J62-J65.
+
+The PCB was synchronized only through the position-preserving netlist loader;
+`tools/place.py` was not run. Pre/post textual snapshots compared every common
+reference's x, y and rotation and found **0 moved**. The latest 2x32 sync
+checked 500 surviving references, removed only J4/J6, and added no references.
+The contract now specifies J3/J5 at board-local y=50.0, but that placement was
+not applied; aligning the hand placement to the revised contract is a human
+TODO. The earlier power-row sync swapped J53-J58 in place and left J62-J65 in
+the loader's unplaced import band for human placement.
+
+ERC passes with zero errors and only the two allowlisted FPGA_DXP/FPGA_DXN
+warnings. PCB DRC was run with schematic parity and reports **337 violations**,
+**499 unconnected items**, and the two existing SFP `CAGE` parity warnings.
+The connector rework is synchronized, but the hand-placed board still has
+clearance/courtyard issues and remains unrouted; DRC is not clean.
 
 ## Synchronized changes
 
