@@ -69,6 +69,8 @@ LOADS = [
      'allowance for a 1 Gb PHY with internal LDO, verify on the prototype'),
     ('+3V3', 'ETH jack LEDs x2 through 510 ohm', 0.006, 'datasheet',
      'RTL8211F Figure 5; about 3 mA each'),
+    ('+3V3', 'X4 50 MHz CMOS oscillator', 0.01, 'estimate',
+     'typical 3225 CMOS oscillator at 50 MHz into a 15 pF load'),
     ('+3V3', 'Heartbeat and user LEDs x3, all on', 0.005, 'estimate',
      'D9-D11 via 1k each; 5 mA budget allowance'),
     ('+3V3', 'U9/U10 VCCA, U20, pull-ups, LED', 0.03, 'estimate',

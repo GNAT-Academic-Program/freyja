@@ -39,7 +39,7 @@ Inside each bank the allocator takes the shallowest balls first.
 
 | Bank | VCCO | Contents |
 |---|---|---|
-| 14 | **fixed 3.3V** | config flash, PSRAM x4, supervisor sideband |
+| 14 | **fixed 3.3V** | SYS_CLK (50 MHz oscillator), config flash, PSRAM x4, supervisor sideband |
 | 13 | fixed 3.3V | 5V BUS 0, 5V BUS 1, PHY_RESET_N, PHY_INT_N |
 | 15 | **settable** 3.3 / 2.5 / 1.8 | slots A B C D |
 | 34 | **settable** 3.3 / 2.5 / 1.8 | slots E F G H |
@@ -60,6 +60,15 @@ Inside each bank the allocator takes the shallowest balls first.
 `CCLK`, `PROGRAM_B`, `INIT_B`, `DONE`, `M[2:0]` and JTAG are bank 0
 dedicated pins — see the bank 0 table below.
 
+## System clock
+
+| Ball | Net | Package name |
+|---|---|---|
+| M21 | `SYS_CLK` | IO_L12P_T1_MRCC_14 |
+
+X4, 50 MHz CMOS, on an MRCC P ball so it reaches the bank's MMCMs; the
+pair's N ball is left free.
+
 ## PSRAM — four independent QSPI buses
 
 | Chip | SCK | CE# | IO0 | IO1 | IO2 | IO3 |
@@ -76,12 +85,12 @@ group stays physically tight and length matching stays local.
 
 | Ball | Net |
 |---|---|
-| M21 | `DBG_TCK` |
-| M22 | `DBG_TMS` |
-| N21 | `DBG_TDI` |
-| N22 | `DBG_TDO` |
-| M20 | `SB_UART_RX` |
-| L20 | `SB_UART_TX` |
+| N21 | `DBG_TCK` |
+| N22 | `DBG_TMS` |
+| M20 | `DBG_TDI` |
+| L20 | `DBG_TDO` |
+| P20 | `SB_UART_RX` |
+| P21 | `SB_UART_TX` |
 
 ## Extension slots
 
@@ -243,5 +252,5 @@ all RX pins to GND, TX and reference-clock pins floating, and one 100 ohm
 - 5V bus data: **16**
 - 5V bus direction: **2**
 - 5V bus enable: **2**
-- **assigned HR I/O: 184 of 300**
-- **free: 116** for base-board peripherals
+- **assigned HR I/O: 185 of 300**
+- **free: 115** for base-board peripherals

@@ -53,6 +53,8 @@ def normalize_imported_pin_types():
             **{str(n): 'input' for n in (12, 13, 15, 16, 17, 18, 19, 20, 36)},
             **{str(n): 'output' for n in (22, 23, 24, 25, 26, 27, 32, 33, 34, 35, 37)},
             '30': 'power_out', '31': 'open_collector', '39': 'passive'},
+        # YXC OT3225 CMOS oscillator: 1 tri-state in, 2 GND, 3 out, 4 VDD
+        'OT322550MJBA4SL': {'1': 'input', '2': 'power_in', '3': 'output', '4': 'power_in'},
     }
     text = open(PKG).read()
     for name in sorted(passive | overrides.keys()):

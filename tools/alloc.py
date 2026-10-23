@@ -39,6 +39,8 @@ SLOT_BANK = OrderedDict([('L', '13'), ('M', '13'),
                          ('A', '15'), ('B', '15'), ('C', '15'), ('D', '15'),
                          ('E', '34'), ('F', '34'), ('G', '34'), ('H', '34')])
 
+# The fabric's own clock: 50 MHz CMOS oscillator X4 into bank 14 (3.3 V).
+SYS_CLK = 'SYS_CLK'
 # Bank 16 is the network bank, VCCO = +2V5 (gen_sch.RAIL). RGMII at 2.5 V
 # to the RTL8211FD-CG: TXC/TXD/TX_CTL driven by the fabric, RXC/RXD/RX_CTL
 # from the PHY, MDC/MDIO at the DVDD_RG level (RTL8211F Table 58). RXC is
@@ -126,9 +128,14 @@ def assign():
     net = dict(CONFIG_USE)
     names = {b: n for lst in io.values() for b, n in lst}
 
-    # ---- bank 14: PSRAM x4 (3 pairs each) and the sideband, shallowest first
+    # ---- bank 14: the fabric clock, PSRAM x4 (3 pairs each) and the
+    # sideband, shallowest first. SYS_CLK is the 50 MHz oscillator (X4): a
+    # single-ended clock on the P side of an MRCC pair (UG472 ch. 2), so it
+    # reaches the MMCMs; the pair's N ball stays free.
     fp14, s14 = pairs_and_singles(io['14'])
     fp14 = _by_depth(t for t in fp14 if t[0] not in used and t[1] not in used)
+    clk, _clk_n = _take_pair_named(fp14, used, 'MRCC', names)
+    net[clk] = SYS_CLK
     psram = OrderedDict()
     lanes = ['SCK', 'CE_B', 'IO0', 'IO1', 'IO2', 'IO3']
     for c in range(4):
@@ -190,8 +197,10 @@ def check(net, io):
     for n, balls in by_net.items():
         if len(balls) > 1: probs.append(f'{n} on {balls}')
     inv = {n: b for b, n in net.items()}
-    if 'MRCC' not in names[inv['PHY_RXC']] or not names[inv['PHY_RXC']].split('_')[1].endswith('P'):
-        probs.append('PHY_RXC is not on an MRCC P ball')
+    for clk in (SYS_CLK, 'PHY_RXC'):
+        if 'MRCC' not in names[inv[clk]] or not names[inv[clk]].split('_')[1].endswith('P'):
+            probs.append(f'{clk} is not on an MRCC P ball')
+    if not names[inv[SYS_CLK]].endswith('_14'): probs.append('SYS_CLK is not in bank 14')
     for port, tag in zip(LINK_PORTS, ('MRCC', 'SRCC')):
         p, n = inv[f'LINK_{port}_RXC_P'], inv[f'LINK_{port}_RXC_N']
         if tag not in names[p] or names[p].split('_')[1][:-1] != names[n].split('_')[1][:-1]:

@@ -176,6 +176,7 @@ ANCHORS = {
     'LINK P':                      (25.0, 22.0, 'down'),
     'LINK Q':                      (42.8, 22.0, 'down'),
     'GTP calibration':             (36.0, 48.0, 'right'),
+    'system clock':                (50.0, 46.0, 'right'),
     'JTAG owner selection':        (24.0, 88.0, 'right'),
     'series resistors to FPGA':    (38.0, 80.0, 'right'),
     'config straps (UG470)':       (56.0, 74.0, 'right'),

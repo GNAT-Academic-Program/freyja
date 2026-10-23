@@ -277,6 +277,14 @@ PARTS = {
            'to GND, which the 2.5 V LVDS pairs (never below ground) allow',
     pinmap='TI DBV: 1 D1+, 6 D1-, 3 D2+, 4 D2-, 2 GND, 5 NC; imported C124691 agrees',
     src='TI TPD4E1U06 datasheet SLLSEK5; LCSC C124691'),
+  'EasyEDA:OT322550MJBA4SL': dict(
+    mpn='OT322550MJBA4SL', pkg='SMD 3225, 4 pad CMOS oscillator',
+    fp='EasyEDA:OSC-SMD_4P-L3.2-W2.5-BL',
+    rating='50 MHz, 1.8-3.3 V supply (3.3 V here), CMOS output, +/-20 ppm; '
+           'the fabric system clock into a bank 14 MRCC ball (SYS_CLK)',
+    pinmap='YXC OT3225: 1 tri-state (high = output on, tied to VDD), 2 GND, '
+           '3 OUTPUT, 4 VDD; imported C717684 symbol agrees',
+    src='YXC OT322550MJBA4SL listing; LCSC C717684'),
   # ------------------------------------------------------- FPGA decoupling
   # UG483 v1.14 Table 2-5 names the parts; the ceramic 1210/0805/0603 values
   # are ordinary passives matched at BOM time (C > nominal, X7R or X5R, ESR

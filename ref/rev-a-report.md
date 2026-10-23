@@ -146,3 +146,34 @@ Known: `place.py --check` still fails on the connector contract (phase B).
 SFP nets; replaced by LVDS_100R/RGMII in B1 as planned.
 Open questions for the owner: none blocking. If a 1000Base-T jack with a
 different LED arrangement is preferred, only `J70`'s pin map changes.
+
+## Phase A4b (system clock) 2026-10-23
+Parts: 459 -> 462
+B.Cu footprints: 0
+Escape depth >= 7: 51 (17 inherent, 34 allocator choice)
+ERC: 0 errors, 2 warnings (allowlisted FPGA_DXP/FPGA_DXN)
+DRC: 9 errors, 324 warnings, 499 unrouted, 0 parity (unchanged set)
+PCB sync: `load_pcb.py` between `check_positions.py` snapshots, 0 of 459
+moved; added X4, C246, R147
+Files changed: tools/alloc.py, tools/design.py, tools/gen_kicad.py,
+tools/qualified.py, tools/budget.py, tools/placement.py,
+tools/update_silkscreen.py, tools/ballmap.py, easyeda/EasyEDA.kicad_sym,
+easyeda/EasyEDA.pretty/OSC-SMD_4P-L3.2-W2.5-BL (new), floorplan.md,
+generated: ref/ballmap.md, ref/power-budget.md, ref/qualified-parts.md,
+kicad/*.kicad_sch, kicad/odin.kicad_sym, kicad/odin.net, kicad/odin.kicad_pcb
+What: audit gap found while preparing the XDC: the fabric had no clock
+source. X2 only fed the GTP reference input, Y1 is the RP2350's crystal and
+the PHY's RXC exists only with a link up, so nothing could clock NEORV32 at
+power-on (ref/gameboy-extension.md already assumed a "board oscillator +
+MMCM"). Added X4, YXC OT322550MJBA4SL 50 MHz CMOS oscillator (C717684,
+imported with easyeda2kicad; 1.8-3.3 V, +/-20 ppm), tri-state pin tied to
+VDD, 100 nF bypass, 33 ohm source resistor, into bank 14 on an MRCC P ball
+(`SYS_CLK`), allocated before the PSRAM pairs; `alloc.py --check` verifies
+the MRCC placement. One more deep ball results (the shallow MRCC pair went
+to the clock). floorplan.md rewritten for the rev A board (jacks, network
+strip, decoupling placement rule).
+Known: oscillator current and OE behaviour are from the YXC family listing
+(datasheet PDF did not download); `place.py --check` connector contract
+still fails (phase B).
+Open questions for the owner: 50 MHz chosen as a safe NEORV32 default; say
+if you want another frequency (any 3225 CMOS part fits the same land).

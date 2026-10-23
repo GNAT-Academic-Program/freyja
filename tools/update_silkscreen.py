@@ -44,6 +44,7 @@ ROLE_LABELS = {
     'U21': 'SLOT 5V PROTECTION', 'U22': 'SLOT 3V3 PROTECTION',
     'U23': 'A-D PIN PROTECTION', 'U24': 'E-H PIN PROTECTION',
     'U26': 'USB INPUT PROTECTION', 'U30': 'ETHERNET PHY',
+    'X4': 'FPGA CLOCK\n50MHz',
 }
 
 # These are populated from the schematic value instead of duplicated here.

@@ -1029,6 +1029,20 @@ def build():
                   {'D1+': conn[str(a)], 'D1-': conn[str(b)],
                    'D2+': conn[str(c)], 'D2-': conn[str(e)], 'GND': GND}, 'C124691')
 
+    # ------------------------------------------------ system clock
+    # The fabric had no clock of its own: X2 only fed the GTP reference input
+    # and the PHY's RXC exists only with a link up. A 50 MHz 3.3 V CMOS
+    # oscillator on a bank 14 MRCC ball (tools/alloc.py SYS_CLK) clocks
+    # NEORV32 directly or through an MMCM. Pin 1 is the tri-state control,
+    # high = running; tied to VDD. Pin names as the imported C717684 symbol.
+    d.sheet('FPGA')
+    d.group('system clock')
+    d.add('X4', 'EasyEDA:OT322550MJBA4SL', '50MHz CMOS', 'EasyEDA:OSC-SMD_4P-L3.2-W2.5-BL',
+          {'VDD': V33, 'GND': GND, 'OUTPUT': 'SYS_CLK_OSC', 'Tri-state': V33}, 'C717684')
+    d.C('100nF', V33, GND)
+    # 33 ohm at the source keeps the edge clean over the few centimetres to U1.
+    d.R('33', 'SYS_CLK_OSC', 'SYS_CLK')
+
     # Mandatory connector-accounting gate. A post is a ground probe/key, not
     # a mated contact; each section separately has four signal grounds plus
     # the three female power-row grounds.
