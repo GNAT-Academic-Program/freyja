@@ -39,7 +39,6 @@ TSSOP24_XLATE = 'EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL_1'
 VSSOP8_LVC2T45 = 'EasyEDA:VSSOP-8_L2.1-W2.4-P0.50-LS3.2-BL'
 QFN16_SY8047 = 'EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6'
 VQFN10RPU = 'Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm'
-WQFN16_RTE = 'Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.68x1.68mm_ThermalVias'
 EXT2x8  = 'EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54'
 EXT2x32 = 'EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1'
 EXT_PWR = 'EasyEDA:HDR-TH_7P-P2.54-V-F'
@@ -47,8 +46,6 @@ EXT_KEY = 'EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353'
 HDR2x3  = 'EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1'
 HDR2x5  = 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical'
 HDR1x2  = 'Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical'
-HDR1x3  = 'Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical'
-HDR2x4  = 'Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical'
 XTAL    = 'EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL'
 USBC    = 'Connector_USB:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A'
 LED0603 = 'LED_SMD:LED_0603_1608Metric'
@@ -112,13 +109,12 @@ class Design:
         """Consume deleted sequential references without renumbering survivors."""
         for _ in range(count): self.seq(pre)
     # Rails that can sit above 3.3 V, and the rating a capacitor on them needs.
-    # A 22uF 6.3V part on the 12 V AUX rail fails on first power-up, and the
+    # A 22uF 6.3V part on the 28 V AUX rail fails on first power-up, and the
     # value string is the only place a schematic reader will see the
     # difference, so it is put there automatically rather than typed.
     # Everything unmarked is 16 V minimum, X5R or better -- see
     # ref/qualified-parts.md.
-    HV = {'VSYS': '50V', 'VBUS': '25V', 'AUX_REG': '50V',
-          'AUX_RAW': '50V', 'AUX_RAIL': '50V'}
+    HV = {'VSYS': '50V', 'VBUS': '25V', 'AUX_RAIL': '50V'}
 
     def C(self, val, a, b, fp=C0402):
         hv = [self.HV[n] for n in (a, b) if n in self.HV]
@@ -770,8 +766,9 @@ def build():
     d.C('22pF', V10, 'FB+1V0')
     for _ in range(2): d.C('22uF', V10, GND, C0805)
     # U19's +12V output fed only U25 and the ten per-zone AUX selectors. Those
-    # consumers are gone: AUX is now one VSYS-fed lab rail below. Consume the
-    # old sequential slots so every later hand-placed L/R/C keeps its identity.
+    # consumers are gone: AUX is now the raw J68 input straight into the ten
+    # branch PTCs. Consume the old sequential slots so every later
+    # hand-placed L/R/C keeps its identity.
     d.reserve('L', 1)       # former L8
     d.reserve('R', 3)       # former R69..R71
     d.reserve('C', 5)       # former C213..C217
@@ -902,104 +899,16 @@ def build():
     d.add('D8', 'Device:D_Zener', 'SMBJ22A', 'Diode_SMD:D_SMB',
           {'K': 'VIN_EXT', 'A': GND}, 'C151920')
 
-    # ------------------------------------------------ AUX lab rail
-    # LM5157's 2.9 V operating floor is below the weak-USB model:
-    # 4.75 V - SS34/eFuse loss = 4.27 V. BIAS is therefore fed from VSYS,
-    # never VIN_EXT, so the menu also works from USB power.
-    d.group('AUX lab rail')
-    d.add('U28', 'odin:LM5157RTE', 'LM5157RTER', WQFN16_RTE,
-          {'PGND1': GND, 'PGND2': GND, 'AGND': GND, 'EP': GND,
-           'VCC': 'AUX_VCC_PIN', 'BIAS': VSYS, 'RT': 'AUX_RT',
-           'UVLO/SYNC/EN': 'AUX_EN', 'COMP': 'AUX_COMP', 'FB': 'AUX_FB',
-           'SS': 'AUX_SS', 'MODE': 'AUX_MODE',
-           'SW1': 'AUX_SW', 'SW2': 'AUX_SW', 'SW3': 'AUX_SW'}, 'C5219222')
-    # Physical windings are 1-3 and 2-4. This matches the manufacturer's
-    # drawing, not the misleading 1-2 / 3-4 convention of generic symbols.
-    d.add('L10', 'odin:PSSCAQ1285_4R7MP', 'PSSCAQ1285-4R7MP 4.7uH coupled',
-          'odin:L_PROD_PSSCAQ1285',
-          {'PRI_DOT': VSYS, 'PRI': 'AUX_SW',
-           'SEC_DOT': GND, 'SEC': 'AUX_SEPIC'}, 'C54563336')
-    # Nexperia Table 2 and the exact import agree: 1/2 are anodes and 3 is
-    # cathode. A generic two-pin diode silently leaves pad 3 unconnected.
-    d.add('D12', 'EasyEDA:PMEG060V100EPDZ', 'PMEG060V100EPDZ',
-          'EasyEDA:SOT1289_L5.8-W4.4-LS6.5-RD',
-          {'A': 'AUX_SEPIC', 'K': 'AUX_REG'}, 'C552792')
-    # Reference-EVM energy storage, all 50 V X7R where a switching or
-    # selectable high-voltage node is present.
-    for ref in ('C233', 'C234'):
-        d.add(ref, 'Device:C', '10uF 50V X7R', C1210,
-              {'1': VSYS, '2': GND}, 'C77102')
-    d.add('C235', 'Device:C', '100nF 50V', C0603,
-          {'1': VSYS, '2': GND})
-    d.add('R131', 'Device:R', '4.99', R0603,
-          {'1': 'AUX_VCC_PIN', '2': 'AUX_VCC'})
-    d.add('C236', 'Device:C', '1uF 16V', C0603,
-          {'1': 'AUX_VCC', '2': GND}, 'C29936')
-    # ~435 kHz: 2.1 MHz's guaranteed 80% maximum duty cannot cover 5V->24V
-    # SEPIC. Lower frequency also reduces switching losses at the 12 W corner.
-    d.add('R132', 'Device:R', '49.9k', R0603,
-          {'1': 'AUX_RT', '2': GND})
-    d.add('C237', 'Device:C', '47nF 50V', C0603,
-          {'1': 'AUX_SS', '2': GND})
-    d.add('R133', 'Device:R', '62k', R0603,
-          {'1': 'AUX_MODE', '2': GND})
-    d.add('R134', 'Device:R', '2k', R0603,
-          {'1': 'AUX_COMP', '2': 'AUX_COMP_C'})
-    d.add('C238', 'Device:C', '47nF 50V', C0603,
-          {'1': 'AUX_COMP_C', '2': GND})
-    d.add('C239', 'Device:C', '220pF 50V', C0603,
-          {'1': 'AUX_COMP', '2': GND})
-    d.add('C240', 'Device:C', '10uF 50V X7R SEPIC', C1210,
-          {'1': 'AUX_SW', '2': 'AUX_SEPIC'}, 'C77102')
-    for ref in ('C241', 'C242', 'C243', 'C244', 'C245'):
-        d.add(ref, 'Device:C', '10uF 50V X7R', C1210,
-              {'1': 'AUX_REG', '2': GND}, 'C77102')
-    d.add('C246', 'Device:C', '100nF 50V', C0603,
-          {'1': 'AUX_REG', '2': GND})
-
-    # Feedback is one ordered series ladder. The four FETs connect one ladder
-    # tap to FB; if several caps are fitted, the tap nearest AUX_REG wins and
-    # shorts the intervening segments, so the error is always toward LOWER V.
-    d.add('R135', 'Device:R', '10k 1%', R0603,
-          {'1': 'AUX_FB', '2': GND})
-    for ref, value, a, b in (
-            ('R136', '80.6k 1%', 'AUX_REG', 'AUX_TAP_9'),
-            ('R137', '30.1k 1%', 'AUX_TAP_9', 'AUX_TAP_12'),
-            ('R138', '30.1k 1%', 'AUX_TAP_12', 'AUX_TAP_15'),
-            ('R139', '90.9k 1%', 'AUX_TAP_15', 'AUX_TAP_24')):
-        d.add(ref, 'Device:R', value, R0603, {'1': a, '2': b})
-
-    d.add('J67', 'Connector_Generic:Conn_02x04_Odd_Even',
-          'AUX VOLTAGE 9/12/15/24; ONE CAP ONLY', HDR2x4,
-          {'1': 'AUX_SEL_9', '2': GND, '3': 'AUX_SEL_12', '4': GND,
-           '5': 'AUX_SEL_15', '6': GND, '7': 'AUX_SEL_24', '8': GND}, 'C124386')
-    inv = {'VCC': V33, 'GND': GND, 'A5': GND, 'A6': GND}
-    for i, volts in enumerate((9, 12, 15, 24), 1):
-        inv[f'A{i}'] = f'AUX_SEL_{volts}'
-        inv[f'Y{i}'] = f'AUX_SEL_{volts}_ON'
-        d.add(f'R{139+i}', 'Device:R', '100k', R0402,
-              {'1': V33, '2': f'AUX_SEL_{volts}'}, 'C25741')
-        d.add(f'Q{4+i}', 'Transistor_FET:Q_NMOS_GSD', 'BSS138LT1G',
-              'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
-              {'G': f'AUX_SEL_{volts}_ON', 'S': 'AUX_FB',
-               'D': f'AUX_TAP_{volts}'}, 'C82045')
-        d.add(f'D{12+i}', 'Device:D', '1N4148W', 'Diode_SMD:D_SOD-123',
-              {'A': f'AUX_SEL_{volts}_ON', 'K': 'AUX_EN'}, 'C81598')
-    d.add('U29', 'odin:74HC04D', '74HC04D,653',
-          'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', inv, 'C5590')
-    d.add('C247', 'Device:C', '100nF', C0402,
-          {'1': V33, '2': GND}, 'C1525')
-    d.add('R144', 'Device:R', '100k', R0402,
-          {'1': 'AUX_EN', '2': GND}, 'C25741')
-
-    # REG is the only converter-output path to the shared rail. AUX IN is a
-    # separate raw source and touches the board only through this exclusive
-    # one-cap selector.
-    d.add('J66', 'Connector_Generic:Conn_01x03', 'AUX SOURCE REG/AUX/RAW', HDR1x3,
-          {'1': 'AUX_REG', '2': 'AUX_RAIL', '3': 'AUX_RAW'}, 'C2937625')
+    # ------------------------------------------------ AUX IN
+    # Rev A has no on-board AUX converter. The ten SLOT_x_AUX branches are
+    # fed only from this screw terminal, each through its own 33 V PTC in
+    # the slot group above. The VSYS-fed SEPIC was dropped: the SMBJ22A
+    # clamp (35.5 V) on top of a charged 24 V output could exceed the
+    # LM5157 SW pin's 50 V absolute maximum. See ref/power.md.
+    d.group('AUX IN')
     d.add('J68', 'EasyEDA:KF301-5.0-2P', 'AUX IN 9-28V UNREGULATED',
           'EasyEDA:CONN-TH_P5.00_KF301-5.0-2P',
-          {'1': 'AUX_RAW', '2': GND}, 'C474881')
+          {'1': 'AUX_RAIL', '2': GND}, 'C474881')
 
     # PCF8574 is a strong sink, weak source. Active-low LEDs are dark at
     # power-on (all output latches high) and need no supervisor GPIOs.

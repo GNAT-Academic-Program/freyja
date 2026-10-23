@@ -23,7 +23,7 @@
 		(property "Sheetfile" "power.kicad_sch" (at 150 96 0) (effects (font (size 2 2)) (justify left top)))
 		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef" (page "3"))))
 	)
-	(text "Power tree: VSYS input, selectable AUX lab rail and monitoring" (at 153 67 0) (effects (font (size 2 2)) (justify left)))
+	(text "Power tree: VSYS input, regulators, AUX IN pass-through and monitoring" (at 153 67 0) (effects (font (size 2 2)) (justify left)))
 	(sheet (at 270 55) (size 95 40)
 		(stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0.0000))
 		(uuid "97100407-f2fb-0487-90af-0c60df3be2db")

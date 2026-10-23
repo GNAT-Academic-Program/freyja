@@ -1,24 +1,14 @@
 # JLCPCB / EasyEDA import checklist
 
-## AUX rework import checkpoint (2026-09-21; batch not yet validated)
+## AUX rework import checkpoint (2026-09-21; superseded 2026-10-23)
 
-The eight requested imports are present: C5219222, C552792, C70150,
-C5590, C81598, C2937625, C9139 and C151920. Presence is not qualification.
-
-- C54563336 failed to import. Its locally generated symbol and footprint
-  are checked against the manufacturer's winding and land-pattern drawings;
-  see [aux-magnetics.md](aux-magnetics.md). No further import is required.
-- **C9139 is rejected for J67.** Its exact imported MPN is
-  `2.54-2*4P弯简牛`, a right-angle boxed IDC header, not the straight,
-  unshrouded jumper block previously claimed. The draft's C9139 BOM
-  assignment must not be released. Replacement candidate: C124386,
-  Ckmtw B-2100S08P-B110, straight 2x4 through-hole header. Import and
-  physical-pad verification are pending before wiring that replacement.
-- D12 C552792 is not a two-pad diode: manufacturer and imported symbol
-  agree on anodes 1/2 and cathode 3. `design.py` now uses the exact import,
-  connecting both anodes to AUX_SEPIC and the cathode to AUX_REG.
-- C5219222's imported footprint is retained as package evidence; the
-  selected KiCad RTE footprint provides the required exposed-pad via field.
+Of the eight imports requested for the AUX lab rail, only C70150 (branch
+PTC) and C151920 (D8 SMBJ22A) remain in the design. The LM5157 SEPIC and its
+selectors were removed for rev A (`ref/power.md`), so C5219222, C552792,
+C5590, C81598, C2937625, the rejected C9139 and its C124386 replacement, and
+the locally drawn C54563336 coupled inductor are no longer used. The EasyEDA
+imports stay in `easyeda/` as library files; `tools/audit_easyeda.py` only
+checks parts the design fits.
 
 The rest of this document records the older generated project and must be
 reconciled with the completed batch before release. This checkpoint is not

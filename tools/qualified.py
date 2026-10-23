@@ -106,16 +106,6 @@ PARTS = {
            '650 kHz with FREQ grounded',
     pinmap='KiCad Regulator_Switching symbol',
     src='TI SLVS859B'),
-  'odin:LM5157RTE': dict(
-    mpn='LM5157RTER', pkg='WQFN-16-EP, 3x3 mm, 0.5 mm pitch (TI RTE0016C)',
-    fp='Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.68x1.68mm_ThermalVias',
-    rating='2.9-45 V operating input, 48 V maximum output, integrated 50 V / '
-           '6.5 A minimum peak-current switch; SEPIC from VSYS. LCSC snapshot '
-           '2026-09-21: 5,277 stock, $2.9006 at 1, $2.4697 at 10',
-    pinmap='TI RTE0016C top view: 1/16 PGND, 2 VCC, 3 BIAS, 4 PGOOD, '
-           '5 RT, 6 UVLO/SYNC/EN, 7 AGND, 8 COMP, 9 FB, 10 SS, 11 MODE, '
-           '12-14 SW, 15 NC, exposed pad 17 AGND',
-    src='TI LM5157 datasheet SNVSBK7A; LCSC C5219222'),
   'odin:TPS22950CDDC': dict(
     mpn='TPS22950CDDCR', pkg='SOT-23-THIN-6 (TI DDC)', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL_3',
     rating='1.8-5.5 V in, 6 V absolute max on VIN/VOUT, 3.2 A switch; '
@@ -163,13 +153,6 @@ PARTS = {
            'transient limit is the lowest downstream transient absolute maximum',
     pinmap='1 cathode to VIN_EXT; 2 anode to GND',
     src='BORN SMBJ22A datasheet; LCSC C151920'),
-  'D12': dict(
-    mpn='PMEG060V100EPDZ', pkg='CFP15 / SOT1289',
-    fp='EasyEDA:SOT1289_L5.8-W4.4-LS6.5-RD',
-    rating='60 V, 10 A average, 560 mV maximum at 10 A; SEPIC output rectifier',
-    pinmap='1/2 anode to AUX_SEPIC, 3 cathode to AUX_REG; manufacturer '
-           'Table 2 agrees with imported C552792 symbol and all three pads',
-    src='Nexperia PMEG060V100EPD data sheet; LCSC C552792'),
   'Q1': dict(
     mpn='DMG2305UX-7', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR',
     rating='-20 V VDSS, +/-8 V VGSS, -4.2 A, RDS(on) 52 mohm max at '
@@ -184,8 +167,7 @@ PARTS = {
   'Transistor_FET:Q_NMOS_GSD': dict(
     mpn='BSS138LT1G', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
     rating='50 V, 200 mA; RDS(on) max 10 ohm at VGS 2.75 V (-40..85 C). '
-           'Q3 pulls a gate through 47k; Q4 sinks the DONE LED; Q5-Q8 select '
-           'high-impedance feedback-ladder taps',
+           'Q3 pulls a gate through 47k; Q4 sinks the DONE LED',
     pinmap='G-S-D SOT-23, pins 1-2-3',
     src='onsemi BSS138LT1/D, https://www.onsemi.com/pdf/datasheet/bss138lt1-d.pdf'),
   # ------------------------------------------------------------------ logic
@@ -208,13 +190,6 @@ PARTS = {
     pinmap='NXP Table 3: 1 A0, 2 A1, 3 RESET, 4 INT0, 5 SD0, 6 SC0, 7 VSS, '
            '8 INT1, 9 SD1, 10 SC1, 11 INT, 12 SCL, 13 SDA, 14 VDD',
     src='NXP PCA9543A_43B rev 8; LCSC C2652904'),
-  'odin:74HC04D': dict(
-    mpn='74HC04D,653', pkg='SOIC-14, 3.9x8.7 mm',
-    fp='Package_SO:SOIC-14_3.9x8.7mm_P1.27mm',
-    rating='2.0-6.0 V hex inverter; 3.3 V here; converts fitted-cap active-low '
-           'signals into feedback-switch and enable commands',
-    pinmap='Nexperia SO14: 1A/1Y pins 1/2 through 6A/6Y pins 13/12, GND 7, VCC 14',
-    src='Nexperia 74HC04 data sheet; LCSC C5590'),
   'EasyEDA:PCF8574T_3,518': dict(
     mpn='PCF8574T_3,518', pkg='SOIC-16W (7.5x10.3 mm)', fp='EasyEDA:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL',
     rating='2.5-6 V, quasi-bidirectional I/O; P0-P2 sink LEDs at about 1 mA each; P3 reads core PG; P7 controls SFP power',
@@ -285,16 +260,6 @@ PARTS = {
     rating='220 ohm at 100 MHz, 1.4 A rated current, 100 mohm maximum DCR',
     pinmap='two-terminal ferrite; SFP_VCC to one local port supply',
     src='Murata BLM18PG data sheet; LCSC C80165'),
-  'odin:PSSCAQ1285_4R7MP': dict(
-    mpn='PSSCAQ1285-4R7MP', pkg='coupled inductor, 12.5x12.5x8.5 mm, 4 pad',
-    fp='odin:L_PROD_PSSCAQ1285',
-    rating='4.7 uH +/-20%, 5 A temperature-rise current, 15 A saturation, '
-           '26 mohm maximum DCR, 97.6% coupling; JLC wave-solder assembly, '
-           'Economic and Standard PCBA; stock 90 on 2026-09-21',
-    pinmap='PROD A3.0 p3: windings 1-3 and 2-4, dots 1/2. Page 6: '
-           '2.5x3.85 mm pads on 3.5x9.95 mm centre pitches; '
-           'locally generated, not an EasyEDA import; see ref/aux-magnetics.md',
-    src='PROD PSSCAQ7048-1285 series drawing; LCSC/JLC C54563336'),
   'odin:U77A11133001': dict(
     mpn='U77A11133001', pkg='SFP 1x1 cage, 3.2 mm solder tails',
     fp='odin:Amphenol_U77A11133001',
@@ -326,24 +291,11 @@ PARTS = {
     pinmap='2-pin SPST', src='Omron B3U datasheet'),
 }
 
-PARTS['J66'] = dict(
-    mpn='PZ254V-11-03P', pkg='1x3 male header, 2.54 mm, THT',
-    fp='Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical',
-    rating='3 A contacts; one cap makes REG/AUX or AUX/RAW physically exclusive',
-    pinmap='1 AUX_REG, 2 AUX_RAIL, 3 AUX_RAW', src='XFCN; LCSC C2937625')
-PARTS['J67'] = dict(
-    mpn='B-2100S08P-B110', pkg='straight unshrouded 2x4 male, 2.54 mm, THT',
-    fp='Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical',
-    rating='selector only; ships with no cap, so LM5157 is disabled',
-    pinmap='four odd/even cap positions select 9/12/15/24 V',
-    src='Ckmtw 210S-2xXP drawing rev A: 2.54 mm row/column pitch, '
-        '1.02 +/-0.05 mm PCB holes, 6 mm mating pins; LCSC C124386. '
-        'Standard KiCad footprint verified against drawing; not an EasyEDA import')
 PARTS['J68'] = dict(
     mpn='KF301-5.0-2P', pkg='2-position 5.0 mm screw terminal, through-hole',
     fp='EasyEDA:CONN-TH_P5.00_KF301-5.0-2P',
     rating='17 A, 250 V component rating; Odin AUX raw input limited to 9-28 V',
-    pinmap='1 AUX_RAW (+), 2 GND (-); no connection except J66 RAW side',
+    pinmap='1 AUX_RAIL (+), 2 GND (-); feeds only the ten slot branch PTCs',
     src='LCSC C474881')
 
 _aux_ptc = dict(
@@ -355,14 +307,6 @@ _aux_ptc = dict(
     src='TECHFUSE SMD2018 data sheet; JLC C70150')
 for _ref in (f'F{n}' for n in range(4, 41, 4)):
     PARTS[_ref] = _aux_ptc
-
-_sense_diode = dict(
-    mpn='1N4148W', pkg='SOD-123', fp='Diode_SMD:D_SOD-123',
-    rating='75 V, 150 mA, 4 ns; selector-output OR into LM5157 enable',
-    pinmap='1 cathode at AUX_EN, 2 anode at inverter output',
-    src='ST(Semtech) 1N4148W data sheet; LCSC C81598')
-for _ref in ('D13', 'D14', 'D15', 'D16'):
-    PARTS[_ref] = _sense_diode
 
 # The physical part is a one-pin cut from the qualified 1x40 strip, while its
 # schematic symbol is deliberately the generic one-pin connector.

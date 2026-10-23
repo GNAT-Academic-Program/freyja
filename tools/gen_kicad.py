@@ -230,7 +230,7 @@ def gen_osc():
 # filter -- a real local rail, not a signal, so it gets a real power symbol.
 CUSTOM_RAILS = ['VCCIO_1', 'VCCIO_2', '+1V0_MGT', '+1V2_MGT', 'SFP_VCC', 'VSYS',
                 'PD_VDD', 'SUP_VREG_AVDD', '+5V_EXT', '+3V3_EXT',
-                'VCCIO_1_EXT', 'VCCIO_2_EXT', 'AUX_REG', 'AUX_RAW', 'AUX_RAIL',
+                'VCCIO_1_EXT', 'VCCIO_2_EXT', 'AUX_RAIL',
                 'SFP0_VCC', 'SFP1_VCC']
 
 def gen_rails():
@@ -309,28 +309,6 @@ def gen_sfp_mux():
 
 def gen_aux_symbols():
     """Parts KiCad does not ship, with datasheet pin numbers kept explicit."""
-    lm5157 = [
-        ('1', 'PGND1', 'power_in', 'L'), ('2', 'VCC', 'power_out', 'L'),
-        ('3', 'BIAS', 'power_in', 'L'), ('4', 'PGOOD', 'open_collector', 'L'),
-        ('5', 'RT', 'passive', 'L'), ('6', 'UVLO/SYNC/EN', 'input', 'L'),
-        ('7', 'AGND', 'power_in', 'L'), ('8', 'COMP', 'passive', 'L'),
-        ('9', 'FB', 'input', 'R'), ('10', 'SS', 'passive', 'R'),
-        ('11', 'MODE', 'input', 'R'), ('12', 'SW1', 'passive', 'R'),
-        ('13', 'SW2', 'passive', 'R'), ('14', 'SW3', 'passive', 'R'),
-        ('15', 'NC', 'no_connect', 'R'), ('16', 'PGND2', 'power_in', 'R'),
-        ('17', 'EP', 'power_in', 'R'),
-    ]
-    # One unit avoids the repeated A/Y names in KiCad's multi-unit 74HC04
-    # symbol, which are ambiguous to design.py's pin-name connector.
-    inv = [
-        ('1', 'A1', 'input', 'L'), ('2', 'Y1', 'output', 'R'),
-        ('3', 'A2', 'input', 'L'), ('4', 'Y2', 'output', 'R'),
-        ('5', 'A3', 'input', 'L'), ('6', 'Y3', 'output', 'R'),
-        ('7', 'GND', 'power_in', 'L'), ('8', 'Y4', 'output', 'R'),
-        ('9', 'A4', 'input', 'L'), ('10', 'Y5', 'output', 'R'),
-        ('11', 'A5', 'input', 'L'), ('12', 'Y6', 'output', 'R'),
-        ('13', 'A6', 'input', 'L'), ('14', 'VCC', 'power_in', 'L'),
-    ]
     # TE 1888247-1 has only the twenty module contacts. The separate SH1/SH2
     # cage parts own their grounded solder tails, so no synthetic CAGE pin is
     # allowed here (it was the source of two PCB/schematic parity warnings).
@@ -346,30 +324,10 @@ def gen_aux_symbols():
         ('17', 'VeeT2', 'power_in', 'R'), ('18', 'TD+', 'input', 'R'),
         ('19', 'TD-', 'input', 'R'), ('20', 'VeeT3', 'power_in', 'R'),
     ]
-    # PROD A3.0 p3: 1-3 and 2-4 are the two windings; dots are at 1 and 2.
-    # Page 6's dual-inductor lands, not its series/parallel lands, define the
-    # four separate physical pads. See ref/aux-magnetics.md.
-    coupled = [
-        ('1', 'PRI_DOT', 'passive', 'L'), ('3', 'PRI', 'passive', 'R'),
-        ('2', 'SEC_DOT', 'passive', 'L'), ('4', 'SEC', 'passive', 'R'),
-    ]
-    return (
-        gen_box_symbol('LM5157RTE', lm5157,
-            'Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.68x1.68mm_ThermalVias',
-            'https://www.ti.com/lit/ds/symlink/lm5157.pdf',
-            '2.9-45V boost, flyback and SEPIC converter; TI RTE0016C') +
-        gen_box_symbol('74HC04D', inv,
-            'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm',
-            'https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf',
-            'Hex inverter, unique gate pin names for generated schematic') +
-        gen_box_symbol('SFP_NoCage', sfp,
-            'EasyEDA:CONN-SMD_20P-P0.80-S8.20_1888247-1',
-            'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Customer+Drawing%7F1888247%7FC',
-            'SFP/SFP+ 20-contact connector; cage is a separate part') +
-        gen_box_symbol('PSSCAQ1285_4R7MP', coupled,
-            'odin:L_PROD_PSSCAQ1285',
-            'https://atta.szlcsc.com/upload/public/pdf/source/20260512/7FA59B182872D8AEF44988AEFC20E605.pdf',
-            '4.7uH coupled inductor; physical windings are pins 1-3 and 2-4'))
+    return gen_box_symbol('SFP_NoCage', sfp,
+        'EasyEDA:CONN-SMD_20P-P0.80-S8.20_1888247-1',
+        'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Customer+Drawing%7F1888247%7FC',
+        'SFP/SFP+ 20-contact connector; cage is a separate part')
 
 def gen_extension_protection():
     low = [('1','ON','input','L'), ('2','VIN','power_in','L'),
@@ -442,7 +400,7 @@ def gen_inductor_fp():
     return 2
 
 def gen_aux_footprints():
-    """Datasheet land patterns for the AUX PTC and coupled inductor."""
+    """Datasheet land pattern for the AUX branch PTC."""
     os.makedirs(PRET, exist_ok=True)
     ptc = '''(footprint "Fuse_TECHFUSE_SMD2018"
 \t(version 20241229)\n\t(generator "odin-tools")\n\t(layer "F.Cu")
@@ -465,44 +423,8 @@ def gen_aux_footprints():
 \t(pad "2" smd roundrect (at 2.45 0) (size 1.5 4.6)
 \t\t(layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.15))
 )\n'''
-    coupled = '''(footprint "L_PROD_PSSCAQ1285"
-\t(version 20241229)\n\t(generator "odin-tools")\n\t(layer "F.Cu")
-\t(descr "PROD PSSCAQ1285 A3.0 p6 dual-inductor lands; 3.5x9.95mm pad-centre pitches")
-\t(tags "coupled inductor PSSCAQ1285")\n\t(attr smd)
-\t(property "Reference" "L**" (at 0 -8 0) (layer "F.SilkS")
-\t\t(effects (font (size 1 1) (thickness 0.15))))
-\t(property "Value" "L_PROD_PSSCAQ1285" (at 0 8 0) (layer "F.Fab")
-\t\t(effects (font (size 1 1) (thickness 0.15))))
-\t(fp_rect (start -6.5 -7.15) (end 6.5 7.15)
-\t\t(stroke (width 0.05) (type solid)) (fill none) (layer "F.CrtYd"))
-\t(fp_rect (start -6.25 -6.25) (end 6.25 6.25)
-\t\t(stroke (width 0.1) (type solid)) (fill none) (layer "F.Fab"))
-\t(fp_line (start -6.35 -6.35) (end -3.25 -6.35)
-\t\t(stroke (width 0.12) (type solid)) (layer "F.SilkS"))
-\t(fp_line (start 3.25 -6.35) (end 6.35 -6.35)
-\t\t(stroke (width 0.12) (type solid)) (layer "F.SilkS"))
-\t(fp_line (start 6.35 -6.35) (end 6.35 6.35)
-\t\t(stroke (width 0.12) (type solid)) (layer "F.SilkS"))
-\t(fp_line (start 6.35 6.35) (end 3.25 6.35)
-\t\t(stroke (width 0.12) (type solid)) (layer "F.SilkS"))
-\t(fp_line (start -3.25 6.35) (end -6.35 6.35)
-\t\t(stroke (width 0.12) (type solid)) (layer "F.SilkS"))
-\t(fp_line (start -6.35 6.35) (end -6.35 -6.35)
-\t\t(stroke (width 0.12) (type solid)) (layer "F.SilkS"))
-\t(fp_circle (center -5.55 -5.55) (end -5.2 -5.55)
-\t\t(stroke (width 0.15) (type solid)) (fill solid) (layer "F.SilkS"))
-\t(pad "1" smd roundrect (at -1.75 -4.975) (size 2.5 3.85)
-\t\t(layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.12))
-\t(pad "2" smd roundrect (at 1.75 -4.975) (size 2.5 3.85)
-\t\t(layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.12))
-\t(pad "3" smd roundrect (at 1.75 4.975) (size 2.5 3.85)
-\t\t(layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.12))
-\t(pad "4" smd roundrect (at -1.75 4.975) (size 2.5 3.85)
-\t\t(layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.12))
-)\n'''
     open(f'{PRET}/Fuse_TECHFUSE_SMD2018.kicad_mod', 'w').write(ptc)
-    open(f'{PRET}/L_PROD_PSSCAQ1285.kicad_mod', 'w').write(coupled)
-    return 6
+    return 2
 
 if __name__ == '__main__':
     normalize_imported_pin_types()
@@ -519,7 +441,7 @@ if __name__ == '__main__':
     print(f"symbol  {SYM}: {len(pins)} pins in {len(units)} units")
     for k, v in units.items(): print(f"   unit {k:18s} {len(v):3d} pins")
     print(f"footprint easyeda/EasyEDA.pretty/{FPNAME}.kicad_mod: {npads} pads")
-    print(f"AUX exact footprints: {nap} pads")
+    print(f"AUX PTC footprint: {nap} pads")
     print(f"footprint {PRET}/{LFP}.kicad_mod: {nlp} pads")
     assert npads == len(pins) == 676, (npads, len(pins))
     print("pad count matches ball count")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Executable power limits and the generated Odin power-budget report."""
-import sys, math
+import sys
 
 SOURCES = [
     ('USB-C default', 4.75, 0.9, 'USB vSafe5V minimum; source-current limited'),
@@ -93,24 +93,7 @@ REGULATORS = [
     ('U14', 'TLV62569DRLR', '+5V', '+1V8', 2.5, 5.5, 2.0),
     ('U15', 'SY8047QDC', '+5V', '+1V0', 2.5, 5.5, 4.0),
     ('U16', 'TLV62569DRLR', '+5V', '+1V2_MGT', 2.5, 5.5, 2.0),
-    ('U28', 'LM5157RTER SEPIC', 'VSYS', 'AUX_REG', 2.9, 45.0, None),
 ]
-
-AUX_POWER_W = 12.0
-AUX_VOUTS = (9, 12, 15, 24)
-AUX_VSYS = (5, 9, 12, 19)
-BASE_RESERVE_W = 8.0  # conservative planning reservation, not a measured load
-AUX_ETA = 0.85       # efficiency assumption; must be verified on prototypes
-USB_VSYS_LIMIT = 1.70  # conservative allocation below U26's 2.03 A typical
-AUX_FSW = 2.21e10 / (49900 + 955)
-AUX_L_MIN = 4.7e-6 * 0.8
-
-def aux_current(vout, vsys):
-    # 5/9 V columns assume the USB/U26 path. 12/19 V assume the screw input.
-    source_amps = USB_VSYS_LIMIT if vsys <= 9 else 3.0
-    available = max(0.0, vsys * source_amps - BASE_RESERVE_W) * AUX_ETA
-    # Round DOWN: do not publish more current than the computed allocation.
-    return math.floor(100 * min(1.0, AUX_POWER_W / vout, available / vout)) / 100
 
 def board_loads():
     own = {rail: sum(amps for r, _, amps, _, _ in LOADS if r == rail)
@@ -122,50 +105,19 @@ def board_loads():
 
 def analyse():
     problems = []
-    if VSYS_MIN < 2.9:
-        problems.append(f'LM5157 minimum 2.9 V exceeds VSYS minimum {VSYS_MIN:.2f} V')
     if VSYS_MIN < 3.8:
         problems.append(f'AP63300 minimum 3.8 V exceeds VSYS minimum {VSYS_MIN:.2f} V')
     if VSYS_MAX > 32.0:
         problems.append('21 V VIN exceeds AP63300 operating maximum')
-    iin = AUX_POWER_W / (5.0 * 0.85)
-    if iin >= 5.0:
-        problems.append(f'AUX worst-case input current {iin:.2f} A exceeds 5 A winding rating')
     loads = board_loads()
     for ref, part, src, rail, lo, hi, cap in REGULATORS:
-        if cap and loads[rail] > cap:
+        if loads[rail] > cap:
             problems.append(f'{ref}: board-only {loads[rail]:.3f} A exceeds {cap:g} A')
-    for vin in (VSYS_MIN, 5, 9, 12, 19, VSYS_MAX):
-        for vo in AUX_VOUTS:
-            io = min(1.0, AUX_POWER_W / vo)
-            ii = vo*io/(vin*AUX_ETA)
-            duty = (vo+0.56)/(vin+vo+0.56)
-            # Equal, strongly coupled SEPIC windings: ripple per winding
-            # is Vin*D/(2*L*f). Evaluate L -20% and frequency -15%.
-            ripple = vin*duty/(2*AUX_L_MIN*AUX_FSW*0.85)
-            peak = ii+io+ripple
-            if peak >= 6.5:
-                problems.append(f'AUX {vin:g}->{vo:g} V: peak {peak:.2f} A >= 6.5 A')
-            if math.hypot(ii, ripple/math.sqrt(12)) >= 5:
-                problems.append(f'AUX {vin:g}->{vo:g} V: input winding exceeds 5 A RMS')
-            if 1.3*(ii+io+ripple) >= 15:
-                problems.append('AUX saturation margin below 30%')
-            if vin+vo+0.56 >= 48:
-                problems.append(f'AUX {vin:g}->{vo:g} V exceeds 48 V SW operating ceiling')
-    return problems, iin
+    return problems
 
-def table():
-    head = '| AUX output | ' + ' | '.join(f'VSYS={v} V' for v in AUX_VSYS) + ' |'
-    sep = '|---|' + '|'.join('---:' for _ in AUX_VSYS) + '|'
-    rows = [head, sep]
-    for vo in AUX_VOUTS:
-        rows.append(f'| {vo} V | ' + ' | '.join(f'{aux_current(vo,vi):.2f} A' for vi in AUX_VSYS) + ' |')
-    return '\n'.join(rows)
-
-def report(iin):
+def report():
     regs = '\n'.join(
-        f'| `{r}` | `{p}` | {src} | {out} | {lo:g}–{hi:g} V | '
-        f'{("12 W" if cap is None else f"{cap:g} A")} |'
+        f'| `{r}` | `{p}` | {src} | {out} | {lo:g}–{hi:g} V | {cap:g} A |'
         for r, p, src, out, lo, hi, cap in REGULATORS)
     return f'''# Odin power budget
 
@@ -175,12 +127,14 @@ def report(iin):
 
 USB-C can start at 4.75 V. The SS34 plus USB eFuse model loses
 {V_OR_DROP:.2f} V at 0.6 A, leaving **{VSYS_MIN:.2f} V**. The screw input is
-**9–21 V DC**. U11/U12 are AP63300 devices (3.8–32 V operating); U28 is an
-LM5157 (2.9–45 V operating), so all three cover the full VSYS envelope.
+**9–21 V DC**. U11/U12 are AP63300 devices (3.8–32 V operating) and cover
+the full VSYS envelope.
 
 The VIN clamp is SMBJ22A: 22 V standoff and 35.5 V maximum rated pulse clamp.
 The AP63300's 40 V/400 ms transient limit is the lowest transient limit after
-D4. VSYS capacitors are 50 V X7R.
+D4. VSYS capacitors are 50 V X7R. No switching node on the board sees VSYS
+plus a stored output any more, so the former surge release hold against the
+LM5157 SW pin is gone with the converter.
 
 ## Regulator ratings
 
@@ -188,30 +142,14 @@ D4. VSYS capacitors are 50 V X7R.
 |---|---|---|---|---|---:|
 {regs}
 
-## AUX output-current derating
+## AUX: raw pass-through, no converter
 
-These are **calculated planning allocations, not measured current ratings**.
-The converter target is 1 A / 12 W, with {AUX_ETA:.0%} assumed efficiency.
-The 5/9 V columns reserve {BASE_RESERVE_W:g} W for the base board and use a
-{USB_VSYS_LIMIT:.2f} A VSYS allocation below U26's 2.03 A typical limit.
-The 12/19 V columns assume J50 and a 3 A source/path. Extension loads on
-other rails consume the same source budget and reduce these numbers.
-
-{table()}
-
-A default 5 V / 0.9 A host cannot supply the 8 W board reservation: its
-full-board AUX allocation is zero. A reduced-load configuration needs a
-separate budget. Real 5 V USB produces VSYS below 5 V after OR-ing; therefore
-the 5 V column is already optimistic for a nominal 5 V adapter. Advertising
-3 A does not bypass U26's limit. [verify] startup and all operating corners.
-
-The magnetics/switch check independently sizes the converter for 12 W at
-24 V from a dedicated 5 V VSYS source: {iin:.2f} A input. It includes -20%
-inductance, -15% switching frequency, both winding currents and ripple.
-R132=49.9k programs approximately {AUX_FSW/1000:.0f} kHz. A 2.1 MHz setup
-cannot guarantee the required duty ratio at low input. Compensation,
-DC-biased capacitance, DCM behavior, efficiency and thermal rise still need
-prototype validation; these calculations do not constitute a measured rating.
+Rev A has no on-board AUX converter. J68 AUX IN (9–28 V DC, correct polarity)
+feeds `AUX_RAIL` directly; the only parts on that net are J68 and the ten
+branch PTCs, one per slot power row. Source capacity is whatever is wired to
+J68. The board neither regulates, measures nor switches this rail: EXT_EN does
+not control it and nothing on the base board draws from it. Capacitors on
+`AUX_RAIL` and `VSYS` carry an explicit 50 V rating in their schematic value.
 
 ## Base-board load model retained
 
@@ -222,35 +160,26 @@ modules are included. FPGA values are planning estimates pending AMD XPE.
 The two VCCIO domains and the separate 3V3 export share U12's 3 A ceiling;
 their maximum switch-limit tolerances are not additive guaranteed allowances.
 
-## Release hold: surge and layout
-
-The DC input envelope passes, but SMBJ22A's 35.5 V surge clamp plus a charged
-24 V SEPIC output can exceed the LM5157 SW pin's 50 V absolute maximum.
-The ADC divider is sized for 21 V DC, not that surge. Surge protection is
-**not qualified**; do not claim the complete input protection passes or
-manufacture without resolving this. The 3 A source header/shunt also limits
-RAW current even though AUX_RAIL's copper class targets 5 A.
-
 ## Extension limits
 
-`AUX_RAIL` is a 5 A routing class, but source capacity remains the table above.
-Each of ten AUX branches has its own 33 V, 1.1 A-hold PTC. The other per-zone
-PTCs remain 500 mA PINV, 300 mA 3V3, and 500 mA 5V. These are fault isolation,
-not additive current allocations: a converter overload droops the shared rail;
-a branch short heats and opens that branch PTC.
+`AUX_RAIL` is a 5 A routing class, but source capacity is the external supply
+on J68. Each of ten AUX branches has its own 33 V, 1.1 A-hold PTC. The other
+per-zone PTCs remain 500 mA PINV, 300 mA 3V3, and 500 mA 5V. These are fault
+isolation, not additive current allocations: an overloaded external supply
+droops the shared rail; a branch short heats and opens that branch PTC. AUX
+has no active reverse blocking: never drive voltage back into a connector AUX
+pin.
 '''
 
 def main():
-    problems, iin = analyse()
+    problems = analyse()
     print(f'VSYS envelope: {VSYS_MIN:.2f}..{VSYS_MAX:.2f} V')
-    print(f'LM5157 minimum operating input: 2.90 V -> {"PASS" if VSYS_MIN >= 2.9 else "FAIL"}')
-    print(f'AUX 12 W at 5 V, 85% efficiency: {iin:.2f} A input')
-    print(table())
+    print(f'AP63300 minimum operating input: 3.80 V -> {"PASS" if VSYS_MIN >= 3.8 else "FAIL"}')
     if problems:
         print('PROBLEMS')
         for p in problems: print(' -', p)
     if '--write' in sys.argv:
-        open('ref/power-budget.md', 'w').write(report(iin))
+        open('ref/power-budget.md', 'w').write(report())
         print('wrote ref/power-budget.md')
     return 1 if problems else 0
 

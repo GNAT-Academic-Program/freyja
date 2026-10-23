@@ -79,8 +79,8 @@ J19 sets PIN V for A-D (FPGA bank 15); J20 sets E-H (bank 34).
 Selections are 3.3/2.5/1.8 V. Every section in a domain shares the selected
 voltage. L/M PIN V remains 3.3 V; their signal translation is separately 5 V.
 
-AUX: **9/12/15/24 regulated, or 9-28V raw via AUX IN,
-1A per zone, see power corner.** All ten AUX branches share J66's source.
+AUX: **9-28V raw via AUX IN, 1A per zone, see power corner.** There is no
+on-board AUX converter; all ten AUX branches share the J68 terminal.
 The per-zone fitted PTC is C70150, actually **1.1 A hold / 33 V at 25 C**,
 not an exact 1.0 A-hold device; its temperature derating must be respected.
 This remains a deviation from the exact 1 A-hold request, not a silent rating

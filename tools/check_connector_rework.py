@@ -21,8 +21,9 @@ def main():
             assert pad.GetNetname() == pin_net.get((ref, pad.GetNumber()), ''), (ref, pad.GetNumber())
     assert not any('POWER_SELECTED' in n or n in ('+12V', '+12V_EXT') for n in nets)
     assert not (set(f'J{i}' for i in range(10,19)) | {'J21','J4','J6','U19','U25'}) & fps.keys()
-    assert {'J19','J20','J66','J67','J68'} <= fps.keys()
-    assert len(list(fps['J67'].Pads())) == 8
+    assert {'J19','J20','J68'} <= fps.keys()
+    assert not ({'J66','J67','U28','U29','L10','D12'} & fps.keys())
+    aux_fuses = set()
     for ref, slots in (('J3','ABCD'), ('J5','EFGH')):
         pads = sorted(fps[ref].Pads(), key=lambda p:(p.GetPosition().y,p.GetPosition().x))
         assert len(pads) == 64, ref
@@ -49,15 +50,17 @@ def main():
         fuses = [r for r in fps if r.startswith('F') and not r.startswith('FB')
                  and set(p.GetNetname() for p in fps[r].Pads()) == {'AUX_RAIL',aux}]
         assert len(fuses) == 1, (slot, fuses)
-    raw_users = {r for r,_ in nets['AUX_RAW']}
-    assert raw_users == {'J66','J68'}, raw_users
-    assert {p.GetNumber():p.GetNetname() for p in fps['J66'].Pads()} == {
-        '1':'AUX_REG','2':'AUX_RAIL','3':'AUX_RAW'}
+        aux_fuses.update(fuses)
+    assert not {'AUX_RAW', 'AUX_REG', 'AUX_SEPIC'} & nets.keys()
+    rail_users = {r for r,_ in nets['AUX_RAIL']}
+    assert rail_users == {'J68'} | aux_fuses, rail_users
+    assert {p.GetNumber():p.GetNetname() for p in fps['J68'].Pads()} == {
+        '1':'AUX_RAIL','2':'GND'}
     for ref in ('J60','J61'):
         assert {p.GetNumber() for p in fps[ref].Pads() if p.GetNumber()} == {str(i) for i in range(1,21)}
     print(f'PCB/netlist PASS: {len(fps)} references, values, footprint assignments and pad nets')
     print('Ground accounting PASS: 10 sections x (4 signal GND + 3 power GND + 1 GND post); all rail neighbors GND')
-    print('AUX topology PASS: old selectors absent, J19/J20 retained, J67 2x4, AUX_RAW only J66/J68')
+    print('AUX topology PASS: no converter, J19/J20 retained, J68 feeds AUX_RAIL and only the ten branch PTCs')
     print('Mechanical placement contract NOT applied or certified by this electrical check')
 
 

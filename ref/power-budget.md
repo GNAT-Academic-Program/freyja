@@ -6,12 +6,14 @@
 
 USB-C can start at 4.75 V. The SS34 plus USB eFuse model loses
 0.48 V at 0.6 A, leaving **4.27 V**. The screw input is
-**9–21 V DC**. U11/U12 are AP63300 devices (3.8–32 V operating); U28 is an
-LM5157 (2.9–45 V operating), so all three cover the full VSYS envelope.
+**9–21 V DC**. U11/U12 are AP63300 devices (3.8–32 V operating) and cover
+the full VSYS envelope.
 
 The VIN clamp is SMBJ22A: 22 V standoff and 35.5 V maximum rated pulse clamp.
 The AP63300's 40 V/400 ms transient limit is the lowest transient limit after
-D4. VSYS capacitors are 50 V X7R.
+D4. VSYS capacitors are 50 V X7R. No switching node on the board sees VSYS
+plus a stored output any more, so the former surge release hold against the
+LM5157 SW pin is gone with the converter.
 
 ## Regulator ratings
 
@@ -23,37 +25,15 @@ D4. VSYS capacitors are 50 V X7R.
 | `U14` | `TLV62569DRLR` | +5V | +1V8 | 2.5–5.5 V | 2 A |
 | `U15` | `SY8047QDC` | +5V | +1V0 | 2.5–5.5 V | 4 A |
 | `U16` | `TLV62569DRLR` | +5V | +1V2_MGT | 2.5–5.5 V | 2 A |
-| `U28` | `LM5157RTER SEPIC` | VSYS | AUX_REG | 2.9–45 V | 12 W |
 
-## AUX output-current derating
+## AUX: raw pass-through, no converter
 
-These are **calculated planning allocations, not measured current ratings**.
-The converter target is 1 A / 12 W, with 85% assumed efficiency.
-The 5/9 V columns reserve 8 W for the base board and use a
-1.70 A VSYS allocation below U26's 2.03 A typical limit.
-The 12/19 V columns assume J50 and a 3 A source/path. Extension loads on
-other rails consume the same source budget and reduce these numbers.
-
-| AUX output | VSYS=5 V | VSYS=9 V | VSYS=12 V | VSYS=19 V |
-|---|---:|---:|---:|---:|
-| 9 V | 0.04 A | 0.68 A | 1.00 A | 1.00 A |
-| 12 V | 0.03 A | 0.51 A | 1.00 A | 1.00 A |
-| 15 V | 0.02 A | 0.41 A | 0.80 A | 0.80 A |
-| 24 V | 0.01 A | 0.25 A | 0.50 A | 0.50 A |
-
-A default 5 V / 0.9 A host cannot supply the 8 W board reservation: its
-full-board AUX allocation is zero. A reduced-load configuration needs a
-separate budget. Real 5 V USB produces VSYS below 5 V after OR-ing; therefore
-the 5 V column is already optimistic for a nominal 5 V adapter. Advertising
-3 A does not bypass U26's limit. [verify] startup and all operating corners.
-
-The magnetics/switch check independently sizes the converter for 12 W at
-24 V from a dedicated 5 V VSYS source: 2.82 A input. It includes -20%
-inductance, -15% switching frequency, both winding currents and ripple.
-R132=49.9k programs approximately 435 kHz. A 2.1 MHz setup
-cannot guarantee the required duty ratio at low input. Compensation,
-DC-biased capacitance, DCM behavior, efficiency and thermal rise still need
-prototype validation; these calculations do not constitute a measured rating.
+Rev A has no on-board AUX converter. J68 AUX IN (9–28 V DC, correct polarity)
+feeds `AUX_RAIL` directly; the only parts on that net are J68 and the ten
+branch PTCs, one per slot power row. Source capacity is whatever is wired to
+J68. The board neither regulates, measures nor switches this rail: EXT_EN does
+not control it and nothing on the base board draws from it. Capacitors on
+`AUX_RAIL` and `VSYS` carry an explicit 50 V rating in their schematic value.
 
 ## Base-board load model retained
 
@@ -64,19 +44,12 @@ modules are included. FPGA values are planning estimates pending AMD XPE.
 The two VCCIO domains and the separate 3V3 export share U12's 3 A ceiling;
 their maximum switch-limit tolerances are not additive guaranteed allowances.
 
-## Release hold: surge and layout
-
-The DC input envelope passes, but SMBJ22A's 35.5 V surge clamp plus a charged
-24 V SEPIC output can exceed the LM5157 SW pin's 50 V absolute maximum.
-The ADC divider is sized for 21 V DC, not that surge. Surge protection is
-**not qualified**; do not claim the complete input protection passes or
-manufacture without resolving this. The 3 A source header/shunt also limits
-RAW current even though AUX_RAIL's copper class targets 5 A.
-
 ## Extension limits
 
-`AUX_RAIL` is a 5 A routing class, but source capacity remains the table above.
-Each of ten AUX branches has its own 33 V, 1.1 A-hold PTC. The other per-zone
-PTCs remain 500 mA PINV, 300 mA 3V3, and 500 mA 5V. These are fault isolation,
-not additive current allocations: a converter overload droops the shared rail;
-a branch short heats and opens that branch PTC.
+`AUX_RAIL` is a 5 A routing class, but source capacity is the external supply
+on J68. Each of ten AUX branches has its own 33 V, 1.1 A-hold PTC. The other
+per-zone PTCs remain 500 mA PINV, 300 mA 3V3, and 500 mA 5V. These are fault
+isolation, not additive current allocations: an overloaded external supply
+droops the shared rail; a branch short heats and opens that branch PTC. AUX
+has no active reverse blocking: never drive voltage back into a connector AUX
+pin.

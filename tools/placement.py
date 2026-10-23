@@ -161,7 +161,7 @@ ANCHORS = {
     'U13  5V to +2V5':             (30.0, 72.0, 'left'),
     'U11  VSYS to +5V':            (80.0, 14.0, 'down'),
     'U12  VSYS to +3V3  (always-on AP63300 reference circuit)': (70.0, 14.0, 'down'),
-    'AUX lab rail':                (60.0, 14.0, 'down'),
+    'AUX IN':                      (60.0, 14.0, 'down'),
     'VBUS pass switch to +5V':     (90.0, 12.0, 'down'),
     'input OR-ing':                (75.0, 8.0, 'right'),
     'USB protection':              (85.0, 8.0, 'down'),
