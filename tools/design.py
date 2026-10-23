@@ -14,6 +14,7 @@ C0402   = 'Capacitor_SMD:C_0402_1005Metric'
 C0603   = 'Capacitor_SMD:C_0603_1608Metric'
 C0805   = 'Capacitor_SMD:C_0805_2012Metric'
 C1210   = 'Capacitor_SMD:C_1210_3225Metric'
+CP_D    = 'Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D'   # EIA 7343, Kemet D
 R0402   = 'Resistor_SMD:R_0402_1005Metric'
 R0603   = 'Resistor_SMD:R_0603_1608Metric'
 # Inductors are not chosen here. tools/budget.py computes what each rail needs
@@ -258,17 +259,58 @@ def build():
     d.add('U1', f'odin:{FPGA_PART}', FPGA_PART, FP_FPGA,
           fpga_pins, 'C1521803')
 
-    # FPGA decoupling: one 100nF per supply ball, plus bulk per rail
-    supply_balls = [(b, net_for(b, n, assigned)) for bank, lst in
-                    list(io.items()) + list(other.items()) for b, n in lst
-                    if net_for(b, n, assigned) in
-                    (V10, V18, V33, 'VCCIO_1', 'VCCIO_2', V10MGT, V12MGT)]
-    for ball, rail in supply_balls:
-        d.group(f'decoupling {rail}'); d.C('100nF', rail, GND)
-    for rail, n in ((V10, 4), (V18, 2), (V33, 2), ('VCCIO_1', 2), ('VCCIO_2', 2),
-                    (V10MGT, 1), (V12MGT, 1)):
-        d.group(f'bulk {rail}')
-        for _ in range(n): d.C('4.7uF', rail, GND, C0603)
+    # FPGA decoupling per UG483 v1.14 Table 2-2, row FGG676 / XC7A100T, in
+    # the packages of Table 2-5. Note 2 of the table leaves MGTAVCC/MGTAVTT
+    # to UG482: those stay as fitted (one 100nF per ball plus one 4.7uF).
+    # Note 3: one 47uF per group of up to four VCCO banks on one voltage.
+    # These parts are not the 0402s they replace, so they take explicit
+    # 300-series refs and must not inherit the old positions on the board;
+    # reserve() keeps every later sequential C ref where the owner put it.
+    d.reserve('C', 110)     # former C1..C110, the 100nF-per-ball scheme
+    decap_n = [300]
+    def decap(group, rail, val, fp, lib='Device:C', lcsc=''):
+        decap_n[0] += 1
+        d.group(group)
+        d.add(f'C{decap_n[0]}', lib, val, fp, {'1': rail, '2': GND}, lcsc)
+    def decaps(group, rail, spec):
+        for n, val, fp in spec:
+            for _ in range(n): decap(group, rail, val, fp)
+    # VCCINT: 1 x 330uF (D-case tantalum), 6 x 4.7uF 0805, 8 x 0.47uF 0603
+    decap('decap VCCINT', V10, '330uF 2.5V T520V337M2R5ATE025', CP_D,
+          'Device:C_Polarized')
+    decaps('decap VCCINT', V10, [(6, '4.7uF 6.3V', C0805), (8, '0.47uF 6.3V', C0603)])
+    # VCCBRAM shares +1V0 (gen_sch.py RAIL): 1 x 100uF 1210, 2 x 0.47uF 0603
+    decaps('decap VCCBRAM', V10, [(1, '100uF 2.5V', C1210), (2, '0.47uF 6.3V', C0603)])
+    # VCCAUX: 1 x 47uF 1210, 3 x 4.7uF 0805, 5 x 0.47uF 0603
+    decaps('decap VCCAUX', V18, [(1, '47uF 6.3V', C1210), (3, '4.7uF 6.3V', C0805),
+                                 (5, '0.47uF 6.3V', C0603)])
+    # VCCADC is not in Table 2-2; its existing 100nF bypass on +1V8 stays.
+    decap('decap VCCADC', V18, '100nF', C0402, lcsc='C1525')
+    # VCCO bank 0: 1 x 47uF 1210. Each of the six I/O banks: 2 x 4.7uF 0805
+    # and 4 x 0.47uF 0603, plus one 47uF 1210 per voltage group of up to
+    # four banks. Banks 12 and 33 have only VCCO balls on this device
+    # (unbonded), tied to +3V3 and not counted. Grouping follows
+    # gen_sch.RAIL, so moving a bank to another voltage regroups the 47uF.
+    decaps('decap VCCO_0', V33, [(1, '47uF 6.3V', C1210)])
+    from gen_sch import RAIL
+    vcco_groups = {}
+    for bank in sorted(io):
+        rail = RAIL[f'VCCO_{bank}']
+        vcco_groups.setdefault(rail, []).append(bank)
+        decaps(f'decap VCCO_{bank}', rail,
+               [(2, '4.7uF 6.3V', C0805), (4, '0.47uF 6.3V', C0603)])
+    for rail, banks in vcco_groups.items():
+        for _ in range(-(-len(banks) // 4)):
+            decap(f'decap VCCO group {rail}', rail, '47uF 6.3V', C1210)
+    # MGTAVCC / MGTAVTT, as fitted before (UG482 territory, not re-derived)
+    mgt_balls = [(b, net_for(b, n, assigned)) for bank, lst in
+                 list(io.items()) + list(other.items()) for b, n in lst
+                 if net_for(b, n, assigned) in (V10MGT, V12MGT)]
+    for ball, rail in mgt_balls:
+        decap(f'decap {rail}', rail, '100nF', C0402, lcsc='C1525')
+    for rail in (V10MGT, V12MGT):
+        decap(f'decap {rail}', rail, '4.7uF', C0603, lcsc='C277476')
+    decap_refs = decap_n[0] - 300
 
     d.group('config straps (UG470)')
     # config straps (UG470)
@@ -936,6 +978,10 @@ def build():
         if set(byref[f'MK{ord(s)}']['pins'].values()) != {GND}:
             raise ValueError(f'SLOT {s}: inline post is not GND')
     print('ground sanity: 10 sections x (4 signal GND + 3 power GND + 1 GND post); rail neighbors OK')
+    # Sequential C refs must never run into the explicit 300-series decaps.
+    if d._n['C'] >= 300:
+        raise ValueError(f"sequential C refs reached C{d._n['C']}; the FPGA decaps start at C301")
+    print(f'FPGA decoupling: {decap_refs} parts, C301..C{300 + decap_refs}')
 
     # Nothing ships unqualified: every non-generic part must carry a real MPN,
     # package and rating in tools/qualified.py, fitted with the footprint

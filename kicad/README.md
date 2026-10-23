@@ -41,9 +41,13 @@ or you will load the previous revision's parts.
 The input-voltage issue in findings item 20 is fixed. The command exits
 non-zero if a load, input-window or inductor qualification check fails.
 
-**`gen_pcb.py` destroys any routing.** Run it only before you start laying out.
-`load_pcb.py` re-imports footprints and nets and is safe to re-run, but it
-replaces the footprints, so it also discards placement.
+**`gen_pcb.py` destroys any routing.** Run it only before you start laying out;
+`gen_pcb.py --rules-only` is the safe form once placement exists. `load_pcb.py`
+keeps the position, rotation, side and lock of every reference already on the
+board, stages new references in a band below everything else, removes
+references the schematic no longer has, and refuses to save if any common
+reference would move. Bracket it with `tools/check_positions.py --snapshot`
+and `--compare` to prove that.
 
 `tools/alloc.py` is the single source for ball allocation; `ref/ballmap.md` and
 the schematic both come from it and cannot drift.

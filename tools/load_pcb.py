@@ -70,7 +70,12 @@ def main():
     placed = miss = 0
     changed = []
     load_errors = []
+    # Start the band below everything already on the board, staged parts from
+    # earlier imports included, so a new part is never stacked on an old one.
     y = 145.0
+    if old_fps:
+        y = max(y, 6.0 + max(pcbnew.ToMM(fp.GetBoundingBox().GetBottom())
+                             for fp in old_fps.values()))
     for s in order:
         x, rowh = 30.0, 0.0
         for ref in sorted(bands[s]):

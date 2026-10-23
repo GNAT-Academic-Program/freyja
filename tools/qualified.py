@@ -266,6 +266,20 @@ PARTS = {
     rating='Manufacturer lists 2.5 Gb/s; all shield tails GND; JLC wave solder',
     pinmap='Drawing-based symbol/footprint; 20 solder tails; see ref/sfp-cage.md',
     src='Amphenol P-U77-A111X-XX0X rev H; JLC/LCSC C5355132'),
+  # ------------------------------------------------------- FPGA decoupling
+  # UG483 v1.14 Table 2-5 names the parts; the ceramic 1210/0805/0603 values
+  # are ordinary passives matched at BOM time (C > nominal, X7R or X5R, ESR
+  # and ESL per that table). The tantalum is not ordinary, so it is here.
+  'Device:C_Polarized': dict(
+    mpn='T520V337M2R5ATE025', pkg='EIA 7343-31 (KEMET D), 2-terminal polymer tantalum',
+    fp='Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D',
+    rating='330 uF, 2.5 V, 25 mohm ESR; on +1V0 (VCCINT). UG483 Table 2-5: '
+           'C > 330 uF, ESL <= 1 nH, 5 mohm < ESR < 40 mohm, >= 2.5 V. No '
+           'LCSC listing found 2026-10-23; owner sources it or a part meeting '
+           'that line at quote time',
+    pinmap='pad 1 positive (+1V0), pad 2 negative (GND); KiCad C_Polarized '
+           'pin 1 is the positive plate, footprint pad 1 is the marked anode',
+    src='UG483 v1.14 Table 2-2 (FGG676 / XC7A100T) and Table 2-5; KEMET T520 series'),
   # ------------------------------------------------------------ the rest
   'EasyEDA:F.0603.00025_P2-0603G1TS2-06T-002': dict(
     mpn='F.0603.00025/P2-0603G1TS2-06T-002', pkg='0603 (1608 metric)',
