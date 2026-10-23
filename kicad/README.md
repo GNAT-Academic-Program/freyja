@@ -12,7 +12,7 @@ Six pages, one per functional block, from `odin.kicad_sch` (the root):
 | `memory.kicad_sch` | PSRAM x4 and configuration flash |
 | `supervisor.kicad_sch` | RP2350B, USB-C, flash, links to the FPGA |
 | `slots.kicad_sch` | Nine extension slots, rail selection, fusing, shifting |
-| `highspeed.kicad_sch` | SFP cages, reference clock, power gate |
+| `network.kicad_sch` | RTL8211FD-CG PHY, ETH jack, LINK P and LINK Q |
 
 Parts are grouped: each regulator sits in a dashed box with its own inductor,
 feedback divider and capacitors; each slot with its jumper and its fuses.
@@ -92,18 +92,17 @@ assigns the PCF8574's actual supply, input, bidirectional and open-drain pin
 types. J51 ground and mechanical pins remain passive. No project-level
 ERC rule is disabled and no ERC exclusion is added.
 
-Latest connector-rework validation: **500 footprints**, with all design values,
-footprint IDs and connections synchronized to the PCB. DRC remains separate:
-693 violations, 499 unrouted connections and two parity warnings for the
-standard SFP symbol's `CAGE` pin missing from its 20-pad electrical connector.
-The separate cages are SH1/SH2. See [the validation report](../ref/kicad-validation.md).
-Passing the ERC allowlist does not establish fabrication readiness.
+The per-phase numbers (footprints, DRC, parity, escape depth) are in
+[ref/rev-a-report.md](../ref/rev-a-report.md); `python3 tools/gate.py`
+reproduces them. Passing the ERC allowlist does not establish fabrication
+readiness.
 
 ## Your workflow from here
 
-1. Open `odin.kicad_pcb`. Its **498 footprints** are synchronized with the
-   schematic. The SFP assemblies follow the mechanical placement contract;
-   much of the remaining circuitry is still staged outside the board.
+1. Open `odin.kicad_pcb`. Its footprints are synchronized with the
+   schematic (`tools/gate.py` proves it). The connectors follow the
+   mechanical placement contract; much of the remaining circuitry is still
+   staged outside the board.
 2. Complete placement using `tools/placement.py` / `tools/place.py` and verify
    the result in KiCad. The latest placement and validation status is in
    [ref/kicad-validation.md](../ref/kicad-validation.md). Resolve DRC findings
@@ -140,20 +139,20 @@ suffix without checking its package and ratings.
 
 ## Board
 
-100 x 100 mm, 6 layer, ENIG, nominal 1.6 mm. Stackup is F.Cu (signal) /
-In1.Cu (GND plane) / In2.Cu (signal) / In3.Cu (power planes) /
-In4.Cu (GND plane) / B.Cu (signal). The third routing layer supports the
-FGG676 inner-ball escape. Keep both ground planes continuous for the GTP
-pairs and PSRAM groups.
+100 x 100 mm, ENIG, nominal 1.6 mm. The stackup is being moved from six to
+eight layers in rev A phase B1 (`ref/rev-a-plan.md`); the text below
+describes the six-layer rules still in `odin.kicad_pro` until then. Keep both
+ground planes continuous under the PSRAM groups, the RGMII bus and the link
+pairs.
 
 Dielectric spacings follow [JLC06161H-1080B](https://jlcpcb.com/impedance),
 with 0.0764 mm outer prepregs and 0.1 mm cores next to the inner signal and
 power layers. The central prepreg/core/prepreg spacer is represented as a
 three-sublayer, 1.1208 mm dielectric. Material Dk values and the 100 Ω
 geometry come from JLC's calculator tables; see [PCB impedance](../ref/pcb-impedance.md)
-for the inputs and saved solver responses. MGT outer tracks use 0.099 mm width /
-0.200 mm gap with 0.1 mm maximum intra-pair skew. PSRAM has a 0.1 mm minimum
-width; default clearance is 0.15 mm.
+for the inputs and saved solver responses. The `MGT_100R` class has no nets
+in rev A and is replaced by `LVDS_100R` and `RGMII` in phase B1. PSRAM has a
+0.1 mm minimum width; default clearance is 0.15 mm.
 
 Regenerate stackup and rules without replacing placement or routing:
 `python3 tools/gen_pcb.py --rules-only`. Net classes live in `odin.kicad_pro`;

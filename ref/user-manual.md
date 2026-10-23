@@ -4,7 +4,7 @@ Odin is an FPGA board for building the thing you meant to build.
 
 One USB-C cable powers it and programs it. Four PSRAM chips give the FPGA
 8 MB of working memory. Ten extension ports carry signals and useful power.
-Two SFP sockets carry the links that ordinary FPGA pins cannot.
+A gigabit Ethernet jack and two raw link ports sit on the top edge.
 
 This manual is for using the board. If you are designing an extension, read
 `ref/extension-ux.md` after this.
@@ -27,7 +27,8 @@ This manual is for using the board. If you are designing an extension, read
       slots E-H  <----> 48 direct pins, one voltage  |
       5V BUS 0/1 <----> two complete 8-bit buses     |
                     |                                |
-      SFP 0 and 1 <----> fast serial lanes           |
+      ETH         <----> 1000Base-T PHY, RGMII     |
+      LINK P / Q  <----> raw LVDS pairs, board to board |
                     +--------------------------------+
 ```
 
@@ -40,8 +41,7 @@ This manual is for using the board. If you are designing an extension, read
 5. Wait for the board controller to start.
 6. Plug in one simple extension and test it before adding the next.
 
-Use a USB-PD charger when the board carries displays, speakers, motors or SFP
-modules. A computer port is fine for programming and light work, but it may
+Use a USB-PD charger when the board carries displays, speakers or motors. A computer port is fine for programming and light work, but it may
 not have enough power for everything at once.
 
 Odin never asks USB-C for more than 9 V.
@@ -429,33 +429,19 @@ Fit **EXT JTAG** (`J52`) before attaching an external programmer.
 That disconnects the board controller from the same four wires. Remove the
 jumper for normal board-controlled programming.
 
-## Fast links
+## Network and link ports
 
-Two SFP sockets are fitted by default. They can accept suitable copper,
-fibre or direct-attach modules.
+**ETH** is a 1000Base-T jack behind an RTL8211FD-CG PHY on RGMII. The FPGA
+design still needs a MAC (and a stack): the PHY gives you a link, not an
+Ethernet controller. Green is link/activity, yellow is a 1000 Mb/s link.
 
-```text
-SFP 0 -> FPGA fast lane 0
-SFP 1 -> FPGA fast lane 1
-```
-
-The FPGA provides the physical serial lane. Your FPGA design still needs the
-protocol logic. Plugging in a copper Ethernet module does not create an
-Ethernet controller by itself.
-
-The FPGA lanes top out around 6.6 Gb/s, while the fitted Amphenol
-U77A11133001 cage is listed at 2.5 Gb/s. The complete port is unqualified
-above that cage rating. Use them for 1 Gb/s or suitable 2.5 Gb/s
-links, not 10 Gb/s modules.
-
-There are exactly two SFP ports. The FPGA's other fast lanes are unused.
-
-An I²C switch gives each module a separate identity channel, so both can
-remain powered while supervisor firmware reads their EEPROMs at 0x50.
-Firmware must select only one channel at a time; see the
-[management-bus contract](sfp-i2c.md). Module power remains shared: a power
-shutdown stops both ports. The identity console feature still requires
-supervisor firmware.
+**LINK P** and **LINK Q** are not Ethernet. They carry eight LVDS pairs
+straight from FPGA pins to a shielded twisted-pair cable, for board-to-board
+links between two of these boards. Cable **P to Q**, use STP cable, and
+**power both boards before connecting the cable**: the pins are DC coupled
+and the receiving board must be powered first. See
+[link-ports.md](link-ports.md) for the pinout and [network.md](network.md)
+for the PHY.
 
 ## If something goes wrong
 
@@ -511,7 +497,7 @@ before shipping hardware:
 - Extension-rail shutdown and fault behavior
 - Final connector positions and orientation drawing
 - Board-controller status messages and firmware-loading names
-- Qualified SFP module types
+- PHY bring-up register sequence and link-port data rate
 - Board revision and matching schematic commit
 
 Until those are fixed, this is the user contract for the design—not permission

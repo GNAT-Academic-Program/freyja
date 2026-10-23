@@ -13,8 +13,9 @@ python3 tools/ballmap.py > ref/ballmap.md
 
 This package has **six HR I/O banks** — 13, 14, 15, 16, 34 and 35 — 300 user I/O total.
 `VCCO` is shared by every pin in a bank. Odin uses bank 14 at fixed 3.3V,
-bank 13 for 5V BUS 1, banks 15 and 34 as selectable extension domains, and reserves
-banks 16 and 35 for later base-board peripherals.
+bank 13 for both 5V buses and the PHY control pins, banks 15 and 34 as
+selectable extension domains, bank 16 at 2.5V for the network (RGMII and
+the two LVDS link ports), and leaves bank 35 powered but unused.
 
 | Bank | HR I/O | Diff pairs | MRCC | SRCC |
 |---|---|---|---|---|
@@ -27,20 +28,23 @@ banks 16 and 35 for later base-board peripherals.
 
 **Bank 14 is not free.** It carries the master-SPI config flash pins and the
 `PUDC_B` strap, so its `VCCO` is pinned at 3.3V by the flash. That makes it
-the home for everything else fixed at 3.3V — PSRAM, the supervisor sideband,
-and 5V BUS 0. Bank 13 carries 5V BUS 1. Banks 15 and 34 are the two settable extension
-domains, four slots each. The other two HR banks are powered at 3.3V but
-carry no signals in this revision.
+the home for everything else fixed at 3.3V — PSRAM and the supervisor
+sideband. Bank 13 carries both 5V buses and the two 3.3 V PHY pins
+(PHYRSTB, INTB). Banks 15 and 34 are the two settable extension domains,
+four slots each. Bank 16 runs at 2.5V: RGMII to the RTL8211FD-CG and the
+eight LVDS_25 link pairs. Bank 35 is powered at 3.3V and carries nothing.
+Inside each bank the allocator takes the shallowest balls first.
 
 ## Allocation
 
 | Bank | VCCO | Contents |
 |---|---|---|
-| 14 | **fixed 3.3V** | config flash, PSRAM x4, supervisor sideband, 5V BUS 0 |
-| 13 | fixed 3.3V | 5V BUS 1 |
+| 14 | **fixed 3.3V** | config flash, PSRAM x4, supervisor sideband |
+| 13 | fixed 3.3V | 5V BUS 0, 5V BUS 1, PHY_RESET_N, PHY_INT_N |
 | 15 | **settable** 3.3 / 2.5 / 1.8 | slots A B C D |
 | 34 | **settable** 3.3 / 2.5 / 1.8 | slots E F G H |
-| 16, 35 | fixed 3.3V | reserved for future base-board peripherals |
+| 16 | **fixed 2.5V** | RGMII + MDIO to the PHY, LINK P and LINK Q |
+| 35 | fixed 3.3V | powered, unused |
 
 ## Config flash and strap
 
@@ -60,10 +64,10 @@ dedicated pins — see the bank 0 table below.
 
 | Chip | SCK | CE# | IO0 | IO1 | IO2 | IO3 |
 |---|---|---|---|---|---|---|
-| PSRAM0 | N16 | N17 | R16 | R17 | K25 | K26 |
-| PSRAM1 | M20 | L20 | L24 | L25 | M24 | M25 |
-| PSRAM2 | L22 | L23 | M21 | M22 | N21 | N22 |
-| PSRAM3 | P20 | P21 | N23 | N24 | P19 | N19 |
+| PSRAM0 | N26 | M26 | R26 | P26 | K25 | K26 |
+| PSRAM1 | R25 | P25 | L24 | L25 | M24 | M25 |
+| PSRAM2 | T24 | T25 | N23 | N24 | P23 | P24 |
+| PSRAM3 | T23 | R23 | L22 | L23 | T22 | R22 |
 
 Each chip's six lines come from three adjacent differential pairs, so the
 group stays physically tight and length matching stays local.
@@ -72,12 +76,12 @@ group stays physically tight and length matching stays local.
 
 | Ball | Net |
 |---|---|
-| P23 | `DBG_TCK` |
-| P24 | `DBG_TMS` |
-| R20 | `DBG_TDI` |
-| R21 | `DBG_TDO` |
-| R25 | `SB_UART_RX` |
-| P25 | `SB_UART_TX` |
+| M21 | `DBG_TCK` |
+| M22 | `DBG_TMS` |
+| N21 | `DBG_TDI` |
+| N22 | `DBG_TDO` |
+| M20 | `SB_UART_RX` |
+| L20 | `SB_UART_TX` |
 
 ## Extension slots
 
@@ -88,8 +92,8 @@ an optional capability rather than part of the basic connector UX.
 
 | Slot | Bank | FPGA balls in connector order |
 |---|---|---|
-| **L** | 14 | N26, M26, T24, T25, R26, P26, T22, R22 |
-| **M** | 13 | U25, U26, V26, W26, AB26, AC26, W25, Y26 |
+| **L** | 13 | V26, W26, AB26, AC26, U25, U26, W25, Y26 |
+| **M** | 13 | Y25, AA25, V24, W24, AA24, AB25, AB24, AC24 |
 | **A** | 15 | K15, J16, J14, J15, K16, K17, M14, L14, M15, L15, M16, M17 |
 | **B** | 15 | J19, H19, L17, L18, K20, J20, J18, H18, G20, G21, K21, J21 |
 | **C** | 15 | H21, H22, J23, H23, G22, F22, J24, H24, F23, E23, K22, K23 |
@@ -99,12 +103,12 @@ an optional capability rather than part of the basic connector UX.
 | **G** | 34 | R3, P3, P4, N4, R1, P1, T4, T3, T2, R2, U2, U1 |
 | **H** | 34 | P6, P5, T5, R5, U6, U5, R8, P8, R7, R6, T8, T7 |
 
-The two 5V buses are buffered; A-H are direct. M19, U24 are their direction controls. Together the buses cost **20** FPGA I/O for 16 connector signals.
+The two 5V buses are buffered; A-H are direct. U17, U24 are their direction controls. Together the buses cost **20** FPGA I/O for 16 connector signals.
 
 | Bus control | FPGA ball | Bank | Default |
 |---|---|---|---|
-| `BUS5V0_OE_N` | P16 | 14 | 10k to +3V3; high disables the bus |
-| `BUS5V1_OE_N` | Y25 | 13 | 10k to +3V3; high disables the bus |
+| `BUS5V0_OE_N` | V23 | 14 | 10k to +3V3; high disables the bus |
+| `BUS5V1_OE_N` | W23 | 13 | 10k to +3V3; high disables the bus |
 
 Hold OE_N high while setting DIR and data; drive OE_N low only when ready.
 Raise OE_N again before changing direction.
@@ -137,11 +141,53 @@ Raise OE_N again before changing direction.
 | Y14 | `VCCO_0` |
 | Y9 | `M1_0` |
 
-## Bank 216 — two connected GTP transceivers
+## Network: bank 16 at 2.5 V
 
-Lanes 0 and 1 go to the two SFP ports. Lanes 2 and 3 have RX grounded
-and TX floating; unused reference-clock inputs float (UG482 Table 5-6).
-See `ref/highspeed.md`.
+RGMII and MDIO to the RTL8211FD-CG (DVDD_RG = +2V5). `PHY_RXC` is the
+PHY's 125 MHz receive clock on an MRCC ball; the two link receive clocks
+sit on clock-capable pairs (MRCC for P, SRCC for Q). See `ref/network.md`
+and `ref/link-ports.md`.
+
+| Ball | Net | Package name |
+|---|---|---|
+| C17 | `PHY_MDC` | IO_L7P_T1_16 |
+| B17 | `PHY_MDIO` | IO_L7N_T1_16 |
+| D19 | `PHY_RXC` | IO_L13P_T2_MRCC_16 |
+| C19 | `PHY_RXD0` | IO_L13N_T2_MRCC_16 |
+| H17 | `PHY_RXD1` | IO_0_16 |
+| E22 | `PHY_RXD2` | IO_25_16 |
+| B19 | `PHY_RXD3` | IO_L10P_T1_16 |
+| A19 | `PHY_RX_CTL` | IO_L10N_T1_16 |
+| C24 | `PHY_TXC` | IO_L23P_T3_16 |
+| B24 | `PHY_TXD0` | IO_L23N_T3_16 |
+| C22 | `PHY_TXD1` | IO_L19P_T3_16 |
+| C23 | `PHY_TXD2` | IO_L19N_T3_VREF_16 |
+| C21 | `PHY_TXD3` | IO_L16P_T2_16 |
+| B21 | `PHY_TX_CTL` | IO_L16N_T2_16 |
+
+| Port | Pair | P | N | Package name |
+|---|---|---|---|---|
+| LINK P | RXC | D18 | C18 | IO_L12P_T1_MRCC_16 |
+| LINK P | TXC | C26 | B26 | IO_L22P_T3_16 |
+| LINK P | TXD | A23 | A24 | IO_L21P_T3_DQS_16 |
+| LINK P | RXD | A17 | A18 | IO_L9P_T1_DQS_16 |
+| LINK Q | RXC | E20 | D20 | IO_L14P_T2_SRCC_16 |
+| LINK Q | TXC | B25 | A25 | IO_L20P_T3_16 |
+| LINK Q | TXD | B22 | A22 | IO_L17P_T2_16 |
+| LINK Q | RXD | B20 | A20 | IO_L15P_T2_DQS_16 |
+
+The two 3.3 V PHY pins are in bank 13:
+
+| Ball | Net | Package name |
+|---|---|---|
+| AA22 | `PHY_RESET_N` | IO_L8P_T1_13 |
+| AA23 | `PHY_INT_N` | IO_L8N_T1_13 |
+
+## GTP banks 213 and 216 — unused, powered
+
+Rev A has no transceiver load. Both quads keep MGTAVCC/MGTAVTT powered,
+all RX pins to GND, TX and reference-clock pins floating, and one 100 ohm
+1% RCAL each to +1V2_MGT (UG482 Tables 5-5/5-6).
 
 | Ball | Name |
 |---|---|
@@ -166,12 +212,27 @@ See `ref/highspeed.md`.
 | E13 | `MGTREFCLK1N_216` |
 | F11 | `MGTREFCLK0P_216` |
 | F13 | `MGTREFCLK1P_216` |
-
-## Bank 213 — unused GTP transceivers
-
-The G10 supplies remain powered. All eight RX pins connect to GND;
-MGTRREF_213 connects through its own 100 ohm, 1% resistor to +1V2_MGT.
-TX and reference-clock pins float, per UG482 Table 5-5.
+| AA11 | `MGTREFCLK1P_213` |
+| AA13 | `MGTREFCLK0P_213` |
+| AB11 | `MGTREFCLK1N_213` |
+| AB13 | `MGTREFCLK0N_213` |
+| AC10 | `MGTPTXP0_213` |
+| AC12 | `MGTPRXP0_213` |
+| AC14 | `MGTPRXP2_213` |
+| AC8 | `MGTPTXP2_213` |
+| AD10 | `MGTPTXN0_213` |
+| AD12 | `MGTPRXN0_213` |
+| AD14 | `MGTPRXN2_213` |
+| AD8 | `MGTPTXN2_213` |
+| AE11 | `MGTPRXP3_213` |
+| AE13 | `MGTPRXP1_213` |
+| AE7 | `MGTPTXP3_213` |
+| AE9 | `MGTPTXP1_213` |
+| AF11 | `MGTPRXN3_213` |
+| AF13 | `MGTPRXN1_213` |
+| AF15 | `MGTRREF_213` |
+| AF7 | `MGTPTXN3_213` |
+| AF9 | `MGTPTXN1_213` |
 
 ## Budget
 
@@ -182,5 +243,5 @@ TX and reference-clock pins float, per UG482 Table 5-5.
 - 5V bus data: **16**
 - 5V bus direction: **2**
 - 5V bus enable: **2**
-- **assigned HR I/O: 152 of 300**
-- **free: 148** for base-board peripherals
+- **assigned HR I/O: 184 of 300**
+- **free: 116** for base-board peripherals

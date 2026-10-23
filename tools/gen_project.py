@@ -13,14 +13,14 @@ from identity import PRODUCT, HW_VERSION
 
 DIR    = 'kicad'
 PWRLIB = '/usr/share/kicad/symbols/power.kicad_sym'
-SHEETS = ['FPGA', 'Power', 'Memory', 'Supervisor', 'Slots', 'HighSpeed']
-DISPLAY_NAME = {'Supervisor': 'Board Controller', 'HighSpeed': 'Fast Links'}
+SHEETS = ['FPGA', 'Power', 'Memory', 'Supervisor', 'Slots', 'Network']
+DISPLAY_NAME = {'Supervisor': 'Board Controller'}
 TITLE  = {'FPGA':'FPGA, decoupling and configuration straps',
           'Power':'Power tree: VSYS input, regulators, AUX IN pass-through and monitoring',
           'Memory':'PSRAM x4 (independent buses) and configuration flash',
           'Supervisor':'Board controller: RP2350B, USB-C, startup memory and FPGA control',
           'Slots':'Ten keyed extension ports, branch fusing and level shifting',
-          'HighSpeed':'Four serial lanes: SFP cages, reference clock, power gate'}
+          'Network':'Network: RTL8211FD-CG gigabit PHY and ETH jack, LINK P and LINK Q raw LVDS ports'}
 GNDS   = {'GND'}
 RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
           '+2V5':'power:+2V5', '+3V3':'power:+3V3', '+5V':'power:+5V',
@@ -28,8 +28,7 @@ RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
           'VCCIO_1':'odin:VCCIO_1', 'VCCIO_2':'odin:VCCIO_2',
           '+1V0_MGT':'odin:+1V0_MGT', '+1V2_MGT':'odin:+1V2_MGT',
           'PD_VDD':'odin:PD_VDD', 'SUP_VREG_AVDD':'odin:SUP_VREG_AVDD',
-          'SFP_VCC':'odin:SFP_VCC', 'AUX_RAIL':'odin:AUX_RAIL',
-          'SFP0_VCC':'odin:SFP0_VCC', 'SFP1_VCC':'odin:SFP1_VCC'}
+          'AUX_RAIL':'odin:AUX_RAIL'}
 PWRSYM = dict(RAILS); PWRSYM['GND'] = 'power:GND'
 # a rail's flag belongs on the page where that rail is actually made
 RAIL_HOME = {'GND':'Power', 'VSYS':'Power', '+5V':'Power', '+3V3':'Power',
@@ -37,9 +36,8 @@ RAIL_HOME = {'GND':'Power', 'VSYS':'Power', '+5V':'Power', '+3V3':'Power',
              '+1V2_MGT':'Power', '+1V0_MGT':'Power',
              '+1V1':'Supervisor', 'VBUS':'Supervisor', 'PD_VDD':'Supervisor',
              'SUP_VREG_AVDD':'Supervisor',
-             'SFP_VCC':'HighSpeed', 'AUX_RAIL':'Power',
-             'VCCIO_1':'Slots', 'VCCIO_2':'Slots',
-             'SFP0_VCC':'HighSpeed', 'SFP1_VCC':'HighSpeed'}
+             'AUX_RAIL':'Power',
+             'VCCIO_1':'Slots', 'VCCIO_2':'Slots'}
 DIRV = {0: (-2.54, 0), 180: (2.54, 0), 90: (0, 2.54), 270: (0, -2.54)}
 JUST = {0: 'right', 180: 'left', 90: 'right', 270: 'left'}
 

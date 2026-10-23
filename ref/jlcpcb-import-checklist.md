@@ -58,9 +58,6 @@ against the manufacturer datasheet.
 | 10 | `SMD1206B020TF/24` | 12 V slot PTC, 200 mA | `C269111` — imported and linked |
 | 20 | `SMD1206B050TF` | 5 V and pin-voltage PTC, 500 mA | `C269115` — imported and linked |
 | 10 | `BSMD1206-030-16V` | 3.3 V slot PTC, 300 mA | `C22378340` — imported and linked |
-| 1 | `DSC1123CI2-125.0000` | 125 MHz LVDS clock | `C617173` — imported, pin map confirmed and linked |
-| 2 | `1888247-1` | SFP/SFP+ 20-contact connector | `C305914` — imported and linked |
-| 2 | `U77A11133001` | SFP cage, 3.2 mm solder tails | `C5355132` — JLC Extended, wave solder; drawing-based `odin` footprint |
 | 2 | `SRN6045TA-100M` | 5 V and 12 V supply inductors | C2046332 |
 | 1 | `SRN6045TA-4R7M` | 3.3 V supply inductor | C2044594 |
 | 1 | `2.54-2*5P` | keyed FPGA JTAG header | `C5665` — imported and linked |
@@ -68,8 +65,12 @@ against the manufacturer datasheet.
 | 1 | `KF301-5.0-2P` | 9–14 V external power terminal | `C474881` — imported and linked |
 | 4 | `F.0603.00025/P2-0603G1TS2-06T-002` | green DONE, heartbeat and two user LEDs | `C7496818` — imported and linked |
 | 13 | `F254D-02-PT-B` | removable 2.54 mm selector shunts | `C501335` — imported; loose accessory |
-| 1 | `PCA9543APW,118` | two-channel SFP I²C switch | `C2652904` — generated symbol, standard TSSOP-14 footprint; JLC Economic/Standard PCBA |
-| 1 | `PCF8574T_3,518` | SFP control I/O expander | `C7605` — imported and linked |
+| 1 | `PCF8574T_3,518` | status LED expander | `C7605` — imported and linked |
+| 1 | `RTL8211FD-CG` | gigabit Ethernet PHY (LDO model) | `C2687133` — imported 2026-10-23 with easyeda2kicad, pins checked against datasheet rev 1.7 |
+| 1 | `HR911130A` | ETH 1000Base-T magjack with LEDs | `C54408` — imported 2026-10-23, pin names checked against the HanRun drawing |
+| 2 | `KH-RJ45-58-8P8C` | LINK P / LINK Q plain shielded jacks | `C2683360` — imported 2026-10-23 |
+| 1 | `X322525MOB4SI` | PHY 25 MHz crystal | `C9006` (Basic) — imported 2026-10-23 |
+| 4 | `TPD4E1U06DBVR` | link-port ESD arrays | `C124691` — imported 2026-10-23 |
 
 Import the exact orderable suffix shown. A nearby family member in the same
 search result is not interchangeable.
@@ -86,23 +87,14 @@ official TI `RPU0010A` footprint; their exact LCSC numbers remain in the
 schematic and BOM. An imported file is not automatically better than the
 manufacturer-package footprint.
 
-The slot fuses, SFP cages and complete extension connector system are selected,
-linked and audited. Only ordinary passive BOM matching remains below.
+The slot fuses, network parts and complete extension connector system are
+selected, linked and audited. Only ordinary passive BOM matching remains below.
 
-## SFP cage assembly
+## Fast Links removed (2026-10-23)
 
-SH1/SH2 use [Amphenol U77A11133001, C5355132](https://jlcpcb.com/partdetail/AmphenolICC-U77A11133001/C5355132).
-JLC lists Extended, Wave Soldering, and Economic and Standard PCBA support
-(checked 2026-09-15). Assemble the SMT TE 1888247-1 connector before the cage;
-select the through-hole wave-solder operation in the assembly order. Stock and
-assembly pricing must be refreshed when ordering.
-
-The cage symbol and footprint are generated from Amphenol's drawing, **not an
-EasyEDA import**. Twenty plated shield holes connect to GND. The retained
-connector import has its two locating holes corrected to 1.55 mm NPTH per TE
-1888247 sheet 3. Mechanical datums, assembly clearance and the manufacturer's
-**2.5 Gb/s listing** are documented in [sfp-cage.md](sfp-cage.md). The old
-16 Gb/s cage qualification does not transfer to this part.
+The SFP connectors, cages, 125 MHz oscillator and I²C switch left the design
+in rev A (`ref/rev-a-plan.md` A3). Their library imports stay in `easyeda/`
+as files; `tools/audit_easyeda.py` only checks parts the design fits.
 
 ## Extension hardware — imported and linked
 

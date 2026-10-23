@@ -64,20 +64,26 @@ LOADS = [
      'ref/power-input.md: 0.66 W across four chips'),
     ('+3V3', 'config flash W25Q256, program', 0.03, 'datasheet',
      'W25Q256JV: 25 mA page-program peak'),
-    ('+3V3', 'SFP modules x2 (SFP_VCC, gated by Q1)', 0.61, 'estimate',
-     'ref/power-input.md: 2.0 W for two modules'),
+    ('+3V3', 'RTL8211FD-CG, 1000Base-T link', 0.20, 'estimate',
+     'datasheet rev 1.7 gives no active-mode consumption table; planning '
+     'allowance for a 1 Gb PHY with internal LDO, verify on the prototype'),
+    ('+3V3', 'ETH jack LEDs x2 through 510 ohm', 0.006, 'datasheet',
+     'RTL8211F Figure 5; about 3 mA each'),
     ('+3V3', 'Heartbeat and user LEDs x3, all on', 0.005, 'estimate',
      'D9-D11 via 1k each; 5 mA budget allowance'),
-    ('+3V3', '125MHz LVDS oscillator', 0.04, 'estimate',
-     'typical 6-pin LVDS oscillator'),
     ('+3V3', 'U9/U10 VCCA, U20, pull-ups, LED', 0.03, 'estimate',
      'quiescent logic'),
     ('+3V3', 'FPGA bank 15 VCCO, worst case jumpered to 3.3V', 0.10, 'estimate',
      'bank load only; connector export is checked from switch maximum below'),
     ('+3V3', 'FPGA bank 34 VCCO, worst case jumpered to 3.3V', 0.10, 'estimate',
      'bank load only; connector export is checked from switch maximum below'),
-    ('+3V3', 'FPGA unused banks 13/16/35 VCCO', 0.06, 'estimate',
-     'powered at 3.3V so every VCCO ball has a defined supply'),
+    ('+3V3', 'FPGA banks 13/35 VCCO and bank 0', 0.06, 'estimate',
+     'bank 13 carries the two 5V buses; 35 is powered but unused'),
+    # ---- +2V5: bank 16 I/O and the PHY RGMII pads
+    ('+2V5', 'FPGA bank 16 VCCO: RGMII and eight LVDS_25 pairs', 0.12, 'estimate',
+     'LVDS_25 drivers about 3.5 mA each plus RGMII switching; replace with XPE'),
+    ('+2V5', 'RTL8211FD-CG DVDD_RG (RGMII pads)', 0.02, 'estimate',
+     'external 2.5 V I/O supply, CFG_EXT=1 CFG_LDO=01'),
     # ---- +1V1, the supervisor's core, off the RP2350's own regulator
     ('+1V1', 'RP2350B core (DVDD)', 0.06, 'estimate',
      'RP2350 at 150 MHz; the on-chip regulator is rated 200 mA'),
@@ -155,8 +161,8 @@ not control it and nothing on the base board draws from it. Capacitors on
 
 The per-load estimates are retained in `LOADS`; cascaded 90%-efficient
 conversion gives {board_loads()['+5V']:.3f} A on +5V and
-{board_loads()['+3V3']:.3f} A on +3V3 before connector exports. Both SFP
-modules are included. FPGA values are planning estimates pending AMD XPE.
+{board_loads()['+3V3']:.3f} A on +3V3 before connector exports. FPGA values
+are planning estimates pending AMD XPE.
 The two VCCIO domains and the separate 3V3 export share U12's 3 A ceiling;
 their maximum switch-limit tolerances are not additive guaranteed allowances.
 

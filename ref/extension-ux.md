@@ -97,27 +97,28 @@ See [the power manual](power.md) for actual shared allocations and release holds
 Generated from the **current saved PCB**, read-only, by
 `/usr/bin/python3 tools/placement.py --keepouts`. Coordinates are board-local.
 These are XY envelopes to clear, not a claim that an 8.5 or 11 mm seat clears
-the cages/terminals. Provide cutouts or independently verified height clearance
+the jacks/terminals. Provide cutouts or independently verified height clearance
 and screwdriver access. New AUX IN placement must be chosen by the human and
 this table regenerated afterward. The key posts require their NPTHs instead
 of plated sockets.
 
 | Ref | Board-local X interval (mm) | Y interval (mm) | Shield obligation |
 |---|---:|---:|---|
-| SH1 | 16.60 to 33.40 | -7.27 to 42.67 | cage cutout/clearance |
-| SH2 | 66.60 to 83.40 | -7.27 to 42.67 | cage cutout/clearance |
+| J70 | 103.95 to 120.04 | 241.17 to 262.52 | jack cutout and cable access; currently outside board, human placement pending |
+| J71 | 124.29 to 140.34 | 245.10 to 263.64 | jack cutout and cable access; currently outside board, human placement pending |
+| J72 | 144.29 to 160.34 | 245.10 to 263.64 | jack cutout and cable access; currently outside board, human placement pending |
 | J50 | 169.09 to 179.14 | -155.08 to -147.43 | terminal cutout and screwdriver access; currently outside board, human placement pending |
-| J68 | 161.43 to 171.48 | 122.48 to 130.13 | terminal cutout and screwdriver access; currently outside board, human placement pending |
+| J68 | 88.75 to 98.80 | 91.48 to 99.13 | terminal cutout and screwdriver access |
 | MK65 | centre 11.90 | centre 22.00 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
-| MK66 | centre 143.20 | centre 17.40 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK66 | centre 88.00 | centre 23.00 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
 | MK67 | centre 11.90 | centre 42.30 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
 | MK68 | centre 11.90 | centre 62.60 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
 | MK69 | centre 11.90 | centre 82.90 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
-| MK70 | centre 143.40 | centre 81.80 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK70 | centre 87.70 | centre 83.40 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
 | MK71 | centre -123.67 | centre 100.44 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
 | MK72 | centre -123.67 | centre 120.84 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
-| MK76 | centre 143.20 | centre 60.20 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
-| MK77 | centre 143.20 | centre 38.80 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK76 | centre 88.00 | centre 63.60 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
+| MK77 | centre 88.00 | centre 43.20 | >=1.6 mm bare NPTH; post tip >=18.5 mm |
 
 The EDGE_SIG inset remains 4.70 mm. No perfboard-lattice change, placement
 application, island staging, decap movement or BGA fanout was performed.

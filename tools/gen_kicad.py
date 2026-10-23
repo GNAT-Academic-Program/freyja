@@ -7,7 +7,6 @@ Outputs kicad/odin.kicad_sym and kicad/odin.pretty/*.kicad_mod
 import re, os
 from collections import defaultdict, OrderedDict
 from identity import FPGA_PART
-import sfp_cage
 
 PKG   = 'easyeda/EasyEDA.kicad_sym'
 SYM   = 'kicad/odin.kicad_sym'
@@ -34,6 +33,8 @@ def normalize_imported_pin_types():
         'PM254-2-16-Z-8.5', 'PM254-2-08-Z-8.5',
         'PM254V-11-07-H85', '2.54mmlength21mm', '2044-2X32G00SA',
         'PMEG060V100EPDZ',
+        # network: the two jacks, the PHY crystal and the link TVS arrays
+        'HR911130A', 'KH-RJ45-58-8P8C', 'X322525MOB4SI', 'TPD4E1U06DBVR',
     }
     overrides = {
         'BM03B-SRSS-TB': {'1': 'bidirectional', '2': 'passive',
@@ -42,6 +43,16 @@ def normalize_imported_pin_types():
             **{str(n): 'input' for n in (1, 2, 3, 14)},
             **{str(n): 'bidirectional' for n in (4, 5, 6, 7, 9, 10, 11, 12, 15)},
             '8': 'power_in', '16': 'power_in', '13': 'open_collector'},
+        # RTL8211F(D) datasheet rev 1.7, Tables 1-9. RXD/RXC/RXCTL and the
+        # LED pins are outputs that double as strap inputs during reset; a
+        # pull resistor on an output is fine for ERC. Pin 30 is the LDO
+        # output that feeds the 1.0 V pins, so it drives them.
+        'RTL8211FD-CG': {
+            **{str(n): 'bidirectional' for n in (1, 2, 4, 5, 6, 7, 9, 10, 14)},
+            **{str(n): 'power_in' for n in (3, 8, 11, 21, 28, 29, 38, 40, 41)},
+            **{str(n): 'input' for n in (12, 13, 15, 16, 17, 18, 19, 20, 36)},
+            **{str(n): 'output' for n in (22, 23, 24, 25, 26, 27, 32, 33, 34, 35, 37)},
+            '30': 'power_out', '31': 'open_collector', '39': 'passive'},
     }
     text = open(PKG).read()
     for name in sorted(passive | overrides.keys()):
@@ -228,10 +239,9 @@ def gen_osc():
 
 # SUP_VREG_AVDD is the RP2350's analogue regulator supply behind its 33R/4.7uF
 # filter -- a real local rail, not a signal, so it gets a real power symbol.
-CUSTOM_RAILS = ['VCCIO_1', 'VCCIO_2', '+1V0_MGT', '+1V2_MGT', 'SFP_VCC', 'VSYS',
+CUSTOM_RAILS = ['VCCIO_1', 'VCCIO_2', '+1V0_MGT', '+1V2_MGT', 'VSYS',
                 'PD_VDD', 'SUP_VREG_AVDD', '+5V_EXT', '+3V3_EXT',
-                'VCCIO_1_EXT', 'VCCIO_2_EXT', 'AUX_RAIL',
-                'SFP0_VCC', 'SFP1_VCC']
+                'VCCIO_1_EXT', 'VCCIO_2_EXT', 'AUX_RAIL']
 
 def gen_rails():
     """Clone KiCad's +3V3 power symbol for the rails it does not ship."""
@@ -292,42 +302,6 @@ def gen_box_symbol(name, pins, footprint, datasheet, description):
     for i, (num, pname, et, _side) in enumerate(right):
         o += pin(wd/2 + 5.08, top - i*2.54, 180, et, pname, num)
     return o + '\t\t)\n\t)\n'
-
-def gen_sfp_mux():
-    # NXP PCA9543A/43B rev 8, Table 3; TSSOP14 SOT402-1.
-    pins = [('1','A0','input','L'), ('2','A1','input','L'),
-            ('3','~{RESET}','input','L'), ('4','~{INT0}','input','R'),
-            ('5','SD0','bidirectional','R'), ('6','SC0','passive','R'),
-            ('7','VSS','power_in','L'), ('8','~{INT1}','input','R'),
-            ('9','SD1','bidirectional','R'), ('10','SC1','passive','R'),
-            ('11','~{INT}','open_collector','L'), ('12','SCL','input','L'),
-            ('13','SDA','bidirectional','L'), ('14','VDD','power_in','L')]
-    return gen_box_symbol('PCA9543APW', pins,
-                          'Package_SO:TSSOP-14_4.4x5mm_P0.65mm',
-                          'https://www.nxp.com/docs/en/data-sheet/PCA9543A_43B.pdf',
-                          'Two-channel I2C switch; NXP PCA9543APW,118')
-
-def gen_aux_symbols():
-    """Parts KiCad does not ship, with datasheet pin numbers kept explicit."""
-    # TE 1888247-1 has only the twenty module contacts. The separate SH1/SH2
-    # cage parts own their grounded solder tails, so no synthetic CAGE pin is
-    # allowed here (it was the source of two PCB/schematic parity warnings).
-    sfp = [
-        ('1', 'VeeT1', 'power_in', 'L'), ('2', 'TX_FAULT', 'output', 'L'),
-        ('3', 'TX_DISABLE', 'input', 'L'), ('4', 'MOD_DEF2', 'bidirectional', 'L'),
-        ('5', 'MOD_DEF1', 'bidirectional', 'L'), ('6', 'MOD_DEF0', 'output', 'L'),
-        ('7', 'RATE_SELECT', 'input', 'L'), ('8', 'RX_LOS', 'output', 'L'),
-        ('9', 'VeeR1', 'power_in', 'L'), ('10', 'VeeR2', 'power_in', 'L'),
-        ('11', 'VeeR3', 'power_in', 'R'), ('12', 'RD-', 'output', 'R'),
-        ('13', 'RD+', 'output', 'R'), ('14', 'VeeR4', 'power_in', 'R'),
-        ('15', 'VccR', 'power_in', 'R'), ('16', 'VccT', 'power_in', 'R'),
-        ('17', 'VeeT2', 'power_in', 'R'), ('18', 'TD+', 'input', 'R'),
-        ('19', 'TD-', 'input', 'R'), ('20', 'VeeT3', 'power_in', 'R'),
-    ]
-    return gen_box_symbol('SFP_NoCage', sfp,
-        'EasyEDA:CONN-SMD_20P-P0.80-S8.20_1888247-1',
-        'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Customer+Drawing%7F1888247%7FC',
-        'SFP/SFP+ 20-contact connector; cage is a separate part')
 
 def gen_extension_protection():
     low = [('1','ON','input','L'), ('2','VIN','power_in','L'),
@@ -432,12 +406,10 @@ if __name__ == '__main__':
     units = gen_symbol(pins)
     t = open(SYM).read()
     open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + gen_osc() + gen_rails() +
-                         gen_lxc() + gen_extension_protection() + gen_sfp_mux() +
-                         gen_aux_symbols() + sfp_cage.symbol(gen_box_symbol) + ')\n')
+                         gen_lxc() + gen_extension_protection() + ')\n')
     npads = gen_footprint()
     nlp = gen_inductor_fp()
     nap = gen_aux_footprints()
-    sfp_cage.generate(PRET)
     print(f"symbol  {SYM}: {len(pins)} pins in {len(units)} units")
     for k, v in units.items(): print(f"   unit {k:18s} {len(v):3d} pins")
     print(f"footprint easyeda/EasyEDA.pretty/{FPNAME}.kicad_mod: {npads} pads")

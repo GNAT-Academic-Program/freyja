@@ -22,7 +22,7 @@ def uid(*a):
 RAIL = {'VCCINT':'+1V0', 'VCCBRAM':'+1V0', 'VCCAUX':'+1V8', 'VCCADC':'+1V8',
         'MGTAVCC':'+1V0_MGT', 'MGTAVTT':'+1V2_MGT',
         'VCCO_0':'+3V3', 'VCCO_12':'+3V3', 'VCCO_13':'+3V3', 'VCCO_14':'+3V3',
-        'VCCO_15':'VCCIO_1', 'VCCO_16':'+3V3', 'VCCO_34':'VCCIO_2',
+        'VCCO_15':'VCCIO_1', 'VCCO_16':'+2V5', 'VCCO_34':'VCCIO_2',
         'VCCO_35':'+3V3', 'VCCO_33':'+3V3',
         'GNDADC':'GND', 'VCCBATT':'GND'}
 CFG = {'CCLK_0':'CFG_CCLK', 'PROGRAM_B_0':'CFG_PROG_B', 'INIT_B_0':'CFG_INIT_B',
@@ -39,21 +39,14 @@ def net_for(ball, name, assigned):
     for k, v in RAIL.items():
         if n.startswith(k): return v
     if name in CFG: return CFG[name]
-    # UG482 Tables 5-5/5-6: both G10 (quad 213) and G11 (quad 216)
-    # stay powered. Unused RX pins go to GND; unused TX/refclk may float.
-    # Each quad has its own calibration resistor to MGTAVTT.
+    # UG482 Tables 5-5/5-6: both GTP quads (213 and 216) are unused in
+    # rev A but stay powered. Unused RX pins go to GND; TX and reference
+    # clock pins float. Each quad keeps its own calibration resistor to
+    # MGTAVTT: MGTRREF (quad 216, R35) and MGTRREF_213.
     if n.startswith('MGT'):
         bare, _, quad = n.rpartition('_')
-        if quad == '213':
-            if bare == 'MGTRREF': return 'MGTRREF_213'
-            if bare.startswith(('MGTPRXP', 'MGTPRXN')): return 'GND'
-            return None
-        if quad == '216':
-            used = ('MGTPTXP0', 'MGTPTXN0', 'MGTPRXP0', 'MGTPRXN0',
-                    'MGTPTXP1', 'MGTPTXN1', 'MGTPRXP1', 'MGTPRXN1',
-                    'MGTREFCLK0P', 'MGTREFCLK0N', 'MGTRREF')
-            if bare in used: return bare
-            if bare.startswith(('MGTPRXP', 'MGTPRXN')): return 'GND'
+        if bare == 'MGTRREF': return 'MGTRREF_213' if quad == '213' else 'MGTRREF'
+        if bare.startswith(('MGTPRXP', 'MGTPRXN')): return 'GND'
         return None
     return None                      # unassigned HR I/O -> no-connect
 

@@ -82,3 +82,67 @@ footprint. The PCB was restored from the A1 commit and re-synced.
 Known: `place.py --check` still fails on the connector contract (phase B).
 No LCSC listing found for the tantalum; owner sources it at quote time (D3).
 Open questions for the owner: none
+
+## Phase A3 + A4 2026-10-23
+Parts: 459 -> 459 (53 Fast Links parts out, 39 Network parts in, status
+expander and its LEDs moved to the Board Controller sheet, one more 47 uF
+for the new +2V5 VCCO group)
+B.Cu footprints: 0
+Escape depth >= 7: 50 (17 inherent, 33 allocator choice); was 58 (17, 41)
+ERC: 0 errors, 2 warnings (allowlisted FPGA_DXP/FPGA_DXN)
+DRC: 9 errors, 323 warnings, 499 unrouted, 0 parity (the 9: C185/C186/C192,
+F4/J57, C158/F31 collisions and the four J1 hole clearances, all
+pre-existing)
+PCB sync: `load_pcb.py` between `check_positions.py` snapshots, 0 of 420
+common refs moved; removed X2, Q1, FB1/FB2, J60/J61, SH1/SH2, U27 and their
+R/C; added U30, J70-J72, X3, D20-D23 and their R/C, staged outside the board
+Files changed: tools/design.py, tools/alloc.py, tools/gen_sch.py,
+tools/gen_project.py, tools/gen_kicad.py, tools/ballmap.py, tools/budget.py,
+tools/qualified.py, tools/placement.py, tools/place.py,
+tools/update_silkscreen.py, tools/check_connector_rework.py,
+tools/sfp_cage.py (deleted), easyeda/EasyEDA.kicad_sym (+5 imports),
+easyeda/EasyEDA.pretty (+5 footprints), easyeda/EasyEDA.3dshapes (+6),
+kicad/odin.pretty/Amphenol_U77A11133001 (deleted), kicad/network.kicad_sch
+(new, replaces highspeed.kicad_sch), ref/network.md (new),
+ref/link-ports.md (new), ref/highspeed.md, ref/sfp-cage.md, ref/sfp-i2c.md
+(deleted), ref/status-leds.md, ref/user-manual.md, ref/extension-ux.md,
+ref/jlcpcb-import-checklist.md, kicad/README.md, generated: ref/ballmap.md,
+ref/power-budget.md, ref/qualified-parts.md, kicad/*.kicad_sch,
+kicad/odin.kicad_sym, kicad/odin.net, kicad/odin.kicad_pcb
+What (A3): Fast Links are gone: the two SFP ports, cages, 125 MHz oscillator,
+power gate and I2C switch, and the SFP nets on the RP2350B (GPIO32-39 and
+46 are spare; GPIO14/31 are now SUP_SCL/SUP_SDA for U17, renamed "status
+expander", P7 spare). Both GTP quads stay powered with grounded RX, floating
+TX/refclk and one RCAL each (UG482 Tables 5-5/5-6). New Network sheet:
+RTL8211FD-CG (D2, C2687133) on RGMII at 2.5 V with straps per datasheet rev
+1.7 Tables 10/11 (PHYAD 1, PLLOFF 0, TXDLY 1, RXDLY 1 to DVDD_RG; CFG_EXT 1
+and CFG_LDO 01 to 3.3 V/GND), 1.5 k MDIO pull-up (section 7.11.2), 1 k
+pull-down on PHYRSTB and 4.7 k pull-up on INTB with both pins on bank 13
+(Table 58 note, Table 53 note 5 case II), LEDs in the jack wired per section
+7.9 Figure 5, HanRun HR911130A 1000Base-T magjack (C54408) with P1 centre
+tap to GND through 100 nF 50 V and P10 (internal Bob-Smith) to GND, YXC
+25 MHz crystal (C9006, Table 56) with 18 pF loads and a 0 ohm series spot,
+RSET 2.49 k 1 %. Two plain shielded 8P8C jacks (Kinghelm C2683360) carry
+eight DC-coupled LVDS_25 pairs with TPD4E1U06 arrays (C124691) at the jacks;
+pinout and the "power both boards first" rule in ref/link-ports.md. Parts
+imported with easyeda2kicad (scratch venv); the TVS and crystal footprints
+got their own copies because the importer had reused another part's
+identically named land; the jacks' mounting holes were corrected to NPTH.
+What (A4): VCCO_16 = +2V5 (gen_sch.RAIL; the UG483 decoupling regrouped by
+itself: one more 47 uF). alloc.py allocates bank 16 shallowest-first with
+PHY_RXC on an MRCC P ball, LINK P RXC on the other MRCC pair, LINK Q RXC on
+an SRCC pair; both 5 V buses and their DIR/OE plus PHY_RESET_N/PHY_INT_N in
+bank 13; banks 13, 14 and 16 depth sorted (15 and 34 are full and keep
+their order). `alloc.py --check` verifies the clock placements and bank
+membership.
+Decisions taken without the owner: RSET 2.49 k and the centre-tap capacitor
+come from public RTL8211F boards (NanoPi M5), not the Realtek datasheet,
+marked [verify] in ref/network.md; PHY load in the budget is a 0.2 A
+planning estimate (the datasheet has no active-mode consumption table);
+jack positions in placement.py are a proposal for phase B, mouth
+orientation to be confirmed in 3D (STEP models imported).
+Known: `place.py --check` still fails on the connector contract (phase B).
+`gen_pcb.py` MGT_100R patterns and ref/pcb-impedance.md still describe the
+SFP nets; replaced by LVDS_100R/RGMII in B1 as planned.
+Open questions for the owner: none blocking. If a 1000Base-T jack with a
+different LED arrangement is preferred, only `J70`'s pin map changes.

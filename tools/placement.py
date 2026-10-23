@@ -23,8 +23,6 @@ Run standalone to print the table and check courtyard collisions:
 import os, re, sys
 sys.path.insert(0, os.path.dirname(__file__))
 
-from sfp_cage import CONNECTOR_DEPTH, MOUTH_OVERHANG
-
 BOARD_W, BOARD_H = 100.0, 100.0
 ORIGIN_X, ORIGIN_Y = 30.0, 30.0          # must match tools/gen_pcb.py X0, Y0
 
@@ -45,7 +43,7 @@ class P:
 # ------------------------------------------------------ the numbers that rule
 # 2x32 signal socket body (courtyard): 81.90 x 4.90, pads centred on origin.
 # Per-zone keyed power row: one post plus a 1x7 female body.
-# SFP cage: 48.98 x 15.85; origin at board-edge datum, nose at x=-7.
+# RJ45 jacks on the top edge: HR911130A 16.04 x 21.30, KH-RJ45-58 15.70 x 18.20.
 # FBGA-676:                            27.4 x 27.7 courtyard.
 SIG_LEN   = 81.90       # 2x32 body length
 SIG_W     = 4.90
@@ -67,18 +65,22 @@ POWER_REFS = {'A':'J53', 'B':'J62', 'C':'J54', 'D':'J63',
               'E':'J55', 'F':'J64', 'G':'J56', 'H':'J65',
               'L':'J57', 'M':'J58'}
 
-# The FPGA. The SFP cages intrude ~44mm from the top edge, so the die sits
-# below centre. Its top rows (A..F) carry the GTP balls: they face the cages.
+# The FPGA. Bank 16 (network) is the top-left quadrant of the package and
+# faces the top edge, where the three jacks and the PHY sit; the GTP corner
+# is unused in rev A. The die stays below centre to leave the network strip.
 FPGA = (50.0, 62.0)
 
-# SFP cage footprint +x points into the board. KiCad rotation 270 maps
-# +x to board +y: mouth at y=-7, rear at y=41.98. The connector footprint
-# has contact rows along y, so rotation 180 puts pins 1..10 toward the mouth.
-CAGE_PITCH = 17.0
-CAGE_X = (29.0, 29.0 + CAGE_PITCH)
-CAGE_OVERHANG = MOUTH_OVERHANG
-CAGE_Y = 0.0                         # PCB-edge datum, not shell centre
-SFP_CONN_Y = CAGE_Y + CONNECTOR_DEPTH # locating peg centreline: 35.40 mm
+# Three RJ45 jacks along the top edge, 17.8 mm pitch, mouths overhanging the
+# edge by about 3 mm like any tab-down jack. The imported footprints put the
+# mouth at -y for the HanRun magjack (its LED pins sit at the front) and at
+# +y for the Kinghelm plain jack (shield tabs at the front), hence the two
+# rotations. Verify both in the 3D view before ordering; the STEP models are
+# imported. Left to right: LINK P, LINK Q, ETH; the PHY goes between ETH and
+# the FPGA. J50 moves to the top-left corner to make room.
+JACK_PITCH = 17.8
+JACK_X = {'J71': 25.0, 'J72': 25.0 + JACK_PITCH, 'J70': 25.0 + 2 * JACK_PITCH}
+JACK_Y = {'J71': 7.7, 'J72': 7.7, 'J70': 10.0}   # origin so the mouth sits ~3 mm past y=0
+JACK_ROT = {'J71': 180, 'J72': 180, 'J70': 0}
 
 def contract():
     """Tier 1: every promised position, computed."""
@@ -123,17 +125,16 @@ def contract():
                      why=f'{s} power positions 2..8'))
 
     # --- FPGA ------------------------------------------------------------
-    out.append(P('U1', *FPGA, 0, why='FBGA-676, GTP rows toward cages'))
+    out.append(P('U1', *FPGA, 0, why='FBGA-676, bank 16 toward the top edge'))
 
-    # --- high speed ------------------------------------------------------
-    for i, (sh, j) in enumerate((('SH1', 'J60'), ('SH2', 'J61'))):
-        out.append(P(sh, CAGE_X[i], CAGE_Y, 270, why='SFP cage, bezel off top'))
-        out.append(P(j, CAGE_X[i], SFP_CONN_Y, 180, why='SFP 20p connector'))
-    out.append(P('X2', 58.0, 44.0, 0, why='125MHz LVDS osc, short to refclk'))
+    # --- network, top edge ----------------------------------------------
+    for ref, what in (('J71', 'LINK P plain RJ45'), ('J72', 'LINK Q plain RJ45'),
+                      ('J70', 'ETH 1000Base-T magjack')):
+        out.append(P(ref, JACK_X[ref], JACK_Y[ref], JACK_ROT[ref], why=what))
 
-    # --- input corner (top right) ---------------------------------------
+    # --- input corners ---------------------------------------------------
     out.append(P('J1', 79.0, 2.6, 0, why='USB-C, mid-mount on top edge'))
-    out.append(P('J50', 60.0, 5.0, 0, why='9-21V screw terminal'))
+    out.append(P('J50', 9.5, 4.2, 0, why='9-21V screw terminal, top-left corner'))
 
     # --- service row (bottom left) ---------------------------------------
     out.append(P('J2', 26.0, BOARD_H - 5.5, 0, why='FPGA JTAG 2x5'))
@@ -166,14 +167,15 @@ ANCHORS = {
     'input OR-ing':                (75.0, 8.0, 'right'),
     'USB protection':              (85.0, 8.0, 'down'),
     'USB-PD sink':                 (93.0, 16.0, 'down'),
-    'SFP power gate':              (44.0, 36.0, 'right'),
-    'SFP I2C mux':                 (57.0, 36.0, 'right'),
-    'SFP I2C bus':                 (50.0, 36.0, 'right'),
     'board status LEDs':          (24.0, 82.0, 'right'),
-    'SFP port expander':           (56.0, 36.0, 'right'),
-    'SFP port 0':                  (26.0, 44.0, 'down'),
-    'SFP port 1':                  (42.5, 44.0, 'down'),
-    '125MHz reference clock':      (50.0, 44.0, 'right'),
+    'status expander':             (56.0, 36.0, 'right'),
+    'U30  gigabit PHY':            (60.0, 26.0, 'down'),
+    'PHY clock':                   (66.0, 30.0, 'down'),
+    'PHY straps and LEDs':         (52.0, 30.0, 'down'),
+    'ETH jack':                    (60.0, 20.0, 'right'),
+    'LINK P':                      (25.0, 22.0, 'down'),
+    'LINK Q':                      (42.8, 22.0, 'down'),
+    'GTP calibration':             (36.0, 48.0, 'right'),
     'JTAG owner selection':        (24.0, 88.0, 'right'),
     'series resistors to FPGA':    (38.0, 80.0, 'right'),
     'config straps (UG470)':       (56.0, 74.0, 'right'),
@@ -227,8 +229,8 @@ CONTRACT_FP = {         # ref prefix -> footprint file stem, for the checker
     'J5': 'HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1',
     'J7': 'HDR-TH_16P-P2.54-V-F-R2-C8-S2.54', 'J8': 'HDR-TH_16P-P2.54-V-F-R2-C8-S2.54',
     **{r: 'HDR-TH_7P-P2.54-V-F' for r in POWER_REFS.values()},
-    'SH1': 'Amphenol_U77A11133001', 'SH2': 'Amphenol_U77A11133001',
-    'J60': 'CONN-SMD_20P-P0.80-S8.20_1888247-1', 'J61': 'CONN-SMD_20P-P0.80-S8.20_1888247-1',
+    'J70': 'RJ45-TH_HR911130A', 'J71': 'RJ45-TH_KH-RJ45-58-8P8C',
+    'J72': 'RJ45-TH_KH-RJ45-58-8P8C',
     'U1': 'FBGA-676_L27.0-W27.0-R26-C26-P1.00-BL',
     'J1': 'USB-C-SMD_HC-TYPE-C-16P-01A', 'J50': 'CONN-TH_P5.00_KF301-5.0-2P',
     'J2': 'IDC-TH_10P-P2.54_C5665',
@@ -256,13 +258,13 @@ def check(placed):
             errs.append(f'{p.ref}: footprint {stem} not found'); continue
         x0, x1, y0, y1 = _rot_bbox(b, p.rot)
         box = (p.ref, p.x + x0, p.x + x1, p.y + y0, p.y + y1)
-        # cages and USB may legitimately overhang the edge
-        overhang_ok = p.ref in ('SH1', 'SH2', 'J1', 'J50')
+        # jacks and USB may legitimately overhang the edge
+        overhang_ok = p.ref in ('J70', 'J71', 'J72', 'J1', 'J50')
         if not overhang_ok and (box[1] < 0 or box[2] > BOARD_W or
                                 box[3] < 0 or box[4] > BOARD_H):
             errs.append(f'{p.ref}: outside the board: {box[1:]}')
         boxes.append(box)
-    inside = {frozenset(('SH1', 'J60')), frozenset(('SH2', 'J61'))}
+    inside = set()
     # Adjacent cut-strip post and female socket plastics share their nominal
     # courtyard boundary; this is the intended keyed compound row.
     inside.update(frozenset((f'MK{ord(s)}', POWER_REFS[t]))
@@ -282,7 +284,7 @@ def shield_keepouts():
     fps = {f.GetReference(): f for f in board.GetFootprints()}
     rows = ['| Ref | Board-local X interval (mm) | Y interval (mm) | Shield obligation |',
             '|---|---:|---:|---|']
-    for ref in ('SH1','SH2','J50','J68'):
+    for ref in ('J70','J71','J72','J50','J68'):
         fp = fps[ref]
         graphics = [g.GetBoundingBox() for g in fp.GraphicalItems()
                     if g.GetLayer() == pcbnew.F_CrtYd]
@@ -291,7 +293,7 @@ def shield_keepouts():
         x1 = max(pcbnew.ToMM(g.GetRight()) for g in graphics) - ORIGIN_X
         y0 = min(pcbnew.ToMM(g.GetTop()) for g in graphics) - ORIGIN_Y
         y1 = max(pcbnew.ToMM(g.GetBottom()) for g in graphics) - ORIGIN_Y
-        what = 'cage cutout/clearance' if ref.startswith('SH') else 'terminal cutout and screwdriver access'
+        what = 'jack cutout and cable access' if ref in ('J70','J71','J72') else 'terminal cutout and screwdriver access'
         if not (0 <= fp.GetPosition().x/1e6-ORIGIN_X <= BOARD_W and
                 0 <= fp.GetPosition().y/1e6-ORIGIN_Y <= BOARD_H):
             what += '; currently outside board, human placement pending'

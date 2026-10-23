@@ -238,7 +238,7 @@ def adc_divider(name, vnom, vabsmax, rtop=100e3):
 # ---------------------------------------------------------------- rails
 VSYS, V5, V33, V25, V18, V10, V12MGT = 'VSYS', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
 V10MGT, GND = '+1V0_MGT', 'GND'
-VCCIO = {'14': V33, '15': 'VCCIO_1', '34': 'VCCIO_2'}
+VCCIO = {'13': V33, '14': V33, '15': 'VCCIO_1', '16': V25, '34': 'VCCIO_2', '35': V33}
 
 RAIL_CHECK = []
 
@@ -365,12 +365,10 @@ def build():
           19:'SUP_UART_TX', 20:'SUP_UART_RX',
           21:'EN_VBUS5', 22:'EN_2V5', 23:'EN_1V8', 24:'EN_1V0', 25:'EN_1V2', 26:'EN_5V',
           27:'PD_CFG1', 28:'PD_CFG2', 29:'PD_CFG3', 30:'PD_PG',
-          8:'EXT_EN', 14:'SFP_SCL', 31:'SFP_SDA',
-          32:'SFP0_MOD_ABS', 33:'SFP0_TX_DIS', 34:'SFP0_TX_FAULT', 35:'SFP0_LOS',
-          36:'SFP1_MOD_ABS', 37:'SFP1_TX_DIS', 38:'SFP1_TX_FAULT', 39:'SFP1_LOS'}
+          8:'EXT_EN', 14:'SUP_SCL', 31:'SUP_SDA'}
+    # GPIO32-39 and GPIO46 were the SFP module controls; spare in rev A.
     for g, n in gp.items(): sup[f'GPIO{g}'] = n
     sup['GPIO47/ADC7'] = 'EXT_FAULT'
-    sup['GPIO46/ADC6'] = 'SFP0_RATE_SELECT'
     for a, n in enumerate(['MON_VSYS','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0']):
         sup[f'GPIO{40+a}/ADC{a}'] = n
     d.group('U7  board controller')
@@ -623,76 +621,32 @@ def build():
                '5': V18, '6': net}, 'C65114')
         for _ in range(2): d.C('22uF', net, GND, C0805)
 
-    d.sheet('HighSpeed')
-    # ------------------------------------------------ two fast serial ports
-    d.group('125MHz reference clock')
-    d.add('X2', 'EasyEDA:DSC1123CI2-125.0000', 'DSC1123CI2-125.0000',
-          'EasyEDA:OSC-SMD_6P-L3.2-W2.5-BL',
-          {'VDD': V33, 'GND': GND, 'Enable': V33,
-           'Output': 'REFCLK_OSC_P', '~{Output}': 'REFCLK_OSC_N'}, 'C617173')
-    d.C('100nF', V33, GND); d.C('4.7uF', V33, GND, C0603)
-    d.C('100nF', 'REFCLK_OSC_P', 'MGTREFCLK0P')      # AC-couple the reference clock
-    d.C('100nF', 'REFCLK_OSC_N', 'MGTREFCLK0N')
-    # UG482 v1.9, Figure 5-1 and pp. 217-219: 100 ohm, 1% to MGTAVTT.
+    # ------------------------------------------------ GTP: unused, powered
+    # Rev A carries no transceiver load. UG482 Tables 5-5/5-6: MGTAVCC and
+    # MGTAVTT stay powered, RX inputs are grounded (gen_sch.py), TX and
+    # reference clocks float, and each quad keeps its 100 ohm 1% RCAL to
+    # MGTAVTT (UG482 Figure 5-1). The former Fast Links sheet's sequential
+    # refs are consumed in place so every later part keeps its designator.
+    d.sheet('FPGA')
+    d.group('GTP calibration')
+    d.reserve('C', 4)                 # X2 decoupling and refclk AC coupling
     d.R('100 1%', 'MGTRREF', '+1V2_MGT', R0603)
-    # high-side switch: gate pulled to +3V3 so the cages are OFF until the
-    # supervisor has booted and decided a module is safe to power
-    d.group('SFP power gate')
-    d.add('Q1', 'Transistor_FET:Q_PMOS_GSD', 'DMG2305UX-7',
-          'EasyEDA:SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR',
-          {'S': V33, 'D': 'SFP_VCC', 'G': 'EN_SFP_N'}, 'C5261054')
-    d.R('100k', V33, 'EN_SFP_N')
-    d.C('10uF', 'SFP_VCC', GND, C0805)
-    d.group('SFP I2C bus')
-    for n in ('SFP_SCL', 'SFP_SDA'): d.R('4.7k', V33, n)
-    for c in range(2):
-        d.group(f'SFP port {c}')
-        p = f'SFP{c}_'
-        ctl = lambda k: p + k
-        sfp_label = f'SFP {c}'
-        local_vcc = f'SFP{c}_VCC'
-        d.add(f'FB{c+1}', 'Device:FerriteBead',
-              'BLM18PG221SN1D 220R@100MHz 1.4A',
-              'Inductor_SMD:L_0603_1608Metric',
-              {'1': 'SFP_VCC', '2': local_vcc}, 'C80165')
-        d.add(f'J{60+c}', 'odin:SFP_NoCage', sfp_label,
-              'EasyEDA:CONN-SMD_20P-P0.80-S8.20_1888247-1',
-              {'TD+': p+'TD_P', 'TD-': p+'TD_N', 'RD+': p+'RD_P', 'RD-': p+'RD_N',
-               'MOD_DEF1': p+'SCL', 'MOD_DEF2': p+'SDA',
-               'MOD_DEF0': ctl('MOD_ABS'), 'TX_DISABLE': ctl('TX_DIS'),
-               'TX_FAULT': ctl('TX_FAULT'), 'RX_LOS': ctl('LOS'),
-               'RATE_SELECT': ('SFP0_RATE_SELECT' if c == 0 else 'SFP1_RATE_SELECT'),
-               'VccT': local_vcc, 'VccR': local_vcc,
-               'VeeT1': GND, 'VeeT2': GND, 'VeeT3': GND,
-               'VeeR1': GND, 'VeeR2': GND, 'VeeR3': GND, 'VeeR4': GND}, 'C305914')
-        # Separate solder-tail cage, wave soldered after connector reflow. All twenty
-        # mechanical shield tails bond directly to the ground plane.
-        d.add(f'SH{c+1}', 'odin:U77A11133001', 'U77A11133001',
-              'odin:Amphenol_U77A11133001',
-              {str(pin): GND for pin in range(1, 21)}, 'C5355132')
-        # AC coupling: 100nF in series on all four high-speed lines
-        d.C('100nF', f'MGTPTXP{c}', p+'TD_P'); d.C('100nF', f'MGTPTXN{c}', p+'TD_N')
-        d.C('100nF', p+'RD_P', f'MGTPRXP{c}'); d.C('100nF', p+'RD_N', f'MGTPRXN{c}')
-        d.C('100nF', local_vcc, GND)
-        d.add(f'C{248+c}', 'Device:C', '22uF 6.3V', C0805,
-              {'1': local_vcc, '2': GND}, 'C86816')
-        for k in ('MOD_ABS', 'TX_FAULT', 'LOS'): d.R('4.7k', V33, p+k)
-        if c == 1:
-            d.add('R145', 'Device:R', '4.7k', R0402,
-                  {'1': local_vcc, '2': 'SFP1_RATE_SELECT'}, 'C25900')
-
-    # P7's power-up-high state safely keeps the active-low SFP gate off and
-    # frees a supervisor pin for EXT_FAULT. P0-P2 sink status LEDs; P3 reads
-    # core power-good with its output latch held high. P4-P6 remain spare.
-    d.group('SFP port expander')
+    d.reserve('R', 1); d.reserve('C', 1)        # SFP power gate
+    # U17 on the supervisor's I2C: three status LEDs and core power-good.
+    # P4-P7 are spare (P7 used to gate SFP power). Active-low LEDs are dark
+    # at power-on because every output latch wakes up high.
+    d.sheet('Supervisor')
+    d.group('status expander')
+    for n in ('SUP_SCL', 'SUP_SDA'): d.R('4.7k', V33, n)
+    d.reserve('C', 10); d.reserve('R', 6)       # two SFP ports
     d.add('U17', 'EasyEDA:PCF8574T_3,518', 'PCF8574T_3,518',
           'EasyEDA:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL',
-          {'VDD': V33, 'VSS': GND, 'SCL': 'SFP_SCL', 'SDA': 'SFP_SDA',
-           'A0': GND, 'A1': GND, 'A2': V33, '~{INT}': 'SFP_EXP_INT',
+          {'VDD': V33, 'VSS': GND, 'SCL': 'SUP_SCL', 'SDA': 'SUP_SDA',
+           'A0': GND, 'A1': GND, 'A2': V33, '~{INT}': 'SUP_EXP_INT',
            'P0': 'LED_HEARTBEAT_N', 'P1': 'LED_USER1_N', 'P2': 'LED_USER2_N',
-           'P3': 'CORE_1V0_GOOD', 'P7': 'EN_SFP_N'}, 'C7605')
+           'P3': 'CORE_1V0_GOOD'}, 'C7605')
     d.C('100nF', V33, GND)
-    d.R('4.7k', V33, 'SFP_EXP_INT')
+    d.R('4.7k', V33, 'SUP_EXP_INT')
 
     d.sheet('Power')
     # ------------------------------------------------ power tree
@@ -871,10 +825,10 @@ def build():
     for mon in ('MON_VSYS', 'MON_5V', 'MON_3V3', 'MON_2V5', 'MON_1V8', 'MON_1V0'):
         d.C('100nF', mon, GND)
 
-    # Append to preserve existing reference designators. Quad 213 is unused
-    # but its G10 supplies remain powered: UG482 Table 5-5 requires RCAL.
-    d.sheet('HighSpeed')
-    d.group('Unused quad 213 calibration')
+    # Appended to preserve existing reference designators. Quad 213 keeps
+    # its own RCAL: UG482 Table 5-5.
+    d.sheet('FPGA')
+    d.group('GTP calibration')
     d.R('100 1%', 'MGTRREF_213', V12MGT, R0603)
 
     # Append to preserve existing designators; render each pulldown with its
@@ -904,25 +858,9 @@ def build():
           'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
           {'G': 'CFG_DONE', 'S': GND, 'D': 'DONE_LED_K'}, 'C82045')
 
-    # Append to preserve existing reference numbers. Each cage's EEPROM is
-    # at 0x50; never enable both PCA9543A channels simultaneously.
-    d.sheet('HighSpeed')
-    d.group('SFP I2C mux')
-    d.add('U27', 'odin:PCA9543APW', 'PCA9543APW,118',
-          'Package_SO:TSSOP-14_4.4x5mm_P0.65mm',
-          {'VDD': V33, 'VSS': GND, 'A0': GND, 'A1': GND,
-           'SCL': 'SFP_SCL', 'SDA': 'SFP_SDA',
-           'SC0': 'SFP0_SCL', 'SD0': 'SFP0_SDA',
-           'SC1': 'SFP1_SCL', 'SD1': 'SFP1_SDA',
-           '~{RESET}': 'SUP_RUN', '~{INT0}': 'SFP_MUX_INT_UNUSED',
-           '~{INT1}': 'SFP_MUX_INT_UNUSED'}, 'C2652904')
-    d.C('100nF', V33, GND)
-    for c in range(2):
-        for line in ('SCL', 'SDA'):
-            d.R('4.7k', 'SFP_VCC', f'SFP{c}_{line}')
-    # Unused interrupt inputs must be pulled high; INT output is NC.
-    # RESET shares the controller RUN node's existing 1k pull-up/100nF.
-    d.R('10k', V33, 'SFP_MUX_INT_UNUSED')
+    # The SFP I2C switch (U27) and its pull-ups are gone; their sequential
+    # refs are consumed so later designators stay put.
+    d.reserve('C', 1); d.reserve('R', 5)
 
     # FPGA-side net names/ball assignments remain stable. The _MEM side
     # reaches only the PSRAM pin; no direct path bypasses these resistors.
@@ -954,13 +892,142 @@ def build():
 
     # PCF8574 is a strong sink, weak source. Active-low LEDs are dark at
     # power-on (all output latches high) and need no supervisor GPIOs.
-    d.sheet('HighSpeed')
+    d.sheet('Supervisor')
     d.group('board status LEDs')
     for ref, name in (('D9', 'HEARTBEAT'), ('D10', 'USER1'), ('D11', 'USER2')):
         d.R('1k', V33, f'LED_{name}_A')
         d.add(ref, 'EasyEDA:F.0603.00025_P2-0603G1TS2-06T-002',
               'F.0603.00025/P2-0603G1TS2-06T-002', 'EasyEDA:LED0603-RD_GREEN',
               {'A': f'LED_{name}_A', 'C': f'LED_{name}_N'}, 'C7496818')
+
+    # ------------------------------------------------ Network
+    # RTL8211FD-CG (decision D2: the LDO model, no switching inductor).
+    # Pin names are the datasheet rev 1.7 Table 1-9 names as the imported
+    # C2687133 symbol carries them. RGMII, MDC and MDIO run at the DVDD_RG
+    # level, 2.5 V from +2V5, into bank 16 (VCCO = +2V5, tools/alloc.py).
+    # PHYRSTB and INTB are 3.3 V pins (Table 58 note) and go to bank 13.
+    # CLKOUT (pin 35) floats, Table 2; it outputs 125 MHz by default, so the
+    # gateware clears it (PHYCR2) once MDIO is up.
+    d.sheet('Network')
+    d.group('U30  gigabit PHY')
+    d.add('U30', 'EasyEDA:RTL8211FD-CG', 'RTL8211FD-CG',
+          'EasyEDA:QFN-40_L5.0-W5.0-P0.40-BL-EP3.7',
+          {'MDIP0': 'ETH_MDI0_P', 'MDIN0': 'ETH_MDI0_N',
+           'MDIP1': 'ETH_MDI1_P', 'MDIN1': 'ETH_MDI1_N',
+           'MDIP2': 'ETH_MDI2_P', 'MDIN2': 'ETH_MDI2_N',
+           'MDIP3': 'ETH_MDI3_P', 'MDIN3': 'ETH_MDI3_N',
+           'AVDD33': V33, 'DVDD33': V33, 'DVDD_RG': V25,
+           'AVDD10': 'PHY_1V0', 'DVDD10': 'PHY_1V0', 'REG_OUT': 'PHY_1V0',
+           'GND': GND,
+           'PHYRSTB': 'PHY_RESET_N', 'INTB/PMEB': 'PHY_INT_N',
+           'MDC': 'PHY_MDC', 'MDIO': 'PHY_MDIO',
+           'TXC': 'PHY_TXC', 'TXCTL': 'PHY_TX_CTL',
+           'TXD0': 'PHY_TXD0', 'TXD1': 'PHY_TXD1', 'TXD2': 'PHY_TXD2', 'TXD3': 'PHY_TXD3',
+           'PHYAD1/RXC': 'PHY_RXC', 'PHYAD2/RXCTL': 'PHY_RX_CTL',
+           'RXDLY/RXD0': 'PHY_RXD0', 'TXDLY/RXD1': 'PHY_RXD1',
+           'PLLOFF/RXD2': 'PHY_RXD2', 'PHYAD0/RXD3': 'PHY_RXD3',
+           'CFG_EXT/LED0': 'PHY_LED0', 'CFG_LDO0/LED1': 'PHY_LED1',
+           'CFG_LDO1/LED2': 'PHY_LED2',
+           'XTAL_IN': 'PHY_XI', 'XTAL_OUT/EXT_CLK': 'PHY_XO',
+           'RSET': 'PHY_RSET'}, 'C2687133')
+    # Table 9 supplies. 3.3 V on pins 11, 29, 40: one 100nF each plus bulk.
+    # Table 53 note 1: the 3.3 V rise must take more than 0.5 ms, which U12's
+    # soft start provides; do not add a fast switch in front of the PHY.
+    for _ in range(3): d.C('100nF', V33, GND)
+    d.C('10uF', V33, GND, C0805)
+    # DVDD_RG from +2V5, external I/O mode. Table 53 note 5 case II: this
+    # rail may come up after 3.3 V because PHYRSTB is held low until it is.
+    d.C('100nF', V25, GND); d.C('1uF', V25, GND, C0603)
+    # LDO_OUT (pin 30) feeds only AVDD10 (3, 8, 38) and DVDD10 (21): one
+    # 100nF per pin and 4.7uF bulk, as on public RTL8211F boards (the
+    # datasheet names no value; FriendlyELEC NanoPi M5 uses 4.7uF + 100nF).
+    for _ in range(4): d.C('100nF', 'PHY_1V0', GND)
+    d.C('4.7uF', 'PHY_1V0', GND, C0603)
+    # RSET to GND. Rev 1.7 has no reference schematic and no value; the
+    # Realtek reference value, as every public RTL8211F board carries it
+    # (NanoPi M5: R 2.49K/1%), is 2.49k 1%. [verify] against Realtek's own
+    # reference design if it becomes available.
+    d.R('2.49k 1%', 'PHY_RSET', GND)
+
+    d.group('PHY straps and LEDs')
+    # PHYRSTB: 3.3 V input, Table 58 (VIH 2.0 V), driven from bank 13. The
+    # 1k pull-down holds it below 0.8 V against the FPGA's internal pull-up
+    # during configuration (PUDC_B low) and until +2V5 is up (Table 53 note
+    # 5 case II). Section 7.17: after release wait >= 72 ms before MDIO.
+    d.R('1k', 'PHY_RESET_N', GND)
+    # INTB is open drain (Table 4), 4.7k to 3.3 V.
+    d.R('4.7k', V33, 'PHY_INT_N')
+    # MDIO idles high through 1.5k to the I/O supply (Table 4, section 7.11.2).
+    d.R('1.5k', V25, 'PHY_MDIO')
+    # Straps, Table 10 and 11, 4.7k each. PHYAD = 001: RXD3 up, RXC and RXCTL
+    # down. PLLOFF = 0 (RXD2 down), TXDLY = 1 (RXD1 up), RXDLY = 1 (RXD0 up).
+    # These six pull to DVDD_RG, the RGMII pad supply.
+    for net, high in (('PHY_RXD3', True), ('PHY_RXC', False), ('PHY_RX_CTL', False),
+                      ('PHY_RXD2', False), ('PHY_RXD1', True), ('PHY_RXD0', True)):
+        d.R('4.7k', V25 if high else GND, net)
+    # CFG_EXT = 1, CFG_LDO[1:0] = 01: external 2.5 V I/O supply (section
+    # 7.8). These three strap to 3.3 V and GND, not to DVDD_RG (Table 11).
+    d.R('4.7k', V33, 'PHY_LED0'); d.R('4.7k', V33, 'PHY_LED1'); d.R('4.7k', 'PHY_LED2', GND)
+    # LEDs live in the jack. Section 7.9 Figure 5: a pin strapped high
+    # drives active-low (LED + 510 ohm from 3.3 V); strapped low, active-high
+    # (LED + 510 ohm to GND). Green 11/12 on LED0, yellow 14/13 on LED2
+    # (default: link at 1000 Mb/s, Table 7). LED1 is strap only.
+    d.R('510', V33, 'ETH_LED_GREEN_A')
+    d.R('510', 'ETH_LED_YELLOW_K', GND)
+
+    d.group('ETH jack')
+    # HanRun HR911130A, 1000Base-T magnetics and two LEDs in the jack. Pin
+    # names from the HanRun drawing rev A as the imported symbol carries
+    # them. P10 is the jack's internal Bob-Smith network (4 x 75 ohm, 1000 pF
+    # 2 kV) and goes to ground; P1 is the common chip-side centre tap. The
+    # RTL8211F drives the line in voltage mode with internal termination
+    # (section 7.7), so the taps carry no bias: 100nF to ground, as on
+    # public RTL8211F boards. [verify] against Realtek's reference design.
+    d.add('J70', 'EasyEDA:HR911130A', 'ETH', 'EasyEDA:RJ45-TH_HR911130A',
+          {'MDI0+': 'ETH_MDI0_P', 'MDI0-': 'ETH_MDI0_N',
+           'MDI1+': 'ETH_MDI1_P', 'MDI1-': 'ETH_MDI1_N',
+           'MDI2+': 'ETH_MDI2_P', 'MDI2-': 'ETH_MDI2_N',
+           'MDI3+': 'ETH_MDI3_P', 'MDI3-': 'ETH_MDI3_N',
+           'P1': 'ETH_CT', 'P10': GND, 'SHIELD0': GND, 'SHIELD1': GND,
+           '11': 'ETH_LED_GREEN_A', '12': 'PHY_LED0',
+           '14': 'PHY_LED2', '13': 'ETH_LED_YELLOW_K'}, 'C54408')
+    d.C('100nF 50V', 'ETH_CT', GND, C0603)
+
+    d.group('PHY clock')
+    # Table 56: 25 MHz, +/-50 ppm all in, ESR <= 50 ohm, drive <= 0.5 mW.
+    # X322525MOB4SI: +/-10 ppm, CL 12 pF. Load capacitors 2 x (CL - Cstray)
+    # with about 3 pF stray: 18 pF. The series resistor on XTAL_OUT limits
+    # drive level; 0 ohm until measured. [verify] frequency and drive.
+    d.add('X3', 'EasyEDA:X322525MOB4SI', '25MHz 12pF',
+          'EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL_X3225',
+          {'OSC1': 'PHY_XI', 'OSC2': 'PHY_XO_X', 'GND': GND}, 'C9006')
+    d.R('0', 'PHY_XO', 'PHY_XO_X')
+    d.C('18pF', 'PHY_XI', GND); d.C('18pF', 'PHY_XO_X', GND)
+
+    # Two raw LVDS_25 link ports, bank 16, DC coupled, receiver termination
+    # inside the FPGA (DIFF_TERM). Pair map, see ref/link-ports.md: an 8P8C
+    # carries its four pairs on pins 1-2, 3-6, 4-5 and 7-8; the lower pin
+    # is P. LINK P sends on 1-2 (clock) and 3-6 (data) and receives on 4-5
+    # (clock) and 7-8 (data); LINK Q is the mirror, so one straight cable
+    # from a P to a Q lands clock on clock and data on data.
+    tvs = iter(('D20', 'D21', 'D22', 'D23'))
+    for ref, port, pairs in (
+            ('J71', 'P', {(1, 2): 'TXC', (3, 6): 'TXD', (4, 5): 'RXC', (7, 8): 'RXD'}),
+            ('J72', 'Q', {(1, 2): 'RXC', (3, 6): 'RXD', (4, 5): 'TXC', (7, 8): 'TXD'})):
+        d.group(f'LINK {port}')
+        conn = {'9': GND, '10': GND}
+        for (p, n), name in pairs.items():
+            conn[str(p)] = f'LINK_{port}_{name}_P'
+            conn[str(n)] = f'LINK_{port}_{name}_N'
+        d.add(ref, 'EasyEDA:KH-RJ45-58-8P8C', f'LINK {port}',
+              'EasyEDA:RJ45-TH_KH-RJ45-58-8P8C', conn, 'C2683360')
+        # ESD at the jack: one TPD4E1U06 per two pairs, 0.8 pF per line.
+        # The pairs sit between 0 V and 2.5 V, so a to-ground array suffices.
+        for (a, b), (c, e) in (((1, 2), (3, 6)), ((4, 5), (7, 8))):
+            d.add(next(tvs), 'EasyEDA:TPD4E1U06DBVR', 'TPD4E1U06DBVR',
+                  'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR_TPD4E1U06',
+                  {'D1+': conn[str(a)], 'D1-': conn[str(b)],
+                   'D2+': conn[str(c)], 'D2-': conn[str(e)], 'GND': GND}, 'C124691')
 
     # Mandatory connector-accounting gate. A post is a ground probe/key, not
     # a mated contact; each section separately has four signal grounds plus

@@ -177,33 +177,8 @@ def normalized_signal_pattern(fp):
              for _x, net in sorted(columns[y])]
             for y in sorted(columns)]
 
-def verify_sfp(fps):
-    """Check mechanical datums using actual KiCad pads, not bounding boxes."""
-    errs = []
-    for sh, j in (('SH1', 'J60'), ('SH2', 'J61')):
-        if sh not in fps or j not in fps:
-            errs.append(f'{sh}/{j}: missing SFP assembly'); continue
-        cage, conn = fps[sh], fps[j]
-        pegs = [p for p in conn.Pads() if not p.GetNumber()]
-        pads = {p.GetNumber(): p for p in conn.Pads() if p.GetNumber()}
-        cx, cy = mm(cage.GetPosition().x), mm(cage.GetPosition().y)
-        if len(pegs) != 2 or any(
-                abs(mm(p.GetPosition().y) - cy - pl.CONNECTOR_DEPTH) > .001 or
-                p.GetAttribute() != pcbnew.PAD_ATTRIB_NPTH or
-                abs(mm(p.GetDrillSize().x) - 1.55) > .001 for p in pegs):
-            errs.append(f'{sh}/{j}: connector peg depth or NPTH geometry wrong')
-        if sorted(round(mm(p.GetPosition().x) - cx, 2) for p in pegs) != [-4.8, 4.8]:
-            errs.append(f'{sh}/{j}: connector peg transverse alignment wrong')
-        for n in range(1, 21):
-            depth = pl.CONNECTOR_DEPTH + (-4.1 if n <= 10 else 4.1)
-            if str(n) not in pads or abs(mm(pads[str(n)].GetPosition().y) - cy - depth) > .001:
-                errs.append(f'{sh}/{j}: contact {n} faces the wrong direction')
-        if len(list(cage.Pads())) != 20 or any(p.GetNetname() != 'GND' for p in cage.Pads()):
-            errs.append(f'{sh}: expected twenty grounded shield tails')
-    return errs
-
 def verify(fps):
-    errs = verify_sfp(fps)
+    errs = []
     # opposite edges share one y-lattice; bottom buses one x-lattice
     for a, b, axis in (('J5', 'J3', 1), ('J7', 'J8', 0)):
         ca, cb = contact_coords(fps[a], axis), contact_coords(fps[b], axis)

@@ -56,8 +56,11 @@ def main():
     assert rail_users == {'J68'} | aux_fuses, rail_users
     assert {p.GetNumber():p.GetNetname() for p in fps['J68'].Pads()} == {
         '1':'AUX_RAIL','2':'GND'}
-    for ref in ('J60','J61'):
-        assert {p.GetNumber() for p in fps[ref].Pads() if p.GetNumber()} == {str(i) for i in range(1,21)}
+    assert not ({'J60','J61','SH1','SH2','X2','U27','Q1','FB1','FB2'} & fps.keys())
+    assert {'J70','J71','J72','U30','X3'} <= fps.keys()
+    for ref in ('J71','J72'):
+        assert {p.GetNumber() for p in fps[ref].Pads() if p.GetNumber()} == {str(i) for i in range(1,11)}, ref
+        assert all(fps[ref].FindPadByNumber(str(i)).GetNetname() == 'GND' for i in (9, 10)), ref
     print(f'PCB/netlist PASS: {len(fps)} references, values, footprint assignments and pad nets')
     print('Ground accounting PASS: 10 sections x (4 signal GND + 3 power GND + 1 GND post); all rail neighbors GND')
     print('AUX topology PASS: no converter, J19/J20 retained, J68 feeds AUX_RAIL and only the ten branch PTCs')

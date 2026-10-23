@@ -23,7 +23,7 @@ USER_LABELS = {
         'F':'J64', 'G':'J56', 'H':'J65', 'L':'J57', 'M':'J58'}.items()},
     'J19': 'A-D PIN VOLTAGE', 'J20': 'E-H PIN VOLTAGE',
     'J50': '9-21V POWER IN', 'J51': 'CTRL SWD', 'J52': 'EXT JTAG',
-    'J60': 'SFP 0', 'J61': 'SFP 1',
+    'J70': 'ETH', 'J71': 'LINK P', 'J72': 'LINK Q',
     'J68': 'AUX IN 9-28V UNREGULATED\nYOUR RAIL, YOUR PROBLEM',
     **{f'MK{ord(s)}': f'KEY {s}' for s in 'ABCDEFGHLM'},
 }
@@ -38,13 +38,12 @@ ROLE_LABELS = {
     'U9': '5V BUS 0 CONVERTER', 'U10': '5V BUS 1 CONVERTER',
     'U11': '5V SUPPLY', 'U12': '3V3 SUPPLY\nALWAYS ON',
     'U13': '2V5 SUPPLY', 'U14': '1V8 SUPPLY',
-    'U15': '1V0 SUPPLY\nFPGA CORE', 'U16': '1V2 SUPPLY\nFAST LINKS',
-    'U17': 'OPTIONAL SFP CONTROL', 'U18': 'USB POWER REQUEST',
+    'U15': '1V0 SUPPLY\nFPGA CORE', 'U16': '1V2 SUPPLY\nTRANSCEIVERS',
+    'U17': 'STATUS EXPANDER', 'U18': 'USB POWER REQUEST',
     'U20': 'JTAG OWNER',
     'U21': 'SLOT 5V PROTECTION', 'U22': 'SLOT 3V3 PROTECTION',
     'U23': 'A-D PIN PROTECTION', 'U24': 'E-H PIN PROTECTION',
-    'U26': 'USB INPUT PROTECTION',
-    'X2': 'LINK CLOCK\n125MHz',
+    'U26': 'USB INPUT PROTECTION', 'U30': 'ETHERNET PHY',
 }
 
 # These are populated from the schematic value instead of duplicated here.
@@ -119,6 +118,8 @@ def main():
             add_field(fp, 'UI_PINS', '9-21V +\nGND', -4.0, 0.0)
         elif ref == 'J52':
             add_field(fp, 'UI_STATES', 'OPEN: CTRL\nFIT: EXT', -4.0, 0.0)
+        elif ref in ('J71', 'J72'):
+            add_field(fp, 'UI_RULE', 'STP ONLY\nPOWER BOTH BOARDS FIRST', 0.0, 12.0, 0.7)
         elif ref == 'J68':
             add_field(fp, 'UI_PINS', 'AUX +\nGND', -4.0, 0.0)
 

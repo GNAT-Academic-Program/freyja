@@ -38,9 +38,9 @@ not control it and nothing on the base board draws from it. Capacitors on
 ## Base-board load model retained
 
 The per-load estimates are retained in `LOADS`; cascaded 90%-efficient
-conversion gives 0.529 A on +5V and
-1.367 A on +3V3 before connector exports. Both SFP
-modules are included. FPGA values are planning estimates pending AMD XPE.
+conversion gives 0.612 A on +5V and
+0.923 A on +3V3 before connector exports. FPGA values
+are planning estimates pending AMD XPE.
 The two VCCIO domains and the separate 3V3 export share U12's 3 A ceiling;
 their maximum switch-limit tolerances are not additive guaranteed allowances.
 

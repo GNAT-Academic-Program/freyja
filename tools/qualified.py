@@ -153,11 +153,6 @@ PARTS = {
            'transient limit is the lowest downstream transient absolute maximum',
     pinmap='1 cathode to VIN_EXT; 2 anode to GND',
     src='BORN SMBJ22A datasheet; LCSC C151920'),
-  'Q1': dict(
-    mpn='DMG2305UX-7', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR',
-    rating='-20 V VDSS, +/-8 V VGSS, -4.2 A, RDS(on) 52 mohm max at '
-           'VGS -4.5 V. Source at +3V3, so VGS never exceeds -3.3 V',
-    pinmap='G-S-D SOT-23, pins 1-2-3', src='Diodes Inc DMG2305UX datasheet'),
   'Q2': dict(
     mpn='DMG2305UX-7', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR',
     rating='-20 V VDSS, +/-8 V VGSS, -4.2 A, PD 1.4 W. 100k/47k gate divider: '
@@ -192,7 +187,7 @@ PARTS = {
     src='NXP PCA9543A_43B rev 8; LCSC C2652904'),
   'EasyEDA:PCF8574T_3,518': dict(
     mpn='PCF8574T_3,518', pkg='SOIC-16W (7.5x10.3 mm)', fp='EasyEDA:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL',
-    rating='2.5-6 V, quasi-bidirectional I/O; P0-P2 sink LEDs at about 1 mA each; P3 reads core PG; P7 controls SFP power',
+    rating='2.5-6 V, quasi-bidirectional I/O; P0-P2 sink LEDs at about 1 mA each; P3 reads core PG; P4-P7 spare',
     pinmap='Imported EasyEDA symbol/footprint; LCSC C7605', src='NXP PCF8574 datasheet; LCSC C7605'),
   'EasyEDA:2044-2X32G00SA': dict(
     mpn='2044-2X32G00SA', pkg='2x32 female socket, 2.54 mm, THT, 8.5 mm, gold',
@@ -240,32 +235,48 @@ PARTS = {
     rating='4-line bidirectional ESD array, 6.1 V standoff. On D+, D-, '
            'CC1, CC2 -- data and CC only, never VBUS',
     pinmap='KiCad Power_Protection symbol', src='ST ESDA6V1BC6 datasheet'),
-  # ------------------------------------------------------------- high speed
-  'EasyEDA:DSC1123CI2-125.0000': dict(
-    mpn='DSC1123CI2-125.0000', pkg='6-pad VDFN, 3.2x2.5 mm',
-    fp='EasyEDA:OSC-SMD_6P-L3.2-W2.5-BL',
-    rating='125 MHz LVDS, 2.25-3.63 V, +/-25 ppm, 32 mA maximum',
-    pinmap='Microchip DSC1103/23 table 2-2: 1 EN, 2 NC, 3 GND, '
-           '4 OUT+, 5 OUT-, 6 VDD; imported C617173 agrees',
-    src='Microchip DSC1103/23 datasheet; LCSC C617173'),
-  'odin:SFP_NoCage': dict(
-    mpn='1888247-1', pkg='SFP/SFP+ SMT connector, 20 position',
-    fp='EasyEDA:CONN-SMD_20P-P0.80-S8.20_1888247-1',
-    rating='3.3 V, 1 W per module assumed',
-    pinmap='TE 20-contact pinout only; no fictitious CAGE pin; SH1/SH2 own cage tails',
-    src='TE 1888247 drawing; LCSC C305914'),
-  'Device:FerriteBead': dict(
-    mpn='BLM18PG221SN1D', pkg='0603 (1608 metric)',
-    fp='Inductor_SMD:L_0603_1608Metric',
-    rating='220 ohm at 100 MHz, 1.4 A rated current, 100 mohm maximum DCR',
-    pinmap='two-terminal ferrite; SFP_VCC to one local port supply',
-    src='Murata BLM18PG data sheet; LCSC C80165'),
-  'odin:U77A11133001': dict(
-    mpn='U77A11133001', pkg='SFP 1x1 cage, 3.2 mm solder tails',
-    fp='odin:Amphenol_U77A11133001',
-    rating='Manufacturer lists 2.5 Gb/s; all shield tails GND; JLC wave solder',
-    pinmap='Drawing-based symbol/footprint; 20 solder tails; see ref/sfp-cage.md',
-    src='Amphenol P-U77-A111X-XX0X rev H; JLC/LCSC C5355132'),
+  # ----------------------------------------------------------------- network
+  'EasyEDA:RTL8211FD-CG': dict(
+    mpn='RTL8211FD-CG', pkg='QFN-40 5x5 mm, 0.4 mm pitch, exposed pad 3.60 mm nominal (3.45-3.75)',
+    fp='EasyEDA:QFN-40_L5.0-W5.0-P0.40-BL-EP3.7',
+    rating='10/100/1000Base-T PHY, RGMII; DVDD33/AVDD33 2.97-3.63 V; DVDD_RG '
+           '2.5 V external I/O supply (CFG_EXT=1, CFG_LDO=01); integrated LDO '
+           'makes the 1.0 V core (LDO model, no inductor); MDI internally '
+           'terminated; 0-70 C commercial grade. Imported pad 0.20x0.80 mm, '
+           'EP 3.7 mm within the drawing maximum',
+    pinmap='Datasheet rev 1.7 Tables 1-9 agree with the imported C2687133 '
+           'symbol pin for pin (41 = exposed pad GND)',
+    src='Realtek RTL8211F(I)/RTL8211FD(I)-CG datasheet rev 1.7; LCSC/JLC C2687133'),
+  'EasyEDA:HR911130A': dict(
+    mpn='HR911130A', pkg='tab-down shielded RJ45 with integrated 1000Base-T magnetics and two LEDs, THT',
+    fp='EasyEDA:RJ45-TH_HR911130A',
+    rating='IEEE 802.3ab 1000Base-T, 1500 Vrms isolation, 1CT:1CT, OCL 350 uH '
+           'min; chip-side centre taps common on P1, Bob-Smith 4x75 ohm + '
+           '1000 pF 2 kV inside on P10; LEDs 20 mA, 1.8-2.8 V forward',
+    pinmap='HanRun drawing rev A page 1: P2/P3 MDI0, P4/P7 MDI1, P5/P6 MDI2, '
+           'P8/P9 MDI3, P1 CT, P10 termination, 11(+)/12(-) green, 14(+)/13(-) '
+           'yellow, SHIELD0/1; imported footprint pad names match',
+    src='HanRun HR911130A drawing rev A; LCSC C54408'),
+  'EasyEDA:KH-RJ45-58-8P8C': dict(
+    mpn='KH-RJ45-58-8P8C', pkg='tab-down shielded 8P8C jack, no magnetics, THT, 15.70 x 18.20 mm',
+    fp='EasyEDA:RJ45-TH_KH-RJ45-58-8P8C',
+    rating='plain jack: 1.5 A, 125 VAC contacts, gold over nickel; carries the '
+           'DC-coupled LVDS_25 link pairs, nothing more',
+    pinmap='Kinghelm drawing A2 (2022-08-15): contacts 1-8 in two 1.27 mm '
+           'rows, 9/10 shell tabs; imported footprint pad numbers match',
+    src='Kinghelm KH-RJ45-58-8P8C drawing; LCSC C2683360'),
+  'EasyEDA:X322525MOB4SI': dict(
+    mpn='X322525MOB4SI', pkg='SMD 3225, 4 pad', fp='EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL_X3225',
+    rating='25 MHz, +/-10 ppm, CL 12 pF, ESR 50 ohm max; RTL8211F Table 56 '
+           'wants +/-50 ppm all-in, ESR <= 50 ohm, drive <= 0.5 mW',
+    pinmap='YXC 3225: 1 and 3 crystal, 2 and 4 case/GND; imported C9006 symbol agrees',
+    src='YXC X322525MOB4SI; LCSC/JLC C9006 (Basic)'),
+  'EasyEDA:TPD4E1U06DBVR': dict(
+    mpn='TPD4E1U06DBVR', pkg='SOT-23-6', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR_TPD4E1U06',
+    rating='4-line ESD array, 0.8 pF, 5.5 V working, +/-15 kV; unidirectional '
+           'to GND, which the 2.5 V LVDS pairs (never below ground) allow',
+    pinmap='TI DBV: 1 D1+, 6 D1-, 3 D2+, 4 D2-, 2 GND, 5 NC; imported C124691 agrees',
+    src='TI TPD4E1U06 datasheet SLLSEK5; LCSC C124691'),
   # ------------------------------------------------------- FPGA decoupling
   # UG483 v1.14 Table 2-5 names the parts; the ceramic 1210/0805/0603 values
   # are ordinary passives matched at BOM time (C > nominal, X7R or X5R, ESR
