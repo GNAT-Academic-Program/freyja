@@ -1,7 +1,16 @@
 # Freya rev A: rebased audit and plan
 
 Rebased on `bf28a92` (2026-10-23). This supersedes the "audit and
-implementation plan for the IDE agent" written against `4eea232`. Every number
+implementation plan for the IDE agent" written against `4eea232`.
+
+**Status 2026-10-23:** phases A0, A1, A2, A3+A4, A4b (system clock, an
+audit gap found in A5), A5 and B1 are done, one commit each, numbers in
+`ref/rev-a-report.md`. B2 (snapshot, `load_pcb.py`, compare, zero moves)
+was performed inside every phase that touched the netlist. B3 to B5 are the
+owner's hand placement and routing in KiCad; `tools/placement.py` holds the
+proposed top-edge positions for the three jacks and J50, `floorplan.md` and
+`ref/decoupling.md` the placement rules, and `python3 tools/gate.py` the
+checks to keep green. Every number
 below was measured on `bf28a92`; every datasheet value carries its table.
 
 Goal is unchanged: a board that configures, runs NEORV32, exposes the
