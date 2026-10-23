@@ -14,9 +14,7 @@ What it does, in order:
                 computed position. These never depend on taste.
   2. ISLANDS    only with explicit --stage: stage connectivity-island tiles.
   3. PSRAM RULE 24 series resistors sit at the FPGA right-hand escape edge.
-  4. DECAP RULE the FPGA's per-ball 100nF decoupling flips to B.Cu and lands
-                mirrored under its supply ball.
-  5. VERIFY     the extension edges expose one shared 2.54mm hole lattice:
+  4. VERIFY     the extension edges expose one shared 2.54mm hole lattice:
                 the left and right signal sockets must present identical pad
                 y-sets, the bottom pair identical x-sets, and signal row,
                 power row and key post must sit on one 2.54mm grid. Failure
@@ -81,8 +79,6 @@ def layout_islands(fps, skip):
         if t:
             tiles.append(t)
     for g in sorted(loose):
-        if g.startswith('decoupling '):
-            continue                # the decap rule re-places these anyway
         t = sorted(r for r in loose[g] if r in fps and r not in skip)
         if t:
             tiles.append(t)
@@ -120,47 +116,6 @@ def place_psram_termination(fps):
         f.Reference().SetLayer(pcbnew.F_Fab)
         f.Value().SetLayer(pcbnew.F_Fab)
         f.Value().SetVisible(False)
-
-# ------------------------------------------------------------- tier 3
-def mirror_decaps(board, fps):
-    """Each 'decoupling <rail>' 100nF flips to B.Cu under a supply ball of
-    that rail. Balls are consumed nearest-first so caps spread out."""
-    d = build()
-    u1 = fps['U1']
-    rails = {}
-    for part in d.parts:
-        g = part['group']
-        if g.startswith('decoupling ') and part['ref'].startswith('C'):
-            rails.setdefault(g.split(' ', 1)[1], []).append(part['ref'])
-    for rail, caps in rails.items():
-        balls = [p for p in u1.Pads() if p.GetNetname() == rail]
-        if not balls:
-            print(f'decap rule: no U1 balls on {rail}?'); continue
-        balls.sort(key=lambda p: (p.GetPosition().x, p.GetPosition().y))
-        # spread: greedy min-distance ball subset so 0402 caps cannot stack
-        # (adjacent balls sit 1.0mm apart; a cap courtyard is ~1.7mm long)
-        chosen = []
-        for gap in (2.2, 1.8, 1.4, 1.1):
-            chosen = []
-            for b in balls:
-                bp = b.GetPosition()
-                if all((mm(bp.x - c.GetPosition().x)) ** 2 +
-                       (mm(bp.y - c.GetPosition().y)) ** 2 >= gap * gap
-                       for c in chosen):
-                    chosen.append(b)
-            if len(chosen) >= len(caps):
-                break
-        if gap < 2.2:
-            print(f'decap rule: {rail}: crowded, spacing relaxed to {gap}mm')
-        for cap, ball in zip(sorted(caps), chosen):
-            if cap not in fps: continue
-            fp = fps[cap]
-            if fp.GetLayer() != pcbnew.B_Cu:
-                fp.Flip(fp.GetPosition(), False)
-            fp.SetPosition(ball.GetPosition())
-            fp.SetOrientationDegrees(0)
-        if len(caps) > len(balls):
-            print(f'decap rule: {rail}: {len(caps)} caps for {len(balls)} balls')
 
 def report_overlaps(fps):
     """Courtyard-collision report over the whole board, so anchor tuning is
@@ -344,13 +299,10 @@ def main():
         if stage:
             layout_islands(fps, contract_refs | termination_refs)
         place_psram_termination(fps)
-        mirror_decaps(board, fps)
-        decap_refs = {p['ref'] for p in build().parts
-                      if p['group'].startswith('decoupling ') and p['ref'].startswith('C')}
         moved = sorted(r for r, fp in fps.items()
                        if before[r] != (fp.GetPosition().x, fp.GetPosition().y,
                                         round(fp.GetOrientationDegrees(), 3), fp.GetLayer()))
-        allowed = contract_refs | termination_refs | decap_refs
+        allowed = contract_refs | termination_refs
         unexpected = sorted(set(moved) - allowed)
         print('moved refs: ' + (', '.join(moved) if moved else 'none'))
         if unexpected and not stage:
@@ -363,7 +315,7 @@ def main():
     report_overlaps(fps)   # informational: overlaps do not block the write
     if not check_only:
         board.Save(BOARD)
-        print(f'wrote {BOARD}: {len(contract)} contract, groups anchored, decaps mirrored')
+        print(f'wrote {BOARD}: {len(contract)} contract, groups anchored')
     else:
         print('verify: clean')
 

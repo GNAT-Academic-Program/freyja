@@ -13,8 +13,9 @@ Three tiers, in order of authority:
   2. ANCHORS       one coordinate per schematic group (regulators, memories,
                    supervisor...). Members are laid out by place.py relative
                    to these. Tune freely; the contract does not move.
-  3. RULES         parametric placement (BGA decoupling mirrored under supply
-                   balls). Implemented in place.py where pad data exists.
+  3. RULES         parametric placement (PSRAM series resistors at the FPGA
+                   escape edge). Implemented in place.py where pad data exists.
+                   The board is assembled on one side: nothing goes on B.Cu.
 
 Run standalone to print the table and check courtyard collisions:
     python3 tools/placement.py

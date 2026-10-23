@@ -276,7 +276,9 @@ def build():
 
     d.group('config straps (UG470)')
     # config straps (UG470)
-    d.R('4.7k', V33, 'CFG_M0'); d.R('4.7k', 'CFG_M1', GND); d.R('4.7k', 'CFG_M2', GND)
+    # M[2:0] = 001, master SPI. UG470 v1.17 Table 2-4: mode pins connect
+    # "directly, or via a <= 1 kohm resistor" to VCCO_0 or GND.
+    d.R('1k', V33, 'CFG_M0'); d.R('1k', 'CFG_M1', GND); d.R('1k', 'CFG_M2', GND)
     d.R('4.7k', V33, 'CFG_PROG_B'); d.R('4.7k', V33, 'CFG_INIT_B')
     d.R('1k', 'PUDC_B', GND)  # UG470: <=1k strap low; enables config pull-ups
     # DONE drives only Q4's gate; LED current comes from +3V3.
