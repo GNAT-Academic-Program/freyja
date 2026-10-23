@@ -8,20 +8,29 @@
 (rule "AUX_RAIL 5A aggregate"
   (condition "A.hasNetclass('AUX_5A')")
   (constraint track_width (min 2.0mm) (opt 2.0mm)))
-(rule "MGT 100R outer geometry"
+# RGMII: about 50 ohm on the outer layers; keep the twelve lines the same
+# width and length-match TXD[3:0]/TX_CTL to TXC and RXD[3:0]/RX_CTL to RXC
+# by hand (KiCad has no bus-skew rule); the PHY's 2 ns delays do the rest.
+(rule "RGMII width"
+  (condition "A.hasNetclass('RGMII')")
+  (constraint track_width (min 0.125mm) (opt 0.125mm)))
+# 100 ohm differential pairs: the LVDS_25 link pairs and the PHY's MDI pairs.
+# Geometry is calculated only for L1 over In1 and B.Cu over In6.
+(rule "100R outer geometry"
   (layer outer)
-  (condition "A.hasNetclass('MGT_100R')")
+  (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint track_width (min 0.099mm) (opt 0.099mm) (max 0.099mm))
   (constraint diff_pair_gap (min 0.2mm) (opt 0.2mm) (max 0.2mm)))
-# This geometry is calculated only for L1/L2 and L6/L5, not inner layers.
-(rule "MGT outer routing only"
+(rule "100R outer routing only"
   (layer inner)
-  (condition "A.hasNetclass('MGT_100R')")
+  (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint disallow track))
-# Keep other copper >= ~4 dielectric heights away for the non-coplanar model.
-(rule "MGT clearance to other copper"
-  (condition "A.hasNetclass('MGT_100R') && !AB.isCoupledDiffPair()")
+# Keep other copper >= ~4 dielectric heights away from the pair tracks for
+# the non-coplanar model. Tracks only: the 0.4 mm QFN pads and the jack pins
+# set their own spacing.
+(rule "100R clearance to other copper"
+  (condition "A.Type == 'Track' && (A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')) && !AB.isCoupledDiffPair()")
   (constraint clearance (min 0.31mm)))
-(rule "MGT intra-pair skew"
-  (condition "A.hasNetclass('MGT_100R')")
+(rule "100R intra-pair skew"
+  (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))

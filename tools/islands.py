@@ -14,10 +14,10 @@ hangs off. No KiCad required; plain python3.
                                            # island map and the Nets panel
                                            # filters one island at a time
 
---netclasses merges: existing classes (Default, MGT_100R...) and their
+--netclasses merges: existing classes (Default, LVDS_100R...) and their
 patterns are kept untouched; nets already matched by a non-ISL pattern
-(the MGT pairs) are left out of island classes so impedance rules stay
-authoritative. Previous ISL* classes are replaced. Island classes copy
+(the 100 ohm pairs, RGMII) are left out of island classes so impedance rules
+stay authoritative. Previous ISL* classes are replaced. Island classes copy
 Default's electrical parameters at the lowest priority: they carry color
 and grouping, never rules.
 
@@ -25,7 +25,7 @@ Rules:
   - GND, power rails, and any net with more than LOCAL_MAX pins bind
     nothing (they go everywhere; proximity along them is meaningless).
   - Hub parts (more than HUB_PINS pins: FPGA, controller, slot sockets,
-    SFP connectors...) join no island. Each island instead reports which
+    the PHY, the jacks...) join no island. Each island instead reports which
     hubs its nets reach and on how many nets, which tells you where on
     the board the island belongs.
   - Parts left with no local net at all (rail-only: bulk and decoupling

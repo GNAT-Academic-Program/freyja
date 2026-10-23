@@ -152,20 +152,20 @@ suffix without checking its package and ratings.
 
 ## Board
 
-100 x 100 mm, ENIG, nominal 1.6 mm. The stackup is being moved from six to
-eight layers in rev A phase B1 (`ref/rev-a-plan.md`); the text below
-describes the six-layer rules still in `odin.kicad_pro` until then. Keep both
-ground planes continuous under the PSRAM groups, the RGMII bus and the link
-pairs.
+100 x 100 mm, **8 layers**, ENIG, nominal 1.6 mm: JLC08161H-1080A,
+S / GND / S / PWR / GND / S / GND / S (F.Cu, In1 GND, In2 signal, In3 power,
+In4 GND, In5 signal, In6 GND, B.Cu). In2 and In5 are the BGA escape layers,
+each 0.1 mm from a ground plane; In3/In4 are a tight plane pair. Keep every
+ground plane continuous under the PSRAM groups, the RGMII bus and the 100 Ω
+pairs. The board is assembled on one side; B.Cu carries routing only.
 
-Dielectric spacings follow [JLC06161H-1080B](https://jlcpcb.com/impedance),
-with 0.0764 mm outer prepregs and 0.1 mm cores next to the inner signal and
-power layers. The central prepreg/core/prepreg spacer is represented as a
-three-sublayer, 1.1208 mm dielectric. Material Dk values and the 100 Ω
-geometry come from JLC's calculator tables; see [PCB impedance](../ref/pcb-impedance.md)
-for the inputs and saved solver responses. The `MGT_100R` class has no nets
-in rev A and is replaced by `LVDS_100R` and `RGMII` in phase B1. PSRAM has a
-0.1 mm minimum width; default clearance is 0.15 mm.
+Dielectrics come from JLC's template (`ref/jlc08161h-1080a-stackup.json`):
+0.0764 mm 1080 prepreg outside, 0.1 mm cores, 7628/1080/7628 stacks between
+the plane pairs. The 100 Ω pairs (`LVDS_100R`, `MDI_100R`) use 0.099 mm
+width / 0.200 mm gap on the outer layers, from JLC's solver on that outer
+prepreg; `RGMII` is 0.125 mm (estimate, confirm with JLC's calculator);
+PSRAM 0.1 mm minimum width; default clearance 0.15 mm. See
+[PCB impedance](../ref/pcb-impedance.md).
 
 Regenerate stackup and rules without replacing placement or routing:
 `python3 tools/gen_pcb.py --rules-only`. Net classes live in `odin.kicad_pro`;
