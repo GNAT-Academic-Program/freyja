@@ -281,189 +281,189 @@ Inputs, the regulators that make every rail, extension power protection.
 
 ### VBUS pass switch to +5V
 
-_No description yet._
+A shortcut for plain 5 V USB. A regulator cannot make 5 V out of 5 V, so when the USB source is 5 V the board controller turns Q2 on and USB power goes straight onto the +5V rail. It is off by default and must stay off at 9 V, or 9 V would reach parts rated for 5.5 V; Q3 is the small transistor the controller uses to switch it.
 
 | Ref | Value | What it does |
 |---|---|---|
-| Q2 | DMG2305UX-7 | _not yet described_ |
-| Q3 | BSS138LT1G | _not yet described_ |
-| C183 | 100nF 25V | 100nF 25V capacitor between VBUS and VBUS5_GATE, for Q2 |
-| R46 | 100k | 100k pull-up of VBUS5_GATE to VBUS, for Q2 |
-| R47 | 10k | 10k series resistor between EN_VBUS5 and EN_VBUS5_G, for U7 |
-| R48 | 100k | 100k pull-down on EN_VBUS5_G, for Q3 |
-| R49 | 47k | 47k series resistor between VBUS5_GATE and VBUS5_PULL, for Q3 |
+| Q2 | DMG2305UX-7 | 5 V USB pass switch: P-MOSFET that connects USB power straight to +5V when the source is plain 5 V. Off by default; must stay off at 9 V. |
+| Q3 | BSS138LT1G | pass switch driver: Small N-MOSFET the board controller (EN_VBUS5) uses to turn Q2 on. |
+| C183 | 100nF 25V | 100nF 25V capacitor between VBUS and VBUS5_GATE, for Q2 (5 V USB pass switch): Q2's gate; held off unless Q3 pulls it |
+| R46 | 100k | 100k resistor from VBUS5_GATE to VBUS, for Q2 (5 V USB pass switch): Q2's gate; held off unless Q3 pulls it |
+| R47 | 10k | 10k series resistor between EN_VBUS5 and EN_VBUS5_G, for U7 (board controller): from the board controller: connect 5 V USB straight to +5V; Q3's gate; off unless the board controller drives EN_VBUS5 |
+| R48 | 100k | 100k pull-down on EN_VBUS5_G, for Q3 (pass switch driver): Q3's gate; off unless the board controller drives EN_VBUS5 |
+| R49 | 47k | 47k series resistor between VBUS5_GATE and VBUS5_PULL, for Q3 (pass switch driver): Q2's gate; held off unless Q3 pulls it; Q2 gate drive through Q3 |
 
 ### input OR-ing
 
-_No description yet._
+Where power enters. Two inputs feed one internal supply, VSYS: USB-C (5 V, or 9 V when a USB-PD charger agrees) and the J50 screw terminal (9-21 V). A diode on each (D3, D4) lets whichever is higher supply the board and stops one input from back-feeding the other. On the USB side, U26 is an electronic fuse: it ramps the voltage up gently so plugging in does not spark, cuts off above about 10 V or below 3.75 V, and limits current to about 2 A. D8 clamps voltage spikes on the screw input. VSYS then feeds the two main regulators.
 
 | Ref | Value | What it does |
 |---|---|---|
-| D3 | SS34 | _not yet described_ |
-| D4 | SS34 | _not yet described_ |
-| D8 | SMBJ22A | _not yet described_ |
-| J50 | 9-21V POWER IN | _not yet described_ |
-| U26 | TPS259470ARPWR | _not yet described_ |
-| C184 | 2.2nF 25V | 2.2nF 25V filter capacitor on VBUS_DVDT, for U26 |
-| C185 | 10uF 50V | 10uF 50V bypass on VSYS, for J50 |
-| C186 | 10uF 50V | 10uF 50V bypass on VSYS, for J50 |
-| C187 | 10uF 25V | 10uF 25V bypass on VBUS, for J50 |
-| R50 | 100k | 100k pull-up of VBUS_UVLO to VBUS, for U26 |
-| R51 | 47k | 47k pull-down on VBUS_UVLO, for U26 |
-| R52 | 73.2k | 73.2k pull-up of VBUS_OVLO to VBUS, for U26 |
-| R53 | 10k | 10k pull-down on VBUS_OVLO, for U26 |
-| R54 | 1.65k | 1.65k pull-down on VBUS_ILM, for U26 |
+| D3 | SS34 | USB input diode: SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB. |
+| D4 | SS34 | screw input diode: SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it. |
+| D8 | SMBJ22A | screw input surge clamp: SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V. |
+| J50 | 9-21V POWER IN | POWER IN screw terminal: Main power input, 9-21 V DC. Polarity marked on the board. |
+| U26 | TPS259470ARPWR | USB input eFuse: TI TPS259470A: ramps USB power in gently, cuts off outside 3.75-10 V, limits current to about 2 A, blocks reverse current. Reports faults on EXT_FAULT. |
+| C184 | 2.2nF 25V | 2.2nF 25V capacitor from VBUS_DVDT to GND, for U26 (USB input eFuse): sets how slowly U26 ramps VSYS up, about 0.9 V/ms |
+| C185 | 10uF 50V | 10uF 50V bypass on VSYS, for U26 (USB input eFuse) |
+| C186 | 10uF 50V | 10uF 50V bypass on VSYS, for U26 (USB input eFuse) |
+| C187 | 10uF 25V | 10uF 25V bypass on VBUS, for U26 (USB input eFuse) |
+| R50 | 100k | 100k resistor from VBUS_UVLO to VBUS, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V |
+| R51 | 47k | 47k resistor from VBUS_UVLO to GND, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V |
+| R52 | 73.2k | 73.2k resistor from VBUS_OVLO to VBUS, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V |
+| R53 | 10k | 10k resistor from VBUS_OVLO to GND, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V |
+| R54 | 1.65k | 1.65k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A |
 
 ### U11  VSYS to +5V
 
-_No description yet._
+Switching regulator (buck converter) that makes +5V from VSYS. +5V feeds the 5 V buses, the extension 5 V pins and the four small regulators below. The board controller turns it on (EN_5V); the pull-down keeps it off until then. The two feedback resistors set the output voltage; the inductor and capacitors are its power stage.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U11 | AP63300WU-7 | _not yet described_ |
-| C188 | 100nF | 100nF capacitor between BOOT_5V and SW_5V, for U11 |
-| C189 | 22uF | 22uF bypass on +5V, for U11 |
-| C190 | 22uF | 22uF bypass on +5V, for U11 |
-| C191 | 22uF | 22uF bypass on +5V, for U11 |
-| L2 | 4.7uH SRN6045TA-4R7M | 4.7uH SRN6045TA-4R7M inductor between +5V and SW_5V, for U11 |
-| R55 | 100k | 100k series resistor between +5V and FB_5V, for U11 |
-| R56 | 19.1k | 19.1k pull-down on FB_5V, for U11 |
-| R90 | 100k | 100k pull-down on EN_5V, for U11 |
+| U11 | AP63300WU-7 | 5 V regulator: Diodes AP63300, 3 A switching regulator: VSYS to +5V. |
+| C188 | 100nF | 100nF capacitor between BOOT_5V and SW_5V, for U11 (5 V regulator): bootstrap capacitor for the regulator's high-side switch; regulator switching node |
+| C189 | 22uF | 22uF bypass on +5V, for U11 (5 V regulator) |
+| C190 | 22uF | 22uF bypass on +5V, for U11 (5 V regulator) |
+| C191 | 22uF | 22uF bypass on +5V, for U11 (5 V regulator) |
+| L2 | 4.7uH SRN6045TA-4R7M | 4.7uH SRN6045TA-4R7M inductor between +5V and SW_5V, for U11 (5 V regulator): regulator switching node |
+| R55 | 100k | 100k series resistor between +5V and FB_5V, for U11 (5 V regulator): feedback divider, sets the regulator's output voltage |
+| R56 | 19.1k | 19.1k resistor from FB_5V to GND, for U11 (5 V regulator): feedback divider, sets the regulator's output voltage |
+| R90 | 100k | 100k pull-down on EN_5V, for U11 (5 V regulator): keeps the regulator off until the board controller enables it |
 
 ### U12  VSYS to +3V3  (always-on AP63300 reference circuit)
 
-_No description yet._
+Switching regulator that makes +3V3 from VSYS. It has no enable: it starts as soon as any power is present, because +3V3 runs the board controller, which then switches everything else on. Also powers the PSRAM, the flashes, the PHY and most logic. The two feedback resistors set 3.3 V; the inductor and capacitors are its power stage.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U12 | AP63300WU-7 | _not yet described_ |
-| C192 | 10uF 50V | 10uF 50V bypass on VSYS, for U12 |
-| C193 | 100nF | 100nF capacitor between BOOT_3V3 and SW_3V3, for U12 |
-| C194 | 56pF | 56pF capacitor between +3V3 and FB_3V3, for U12 |
-| C195 | 22uF | 22uF bypass on +3V3, for U12 |
-| C196 | 22uF | 22uF bypass on +3V3, for U12 |
-| C197 | 22uF | 22uF bypass on +3V3, for U12 |
-| L3 | 4.7uH SRN6045TA-4R7M | 4.7uH SRN6045TA-4R7M inductor between +3V3 and SW_3V3, for U12 |
-| R57 | 93.1k | 93.1k series resistor between +3V3 and FB_3V3, for U12 |
-| R58 | 30.1k | 30.1k pull-down on FB_3V3, for U12 |
+| U12 | AP63300WU-7 | 3.3 V regulator, always on: Diodes AP63300, 3 A switching regulator: VSYS to +3V3. Starts by itself. |
+| C192 | 10uF 50V | 10uF 50V bypass on VSYS, for U12 (3.3 V regulator, always on) |
+| C193 | 100nF | 100nF capacitor between BOOT_3V3 and SW_3V3, for U12 (3.3 V regulator, always on): bootstrap capacitor for the regulator's high-side switch; regulator switching node |
+| C194 | 56pF | 56pF capacitor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| C195 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
+| C196 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
+| C197 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
+| L3 | 4.7uH SRN6045TA-4R7M | 4.7uH SRN6045TA-4R7M inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node |
+| R57 | 93.1k | 93.1k series resistor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R58 | 30.1k | 30.1k resistor from FB_3V3 to GND, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
 ### U13  5V to +2V5
 
-_No description yet._
+Small switching regulator that makes +2V5 from +5V for FPGA bank 16 (network) and the PHY's RGMII pins. Enabled by the board controller (EN_2V5); the feedback resistors set 2.5 V.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U13 | TLV62569DRLR | _not yet described_ |
-| C198 | 22uF | 22uF bypass on +2V5, for U13 |
-| C199 | 22uF | 22uF bypass on +2V5, for U13 |
-| C200 | 100nF | 100nF bypass on +5V, for U13 |
-| L4 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +2V5 and SW+2V5, for U13 |
-| R59 | 100k | 100k pull-up of FB+2V5 to +2V5, for U13 |
-| R60 | 31.6k | 31.6k pull-down on FB+2V5, for U13 |
-| R91 | 100k | 100k pull-down on EN_2V5, for U7 |
+| U13 | TLV62569DRLR | 2.5 V regulator: TI TLV62569, 2 A switching regulator: +5V to +2V5. |
+| C198 | 22uF | 22uF bypass on +2V5, for U13 (2.5 V regulator) |
+| C199 | 22uF | 22uF bypass on +2V5, for U13 (2.5 V regulator) |
+| C200 | 100nF | 100nF bypass on +5V, for U13 (2.5 V regulator) |
+| L4 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +2V5 and SW+2V5, for U13 (2.5 V regulator): regulator switching node |
+| R59 | 100k | 100k resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage |
+| R60 | 31.6k | 31.6k resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage |
+| R91 | 100k | 100k pull-down on EN_2V5, for U7 (board controller): keeps the regulator off until the board controller enables it |
 
 ### U14  5V to +1V8
 
-_No description yet._
+Small switching regulator that makes +1V8 from +5V for the FPGA's auxiliary supply (VCCAUX) and its ADC. Enabled by the board controller (EN_1V8); the feedback resistors set 1.8 V.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U14 | TLV62569DRLR | _not yet described_ |
-| C201 | 22uF | 22uF bypass on +1V8, for U14 |
-| C202 | 22uF | 22uF bypass on +1V8, for U14 |
-| C203 | 100nF | 100nF bypass on +5V, for U14 |
-| L5 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V8 and SW+1V8, for U14 |
-| R61 | 100k | 100k pull-up of FB+1V8 to +1V8, for U14 |
-| R62 | 49.9k | 49.9k pull-down on FB+1V8, for U14 |
-| R92 | 100k | 100k pull-down on EN_1V8, for U7 |
+| U14 | TLV62569DRLR | 1.8 V regulator: TI TLV62569, 2 A switching regulator: +5V to +1V8. |
+| C201 | 22uF | 22uF bypass on +1V8, for U14 (1.8 V regulator) |
+| C202 | 22uF | 22uF bypass on +1V8, for U14 (1.8 V regulator) |
+| C203 | 100nF | 100nF bypass on +5V, for U14 (1.8 V regulator) |
+| L5 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V8 and SW+1V8, for U14 (1.8 V regulator): regulator switching node |
+| R61 | 100k | 100k resistor from FB+1V8 to +1V8, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage |
+| R62 | 49.9k | 49.9k resistor from FB+1V8 to GND, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage |
+| R92 | 100k | 100k pull-down on EN_1V8, for U7 (board controller): keeps the regulator off until the board controller enables it |
 
 ### U16  5V to +1V2_MGT
 
-_No description yet._
+Small switching regulator that makes +1V2_MGT from +5V for the FPGA transceivers' MGTAVTT supply. The transceivers are unused in rev A but must stay powered. Enabled by the board controller (EN_1V2).
 
 | Ref | Value | What it does |
 |---|---|---|
-| U16 | TLV62569DRLR | _not yet described_ |
-| C204 | 22uF | 22uF bypass on +1V2_MGT, for U16 |
-| C205 | 22uF | 22uF bypass on +1V2_MGT, for U16 |
-| C206 | 100nF | 100nF bypass on +5V, for U16 |
-| L6 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V2_MGT and SW+1V2_MGT, for U16 |
-| R63 | 100k | 100k pull-up of FB+1V2_MGT to +1V2_MGT, for U16 |
-| R64 | 100k | 100k pull-down on FB+1V2_MGT, for U16 |
-| R93 | 100k | 100k pull-down on EN_1V2, for U7 |
+| U16 | TLV62569DRLR | 1.2 V transceiver regulator: TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT. |
+| C204 | 22uF | 22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator) |
+| C205 | 22uF | 22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator) |
+| C206 | 100nF | 100nF bypass on +5V, for U16 (1.2 V transceiver regulator) |
+| L6 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V2_MGT and SW+1V2_MGT, for U16 (1.2 V transceiver regulator): regulator switching node |
+| R63 | 100k | 100k resistor from FB+1V2_MGT to +1V2_MGT, for U16 (1.2 V transceiver regulator): feedback divider, sets the regulator's output voltage |
+| R64 | 100k | 100k resistor from FB+1V2_MGT to GND, for U16 (1.2 V transceiver regulator): feedback divider, sets the regulator's output voltage |
+| R93 | 100k | 100k pull-down on EN_1V2, for U7 (board controller): keeps the regulator off until the board controller enables it |
 
 ### U15  5V to +1V0  (4A FPGA core supply)
 
-_No description yet._
+The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail on the board. Enabled by the board controller (EN_1V0); its power-good output (CORE_1V0_GOOD) is read through the status expander so firmware knows the core is up. The soft-start capacitor makes it ramp slowly; the feedback resistors set 1.0 V.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U15 | SY8047QDC | _not yet described_ |
-| C207 | 22uF | 22uF bypass on +5V, for U15 |
-| C208 | 1uF | 1uF filter capacitor on CORE_1V0_SVIN, for U15 |
-| C209 | 1nF | 1nF filter capacitor on CORE_1V0_SS, for U15 |
-| C210 | 22pF | 22pF capacitor between +1V0 and FB+1V0, for U15 |
-| C211 | 22uF | 22uF bypass on +1V0, for U15 |
-| C212 | 22uF | 22uF bypass on +1V0, for U15 |
-| L7 | 1uH_core FTC201610S1R0MBCA | 1uH_core FTC201610S1R0MBCA inductor between +1V0 and SW+1V0, for U15 |
-| R65 | 10 | 10 pull-up of CORE_1V0_SVIN to +5V, for U15 |
-| R66 | 100k | 100k pull-up of CORE_1V0_GOOD to +3V3, for U17 |
-| R67 | 100k | 100k pull-up of FB+1V0 to +1V0, for U15 |
-| R68 | 150k | 150k pull-down on FB+1V0, for U15 |
-| R94 | 100k | 100k pull-down on EN_1V0, for U7 |
+| U15 | SY8047QDC | FPGA core regulator: Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output. |
+| C207 | 22uF | 22uF bypass on +5V, for U15 (FPGA core regulator) |
+| C208 | 1uF | 1uF capacitor from CORE_1V0_SVIN to GND, for U15 (FPGA core regulator): filtered supply for U15's control circuit |
+| C209 | 1nF | 1nF capacitor from CORE_1V0_SS to GND, for U15 (FPGA core regulator): U15 soft-start: slows the core supply's ramp |
+| C210 | 22pF | 22pF capacitor between +1V0 and FB+1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
+| C211 | 22uF | 22uF bypass on +1V0, for U15 (FPGA core regulator) |
+| C212 | 22uF | 22uF bypass on +1V0, for U15 (FPGA core regulator) |
+| L7 | 1uH_core FTC201610S1R0MBCA | 1uH_core FTC201610S1R0MBCA inductor between +1V0 and SW+1V0, for U15 (FPGA core regulator): regulator switching node |
+| R65 | 10 | 10 resistor from CORE_1V0_SVIN to +5V, for U15 (FPGA core regulator): filtered supply for U15's control circuit |
+| R66 | 100k | 100k resistor from CORE_1V0_GOOD to +3V3, for U17 (status expander): U15 power-good, read by the status expander |
+| R67 | 100k | 100k resistor from FB+1V0 to +1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
+| R68 | 150k | 150k resistor from FB+1V0 to GND, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
+| R94 | 100k | 100k pull-down on EN_1V0, for U7 (board controller): keeps the regulator off until the board controller enables it |
 
 ### extension power protection control
 
-_No description yet._
+Shared control for the four protected extension supplies (U21-U24). EXT_EN, from the board controller, turns them all on; the pull-down keeps them off until firmware decides. EXT_FAULT is pulled up and goes low if any of them (or the USB eFuse) detects a fault, so one controller pin hears all of them.
 
 | Ref | Value | What it does |
 |---|---|---|
-| R72 | 100k | 100k pull-down on EXT_EN, for U7 |
-| R73 | 10k | 10k pull-up of EXT_FAULT to +3V3, for U7 |
+| R72 | 100k | 100k pull-down on EXT_EN, for U7 (board controller): from the board controller: turns extension power on; off by default |
+| R73 | 10k | 10k pull-up of EXT_FAULT to +3V3, for U7 (board controller): shared fault line, low when a protected supply trips |
 
 ### U21  +5V to +5V_EXT
 
-_No description yet._
+Protected switch between the board's +5V and the 5 V pins of every extension port. Limits current to about 1 A and blocks current flowing back from an extension. Without it, a shorted extension would pull the whole board's 5 V down.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U21 | TPS22950CDDCR | _not yet described_ |
-| C218 | 1uF | 1uF bypass on +5V, for U21 |
-| R74 | 1.15k | 1.15k pull-down on U21_ILIM, for U21 |
+| U21 | TPS22950CDDCR | extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 1 A limit, reverse blocking. |
+| C218 | 1uF | 1uF bypass on +5V, for U21 (extension 5 V switch) |
+| R74 | 1.15k | 1.15k resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py) |
 
 ### U22  +3V3 to +3V3_EXT
 
-_No description yet._
+Protected switch between +3V3 and the 3.3 V pins of every extension port, limited to about 0.5 A, with reverse blocking. Keeps a faulty extension from taking down the board controller's supply.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U22 | TPS22950CDDCR | _not yet described_ |
-| C219 | 1uF | 1uF bypass on +3V3, for U22 |
-| R75 | 2.21k | 2.21k pull-down on U22_ILIM, for U22 |
+| U22 | TPS22950CDDCR | extension 3.3 V switch: TI TPS22950C load switch: +3V3 to every slot's 3.3 V pin, about 0.5 A limit. |
+| C219 | 1uF | 1uF bypass on +3V3, for U22 (extension 3.3 V switch) |
+| R75 | 2.21k | 2.21k resistor from U22_ILIM to GND, for U22 (extension 3.3 V switch): sets the switch's current limit (TI equation in design.py) |
 
 ### U23  VCCIO_1 to VCCIO_1_EXT
 
-_No description yet._
+Protected switch for the PIN V supply of slots A-D (the voltage chosen on J19), limited to about 0.5 A, with reverse blocking.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U23 | TPS22950CDDCR | _not yet described_ |
-| C220 | 1uF | 1uF bypass on VCCIO_1, for U23 |
-| R76 | 2.21k | 2.21k pull-down on U23_ILIM, for U23 |
+| U23 | TPS22950CDDCR | slots A-D PIN V switch: TI TPS22950C load switch: VCCIO_1 to the PIN V pin of slots A-D, about 0.5 A limit. |
+| C220 | 1uF | 1uF bypass on VCCIO_1, for U23 (slots A-D PIN V switch) |
+| R76 | 2.21k | 2.21k resistor from U23_ILIM to GND, for U23 (slots A-D PIN V switch): sets the switch's current limit (TI equation in design.py) |
 
 ### U24  VCCIO_2 to VCCIO_2_EXT
 
-_No description yet._
+Protected switch for the PIN V supply of slots E-H (the voltage chosen on J20), limited to about 0.5 A, with reverse blocking.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U24 | TPS22950CDDCR | _not yet described_ |
-| C221 | 1uF | 1uF bypass on VCCIO_2, for U24 |
-| R77 | 2.21k | 2.21k pull-down on U24_ILIM, for U24 |
+| U24 | TPS22950CDDCR | slots E-H PIN V switch: TI TPS22950C load switch: VCCIO_2 to the PIN V pin of slots E-H, about 0.5 A limit. |
+| C221 | 1uF | 1uF bypass on VCCIO_2, for U24 (slots E-H PIN V switch) |
+| R77 | 2.21k | 2.21k resistor from U24_ILIM to GND, for U24 (slots E-H PIN V switch): sets the switch's current limit (TI equation in design.py) |
 
 ### MGTAVCC filter
 
-_No description yet._
+A small inductor and capacitor that make +1V0_MGT from +1V0: the same voltage, with the core's switching noise filtered out, for the transceivers' MGTAVCC supply.
 
 | Ref | Value | What it does |
 |---|---|---|
@@ -472,32 +472,32 @@ _No description yet._
 
 ### rail monitors
 
-_No description yet._
+Lets the board controller measure every supply. Each rail goes to one of its analog inputs (ADC), which read 0-3.3 V. Rails at or below 3.3 V go through a 1 k resistor that protects the pin; VSYS and +5V are higher, so two resistors divide them down first. A 100 nF capacitor on each input steadies the reading. Firmware uses this to check each regulator came up before enabling the next.
 
 | Ref | Value | What it does |
 |---|---|---|
-| C225 | 100nF | 100nF filter capacitor on MON_VSYS, for U7 |
-| C226 | 100nF | 100nF bypass on MON_5V |
-| C227 | 100nF | 100nF bypass on MON_3V3 |
-| C228 | 100nF | 100nF filter capacitor on MON_2V5, for U7 |
-| C229 | 100nF | 100nF filter capacitor on MON_1V8, for U7 |
-| C230 | 100nF | 100nF filter capacitor on MON_1V0, for U7 |
-| R81 | 100k | 100k pull-up of MON_VSYS to VSYS, for U7 |
-| R82 | 16k | 16k pull-down on MON_VSYS, for U7 |
-| R83 | 100k | 100k series resistor between +5V and MON_5V |
-| R84 | 47k | 47k pull-down on MON_5V |
-| R85 | 1k | 1k series resistor between +3V3 and MON_3V3 |
-| R86 | 1k | 1k pull-up of MON_2V5 to +2V5, for U7 |
-| R87 | 1k | 1k pull-up of MON_1V8 to +1V8, for U7 |
-| R88 | 1k | 1k pull-up of MON_1V0 to +1V0, for U7 |
+| C225 | 100nF | 100nF filter capacitor on MON_VSYS, for U7 (board controller): rail monitor input to the board controller's ADC |
+| C226 | 100nF | 100nF filter capacitor on MON_5V, for U7 (board controller): rail monitor input to the board controller's ADC |
+| C227 | 100nF | 100nF filter capacitor on MON_3V3, for U7 (board controller): rail monitor input to the board controller's ADC |
+| C228 | 100nF | 100nF filter capacitor on MON_2V5, for U7 (board controller): rail monitor input to the board controller's ADC |
+| C229 | 100nF | 100nF filter capacitor on MON_1V8, for U7 (board controller): rail monitor input to the board controller's ADC |
+| C230 | 100nF | 100nF filter capacitor on MON_1V0, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R81 | 100k | 100k resistor from MON_VSYS to VSYS, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R82 | 16k | 16k resistor from MON_VSYS to GND, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R83 | 100k | 100k resistor from MON_5V to +5V, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R84 | 47k | 47k resistor from MON_5V to GND, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R85 | 1k | 1k resistor from MON_3V3 to +3V3, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R86 | 1k | 1k resistor from MON_2V5 to +2V5, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R87 | 1k | 1k resistor from MON_1V8 to +1V8, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R88 | 1k | 1k resistor from MON_1V0 to +1V0, for U7 (board controller): rail monitor input to the board controller's ADC |
 
 ### AUX IN
 
-_No description yet._
+Optional extra power for extensions that need more than 5 V (motors, LED strips, displays). Whatever you connect here (9-28 V DC) goes, unregulated, to the AUX pin of every extension port through each port's own fuse. The board itself never uses it.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J68 | AUX IN 9-28V UNREGULATED | _not yet described_ |
+| J68 | AUX IN 9-28V UNREGULATED | AUX IN screw terminal: Optional 9-28 V DC input feeding only the AUX pin of every extension port, unregulated. Your supply, your current limit. |
 
 ## Memory
 
@@ -505,100 +505,100 @@ Four PSRAM chips for working memory and the flash the FPGA boots from.
 
 ### PSRAM0
 
-_No description yet._
+Working-memory chip 0: 2 MB of fast RAM for the FPGA design, on its own four-bit (QSPI) bus to bank 14. The four chips are independent, so a design can use them in parallel. Notes: ref/psram.md.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U2 | APS1604M-3SQR-SN | _not yet described_ |
-| C111 | 100nF | 100nF bypass on +3V3, for U2 |
+| U2 | APS1604M-3SQR-SN | PSRAM 0: AP Memory APS1604M, 16 Mbit (2 MB) QSPI pseudo-static RAM, 3.3 V. |
+| C111 | 100nF | 100nF bypass on +3V3, for U2 (PSRAM 0) |
 
 ### PSRAM1
 
-_No description yet._
+Working-memory chip 1: 2 MB of RAM on its own QSPI bus to bank 14.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U3 | APS1604M-3SQR-SN | _not yet described_ |
-| C112 | 100nF | 100nF bypass on +3V3, for U3 |
+| U3 | APS1604M-3SQR-SN | PSRAM 1: AP Memory APS1604M, 2 MB QSPI RAM. |
+| C112 | 100nF | 100nF bypass on +3V3, for U3 (PSRAM 1) |
 
 ### PSRAM2
 
-_No description yet._
+Working-memory chip 2: 2 MB of RAM on its own QSPI bus to bank 14.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U4 | APS1604M-3SQR-SN | _not yet described_ |
-| C113 | 100nF | 100nF bypass on +3V3, for U4 |
+| U4 | APS1604M-3SQR-SN | PSRAM 2: AP Memory APS1604M, 2 MB QSPI RAM. |
+| C113 | 100nF | 100nF bypass on +3V3, for U4 (PSRAM 2) |
 
 ### PSRAM3
 
-_No description yet._
+Working-memory chip 3: 2 MB of RAM on its own QSPI bus to bank 14.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U5 | APS1604M-3SQR-SN | _not yet described_ |
-| C114 | 100nF | 100nF bypass on +3V3, for U5 |
+| U5 | APS1604M-3SQR-SN | PSRAM 3: AP Memory APS1604M, 2 MB QSPI RAM. |
+| C114 | 100nF | 100nF bypass on +3V3, for U5 (PSRAM 3) |
 
 ### config flash
 
-_No description yet._
+The FPGA's non-volatile memory. At power-on the FPGA reads its design (bitstream) from this 32 MB flash by itself (master SPI, set by the mode straps). The board controller can rewrite it through the series resistors on the Board Controller sheet, and spare space can hold user data or software for a soft CPU.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U6 | W25Q256JVEIQ | _not yet described_ |
-| C115 | 100nF | 100nF bypass on +3V3, for U6 |
+| U6 | W25Q256JVEIQ | FPGA configuration flash: Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it. |
+| C115 | 100nF | 100nF bypass on +3V3, for U6 (FPGA configuration flash) |
 
 ### PSRAM0 series termination
 
-_No description yet._
+One 33 ohm resistor per PSRAM0 line, placed next to the FPGA: they soften the fast signal edges so they do not ring along the trace. Values can be tuned after measurement (ref/psram.md).
 
 | Ref | Value | What it does |
 |---|---|---|
-| R104 | 33 | 33 series resistor between PSRAM0_SCK and PSRAM0_SCK_MEM, for U2 |
-| R105 | 33 | 33 series resistor between PSRAM0_CE_B and PSRAM0_CE_B_MEM, for U2 |
-| R106 | 33 | 33 series resistor between PSRAM0_IO0 and PSRAM0_IO0_MEM, for U2 |
-| R107 | 33 | 33 series resistor between PSRAM0_IO1 and PSRAM0_IO1_MEM, for U2 |
-| R108 | 33 | 33 series resistor between PSRAM0_IO2 and PSRAM0_IO2_MEM, for U2 |
-| R109 | 33 | 33 series resistor between PSRAM0_IO3 and PSRAM0_IO3_MEM, for U2 |
+| R104 | 33 | 33 series resistor between PSRAM0_SCK and PSRAM0_SCK_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md) |
+| R105 | 33 | 33 series resistor between PSRAM0_CE_B and PSRAM0_CE_B_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md) |
+| R106 | 33 | 33 series resistor between PSRAM0_IO0 and PSRAM0_IO0_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md) |
+| R107 | 33 | 33 series resistor between PSRAM0_IO1 and PSRAM0_IO1_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md) |
+| R108 | 33 | 33 series resistor between PSRAM0_IO2 and PSRAM0_IO2_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md) |
+| R109 | 33 | 33 series resistor between PSRAM0_IO3 and PSRAM0_IO3_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md) |
 
 ### PSRAM1 series termination
 
-_No description yet._
+One 33 ohm resistor per PSRAM1 line, next to the FPGA, to damp ringing.
 
 | Ref | Value | What it does |
 |---|---|---|
-| R110 | 33 | 33 series resistor between PSRAM1_SCK and PSRAM1_SCK_MEM, for U3 |
-| R111 | 33 | 33 series resistor between PSRAM1_CE_B and PSRAM1_CE_B_MEM, for U3 |
-| R112 | 33 | 33 series resistor between PSRAM1_IO0 and PSRAM1_IO0_MEM, for U3 |
-| R113 | 33 | 33 series resistor between PSRAM1_IO1 and PSRAM1_IO1_MEM, for U3 |
-| R114 | 33 | 33 series resistor between PSRAM1_IO2 and PSRAM1_IO2_MEM, for U3 |
-| R115 | 33 | 33 series resistor between PSRAM1_IO3 and PSRAM1_IO3_MEM, for U3 |
+| R110 | 33 | 33 series resistor between PSRAM1_SCK and PSRAM1_SCK_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md) |
+| R111 | 33 | 33 series resistor between PSRAM1_CE_B and PSRAM1_CE_B_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md) |
+| R112 | 33 | 33 series resistor between PSRAM1_IO0 and PSRAM1_IO0_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md) |
+| R113 | 33 | 33 series resistor between PSRAM1_IO1 and PSRAM1_IO1_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md) |
+| R114 | 33 | 33 series resistor between PSRAM1_IO2 and PSRAM1_IO2_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md) |
+| R115 | 33 | 33 series resistor between PSRAM1_IO3 and PSRAM1_IO3_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md) |
 
 ### PSRAM2 series termination
 
-_No description yet._
+One 33 ohm resistor per PSRAM2 line, next to the FPGA, to damp ringing.
 
 | Ref | Value | What it does |
 |---|---|---|
-| R116 | 33 | 33 series resistor between PSRAM2_SCK and PSRAM2_SCK_MEM, for U4 |
-| R117 | 33 | 33 series resistor between PSRAM2_CE_B and PSRAM2_CE_B_MEM, for U4 |
-| R118 | 33 | 33 series resistor between PSRAM2_IO0 and PSRAM2_IO0_MEM, for U4 |
-| R119 | 33 | 33 series resistor between PSRAM2_IO1 and PSRAM2_IO1_MEM, for U4 |
-| R120 | 33 | 33 series resistor between PSRAM2_IO2 and PSRAM2_IO2_MEM, for U4 |
-| R121 | 33 | 33 series resistor between PSRAM2_IO3 and PSRAM2_IO3_MEM, for U4 |
+| R116 | 33 | 33 series resistor between PSRAM2_SCK and PSRAM2_SCK_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md) |
+| R117 | 33 | 33 series resistor between PSRAM2_CE_B and PSRAM2_CE_B_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md) |
+| R118 | 33 | 33 series resistor between PSRAM2_IO0 and PSRAM2_IO0_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md) |
+| R119 | 33 | 33 series resistor between PSRAM2_IO1 and PSRAM2_IO1_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md) |
+| R120 | 33 | 33 series resistor between PSRAM2_IO2 and PSRAM2_IO2_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md) |
+| R121 | 33 | 33 series resistor between PSRAM2_IO3 and PSRAM2_IO3_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md) |
 
 ### PSRAM3 series termination
 
-_No description yet._
+One 33 ohm resistor per PSRAM3 line, next to the FPGA, to damp ringing.
 
 | Ref | Value | What it does |
 |---|---|---|
-| R122 | 33 | 33 series resistor between PSRAM3_SCK and PSRAM3_SCK_MEM, for U5 |
-| R123 | 33 | 33 series resistor between PSRAM3_CE_B and PSRAM3_CE_B_MEM, for U5 |
-| R124 | 33 | 33 series resistor between PSRAM3_IO0 and PSRAM3_IO0_MEM, for U5 |
-| R125 | 33 | 33 series resistor between PSRAM3_IO1 and PSRAM3_IO1_MEM, for U5 |
-| R126 | 33 | 33 series resistor between PSRAM3_IO2 and PSRAM3_IO2_MEM, for U5 |
-| R127 | 33 | 33 series resistor between PSRAM3_IO3 and PSRAM3_IO3_MEM, for U5 |
+| R122 | 33 | 33 series resistor between PSRAM3_SCK and PSRAM3_SCK_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md) |
+| R123 | 33 | 33 series resistor between PSRAM3_CE_B and PSRAM3_CE_B_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md) |
+| R124 | 33 | 33 series resistor between PSRAM3_IO0 and PSRAM3_IO0_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md) |
+| R125 | 33 | 33 series resistor between PSRAM3_IO1 and PSRAM3_IO1_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md) |
+| R126 | 33 | 33 series resistor between PSRAM3_IO2 and PSRAM3_IO2_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md) |
+| R127 | 33 | 33 series resistor between PSRAM3_IO3 and PSRAM3_IO3_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md) |
 
 ## Supervisor
 
@@ -606,182 +606,182 @@ The RP2350B board controller: USB, power sequencing, programming the FPGA.
 
 ### U7  board controller
 
-_No description yet._
+The board controller, a Raspberry Pi RP2350B microcontroller that is always on. It is what the USB cable talks to: it loads designs into the FPGA over JTAG or writes them to the FPGA's flash, turns the supplies on in order and watches them, asks a USB-PD charger for 9 V, enables extension power, and gives the FPGA a debug and UART link. One 100 nF capacitor per supply pin (RP-008280 section 2.2.1).
 
 | Ref | Value | What it does |
 |---|---|---|
-| U7 | RP2350B | _not yet described_ |
-| C116 | 100nF | 100nF bypass on +3V3, for U7 |
-| C117 | 100nF | 100nF bypass on +3V3, for U7 |
-| C118 | 100nF | 100nF bypass on +3V3, for U7 |
-| C119 | 100nF | 100nF bypass on +3V3, for U7 |
-| C120 | 100nF | 100nF bypass on +3V3, for U7 |
-| C121 | 100nF | 100nF bypass on +3V3, for U7 |
-| C122 | 100nF | 100nF bypass on +3V3, for U7 |
-| C123 | 100nF | 100nF bypass on +3V3, for U7 |
-| C124 | 100nF | 100nF bypass on +3V3, for U7 |
-| C125 | 100nF | 100nF bypass on +3V3, for U7 |
-| C126 | 100nF | 100nF bypass on +3V3, for U7 |
-| C127 | 100nF | 100nF bypass on +1V1, for U7 |
-| C128 | 100nF | 100nF bypass on +1V1, for U7 |
-| C129 | 100nF | 100nF bypass on +1V1, for U7 |
+| U7 | RP2350B | board controller: Raspberry Pi RP2350B microcontroller (two Cortex-M33 cores, 150 MHz): USB, FPGA programming, power sequencing and monitoring. |
+| C116 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C117 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C118 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C119 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C120 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C121 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C122 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C123 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C124 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C125 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C126 | 100nF | 100nF bypass on +3V3, for U7 (board controller) |
+| C127 | 100nF | 100nF bypass on +1V1, for U7 (board controller) |
+| C128 | 100nF | 100nF bypass on +1V1, for U7 (board controller) |
+| C129 | 100nF | 100nF bypass on +1V1, for U7 (board controller) |
 
 ### U7 core regulator (RP-008280 s2.1)
 
-_No description yet._
+Parts for the RP2350's built-in switching regulator, which makes its 1.1 V core supply (+1V1) from +3V3. Values and the inductor are the ones Raspberry Pi specifies in their hardware design guide (RP-008280 section 2.1).
 
 | Ref | Value | What it does |
 |---|---|---|
 | C130 | 4.7uF | 4.7uF bypass on +3V3 |
 | C131 | 4.7uF | 4.7uF bypass on +1V1 |
-| C132 | 4.7uF | 4.7uF bypass on SUP_VREG_AVDD |
-| L1 | 3.3uH AOTA-B201610S3R3-101-T | 3.3uH AOTA-B201610S3R3-101-T inductor between +1V1 and SUP_LX, for U7 |
-| R8 | 33 | 33 series resistor between +3V3 and SUP_VREG_AVDD |
+| C132 | 4.7uF | 4.7uF bypass on SUP_VREG_AVDD: filtered analog supply for the RP2350's regulator |
+| L1 | 3.3uH AOTA-B201610S3R3-101-T | 3.3uH AOTA-B201610S3R3-101-T inductor between +1V1 and SUP_LX, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R8 | 33 | 33 series resistor between +3V3 and SUP_VREG_AVDD: filtered analog supply for the RP2350's regulator |
 
 ### crystal (RP-008280 s4)
 
-_No description yet._
+The board controller's 12 MHz clock: the exact crystal, load capacitors and 1 k drive-limiting resistor Raspberry Pi specifies (RP-008280 section 4).
 
 | Ref | Value | What it does |
 |---|---|---|
-| Y1 | 12MHz ABM8-272-T3 | _not yet described_ |
-| C133 | 15pF | 15pF filter capacitor on SUP_XIN, for U7 |
-| C134 | 15pF | 15pF filter capacitor on SUP_XTAL_OUT, for Y1 |
-| R9 | 1k | 1k series resistor between SUP_XOUT and SUP_XTAL_OUT, for U7 |
+| Y1 | 12MHz ABM8-272-T3 | controller 12 MHz crystal: Abracon ABM8-272-T3, the crystal Raspberry Pi specifies for the RP2350. |
+| C133 | 15pF | 15 pF load capacitor on the 12 MHz crystal's input (RP-008280 section 4) |
+| C134 | 15pF | 15 pF load capacitor on the 12 MHz crystal's output (RP-008280 section 4) |
+| R9 | 1k | 1k series resistor between SUP_XOUT and SUP_XTAL_OUT, for U7 (board controller): limits the crystal drive level (RP-008280); crystal output, after the drive-limit resistor |
 
 ### RUN
 
-_No description yet._
+The board controller's reset input. The pull-up keeps it running; the capacitor holds it in reset briefly at power-on until +3V3 is stable.
 
 | Ref | Value | What it does |
 |---|---|---|
-| C135 | 100nF | 100nF filter capacitor on SUP_RUN, for U7 |
-| R10 | 1k | 1k pull-up of SUP_RUN to +3V3, for U7 |
+| C135 | 100nF | 100nF capacitor from SUP_RUN to GND, for U7 (board controller): board controller reset |
+| R10 | 1k | 1k pull-up of SUP_RUN to +3V3, for U7 (board controller): board controller reset |
 
 ### board controller startup memory
 
-_No description yet._
+The board controller's own 4 MB flash, holding its firmware. Separate from the FPGA's flash.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U8 | W25Q32JVZP | _not yet described_ |
-| C136 | 100nF | 100nF bypass on +3V3, for U8 |
+| U8 | W25Q32JVZP | controller firmware flash: Winbond W25Q32JV, 32 Mbit (4 MB) quad-SPI flash holding the board controller's firmware. |
+| C136 | 100nF | 100nF bypass on +3V3, for U8 (controller firmware flash) |
 
 ### USB-C
 
-_No description yet._
+The main connector: power in, and the USB link to your computer for programming and talking to the board.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J1 | USB-C | _not yet described_ |
+| J1 | USB-C | USB-C connector: Power in and USB 2.0 data to the board controller. |
 
 ### USB protection
 
-_No description yet._
+Clamps for static discharge and voltage spikes on the USB connector: D6 on the data and CC lines, D7 on the power line (VBUS).
 
 | Ref | Value | What it does |
 |---|---|---|
-| D6 | ESDA6V1BC6 | _not yet described_ |
-| D7 | SMBJ13A-TR | _not yet described_ |
+| D6 | ESDA6V1BC6 | USB data ESD clamp: ST ESDA6V1BC6: clamps static discharge on D+, D-, CC1 and CC2. |
+| D7 | SMBJ13A-TR | USB power surge clamp: SMBJ13A TVS diode: clamps spikes on VBUS above about 14 V. |
 
 ### USB-PD sink
 
-_No description yet._
+Negotiates the supply voltage with a USB-PD charger. The board controller tells it what to ask for (PD_CFG1-3: 5 V or 9 V, never more) and reads PD_PG to know whether the charger agreed.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U18 | CH224K | _not yet described_ |
-| C137 | 1uF | 1uF bypass on PD_VDD, for U18 |
-| R11 | 10k | 10k pull-up of PD_PG to +3V3, for U7 |
+| U18 | CH224K | USB-PD negotiator: WCH CH224K: asks a USB-PD charger for the voltage the board controller selects (5 or 9 V). |
+| C137 | 1uF | 1uF bypass on PD_VDD, for U18 (USB-PD negotiator): CH224K's internal regulator output |
+| R11 | 10k | 10k pull-up of PD_PG to +3V3, for U7 (board controller): CH224K: high when the charger accepted the request |
 
 ### BOOTSEL
 
-_No description yet._
+Hold CTRL BOOT while plugging in USB to put the board controller in its built-in USB bootloader, for installing or recovering its firmware. The 1 k resistor lets the button win without fighting the chip. The 10 k pull-up is not fitted, as in Raspberry Pi's design.
 
 | Ref | Value | What it does |
 |---|---|---|
-| SW1 | CTRL BOOT | _not yet described_ |
-| R12 | 1k | 1k series resistor between BOOTSEL_SW and SUPF_CS, for U7 |
-| R13 | 10k | 10k pull-up of SUPF_CS to +3V3, for U7 |
+| SW1 | CTRL BOOT | CTRL BOOT button: Hold while plugging in USB to enter the board controller's USB bootloader. |
+| R12 | 1k | 1k series resistor between BOOTSEL_SW and SUPF_CS, for U7 (board controller): button side of the BOOTSEL resistor; controller flash chip-select; pulled low by CTRL BOOT for the bootloader |
+| R13 | 10k | NOT FITTED. 10k resistor from SUPF_CS to +3V3, for U7 (board controller): controller flash chip-select; pulled low by CTRL BOOT for the bootloader |
 
 ### board controller SWD
 
-_No description yet._
+Debug connector for the board controller's own processor (SWD): for developing its firmware with a debug probe. Not for the FPGA.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J51 | CTRL SWD | _not yet described_ |
+| J51 | CTRL SWD | CTRL SWD connector: 3-pin JST-SH debug port for the board controller's processor. |
 
 ### series resistors to FPGA
 
-_No description yet._
+One 33 ohm resistor on every wire between the board controller and the FPGA: JTAG, the configuration pins, the FPGA flash bus, the debug sideband and the UART. They limit current if both sides ever drive the same wire at once, and damp ringing.
 
 | Ref | Value | What it does |
 |---|---|---|
-| R14 | 33 | 33 series resistor between SUP_JTAG_TCK and SWJ_TCK, for U7 |
-| R15 | 33 | 33 series resistor between SUP_JTAG_TMS and SWJ_TMS, for U7 |
-| R16 | 33 | 33 series resistor between SUP_JTAG_TDI and SWJ_TDI, for U7 |
-| R17 | 33 | 33 series resistor between SUP_JTAG_TDO and SWJ_TDO, for U7 |
-| R18 | 33 | 33 series resistor between CFG_PROG_B and SUP_PROG_B, for U7: keeps PROGRAM_B released; pulling it low restarts configuration |
-| R19 | 33 | 33 series resistor between CFG_INIT_B and SUP_INIT_B, for U7: keeps INIT_B released; it goes low on a configuration error |
-| R20 | 33 | 33 series resistor between CFG_DONE and SUP_DONE, for U7 |
-| R21 | 33 | 33 series resistor between CFG_CCLK and SUP_CCLK, for U7 |
-| R22 | 33 | 33 series resistor between FLASH_CS_B and SUP_FCS_B, for U7 |
-| R23 | 33 | 33 series resistor between FLASH_D0_MOSI and SUP_FD0, for U7 |
-| R24 | 33 | 33 series resistor between FLASH_D1_MISO and SUP_FD1, for U7 |
-| R25 | 33 | 33 series resistor between FLASH_D2_WP and SUP_FD2, for U7 |
-| R26 | 33 | 33 series resistor between FLASH_D3_HOLD and SUP_FD3, for U7 |
-| R27 | 33 | 33 series resistor between DBG_TCK and SUP_DBG_TCK, for U7 |
-| R28 | 33 | 33 series resistor between DBG_TMS and SUP_DBG_TMS, for U7 |
-| R29 | 33 | 33 series resistor between DBG_TDI and SUP_DBG_TDI, for U7 |
-| R30 | 33 | 33 series resistor between DBG_TDO and SUP_DBG_TDO, for U7 |
-| R31 | 33 | 33 series resistor between SB_UART_RX and SUP_UART_TX, for U7 |
-| R32 | 33 | 33 series resistor between SB_UART_TX and SUP_UART_RX, for U7 |
+| R14 | 33 | 33 series resistor between SUP_JTAG_TCK and SWJ_TCK, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R15 | 33 | 33 series resistor between SUP_JTAG_TMS and SWJ_TMS, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R16 | 33 | 33 series resistor between SUP_JTAG_TDI and SWJ_TDI, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R17 | 33 | 33 series resistor between SUP_JTAG_TDO and SWJ_TDO, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R18 | 33 | 33 series resistor between CFG_PROG_B and SUP_PROG_B, for U7 (board controller): keeps PROGRAM_B released; pulling it low restarts configuration; board controller to FPGA link (33 ohm series) |
+| R19 | 33 | 33 series resistor between CFG_INIT_B and SUP_INIT_B, for U7 (board controller): keeps INIT_B released; it goes low on a configuration error; board controller to FPGA link (33 ohm series) |
+| R20 | 33 | 33 series resistor between CFG_DONE and SUP_DONE, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R21 | 33 | 33 series resistor between CFG_CCLK and SUP_CCLK, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R22 | 33 | 33 series resistor between FLASH_CS_B and SUP_FCS_B, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R23 | 33 | 33 series resistor between FLASH_D0_MOSI and SUP_FD0, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R24 | 33 | 33 series resistor between FLASH_D1_MISO and SUP_FD1, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R25 | 33 | 33 series resistor between FLASH_D2_WP and SUP_FD2, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R26 | 33 | 33 series resistor between FLASH_D3_HOLD and SUP_FD3, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R27 | 33 | 33 series resistor between DBG_TCK and SUP_DBG_TCK, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R28 | 33 | 33 series resistor between DBG_TMS and SUP_DBG_TMS, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R29 | 33 | 33 series resistor between DBG_TDI and SUP_DBG_TDI, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R30 | 33 | 33 series resistor between DBG_TDO and SUP_DBG_TDO, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R31 | 33 | 33 series resistor between SB_UART_RX and SUP_UART_TX, for U7 (board controller): board controller to FPGA link (33 ohm series) |
+| R32 | 33 | 33 series resistor between SB_UART_TX and SUP_UART_RX, for U7 (board controller): board controller to FPGA link (33 ohm series) |
 
 ### JTAG owner selection
 
-_No description yet._
+Decides who programs the FPGA over JTAG. Normally (J52 open) the board controller does, through the U20 switch. Fit a jumper on J52 and U20 disconnects the board controller completely, so an external programmer plugged into J2 has the FPGA to itself. A jumper, not software, so it works even when the board controller is broken.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J52 | PZ254V-11-02P | _not yet described_ |
-| U20 | SN74CB3Q3384APWR | _not yet described_ |
-| C138 | 100nF | 100nF bypass on +3V3, for U20 |
-| R33 | 0 | 0 series resistor between JTAG_TDO and JTAG_TDO_SW, for U20 |
-| R34 | 10k | 10k pull-down on EXTERNAL_JTAG_SELECTED, for U20 |
+| J52 | PZ254V-11-02P | EXT JTAG jumper: Fit a shunt to hand the FPGA's JTAG to an external programmer on J2. |
+| U20 | SN74CB3Q3384APWR | JTAG switch: TI SN74CB3Q3384 bus switch: connects or isolates the board controller's JTAG from the FPGA, set by J52. |
+| C138 | 100nF | 100nF bypass on +3V3, for U20 (JTAG switch) |
+| R33 | 0 | 0 series resistor between JTAG_TDO and JTAG_TDO_SW, for U20 (JTAG switch): probe point between the FPGA's TDO and U20 |
+| R34 | 10k | 10k resistor from EXTERNAL_JTAG_SELECTED to GND, for U20 (JTAG switch): high when J52 is fitted: U20 disconnects the board controller |
 
 ### manual JTAG header
 
-_No description yet._
+Standard 2x5 JTAG header for an external FPGA programmer (Xilinx/AMD cable or similar). Fit J52 first.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J2 | FPGA JTAG | _not yet described_ |
+| J2 | FPGA JTAG | FPGA JTAG header: 2x5 keyed header for an external FPGA programmer. |
 
 ### status expander
 
-_No description yet._
+A small I2C chip on the board controller that drives the three status LEDs and reads the FPGA core supply's power-good signal, saving controller pins. Address 0x24. Rules for writing it: ref/status-leds.md.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U17 | PCF8574T_3,518 | _not yet described_ |
-| C182 | 100nF | 100nF bypass on +3V3, for U17 |
-| R37 | 4.7k | 4.7k pull-up of SUP_SCL to +3V3, for U7 |
-| R38 | 4.7k | 4.7k pull-up of SUP_SDA to +3V3, for U7 |
-| R45 | 4.7k | 4.7k pull-up of SUP_EXP_INT to +3V3, for U17 |
+| U17 | PCF8574T_3,518 | status expander: NXP PCF8574 I2C port expander: drives the three status LEDs, reads core power-good. |
+| C182 | 100nF | 100nF bypass on +3V3, for U17 (status expander) |
+| R37 | 4.7k | 4.7k pull-up of SUP_SCL to +3V3, for U7 (board controller): I2C clock pull-up |
+| R38 | 4.7k | 4.7k pull-up of SUP_SDA to +3V3, for U7 (board controller): I2C data pull-up |
+| R45 | 4.7k | 4.7k resistor from SUP_EXP_INT to +3V3, for U17 (status expander): status expander interrupt (open drain) |
 
 ### board status LEDs
 
-_No description yet._
+Three green LEDs driven by the status expander: CTRL HB blinks while the board controller firmware is alive; USER 1 and USER 2 are for software. Each has a 1 k current-limiting resistor.
 
 | Ref | Value | What it does |
 |---|---|---|
-| D9 | F.0603.00025/P2-0603G1TS2-06T-002 | _not yet described_ |
-| D10 | F.0603.00025/P2-0603G1TS2-06T-002 | _not yet described_ |
-| D11 | F.0603.00025/P2-0603G1TS2-06T-002 | _not yet described_ |
-| R128 | 1k | 1k pull-up of LED_HEARTBEAT_A to +3V3, for D9 |
-| R129 | 1k | 1k pull-up of LED_USER1_A to +3V3, for D10 |
-| R130 | 1k | 1k pull-up of LED_USER2_A to +3V3, for D11 |
+| D9 | F.0603.00025/P2-0603G1TS2-06T-002 | CTRL HB LED: Green LED: blinks while the board controller firmware runs. |
+| D10 | F.0603.00025/P2-0603G1TS2-06T-002 | USER 1 LED: Green LED for software use. |
+| D11 | F.0603.00025/P2-0603G1TS2-06T-002 | USER 2 LED: Green LED for software use. |
+| R128 | 1k | 1k resistor from LED_HEARTBEAT_A to +3V3, for D9 (CTRL HB LED): LED current limit |
+| R129 | 1k | 1k resistor from LED_USER1_A to +3V3, for D10 (USER 1 LED): LED current limit |
+| R130 | 1k | 1k resistor from LED_USER2_A to +3V3, for D11 (USER 2 LED): LED current limit |
 
 ## Slots
 
@@ -789,227 +789,227 @@ The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 
 ### 5V BUS 0 converter
 
-_No description yet._
+Lets the FPGA (3.3 V) talk to 5 V extensions on slot L. U9 shifts eight lines between 3.3 V and 5 V, all in one direction at a time (BUS5V0_DIR). It stays off until the FPGA pulls BUS5V0_OE_N low; the pull-up keeps the bus off while the FPGA is still loading.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U9 | SN74LXC8T245PWR | _not yet described_ |
-| C139 | 100nF | 100nF bypass on +3V3, for U9 |
-| C140 | 100nF | 100nF bypass on +5V, for U9 |
-| R96 | 10k | 10k pull-up of BUS5V0_OE_N to +3V3, for U9 |
+| U9 | SN74LXC8T245PWR | 5V BUS 0 translator: TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot L. |
+| C139 | 100nF | 100nF bypass on +3V3, for U9 (5V BUS 0 translator) |
+| C140 | 100nF | 100nF bypass on +5V, for U9 (5V BUS 0 translator) |
+| R96 | 10k | 10k pull-up of BUS5V0_OE_N to +3V3, for U9 (5V BUS 0 translator): keeps the 5 V bus translator disabled until the FPGA enables it |
 
 ### 5V BUS 1 converter
 
-_No description yet._
+Same as 5V BUS 0, for slot M: U10 shifts eight lines between the FPGA's 3.3 V and 5 V, direction BUS5V1_DIR, off until BUS5V1_OE_N goes low.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U10 | SN74LXC8T245PWR | _not yet described_ |
-| C141 | 100nF | 100nF bypass on +3V3, for U10 |
-| C142 | 100nF | 100nF bypass on +5V, for U10 |
-| R97 | 10k | 10k pull-up of BUS5V1_OE_N to +3V3, for U10 |
+| U10 | SN74LXC8T245PWR | 5V BUS 1 translator: TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot M. |
+| C141 | 100nF | 100nF bypass on +3V3, for U10 (5V BUS 1 translator) |
+| C142 | 100nF | 100nF bypass on +5V, for U10 (5V BUS 1 translator) |
+| R97 | 10k | 10k pull-up of BUS5V1_OE_N to +3V3, for U10 (5V BUS 1 translator): keeps the 5 V bus translator disabled until the FPGA enables it |
 
 ### SHIELD HEADER ABCD
 
-_No description yet._
+One long 2x32 socket on the right edge carrying the signals of slots A, B, C and D: twelve FPGA pins each (bank 15), with grounds between groups. Their voltage is whatever J19 selects.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J3 | WingTAT 2044-2X32G00SA | _not yet described_ |
+| J3 | WingTAT 2044-2X32G00SA | slots A-D signal socket: 2x32 female socket, right edge: signals of slots A, B, C, D. |
 
 ### SHIELD HEADER EFGH
 
-_No description yet._
+One long 2x32 socket on the left edge carrying the signals of slots E, F, G and H: twelve FPGA pins each (bank 34), voltage set by J20.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J5 | WingTAT 2044-2X32G00SA | _not yet described_ |
+| J5 | WingTAT 2044-2X32G00SA | slots E-H signal socket: 2x32 female socket, left edge: signals of slots E, F, G, H. |
 
 ### SHIELD HEADER L
 
-_No description yet._
+The signal socket of slot L (5V BUS 0): eight 5 V data lines from U9, with four grounds between them.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J7 | PM254-2-08-Z-8.5 | _not yet described_ |
+| J7 | PM254-2-08-Z-8.5 | slot L signal socket: 2x8 female socket: 5V BUS 0 data lines. |
 
 ### SHIELD HEADER M
 
-_No description yet._
+The signal socket of slot M (5V BUS 1): eight 5 V data lines from U10, with four grounds between them.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J8 | PM254-2-08-Z-8.5 | _not yet described_ |
+| J8 | PM254-2-08-Z-8.5 | slot M signal socket: 2x8 female socket: 5V BUS 1 data lines. |
 
 ### SLOT L branches
 
-_No description yet._
+Power for whatever is plugged into slot L. The 1x7 power socket carries PIN V (3.3 V), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J57 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK76 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C143 | 10uF | 10uF bypass on SLOT_L_PIN_VOLTAGE, for MK76 |
-| C144 | 100nF | 100nF bypass on SLOT_L_3V3, for MK76 |
-| F1 | 500mA | 500mA resettable fuse feeding SLOT_L_PIN_VOLTAGE from +3V3_EXT, for MK76 |
-| F2 | 500mA | 500mA resettable fuse feeding SLOT_L_5V from +5V_EXT, for MK76 |
-| F3 | 300mA | 300mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for MK76 |
-| F4 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_L_AUX from AUX_RAIL, for MK76 |
+| J57 | XFCN PM254V-11-07-H85 | slot L power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK76 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot L key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C143 | 10uF | 10uF bypass on SLOT_L_PIN_VOLTAGE, for J57 (slot L power socket) |
+| C144 | 100nF | 100nF bypass on SLOT_L_3V3, for J57 (slot L power socket) |
+| F1 | 500mA | 500mA resettable fuse feeding SLOT_L_PIN_VOLTAGE from +3V3_EXT, for J57 (slot L power socket) |
+| F2 | 500mA | 500mA resettable fuse feeding SLOT_L_5V from +5V_EXT, for J57 (slot L power socket) |
+| F3 | 300mA | 300mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for J57 (slot L power socket) |
+| F4 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_L_AUX from AUX_RAIL, for J57 (slot L power socket) |
 
 ### SLOT M branches
 
-_No description yet._
+Power for whatever is plugged into slot M. The 1x7 power socket carries PIN V (3.3 V), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J58 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK77 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C145 | 10uF | 10uF bypass on SLOT_M_PIN_VOLTAGE, for MK77 |
-| C146 | 100nF | 100nF bypass on SLOT_M_3V3, for MK77 |
-| F5 | 500mA | 500mA resettable fuse feeding SLOT_M_PIN_VOLTAGE from +3V3_EXT, for MK77 |
-| F6 | 500mA | 500mA resettable fuse feeding SLOT_M_5V from +5V_EXT, for MK77 |
-| F7 | 300mA | 300mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for MK77 |
-| F8 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_M_AUX from AUX_RAIL, for MK77 |
+| J58 | XFCN PM254V-11-07-H85 | slot M power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK77 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot M key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C145 | 10uF | 10uF bypass on SLOT_M_PIN_VOLTAGE, for J58 (slot M power socket) |
+| C146 | 100nF | 100nF bypass on SLOT_M_3V3, for J58 (slot M power socket) |
+| F5 | 500mA | 500mA resettable fuse feeding SLOT_M_PIN_VOLTAGE from +3V3_EXT, for J58 (slot M power socket) |
+| F6 | 500mA | 500mA resettable fuse feeding SLOT_M_5V from +5V_EXT, for J58 (slot M power socket) |
+| F7 | 300mA | 300mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for J58 (slot M power socket) |
+| F8 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_M_AUX from AUX_RAIL, for J58 (slot M power socket) |
 
 ### SLOT A branches
 
-_No description yet._
+Power for whatever is plugged into slot A. The 1x7 power socket carries PIN V (the J19 voltage), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J53 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK65 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C147 | 10uF | 10uF bypass on SLOT_A_PIN_VOLTAGE, for MK65 |
-| C148 | 100nF | 100nF bypass on SLOT_A_3V3, for MK65 |
-| F9 | 500mA | 500mA resettable fuse feeding SLOT_A_PIN_VOLTAGE from VCCIO_1_EXT, for MK65 |
-| F10 | 500mA | 500mA resettable fuse feeding SLOT_A_5V from +5V_EXT, for MK65 |
-| F11 | 300mA | 300mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for MK65 |
-| F12 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_A_AUX from AUX_RAIL, for MK65 |
+| J53 | XFCN PM254V-11-07-H85 | slot A power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK65 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot A key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C147 | 10uF | 10uF bypass on SLOT_A_PIN_VOLTAGE, for J53 (slot A power socket) |
+| C148 | 100nF | 100nF bypass on SLOT_A_3V3, for J53 (slot A power socket) |
+| F9 | 500mA | 500mA resettable fuse feeding SLOT_A_PIN_VOLTAGE from VCCIO_1_EXT, for J53 (slot A power socket) |
+| F10 | 500mA | 500mA resettable fuse feeding SLOT_A_5V from +5V_EXT, for J53 (slot A power socket) |
+| F11 | 300mA | 300mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for J53 (slot A power socket) |
+| F12 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_A_AUX from AUX_RAIL, for J53 (slot A power socket) |
 
 ### SLOT B branches
 
-_No description yet._
+Power for whatever is plugged into slot B. The 1x7 power socket carries PIN V (the J19 voltage), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J62 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK66 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C149 | 10uF | 10uF bypass on SLOT_B_PIN_VOLTAGE, for MK66 |
-| C150 | 100nF | 100nF bypass on SLOT_B_3V3, for MK66 |
-| F13 | 500mA | 500mA resettable fuse feeding SLOT_B_PIN_VOLTAGE from VCCIO_1_EXT, for MK66 |
-| F14 | 500mA | 500mA resettable fuse feeding SLOT_B_5V from +5V_EXT, for MK66 |
-| F15 | 300mA | 300mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for MK66 |
-| F16 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_B_AUX from AUX_RAIL, for MK66 |
+| J62 | XFCN PM254V-11-07-H85 | slot B power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK66 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot B key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C149 | 10uF | 10uF bypass on SLOT_B_PIN_VOLTAGE, for J62 (slot B power socket) |
+| C150 | 100nF | 100nF bypass on SLOT_B_3V3, for J62 (slot B power socket) |
+| F13 | 500mA | 500mA resettable fuse feeding SLOT_B_PIN_VOLTAGE from VCCIO_1_EXT, for J62 (slot B power socket) |
+| F14 | 500mA | 500mA resettable fuse feeding SLOT_B_5V from +5V_EXT, for J62 (slot B power socket) |
+| F15 | 300mA | 300mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for J62 (slot B power socket) |
+| F16 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_B_AUX from AUX_RAIL, for J62 (slot B power socket) |
 
 ### SLOT C branches
 
-_No description yet._
+Power for whatever is plugged into slot C. The 1x7 power socket carries PIN V (the J19 voltage), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J54 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK67 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C151 | 10uF | 10uF bypass on SLOT_C_PIN_VOLTAGE, for MK67 |
-| C152 | 100nF | 100nF bypass on SLOT_C_3V3, for MK67 |
-| F17 | 500mA | 500mA resettable fuse feeding SLOT_C_PIN_VOLTAGE from VCCIO_1_EXT, for MK67 |
-| F18 | 500mA | 500mA resettable fuse feeding SLOT_C_5V from +5V_EXT, for MK67 |
-| F19 | 300mA | 300mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for MK67 |
-| F20 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_C_AUX from AUX_RAIL, for MK67 |
+| J54 | XFCN PM254V-11-07-H85 | slot C power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK67 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot C key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C151 | 10uF | 10uF bypass on SLOT_C_PIN_VOLTAGE, for J54 (slot C power socket) |
+| C152 | 100nF | 100nF bypass on SLOT_C_3V3, for J54 (slot C power socket) |
+| F17 | 500mA | 500mA resettable fuse feeding SLOT_C_PIN_VOLTAGE from VCCIO_1_EXT, for J54 (slot C power socket) |
+| F18 | 500mA | 500mA resettable fuse feeding SLOT_C_5V from +5V_EXT, for J54 (slot C power socket) |
+| F19 | 300mA | 300mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for J54 (slot C power socket) |
+| F20 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_C_AUX from AUX_RAIL, for J54 (slot C power socket) |
 
 ### SLOT D branches
 
-_No description yet._
+Power for whatever is plugged into slot D. The 1x7 power socket carries PIN V (the J19 voltage), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J63 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK68 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C153 | 10uF | 10uF bypass on SLOT_D_PIN_VOLTAGE, for MK68 |
-| C154 | 100nF | 100nF bypass on SLOT_D_3V3, for MK68 |
-| F21 | 500mA | 500mA resettable fuse feeding SLOT_D_PIN_VOLTAGE from VCCIO_1_EXT, for MK68 |
-| F22 | 500mA | 500mA resettable fuse feeding SLOT_D_5V from +5V_EXT, for MK68 |
-| F23 | 300mA | 300mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for MK68 |
-| F24 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_D_AUX from AUX_RAIL, for MK68 |
+| J63 | XFCN PM254V-11-07-H85 | slot D power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK68 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot D key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C153 | 10uF | 10uF bypass on SLOT_D_PIN_VOLTAGE, for J63 (slot D power socket) |
+| C154 | 100nF | 100nF bypass on SLOT_D_3V3, for J63 (slot D power socket) |
+| F21 | 500mA | 500mA resettable fuse feeding SLOT_D_PIN_VOLTAGE from VCCIO_1_EXT, for J63 (slot D power socket) |
+| F22 | 500mA | 500mA resettable fuse feeding SLOT_D_5V from +5V_EXT, for J63 (slot D power socket) |
+| F23 | 300mA | 300mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for J63 (slot D power socket) |
+| F24 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_D_AUX from AUX_RAIL, for J63 (slot D power socket) |
 
 ### SLOT E branches
 
-_No description yet._
+Power for whatever is plugged into slot E. The 1x7 power socket carries PIN V (the J20 voltage), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J55 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK69 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C155 | 10uF | 10uF bypass on SLOT_E_PIN_VOLTAGE, for MK69 |
-| C156 | 100nF | 100nF bypass on SLOT_E_3V3, for MK69 |
-| F25 | 500mA | 500mA resettable fuse feeding SLOT_E_PIN_VOLTAGE from VCCIO_2_EXT, for MK69 |
-| F26 | 500mA | 500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for MK69 |
-| F27 | 300mA | 300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for MK69 |
-| F28 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_E_AUX from AUX_RAIL, for MK69 |
+| J55 | XFCN PM254V-11-07-H85 | slot E power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK69 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot E key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C155 | 10uF | 10uF bypass on SLOT_E_PIN_VOLTAGE, for J55 (slot E power socket) |
+| C156 | 100nF | 100nF bypass on SLOT_E_3V3, for J55 (slot E power socket) |
+| F25 | 500mA | 500mA resettable fuse feeding SLOT_E_PIN_VOLTAGE from VCCIO_2_EXT, for J55 (slot E power socket) |
+| F26 | 500mA | 500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket) |
+| F27 | 300mA | 300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket) |
+| F28 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_E_AUX from AUX_RAIL, for J55 (slot E power socket) |
 
 ### SLOT F branches
 
-_No description yet._
+Power for whatever is plugged into slot F. The 1x7 power socket carries PIN V (the J20 voltage), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J64 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK70 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C157 | 10uF | 10uF bypass on SLOT_F_PIN_VOLTAGE, for MK70 |
-| C158 | 100nF | 100nF bypass on SLOT_F_3V3, for MK70 |
-| F29 | 500mA | 500mA resettable fuse feeding SLOT_F_PIN_VOLTAGE from VCCIO_2_EXT, for MK70 |
-| F30 | 500mA | 500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for MK70 |
-| F31 | 300mA | 300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for MK70 |
-| F32 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_F_AUX from AUX_RAIL, for MK70 |
+| J64 | XFCN PM254V-11-07-H85 | slot F power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK70 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot F key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C157 | 10uF | 10uF bypass on SLOT_F_PIN_VOLTAGE, for J64 (slot F power socket) |
+| C158 | 100nF | 100nF bypass on SLOT_F_3V3, for J64 (slot F power socket) |
+| F29 | 500mA | 500mA resettable fuse feeding SLOT_F_PIN_VOLTAGE from VCCIO_2_EXT, for J64 (slot F power socket) |
+| F30 | 500mA | 500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket) |
+| F31 | 300mA | 300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket) |
+| F32 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_F_AUX from AUX_RAIL, for J64 (slot F power socket) |
 
 ### SLOT G branches
 
-_No description yet._
+Power for whatever is plugged into slot G. The 1x7 power socket carries PIN V (the J20 voltage), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J56 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK71 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C159 | 10uF | 10uF bypass on SLOT_G_PIN_VOLTAGE, for MK71 |
-| C160 | 100nF | 100nF bypass on SLOT_G_3V3, for MK71 |
-| F33 | 500mA | 500mA resettable fuse feeding SLOT_G_PIN_VOLTAGE from VCCIO_2_EXT, for MK71 |
-| F34 | 500mA | 500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for MK71 |
-| F35 | 300mA | 300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for MK71 |
-| F36 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_G_AUX from AUX_RAIL, for MK71 |
+| J56 | XFCN PM254V-11-07-H85 | slot G power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK71 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot G key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C159 | 10uF | 10uF bypass on SLOT_G_PIN_VOLTAGE, for J56 (slot G power socket) |
+| C160 | 100nF | 100nF bypass on SLOT_G_3V3, for J56 (slot G power socket) |
+| F33 | 500mA | 500mA resettable fuse feeding SLOT_G_PIN_VOLTAGE from VCCIO_2_EXT, for J56 (slot G power socket) |
+| F34 | 500mA | 500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket) |
+| F35 | 300mA | 300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket) |
+| F36 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_G_AUX from AUX_RAIL, for J56 (slot G power socket) |
 
 ### SLOT H branches
 
-_No description yet._
+Power for whatever is plugged into slot H. The 1x7 power socket carries PIN V (the J20 voltage), 3.3 V, 5 V and AUX, each beside a ground, and each through its own resettable fuse, so a short on one extension trips only that slot's fuse and the rest of the board keeps running. The long grounded pin in front of the socket is the key that stops an extension going in the wrong way, and a ground probe point.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J65 | XFCN PM254V-11-07-H85 | _not yet described_ |
-| MK72 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | _not yet described_ |
-| C161 | 10uF | 10uF bypass on SLOT_H_PIN_VOLTAGE, for MK72 |
-| C162 | 100nF | 100nF bypass on SLOT_H_3V3, for MK72 |
-| F37 | 500mA | 500mA resettable fuse feeding SLOT_H_PIN_VOLTAGE from VCCIO_2_EXT, for MK72 |
-| F38 | 500mA | 500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for MK72 |
-| F39 | 300mA | 300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for MK72 |
-| F40 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_H_AUX from AUX_RAIL, for MK72 |
+| J65 | XFCN PM254V-11-07-H85 | slot H power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| MK72 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot H key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
+| C161 | 10uF | 10uF bypass on SLOT_H_PIN_VOLTAGE, for J65 (slot H power socket) |
+| C162 | 100nF | 100nF bypass on SLOT_H_3V3, for J65 (slot H power socket) |
+| F37 | 500mA | 500mA resettable fuse feeding SLOT_H_PIN_VOLTAGE from VCCIO_2_EXT, for J65 (slot H power socket) |
+| F38 | 500mA | 500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket) |
+| F39 | 300mA | 300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket) |
+| F40 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_H_AUX from AUX_RAIL, for J65 (slot H power socket) |
 
 ### VCCIO_1 selector
 
-_No description yet._
+Jumper that picks the signal voltage of slots A-D: one shunt on J19 selects 3.3, 2.5 or 1.8 V. It powers FPGA bank 15 and the PIN V pin of those four slots. One position only; change it with the board unpowered.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J19 | 2.54-2*3P | _not yet described_ |
-| C163 | 22uF | 22uF bypass on VCCIO_1, for J19 |
-| C164 | 22uF | 22uF bypass on VCCIO_1, for J19 |
+| J19 | 2.54-2*3P | A-D PIN VOLTAGE jumper: 2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots A-D. |
+| C163 | 22uF | 22uF bypass on VCCIO_1, for J19 (A-D PIN VOLTAGE jumper) |
+| C164 | 22uF | 22uF bypass on VCCIO_1, for J19 (A-D PIN VOLTAGE jumper) |
 
 ### VCCIO_2 selector
 
-_No description yet._
+Jumper that picks the signal voltage of slots E-H (J20): 3.3, 2.5 or 1.8 V for FPGA bank 34 and those slots' PIN V pin.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J20 | 2.54-2*3P | _not yet described_ |
-| C165 | 22uF | 22uF bypass on VCCIO_2, for J20 |
-| C166 | 22uF | 22uF bypass on VCCIO_2, for J20 |
+| J20 | 2.54-2*3P | E-H PIN VOLTAGE jumper: 2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots E-H. |
+| C165 | 22uF | 22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper) |
+| C166 | 22uF | 22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper) |
 
 ## Network
 

@@ -32,8 +32,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GUIDE = os.path.join(ROOT, 'ref', 'parts-guide.md')
 
-# Sheets whose text is written and enforced. The others are reported only.
-COVERED = {'FPGA', 'Network'}
+# Sheets whose text is written and enforced (set below, after the text).
+COVERED = set()
 
 PASSIVE = {'Device:R', 'Device:C', 'Device:C_Polarized', 'Device:L',
            'Device:Polyfuse', 'Device:FerriteBead'}
@@ -191,6 +191,8 @@ PART = {
     'C245': (None, '18 pF load capacitor on the crystal\'s output side (X3)'),
     'R146': (None, '0 ohm in series with U30\'s crystal drive pin: a spot to fit a '
                    'resistor if the measured drive level exceeds 0.5 mW (Table 56)'),
+    'C133': (None, '15 pF load capacitor on the 12 MHz crystal\'s input (RP-008280 section 4)'),
+    'C134': (None, '15 pF load capacitor on the 12 MHz crystal\'s output (RP-008280 section 4)'),
     'D23': ('LINK Q ESD, pins 4-5 and 7-8',
             'TI TPD4E1U06 four-line ESD clamp (0.8 pF) on LINK Q\'s outgoing '
             'clock and data pairs.'),
@@ -228,8 +230,323 @@ NET = {
     'ETH_CT': 'returns the jack\'s transformer centre taps to ground ([verify] ref/network.md)',
 }
 
+# ---------------------------------------------- other sheets
+GROUP.update({
+    # ---- Power sheet
+    'input OR-ing':
+        'Where power enters. Two inputs feed one internal supply, VSYS: '
+        'USB-C (5 V, or 9 V when a USB-PD charger agrees) and the J50 screw '
+        'terminal (9-21 V). A diode on each (D3, D4) lets whichever is higher '
+        'supply the board and stops one input from back-feeding the other. '
+        'On the USB side, U26 is an electronic fuse: it ramps the voltage up '
+        'gently so plugging in does not spark, cuts off above about 10 V or '
+        'below 3.75 V, and limits current to about 2 A. D8 clamps voltage '
+        'spikes on the screw input. VSYS then feeds the two main regulators.',
+    'VBUS pass switch to +5V':
+        'A shortcut for plain 5 V USB. A regulator cannot make 5 V out of 5 V, '
+        'so when the USB source is 5 V the board controller turns Q2 on and '
+        'USB power goes straight onto the +5V rail. It is off by default and '
+        'must stay off at 9 V, or 9 V would reach parts rated for 5.5 V; Q3 '
+        'is the small transistor the controller uses to switch it.',
+    'U11  VSYS to +5V':
+        'Switching regulator (buck converter) that makes +5V from VSYS. +5V '
+        'feeds the 5 V buses, the extension 5 V pins and the four small '
+        'regulators below. The board controller turns it on (EN_5V); the '
+        'pull-down keeps it off until then. The two feedback resistors set '
+        'the output voltage; the inductor and capacitors are its power stage.',
+    'U12  VSYS to +3V3  (always-on AP63300 reference circuit)':
+        'Switching regulator that makes +3V3 from VSYS. It has no enable: it '
+        'starts as soon as any power is present, because +3V3 runs the board '
+        'controller, which then switches everything else on. Also powers the '
+        'PSRAM, the flashes, the PHY and most logic. The two feedback '
+        'resistors set 3.3 V; the inductor and capacitors are its power stage.',
+    'U13  5V to +2V5':
+        'Small switching regulator that makes +2V5 from +5V for FPGA bank 16 '
+        '(network) and the PHY\'s RGMII pins. Enabled by the board controller '
+        '(EN_2V5); the feedback resistors set 2.5 V.',
+    'U14  5V to +1V8':
+        'Small switching regulator that makes +1V8 from +5V for the FPGA\'s '
+        'auxiliary supply (VCCAUX) and its ADC. Enabled by the board '
+        'controller (EN_1V8); the feedback resistors set 1.8 V.',
+    'U16  5V to +1V2_MGT':
+        'Small switching regulator that makes +1V2_MGT from +5V for the FPGA '
+        'transceivers\' MGTAVTT supply. The transceivers are unused in rev A '
+        'but must stay powered. Enabled by the board controller (EN_1V2).',
+    'U15  5V to +1V0  (4A FPGA core supply)':
+        'The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail '
+        'on the board. Enabled by the board controller (EN_1V0); its '
+        'power-good output (CORE_1V0_GOOD) is read through the status '
+        'expander so firmware knows the core is up. The soft-start capacitor '
+        'makes it ramp slowly; the feedback resistors set 1.0 V.',
+    'MGTAVCC filter':
+        'A small inductor and capacitor that make +1V0_MGT from +1V0: the '
+        'same voltage, with the core\'s switching noise filtered out, for the '
+        'transceivers\' MGTAVCC supply.',
+    'extension power protection control':
+        'Shared control for the four protected extension supplies (U21-U24). '
+        'EXT_EN, from the board controller, turns them all on; the pull-down '
+        'keeps them off until firmware decides. EXT_FAULT is pulled up and '
+        'goes low if any of them (or the USB eFuse) detects a fault, so one '
+        'controller pin hears all of them.',
+    'U21  +5V to +5V_EXT':
+        'Protected switch between the board\'s +5V and the 5 V pins of every '
+        'extension port. Limits current to about 1 A and blocks current '
+        'flowing back from an extension. Without it, a shorted extension '
+        'would pull the whole board\'s 5 V down.',
+    'U22  +3V3 to +3V3_EXT':
+        'Protected switch between +3V3 and the 3.3 V pins of every extension '
+        'port, limited to about 0.5 A, with reverse blocking. Keeps a faulty '
+        'extension from taking down the board controller\'s supply.',
+    'U23  VCCIO_1 to VCCIO_1_EXT':
+        'Protected switch for the PIN V supply of slots A-D (the voltage '
+        'chosen on J19), limited to about 0.5 A, with reverse blocking.',
+    'U24  VCCIO_2 to VCCIO_2_EXT':
+        'Protected switch for the PIN V supply of slots E-H (the voltage '
+        'chosen on J20), limited to about 0.5 A, with reverse blocking.',
+    'rail monitors':
+        'Lets the board controller measure every supply. Each rail goes to '
+        'one of its analog inputs (ADC), which read 0-3.3 V. Rails at or '
+        'below 3.3 V go through a 1 k resistor that protects the pin; VSYS '
+        'and +5V are higher, so two resistors divide them down first. A 100 '
+        'nF capacitor on each input steadies the reading. Firmware uses this '
+        'to check each regulator came up before enabling the next.',
+    'AUX IN':
+        'Optional extra power for extensions that need more than 5 V (motors, '
+        'LED strips, displays). Whatever you connect here (9-28 V DC) goes, '
+        'unregulated, to the AUX pin of every extension port through each '
+        'port\'s own fuse. The board itself never uses it.',
+    # ---- Memory sheet
+    'PSRAM0': 'Working-memory chip 0: 2 MB of fast RAM for the FPGA design, on its own '
+              'four-bit (QSPI) bus to bank 14. The four chips are independent, so a '
+              'design can use them in parallel. Notes: ref/psram.md.',
+    'PSRAM1': 'Working-memory chip 1: 2 MB of RAM on its own QSPI bus to bank 14.',
+    'PSRAM2': 'Working-memory chip 2: 2 MB of RAM on its own QSPI bus to bank 14.',
+    'PSRAM3': 'Working-memory chip 3: 2 MB of RAM on its own QSPI bus to bank 14.',
+    'config flash':
+        'The FPGA\'s non-volatile memory. At power-on the FPGA reads its '
+        'design (bitstream) from this 32 MB flash by itself (master SPI, set '
+        'by the mode straps). The board controller can rewrite it through the '
+        'series resistors on the Board Controller sheet, and spare space can '
+        'hold user data or software for a soft CPU.',
+    'PSRAM0 series termination': 'One 33 ohm resistor per PSRAM0 line, placed next to the '
+        'FPGA: they soften the fast signal edges so they do not ring along '
+        'the trace. Values can be tuned after measurement (ref/psram.md).',
+    'PSRAM1 series termination': 'One 33 ohm resistor per PSRAM1 line, next to the FPGA, to damp ringing.',
+    'PSRAM2 series termination': 'One 33 ohm resistor per PSRAM2 line, next to the FPGA, to damp ringing.',
+    'PSRAM3 series termination': 'One 33 ohm resistor per PSRAM3 line, next to the FPGA, to damp ringing.',
+    # ---- Board Controller (Supervisor) sheet
+    'U7  board controller':
+        'The board controller, a Raspberry Pi RP2350B microcontroller that is '
+        'always on. It is what the USB cable talks to: it loads designs into '
+        'the FPGA over JTAG or writes them to the FPGA\'s flash, turns the '
+        'supplies on in order and watches them, asks a USB-PD charger for '
+        '9 V, enables extension power, and gives the FPGA a debug and UART '
+        'link. One 100 nF capacitor per supply pin (RP-008280 section 2.2.1).',
+    'U7 core regulator (RP-008280 s2.1)':
+        'Parts for the RP2350\'s built-in switching regulator, which makes its '
+        '1.1 V core supply (+1V1) from +3V3. Values and the inductor are the '
+        'ones Raspberry Pi specifies in their hardware design guide '
+        '(RP-008280 section 2.1).',
+    'crystal (RP-008280 s4)':
+        'The board controller\'s 12 MHz clock: the exact crystal, load '
+        'capacitors and 1 k drive-limiting resistor Raspberry Pi specifies '
+        '(RP-008280 section 4).',
+    'RUN':
+        'The board controller\'s reset input. The pull-up keeps it running; '
+        'the capacitor holds it in reset briefly at power-on until +3V3 is '
+        'stable.',
+    'board controller startup memory':
+        'The board controller\'s own 4 MB flash, holding its firmware. '
+        'Separate from the FPGA\'s flash.',
+    'USB-C':
+        'The main connector: power in, and the USB link to your computer for '
+        'programming and talking to the board.',
+    'USB protection':
+        'Clamps for static discharge and voltage spikes on the USB connector: '
+        'D6 on the data and CC lines, D7 on the power line (VBUS).',
+    'USB-PD sink':
+        'Negotiates the supply voltage with a USB-PD charger. The board '
+        'controller tells it what to ask for (PD_CFG1-3: 5 V or 9 V, never '
+        'more) and reads PD_PG to know whether the charger agreed.',
+    'BOOTSEL':
+        'Hold CTRL BOOT while plugging in USB to put the board controller in '
+        'its built-in USB bootloader, for installing or recovering its '
+        'firmware. The 1 k resistor lets the button win without fighting the '
+        'chip. The 10 k pull-up is not fitted, as in Raspberry Pi\'s design.',
+    'board controller SWD':
+        'Debug connector for the board controller\'s own processor (SWD): for '
+        'developing its firmware with a debug probe. Not for the FPGA.',
+    'series resistors to FPGA':
+        'One 33 ohm resistor on every wire between the board controller and '
+        'the FPGA: JTAG, the configuration pins, the FPGA flash bus, the '
+        'debug sideband and the UART. They limit current if both sides ever '
+        'drive the same wire at once, and damp ringing.',
+    'JTAG owner selection':
+        'Decides who programs the FPGA over JTAG. Normally (J52 open) the '
+        'board controller does, through the U20 switch. Fit a jumper on J52 '
+        'and U20 disconnects the board controller completely, so an external '
+        'programmer plugged into J2 has the FPGA to itself. A jumper, not '
+        'software, so it works even when the board controller is broken.',
+    'manual JTAG header':
+        'Standard 2x5 JTAG header for an external FPGA programmer (Xilinx/AMD '
+        'cable or similar). Fit J52 first.',
+    'status expander':
+        'A small I2C chip on the board controller that drives the three '
+        'status LEDs and reads the FPGA core supply\'s power-good signal, '
+        'saving controller pins. Address 0x24. Rules for writing it: '
+        'ref/status-leds.md.',
+    'board status LEDs':
+        'Three green LEDs driven by the status expander: CTRL HB blinks while '
+        'the board controller firmware is alive; USER 1 and USER 2 are for '
+        'software. Each has a 1 k current-limiting resistor.',
+    # ---- Slots sheet
+    'SHIELD HEADER ABCD':
+        'One long 2x32 socket on the right edge carrying the signals of slots '
+        'A, B, C and D: twelve FPGA pins each (bank 15), with grounds between '
+        'groups. Their voltage is whatever J19 selects.',
+    'SHIELD HEADER EFGH':
+        'One long 2x32 socket on the left edge carrying the signals of slots '
+        'E, F, G and H: twelve FPGA pins each (bank 34), voltage set by J20.',
+    'SHIELD HEADER L':
+        'The signal socket of slot L (5V BUS 0): eight 5 V data lines from U9, '
+        'with four grounds between them.',
+    'SHIELD HEADER M':
+        'The signal socket of slot M (5V BUS 1): eight 5 V data lines from '
+        'U10, with four grounds between them.',
+    '5V BUS 0 converter':
+        'Lets the FPGA (3.3 V) talk to 5 V extensions on slot L. U9 shifts '
+        'eight lines between 3.3 V and 5 V, all in one direction at a time '
+        '(BUS5V0_DIR). It stays off until the FPGA pulls BUS5V0_OE_N low; the '
+        'pull-up keeps the bus off while the FPGA is still loading.',
+    '5V BUS 1 converter':
+        'Same as 5V BUS 0, for slot M: U10 shifts eight lines between the '
+        'FPGA\'s 3.3 V and 5 V, direction BUS5V1_DIR, off until BUS5V1_OE_N '
+        'goes low.',
+    'VCCIO_1 selector':
+        'Jumper that picks the signal voltage of slots A-D: one shunt on '
+        'J19 selects 3.3, 2.5 or 1.8 V. It powers FPGA bank 15 and the PIN V '
+        'pin of those four slots. One position only; change it with the '
+        'board unpowered.',
+    'VCCIO_2 selector':
+        'Jumper that picks the signal voltage of slots E-H (J20): 3.3, 2.5 or '
+        '1.8 V for FPGA bank 34 and those slots\' PIN V pin.',
+})
+for _s in 'ABCDEFGHLM':
+    _v = ('3.3 V' if _s in 'LM' else
+          'the J19 voltage' if _s in 'ABCD' else 'the J20 voltage')
+    GROUP[f'SLOT {_s} branches'] = (
+        f'Power for whatever is plugged into slot {_s}. The 1x7 power socket '
+        f'carries PIN V ({_v}), 3.3 V, 5 V and AUX, each beside a ground, and '
+        'each through its own resettable fuse, so a short on one extension '
+        'trips only that slot\'s fuse and the rest of the board keeps running. '
+        'The long grounded pin in front of the socket is the key that stops '
+        'an extension going in the wrong way, and a ground probe point.')
+
+PART.update({
+    'J50': ('POWER IN screw terminal', 'Main power input, 9-21 V DC. Polarity marked on the board.'),
+    'U26': ('USB input eFuse', 'TI TPS259470A: ramps USB power in gently, cuts off outside 3.75-10 V, limits current to about 2 A, blocks reverse current. Reports faults on EXT_FAULT.'),
+    'D3': ('USB input diode', 'SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB.'),
+    'D4': ('screw input diode', 'SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it.'),
+    'D8': ('screw input surge clamp', 'SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V.'),
+    'Q2': ('5 V USB pass switch', 'P-MOSFET that connects USB power straight to +5V when the source is plain 5 V. Off by default; must stay off at 9 V.'),
+    'Q3': ('pass switch driver', 'Small N-MOSFET the board controller (EN_VBUS5) uses to turn Q2 on.'),
+    'U11': ('5 V regulator', 'Diodes AP63300, 3 A switching regulator: VSYS to +5V.'),
+    'U12': ('3.3 V regulator, always on', 'Diodes AP63300, 3 A switching regulator: VSYS to +3V3. Starts by itself.'),
+    'U13': ('2.5 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +2V5.'),
+    'U14': ('1.8 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V8.'),
+    'U16': ('1.2 V transceiver regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT.'),
+    'U15': ('FPGA core regulator', 'Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output.'),
+    'U21': ('extension 5 V switch', 'TI TPS22950C load switch: +5V to every slot\'s 5 V pin, about 1 A limit, reverse blocking.'),
+    'U22': ('extension 3.3 V switch', 'TI TPS22950C load switch: +3V3 to every slot\'s 3.3 V pin, about 0.5 A limit.'),
+    'U23': ('slots A-D PIN V switch', 'TI TPS22950C load switch: VCCIO_1 to the PIN V pin of slots A-D, about 0.5 A limit.'),
+    'U24': ('slots E-H PIN V switch', 'TI TPS22950C load switch: VCCIO_2 to the PIN V pin of slots E-H, about 0.5 A limit.'),
+    'J68': ('AUX IN screw terminal', 'Optional 9-28 V DC input feeding only the AUX pin of every extension port, unregulated. Your supply, your current limit.'),
+    'U2': ('PSRAM 0', 'AP Memory APS1604M, 16 Mbit (2 MB) QSPI pseudo-static RAM, 3.3 V.'),
+    'U3': ('PSRAM 1', 'AP Memory APS1604M, 2 MB QSPI RAM.'),
+    'U4': ('PSRAM 2', 'AP Memory APS1604M, 2 MB QSPI RAM.'),
+    'U5': ('PSRAM 3', 'AP Memory APS1604M, 2 MB QSPI RAM.'),
+    'U6': ('FPGA configuration flash', 'Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it.'),
+    'U7': ('board controller', 'Raspberry Pi RP2350B microcontroller (two Cortex-M33 cores, 150 MHz): USB, FPGA programming, power sequencing and monitoring.'),
+    'Y1': ('controller 12 MHz crystal', 'Abracon ABM8-272-T3, the crystal Raspberry Pi specifies for the RP2350.'),
+    'U8': ('controller firmware flash', 'Winbond W25Q32JV, 32 Mbit (4 MB) quad-SPI flash holding the board controller\'s firmware.'),
+    'J1': ('USB-C connector', 'Power in and USB 2.0 data to the board controller.'),
+    'D6': ('USB data ESD clamp', 'ST ESDA6V1BC6: clamps static discharge on D+, D-, CC1 and CC2.'),
+    'D7': ('USB power surge clamp', 'SMBJ13A TVS diode: clamps spikes on VBUS above about 14 V.'),
+    'U18': ('USB-PD negotiator', 'WCH CH224K: asks a USB-PD charger for the voltage the board controller selects (5 or 9 V).'),
+    'SW1': ('CTRL BOOT button', 'Hold while plugging in USB to enter the board controller\'s USB bootloader.'),
+    'J51': ('CTRL SWD connector', '3-pin JST-SH debug port for the board controller\'s processor.'),
+    'U20': ('JTAG switch', 'TI SN74CB3Q3384 bus switch: connects or isolates the board controller\'s JTAG from the FPGA, set by J52.'),
+    'J52': ('EXT JTAG jumper', 'Fit a shunt to hand the FPGA\'s JTAG to an external programmer on J2.'),
+    'J2': ('FPGA JTAG header', '2x5 keyed header for an external FPGA programmer.'),
+    'U17': ('status expander', 'NXP PCF8574 I2C port expander: drives the three status LEDs, reads core power-good.'),
+    'D9': ('CTRL HB LED', 'Green LED: blinks while the board controller firmware runs.'),
+    'D10': ('USER 1 LED', 'Green LED for software use.'),
+    'D11': ('USER 2 LED', 'Green LED for software use.'),
+    'U9': ('5V BUS 0 translator', 'TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot L.'),
+    'U10': ('5V BUS 1 translator', 'TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot M.'),
+    'J3': ('slots A-D signal socket', '2x32 female socket, right edge: signals of slots A, B, C, D.'),
+    'J5': ('slots E-H signal socket', '2x32 female socket, left edge: signals of slots E, F, G, H.'),
+    'J7': ('slot L signal socket', '2x8 female socket: 5V BUS 0 data lines.'),
+    'J8': ('slot M signal socket', '2x8 female socket: 5V BUS 1 data lines.'),
+    'J19': ('A-D PIN VOLTAGE jumper', '2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots A-D.'),
+    'J20': ('E-H PIN VOLTAGE jumper', '2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots E-H.'),
+})
+for _s, _j in {'A':'J53', 'B':'J62', 'C':'J54', 'D':'J63', 'E':'J55',
+               'F':'J64', 'G':'J56', 'H':'J65', 'L':'J57', 'M':'J58'}.items():
+    PART[_j] = (f'slot {_s} power socket',
+                '1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.')
+    PART[f'MK{ord(_s)}'] = (f'slot {_s} key post',
+                            'Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.')
+
+NET.update({
+    'VBUS_UVLO': 'sets U26\'s turn-on voltage, 3.75 V',
+    'VBUS_OVLO': 'sets U26\'s cut-off voltage, about 10 V',
+    'VBUS_ILM': 'sets U26\'s current limit, about 2 A',
+    'VBUS_DVDT': 'sets how slowly U26 ramps VSYS up, about 0.9 V/ms',
+    'VBUS5_GATE': 'Q2\'s gate; held off unless Q3 pulls it',
+    'EN_VBUS5_G': 'Q3\'s gate; off unless the board controller drives EN_VBUS5',
+    'EN_VBUS5': 'from the board controller: connect 5 V USB straight to +5V',
+    'VBUS5_PULL': 'Q2 gate drive through Q3',
+    'CORE_1V0_GOOD': 'U15 power-good, read by the status expander',
+    'CORE_1V0_SS': 'U15 soft-start: slows the core supply\'s ramp',
+    'CORE_1V0_SVIN': 'filtered supply for U15\'s control circuit',
+    'EXT_EN': 'from the board controller: turns extension power on; off by default',
+    'EXT_FAULT': 'shared fault line, low when a protected supply trips',
+    'PD_PG': 'CH224K: high when the charger accepted the request',
+    'PD_VDD': 'CH224K\'s internal regulator output',
+    'SUP_RUN': 'board controller reset',
+    'SUP_VREG_AVDD': 'filtered analog supply for the RP2350\'s regulator',
+    'SUP_XOUT': 'limits the crystal drive level (RP-008280)',
+    'SUP_XIN': 'crystal input',
+    'SUP_XTAL_OUT': 'crystal output, after the drive-limit resistor',
+    'BOOTSEL_SW': 'button side of the BOOTSEL resistor',
+    'SUPF_CS': 'controller flash chip-select; pulled low by CTRL BOOT for the bootloader',
+    'EXTERNAL_JTAG_SELECTED': 'high when J52 is fitted: U20 disconnects the board controller',
+    'JTAG_TDO_SW': 'probe point between the FPGA\'s TDO and U20',
+    'SUP_EXP_INT': 'status expander interrupt (open drain)',
+})
+NET_PREFIX = {
+    'FB_': 'feedback divider, sets the regulator\'s output voltage',
+    'FB+': 'feedback divider, sets the regulator\'s output voltage',
+    'SW_': 'regulator switching node',
+    'SW+': 'regulator switching node',
+    'BOOT_': 'bootstrap capacitor for the regulator\'s high-side switch',
+    'EN_': 'keeps the regulator off until the board controller enables it',
+    'MON_': 'rail monitor input to the board controller\'s ADC',
+    'PSRAM': 'damps ringing on the PSRAM line (ref/psram.md)',
+    'BUS5V': 'keeps the 5 V bus translator disabled until the FPGA enables it',
+    'SUP_SCL': 'I2C clock pull-up',
+    'SUP_SDA': 'I2C data pull-up',
+    'LED_': 'LED current limit',
+    'U2': 'sets the switch\'s current limit (TI equation in design.py)',
+    'SUP_': 'board controller to FPGA link (33 ohm series)',
+}
+COVERED = {'FPGA', 'Network', 'Power', 'Memory', 'Supervisor', 'Slots'}
+
+
 # Nets that are supplies, for telling a bypass capacitor from a filter one.
 def _is_supply(n):
+    if n.startswith('MON_'): return False         # a measurement, not a supply
     return (n.startswith('+') or n in ('VSYS', 'VBUS', 'PD_VDD', 'SUP_VREG_AVDD', 'AUX_RAIL',
                                        'PHY_1V0') or
             re.match(r'VCCIO_\d(_EXT)?$', n) is not None or
@@ -240,10 +557,17 @@ def _named(q):
     return f"{q['ref']} ({PART[q['ref']][0]})" if q['ref'] in PART else q['ref']
 
 
+def _net_note(n):
+    if n in NET: return NET[n]
+    hits = [k for k in NET_PREFIX if n.startswith(k)]
+    return NET_PREFIX[max(hits, key=len)] if hits else None
+
+
 def _is_pull(net):
     """A resistor on this net is a pull (default level), not a load or a
     reference: active-low lines, straps, and any net without its own note."""
-    return (net not in NET or net.endswith(('_N', '_B', '_MDIO')) or
+    return (_net_note(net) is None or net.endswith(('_N', '_B', '_MDIO')) or
+            net.startswith(('EN_', 'SUP_SCL', 'SUP_SDA', 'BUS5V', 'EXT_', 'PD_PG', 'SUP_RUN')) or
             net.startswith(('PHY_RX', 'PHY_LED', 'CFG_', 'PUDC')))
 
 
@@ -254,14 +578,15 @@ def _hub(part, by_group, by_net):
     # U1 touches nearly every signal; name it only when nothing else does.
     sharers = [q for n in sig for q in by_net.get(n, [])
                if q['lib_id'] not in PASSIVE and q['ref'] != part['ref']]
-    for q in sorted(sharers, key=lambda q: q['ref'] == 'U1'):
+    for q in sorted(sharers, key=lambda q: (q['ref'] == 'U1', q['ref'].startswith('MK'))):
         return _named(q)
     if sig:
         return None
-    for q in by_group.get(part['group'], []):
-        if q['lib_id'] not in PASSIVE:
-            return _named(q)
-    return None
+    rank = lambda q: ('U', 'J', 'X', 'Y', 'Q', 'D', 'SW', 'MK').index(
+        re.match(r'[A-Z]+', q['ref']).group()) if re.match(r'[A-Z]+', q['ref']).group() in \
+        ('U', 'J', 'X', 'Y', 'Q', 'D', 'SW', 'MK') else 9
+    act = [q for q in by_group.get(part['group'], []) if q['lib_id'] not in PASSIVE]
+    return _named(min(act, key=rank)) if act else None
 
 
 def derive(part, by_group, by_net):
@@ -270,7 +595,7 @@ def derive(part, by_group, by_net):
     v = part['value']
     kind = {'R': 'resistor', 'C': 'capacitor', 'L': 'inductor', 'F': 'fuse'}.get(
         re.match(r'[A-Z]+', part['ref']).group()[0], 'part')
-    note = '; '.join(NET[n] for n in nets if n in NET)
+    note = '; '.join(dict.fromkeys(filter(None, (_net_note(n) for n in nets))))
     hub = _hub(part, by_group, by_net)
     g = part['group']
     if g.startswith('decap '):
@@ -333,6 +658,8 @@ def annotate(parts):
         name, text = part_role(p, by_group, by_net)
         p['role_name'] = name
         p['role'] = (f'{name}: {text}' if name and text else text) or ''
+        if p.get('dnp') and p['role']:
+            p['role'] = 'NOT FITTED. ' + p['role']
         p['group_role'] = group_role(p['group']) or ''
     return parts
 

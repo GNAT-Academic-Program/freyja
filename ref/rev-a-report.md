@@ -266,3 +266,15 @@ unexplained part or group on a covered sheet, a stale entry, or a stale
 guide. Covered: FPGA and Network; Power, Memory, Supervisor and Slots are
 reported (125 gaps) and come next.
 Open questions for the owner: tone and depth of the sample text.
+
+## Annotation, part 2 (all sheets) 2026-10-27
+Parts: 462 (unchanged); roles: 462/462 described, 0 problems
+ERC: 0 errors, 2 warnings (allowlisted); DRC: 9 errors, 324 warnings, 499 unrouted, 0 parity
+PCB sync: `load_pcb.py` between snapshots, 0 of 462 moved; no footprint has an empty Description
+Files changed: tools/roles.py, ref/parts-guide.md, kicad/*.kicad_sch, kicad/odin.net, kicad/odin.kicad_pcb
+What: text for the Power, Memory, Board Controller and Slots sheets; every
+sheet is now enforced by the gate. Net notes can match a family by prefix
+(FB_, SW_, EN_, PSRAM, ...); a passive's "for ..." now names the IC or
+connector of its group, not the key post; MON_ nets are measurements, not
+supplies; parts not fitted say so.
+Open questions for the owner: none

@@ -938,7 +938,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_E_PIN_VOLTAGE, for MK69"
+		(property "Description" "10uF bypass on SLOT_E_PIN_VOLTAGE, for J55 (slot E power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1071,7 +1071,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_B_PIN_VOLTAGE from VCCIO_1_EXT, for MK66"
+		(property "Description" "500mA resettable fuse feeding SLOT_B_PIN_VOLTAGE from VCCIO_1_EXT, for J62 (slot B power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1285,7 +1285,7 @@
 				)
 			)
 		)
-		(property "Description" "1k pull-up of MON_2V5 to +2V5, for U7"
+		(property "Description" "1k resistor from MON_2V5 to +2V5, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -1420,7 +1420,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between FLASH_D3_HOLD and SUP_FD3, for U7"
+		(property "Description" "33 series resistor between FLASH_D3_HOLD and SUP_FD3, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1553,7 +1553,7 @@
 				)
 			)
 		)
-		(property "Description" "4.7uH SRN6045TA-4R7M inductor between +5V and SW_5V, for U11"
+		(property "Description" "4.7uH SRN6045TA-4R7M inductor between +5V and SW_5V, for U11 (5 V regulator): regulator switching node"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -1767,7 +1767,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF 50V bypass on VSYS, for J50"
+		(property "Description" "10uF 50V bypass on VSYS, for U26 (USB input eFuse)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1902,7 +1902,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF capacitor between BOOT_5V and SW_5V, for U11"
+		(property "Description" "100nF capacitor between BOOT_5V and SW_5V, for U11 (5 V regulator): bootstrap capacitor for the regulator's high-side switch; regulator switching node"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -2172,7 +2172,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_E_3V3, for MK69"
+		(property "Description" "100nF bypass on SLOT_E_3V3, for J55 (slot E power socket)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2307,7 +2307,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +1V1, for U7"
+		(property "Description" "100nF bypass on +1V1, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2441,7 +2441,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot G power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -2468,7 +2468,7 @@
 		(property "UI_LABEL" "G POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "c284e41f-1fc6-41de-974c-923be653df88")
+			(uuid "0b507700-a51d-4e37-b672-efb461994273")
 			(effects
 				(font
 					(size 1 1)
@@ -2706,7 +2706,7 @@
 				)
 			)
 		)
-		(property "Description" "2.21k pull-down on U23_ILIM, for U23"
+		(property "Description" "2.21k resistor from U23_ILIM to GND, for U23 (slots A-D PIN V switch): sets the switch's current limit (TI equation in design.py)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -2841,7 +2841,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF filter capacitor on SUP_RUN, for U7"
+		(property "Description" "100nF capacitor from SUP_RUN to GND, for U7 (board controller): board controller reset"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -3111,7 +3111,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U10"
+		(property "Description" "100nF bypass on +3V3, for U10 (5V BUS 1 translator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3246,7 +3246,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U9"
+		(property "Description" "100nF bypass on +3V3, for U9 (5V BUS 0 translator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3381,7 +3381,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +2V5, for U13"
+		(property "Description" "22uF bypass on +2V5, for U13 (2.5 V regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3651,7 +3651,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +5V, for U15"
+		(property "Description" "22uF bypass on +5V, for U15 (FPGA core regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3786,7 +3786,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot F key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3812,7 +3812,7 @@
 		(property "UI_LABEL" "KEY F"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "aee61839-fae4-4e52-9bfb-e553aba829b4")
+			(uuid "2e52d71c-6231-4e7f-b2a4-e45f7d6afe21")
 			(effects
 				(font
 					(size 1 1)
@@ -3895,7 +3895,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_G_AUX from AUX_RAIL, for MK71"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_G_AUX from AUX_RAIL, for J56 (slot G power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4008,7 +4008,7 @@
 				)
 			)
 		)
-		(property "Description" "1k series resistor between BOOTSEL_SW and SUPF_CS, for U7"
+		(property "Description" "1k series resistor between BOOTSEL_SW and SUPF_CS, for U7 (board controller): button side of the BOOTSEL resistor; controller flash chip-select; pulled low by CTRL BOOT for the bootloader"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4278,7 +4278,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM1_IO0 and PSRAM1_IO0_MEM, for U3"
+		(property "Description" "33 series resistor between PSRAM1_IO0 and PSRAM1_IO0_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4546,7 +4546,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for MK71"
+		(property "Description" "300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -4758,7 +4758,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_A_PIN_VOLTAGE from VCCIO_1_EXT, for MK65"
+		(property "Description" "500mA resettable fuse feeding SLOT_A_PIN_VOLTAGE from VCCIO_1_EXT, for J53 (slot A power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5107,7 +5107,7 @@
 				)
 			)
 		)
-		(property "Description" "10k pull-down on VBUS_OVLO, for U26"
+		(property "Description" "10k resistor from VBUS_OVLO to GND, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5242,7 +5242,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM2_IO0 and PSRAM2_IO0_MEM, for U4"
+		(property "Description" "33 series resistor between PSRAM2_IO0 and PSRAM2_IO0_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5377,7 +5377,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM2_SCK and PSRAM2_SCK_MEM, for U4"
+		(property "Description" "33 series resistor between PSRAM2_SCK and PSRAM2_SCK_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5512,7 +5512,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between CFG_DONE and SUP_DONE, for U7"
+		(property "Description" "33 series resistor between CFG_DONE and SUP_DONE, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -6138,7 +6138,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot F power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -6165,7 +6165,7 @@
 		(property "UI_LABEL" "F POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e847699a-6ddc-46ff-b8a8-a7a5a15aa620")
+			(uuid "8d77ab00-bc21-451b-b3c4-48577ca09117")
 			(effects
 				(font
 					(size 1 1)
@@ -6403,7 +6403,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +5V, for U10"
+		(property "Description" "100nF bypass on +5V, for U10 (5V BUS 1 translator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6538,7 +6538,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +1V2_MGT, for U16"
+		(property "Description" "22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6671,7 +6671,7 @@
 				)
 			)
 		)
-		(property "Description" "2.2uH SRN4018-2R2M inductor between +1V2_MGT and SW+1V2_MGT, for U16"
+		(property "Description" "2.2uH SRN4018-2R2M inductor between +1V2_MGT and SW+1V2_MGT, for U16 (1.2 V transceiver regulator): regulator switching node"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6845,7 +6845,7 @@
 				)
 			)
 		)
-		(property "Description" "10k pull-up of BUS5V0_OE_N to +3V3, for U9"
+		(property "Description" "10k pull-up of BUS5V0_OE_N to +3V3, for U9 (5V BUS 0 translator): keeps the 5 V bus translator disabled until the FPGA enables it"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -6980,7 +6980,7 @@
 				)
 			)
 		)
-		(property "Description" "10k series resistor between EN_VBUS5 and EN_VBUS5_G, for U7"
+		(property "Description" "10k series resistor between EN_VBUS5 and EN_VBUS5_G, for U7 (board controller): from the board controller: connect 5 V USB straight to +5V; Q3's gate; off unless the board controller drives EN_VBUS5"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -7115,7 +7115,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +1V2_MGT, for U16"
+		(property "Description" "22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7250,7 +7250,7 @@
 				)
 			)
 		)
-		(property "Description" "100k series resistor between +5V and MON_5V"
+		(property "Description" "100k resistor from MON_5V to +5V, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7622,7 +7622,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +5V, for U16"
+		(property "Description" "100nF bypass on +5V, for U16 (1.2 V transceiver regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7757,7 +7757,7 @@
 				)
 			)
 		)
-		(property "Description" "22pF capacitor between +1V0 and FB+1V0, for U15"
+		(property "Description" "22pF capacitor between +1V0 and FB+1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7892,7 +7892,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM0_IO2 and PSRAM0_IO2_MEM, for U2"
+		(property "Description" "33 series resistor between PSRAM0_IO2 and PSRAM0_IO2_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8025,7 +8025,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for MK66"
+		(property "Description" "300mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for J62 (slot B power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8239,7 +8239,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-down on EN_1V8, for U7"
+		(property "Description" "100k pull-down on EN_1V8, for U7 (board controller): keeps the regulator off until the board controller enables it"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -8509,7 +8509,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U20"
+		(property "Description" "100nF bypass on +3V3, for U20 (JTAG switch)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -9184,7 +9184,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between DBG_TMS and SUP_DBG_TMS, for U7"
+		(property "Description" "33 series resistor between DBG_TMS and SUP_DBG_TMS, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -9317,7 +9317,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_B_5V from +5V_EXT, for MK66"
+		(property "Description" "500mA resettable fuse feeding SLOT_B_5V from +5V_EXT, for J62 (slot B power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9666,7 +9666,7 @@
 				)
 			)
 		)
-		(property "Description" "1k pull-up of LED_USER1_A to +3V3, for D10"
+		(property "Description" "1k resistor from LED_USER1_A to +3V3, for D10 (USER 1 LED): LED current limit"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9801,7 +9801,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM2_CE_B and PSRAM2_CE_B_MEM, for U4"
+		(property "Description" "33 series resistor between PSRAM2_CE_B and PSRAM2_CE_B_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10069,7 +10069,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "USB power surge clamp: SMBJ13A TVS diode: clamps spikes on VBUS above about 14 V."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -10432,7 +10432,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_A_5V from +5V_EXT, for MK65"
+		(property "Description" "500mA resettable fuse feeding SLOT_A_5V from +5V_EXT, for J53 (slot A power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10646,7 +10646,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between SB_UART_RX and SUP_UART_TX, for U7"
+		(property "Description" "33 series resistor between SB_UART_RX and SUP_UART_TX, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -10781,7 +10781,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +2V5, for U13"
+		(property "Description" "22uF bypass on +2V5, for U13 (2.5 V regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11443,7 +11443,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between DBG_TDI and SUP_DBG_TDI, for U7"
+		(property "Description" "33 series resistor between DBG_TDI and SUP_DBG_TDI, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -11739,7 +11739,7 @@
 		(property "UI_LABEL" "FPGA DONE"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "4e184cbe-0ae6-447f-8ee3-5cca1bf31987")
+			(uuid "b7bbeb86-ae23-47be-9ab1-76efc3caf13b")
 			(effects
 				(font
 					(size 1 1)
@@ -12124,7 +12124,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for MK70"
+		(property "Description" "500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12338,7 +12338,7 @@
 				)
 			)
 		)
-		(property "Description" "4.7k pull-up of SUP_SDA to +3V3, for U7"
+		(property "Description" "4.7k pull-up of SUP_SDA to +3V3, for U7 (board controller): I2C data pull-up"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -12473,7 +12473,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between FLASH_D1_MISO and SUP_FD1, for U7"
+		(property "Description" "33 series resistor between FLASH_D1_MISO and SUP_FD1, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -12608,7 +12608,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_F_3V3, for MK70"
+		(property "Description" "100nF bypass on SLOT_F_3V3, for J64 (slot F power socket)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12743,7 +12743,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot D key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12769,7 +12769,7 @@
 		(property "UI_LABEL" "KEY D"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "cd8c5c90-44c0-4636-a23c-14fe0f3ab744")
+			(uuid "239db6e8-576e-4536-b7ab-c604b4b6adb5")
 			(effects
 				(font
 					(size 1 1)
@@ -12850,7 +12850,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for MK71"
+		(property "Description" "500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -13064,7 +13064,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-down on EN_1V0, for U7"
+		(property "Description" "100k pull-down on EN_1V0, for U7 (board controller): keeps the regulator off until the board controller enables it"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -13199,7 +13199,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "E-H PIN VOLTAGE jumper: 2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots E-H."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -13226,7 +13226,7 @@
 		(property "UI_LABEL" "E-H PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "b4f6db4d-35d7-4e0f-adb6-7ff4a6b63513")
+			(uuid "1c56e7b1-0d81-45c4-97a8-1a7d5441f027")
 			(effects
 				(font
 					(size 1 1)
@@ -13238,7 +13238,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "f4b89e76-4b9f-40ea-afe7-804cdb7812f9")
+			(uuid "c55a0220-8264-4b13-bb2d-8ad9d07938de")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -13250,7 +13250,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "58ebefd1-98af-455f-b417-8bc4a7da44d2")
+			(uuid "4baaaeb1-f4f9-4e14-9695-8800bd8bc888")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -13499,7 +13499,7 @@
 				)
 			)
 		)
-		(property "Description" "4.7k pull-up of SUP_SCL to +3V3, for U7"
+		(property "Description" "4.7k pull-up of SUP_SCL to +3V3, for U7 (board controller): I2C clock pull-up"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -13634,7 +13634,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM1_IO3 and PSRAM1_IO3_MEM, for U3"
+		(property "Description" "33 series resistor between PSRAM1_IO3 and PSRAM1_IO3_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -13769,7 +13769,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_D_3V3, for MK68"
+		(property "Description" "100nF bypass on SLOT_D_3V3, for J63 (slot D power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -14174,7 +14174,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-up of FB+1V2_MGT to +1V2_MGT, for U16"
+		(property "Description" "100k resistor from FB+1V2_MGT to +1V2_MGT, for U16 (1.2 V transceiver regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14444,7 +14444,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM3_IO0 and PSRAM3_IO0_MEM, for U5"
+		(property "Description" "33 series resistor between PSRAM3_IO0 and PSRAM3_IO0_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -14579,7 +14579,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +1V0, for U15"
+		(property "Description" "22uF bypass on +1V0, for U15 (FPGA core regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14847,7 +14847,7 @@
 				)
 			)
 		)
-		(property "Description" "3.3uH AOTA-B201610S3R3-101-T inductor between +1V1 and SUP_LX, for U7"
+		(property "Description" "3.3uH AOTA-B201610S3R3-101-T inductor between +1V1 and SUP_LX, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -15043,7 +15043,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF bypass on VCCIO_1, for U23"
+		(property "Description" "1uF bypass on VCCIO_1, for U23 (slots A-D PIN V switch)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15178,7 +15178,7 @@
 				)
 			)
 		)
-		(property "Description" "1k series resistor between +3V3 and MON_3V3"
+		(property "Description" "1k resistor from MON_3V3 to +3V3, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -15767,7 +15767,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM2_IO2 and PSRAM2_IO2_MEM, for U4"
+		(property "Description" "33 series resistor between PSRAM2_IO2 and PSRAM2_IO2_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -15902,7 +15902,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U6"
+		(property "Description" "100nF bypass on +3V3, for U6 (FPGA configuration flash)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16172,7 +16172,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot B key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16198,7 +16198,7 @@
 		(property "UI_LABEL" "KEY B"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "c18e295f-202d-4bad-9827-990ad594d469")
+			(uuid "af7845f3-dfe9-4507-88fb-8a39d427ed3f")
 			(effects
 				(font
 					(size 1 1)
@@ -16415,7 +16415,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot L power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16442,7 +16442,7 @@
 		(property "UI_LABEL" "L POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3ebf6f20-a416-4aba-aa7b-ad22e335dc22")
+			(uuid "cc750b82-15c5-4405-a668-542475ef7bdc")
 			(effects
 				(font
 					(size 1 1)
@@ -16680,7 +16680,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF capacitor between BOOT_3V3 and SW_3V3, for U12"
+		(property "Description" "100nF capacitor between BOOT_3V3 and SW_3V3, for U12 (3.3 V regulator, always on): bootstrap capacitor for the regulator's high-side switch; regulator switching node"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16814,7 +16814,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot H power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -16841,7 +16841,7 @@
 		(property "UI_LABEL" "H POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "d4bd60af-b2f2-431c-9a2b-ef95fa179d19")
+			(uuid "2e41957f-6203-472a-b12a-8e5459d5cd76")
 			(effects
 				(font
 					(size 1 1)
@@ -17079,7 +17079,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_M_3V3, for MK77"
+		(property "Description" "100nF bypass on SLOT_M_3V3, for J58 (slot M power socket)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -17349,7 +17349,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_L_AUX from AUX_RAIL, for MK76"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_L_AUX from AUX_RAIL, for J57 (slot L power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -17730,7 +17730,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "PSRAM 2: AP Memory APS1604M, 2 MB QSPI RAM."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -17757,7 +17757,7 @@
 		(property "UI_ROLE" "WORK MEMORY 2"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "ff58b8dd-e3d2-4272-8d66-891c7f24d2b0")
+			(uuid "8597eadf-76dc-4c0f-802d-7aa69006c9df")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -18121,7 +18121,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U8"
+		(property "Description" "100nF bypass on +3V3, for U8 (controller firmware flash)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -18391,7 +18391,7 @@
 				)
 			)
 		)
-		(property "Description" "73.2k pull-up of VBUS_OVLO to VBUS, for U26"
+		(property "Description" "73.2k resistor from VBUS_OVLO to VBUS, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -18525,7 +18525,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "USER 2 LED: Green LED for software use."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -18552,7 +18552,7 @@
 		(property "UI_LABEL" "USER 2"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "0dcf0baf-f9d3-4940-98b9-c61e732eff43")
+			(uuid "8c8b7353-3762-41ea-95f7-f077fd842ccf")
 			(effects
 				(font
 					(size 1 1)
@@ -18802,7 +18802,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "FPGA core regulator: Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -18829,7 +18829,7 @@
 		(property "UI_ROLE" "1V0 SUPPLY\nFPGA CORE"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "48c48f62-d082-441f-9762-ebed1df3bb95")
+			(uuid "b45cecbb-a248-412f-ae8b-36121c050075")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -19175,7 +19175,7 @@
 				)
 			)
 		)
-		(property "Description" "16k pull-down on MON_VSYS, for U7"
+		(property "Description" "16k resistor from MON_VSYS to GND, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -19310,7 +19310,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF bypass on +5V, for U21"
+		(property "Description" "1uF bypass on +5V, for U21 (extension 5 V switch)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -19443,7 +19443,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_L_5V from +5V_EXT, for MK76"
+		(property "Description" "500mA resettable fuse feeding SLOT_L_5V from +5V_EXT, for J57 (slot L power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -19655,7 +19655,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "PSRAM 1: AP Memory APS1604M, 2 MB QSPI RAM."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -19682,7 +19682,7 @@
 		(property "UI_ROLE" "WORK MEMORY 1"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "bb07ad30-fca6-4b79-b576-52d7b593425e")
+			(uuid "8ebc8544-49ed-4208-931e-6efc77bc8c7e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -20046,7 +20046,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U3"
+		(property "Description" "100nF bypass on +3V3, for U3 (PSRAM 1)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20181,7 +20181,7 @@
 				)
 			)
 		)
-		(property "Description" "0 series resistor between JTAG_TDO and JTAG_TDO_SW, for U20"
+		(property "Description" "0 series resistor between JTAG_TDO and JTAG_TDO_SW, for U20 (JTAG switch): probe point between the FPGA's TDO and U20"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20314,7 +20314,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for MK69"
+		(property "Description" "300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -20528,7 +20528,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF filter capacitor on MON_2V5, for U7"
+		(property "Description" "100nF filter capacitor on MON_2V5, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20661,7 +20661,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_G_PIN_VOLTAGE from VCCIO_2_EXT, for MK71"
+		(property "Description" "500mA resettable fuse feeding SLOT_G_PIN_VOLTAGE from VCCIO_2_EXT, for J56 (slot G power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -20874,7 +20874,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "CTRL BOOT button: Hold while plugging in USB to enter the board controller's USB bootloader."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20901,7 +20901,7 @@
 		(property "UI_LABEL" "CTRL BOOT"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "d6b59b34-b65c-472a-b38f-8a98c4ac2dfe")
+			(uuid "f89fcfe7-25f1-4f79-80eb-68c2f4eb0692")
 			(effects
 				(font
 					(size 1 1)
@@ -21131,7 +21131,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +5V, for U11"
+		(property "Description" "22uF bypass on +5V, for U11 (5 V regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -21291,7 +21291,7 @@
 		(property "UI_ROLE" "ETHERNET PHY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5abd75ee-5e4b-474e-ae4c-2c1db4ad88fd")
+			(uuid "9ade8179-8498-44a5-909c-1f516eb107a9")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -21940,7 +21940,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF filter capacitor on MON_1V8, for U7"
+		(property "Description" "100nF filter capacitor on MON_1V8, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -22075,7 +22075,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on MON_5V"
+		(property "Description" "100nF filter capacitor on MON_5V, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -22480,7 +22480,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between CFG_PROG_B and SUP_PROG_B, for U7: keeps PROGRAM_B released; pulling it low restarts configuration"
+		(property "Description" "33 series resistor between CFG_PROG_B and SUP_PROG_B, for U7 (board controller): keeps PROGRAM_B released; pulling it low restarts configuration; board controller to FPGA link (33 ohm series)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -22750,7 +22750,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -23020,7 +23020,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "A-D PIN VOLTAGE jumper: 2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots A-D."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -23047,7 +23047,7 @@
 		(property "UI_LABEL" "A-D PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "b4dcf681-cecf-4be8-8c48-fed1b49f6155")
+			(uuid "917390cf-b707-47b5-9a7e-7cc7a8098cac")
 			(effects
 				(font
 					(size 1 1)
@@ -23059,7 +23059,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "fad1634e-ad1d-4579-a397-6685c07be7dd")
+			(uuid "e00a2444-749d-43c9-b64e-634081f1b390")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -23071,7 +23071,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "4bb06b15-f8c0-44ed-a0c1-742ef91ed794")
+			(uuid "15b77029-0077-4358-aa4c-ef7359d40cce")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -23318,7 +23318,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "controller firmware flash: Winbond W25Q32JV, 32 Mbit (4 MB) quad-SPI flash holding the board controller's firmware."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -23345,7 +23345,7 @@
 		(property "UI_ROLE" "CONTROLLER MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "4b04f7fa-56a8-42ae-807f-5184451d9bc0")
+			(uuid "d6ff7caa-f126-46f0-8451-038107a76eeb")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -23574,7 +23574,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "CTRL SWD connector: 3-pin JST-SH debug port for the board controller's processor."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -23601,7 +23601,7 @@
 		(property "UI_LABEL" "CTRL SWD"
 			(at 0 5.263 0)
 			(layer "F.SilkS")
-			(uuid "c305b36a-4a35-4f26-bd9a-a7afe7fd8e5d")
+			(uuid "484d07a0-c47a-4eb1-80b4-93ff5d1b871b")
 			(effects
 				(font
 					(size 1 1)
@@ -23968,7 +23968,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -24237,7 +24237,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot M power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -24264,7 +24264,7 @@
 		(property "UI_LABEL" "M POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "2213ce0b-3db5-46a4-8adb-fb7f95d331ff")
+			(uuid "9375182c-2412-477d-b0fd-2a3dc05038cb")
 			(effects
 				(font
 					(size 1 1)
@@ -24502,7 +24502,7 @@
 				)
 			)
 		)
-		(property "Description" "93.1k series resistor between +3V3 and FB_3V3, for U12"
+		(property "Description" "93.1k series resistor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -24907,7 +24907,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-up of MON_VSYS to VSYS, for U7"
+		(property "Description" "100k resistor from MON_VSYS to VSYS, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -25264,7 +25264,7 @@
 				)
 			)
 		)
-		(property "Description" "49.9k pull-down on FB+1V8, for U14"
+		(property "Description" "49.9k resistor from FB+1V8 to GND, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -25399,7 +25399,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_H_AUX from AUX_RAIL, for MK72"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_H_AUX from AUX_RAIL, for J65 (slot H power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -25647,7 +25647,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-up of CORE_1V0_GOOD to +3V3, for U17"
+		(property "Description" "100k resistor from CORE_1V0_GOOD to +3V3, for U17 (status expander): U15 power-good, read by the status expander"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -25782,7 +25782,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM3_IO1 and PSRAM3_IO1_MEM, for U5"
+		(property "Description" "33 series resistor between PSRAM3_IO1 and PSRAM3_IO1_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -25915,7 +25915,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_D_5V from +5V_EXT, for MK68"
+		(property "Description" "500mA resettable fuse feeding SLOT_D_5V from +5V_EXT, for J63 (slot D power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -26129,7 +26129,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_C_PIN_VOLTAGE, for MK67"
+		(property "Description" "10uF bypass on SLOT_C_PIN_VOLTAGE, for J54 (slot C power socket)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -26534,7 +26534,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +5V, for U13"
+		(property "Description" "100nF bypass on +5V, for U13 (2.5 V regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -26669,7 +26669,7 @@
 				)
 			)
 		)
-		(property "Description" "1k series resistor between SUP_XOUT and SUP_XTAL_OUT, for U7"
+		(property "Description" "1k series resistor between SUP_XOUT and SUP_XTAL_OUT, for U7 (board controller): limits the crystal drive level (RP-008280); crystal output, after the drive-limit resistor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -26804,7 +26804,7 @@
 				)
 			)
 		)
-		(property "Description" "31.6k pull-down on FB+2V5, for U13"
+		(property "Description" "31.6k resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -27160,7 +27160,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "EXT JTAG jumper: Fit a shunt to hand the FPGA's JTAG to an external programmer on J2."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -27187,7 +27187,7 @@
 		(property "UI_LABEL" "EXT JTAG"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "9dd65448-7d59-4834-8ce9-06550e3261b2")
+			(uuid "affc9df8-84eb-4ba7-825c-7ffe65ddd2af")
 			(effects
 				(font
 					(size 1 1)
@@ -27199,7 +27199,7 @@
 		(property "UI_STATES" "OPEN: CTRL\nFIT: EXT"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "c6a49d85-3ee1-463e-a6c5-1c7bbf3344ee")
+			(uuid "c05a5670-bd79-474f-aa01-75f955319ede")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -27525,7 +27525,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "PSRAM 3: AP Memory APS1604M, 2 MB QSPI RAM."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -27552,7 +27552,7 @@
 		(property "UI_ROLE" "WORK MEMORY 3"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3682ae71-4470-4f5e-80f8-8d5a190f8aaf")
+			(uuid "707f6938-0f3e-45d4-ac7f-b7284ac3e7c7")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -27914,7 +27914,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slots A-D PIN V switch: TI TPS22950C load switch: VCCIO_1 to the PIN V pin of slots A-D, about 0.5 A limit."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -27941,7 +27941,7 @@
 		(property "UI_ROLE" "A-D PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "806d9d2e-77db-46c6-a084-212948c1026a")
+			(uuid "7912b528-b8ca-4d43-818a-ed73c4443f83")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28150,7 +28150,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +5V, for U14"
+		(property "Description" "100nF bypass on +5V, for U14 (1.8 V regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -28285,7 +28285,7 @@
 				)
 			)
 		)
-		(property "Description" "1.65k pull-down on VBUS_ILM, for U26"
+		(property "Description" "1.65k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -28553,7 +28553,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "status expander: NXP PCF8574 I2C port expander: drives the three status LEDs, reads core power-good."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -28580,7 +28580,7 @@
 		(property "UI_ROLE" "STATUS EXPANDER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "4c816c9b-8775-48b3-8333-000736c28f93")
+			(uuid "204095db-b996-410c-ae94-d33e93d5b46e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -29565,7 +29565,7 @@
 				)
 			)
 		)
-		(property "Description" "1k pull-up of LED_HEARTBEAT_A to +3V3, for D9"
+		(property "Description" "1k resistor from LED_HEARTBEAT_A to +3V3, for D9 (CTRL HB LED): LED current limit"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -29698,7 +29698,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for MK72"
+		(property "Description" "500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -29912,7 +29912,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between +3V3 and SUP_VREG_AVDD"
+		(property "Description" "33 series resistor between +3V3 and SUP_VREG_AVDD: filtered analog supply for the RP2350's regulator"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -30317,7 +30317,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on VCCIO_1, for J19"
+		(property "Description" "22uF bypass on VCCIO_1, for J19 (A-D PIN VOLTAGE jumper)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -30451,7 +30451,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "POWER IN screw terminal: Main power input, 9-21 V DC. Polarity marked on the board."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -30478,7 +30478,7 @@
 		(property "UI_LABEL" "9-21V POWER IN"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "79614f12-af8e-41ea-a4c0-43f519a45910")
+			(uuid "e3267bfd-0a56-4eea-bc54-e3dfca9abc24")
 			(effects
 				(font
 					(size 1 1)
@@ -30490,7 +30490,7 @@
 		(property "UI_PINS" "9-21V +\nGND"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "45381e53-d82d-4cfd-b5b1-74864f312578")
+			(uuid "1106b2ae-2d3d-4858-9bad-d6d495cc3bbb")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -30795,7 +30795,7 @@
 				)
 			)
 		)
-		(property "Description" "47k pull-down on MON_5V"
+		(property "Description" "47k resistor from MON_5V to GND, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -31335,7 +31335,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-down on FB+1V2_MGT, for U16"
+		(property "Description" "100k resistor from FB+1V2_MGT to GND, for U16 (1.2 V transceiver regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -31468,7 +31468,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for MK68"
+		(property "Description" "300mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for J63 (slot D power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -31817,7 +31817,7 @@
 				)
 			)
 		)
-		(property "Description" "10k pull-up of SUPF_CS to +3V3, for U7"
+		(property "Description" "NOT FITTED. 10k resistor from SUPF_CS to +3V3, for U7 (board controller): controller flash chip-select; pulled low by CTRL BOOT for the bootloader"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -32220,7 +32220,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "pass switch driver: Small N-MOSFET the board controller (EN_VBUS5) uses to turn Q2 on."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -32440,7 +32440,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_D_PIN_VOLTAGE from VCCIO_1_EXT, for MK68"
+		(property "Description" "500mA resettable fuse feeding SLOT_D_PIN_VOLTAGE from VCCIO_1_EXT, for J63 (slot D power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -32652,7 +32652,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for MK72"
+		(property "Description" "300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -32864,7 +32864,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slots E-H PIN V switch: TI TPS22950C load switch: VCCIO_2 to the PIN V pin of slots E-H, about 0.5 A limit."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -32891,7 +32891,7 @@
 		(property "UI_ROLE" "E-H PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "89e3203a-5960-4a99-b9c2-67fd9148fd75")
+			(uuid "e788ea6c-3f00-4734-984c-14cd67c7b106")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -33100,7 +33100,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -33233,7 +33233,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "5 V USB pass switch: P-MOSFET that connects USB power straight to +5V when the source is plain 5 V. Off by default; must stay off at 9 V."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -33590,7 +33590,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_D_AUX from AUX_RAIL, for MK68"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_D_AUX from AUX_RAIL, for J63 (slot D power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -33701,7 +33701,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_E_PIN_VOLTAGE from VCCIO_2_EXT, for MK69"
+		(property "Description" "500mA resettable fuse feeding SLOT_E_PIN_VOLTAGE from VCCIO_2_EXT, for J55 (slot E power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -33913,7 +33913,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "extension 3.3 V switch: TI TPS22950C load switch: +3V3 to every slot's 3.3 V pin, about 0.5 A limit."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -33940,7 +33940,7 @@
 		(property "UI_ROLE" "SLOT 3V3 PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b6c32726-7b3f-4d6b-96c5-e4366d8daf6c")
+			(uuid "7b1c5d48-bd51-4af8-b216-a5fd3423f903")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -34149,7 +34149,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot G key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34175,7 +34175,7 @@
 		(property "UI_LABEL" "KEY G"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "bcfb5a2b-7b0f-45e6-a55c-ac4f80e52eec")
+			(uuid "85854953-9de5-402e-8d0a-6b7c84b73d05")
 			(effects
 				(font
 					(size 1 1)
@@ -34393,7 +34393,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot C key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34419,7 +34419,7 @@
 		(property "UI_LABEL" "KEY C"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "c4598688-b7b9-47c4-bf6b-9d0212c9fd7e")
+			(uuid "d2cebe5a-8552-43a7-8c2d-eb9ed98204df")
 			(effects
 				(font
 					(size 1 1)
@@ -34907,7 +34907,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_M_PIN_VOLTAGE, for MK77"
+		(property "Description" "10uF bypass on SLOT_M_PIN_VOLTAGE, for J58 (slot M power socket)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -35042,7 +35042,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between SUP_JTAG_TMS and SWJ_TMS, for U7"
+		(property "Description" "33 series resistor between SUP_JTAG_TMS and SWJ_TMS, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -35447,7 +35447,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U5"
+		(property "Description" "100nF bypass on +3V3, for U5 (PSRAM 3)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -35582,7 +35582,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF filter capacitor on MON_VSYS, for U7"
+		(property "Description" "100nF filter capacitor on MON_VSYS, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -35717,7 +35717,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_H_3V3, for MK72"
+		(property "Description" "100nF bypass on SLOT_H_3V3, for J65 (slot H power socket)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -35986,7 +35986,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "CTRL HB LED: Green LED: blinks while the board controller firmware runs."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -36013,7 +36013,7 @@
 		(property "UI_LABEL" "CTRL HB"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "8ae387db-50ac-413a-806b-62d540fc7e02")
+			(uuid "3bc7a5cd-29df-4d3a-b7bc-cb91cdaff3f8")
 			(effects
 				(font
 					(size 1 1)
@@ -36265,7 +36265,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between FLASH_CS_B and SUP_FCS_B, for U7"
+		(property "Description" "33 series resistor between FLASH_CS_B and SUP_FCS_B, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -36533,7 +36533,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for MK70"
+		(property "Description" "300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -36881,7 +36881,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slots A-D signal socket: 2x32 female socket, right edge: signals of slots A, B, C, D."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -36908,7 +36908,7 @@
 		(property "UI_LABEL" "A | B | C | D"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "962b6886-7145-4ef9-ba50-c936d0f70955")
+			(uuid "bdd50b1a-a24f-4e98-91a6-4bd1dc6f4f53")
 			(effects
 				(font
 					(size 1 1)
@@ -37679,7 +37679,7 @@
 				)
 			)
 		)
-		(property "Description" "47k pull-down on VBUS_UVLO, for U26"
+		(property "Description" "47k resistor from VBUS_UVLO to GND, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -37947,7 +37947,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "5 V regulator: Diodes AP63300, 3 A switching regulator: VSYS to +5V."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -37974,7 +37974,7 @@
 		(property "UI_ROLE" "5V SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "f2eb182c-ba3b-4fab-b8de-b08d511163e8")
+			(uuid "cdb05233-097a-4a1a-b790-bb0e5fb379bd")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -38184,7 +38184,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "screw input surge clamp: SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V."
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -38447,7 +38447,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot D power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -38474,7 +38474,7 @@
 		(property "UI_LABEL" "D POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "bcb86f7c-8489-436c-98fc-afe60dd270b7")
+			(uuid "e398f23d-3ffa-489d-ba54-c00bf49763ee")
 			(effects
 				(font
 					(size 1 1)
@@ -38847,7 +38847,7 @@
 				)
 			)
 		)
-		(property "Description" "10k pull-up of BUS5V1_OE_N to +3V3, for U10"
+		(property "Description" "10k pull-up of BUS5V1_OE_N to +3V3, for U10 (5V BUS 1 translator): keeps the 5 V bus translator disabled until the FPGA enables it"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -39116,7 +39116,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot C power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -39143,7 +39143,7 @@
 		(property "UI_LABEL" "C POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "dba8dcf2-67b3-4a2a-a3e2-d8d349003849")
+			(uuid "ef84e2c5-74f9-41c1-b371-2150fcef8dd9")
 			(effects
 				(font
 					(size 1 1)
@@ -39379,7 +39379,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.3 V regulator, always on: Diodes AP63300, 3 A switching regulator: VSYS to +3V3. Starts by itself."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -39406,7 +39406,7 @@
 		(property "UI_ROLE" "3V3 SUPPLY\nALWAYS ON"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "9b28f7b2-da52-4357-956f-76456edfbc3c")
+			(uuid "8b41dcb6-06d2-4942-9cb0-a2f973e72232")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -39750,7 +39750,7 @@
 				)
 			)
 		)
-		(property "Description" "56pF capacitor between +3V3 and FB_3V3, for U12"
+		(property "Description" "56pF capacitor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -39883,7 +39883,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_M_5V from +5V_EXT, for MK77"
+		(property "Description" "500mA resettable fuse feeding SLOT_M_5V from +5V_EXT, for J58 (slot M power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -40097,7 +40097,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +3V3, for U12"
+		(property "Description" "22uF bypass on +3V3, for U12 (3.3 V regulator, always on)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40637,7 +40637,7 @@
 				)
 			)
 		)
-		(property "Description" "15pF filter capacitor on SUP_XIN, for U7"
+		(property "Description" "15 pF load capacitor on the 12 MHz crystal's input (RP-008280 section 4)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40770,7 +40770,7 @@
 				)
 			)
 		)
-		(property "Description" "2.2uH SRN4018-2R2M inductor between +1V8 and SW+1V8, for U14"
+		(property "Description" "2.2uH SRN4018-2R2M inductor between +1V8 and SW+1V8, for U14 (1.8 V regulator): regulator switching node"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40944,7 +40944,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM3_IO2 and PSRAM3_IO2_MEM, for U5"
+		(property "Description" "33 series resistor between PSRAM3_IO2 and PSRAM3_IO2_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -41077,7 +41077,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "5V BUS 0 translator: TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot L."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -41104,7 +41104,7 @@
 		(property "UI_ROLE" "5V BUS 0 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3b1e67df-9a70-43b3-81f2-07f2e0418a62")
+			(uuid "92fa2349-ea12-49c8-86ed-195b0cdacc34")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -41468,7 +41468,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "FPGA configuration flash: Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -41495,7 +41495,7 @@
 		(property "UI_ROLE" "FPGA STARTUP MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "d1b77faa-decf-4830-9c2c-a0b42b2bafe9")
+			(uuid "156e660a-a4a8-4805-89d2-601426ffb9fc")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -41840,7 +41840,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "screw input diode: SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -42070,7 +42070,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +3V3, for U12"
+		(property "Description" "22uF bypass on +3V3, for U12 (3.3 V regulator, always on)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42203,7 +42203,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_M_PIN_VOLTAGE from +3V3_EXT, for MK77"
+		(property "Description" "500mA resettable fuse feeding SLOT_M_PIN_VOLTAGE from +3V3_EXT, for J58 (slot M power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -42417,7 +42417,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-down on EN_1V2, for U7"
+		(property "Description" "100k pull-down on EN_1V2, for U7 (board controller): keeps the regulator off until the board controller enables it"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42552,7 +42552,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM2_IO1 and PSRAM2_IO1_MEM, for U4"
+		(property "Description" "33 series resistor between PSRAM2_IO1 and PSRAM2_IO1_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -42687,7 +42687,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +5V, for U11"
+		(property "Description" "22uF bypass on +5V, for U11 (5 V regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42822,7 +42822,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between SUP_JTAG_TDI and SWJ_TDI, for U7"
+		(property "Description" "33 series resistor between SUP_JTAG_TDI and SWJ_TDI, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42957,7 +42957,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_C_3V3, for MK67"
+		(property "Description" "100nF bypass on SLOT_C_3V3, for J54 (slot C power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -43092,7 +43092,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_F_PIN_VOLTAGE, for MK70"
+		(property "Description" "10uF bypass on SLOT_F_PIN_VOLTAGE, for J64 (slot F power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -43225,7 +43225,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "PSRAM 0: AP Memory APS1604M, 16 Mbit (2 MB) QSPI pseudo-static RAM, 3.3 V."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -43252,7 +43252,7 @@
 		(property "UI_ROLE" "WORK MEMORY 0"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "d08332bc-1494-43c7-8a2f-0c8dd4846507")
+			(uuid "37fdc029-a5b5-4be6-9a40-0231b3ba1388")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -43616,7 +43616,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between DBG_TDO and SUP_DBG_TDO, for U7"
+		(property "Description" "33 series resistor between DBG_TDO and SUP_DBG_TDO, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -43886,7 +43886,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between FLASH_D0_MOSI and SUP_FD0, for U7"
+		(property "Description" "33 series resistor between FLASH_D0_MOSI and SUP_FD0, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -44021,7 +44021,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF 50V bypass on VSYS, for J50"
+		(property "Description" "10uF 50V bypass on VSYS, for U26 (USB input eFuse)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -44424,7 +44424,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for MK65"
+		(property "Description" "300mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for J53 (slot A power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -44636,7 +44636,7 @@
 				)
 			)
 		)
-		(property "Description" "2.2uH SRN4018-2R2M inductor between +2V5 and SW+2V5, for U13"
+		(property "Description" "2.2uH SRN4018-2R2M inductor between +2V5 and SW+2V5, for U13 (2.5 V regulator): regulator switching node"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -44813,7 +44813,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "USB input eFuse: TI TPS259470A: ramps USB power in gently, cuts off outside 3.75-10 V, limits current to about 2 A, blocks reverse current. Reports faults on EXT_FAULT."
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -44829,7 +44829,7 @@
 		(property "UI_ROLE" "USB INPUT PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "fdebb285-b71b-4d93-9aae-49c193efae2e")
+			(uuid "38e14fe3-c285-4680-bc46-cf4f1d4125d6")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -45087,7 +45087,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U17"
+		(property "Description" "100nF bypass on +3V3, for U17 (status expander)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -45222,7 +45222,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between SB_UART_TX and SUP_UART_RX, for U7"
+		(property "Description" "33 series resistor between SB_UART_TX and SUP_UART_RX, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -45357,7 +45357,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-down on EXT_EN, for U7"
+		(property "Description" "100k pull-down on EXT_EN, for U7 (board controller): from the board controller: turns extension power on; off by default"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -45492,7 +45492,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_C_AUX from AUX_RAIL, for MK67"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_C_AUX from AUX_RAIL, for J54 (slot C power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -45875,7 +45875,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on VCCIO_2, for J20"
+		(property "Description" "22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -46008,7 +46008,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 1 A limit, reverse blocking."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -46035,7 +46035,7 @@
 		(property "UI_ROLE" "SLOT 5V PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "ab8cbbe6-c140-4466-bcfa-3bc4d37e3059")
+			(uuid "48bf67ea-f819-4d50-b2c6-8d7b9bc4e9b6")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -46247,7 +46247,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "USB-C connector: Power in and USB 2.0 data to the board controller."
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -46263,7 +46263,7 @@
 		(property "UI_LABEL" "USB-C"
 			(at 0 5 0)
 			(layer "F.SilkS")
-			(uuid "194a0cd2-fe88-4bcd-a0d2-2c557b2520c1")
+			(uuid "641aa11f-fe4d-4c54-a2eb-9aba2129e93b")
 			(effects
 				(font
 					(size 1 1)
@@ -46690,7 +46690,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM3_IO3 and PSRAM3_IO3_MEM, for U5"
+		(property "Description" "33 series resistor between PSRAM3_IO3 and PSRAM3_IO3_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -47093,7 +47093,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_F_PIN_VOLTAGE from VCCIO_2_EXT, for MK70"
+		(property "Description" "500mA resettable fuse feeding SLOT_F_PIN_VOLTAGE from VCCIO_2_EXT, for J64 (slot F power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -47440,7 +47440,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for MK69"
+		(property "Description" "500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -47924,7 +47924,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM3_CE_B and PSRAM3_CE_B_MEM, for U5"
+		(property "Description" "33 series resistor between PSRAM3_CE_B and PSRAM3_CE_B_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -48192,7 +48192,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for MK76"
+		(property "Description" "300mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for J57 (slot L power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -48406,7 +48406,7 @@
 				)
 			)
 		)
-		(property "Description" "1k pull-up of MON_1V0 to +1V0, for U7"
+		(property "Description" "1k resistor from MON_1V0 to +1V0, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -48541,7 +48541,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-down on EN_VBUS5_G, for Q3"
+		(property "Description" "100k pull-down on EN_VBUS5_G, for Q3 (pass switch driver): Q3's gate; off unless the board controller drives EN_VBUS5"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -48675,7 +48675,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot E power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -48702,7 +48702,7 @@
 		(property "UI_LABEL" "E POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "729b75fd-5b04-4678-8831-cf049dc1b116")
+			(uuid "9f800bee-0960-4559-8eb5-1e0775f436a8")
 			(effects
 				(font
 					(size 1 1)
@@ -49210,7 +49210,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_M_AUX from AUX_RAIL, for MK77"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_M_AUX from AUX_RAIL, for J58 (slot M power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -49322,7 +49322,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot B power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -49349,7 +49349,7 @@
 		(property "UI_LABEL" "B POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "a8969e8b-0269-4022-8689-35a4887fa2d2")
+			(uuid "4872e6c1-d50b-437a-b357-a093b47704a3")
 			(effects
 				(font
 					(size 1 1)
@@ -49857,7 +49857,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM0_IO1 and PSRAM0_IO1_MEM, for U2"
+		(property "Description" "33 series resistor between PSRAM0_IO1 and PSRAM0_IO1_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -49992,7 +49992,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM0_IO0 and PSRAM0_IO0_MEM, for U2"
+		(property "Description" "33 series resistor between PSRAM0_IO0 and PSRAM0_IO0_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -50127,7 +50127,7 @@
 				)
 			)
 		)
-		(property "Description" "2.21k pull-down on U22_ILIM, for U22"
+		(property "Description" "2.21k resistor from U22_ILIM to GND, for U22 (extension 3.3 V switch): sets the switch's current limit (TI equation in design.py)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -50262,7 +50262,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_A_PIN_VOLTAGE, for MK65"
+		(property "Description" "10uF bypass on SLOT_A_PIN_VOLTAGE, for J53 (slot A power socket)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -50397,7 +50397,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot E key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -50423,7 +50423,7 @@
 		(property "UI_LABEL" "KEY E"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "b80a9788-bb24-43b3-8272-05c13a51078c")
+			(uuid "4ff4cd9d-df1d-44f3-91cb-e3d5854c2ebd")
 			(effects
 				(font
 					(size 1 1)
@@ -50641,7 +50641,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-down on EN_5V, for U11"
+		(property "Description" "100k pull-down on EN_5V, for U11 (5 V regulator): keeps the regulator off until the board controller enables it"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -50776,7 +50776,7 @@
 				)
 			)
 		)
-		(property "Description" "1k pull-up of LED_USER2_A to +3V3, for D11"
+		(property "Description" "1k resistor from LED_USER2_A to +3V3, for D11 (USER 2 LED): LED current limit"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -50911,7 +50911,7 @@
 				)
 			)
 		)
-		(property "Description" "30.1k pull-down on FB_3V3, for U12"
+		(property "Description" "30.1k resistor from FB_3V3 to GND, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -51046,7 +51046,7 @@
 				)
 			)
 		)
-		(property "Description" "10k pull-down on EXTERNAL_JTAG_SELECTED, for U20"
+		(property "Description" "10k resistor from EXTERNAL_JTAG_SELECTED to GND, for U20 (JTAG switch): high when J52 is fitted: U20 disconnects the board controller"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -51451,7 +51451,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between FLASH_D2_WP and SUP_FD2, for U7"
+		(property "Description" "33 series resistor between FLASH_D2_WP and SUP_FD2, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -51586,7 +51586,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +5V, for U11"
+		(property "Description" "22uF bypass on +5V, for U11 (5 V regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -51719,7 +51719,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_C_PIN_VOLTAGE from VCCIO_1_EXT, for MK67"
+		(property "Description" "500mA resettable fuse feeding SLOT_C_PIN_VOLTAGE from VCCIO_1_EXT, for J54 (slot C power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -51933,7 +51933,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF filter capacitor on CORE_1V0_SVIN, for U15"
+		(property "Description" "1uF capacitor from CORE_1V0_SVIN to GND, for U15 (FPGA core regulator): filtered supply for U15's control circuit"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -52066,7 +52066,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "board controller: Raspberry Pi RP2350B microcontroller (two Cortex-M33 cores, 150 MHz): USB, FPGA programming, power sequencing and monitoring."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -52093,7 +52093,7 @@
 		(property "UI_ROLE" "BOARD CONTROLLER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "70d78a85-8e69-4176-a69f-75efa14dff1f")
+			(uuid "990094b6-d360-43a4-82ad-8ccb37c29871")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -52105,7 +52105,7 @@
 		(property "PART_ID" "RP2350B"
 			(at 0 7 0)
 			(layer "F.SilkS")
-			(uuid "782b552f-9156-43f2-b7a9-863ed3564267")
+			(uuid "f9ecff81-3686-456a-bb07-86a8c3cd217b")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -52899,7 +52899,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM1_SCK and PSRAM1_SCK_MEM, for U3"
+		(property "Description" "33 series resistor between PSRAM1_SCK and PSRAM1_SCK_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -53032,7 +53032,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for MK67"
+		(property "Description" "300mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for J54 (slot C power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -53246,7 +53246,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "FPGA JTAG header: 2x5 keyed header for an external FPGA programmer."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -53273,7 +53273,7 @@
 		(property "UI_LABEL" "FPGA JTAG"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "09a6bc8f-2c4e-4528-acb1-9e31129aec3b")
+			(uuid "2e28d569-02a5-4e72-a184-958fc5137f67")
 			(effects
 				(font
 					(size 1 1)
@@ -53724,7 +53724,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -53859,7 +53859,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM1_IO2 and PSRAM1_IO2_MEM, for U3"
+		(property "Description" "33 series resistor between PSRAM1_IO2 and PSRAM1_IO2_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -53994,7 +53994,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -54154,7 +54154,7 @@
 		(property "UI_ROLE" "FPGA CLOCK\n50MHz"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "be343838-b7e1-4c64-9bbc-6b29ba36927d")
+			(uuid "77134be2-c6e2-40e9-8e09-9ab5c76b238a")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -54513,7 +54513,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM3_SCK and PSRAM3_SCK_MEM, for U5"
+		(property "Description" "33 series resistor between PSRAM3_SCK and PSRAM3_SCK_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -54648,7 +54648,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +1V1, for U7"
+		(property "Description" "100nF bypass on +1V1, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -54809,7 +54809,7 @@
 		(property "UI_LABEL" "LINK P"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "001f9eec-9886-47fc-b48e-96f41fb1694e")
+			(uuid "f88b3d21-bf50-4d18-a72c-93c5d623ad3c")
 			(effects
 				(font
 					(size 1 1)
@@ -54821,7 +54821,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "2d1ba7fb-c355-4dac-bdbf-a02ecda82c8d")
+			(uuid "065e4979-0a02-4546-8f55-a8b2ae72a059")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -55424,7 +55424,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_B_AUX from AUX_RAIL, for MK66"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_B_AUX from AUX_RAIL, for J62 (slot B power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -55537,7 +55537,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -55805,7 +55805,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.5 V regulator: TI TLV62569, 2 A switching regulator: +5V to +2V5."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -55832,7 +55832,7 @@
 		(property "UI_ROLE" "2V5 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "08dc9544-0582-41c9-b77d-210421968ec2")
+			(uuid "a696a55c-7bd0-471c-82a0-34c6a721068d")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -56041,7 +56041,7 @@
 				)
 			)
 		)
-		(property "Description" "10k pull-up of PD_PG to +3V3, for U7"
+		(property "Description" "10k pull-up of PD_PG to +3V3, for U7 (board controller): CH224K: high when the charger accepted the request"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -56176,7 +56176,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot L key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -56202,7 +56202,7 @@
 		(property "UI_LABEL" "KEY L"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "9ec2de74-462a-4a0d-9e53-8e60882348df")
+			(uuid "7ee47241-1231-4ff3-a060-46dd4fd1ece1")
 			(effects
 				(font
 					(size 1 1)
@@ -56284,7 +56284,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "USER 1 LED: Green LED for software use."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -56311,7 +56311,7 @@
 		(property "UI_LABEL" "USER 1"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "c765190f-e25b-4ca1-af19-0fc283313d7e")
+			(uuid "373b3f35-cf2b-4ea1-b336-877fddc8449a")
 			(effects
 				(font
 					(size 1 1)
@@ -56589,7 +56589,7 @@
 		(property "UI_LABEL" "ETH"
 			(at 0 10.895 0)
 			(layer "F.SilkS")
-			(uuid "c35b63cb-be98-4396-8793-4469a6047b46")
+			(uuid "f52d0f4d-1899-46bc-bd47-59fe6a8a21e4")
 			(effects
 				(font
 					(size 1 1)
@@ -57034,7 +57034,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_L_PIN_VOLTAGE, for MK76"
+		(property "Description" "10uF bypass on SLOT_L_PIN_VOLTAGE, for J57 (slot L power socket)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -57169,7 +57169,7 @@
 				)
 			)
 		)
-		(property "Description" "150k pull-down on FB+1V0, for U15"
+		(property "Description" "150k resistor from FB+1V0 to GND, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -57304,7 +57304,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF 50V bypass on VSYS, for U12"
+		(property "Description" "10uF 50V bypass on VSYS, for U12 (3.3 V regulator, always on)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -57438,7 +57438,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot L signal socket: 2x8 female socket: 5V BUS 0 data lines."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -57465,7 +57465,7 @@
 		(property "UI_LABEL" "5V BUS 0"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "f025151f-4fea-434d-a302-b3b500142e55")
+			(uuid "9a11138c-0fd8-43ec-af64-bd0a2818d7c2")
 			(effects
 				(font
 					(size 1 1)
@@ -58044,7 +58044,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_G_PIN_VOLTAGE, for MK71"
+		(property "Description" "10uF bypass on SLOT_G_PIN_VOLTAGE, for J56 (slot G power socket)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -58177,7 +58177,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_L_PIN_VOLTAGE from +3V3_EXT, for MK76"
+		(property "Description" "500mA resettable fuse feeding SLOT_L_PIN_VOLTAGE from +3V3_EXT, for J57 (slot L power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -58389,7 +58389,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_H_PIN_VOLTAGE from VCCIO_2_EXT, for MK72"
+		(property "Description" "500mA resettable fuse feeding SLOT_H_PIN_VOLTAGE from VCCIO_2_EXT, for J65 (slot H power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -58603,7 +58603,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_F_AUX from AUX_RAIL, for MK70"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_F_AUX from AUX_RAIL, for J64 (slot F power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -58716,7 +58716,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_H_PIN_VOLTAGE, for MK72"
+		(property "Description" "10uF bypass on SLOT_H_PIN_VOLTAGE, for J65 (slot H power socket)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -58876,7 +58876,7 @@
 		(property "UI_ROLE" "PROGRAMMABLE LOGIC"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "ef2437a7-274e-41c6-aaeb-cd21d52df8ab")
+			(uuid "ba3f07fa-2d4f-412c-81f7-3206e8d3d59a")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -58888,7 +58888,7 @@
 		(property "PART_ID" "XC7A100T-2FGG676I"
 			(at 0 16 0)
 			(layer "F.SilkS")
-			(uuid "93af19c8-d068-4bde-b8d6-58f0376c1ccd")
+			(uuid "68e35518-4de1-4f62-aed1-38a5c1270d0c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -71274,7 +71274,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "USB input diode: SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -71504,7 +71504,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between CFG_CCLK and SUP_CCLK, for U7"
+		(property "Description" "33 series resistor between CFG_CCLK and SUP_CCLK, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -71639,7 +71639,7 @@
 				)
 			)
 		)
-		(property "Description" "4.7uF bypass on SUP_VREG_AVDD"
+		(property "Description" "4.7uF bypass on SUP_VREG_AVDD: filtered analog supply for the RP2350's regulator"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -71908,7 +71908,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slots E-H signal socket: 2x32 female socket, left edge: signals of slots E, F, G, H."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -71935,7 +71935,7 @@
 		(property "UI_LABEL" "E | F | G | H"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "5d0465b2-4e67-4cb5-b8a4-e9d22630d390")
+			(uuid "a2a0a82e-56b3-44d6-9a85-0b3876628599")
 			(effects
 				(font
 					(size 1 1)
@@ -72867,7 +72867,7 @@
 		(property "UI_LABEL" "LINK Q"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "bdef9438-d564-4183-9852-5b84e0bc220e")
+			(uuid "6c341259-16be-4de1-b18d-12e46d96a1af")
 			(effects
 				(font
 					(size 1 1)
@@ -72879,7 +72879,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "57887247-d4f7-4254-9f7a-5da28108e13c")
+			(uuid "517fa3e5-ef26-401d-bfd5-3a41c09e0d10")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -73212,7 +73212,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +1V8, for U14"
+		(property "Description" "22uF bypass on +1V8, for U14 (1.8 V regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -73347,7 +73347,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF bypass on +3V3, for U22"
+		(property "Description" "1uF bypass on +3V3, for U22 (extension 3.3 V switch)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -73481,7 +73481,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot M signal socket: 2x8 female socket: 5V BUS 1 data lines."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -73508,7 +73508,7 @@
 		(property "UI_LABEL" "5V BUS 1"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "e0ca2147-2c70-4b1b-a7af-107eec2f4760")
+			(uuid "76c59cae-f2fa-407c-a4a7-73b112838743")
 			(effects
 				(font
 					(size 1 1)
@@ -73817,7 +73817,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +3V3, for U12"
+		(property "Description" "22uF bypass on +3V3, for U12 (3.3 V regulator, always on)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -73952,7 +73952,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -74221,7 +74221,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "AUX IN screw terminal: Optional 9-28 V DC input feeding only the AUX pin of every extension port, unregulated. Your supply, your current limit."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -74248,7 +74248,7 @@
 		(property "UI_LABEL" "AUX IN 9-28V UNREGULATED\nYOUR RAIL, YOUR PROBLEM"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "c646431e-81b4-408b-935f-3866a636ca4a")
+			(uuid "df19e509-4024-4cc4-b560-52902e457168")
 			(effects
 				(font
 					(size 1 1)
@@ -74260,7 +74260,7 @@
 		(property "UI_PINS" "AUX +\nGND"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "5cc7580b-7747-43c2-8da3-0298d0857442")
+			(uuid "424885ac-ea33-42e3-8b3b-6f4cb0b47b46")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -74563,7 +74563,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "USB-PD negotiator: WCH CH224K: asks a USB-PD charger for the voltage the board controller selects (5 or 9 V)."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -74590,7 +74590,7 @@
 		(property "UI_ROLE" "USB POWER REQUEST"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "2924654f-53d7-4886-aea4-cc0b16dfee5d")
+			(uuid "a2137bec-f2d8-41ca-953d-53945edb672d")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -74916,7 +74916,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM0_IO3 and PSRAM0_IO3_MEM, for U2"
+		(property "Description" "33 series resistor between PSRAM0_IO3 and PSRAM0_IO3_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -75186,7 +75186,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between CFG_INIT_B and SUP_INIT_B, for U7: keeps INIT_B released; it goes low on a configuration error"
+		(property "Description" "33 series resistor between CFG_INIT_B and SUP_INIT_B, for U7 (board controller): keeps INIT_B released; it goes low on a configuration error; board controller to FPGA link (33 ohm series)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -75678,7 +75678,7 @@
 				)
 			)
 		)
-		(property "Description" "10 pull-up of CORE_1V0_SVIN to +5V, for U15"
+		(property "Description" "10 resistor from CORE_1V0_SVIN to +5V, for U15 (FPGA core regulator): filtered supply for U15's control circuit"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -75813,7 +75813,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_E_AUX from AUX_RAIL, for MK69"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_E_AUX from AUX_RAIL, for J55 (slot E power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -76061,7 +76061,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -76196,7 +76196,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF filter capacitor on MON_1V0, for U7"
+		(property "Description" "100nF filter capacitor on MON_1V0, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -76466,7 +76466,7 @@
 				)
 			)
 		)
-		(property "Description" "1nF filter capacitor on CORE_1V0_SS, for U15"
+		(property "Description" "1nF capacitor from CORE_1V0_SS to GND, for U15 (FPGA core regulator): U15 soft-start: slows the core supply's ramp"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -76599,7 +76599,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "5V BUS 1 translator: TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot M."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -76626,7 +76626,7 @@
 		(property "UI_ROLE" "5V BUS 1 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "df5634fa-f45b-438a-ae17-9980218c123e")
+			(uuid "62401e0b-ba83-4ba1-8caf-bfe7fe1e646c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -77262,7 +77262,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM0_CE_B and PSRAM0_CE_B_MEM, for U2"
+		(property "Description" "33 series resistor between PSRAM0_CE_B and PSRAM0_CE_B_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -77397,7 +77397,7 @@
 				)
 			)
 		)
-		(property "Description" "4.7k pull-up of SUP_EXP_INT to +3V3, for U17"
+		(property "Description" "4.7k resistor from SUP_EXP_INT to +3V3, for U17 (status expander): status expander interrupt (open drain)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -78070,7 +78070,7 @@
 				)
 			)
 		)
-		(property "Description" "4.7uH SRN6045TA-4R7M inductor between +3V3 and SW_3V3, for U12"
+		(property "Description" "4.7uH SRN6045TA-4R7M inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -78284,7 +78284,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-up of FB+2V5 to +2V5, for U13"
+		(property "Description" "100k resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -78419,7 +78419,7 @@
 				)
 			)
 		)
-		(property "Description" "2.21k pull-down on U24_ILIM, for U24"
+		(property "Description" "2.21k resistor from U24_ILIM to GND, for U24 (slots E-H PIN V switch): sets the switch's current limit (TI equation in design.py)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -78554,7 +78554,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_B_PIN_VOLTAGE, for MK66"
+		(property "Description" "10uF bypass on SLOT_B_PIN_VOLTAGE, for J62 (slot B power socket)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -78689,7 +78689,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF bypass on SLOT_D_PIN_VOLTAGE, for MK68"
+		(property "Description" "10uF bypass on SLOT_D_PIN_VOLTAGE, for J63 (slot D power socket)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -78824,7 +78824,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_B_3V3, for MK66"
+		(property "Description" "100nF bypass on SLOT_B_3V3, for J62 (slot B power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -79094,7 +79094,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on MON_3V3"
+		(property "Description" "100nF filter capacitor on MON_3V3, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -79229,7 +79229,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on VCCIO_2, for J20"
+		(property "Description" "22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -79364,7 +79364,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -79497,7 +79497,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "JTAG switch: TI SN74CB3Q3384 bus switch: connects or isolates the board controller's JTAG from the FPGA, set by J52."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -79524,7 +79524,7 @@
 		(property "UI_ROLE" "JTAG OWNER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "9a4e87f9-d2ae-4b5c-aab9-7f1b188c80c0")
+			(uuid "e3940f5e-c196-4a54-b143-18a5dc7ccded")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -79921,7 +79921,7 @@
 				)
 			)
 		)
-		(property "Description" "19.1k pull-down on FB_5V, for U11"
+		(property "Description" "19.1k resistor from FB_5V to GND, for U11 (5 V regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -80056,7 +80056,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF 25V capacitor between VBUS and VBUS5_GATE, for Q2"
+		(property "Description" "100nF 25V capacitor between VBUS and VBUS5_GATE, for Q2 (5 V USB pass switch): Q2's gate; held off unless Q3 pulls it"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -80324,7 +80324,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for MK77"
+		(property "Description" "300mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for J58 (slot M power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -80538,7 +80538,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -80671,7 +80671,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "controller 12 MHz crystal: Abracon ABM8-272-T3, the crystal Raspberry Pi specifies for the RP2350."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -80910,7 +80910,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM2_IO3 and PSRAM2_IO3_MEM, for U4"
+		(property "Description" "33 series resistor between PSRAM2_IO3 and PSRAM2_IO3_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -81045,7 +81045,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +1V0, for U15"
+		(property "Description" "22uF bypass on +1V0, for U15 (FPGA core regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81180,7 +81180,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between SUP_JTAG_TDO and SWJ_TDO, for U7"
+		(property "Description" "33 series resistor between SUP_JTAG_TDO and SWJ_TDO, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81853,7 +81853,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_C_5V from +5V_EXT, for MK67"
+		(property "Description" "500mA resettable fuse feeding SLOT_C_5V from +5V_EXT, for J54 (slot C power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -82202,7 +82202,7 @@
 				)
 			)
 		)
-		(property "Description" "47k series resistor between VBUS5_GATE and VBUS5_PULL, for Q3"
+		(property "Description" "47k series resistor between VBUS5_GATE and VBUS5_PULL, for Q3 (pass switch driver): Q2's gate; held off unless Q3 pulls it; Q2 gate drive through Q3"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -82335,7 +82335,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "USB data ESD clamp: ST ESDA6V1BC6: clamps static discharge on D+, D-, CC1 and CC2."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -82559,7 +82559,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot H key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -82585,7 +82585,7 @@
 		(property "UI_LABEL" "KEY H"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "80a5a650-9046-415d-a2f3-6afe6b05f4f4")
+			(uuid "1589c2bf-da23-414a-b1f3-ad5a1ddb18d1")
 			(effects
 				(font
 					(size 1 1)
@@ -83071,7 +83071,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.2 V transceiver regulator: TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -83098,7 +83098,7 @@
 		(property "UI_ROLE" "1V2 SUPPLY\nTRANSCEIVERS"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "15066506-f981-4d3f-9873-625094d31016")
+			(uuid "51d578d0-486b-45ec-a92f-b51f4fceaaf8")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -83307,7 +83307,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between SUP_JTAG_TCK and SWJ_TCK, for U7"
+		(property "Description" "33 series resistor between SUP_JTAG_TCK and SWJ_TCK, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83442,7 +83442,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on VCCIO_1, for J19"
+		(property "Description" "22uF bypass on VCCIO_1, for J19 (A-D PIN VOLTAGE jumper)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83577,7 +83577,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-up of FB+1V0 to +1V0, for U15"
+		(property "Description" "100k resistor from FB+1V0 to +1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83712,7 +83712,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U4"
+		(property "Description" "100nF bypass on +3V3, for U4 (PSRAM 2)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83847,7 +83847,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between DBG_TCK and SUP_DBG_TCK, for U7"
+		(property "Description" "33 series resistor between DBG_TCK and SUP_DBG_TCK, for U7 (board controller): board controller to FPGA link (33 ohm series)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -83982,7 +83982,7 @@
 				)
 			)
 		)
-		(property "Description" "100k series resistor between +5V and FB_5V, for U11"
+		(property "Description" "100k series resistor between +5V and FB_5V, for U11 (5 V regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -84117,7 +84117,7 @@
 				)
 			)
 		)
-		(property "Description" "1.15k pull-down on U21_ILIM, for U21"
+		(property "Description" "1.15k resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -84387,7 +84387,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM1_IO1 and PSRAM1_IO1_MEM, for U3"
+		(property "Description" "33 series resistor between PSRAM1_IO1 and PSRAM1_IO1_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -84522,7 +84522,7 @@
 				)
 			)
 		)
-		(property "Description" "15pF filter capacitor on SUP_XTAL_OUT, for Y1"
+		(property "Description" "15 pF load capacitor on the 12 MHz crystal's output (RP-008280 section 4)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -84655,7 +84655,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.8 V regulator: TI TLV62569, 2 A switching regulator: +5V to +1V8."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -84682,7 +84682,7 @@
 		(property "UI_ROLE" "1V8 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "775b0897-2b17-4cb5-870d-c8f3c6f01b8d")
+			(uuid "c7760def-27ab-443f-a9e6-29207d93cb96")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -84891,7 +84891,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U7"
+		(property "Description" "100nF bypass on +3V3, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85161,7 +85161,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-up of VBUS_UVLO to VBUS, for U26"
+		(property "Description" "100k resistor from VBUS_UVLO to VBUS, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -85296,7 +85296,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot A key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85322,7 +85322,7 @@
 		(property "UI_LABEL" "KEY A"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "f913d80d-0a81-4fa5-a4c9-43628d771355")
+			(uuid "8a49058a-5909-474e-8013-e3601f8e78db")
 			(effects
 				(font
 					(size 1 1)
@@ -85405,7 +85405,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot M key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85431,7 +85431,7 @@
 		(property "UI_LABEL" "KEY M"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "29d8c593-ae49-48ee-a8dd-1653da845242")
+			(uuid "43290c23-8837-4a94-a4da-e19b3e2f8ef8")
 			(effects
 				(font
 					(size 1 1)
@@ -85513,7 +85513,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "slot A power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -85540,7 +85540,7 @@
 		(property "UI_LABEL" "A POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "7b58190c-7b90-4a05-8444-280b43d3b4cc")
+			(uuid "73a23f8e-2f55-42b5-8bf7-0712acc76f63")
 			(effects
 				(font
 					(size 1 1)
@@ -85913,7 +85913,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM0_SCK and PSRAM0_SCK_MEM, for U2"
+		(property "Description" "33 series resistor between PSRAM0_SCK and PSRAM0_SCK_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -86048,7 +86048,7 @@
 				)
 			)
 		)
-		(property "Description" "10k pull-up of EXT_FAULT to +3V3, for U7"
+		(property "Description" "10k pull-up of EXT_FAULT to +3V3, for U7 (board controller): shared fault line, low when a protected supply trips"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -86183,7 +86183,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-up of FB+1V8 to +1V8, for U14"
+		(property "Description" "100k resistor from FB+1V8 to +1V8, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86588,7 +86588,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF bypass on PD_VDD, for U18"
+		(property "Description" "1uF bypass on PD_VDD, for U18 (USB-PD negotiator): CH224K's internal regulator output"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -86723,7 +86723,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF bypass on VCCIO_2, for U24"
+		(property "Description" "1uF bypass on VCCIO_2, for U24 (slots E-H PIN V switch)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86993,7 +86993,7 @@
 				)
 			)
 		)
-		(property "Description" "22uF bypass on +1V8, for U14"
+		(property "Description" "22uF bypass on +1V8, for U14 (1.8 V regulator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87668,7 +87668,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +3V3, for U2"
+		(property "Description" "100nF bypass on +3V3, for U2 (PSRAM 0)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87803,7 +87803,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF 25V bypass on VBUS, for J50"
+		(property "Description" "10uF 25V bypass on VBUS, for U26 (USB input eFuse)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87938,7 +87938,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_L_3V3, for MK76"
+		(property "Description" "100nF bypass on SLOT_L_3V3, for J57 (slot L power socket)"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -88073,7 +88073,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +5V, for U9"
+		(property "Description" "100nF bypass on +5V, for U9 (5V BUS 0 translator)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -88208,7 +88208,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_G_3V3, for MK71"
+		(property "Description" "100nF bypass on SLOT_G_3V3, for J56 (slot G power socket)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -88343,7 +88343,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-down on EN_2V5, for U7"
+		(property "Description" "100k pull-down on EN_2V5, for U7 (board controller): keeps the regulator off until the board controller enables it"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -88478,7 +88478,7 @@
 				)
 			)
 		)
-		(property "Description" "1.1A 33V resettable fuse feeding SLOT_A_AUX from AUX_RAIL, for MK65"
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_A_AUX from AUX_RAIL, for J53 (slot A power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -88591,7 +88591,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on +1V1, for U7"
+		(property "Description" "100nF bypass on +1V1, for U7 (board controller)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -88726,7 +88726,7 @@
 				)
 			)
 		)
-		(property "Description" "2.2nF 25V filter capacitor on VBUS_DVDT, for U26"
+		(property "Description" "2.2nF 25V capacitor from VBUS_DVDT to GND, for U26 (USB input eFuse): sets how slowly U26 ramps VSYS up, about 0.9 V/ms"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -88861,7 +88861,7 @@
 				)
 			)
 		)
-		(property "Description" "1k pull-up of MON_1V8 to +1V8, for U7"
+		(property "Description" "1k resistor from MON_1V8 to +1V8, for U7 (board controller): rail monitor input to the board controller's ADC"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -89131,7 +89131,7 @@
 				)
 			)
 		)
-		(property "Description" "100k pull-up of VBUS5_GATE to VBUS, for Q2"
+		(property "Description" "100k resistor from VBUS5_GATE to VBUS, for Q2 (5 V USB pass switch): Q2's gate; held off unless Q3 pulls it"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -89266,7 +89266,7 @@
 				)
 			)
 		)
-		(property "Description" "100nF bypass on SLOT_A_3V3, for MK65"
+		(property "Description" "100nF bypass on SLOT_A_3V3, for J53 (slot A power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -89536,7 +89536,7 @@
 				)
 			)
 		)
-		(property "Description" "1k pull-up of SUP_RUN to +3V3, for U7"
+		(property "Description" "1k pull-up of SUP_RUN to +3V3, for U7 (board controller): board controller reset"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -89671,7 +89671,7 @@
 				)
 			)
 		)
-		(property "Description" "33 series resistor between PSRAM1_CE_B and PSRAM1_CE_B_MEM, for U3"
+		(property "Description" "33 series resistor between PSRAM1_CE_B and PSRAM1_CE_B_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -89939,7 +89939,7 @@
 				)
 			)
 		)
-		(property "Description" "1uH_core FTC201610S1R0MBCA inductor between +1V0 and SW+1V0, for U15"
+		(property "Description" "1uH_core FTC201610S1R0MBCA inductor between +1V0 and SW+1V0, for U15 (FPGA core regulator): regulator switching node"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
