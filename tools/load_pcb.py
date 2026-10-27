@@ -110,8 +110,12 @@ def main():
                 fp.SetFPID(lib_id)
             fp.SetReference(ref); fp.SetValue(c['value'])
             # What the part is for (tools/roles.py), in KiCad's standard
-            # Description field: shown in the properties panel, never printed.
+            # Description field (Footprint Properties dialog), never printed.
             fp.GetFieldByName('Description').SetText(c.get('role', ''))
+            # The same text as the library description, which is what KiCad
+            # shows in the bottom message bar on a single click and as
+            # "Library Description" in the Properties panel.
+            fp.SetLibDescription(c.get('role', ''))
             fp.SetDNP(bool(c.get('dnp')))
             if replace:
                 if prior is not None:
