@@ -31,7 +31,10 @@ def parse():
         val = re.search(r'\(value "([^"]*)"\)', chunk)
         fp  = re.search(r'\(footprint "([^"]*)"\)', chunk)
         sh  = re.search(r'\(sheetpath \(names "([^"]*)"', chunk)
+        # the component's own description comes before (libsource ...)
+        desc = re.search(r'\(description "((?:[^"\\]|\\.)*)"\)', chunk.split('(libsource')[0])
         comps[ref] = dict(value=val.group(1) if val else '',
+                          role=desc.group(1).replace('\\"', '"') if desc else '',
                           fp=fp.group(1) if fp else '',
                           sheet=sh.group(1) if sh else '/',
                           dnp='(property (name "dnp")' in chunk)
@@ -106,6 +109,9 @@ def main():
                 lib_id = pcbnew.LIB_ID(lib_nick, nm)
                 fp.SetFPID(lib_id)
             fp.SetReference(ref); fp.SetValue(c['value'])
+            # What the part is for (tools/roles.py), in KiCad's standard
+            # Description field: shown in the properties panel, never printed.
+            fp.GetFieldByName('Description').SetText(c.get('role', ''))
             fp.SetDNP(bool(c.get('dnp')))
             if replace:
                 if prior is not None:

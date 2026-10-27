@@ -14,6 +14,11 @@ Six pages, one per functional block, from `odin.kicad_sch` (the root):
 | `slots.kicad_sch` | Nine extension slots, rail selection, fusing, shifting |
 | `network.kicad_sch` | RTL8211FD-CG PHY, ETH jack, LINK P and LINK Q |
 
+**New to the board? Read [ref/parts-guide.md](../ref/parts-guide.md) first.**
+Every part's purpose, from `tools/roles.py`, is also in the schematic (each
+symbol's Description field; a paragraph inside every group box) and in the
+PCB (each footprint's Description field, in the properties panel).
+
 Parts are grouped: each regulator sits in a dashed box with its own inductor,
 feedback divider and capacitors; each slot with its jumper and its fuses.
 Rails and grounds use real power symbols, so only actual signals carry a
@@ -27,6 +32,7 @@ python3 tools/gen_kicad.py      # normalize imported XC7A100T symbol + validate 
 python3 tools/ballmap.py --write
 python3 tools/budget.py --write # rail qualification -> ref/power-budget.md
 python3 tools/qualified.py --write   # part table -> ref/qualified-parts.md
+python3 tools/roles.py --write   # what every part is for -> ref/parts-guide.md
 python3 tools/audit_easyeda.py # imported symbol/pad/LCSC consistency
 python3 tools/gen_project.py    # schematic from tools/design.py
 python3 tools/gen_pcb.py --rules-only   # stackup, net classes, design rules; placement kept

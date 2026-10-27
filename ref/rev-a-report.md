@@ -247,3 +247,22 @@ Known: RGMII 50 ohm width is an estimate, flagged in ref/pcb-impedance.md
 and tools/gen_pcb.py. `place.py --check` connector contract still fails
 (phase B3). The owner orders the JLC08161H-1080A template by name (D3).
 Open questions for the owner: none
+
+## Annotation, part 1 (mechanism, FPGA and Network sheets) 2026-10-27
+Parts: 462 (unchanged)
+ERC: 0 errors, 2 warnings (allowlisted); DRC: 9 errors, 324 warnings, 499 unrouted, 0 parity
+PCB sync: `load_pcb.py` between snapshots, 0 of 462 moved (Description fields only)
+Files changed: tools/roles.py (new), tools/gen_project.py, tools/load_pcb.py,
+tools/gate.py, kicad/README.md, ref/parts-guide.md (new, generated),
+kicad/*.kicad_sch, kicad/odin.net, kicad/odin.kicad_pcb
+What: every part now carries a plain-words "what it's for". tools/roles.py
+holds a paragraph per schematic group, a line per active part, and notes on
+nets whose resistors mean more than their topology (straps, RCAL); lines for
+resistors, capacitors, inductors and fuses are derived from their nets
+(bypass, pull-up, series, ...) and name the part they serve. The text goes
+into each symbol's Description, a paragraph inside every group box, each
+footprint's Description field, and ref/parts-guide.md. gate.py fails on an
+unexplained part or group on a covered sheet, a stale entry, or a stale
+guide. Covered: FPGA and Network; Power, Memory, Supervisor and Slots are
+reported (125 gaps) and come next.
+Open questions for the owner: tone and depth of the sample text.

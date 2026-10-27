@@ -13,60 +13,6 @@
 		(6 "In2.Cu" signal)
 		(8 "In3.Cu" signal "power planes")
 		(10 "In4.Cu" signal "GND plane")
-		(12 "In5.Cu" signal)
-		(14 "In6.Cu" signal "GND plane")
-		(2 "B.Cu" signal)
-		(9 "F.Adhes" user "F.Adhesive")
-		(11 "B.Adhes" user "B.Adhesive")
-		(13 "F.Paste" user)
-		(15 "B.Paste" user)
-		(5 "F.SilkS" user "F.Silkscreen")
-		(7 "B.SilkS" user "B.Silkscreen")
-		(1 "F.Mask" user)
-		(3 "B.Mask" user)
-		(17 "Dwgs.User" user "User.Drawings")
-		(19 "Cmts.User" user "User.Comments")
-		(21 "Eco1.User" user "User.Eco1")
-		(23 "Eco2.User" user "User.Eco2")
-		(25 "Edge.Cuts" user)
-		(27 "Margin" user)
-		(31 "F.CrtYd" user "F.Courtyard")
-		(29 "B.CrtYd" user "B.Courtyard")
-		(35 "F.Fab" user)
-		(33 "B.Fab" user)
-	)	(layers
-		(0 "F.Cu" signal)
-		(4 "In1.Cu" signal "GND plane")
-		(6 "In2.Cu" signal)
-		(8 "In3.Cu" signal "power planes")
-		(10 "In4.Cu" signal "GND plane")
-		(12 "In5.Cu" signal)
-		(14 "In6.Cu" signal "GND plane")
-		(2 "B.Cu" signal)
-		(9 "F.Adhes" user "F.Adhesive")
-		(11 "B.Adhes" user "B.Adhesive")
-		(13 "F.Paste" user)
-		(15 "B.Paste" user)
-		(5 "F.SilkS" user "F.Silkscreen")
-		(7 "B.SilkS" user "B.Silkscreen")
-		(1 "F.Mask" user)
-		(3 "B.Mask" user)
-		(17 "Dwgs.User" user "User.Drawings")
-		(19 "Cmts.User" user "User.Comments")
-		(21 "Eco1.User" user "User.Eco1")
-		(23 "Eco2.User" user "User.Eco2")
-		(25 "Edge.Cuts" user)
-		(27 "Margin" user)
-		(31 "F.CrtYd" user "F.Courtyard")
-		(29 "B.CrtYd" user "B.Courtyard")
-		(35 "F.Fab" user)
-		(33 "B.Fab" user)
-	)	(layers
-		(0 "F.Cu" signal)
-		(4 "In1.Cu" signal "GND plane")
-		(6 "In2.Cu" signal)
-		(8 "In3.Cu" signal "power planes")
-		(10 "In4.Cu" signal "GND plane")
 		(2 "B.Cu" signal)
 		(9 "F.Adhes" user "F.Adhesive")
 		(11 "B.Adhes" user "B.Adhesive")
@@ -89,31 +35,107 @@
 	)
 	(setup
 		(stackup
-			(layer "F.SilkS" (type "Top Silk Screen"))
-			(layer "F.Paste" (type "Top Solder Paste"))
-			(layer "F.Mask" (type "Top Solder Mask") (thickness 0.0254) (epsilon_r 3.8))
-			(layer "F.Cu" (type "copper") (thickness 0.035))
-			(layer "dielectric 1" (type "prepreg") (thickness 0.0764) (material "NP-155F 1080 RC67%") (epsilon_r 3.91) (loss_tangent 0.02))
-			(layer "In1.Cu" (type "copper") (thickness 0.0152))
-			(layer "dielectric 2" (type "core") (thickness 0.1) (material "NP-155F core") (epsilon_r 4.36) (loss_tangent 0.02))
-			(layer "In2.Cu" (type "copper") (thickness 0.0152))
-			(layer "dielectric 3" (type "prepreg") (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02)
-                (addsublayer) (thickness 0.084) (material "NP-155F 1080 RC67%") (epsilon_r 3.91) (loss_tangent 0.02)
-                (addsublayer) (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02))
-			(layer "In3.Cu" (type "copper") (thickness 0.0152))
-			(layer "dielectric 4" (type "core") (thickness 0.1) (material "NP-155F core") (epsilon_r 4.36) (loss_tangent 0.02))
-			(layer "In4.Cu" (type "copper") (thickness 0.0152))
-			(layer "dielectric 5" (type "prepreg") (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02)
-                (addsublayer) (thickness 0.084) (material "NP-155F 1080 RC67%") (epsilon_r 3.91) (loss_tangent 0.02)
-                (addsublayer) (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02))
-			(layer "In5.Cu" (type "copper") (thickness 0.0152))
-			(layer "dielectric 6" (type "core") (thickness 0.1) (material "NP-155F core") (epsilon_r 4.36) (loss_tangent 0.02))
-			(layer "In6.Cu" (type "copper") (thickness 0.0152))
-			(layer "dielectric 7" (type "prepreg") (thickness 0.0764) (material "NP-155F 1080 RC67%") (epsilon_r 3.91) (loss_tangent 0.02))
-			(layer "B.Cu" (type "copper") (thickness 0.035))
-			(layer "B.Mask" (type "Bottom Solder Mask") (thickness 0.0254) (epsilon_r 3.8))
-			(layer "B.Paste" (type "Bottom Solder Paste"))
-			(layer "B.SilkS" (type "Bottom Silk Screen"))
+			(layer "F.SilkS"
+				(type "Top Silk Screen")
+			)
+			(layer "F.Paste"
+				(type "Top Solder Paste")
+			)
+			(layer "F.Mask"
+				(type "Top Solder Mask")
+				(thickness 0.0254)
+			)
+			(layer "F.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "dielectric 1"
+				(type "prepreg")
+				(thickness 0.0764)
+				(material "NP-155F 1080 RC67%")
+				(epsilon_r 3.91)
+				(loss_tangent 0.02)
+			)
+			(layer "In1.Cu"
+				(type "copper")
+				(thickness 0.0152)
+			)
+			(layer "dielectric 2"
+				(type "core")
+				(thickness 0.1)
+				(material "NP-155F core")
+				(epsilon_r 4.36)
+				(loss_tangent 0.02)
+			)
+			(layer "In2.Cu"
+				(type "copper")
+				(thickness 0.0152)
+			)
+			(layer "dielectric 3"
+				(type "prepreg")
+				(thickness 0.2104)
+				(material "NP-155F 7628 RC49%")
+				(epsilon_r 4.4)
+				(loss_tangent 0.02)
+			)
+			(layer "In3.Cu"
+				(type "copper")
+				(thickness 0.0152)
+			)
+			(layer "dielectric 4"
+				(type "core")
+				(thickness 0.1)
+				(material "NP-155F core")
+				(epsilon_r 4.36)
+				(loss_tangent 0.02)
+			)
+			(layer "In4.Cu"
+				(type "copper")
+				(thickness 0.0152)
+			)
+			(layer "dielectric 5"
+				(type "prepreg")
+				(thickness 0.2104)
+				(material "NP-155F 7628 RC49%")
+				(epsilon_r 4.4)
+				(loss_tangent 0.02)
+			)
+			(layer "In5.Cu"
+				(type "copper")
+				(thickness 0.0152)
+			)
+			(layer "dielectric 6"
+				(type "core")
+				(thickness 0.1)
+				(material "NP-155F core")
+				(epsilon_r 4.36)
+				(loss_tangent 0.02)
+			)
+			(layer "In6.Cu"
+				(type "copper")
+				(thickness 0.0152)
+			)
+			(layer "dielectric 7"
+				(type "prepreg")
+				(thickness 0.0764)
+				(material "NP-155F 1080 RC67%")
+				(epsilon_r 3.91)
+				(loss_tangent 0.02)
+			)
+			(layer "B.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "B.Mask"
+				(type "Bottom Solder Mask")
+				(thickness 0.0254)
+			)
+			(layer "B.Paste"
+				(type "Bottom Solder Paste")
+			)
+			(layer "B.SilkS"
+				(type "Bottom Silk Screen")
+			)
 			(copper_finish "ENIG")
 			(dielectric_constraints no)
 		)
@@ -916,7 +938,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_E_PIN_VOLTAGE, for MK69"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1049,7 +1071,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_B_PIN_VOLTAGE from VCCIO_1_EXT, for MK66"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1263,7 +1285,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-up of MON_2V5 to +2V5, for U7"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -1398,7 +1420,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between FLASH_D3_HOLD and SUP_FD3, for U7"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1531,7 +1553,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uH SRN6045TA-4R7M inductor between +5V and SW_5V, for U11"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -1745,7 +1767,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF 50V bypass on VSYS, for J50"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1880,7 +1902,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF capacitor between BOOT_5V and SW_5V, for U11"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -2015,7 +2037,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 1% resistor from MGTRREF to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 216 (UG482 Figure 5-1)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -2150,7 +2172,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_E_3V3, for MK69"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2285,7 +2307,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +1V1, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2446,7 +2468,7 @@
 		(property "UI_LABEL" "G POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "369f6eee-e58e-4335-bfdf-dd1c0954ec06")
+			(uuid "c284e41f-1fc6-41de-974c-923be653df88")
 			(effects
 				(font
 					(size 1 1)
@@ -2684,7 +2706,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.21k pull-down on U23_ILIM, for U23"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -2819,7 +2841,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF filter capacitor on SUP_RUN, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -2954,7 +2976,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3089,7 +3111,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U10"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3224,7 +3246,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U9"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3359,7 +3381,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +2V5, for U13"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3494,7 +3516,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3629,7 +3651,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +5V, for U15"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3790,7 +3812,7 @@
 		(property "UI_LABEL" "KEY F"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "44fc92ea-1339-4e23-bde7-e3bff4682f39")
+			(uuid "aee61839-fae4-4e52-9bfb-e553aba829b4")
 			(effects
 				(font
 					(size 1 1)
@@ -3873,7 +3895,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_G_AUX from AUX_RAIL, for MK71"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -3986,7 +4008,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k series resistor between BOOTSEL_SW and SUPF_CS, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4121,7 +4143,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.5k pull-up of PHY_MDIO to +2V5, for U30 (gigabit Ethernet PHY): MDIO idle-high pull-up, 1.5 k (section 7.11.2)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4256,7 +4278,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM1_IO0 and PSRAM1_IO0_MEM, for U3"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4391,7 +4413,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.49k 1% resistor from PHY_RSET to GND, for U30 (gigabit Ethernet PHY): sets U30's transmit bias current (2.49 k 1 %, [verify] ref/network.md)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4524,7 +4546,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for MK71"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -4736,7 +4758,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_A_PIN_VOLTAGE from VCCIO_1_EXT, for MK65"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4950,7 +4972,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -5085,7 +5107,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k pull-down on VBUS_OVLO, for U26"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5220,7 +5242,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM2_IO0 and PSRAM2_IO0_MEM, for U4"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5355,7 +5377,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM2_SCK and PSRAM2_SCK_MEM, for U4"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5490,7 +5512,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between CFG_DONE and SUP_DONE, for U7"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -5625,7 +5647,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "330 resistor from DONE_LED_A to +3V3, for D1 (FPGA DONE LED): sets D1's current"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -5760,7 +5782,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -5893,7 +5915,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LINK P ESD, pins 4-5 and 7-8: TI TPD4E1U06 four-line ESD clamp (0.8 pF) on LINK P's incoming clock and data pairs."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6143,7 +6165,7 @@
 		(property "UI_LABEL" "F POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "37f43c76-9874-41f3-a1fa-e30180d89175")
+			(uuid "e847699a-6ddc-46ff-b8a8-a7a5a15aa620")
 			(effects
 				(font
 					(size 1 1)
@@ -6381,7 +6403,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +5V, for U10"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6516,7 +6538,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +1V2_MGT, for U16"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6649,7 +6671,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.2uH SRN4018-2R2M inductor between +1V2_MGT and SW+1V2_MGT, for U16"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6823,7 +6845,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k pull-up of BUS5V0_OE_N to +3V3, for U9"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -6958,7 +6980,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k series resistor between EN_VBUS5 and EN_VBUS5_G, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -7093,7 +7115,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +1V2_MGT, for U16"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7228,7 +7250,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k series resistor between +5V and MON_5V"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7361,7 +7383,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "PHY 25 MHz crystal: YXC X322525MOB4SI, 25 MHz, +/-10 ppm, 12 pF load: U30's reference clock."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7600,7 +7622,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +5V, for U16"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7735,7 +7757,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22pF capacitor between +1V0 and FB+1V0, for U15"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7870,7 +7892,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM0_IO2 and PSRAM0_IO2_MEM, for U2"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8003,7 +8025,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for MK66"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8217,7 +8239,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-down on EN_1V8, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -8352,7 +8374,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-down on PHY_RXC, for U30 (gigabit Ethernet PHY): strap PHYAD1 = 0 (Table 10)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -8487,7 +8509,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U20"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -8622,7 +8644,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-down on PHY_RXD2, for U30 (gigabit Ethernet PHY): strap PLLOFF = 0: PLL keeps running in power saving (Table 11)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -8757,7 +8779,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -8892,7 +8914,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -9027,7 +9049,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100uF 2.5V FPGA decoupling on VCCBRAM (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -9162,7 +9184,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between DBG_TMS and SUP_DBG_TMS, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -9295,7 +9317,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_B_5V from +5V_EXT, for MK66"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9509,7 +9531,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of PHY_LED1 to +3V3, for U30 (gigabit Ethernet PHY): strap CFG_LDO0 = 1, with CFG_LDO1 = 0: 2.5 V pads (Table 11)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -9644,7 +9666,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-up of LED_USER1_A to +3V3, for D10"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9779,7 +9801,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM2_CE_B and PSRAM2_CE_B_MEM, for U4"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9914,7 +9936,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -10277,7 +10299,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47uF 6.3V FPGA decoupling on VCCO_0 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -10410,7 +10432,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_A_5V from +5V_EXT, for MK65"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10624,7 +10646,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between SB_UART_RX and SUP_UART_TX, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -10759,7 +10781,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +2V5, for U13"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -10892,7 +10914,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "DONE LED driver: Small N-MOSFET that sinks D1's current when DONE goes high, so the LED never loads the FPGA's open-drain DONE pin."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11112,7 +11134,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uH VLS252010HBX-1R0M-1 inductor between +1V0 and +1V0_MGT"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -11286,7 +11308,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47uF 6.3V FPGA decoupling on VCCO group VCCIO_2 (VCCIO_2), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11421,7 +11443,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between DBG_TDI and SUP_DBG_TDI, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -11556,7 +11578,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11690,7 +11712,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "FPGA DONE LED: Green LED, lit once the FPGA has finished loading a design."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -11717,7 +11739,7 @@
 		(property "UI_LABEL" "FPGA DONE"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "7ab58744-2383-4f22-8377-cf8872b8a9b9")
+			(uuid "4e184cbe-0ae6-447f-8ee3-5cca1bf31987")
 			(effects
 				(font
 					(size 1 1)
@@ -11969,7 +11991,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12102,7 +12124,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for MK70"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12316,7 +12338,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of SUP_SDA to +3V3, for U7"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -12451,7 +12473,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between FLASH_D1_MISO and SUP_FD1, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -12586,7 +12608,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_F_3V3, for MK70"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12747,7 +12769,7 @@
 		(property "UI_LABEL" "KEY D"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "756bb16a-60f8-4ec5-8e9e-b0eeab2eb1f5")
+			(uuid "cd8c5c90-44c0-4636-a23c-14fe0f3ab744")
 			(effects
 				(font
 					(size 1 1)
@@ -12828,7 +12850,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for MK71"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -13042,7 +13064,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-down on EN_1V0, for U7"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -13204,7 +13226,7 @@
 		(property "UI_LABEL" "E-H PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "48c8dd59-ae45-4268-bcc4-f3a3bd23d151")
+			(uuid "b4f6db4d-35d7-4e0f-adb6-7ff4a6b63513")
 			(effects
 				(font
 					(size 1 1)
@@ -13216,7 +13238,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "c3a50b59-aa05-406c-9dc2-d3c19517e123")
+			(uuid "f4b89e76-4b9f-40ea-afe7-804cdb7812f9")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -13228,7 +13250,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "b00cec23-87a0-474d-bcd2-721efb7c0605")
+			(uuid "58ebefd1-98af-455f-b417-8bc4a7da44d2")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -13477,7 +13499,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of SUP_SCL to +3V3, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -13612,7 +13634,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM1_IO3 and PSRAM1_IO3_MEM, for U3"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -13747,7 +13769,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_D_3V3, for MK68"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -13882,7 +13904,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14017,7 +14039,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of CFG_DONE to +3V3, for Q4 (DONE LED driver)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14152,7 +14174,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-up of FB+1V2_MGT to +1V2_MGT, for U16"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14287,7 +14309,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14422,7 +14444,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM3_IO0 and PSRAM3_IO0_MEM, for U5"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -14557,7 +14579,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +1V0, for U15"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14692,7 +14714,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14825,7 +14847,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.3uH AOTA-B201610S3R3-101-T inductor between +1V1 and SUP_LX, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -15021,7 +15043,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF bypass on VCCIO_1, for U23"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15156,7 +15178,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k series resistor between +3V3 and MON_3V3"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -15291,7 +15313,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-down on PHY_RESET_N, for U30 (gigabit Ethernet PHY): holds U30 in reset until the FPGA drives it (Table 53 note 5)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15426,7 +15448,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "330uF 2.5V T520V337M2R5ATE025 FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15610,7 +15632,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15745,7 +15767,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM2_IO2 and PSRAM2_IO2_MEM, for U4"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -15880,7 +15902,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U6"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16015,7 +16037,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16176,7 +16198,7 @@
 		(property "UI_LABEL" "KEY B"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "7400e255-c0f0-4de9-8546-3cc70287b860")
+			(uuid "c18e295f-202d-4bad-9827-990ad594d469")
 			(effects
 				(font
 					(size 1 1)
@@ -16259,7 +16281,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "18 pF load capacitor on the crystal's input side (X3, CL 12 pF with about 3 pF stray: 2 x (12 - 3))"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16420,7 +16442,7 @@
 		(property "UI_LABEL" "L POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "f3f6544b-7c83-4769-8a31-4de0356f8f3b")
+			(uuid "3ebf6f20-a416-4aba-aa7b-ad22e335dc22")
 			(effects
 				(font
 					(size 1 1)
@@ -16658,7 +16680,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF capacitor between BOOT_3V3 and SW_3V3, for U12"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16819,7 +16841,7 @@
 		(property "UI_LABEL" "H POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "2b304026-dcfa-4abd-b2fa-fc92420cc324")
+			(uuid "d4bd60af-b2f2-431c-9a2b-ef95fa179d19")
 			(effects
 				(font
 					(size 1 1)
@@ -17057,7 +17079,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_M_3V3, for MK77"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -17192,7 +17214,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -17327,7 +17349,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_L_AUX from AUX_RAIL, for MK76"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -17440,7 +17462,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -17575,7 +17597,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -17735,7 +17757,7 @@
 		(property "UI_ROLE" "WORK MEMORY 2"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "2d6c132e-38d6-46d7-82d3-66775b3e4357")
+			(uuid "ff58b8dd-e3d2-4272-8d66-891c7f24d2b0")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -18099,7 +18121,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U8"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -18234,7 +18256,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -18369,7 +18391,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "73.2k pull-up of VBUS_OVLO to VBUS, for U26"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -18530,7 +18552,7 @@
 		(property "UI_LABEL" "USER 2"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "6669df76-4786-4e93-856c-7b261d39e250")
+			(uuid "0dcf0baf-f9d3-4940-98b9-c61e732eff43")
 			(effects
 				(font
 					(size 1 1)
@@ -18807,7 +18829,7 @@
 		(property "UI_ROLE" "1V0 SUPPLY\nFPGA CORE"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "bc34fee2-163e-49fc-b1c6-3cf4c35c2e98")
+			(uuid "48c48f62-d082-441f-9762-ebed1df3bb95")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -19153,7 +19175,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "16k pull-down on MON_VSYS, for U7"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -19288,7 +19310,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF bypass on +5V, for U21"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -19421,7 +19443,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_L_5V from +5V_EXT, for MK76"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -19660,7 +19682,7 @@
 		(property "UI_ROLE" "WORK MEMORY 1"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e54c66ff-2610-4b36-9216-40eca08e47f4")
+			(uuid "bb07ad30-fca6-4b79-b576-52d7b593425e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -20024,7 +20046,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U3"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20159,7 +20181,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0 series resistor between JTAG_TDO and JTAG_TDO_SW, for U20"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20292,7 +20314,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for MK69"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -20506,7 +20528,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF filter capacitor on MON_2V5, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20639,7 +20661,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_G_PIN_VOLTAGE from VCCIO_2_EXT, for MK71"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -20879,7 +20901,7 @@
 		(property "UI_LABEL" "CTRL BOOT"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "9bd9003d-586a-4847-9711-a41c4406071d")
+			(uuid "d6b59b34-b65c-472a-b38f-8a98c4ac2dfe")
 			(effects
 				(font
 					(size 1 1)
@@ -21109,7 +21131,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +5V, for U11"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -21242,7 +21264,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "gigabit Ethernet PHY: Realtek RTL8211FD-CG: 10/100/1000Base-T transceiver between the FPGA's RGMII bus and the ETH jack. Managed over MDIO from the FPGA; reset and interrupt on bank 13 at 3.3 V."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -21269,7 +21291,7 @@
 		(property "UI_ROLE" "ETHERNET PHY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "c0f648f4-e6b1-448f-8f42-e16749fc5d8c")
+			(uuid "5abd75ee-5e4b-474e-ae4c-2c1db4ad88fd")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -21783,7 +21805,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-down on PUDC_B, for U1 (FPGA): PUDC_B low: I/O pull-ups on during configuration (UG470)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -21918,7 +21940,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF filter capacitor on MON_1V8, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -22053,7 +22075,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on MON_5V"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -22188,7 +22210,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCBRAM (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -22323,7 +22345,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -22458,7 +22480,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between CFG_PROG_B and SUP_PROG_B, for U7: keeps PROGRAM_B released; pulling it low restarts configuration"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -22593,7 +22615,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -22728,7 +22750,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -22863,7 +22885,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -23025,7 +23047,7 @@
 		(property "UI_LABEL" "A-D PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "4882f3c1-6f74-4634-8022-ec330ec49d3f")
+			(uuid "b4dcf681-cecf-4be8-8c48-fed1b49f6155")
 			(effects
 				(font
 					(size 1 1)
@@ -23037,7 +23059,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "5c762bb8-3466-4578-8bc2-8b037e8d6c1b")
+			(uuid "fad1634e-ad1d-4579-a397-6685c07be7dd")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -23049,7 +23071,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "2b44d558-6fd0-4a4e-a869-e0b1fe74d945")
+			(uuid "4bb06b15-f8c0-44ed-a0c1-742ef91ed794")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -23323,7 +23345,7 @@
 		(property "UI_ROLE" "CONTROLLER MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "39c2fd14-074c-4590-834f-80aacdd0b22f")
+			(uuid "4b04f7fa-56a8-42ae-807f-5184451d9bc0")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -23579,7 +23601,7 @@
 		(property "UI_LABEL" "CTRL SWD"
 			(at 0 5.263 0)
 			(layer "F.SilkS")
-			(uuid "25f98d4c-a998-4925-aab2-183bb550afcd")
+			(uuid "c305b36a-4a35-4f26-bd9a-a7afe7fd8e5d")
 			(effects
 				(font
 					(size 1 1)
@@ -23811,7 +23833,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-down on CFG_M1, for U1 (FPGA): mode pin M1 = 0: master SPI boot (UG470 Table 2-4)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -23946,7 +23968,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -24081,7 +24103,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF bypass on +1V0_MGT"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -24242,7 +24264,7 @@
 		(property "UI_LABEL" "M POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "89e24d57-7ad5-4ded-9615-5d78691b1cd4")
+			(uuid "2213ce0b-3db5-46a4-8adb-fb7f95d331ff")
 			(effects
 				(font
 					(size 1 1)
@@ -24480,7 +24502,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "93.1k series resistor between +3V3 and FB_3V3, for U12"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -24615,7 +24637,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of PHY_INT_N to +3V3, for U30 (gigabit Ethernet PHY): U30's open-drain interrupt (Table 4)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -24750,7 +24772,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -24885,7 +24907,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-up of MON_VSYS to VSYS, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -25018,7 +25040,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LINK P ESD, pins 1-2 and 3-6: TI TPD4E1U06 four-line ESD clamp (0.8 pF) on LINK P's outgoing clock and data pairs."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -25242,7 +25264,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "49.9k pull-down on FB+1V8, for U14"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -25377,7 +25399,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_H_AUX from AUX_RAIL, for MK72"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -25490,7 +25512,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U30 (gigabit Ethernet PHY)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -25625,7 +25647,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-up of CORE_1V0_GOOD to +3V3, for U17"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -25760,7 +25782,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM3_IO1 and PSRAM3_IO1_MEM, for U5"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -25893,7 +25915,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_D_5V from +5V_EXT, for MK68"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -26107,7 +26129,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_C_PIN_VOLTAGE, for MK67"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -26242,7 +26264,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -26377,7 +26399,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 50V capacitor from ETH_CT to GND, for J70 (ETH jack): returns the jack's transformer centre taps to ground ([verify] ref/network.md)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -26512,7 +26534,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +5V, for U13"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -26647,7 +26669,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k series resistor between SUP_XOUT and SUP_XTAL_OUT, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -26782,7 +26804,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "31.6k pull-down on FB+2V5, for U13"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -26915,7 +26937,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LINK Q ESD, pins 4-5 and 7-8: TI TPD4E1U06 four-line ESD clamp (0.8 pF) on LINK Q's outgoing clock and data pairs."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -27165,7 +27187,7 @@
 		(property "UI_LABEL" "EXT JTAG"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "9c7f4d10-9c65-48af-a21a-cae62f229f1b")
+			(uuid "9dd65448-7d59-4834-8ce9-06550e3261b2")
 			(effects
 				(font
 					(size 1 1)
@@ -27177,7 +27199,7 @@
 		(property "UI_STATES" "OPEN: CTRL\nFIT: EXT"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "c551058a-9c81-4364-a146-e156e41f928c")
+			(uuid "c6a49d85-3ee1-463e-a6c5-1c7bbf3344ee")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -27370,7 +27392,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -27530,7 +27552,7 @@
 		(property "UI_ROLE" "WORK MEMORY 3"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "1a7a23ac-eb40-4f8a-a934-5e629d749e54")
+			(uuid "3682ae71-4470-4f5e-80f8-8d5a190f8aaf")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -27919,7 +27941,7 @@
 		(property "UI_ROLE" "A-D PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "1de64a4f-3dc9-4a42-b1f1-ac0762b04740")
+			(uuid "806d9d2e-77db-46c6-a084-212948c1026a")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28128,7 +28150,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +5V, for U14"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -28263,7 +28285,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.65k pull-down on VBUS_ILM, for U26"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -28398,7 +28420,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -28558,7 +28580,7 @@
 		(property "UI_ROLE" "STATUS EXPANDER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6b0caae6-a0eb-4bcf-8392-14eb9c51fdb9")
+			(uuid "4c816c9b-8775-48b3-8333-000736c28f93")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28868,7 +28890,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -29003,7 +29025,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of PHY_RXD3 to +2V5, for U30 (gigabit Ethernet PHY): strap PHYAD0 = 1: PHY address 1 (Table 10)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -29138,7 +29160,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on VCCADC (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -29273,7 +29295,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 1% resistor from MGTRREF_213 to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 213 (UG482 Table 5-5)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -29408,7 +29430,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -29543,7 +29565,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-up of LED_HEARTBEAT_A to +3V3, for D9"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -29676,7 +29698,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for MK72"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -29890,7 +29912,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between +3V3 and SUP_VREG_AVDD"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -30025,7 +30047,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -30160,7 +30182,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -30295,7 +30317,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on VCCIO_1, for J19"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -30456,7 +30478,7 @@
 		(property "UI_LABEL" "9-21V POWER IN"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "513e3659-65bf-476e-b547-3cd00337a251")
+			(uuid "79614f12-af8e-41ea-a4c0-43f519a45910")
 			(effects
 				(font
 					(size 1 1)
@@ -30468,7 +30490,7 @@
 		(property "UI_PINS" "9-21V +\nGND"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "d5e5b824-18a3-4cc7-80e2-1e9d711bba90")
+			(uuid "45381e53-d82d-4cfd-b5b1-74864f312578")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -30773,7 +30795,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47k pull-down on MON_5V"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -30908,7 +30930,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -31043,7 +31065,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -31178,7 +31200,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -31313,7 +31335,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-down on FB+1V2_MGT, for U16"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -31446,7 +31468,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for MK68"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -31660,7 +31682,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-up of CFG_M0 to +3V3, for U1 (FPGA): mode pin M0 = 1: master SPI boot (UG470 Table 2-4, at most 1 k)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -31795,7 +31817,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k pull-up of SUPF_CS to +3V3, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -31930,7 +31952,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -32065,7 +32087,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -32418,7 +32440,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_D_PIN_VOLTAGE from VCCIO_1_EXT, for MK68"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -32630,7 +32652,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for MK72"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -32869,7 +32891,7 @@
 		(property "UI_ROLE" "E-H PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e8fbb2cf-1a4e-4e0d-a0c6-7ac489d9ce88")
+			(uuid "89e3203a-5960-4a99-b9c2-67fd9148fd75")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -33078,7 +33100,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -33433,7 +33455,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-down on PHY_LED2, for U30 (gigabit Ethernet PHY): strap CFG_LDO1 = 0 (Table 11)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -33568,7 +33590,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_D_AUX from AUX_RAIL, for MK68"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -33679,7 +33701,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_E_PIN_VOLTAGE from VCCIO_2_EXT, for MK69"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -33918,7 +33940,7 @@
 		(property "UI_ROLE" "SLOT 3V3 PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "d481d203-614a-463b-847d-3ea761f1e227")
+			(uuid "b6c32726-7b3f-4d6b-96c5-e4366d8daf6c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -34153,7 +34175,7 @@
 		(property "UI_LABEL" "KEY G"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "9f78cad0-c987-4b70-b02f-f05c47eab96a")
+			(uuid "bcfb5a2b-7b0f-45e6-a55c-ac4f80e52eec")
 			(effects
 				(font
 					(size 1 1)
@@ -34236,7 +34258,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34397,7 +34419,7 @@
 		(property "UI_LABEL" "KEY C"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "298ae81a-e1ae-49aa-a930-646386080ddb")
+			(uuid "c4598688-b7b9-47c4-bf6b-9d0212c9fd7e")
 			(effects
 				(font
 					(size 1 1)
@@ -34480,7 +34502,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34615,7 +34637,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34750,7 +34772,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34885,7 +34907,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_M_PIN_VOLTAGE, for MK77"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -35020,7 +35042,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between SUP_JTAG_TMS and SWJ_TMS, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -35155,7 +35177,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -35290,7 +35312,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of CFG_PROG_B to +3V3, for U1 (FPGA): keeps PROGRAM_B released; pulling it low restarts configuration"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -35425,7 +35447,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U5"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -35560,7 +35582,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF filter capacitor on MON_VSYS, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -35695,7 +35717,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_H_3V3, for MK72"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -35830,7 +35852,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -35991,7 +36013,7 @@
 		(property "UI_LABEL" "CTRL HB"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "a0542489-cb6a-4431-8c3d-6708300f94c1")
+			(uuid "8ae387db-50ac-413a-806b-62d540fc7e02")
 			(effects
 				(font
 					(size 1 1)
@@ -36243,7 +36265,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between FLASH_CS_B and SUP_FCS_B, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -36378,7 +36400,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -36511,7 +36533,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for MK70"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -36725,7 +36747,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -36886,7 +36908,7 @@
 		(property "UI_LABEL" "A | B | C | D"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "2d8657b6-b512-4970-bf43-139afdd13c46")
+			(uuid "962b6886-7145-4ef9-ba50-c936d0f70955")
 			(effects
 				(font
 					(size 1 1)
@@ -37657,7 +37679,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47k pull-down on VBUS_UVLO, for U26"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -37792,7 +37814,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -37952,7 +37974,7 @@
 		(property "UI_ROLE" "5V SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "1a1db561-4681-4057-be83-61e1c6d708b6")
+			(uuid "f2eb182c-ba3b-4fab-b8de-b08d511163e8")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -38452,7 +38474,7 @@
 		(property "UI_LABEL" "D POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "1e3028ae-d63c-4dfc-b2e4-b4bebdc62ea5")
+			(uuid "bcb86f7c-8489-436c-98fc-afe60dd270b7")
 			(effects
 				(font
 					(size 1 1)
@@ -38690,7 +38712,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -38825,7 +38847,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k pull-up of BUS5V1_OE_N to +3V3, for U10"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -38960,7 +38982,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCBRAM (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -39121,7 +39143,7 @@
 		(property "UI_LABEL" "C POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "35a982e3-a3d7-45e3-bb4d-348b333809e3")
+			(uuid "dba8dcf2-67b3-4a2a-a3e2-d8d349003849")
 			(effects
 				(font
 					(size 1 1)
@@ -39384,7 +39406,7 @@
 		(property "UI_ROLE" "3V3 SUPPLY\nALWAYS ON"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "d07c8cdf-05ed-4651-8d9a-98bbbd7d110b")
+			(uuid "9b28f7b2-da52-4357-956f-76456edfbc3c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -39593,7 +39615,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -39728,7 +39750,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "56pF capacitor between +3V3 and FB_3V3, for U12"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -39861,7 +39883,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_M_5V from +5V_EXT, for MK77"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -40075,7 +40097,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +3V3, for U12"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40210,7 +40232,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40345,7 +40367,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40480,7 +40502,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47uF 6.3V FPGA decoupling on VCCO group +3V3 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40615,7 +40637,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "15pF filter capacitor on SUP_XIN, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40748,7 +40770,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.2uH SRN4018-2R2M inductor between +1V8 and SW+1V8, for U14"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40922,7 +40944,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM3_IO2 and PSRAM3_IO2_MEM, for U5"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -41082,7 +41104,7 @@
 		(property "UI_ROLE" "5V BUS 0 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "2b3e29b5-d4ac-480d-94b4-aea46d6aacec")
+			(uuid "3b1e67df-9a70-43b3-81f2-07f2e0418a62")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -41473,7 +41495,7 @@
 		(property "UI_ROLE" "FPGA STARTUP MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "dbec01f1-d38b-46c5-9a25-1955ed1be396")
+			(uuid "d1b77faa-decf-4830-9c2c-a0b42b2bafe9")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -42048,7 +42070,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +3V3, for U12"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42181,7 +42203,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_M_PIN_VOLTAGE from +3V3_EXT, for MK77"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -42395,7 +42417,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-down on EN_1V2, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42530,7 +42552,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM2_IO1 and PSRAM2_IO1_MEM, for U4"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -42665,7 +42687,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +5V, for U11"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42800,7 +42822,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between SUP_JTAG_TDI and SWJ_TDI, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42935,7 +42957,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_C_3V3, for MK67"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -43070,7 +43092,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_F_PIN_VOLTAGE, for MK70"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -43230,7 +43252,7 @@
 		(property "UI_ROLE" "WORK MEMORY 0"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "dc3ba327-083b-4b61-bfcb-c3298fabd0ec")
+			(uuid "d08332bc-1494-43c7-8a2f-0c8dd4846507")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -43594,7 +43616,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between DBG_TDO and SUP_DBG_TDO, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -43729,7 +43751,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -43864,7 +43886,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between FLASH_D0_MOSI and SUP_FD0, for U7"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -43999,7 +44021,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF 50V bypass on VSYS, for J50"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -44134,7 +44156,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -44269,7 +44291,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -44402,7 +44424,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for MK65"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -44614,7 +44636,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.2uH SRN4018-2R2M inductor between +2V5 and SW+2V5, for U13"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -44807,7 +44829,7 @@
 		(property "UI_ROLE" "USB INPUT PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b9b84c13-6aca-4570-a76a-a657c2879909")
+			(uuid "fdebb285-b71b-4d93-9aae-49c193efae2e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -45065,7 +45087,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U17"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -45200,7 +45222,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between SB_UART_TX and SUP_UART_RX, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -45335,7 +45357,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-down on EXT_EN, for U7"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -45470,7 +45492,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_C_AUX from AUX_RAIL, for MK67"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -45583,7 +45605,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -45718,7 +45740,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -45853,7 +45875,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on VCCIO_2, for J20"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -46013,7 +46035,7 @@
 		(property "UI_ROLE" "SLOT 5V PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "91c186e4-05bd-4063-85a7-6486a2125992")
+			(uuid "ab8cbbe6-c140-4466-bcfa-3bc4d37e3059")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -46241,7 +46263,7 @@
 		(property "UI_LABEL" "USB-C"
 			(at 0 5 0)
 			(layer "F.SilkS")
-			(uuid "72a5ff22-1b92-424e-a95f-a81368e68945")
+			(uuid "194a0cd2-fe88-4bcd-a0d2-2c557b2520c1")
 			(effects
 				(font
 					(size 1 1)
@@ -46668,7 +46690,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM3_IO3 and PSRAM3_IO3_MEM, for U5"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -46803,7 +46825,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "18 pF load capacitor on the crystal's output side (X3)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -46938,7 +46960,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -47071,7 +47093,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_F_PIN_VOLTAGE from VCCIO_2_EXT, for MK70"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -47285,7 +47307,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -47418,7 +47440,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for MK69"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -47632,7 +47654,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -47767,7 +47789,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -47902,7 +47924,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM3_CE_B and PSRAM3_CE_B_MEM, for U5"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -48037,7 +48059,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -48170,7 +48192,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for MK76"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -48384,7 +48406,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-up of MON_1V0 to +1V0, for U7"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -48519,7 +48541,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-down on EN_VBUS5_G, for Q3"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -48680,7 +48702,7 @@
 		(property "UI_LABEL" "E POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "88ecfdf2-753e-411e-9e58-7c05cda053eb")
+			(uuid "729b75fd-5b04-4678-8831-cf049dc1b116")
 			(effects
 				(font
 					(size 1 1)
@@ -48918,7 +48940,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF bypass on +1V1"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -49053,7 +49075,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-down on PHY_RX_CTL, for U30 (gigabit Ethernet PHY): strap PHYAD2 = 0 (Table 10)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -49188,7 +49210,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_M_AUX from AUX_RAIL, for MK77"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -49327,7 +49349,7 @@
 		(property "UI_LABEL" "B POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "437200a7-f972-4e6b-8675-e5bb378e6c5f")
+			(uuid "a8969e8b-0269-4022-8689-35a4887fa2d2")
 			(effects
 				(font
 					(size 1 1)
@@ -49565,7 +49587,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +2V5, for U30 (gigabit Ethernet PHY)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -49700,7 +49722,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF bypass on +3V3"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -49835,7 +49857,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM0_IO1 and PSRAM0_IO1_MEM, for U2"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -49970,7 +49992,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM0_IO0 and PSRAM0_IO0_MEM, for U2"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -50105,7 +50127,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.21k pull-down on U22_ILIM, for U22"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -50240,7 +50262,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_A_PIN_VOLTAGE, for MK65"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -50401,7 +50423,7 @@
 		(property "UI_LABEL" "KEY E"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "981a02b5-1383-41e7-908a-c231c262d4d2")
+			(uuid "b80a9788-bb24-43b3-8272-05c13a51078c")
 			(effects
 				(font
 					(size 1 1)
@@ -50484,7 +50506,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -50619,7 +50641,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-down on EN_5V, for U11"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -50754,7 +50776,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-up of LED_USER2_A to +3V3, for D11"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -50889,7 +50911,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "30.1k pull-down on FB_3V3, for U12"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -51024,7 +51046,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k pull-down on EXTERNAL_JTAG_SELECTED, for U20"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -51159,7 +51181,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -51294,7 +51316,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -51429,7 +51451,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between FLASH_D2_WP and SUP_FD2, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -51564,7 +51586,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +5V, for U11"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -51697,7 +51719,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_C_PIN_VOLTAGE from VCCIO_1_EXT, for MK67"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -51911,7 +51933,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF filter capacitor on CORE_1V0_SVIN, for U15"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -52071,7 +52093,7 @@
 		(property "UI_ROLE" "BOARD CONTROLLER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "549112ea-a0bd-4bf6-b82b-c40a772909f6")
+			(uuid "70d78a85-8e69-4176-a69f-75efa14dff1f")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -52083,7 +52105,7 @@
 		(property "PART_ID" "RP2350B"
 			(at 0 7 0)
 			(layer "F.SilkS")
-			(uuid "180ee8b6-eb17-4204-a886-9cbc5324a44c")
+			(uuid "782b552f-9156-43f2-b7a9-863ed3564267")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -52877,7 +52899,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM1_SCK and PSRAM1_SCK_MEM, for U3"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -53010,7 +53032,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for MK67"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -53251,7 +53273,7 @@
 		(property "UI_LABEL" "FPGA JTAG"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "d70c32eb-b072-407b-acbc-dd9c65436425")
+			(uuid "09a6bc8f-2c4e-4528-acb1-9e31129aec3b")
 			(effects
 				(font
 					(size 1 1)
@@ -53567,7 +53589,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U30 (gigabit Ethernet PHY)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -53702,7 +53724,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -53837,7 +53859,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM1_IO2 and PSRAM1_IO2_MEM, for U3"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -53972,7 +53994,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -54105,7 +54127,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "50 MHz FPGA clock: YXC OT322550MJBA4SL 50 MHz CMOS oscillator: the fabric's always-running clock (SYS_CLK), into a bank 14 MRCC ball."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -54132,7 +54154,7 @@
 		(property "UI_ROLE" "FPGA CLOCK\n50MHz"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "8d718b87-99d9-429b-beb2-9cd3952a8626")
+			(uuid "be343838-b7e1-4c64-9bbc-6b29ba36927d")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -54356,7 +54378,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -54491,7 +54513,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM3_SCK and PSRAM3_SCK_MEM, for U5"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -54626,7 +54648,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +1V1, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -54760,7 +54782,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LINK P jack: Plain shielded RJ45 (no magnetics) carrying four LVDS pairs of link port P. Not an Ethernet port."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -54787,7 +54809,7 @@
 		(property "UI_LABEL" "LINK P"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "b19d684b-72bf-499c-9d86-309345f0dbc7")
+			(uuid "001f9eec-9886-47fc-b48e-96f41fb1694e")
 			(effects
 				(font
 					(size 1 1)
@@ -54799,7 +54821,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "fb32afdc-1c2f-4ff0-a5b4-0e5b81c32c7b")
+			(uuid "2d1ba7fb-c355-4dac-bdbf-a02ecda82c8d")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -55132,7 +55154,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47uF 6.3V FPGA decoupling on VCCO group VCCIO_1 (VCCIO_1), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -55267,7 +55289,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of PHY_RXD1 to +2V5, for U30 (gigabit Ethernet PHY): strap TXDLY = 1: 2 ns transmit clock delay inside U30 (Table 11)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -55402,7 +55424,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_B_AUX from AUX_RAIL, for MK66"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -55515,7 +55537,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -55650,7 +55672,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47uF 6.3V FPGA decoupling on VCCO group +2V5 (+2V5), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -55810,7 +55832,7 @@
 		(property "UI_ROLE" "2V5 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "f492edc0-0b5e-4e31-824d-a34ec91b0140")
+			(uuid "08dc9544-0582-41c9-b77d-210421968ec2")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -56019,7 +56041,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k pull-up of PD_PG to +3V3, for U7"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -56180,7 +56202,7 @@
 		(property "UI_LABEL" "KEY L"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "19da18d7-92c5-4008-8d7f-9900ff697d2b")
+			(uuid "9ec2de74-462a-4a0d-9e53-8e60882348df")
 			(effects
 				(font
 					(size 1 1)
@@ -56289,7 +56311,7 @@
 		(property "UI_LABEL" "USER 1"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "235d508e-dfe7-4f25-8867-0bca4b7a521f")
+			(uuid "c765190f-e25b-4ca1-af19-0fc283313d7e")
 			(effects
 				(font
 					(size 1 1)
@@ -56540,7 +56562,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "ETH jack: HanRun HR911130A RJ45 with 1000Base-T magnetics and green/yellow LEDs. Green: link and activity; yellow: 1000 Mb/s link."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -56567,7 +56589,7 @@
 		(property "UI_LABEL" "ETH"
 			(at 0 10.895 0)
 			(layer "F.SilkS")
-			(uuid "b6dd8595-9d8c-4b8a-9060-d7dc7b1ad99b")
+			(uuid "c35b63cb-be98-4396-8793-4469a6047b46")
 			(effects
 				(font
 					(size 1 1)
@@ -57012,7 +57034,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_L_PIN_VOLTAGE, for MK76"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -57147,7 +57169,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "150k pull-down on FB+1V0, for U15"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -57282,7 +57304,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF 50V bypass on VSYS, for U12"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -57443,7 +57465,7 @@
 		(property "UI_LABEL" "5V BUS 0"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "79ca4557-3a79-4338-ae06-8c29257a07ff")
+			(uuid "f025151f-4fea-434d-a302-b3b500142e55")
 			(effects
 				(font
 					(size 1 1)
@@ -57752,7 +57774,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -57887,7 +57909,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0 ohm in series with U30's crystal drive pin: a spot to fit a resistor if the measured drive level exceeds 0.5 mW (Table 56)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -58022,7 +58044,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_G_PIN_VOLTAGE, for MK71"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -58155,7 +58177,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_L_PIN_VOLTAGE from +3V3_EXT, for MK76"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -58367,7 +58389,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_H_PIN_VOLTAGE from VCCIO_2_EXT, for MK72"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -58581,7 +58603,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_F_AUX from AUX_RAIL, for MK70"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -58694,7 +58716,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_H_PIN_VOLTAGE, for MK72"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -58827,7 +58849,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "FPGA: Xilinx/AMD Artix-7 XC7A100T-2FGG676I: 101k logic cells, 4.9 Mb block RAM, 240 DSP slices. Runs whatever design you load; configures itself from U6 at power-on or is loaded by the board controller over JTAG."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -58854,7 +58876,7 @@
 		(property "UI_ROLE" "PROGRAMMABLE LOGIC"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "0037fbaf-febb-4cce-b440-93559221d50d")
+			(uuid "ef2437a7-274e-41c6-aaeb-cd21d52df8ab")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -58866,7 +58888,7 @@
 		(property "PART_ID" "XC7A100T-2FGG676I"
 			(at 0 16 0)
 			(layer "F.SilkS")
-			(uuid "d9d16bf6-2d52-4017-905a-85cdac0722a0")
+			(uuid "93af19c8-d068-4bde-b8d6-58f0376c1ccd")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -71482,7 +71504,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between CFG_CCLK and SUP_CCLK, for U7"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -71617,7 +71639,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF bypass on SUP_VREG_AVDD"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -71752,7 +71774,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -71913,7 +71935,7 @@
 		(property "UI_LABEL" "E | F | G | H"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "e78fab94-1c1b-4189-975e-76d97f41fffa")
+			(uuid "5d0465b2-4e67-4cb5-b8a4-e9d22630d390")
 			(effects
 				(font
 					(size 1 1)
@@ -72684,7 +72706,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -72818,7 +72840,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LINK Q jack: Plain shielded RJ45 (no magnetics) carrying four LVDS pairs of link port Q, mirrored from P. Not an Ethernet port."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -72845,7 +72867,7 @@
 		(property "UI_LABEL" "LINK Q"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "4076fd47-6312-40c6-9fb7-980ad0a97a91")
+			(uuid "bdef9438-d564-4183-9852-5b84e0bc220e")
 			(effects
 				(font
 					(size 1 1)
@@ -72857,7 +72879,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "5ebb2732-c8f1-4eb2-a16c-937582e29980")
+			(uuid "57887247-d4f7-4254-9f7a-5da28108e13c")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -73190,7 +73212,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +1V8, for U14"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -73325,7 +73347,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF bypass on +3V3, for U22"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -73486,7 +73508,7 @@
 		(property "UI_LABEL" "5V BUS 1"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "2e905f9b-66bc-4f95-9af0-c2ec8309ce91")
+			(uuid "e0ca2147-2c70-4b1b-a7af-107eec2f4760")
 			(effects
 				(font
 					(size 1 1)
@@ -73795,7 +73817,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +3V3, for U12"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -73930,7 +73952,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -74065,7 +74087,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -74226,7 +74248,7 @@
 		(property "UI_LABEL" "AUX IN 9-28V UNREGULATED\nYOUR RAIL, YOUR PROBLEM"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "92f9d2d0-217d-4454-b0fe-b84fc3582f62")
+			(uuid "c646431e-81b4-408b-935f-3866a636ca4a")
 			(effects
 				(font
 					(size 1 1)
@@ -74238,7 +74260,7 @@
 		(property "UI_PINS" "AUX +\nGND"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "19c223fd-68fd-48a3-8aef-2793dc91cdbd")
+			(uuid "5cc7580b-7747-43c2-8da3-0298d0857442")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -74568,7 +74590,7 @@
 		(property "UI_ROLE" "USB POWER REQUEST"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "cb30003a-9449-4324-af61-7bc84dba301f")
+			(uuid "2924654f-53d7-4886-aea4-cc0b16dfee5d")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -74894,7 +74916,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM0_IO3 and PSRAM0_IO3_MEM, for U2"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -75029,7 +75051,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -75164,7 +75186,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between CFG_INIT_B and SUP_INIT_B, for U7: keeps INIT_B released; it goes low on a configuration error"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -75299,7 +75321,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -75432,7 +75454,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LINK Q ESD, pins 1-2 and 3-6: TI TPD4E1U06 four-line ESD clamp (0.8 pF) on LINK Q's incoming clock and data pairs."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -75656,7 +75678,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 pull-up of CORE_1V0_SVIN to +5V, for U15"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -75791,7 +75813,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_E_AUX from AUX_RAIL, for MK69"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -75904,7 +75926,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -76039,7 +76061,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -76174,7 +76196,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF filter capacitor on MON_1V0, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -76309,7 +76331,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "510 resistor from ETH_LED_GREEN_A to +3V3, for J70 (ETH jack): current limit for the jack's green LED (LED0, active low)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -76444,7 +76466,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1nF filter capacitor on CORE_1V0_SS, for U15"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -76604,7 +76626,7 @@
 		(property "UI_ROLE" "5V BUS 1 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "84d9d2f0-82c1-45b7-a0fd-73f17ad58482")
+			(uuid "df5634fa-f45b-438a-ae17-9980218c123e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -76970,7 +76992,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between SYS_CLK and SYS_CLK_OSC, for X4 (50 MHz FPGA clock): damps ringing on the clock line"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -77105,7 +77127,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-down on CFG_M2, for U1 (FPGA): mode pin M2 = 0: master SPI boot (UG470 Table 2-4)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -77240,7 +77262,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM0_CE_B and PSRAM0_CE_B_MEM, for U2"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -77375,7 +77397,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of SUP_EXP_INT to +3V3, for U17"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -77510,7 +77532,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -77645,7 +77667,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -77780,7 +77802,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -77915,7 +77937,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for X4 (50 MHz FPGA clock)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -78048,7 +78070,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uH SRN6045TA-4R7M inductor between +3V3 and SW_3V3, for U12"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -78262,7 +78284,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-up of FB+2V5 to +2V5, for U13"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -78397,7 +78419,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.21k pull-down on U24_ILIM, for U24"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -78532,7 +78554,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_B_PIN_VOLTAGE, for MK66"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -78667,7 +78689,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on SLOT_D_PIN_VOLTAGE, for MK68"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -78802,7 +78824,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_B_3V3, for MK66"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -78937,7 +78959,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of PHY_LED0 to +3V3, for U30 (gigabit Ethernet PHY): strap CFG_EXT = 1: external RGMII pad supply (Table 11)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -79072,7 +79094,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on MON_3V3"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -79207,7 +79229,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on VCCIO_2, for J20"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -79342,7 +79364,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -79502,7 +79524,7 @@
 		(property "UI_ROLE" "JTAG OWNER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "501c3960-1c3e-44d2-a140-510d05ae3dff")
+			(uuid "9a4e87f9-d2ae-4b5c-aab9-7f1b188c80c0")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -79899,7 +79921,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "19.1k pull-down on FB_5V, for U11"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -80034,7 +80056,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 25V capacitor between VBUS and VBUS5_GATE, for Q2"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -80169,7 +80191,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -80302,7 +80324,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "300mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for MK77"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -80516,7 +80538,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -80888,7 +80910,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM2_IO3 and PSRAM2_IO3_MEM, for U4"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -81023,7 +81045,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +1V0, for U15"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81158,7 +81180,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between SUP_JTAG_TDO and SWJ_TDO, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81293,7 +81315,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V2_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81428,7 +81450,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81563,7 +81585,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81698,7 +81720,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "510 resistor from ETH_LED_YELLOW_K to GND, for J70 (ETH jack): current limit for the jack's yellow LED (LED2, active high)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81831,7 +81853,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "500mA resettable fuse feeding SLOT_C_5V from +5V_EXT, for MK67"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -82045,7 +82067,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -82180,7 +82202,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47k series resistor between VBUS5_GATE and VBUS5_PULL, for Q3"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -82563,7 +82585,7 @@
 		(property "UI_LABEL" "KEY H"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "1c234abc-36c7-400c-bbb1-12b668c3b785")
+			(uuid "80a5a650-9046-415d-a2f3-6afe6b05f4f4")
 			(effects
 				(font
 					(size 1 1)
@@ -82646,7 +82668,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -82781,7 +82803,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -82916,7 +82938,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83076,7 +83098,7 @@
 		(property "UI_ROLE" "1V2 SUPPLY\nTRANSCEIVERS"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "8436c6d9-3a00-400a-a4f1-c690d2060b33")
+			(uuid "15066506-f981-4d3f-9873-625094d31016")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -83285,7 +83307,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between SUP_JTAG_TCK and SWJ_TCK, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83420,7 +83442,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on VCCIO_1, for J19"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83555,7 +83577,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-up of FB+1V0 to +1V0, for U15"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83690,7 +83712,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U4"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83825,7 +83847,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between DBG_TCK and SUP_DBG_TCK, for U7"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -83960,7 +83982,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k series resistor between +5V and FB_5V, for U11"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -84095,7 +84117,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.15k pull-down on U21_ILIM, for U21"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -84230,7 +84252,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -84365,7 +84387,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM1_IO1 and PSRAM1_IO1_MEM, for U3"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -84500,7 +84522,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "15pF filter capacitor on SUP_XTAL_OUT, for Y1"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -84660,7 +84682,7 @@
 		(property "UI_ROLE" "1V8 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "f3cc6aa1-30b6-4a94-b4bf-bebc0ca682dc")
+			(uuid "775b0897-2b17-4cb5-870d-c8f3c6f01b8d")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -84869,7 +84891,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85004,7 +85026,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF bypass on +3V3, for U30 (gigabit Ethernet PHY)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85139,7 +85161,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-up of VBUS_UVLO to VBUS, for U26"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -85300,7 +85322,7 @@
 		(property "UI_LABEL" "KEY A"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "fe3ea2a8-e921-47cc-b7e8-fa6c4048d1bb")
+			(uuid "f913d80d-0a81-4fa5-a4c9-43628d771355")
 			(effects
 				(font
 					(size 1 1)
@@ -85409,7 +85431,7 @@
 		(property "UI_LABEL" "KEY M"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "a9dee220-29f9-4017-af0b-b0ebd156dc36")
+			(uuid "29d8c593-ae49-48ee-a8dd-1653da845242")
 			(effects
 				(font
 					(size 1 1)
@@ -85518,7 +85540,7 @@
 		(property "UI_LABEL" "A POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "818b0240-4bf4-4cac-82a6-abe817e402ad")
+			(uuid "7b58190c-7b90-4a05-8444-280b43d3b4cc")
 			(effects
 				(font
 					(size 1 1)
@@ -85756,7 +85778,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85891,7 +85913,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM0_SCK and PSRAM0_SCK_MEM, for U2"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -86026,7 +86048,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k pull-up of EXT_FAULT to +3V3, for U7"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -86161,7 +86183,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-up of FB+1V8 to +1V8, for U14"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86296,7 +86318,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86431,7 +86453,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86566,7 +86588,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF bypass on PD_VDD, for U18"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -86701,7 +86723,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF bypass on VCCIO_2, for U24"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86836,7 +86858,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U30 (gigabit Ethernet PHY)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86971,7 +86993,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22uF bypass on +1V8, for U14"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87106,7 +87128,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF FPGA decoupling on +1V0_MGT, UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87241,7 +87263,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87376,7 +87398,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87511,7 +87533,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87646,7 +87668,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +3V3, for U2"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87781,7 +87803,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF 25V bypass on VBUS, for J50"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87916,7 +87938,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_L_3V3, for MK76"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -88051,7 +88073,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +5V, for U9"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -88186,7 +88208,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_G_3V3, for MK71"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -88321,7 +88343,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-down on EN_2V5, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -88456,7 +88478,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.1A 33V resettable fuse feeding SLOT_A_AUX from AUX_RAIL, for MK65"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -88569,7 +88591,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on +1V1, for U7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -88704,7 +88726,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.2nF 25V filter capacitor on VBUS_DVDT, for U26"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -88839,7 +88861,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-up of MON_1V8 to +1V8, for U7"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -88974,7 +88996,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF bypass on +2V5, for U30 (gigabit Ethernet PHY)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -89109,7 +89131,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100k pull-up of VBUS5_GATE to VBUS, for Q2"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -89244,7 +89266,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF bypass on SLOT_A_3V3, for MK65"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -89379,7 +89401,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -89514,7 +89536,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1k pull-up of SUP_RUN to +3V3, for U7"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -89649,7 +89671,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33 series resistor between PSRAM1_CE_B and PSRAM1_CE_B_MEM, for U3"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -89784,7 +89806,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of PHY_RXD0 to +2V5, for U30 (gigabit Ethernet PHY): strap RXDLY = 1: 2 ns receive clock delay inside U30 (Table 11)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -89917,7 +89939,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uH_core FTC201610S1R0MBCA inductor between +1V0 and SW+1V0, for U15"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -90091,7 +90113,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7k pull-up of CFG_INIT_B to +3V3, for U1 (FPGA): keeps INIT_B released; it goes low on a configuration error"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)

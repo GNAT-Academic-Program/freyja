@@ -7,8 +7,9 @@ connect to. Power and ground use real power symbols, so only actual signals
 carry a label."""
 import sys, os, re, uuid, hashlib
 sys.path.insert(0, os.path.dirname(__file__))
-import symlib
+import symlib, textwrap
 from design import build
+from roles import annotate
 from identity import PRODUCT, HW_VERSION
 
 DIR    = 'kicad'
@@ -43,7 +44,7 @@ JUST = {0: 'right', 180: 'left', 90: 'right', 270: 'left'}
 
 def snap(v): return round(round(v / 1.27) * 1.27, 2)
 def uid(*a): return str(uuid.UUID(hashlib.md5(('odin'+''.join(map(str,a))).encode()).hexdigest()))
-def esc(s): return s.replace('\\','\\\\').replace('"','\\"')
+def esc(s): return s.replace('\\','\\\\').replace('"','\\"').replace('\n','\\n')
 
 def top_props(blk):
     out, i = [], 0
@@ -137,30 +138,43 @@ def render_sheet(name, parts, root_uuid, sheet_uuid):
             x += cw; rowh = max(rowh, ch); w = max(w, x)
         return items, w, y + rowh
 
+    # Each group's paragraph (tools/roles.py) sits under its title, wrapped
+    # to the box; the box grows to hold it.
+    PARA_SIZE, PARA_LINE, PARA_MIN_W = 1.5, 2.54, 150.0
     blocks = []
     for g in order:
         items, w, h = layout(groups[g])
-        blocks.append((g, items, w, h))
+        para = groups[g][0].get('group_role', '')
+        lines = []
+        if para:
+            w = max(w, PARA_MIN_W)
+            lines = textwrap.wrap(para, int((w + 10) / (PARA_SIZE * 0.95)))
+        blocks.append((g, items, w, h, lines))
 
     SHEET_W = max(360.0, min(1100.0, 1.25 * (sum(b[2]+18 for b in blocks) ** 0.5) * 9))
     placed, boxes = [], []
     cx, cy, rowh, used_w = 30.0, 42.0, 0.0, 0.0
-    for g, items, w, h in blocks:
+    for g, items, w, h, lines in blocks:
+        th = snap(len(lines) * PARA_LINE + 3) if lines else 0.0
         if cx > 30.0 and cx + w + 18 > SHEET_W:
             cx, cy, rowh = 30.0, cy + rowh + 20, 0.0
-        gx, gy = cx + 9, cy + 12
+        gx, gy = cx + 9, cy + 12 + th
         for q, u, rx, ry in items:
             placed.append((q, u, snap(gx + rx), snap(gy + ry)))
-        boxes.append((g, snap(cx), snap(cy), snap(cx + w + 18), snap(cy + h + 18)))
-        cx += w + 18 + 12; rowh = max(rowh, h + 18); used_w = max(used_w, cx)
+        boxes.append((g, snap(cx), snap(cy), snap(cx + w + 18), snap(cy + h + 18 + th), lines))
+        cx += w + 18 + 12; rowh = max(rowh, h + 18 + th); used_w = max(used_w, cx)
     sheet_h = cy + rowh + 30
 
-    for g, x1, y1, x2, y2 in boxes:
+    for g, x1, y1, x2, y2, lines in boxes:
         body.append(f'\t(rectangle (start {x1} {y1}) (end {x2} {y2}) '
                     '(stroke (width 0.15) (type dash)) (fill (type none)) '
                     f'(uuid "{uid("box", name, g)}"))')
         body.append(f'\t(text "{esc(g)}" (at {snap(x1+2)} {snap(y1+4)} 0) '
                     '(effects (font (size 2.2 2.2) (thickness 0.3)) (justify left)))')
+        if lines:
+            body.append(f'\t(text "{esc(chr(10).join(lines))}" (at {snap(x1+2)} {snap(y1+8.89)} 0) '
+                        f'(effects (font (size {PARA_SIZE} {PARA_SIZE}) (italic yes)) '
+                        '(justify left top)))')
 
     for p, u, ox, oy in placed:
         body.append(f'\t(symbol (lib_id "{p["lib_id"]}") (at {ox} {oy} 0) (unit {u})')
@@ -169,8 +183,9 @@ def render_sheet(name, parts, root_uuid, sheet_uuid):
         body.append(f'\t\t(uuid "{uid(p["ref"], u)}")')
         ey = extent(p['lib_id'], u)[1]
         for k, v, hide in (('Reference', p['ref'], False), ('Value', p['value'], False),
-                           ('Footprint', p['fp'], True), ('LCSC', p['lcsc'], True)):
-            if k == 'LCSC' and not v: continue
+                           ('Footprint', p['fp'], True), ('LCSC', p['lcsc'], True),
+                           ('Description', p.get('role', ''), True)):
+            if k in ('LCSC', 'Description') and not v: continue
             yy = snap(oy - ey - 3.81) if k == 'Reference' else snap(oy + ey + 3.81)
             body.append(f'\t\t(property "{k}" "{esc(v)}" (at {ox} {yy} 0) '
                         f'(effects (font (size 1.27 1.27)){" (hide yes)" if hide else ""}))')
@@ -272,6 +287,7 @@ def render_sheet(name, parts, root_uuid, sheet_uuid):
 
 def main():
     d = build()
+    annotate(d.parts)
     root = uid('root')
     sh_uuid = {s: uid('sheet', s) for s in SHEETS}
     total = 0

@@ -72,6 +72,20 @@ def main():
                 ok = False; print('XDC DRIFT: ref/freya.xdc or gateware/gate/top.v is not the export of tools/alloc.py')
             else: print('xdc            matches ref/freya.xdc and gateware/gate/top.v')
 
+        # every covered part explained, and ref/parts-guide.md current
+        r = run([PY, '-c', 'import sys, io, contextlib; sys.path.insert(0, "tools"); '
+                 'import roles; from design import build\n'
+                 'with contextlib.redirect_stdout(io.StringIO()): parts = roles.annotate(build().parts)\n'
+                 'probs, gaps = roles.check(parts)\n'
+                 'print(len(probs), len(gaps), sum(1 for p in parts if p["role"]), len(parts))\n'
+                 'print("@@@" + roles.guide(parts))'])
+        head, guide_text = r.stdout.split('@@@', 1)
+        nprob, ngap, ndone, ntot = map(int, head.split())
+        drift = guide_text.strip() != open('ref/parts-guide.md').read().strip()
+        print(f'roles          {ndone}/{ntot} parts described, {nprob} problems, {ngap} gaps on uncovered sheets'
+              + ('; GUIDE DRIFT: run tools/roles.py --write' if drift else ''))
+        if nprob or drift: ok = False
+
         r = run([PY, 'tools/check_erc.py'])
         print('check_erc.py   exit', r.returncode, '|', r.stdout.strip().splitlines()[-1] if r.stdout.strip() else r.stderr.strip()[-200:])
         if r.returncode: ok = False
