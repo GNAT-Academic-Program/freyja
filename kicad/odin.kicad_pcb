@@ -15052,7 +15052,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "2d02c30c-d9c2-48e2-931e-a992fe9af5ae")
-		(at 45.025 337.341231)
+		(at 433.01 58.56)
 		(descr "10k resistor from MRAM_HOLD to +3V3, for U33 (SPI MRAM): hold released: transfers never pause")
 		(tags "resistor")
 		(property "Reference" "R156"
@@ -18355,11 +18355,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "3a69166b-cb36-483b-91ab-0e5a0e20f3e9")
-		(at 33.225 279.066231)
+		(at 435.64 56.58 90)
 		(descr "100nF bypass on +3V3, for U33 (SPI MRAM)")
 		(tags "capacitor")
 		(property "Reference" "C258"
-			(at 0 -1.16 0)
+			(at 0 -1.16 90)
 			(layer "F.Fab")
 			(uuid "2388909a-6313-40f7-8b41-f8120071544f")
 			(effects
@@ -18370,7 +18370,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 90)
 			(layer "F.Fab")
 			(uuid "070b158d-91c1-4fa4-a401-8bd9e9261f6d")
 			(effects
@@ -18381,7 +18381,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b96d2e63-77a5-41cc-a4a8-7453bf0a4b48")
@@ -18393,7 +18393,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +3V3, for U33 (SPI MRAM)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8bac0f5b-4bb9-44b5-8861-a80d8335e40c")
@@ -18405,7 +18405,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "7ee3a32a-30c3-415a-b4ce-8b34af5be12a")
@@ -18460,7 +18460,7 @@
 			(uuid "45e8e689-da01-4268-bcab-e545a93bda99")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "7461e53e-37b1-427c-a001-39a4712f8e1e")
 			(effects
@@ -18471,7 +18471,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -18479,7 +18479,7 @@
 			(uuid "ee9fe11c-71fd-4b03-8bd5-a0a28b96852f")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -34413,11 +34413,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "65d84138-10e9-4395-ba01-0c8ae17c6ed4")
-		(at 39.015 337.341231)
+		(at 438.31 66.92 90)
 		(descr "10k resistor from MRAM_WP to +3V3, for U33 (SPI MRAM): write protect released: writes to the status register allowed")
 		(tags "resistor")
 		(property "Reference" "R155"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "6e0902f2-c08b-415e-933c-9f398f7ca8f5")
 			(effects
@@ -34428,7 +34428,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "d83899e9-300a-4f61-a903-d881b3cfe7e2")
 			(effects
@@ -34439,7 +34439,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3cb321b4-31bc-4642-8b2c-51976fc84720")
@@ -34451,7 +34451,7 @@
 			)
 		)
 		(property "Description" "10k resistor from MRAM_WP to +3V3, for U33 (SPI MRAM): write protect released: writes to the status register allowed"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c4ac115b-4968-451a-9b0f-f322db380d3f")
@@ -34506,7 +34506,7 @@
 			(uuid "2bce724b-a322-4e19-87ee-e38962f935a1")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "aa160221-a6b0-4351-816f-4fb412c85df9")
 			(effects
@@ -34517,7 +34517,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -34525,7 +34525,7 @@
 			(uuid "9b2ca5f6-4488-481d-b6d6-91a8862a6a03")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -38971,7 +38971,7 @@
 	(footprint "odin:DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA"
 		(layer "F.Cu")
 		(uuid "76ab8d2f-8d80-4b52-b85b-d862c29294e9")
-		(at 52.444999 339.841231)
+		(at 437.54 61.46)
 		(descr "SPI MRAM: Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes; bank 14.")
 		(property "Reference" "U33"
 			(at 0 -6.9 0)
@@ -81755,11 +81755,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "c1ea4b6a-21aa-46eb-b6d5-334316906225")
-		(at 33.005 337.341231)
+		(at 435.77 66.92 90)
 		(descr "10k resistor from MRAM_CS to +3V3, for U33 (SPI MRAM): keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4)")
 		(tags "resistor")
 		(property "Reference" "R154"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "099c4d4f-c248-4cc7-a79e-5e67e6564a90")
 			(effects
@@ -81770,7 +81770,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "235bec97-45ce-4548-98c5-eec758d47319")
 			(effects
@@ -81781,7 +81781,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "bc6ca79d-64f4-48e9-87ed-ad2079365687")
@@ -81793,7 +81793,7 @@
 			)
 		)
 		(property "Description" "10k resistor from MRAM_CS to +3V3, for U33 (SPI MRAM): keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "31a9c32e-aabb-4e14-a0d6-21b3a200e035")
@@ -81848,7 +81848,7 @@
 			(uuid "d60035f1-ca9e-4cbc-bd3e-cf97214ff880")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "5471d430-e3d8-4724-863b-9cc2c62a0ed6")
 			(effects
@@ -81859,7 +81859,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -81867,7 +81867,7 @@
 			(uuid "ad434826-4938-4a7a-8331-a836fd9bd800")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -103321,6 +103321,66 @@
 			"50133498-f236-45db-8aa5-96b5986f4843"
 			"b4e55c3d-91e8-4b92-a524-70ea22f31af8"
 			"aaeb2faf-1b03-44e2-91a1-641ab7881bf3"
+		)
+	)
+	(gr_rect
+		(start 430.005 54.145)
+		(end 441.569999 69.925)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "00a8be6f-eb49-4e95-8678-cd173d0755b5")
+	)
+	(gr_rect
+		(start 430.005 49.005)
+		(end 441.569999 54.145)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "13df9569-bc8f-47bb-b17d-cb55fd0fdbc0")
+	)
+	(gr_text "island U33"
+		(at 430.405 50.605 0)
+		(layer "Cmts.User")
+		(uuid "47c4b911-0366-4be3-9de3-e8d17bf66042")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "SPI MRAM\ngeneric, 5 parts,\n2026-10-29"
+		(at 430.405 50.905 0)
+		(layer "Cmts.User")
+		(uuid "8ceb4e0e-6a81-44db-854c-97eb930cdde8")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U33"
+		(uuid "262e275f-cca3-4678-9903-323ef9ea96c0")
+		(members
+			"00a8be6f-eb49-4e95-8678-cd173d0755b5"
+			"13df9569-bc8f-47bb-b17d-cb55fd0fdbc0"
+			"47c4b911-0366-4be3-9de3-e8d17bf66042"
+			"8ceb4e0e-6a81-44db-854c-97eb930cdde8"
+			"76ab8d2f-8d80-4b52-b85b-d862c29294e9"
+			"3a69166b-cb36-483b-91ab-0e5a0e20f3e9"
+			"c1ea4b6a-21aa-46eb-b6d5-334316906225"
+			"65d84138-10e9-4395-ba01-0c8ae17c6ed4"
+			"2d02c30c-d9c2-48e2-931e-a992fe9af5ae"
 		)
 	)
 )
