@@ -1,0 +1,4373 @@
+{
+  "audit_date": "2026-10-29",
+  "timezone": "America/Toronto",
+  "review": "Independent re-audit after owner corrections",
+  "commit": "9dd5fa85e318972e9969e3accb2eaf53ae8f3831",
+  "previous_audit_commit": "82cb0938c6455028b90daab5a02ca6a5c5cf2f56",
+  "tool_version": "9.0.8",
+  "baseline_hashes_sha256": {
+    "tools/design.py": "8bcc55108d23c03db9037cac29cedc4a4f6b6864cc45d5dd07229850f4270652",
+    "tools/alloc.py": "678cba298e5229cd325094963a4c452b93056fae1bbfacd5164a3f01759ed3a5",
+    "tools/budget.py": "4290c70b890bfeaef8e12377ca88f49a998ee01d2e40841cf87ce0d30878411c",
+    "tools/city.py": "525bc78832eb12b059c72c0f7f4f36907b80bdb513862f9b557e266731c68500",
+    "tools/islands.py": "bcf1ec4bb4d92dd4be52d7d0ca2e7cc5382547f237131e43bb038a262e114aaf",
+    "tools/island_profiles.yaml": "aeb7df4124ef028e511088ecd51a5864777dc1ed501b9311e0463744959c7c58",
+    "tools/gate.py": "4f522c4d3e80aca2489a0c230b49a10c81b2f51e79081dd76ec682e189fb763c",
+    "tools/gen_kicad.py": "fdc45fd47819ea6bc08b17ac5f3d07fb71ecb24063a4744b2acf96f64c481865",
+    "floorplan.md": "789f9d8384e29d7faa665fec0249c17c4ac5750ef323db3d3f3cd4afae4cf415",
+    "ref/city/plan.yaml": "e36af1a519030aa25952446d13d16244ac011a8f59ded7991e986226e58e72cb",
+    "kicad/odin.kicad_pcb": "f4ff874810466a8e18b143e960d27c7155d29dddeb5eccb8bcd157c90817be0a",
+    "kicad/odin.net": "c7fbbf1c8709c15b09199a864ef3613fd0accc3d2e60014dc32e69d6cf705146",
+    "ref/freya.xdc": "1da07cf83f9b9c98a5a9be3ddaa0d560a5bcbdab97845997b80a2ec04f96dc97",
+    "gateware/gate/top.v": "b8c2cc2c0cf36068822a8e9a8c2c321e017130b8db44b75325a61a00e3503f78",
+    "kicad/fpga.kicad_sch": "fa11810f111b1b4b36494f4719c7a092aa17f7b75cd50779e28d0252d84293c4",
+    "kicad/memory.kicad_sch": "1d30596c78e16c3e0a03e101518b90547b3afc56e8bb3c0331632a6d54711710",
+    "kicad/network.kicad_sch": "4f52084c2611e5ff954bca974503480b09a0f0ebfa3eca581c5316a1620bd622",
+    "kicad/odin.kicad_sch": "a60e428d6196eaa7d6ac5febf0b29caee35206b0751b15ea44b1bfa74cd9956d",
+    "kicad/power.kicad_sch": "6e2f07eb75f35bba5674dabe7e7fa025ce833259084d54df7a49907c635fdb2e",
+    "kicad/slots.kicad_sch": "85243c35e22a1f863d3fbd33bba5f781aec4479f5cac380355e921facc493686",
+    "kicad/supervisor.kicad_sch": "6f1147adfbe458c60b849b6efc0698593558e0747aab42ee77a197dc829560cc",
+    "kicad/video.kicad_sch": "e096474a3f8b30433f6ef66824d346151d4f240cca5b30f863118684839901be"
+  },
+  "checks": {
+    "gate_electrical": "PASS",
+    "gate_mechanical": "FAIL",
+    "gate_exit_code": 0,
+    "schematic_netlist_export_matches": true,
+    "xdc_and_gate_top_match_generator": true,
+    "model_vs_pcb_pin_net_mismatches": [],
+    "erc_errors": 0,
+    "erc_allowlisted_warnings": [
+      "FPGA_DXP",
+      "FPGA_DXN"
+    ],
+    "parts": 544,
+    "footprints": 544,
+    "roles_coverage": 544,
+    "roles_problems": 0,
+    "roles_gaps": 0,
+    "footprint_origins_inside_outline": 66,
+    "footprint_origins_outside_outline": 478,
+    "back_copper_footprints": 0,
+    "copper_layers": 8,
+    "tracks": 0,
+    "vias": 0,
+    "schematic_parity_count": 0,
+    "drc_counts": {
+      "error": 10,
+      "warning": 298
+    },
+    "drc_types": {
+      "courtyards_overlap": 10,
+      "silk_overlap": 199,
+      "silk_over_copper": 95,
+      "text_height": 4
+    },
+    "drc_unconnected_items": 499,
+    "drc_errors": [
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J56",
+            "pos": {
+              "x": 120.9,
+              "y": 83.3
+            },
+            "uuid": "060093b6-3631-4d85-a0b1-880c62be02c0"
+          },
+          {
+            "description": "Footprint MK71",
+            "pos": {
+              "x": 120.9,
+              "y": 73.14
+            },
+            "uuid": "730138d9-7b22-4bf6-a7de-3f9de6335cb2"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J56",
+            "pos": {
+              "x": 120.9,
+              "y": 83.3
+            },
+            "uuid": "060093b6-3631-4d85-a0b1-880c62be02c0"
+          },
+          {
+            "description": "Footprint MK72",
+            "pos": {
+              "x": 121.0,
+              "y": 93.34
+            },
+            "uuid": "e03fe4d3-a6ce-4cc8-ba11-249506936134"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J64",
+            "pos": {
+              "x": 120.9,
+              "y": 63.0
+            },
+            "uuid": "1718e066-c6c3-473c-9376-95cb02a4d4ea"
+          },
+          {
+            "description": "Footprint MK71",
+            "pos": {
+              "x": 120.9,
+              "y": 73.14
+            },
+            "uuid": "730138d9-7b22-4bf6-a7de-3f9de6335cb2"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J57",
+            "pos": {
+              "x": 732.06,
+              "y": 44.31
+            },
+            "uuid": "39f26566-f6a8-4d4c-8153-3c027c047d21"
+          },
+          {
+            "description": "Footprint MK76",
+            "pos": {
+              "x": 721.9,
+              "y": 44.3
+            },
+            "uuid": "b3a7c832-95d4-4a51-a6d2-8346b7025bcb"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J65",
+            "pos": {
+              "x": 121.0,
+              "y": 103.5
+            },
+            "uuid": "3a91b776-f7ee-4232-b058-b0a5a07fca64"
+          },
+          {
+            "description": "Footprint MK72",
+            "pos": {
+              "x": 121.0,
+              "y": 93.34
+            },
+            "uuid": "e03fe4d3-a6ce-4cc8-ba11-249506936134"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J58",
+            "pos": {
+              "x": 787.94,
+              "y": 44.31
+            },
+            "uuid": "4fac1b6c-7f39-4384-b271-785f73b09363"
+          },
+          {
+            "description": "Footprint MK77",
+            "pos": {
+              "x": 777.78,
+              "y": 44.3
+            },
+            "uuid": "ec7dd26a-bb94-4186-adfb-2992c6ddf8c1"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint MK71",
+            "pos": {
+              "x": 120.9,
+              "y": 73.14
+            },
+            "uuid": "730138d9-7b22-4bf6-a7de-3f9de6335cb2"
+          },
+          {
+            "description": "Footprint C159",
+            "pos": {
+              "x": 123.33,
+              "y": 74.36
+            },
+            "uuid": "b740f19d-e5d7-42c8-b3cd-3c28d035e0b3"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint C145",
+            "pos": {
+              "x": 779.0,
+              "y": 41.88
+            },
+            "uuid": "76c0d251-bd9b-4bf5-b5b5-8d62f072f928"
+          },
+          {
+            "description": "Footprint MK77",
+            "pos": {
+              "x": 777.78,
+              "y": 44.3
+            },
+            "uuid": "ec7dd26a-bb94-4186-adfb-2992c6ddf8c1"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint MK76",
+            "pos": {
+              "x": 721.9,
+              "y": 44.3
+            },
+            "uuid": "b3a7c832-95d4-4a51-a6d2-8346b7025bcb"
+          },
+          {
+            "description": "Footprint C143",
+            "pos": {
+              "x": 723.12,
+              "y": 41.88
+            },
+            "uuid": "b593930b-5d1d-4099-a8f5-28a19cffbeba"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint C161",
+            "pos": {
+              "x": 123.43,
+              "y": 94.56
+            },
+            "uuid": "bb48b072-7773-4c7b-8ac0-1db307480872"
+          },
+          {
+            "description": "Footprint MK72",
+            "pos": {
+              "x": 121.0,
+              "y": 93.34
+            },
+            "uuid": "e03fe4d3-a6ce-4cc8-ba11-249506936134"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      }
+    ],
+    "mechanical_lattice_findings": [
+      "  J5/J3: pad lattices differ; a shield cannot bridge",
+      "  J5/J55/MK69: rows off the 2.54 lattice: [125.73, 120.9, 41.9]",
+      "  J3/J53/MK65: rows off the 2.54 lattice: [31.73, 39.1, 41.9]",
+      "  J7/J57/MK76: rows off the 2.54 lattice: [27.91, 44.31, 44.3]",
+      "  SLOT A: key is not uniform position 1: delta=(-17.82,-2.80)",
+      "  SLOT B: key is not uniform position 1: delta=(1.58,-78.90)",
+      "  SLOT C: key is not uniform position 1: delta=(2.58,-2.80)",
+      "  SLOT D: key is not uniform position 1: delta=(2.58,-2.80)",
+      "  SLOT E: key is not uniform position 1: delta=(-77.92,79.00)",
+      "  SLOT F: key is not uniform position 1: delta=(-58.02,3.20)"
+    ],
+    "deep_signal_balls": {
+      "depth_gte_7": 80,
+      "inherent": 17,
+      "allocator_choice": 63
+    },
+    "scope_note": "Electrical gate is a model/ERC/parity check, not analog qualification or a fabrication pass. Unrouted staging is expected."
+  },
+  "commands": [
+    "python3 tools/gate.py",
+    "kicad-cli pcb drc --schematic-parity --severity-all --format json -o /tmp/odin-reaudit/drc.json kicad/odin.kicad_pcb",
+    "python3 tools/place.py --check",
+    "/usr/bin/python3 /tmp/odin-reaudit/snapshot.py: pcbnew extraction; compare every design.build() pin net to every PCB pad"
+  ],
+  "mux_review": {
+    "resistors": {
+      "R162": {
+        "ref": "R162",
+        "lib_id": "Device:R",
+        "value": "100k",
+        "fp": "Resistor_SMD:R_0603_1608Metric",
+        "pins": {
+          "1": "VBUS",
+          "2": "VBUS5_PR1"
+        },
+        "lcsc": "",
+        "dnp": false,
+        "sheet": "Power",
+        "group": "U34  +5V source select"
+      },
+      "R163": {
+        "ref": "R163",
+        "lib_id": "Device:R",
+        "value": "36.5k",
+        "fp": "Resistor_SMD:R_0603_1608Metric",
+        "pins": {
+          "1": "VBUS5_PR1",
+          "2": "GND"
+        },
+        "lcsc": "",
+        "dnp": false,
+        "sheet": "Power",
+        "group": "U34  +5V source select"
+      },
+      "R164": {
+        "ref": "R164",
+        "lib_id": "Device:R",
+        "value": "100k",
+        "fp": "Resistor_SMD:R_0603_1608Metric",
+        "pins": {
+          "1": "VBUS",
+          "2": "VBUS5_OV1"
+        },
+        "lcsc": "",
+        "dnp": false,
+        "sheet": "Power",
+        "group": "U34  +5V source select"
+      },
+      "R165": {
+        "ref": "R165",
+        "lib_id": "Device:R",
+        "value": "23.2k",
+        "fp": "Resistor_SMD:R_0603_1608Metric",
+        "pins": {
+          "1": "VBUS5_OV1",
+          "2": "GND"
+        },
+        "lcsc": "",
+        "dnp": false,
+        "sheet": "Power",
+        "group": "U34  +5V source select"
+      },
+      "R166": {
+        "ref": "R166",
+        "lib_id": "Device:R",
+        "value": "100k",
+        "fp": "Resistor_SMD:R_0603_1608Metric",
+        "pins": {
+          "1": "+3V3",
+          "2": "VBUS5_CP2"
+        },
+        "lcsc": "",
+        "dnp": false,
+        "sheet": "Power",
+        "group": "U34  +5V source select"
+      },
+      "R167": {
+        "ref": "R167",
+        "lib_id": "Device:R",
+        "value": "56.2k",
+        "fp": "Resistor_SMD:R_0603_1608Metric",
+        "pins": {
+          "1": "VBUS5_CP2",
+          "2": "GND"
+        },
+        "lcsc": "",
+        "dnp": false,
+        "sheet": "Power",
+        "group": "U34  +5V source select"
+      },
+      "R168": {
+        "ref": "R168",
+        "lib_id": "Device:R",
+        "value": "44.2k",
+        "fp": "Resistor_SMD:R_0603_1608Metric",
+        "pins": {
+          "1": "VBUS5_ILIM",
+          "2": "GND"
+        },
+        "lcsc": "",
+        "dnp": false,
+        "sheet": "Power",
+        "group": "U34  +5V source select"
+      }
+    },
+    "ov1_rising_reference_V": {
+      "min": 1.01,
+      "typ": 1.06,
+      "max": 1.1
+    },
+    "assumed_resistor_tolerance": 0.01,
+    "ov1_nominal_trip_V": 5.62896551724138,
+    "ov1_low_trip_V": 5.277241379310345,
+    "ov1_high_trip_V": 5.937164750957855,
+    "trip_note": "Static comparator/resistor envelope; excludes leakage, transient response and output path drop. No 5.5 V output clamp exists.",
+    "CP2_at_3V3_V": 1.187323943661972,
+    "PR1_at_USB5V_V": 1.336996336996337,
+    "source_cases": [
+      {
+        "sources": "USB 5 V only",
+        "plus5V_source": "VBUS through U34 IN1"
+      },
+      {
+        "sources": "USB 9 V only",
+        "plus5V_source": "U11 through U34 IN2 after OV1 trip; transition overvoltage unresolved"
+      },
+      {
+        "sources": "J50 only",
+        "plus5V_source": "U11 through U34 IN2"
+      },
+      {
+        "sources": "J50 plus USB 5 V",
+        "plus5V_source": "VBUS through U34 IN1; J50 does not take the +5V load"
+      },
+      {
+        "sources": "J50 plus USB 9 V",
+        "plus5V_source": "U11 through U34 IN2; VSYS comes from input diode OR"
+      }
+    ],
+    "stage_distances_mm": {
+      "U11->U34": 111.05620784089473,
+      "U34->U15": 93.92530755871927,
+      "U34->U14": 77.93985629958533,
+      "U11->U15": 21.084461102907042
+    }
+  },
+  "budget_review": {
+    "mode_rows": [
+      [
+        "recovery",
+        "USB 2.0 port",
+        4.75,
+        0.845,
+        0.1879298245614035,
+        0.5,
+        true,
+        "U34 0.09 A + U26 0.10 A"
+      ],
+      [
+        "recovery",
+        "USB-C 5V/1.5A",
+        4.75,
+        0.845,
+        0.1879298245614035,
+        1.5,
+        true,
+        "U34 0.09 A + U26 0.10 A"
+      ],
+      [
+        "recovery",
+        "USB-C 5V/3A",
+        4.75,
+        0.845,
+        0.1879298245614035,
+        3.0,
+        true,
+        "U34 0.09 A + U26 0.10 A"
+      ],
+      [
+        "recovery",
+        "USB-PD 9V",
+        9.0,
+        0.845,
+        0.10432098765432099,
+        1.7,
+        true,
+        "U26 0.10 A"
+      ],
+      [
+        "recovery",
+        "J50 VIN",
+        9.0,
+        0.845,
+        0.10432098765432099,
+        3.0,
+        true,
+        "D4 path"
+      ],
+      [
+        "light",
+        "USB 2.0 port",
+        4.75,
+        6.640797399527186,
+        1.4690201153000704,
+        0.5,
+        false,
+        "U34 0.76 A + U26 0.71 A"
+      ],
+      [
+        "light",
+        "USB-C 5V/1.5A",
+        4.75,
+        6.640797399527186,
+        1.4690201153000704,
+        1.5,
+        true,
+        "U34 0.76 A + U26 0.71 A"
+      ],
+      [
+        "light",
+        "USB-C 5V/3A",
+        4.75,
+        6.640797399527186,
+        1.4690201153000704,
+        3.0,
+        true,
+        "U34 0.76 A + U26 0.71 A"
+      ],
+      [
+        "light",
+        "USB-PD 9V",
+        9.0,
+        6.640797399527186,
+        0.8198515308058254,
+        1.7,
+        true,
+        "U26 0.82 A"
+      ],
+      [
+        "light",
+        "J50 VIN",
+        9.0,
+        6.640797399527186,
+        0.8198515308058254,
+        3.0,
+        true,
+        "D4 path"
+      ],
+      [
+        "full",
+        "USB 2.0 port",
+        4.75,
+        16.590797399527183,
+        3.679546431089544,
+        0.5,
+        false,
+        "U34 1.81 A + U26 1.87 A"
+      ],
+      [
+        "full",
+        "USB-C 5V/1.5A",
+        4.75,
+        16.590797399527183,
+        3.679546431089544,
+        1.5,
+        false,
+        "U34 1.81 A + U26 1.87 A"
+      ],
+      [
+        "full",
+        "USB-C 5V/3A",
+        4.75,
+        16.590797399527183,
+        3.679546431089544,
+        3.0,
+        false,
+        "U34 1.81 A + U26 1.87 A"
+      ],
+      [
+        "full",
+        "USB-PD 9V",
+        9.0,
+        16.590797399527183,
+        2.04824659253422,
+        1.7,
+        false,
+        "U26 2.05 A"
+      ],
+      [
+        "full",
+        "J50 VIN",
+        9.0,
+        16.590797399527183,
+        2.04824659253422,
+        3.0,
+        true,
+        "D4 path"
+      ]
+    ],
+    "cout_rows": [
+      [
+        "U11",
+        "+5V_BUCK",
+        6.6e-05,
+        6.8e-05,
+        "81.7 uF on +5V behind U34",
+        true,
+        "DS42002 p. 19: 22-68 uF ceramic for most applications"
+      ],
+      [
+        "U12",
+        "+3V3",
+        0.00022136000000000006,
+        6.8e-05,
+        "",
+        false,
+        "DS42002 p. 19: 22-68 uF ceramic for most applications"
+      ],
+      [
+        "U13",
+        "+2V5",
+        0.00010338,
+        4.7e-05,
+        "",
+        false,
+        "SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF"
+      ],
+      [
+        "U14",
+        "+1V8_IO",
+        0.00011298000000000002,
+        4.7e-05,
+        "63.5 uF on +1V8 behind FB1",
+        false,
+        "SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF"
+      ],
+      [
+        "U15",
+        "+1V0",
+        0.0005068999999999998,
+        4.4e-05,
+        "10.4 uF on +1V0_MGT behind L9",
+        false,
+        "Silergy SY8047 rev 0.9 reference circuit: 2 x 22 uF"
+      ],
+      [
+        "U16",
+        "+1V2_MGT",
+        4.99e-05,
+        4.7e-05,
+        "",
+        false,
+        "SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF"
+      ]
+    ],
+    "inductor_rows": [
+      [
+        "U11",
+        "SRN6045TA-4R7M",
+        1.7214728132387704,
+        0.9456264775413712,
+        2.1942860520094563,
+        6.8,
+        true
+      ],
+      [
+        "U12",
+        "SRN6045TA-4R7M",
+        2.4192222222222224,
+        0.8893617021276595,
+        2.863903073286052,
+        6.8,
+        true
+      ],
+      [
+        "U13",
+        "SRN4018-2R2M",
+        0.13999999999999999,
+        0.3787878787878788,
+        0.32939393939393935,
+        3.0,
+        true
+      ],
+      [
+        "U14",
+        "SRN4018-2R2M",
+        0.3081,
+        0.3490909090909091,
+        0.48264545454545454,
+        3.0,
+        true
+      ],
+      [
+        "U15",
+        "FTC201610S1R0MBCA",
+        1.65,
+        0.64,
+        1.97,
+        4.6,
+        true
+      ],
+      [
+        "U16",
+        "SRN4018-2R2M",
+        0.15,
+        0.2763636363636363,
+        0.28818181818181815,
+        3.0,
+        true
+      ]
+    ],
+    "recovery_model_3V3_loads": [
+      [
+        "+3V3",
+        "RP2350B supervisor + boot flash",
+        0.07,
+        "estimate",
+        "ref/power-input.md: 0.2 W"
+      ],
+      [
+        "+3V3",
+        "config flash W25Q256, program",
+        0.03,
+        "datasheet",
+        "W25Q256JV: 25 mA page-program peak"
+      ],
+      [
+        "+3V3",
+        "U20, pull-ups, LED",
+        0.03,
+        "estimate",
+        "quiescent logic"
+      ]
+    ],
+    "note": "Recovery excludes several powered loads; source current advertisement/contract is not observable through wired CH224K PG. J50 plus USB5V case absent. Nominal inductor table is not a full VIN/tolerance analysis."
+  },
+  "relevant_connections": {
+    "FLASH_CS_B": [
+      {
+        "ref": "U1",
+        "value": "XC7A100T-2FGG676I",
+        "pins": [
+          "P18"
+        ]
+      },
+      {
+        "ref": "U6",
+        "value": "W25Q256JVEIQ",
+        "pins": [
+          "1"
+        ]
+      },
+      {
+        "ref": "R22",
+        "value": "33",
+        "pins": [
+          "2"
+        ]
+      }
+    ],
+    "SUP_FCS_B": [
+      {
+        "ref": "U7",
+        "value": "RP2350B",
+        "pins": [
+          "7"
+        ]
+      },
+      {
+        "ref": "R22",
+        "value": "33",
+        "pins": [
+          "1"
+        ]
+      }
+    ],
+    "PUDC_B": [
+      {
+        "ref": "U1",
+        "value": "XC7A100T-2FGG676I",
+        "pins": [
+          "P15"
+        ]
+      },
+      {
+        "ref": "R6",
+        "value": "1k",
+        "pins": [
+          "2"
+        ]
+      }
+    ],
+    "EXT_FAULT": [
+      {
+        "ref": "U7",
+        "value": "RP2350B",
+        "pins": [
+          "43"
+        ]
+      },
+      {
+        "ref": "U26",
+        "value": "TPS259470ARPWR",
+        "pins": [
+          "4"
+        ]
+      },
+      {
+        "ref": "R73",
+        "value": "10k",
+        "pins": [
+          "2"
+        ]
+      },
+      {
+        "ref": "U21",
+        "value": "TPS22950CDDCR",
+        "pins": [
+          "6"
+        ]
+      },
+      {
+        "ref": "U22",
+        "value": "TPS22950CDDCR",
+        "pins": [
+          "6"
+        ]
+      }
+    ],
+    "PD_PG": [
+      {
+        "ref": "U7",
+        "value": "RP2350B",
+        "pins": [
+          "38"
+        ]
+      },
+      {
+        "ref": "U18",
+        "value": "CH224K",
+        "pins": [
+          "10"
+        ]
+      },
+      {
+        "ref": "R11",
+        "value": "10k",
+        "pins": [
+          "2"
+        ]
+      }
+    ],
+    "USB_CC1": [
+      {
+        "ref": "J1",
+        "value": "USB-C",
+        "pins": [
+          "A5"
+        ]
+      },
+      {
+        "ref": "D6",
+        "value": "ESDA6V1BC6",
+        "pins": [
+          "4"
+        ]
+      },
+      {
+        "ref": "U18",
+        "value": "CH224K",
+        "pins": [
+          "7"
+        ]
+      }
+    ],
+    "USB_CC2": [
+      {
+        "ref": "J1",
+        "value": "USB-C",
+        "pins": [
+          "B5"
+        ]
+      },
+      {
+        "ref": "D6",
+        "value": "ESDA6V1BC6",
+        "pins": [
+          "6"
+        ]
+      },
+      {
+        "ref": "U18",
+        "value": "CH224K",
+        "pins": [
+          "6"
+        ]
+      }
+    ],
+    "VCCIO_1_EXT": [
+      {
+        "ref": "F9",
+        "value": "500mA",
+        "pins": [
+          "1"
+        ]
+      },
+      {
+        "ref": "F13",
+        "value": "500mA",
+        "pins": [
+          "1"
+        ]
+      },
+      {
+        "ref": "F17",
+        "value": "500mA",
+        "pins": [
+          "1"
+        ]
+      },
+      {
+        "ref": "F21",
+        "value": "500mA",
+        "pins": [
+          "1"
+        ]
+      },
+      {
+        "ref": "U23",
+        "value": "TPS22953DSQR",
+        "pins": [
+          "9",
+          "10",
+          "8"
+        ]
+      },
+      {
+        "ref": "C273",
+        "value": "1uF",
+        "pins": [
+          "1"
+        ]
+      }
+    ],
+    "VCCIO_2_EXT": [
+      {
+        "ref": "F25",
+        "value": "500mA",
+        "pins": [
+          "1"
+        ]
+      },
+      {
+        "ref": "F29",
+        "value": "500mA",
+        "pins": [
+          "1"
+        ]
+      },
+      {
+        "ref": "F33",
+        "value": "500mA",
+        "pins": [
+          "1"
+        ]
+      },
+      {
+        "ref": "F37",
+        "value": "500mA",
+        "pins": [
+          "1"
+        ]
+      },
+      {
+        "ref": "U24",
+        "value": "TPS22953DSQR",
+        "pins": [
+          "9",
+          "10",
+          "8"
+        ]
+      },
+      {
+        "ref": "C276",
+        "value": "1uF",
+        "pins": [
+          "1"
+        ]
+      }
+    ]
+  },
+  "selected_footprints": {
+    "U1": {
+      "value": "XC7A100T-2FGG676I",
+      "xy": [
+        760.0,
+        122.83
+      ],
+      "rotation": 90.0,
+      "pads": {
+        "AE16": [
+          {
+            "net": "CFG_PROG_B",
+            "xy": [
+              757.5,
+              111.33
+            ]
+          }
+        ],
+        "H13": [
+          {
+            "net": "CFG_CCLK",
+            "xy": [
+              760.5,
+              128.33
+            ]
+          }
+        ],
+        "K7": [
+          {
+            "net": "SDRAM_CLK",
+            "xy": [
+              766.5,
+              126.33
+            ]
+          }
+        ],
+        "M21": [
+          {
+            "net": "SYS_CLK",
+            "xy": [
+              752.5,
+              124.33
+            ]
+          }
+        ],
+        "N14": [
+          {
+            "net": "FLASH_D3_HOLD",
+            "xy": [
+              759.5,
+              123.33
+            ]
+          }
+        ],
+        "P14": [
+          {
+            "net": "FLASH_D2_WP",
+            "xy": [
+              759.5,
+              122.33
+            ]
+          }
+        ],
+        "P15": [
+          {
+            "net": "PUDC_B",
+            "xy": [
+              758.5,
+              122.33
+            ]
+          }
+        ],
+        "P18": [
+          {
+            "net": "FLASH_CS_B",
+            "xy": [
+              755.5,
+              122.33
+            ]
+          }
+        ],
+        "R14": [
+          {
+            "net": "FLASH_D0_MOSI",
+            "xy": [
+              759.5,
+              121.33
+            ]
+          }
+        ],
+        "R15": [
+          {
+            "net": "FLASH_D1_MISO",
+            "xy": [
+              758.5,
+              121.33
+            ]
+          }
+        ],
+        "T14": [
+          {
+            "net": "PSRAM0_SCK",
+            "xy": [
+              759.5,
+              120.33
+            ]
+          }
+        ],
+        "T15": [
+          {
+            "net": "PSRAM0_CE_B",
+            "xy": [
+              758.5,
+              120.33
+            ]
+          }
+        ],
+        "T17": [
+          {
+            "net": "PSRAM0_IO0",
+            "xy": [
+              756.5,
+              120.33
+            ]
+          }
+        ],
+        "T18": [
+          {
+            "net": "PSRAM0_IO1",
+            "xy": [
+              755.5,
+              120.33
+            ]
+          }
+        ],
+        "T19": [
+          {
+            "net": "PSRAM2_SCK",
+            "xy": [
+              754.5,
+              120.33
+            ]
+          }
+        ],
+        "T20": [
+          {
+            "net": "PSRAM2_IO2",
+            "xy": [
+              753.5,
+              120.33
+            ]
+          }
+        ],
+        "U14": [
+          {
+            "net": "PSRAM1_SCK",
+            "xy": [
+              759.5,
+              119.33
+            ]
+          }
+        ],
+        "U15": [
+          {
+            "net": "PSRAM0_IO2",
+            "xy": [
+              758.5,
+              119.33
+            ]
+          }
+        ],
+        "U16": [
+          {
+            "net": "PSRAM0_IO3",
+            "xy": [
+              757.5,
+              119.33
+            ]
+          }
+        ],
+        "U19": [
+          {
+            "net": "PSRAM2_CE_B",
+            "xy": [
+              754.5,
+              119.33
+            ]
+          }
+        ],
+        "U20": [
+          {
+            "net": "PSRAM2_IO3",
+            "xy": [
+              753.5,
+              119.33
+            ]
+          }
+        ],
+        "V11": [
+          {
+            "net": "CFG_INIT_B",
+            "xy": [
+              762.5,
+              118.33
+            ]
+          }
+        ],
+        "V14": [
+          {
+            "net": "PSRAM1_CE_B",
+            "xy": [
+              759.5,
+              118.33
+            ]
+          }
+        ],
+        "V16": [
+          {
+            "net": "PSRAM1_IO0",
+            "xy": [
+              757.5,
+              118.33
+            ]
+          }
+        ],
+        "V17": [
+          {
+            "net": "PSRAM1_IO1",
+            "xy": [
+              756.5,
+              118.33
+            ]
+          }
+        ],
+        "V18": [
+          {
+            "net": "PSRAM1_IO2",
+            "xy": [
+              755.5,
+              118.33
+            ]
+          }
+        ],
+        "V19": [
+          {
+            "net": "PSRAM2_IO0",
+            "xy": [
+              754.5,
+              118.33
+            ]
+          }
+        ],
+        "W10": [
+          {
+            "net": "CFG_DONE",
+            "xy": [
+              763.5,
+              117.33
+            ]
+          }
+        ],
+        "W18": [
+          {
+            "net": "PSRAM1_IO3",
+            "xy": [
+              755.5,
+              117.33
+            ]
+          }
+        ],
+        "W19": [
+          {
+            "net": "PSRAM2_IO1",
+            "xy": [
+              754.5,
+              117.33
+            ]
+          }
+        ],
+        "W20": [
+          {
+            "net": "PSRAM3_SCK",
+            "xy": [
+              753.5,
+              117.33
+            ]
+          }
+        ],
+        "W21": [
+          {
+            "net": "PSRAM3_IO0",
+            "xy": [
+              752.5,
+              117.33
+            ]
+          }
+        ],
+        "Y20": [
+          {
+            "net": "PSRAM3_CE_B",
+            "xy": [
+              753.5,
+              116.33
+            ]
+          }
+        ],
+        "Y21": [
+          {
+            "net": "PSRAM3_IO1",
+            "xy": [
+              752.5,
+              116.33
+            ]
+          }
+        ],
+        "Y22": [
+          {
+            "net": "PSRAM3_IO2",
+            "xy": [
+              751.5,
+              116.33
+            ]
+          }
+        ],
+        "Y23": [
+          {
+            "net": "PSRAM3_IO3",
+            "xy": [
+              750.5,
+              116.33
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbeaeddb0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U1"
+      ],
+      "pad_scope": "Only configuration, PSRAM and reviewed clock pads are retained here. The model-versus-PCB comparison covered every connected pin on all 544 parts."
+    },
+    "U6": {
+      "value": "W25Q256JVEIQ",
+      "xy": [
+        800.11,
+        137.6
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "1": [
+          {
+            "net": "FLASH_CS_B",
+            "xy": [
+              802.01,
+              133.57
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "FLASH_D1_MISO",
+            "xy": [
+              800.74,
+              133.57
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "FLASH_D2_WP",
+            "xy": [
+              799.48,
+              133.57
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "GND",
+            "xy": [
+              798.21,
+              133.57
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "FLASH_D0_MOSI",
+            "xy": [
+              798.21,
+              141.63
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "CFG_CCLK",
+            "xy": [
+              799.48,
+              141.63
+            ]
+          }
+        ],
+        "7": [
+          {
+            "net": "FLASH_D3_HOLD",
+            "xy": [
+              800.74,
+              141.63
+            ]
+          }
+        ],
+        "8": [
+          {
+            "net": "+3V3",
+            "xy": [
+              802.01,
+              141.63
+            ]
+          }
+        ],
+        "9": [
+          {
+            "net": "GND",
+            "xy": [
+              800.61,
+              138.1
+            ]
+          },
+          {
+            "net": "GND",
+            "xy": [
+              800.61,
+              137.1
+            ]
+          },
+          {
+            "net": "GND",
+            "xy": [
+              800.11,
+              137.6
+            ]
+          },
+          {
+            "net": "GND",
+            "xy": [
+              799.61,
+              138.1
+            ]
+          },
+          {
+            "net": "GND",
+            "xy": [
+              799.61,
+              137.1
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea4eeb0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U6"
+      ]
+    },
+    "U7": {
+      "value": "RP2350B",
+      "xy": [
+        816.22,
+        99.15
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "SUP_PROG_B",
+            "xy": [
+              811.31,
+              95.35
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "SUP_INIT_B",
+            "xy": [
+              811.31,
+              95.75
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "SUP_DONE",
+            "xy": [
+              811.31,
+              96.15
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "SUP_FD3",
+            "xy": [
+              811.31,
+              96.55
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "+3V3",
+            "xy": [
+              811.31,
+              96.95
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "EXT_EN",
+            "xy": [
+              811.31,
+              97.35
+            ]
+          }
+        ],
+        "7": [
+          {
+            "net": "SUP_FCS_B",
+            "xy": [
+              811.31,
+              97.75
+            ]
+          }
+        ],
+        "8": [
+          {
+            "net": "SUP_CCLK",
+            "xy": [
+              811.31,
+              98.15
+            ]
+          }
+        ],
+        "9": [
+          {
+            "net": "SUP_FD0",
+            "xy": [
+              811.31,
+              98.55
+            ]
+          }
+        ],
+        "10": [
+          {
+            "net": "+1V1",
+            "xy": [
+              811.31,
+              98.95
+            ]
+          }
+        ],
+        "11": [
+          {
+            "net": "SUP_FD1",
+            "xy": [
+              811.31,
+              99.35
+            ]
+          }
+        ],
+        "12": [
+          {
+            "net": "SUP_FD2",
+            "xy": [
+              811.31,
+              99.75
+            ]
+          }
+        ],
+        "13": [
+          {
+            "net": "SUP_SDA",
+            "xy": [
+              811.31,
+              100.15
+            ]
+          }
+        ],
+        "14": [
+          {
+            "net": "SUP_DBG_TCK",
+            "xy": [
+              811.31,
+              100.55
+            ]
+          }
+        ],
+        "15": [
+          {
+            "net": "+3V3",
+            "xy": [
+              811.31,
+              100.95
+            ]
+          }
+        ],
+        "16": [
+          {
+            "net": "SUP_DBG_TMS",
+            "xy": [
+              811.31,
+              101.35
+            ]
+          }
+        ],
+        "17": [
+          {
+            "net": "SUP_DBG_TDI",
+            "xy": [
+              811.31,
+              101.75
+            ]
+          }
+        ],
+        "18": [
+          {
+            "net": "SUP_DBG_TDO",
+            "xy": [
+              811.31,
+              102.15
+            ]
+          }
+        ],
+        "19": [
+          {
+            "net": "unconnected-(U7-GPIO19-Pad19)",
+            "xy": [
+              811.31,
+              102.55
+            ]
+          }
+        ],
+        "20": [
+          {
+            "net": "unconnected-(U7-GPIO20-Pad20)",
+            "xy": [
+              811.31,
+              102.95
+            ]
+          }
+        ],
+        "21": [
+          {
+            "net": "VBUS5_ST",
+            "xy": [
+              812.42,
+              104.06
+            ]
+          }
+        ],
+        "22": [
+          {
+            "net": "EN_2V5",
+            "xy": [
+              812.82,
+              104.06
+            ]
+          }
+        ],
+        "23": [
+          {
+            "net": "unconnected-(U7-GPIO23-Pad23)",
+            "xy": [
+              813.22,
+              104.06
+            ]
+          }
+        ],
+        "24": [
+          {
+            "net": "+3V3",
+            "xy": [
+              813.62,
+              104.06
+            ]
+          }
+        ],
+        "25": [
+          {
+            "net": "EN_1V0",
+            "xy": [
+              814.02,
+              104.06
+            ]
+          }
+        ],
+        "26": [
+          {
+            "net": "EN_1V2",
+            "xy": [
+              814.42,
+              104.06
+            ]
+          }
+        ],
+        "27": [
+          {
+            "net": "unconnected-(U7-GPIO26-Pad27)",
+            "xy": [
+              814.82,
+              104.06
+            ]
+          }
+        ],
+        "28": [
+          {
+            "net": "PD_REQ_9V",
+            "xy": [
+              815.22,
+              104.06
+            ]
+          }
+        ],
+        "29": [
+          {
+            "net": "+3V3",
+            "xy": [
+              815.62,
+              104.06
+            ]
+          }
+        ],
+        "30": [
+          {
+            "net": "SUP_XIN",
+            "xy": [
+              816.02,
+              104.06
+            ]
+          }
+        ],
+        "31": [
+          {
+            "net": "SUP_XOUT",
+            "xy": [
+              816.42,
+              104.06
+            ]
+          }
+        ],
+        "32": [
+          {
+            "net": "+1V1",
+            "xy": [
+              816.82,
+              104.06
+            ]
+          }
+        ],
+        "33": [
+          {
+            "net": "SUP_SWCLK",
+            "xy": [
+              817.22,
+              104.06
+            ]
+          }
+        ],
+        "34": [
+          {
+            "net": "SUP_SWDIO",
+            "xy": [
+              817.62,
+              104.06
+            ]
+          }
+        ],
+        "35": [
+          {
+            "net": "SUP_RUN",
+            "xy": [
+              818.02,
+              104.06
+            ]
+          }
+        ],
+        "36": [
+          {
+            "net": "unconnected-(U7-GPIO28-Pad36)",
+            "xy": [
+              818.42,
+              104.06
+            ]
+          }
+        ],
+        "37": [
+          {
+            "net": "unconnected-(U7-GPIO29-Pad37)",
+            "xy": [
+              818.82,
+              104.06
+            ]
+          }
+        ],
+        "38": [
+          {
+            "net": "PD_PG",
+            "xy": [
+              819.22,
+              104.06
+            ]
+          }
+        ],
+        "39": [
+          {
+            "net": "SUP_SCL",
+            "xy": [
+              819.62,
+              104.06
+            ]
+          }
+        ],
+        "40": [
+          {
+            "net": "SUP_UART_TX",
+            "xy": [
+              820.02,
+              104.06
+            ]
+          }
+        ],
+        "41": [
+          {
+            "net": "+3V3",
+            "xy": [
+              821.13,
+              102.95
+            ]
+          }
+        ],
+        "42": [
+          {
+            "net": "SUP_UART_RX",
+            "xy": [
+              821.13,
+              102.55
+            ]
+          }
+        ],
+        "43": [
+          {
+            "net": "EXT_FAULT",
+            "xy": [
+              821.13,
+              102.15
+            ]
+          }
+        ],
+        "44": [
+          {
+            "net": "unconnected-(U7-GPIO35-Pad44)",
+            "xy": [
+              821.13,
+              101.75
+            ]
+          }
+        ],
+        "45": [
+          {
+            "net": "unconnected-(U7-GPIO36-Pad45)",
+            "xy": [
+              821.13,
+              101.35
+            ]
+          }
+        ],
+        "46": [
+          {
+            "net": "unconnected-(U7-GPIO37-Pad46)",
+            "xy": [
+              821.13,
+              100.95
+            ]
+          }
+        ],
+        "47": [
+          {
+            "net": "unconnected-(U7-GPIO38-Pad47)",
+            "xy": [
+              821.13,
+              100.55
+            ]
+          }
+        ],
+        "48": [
+          {
+            "net": "unconnected-(U7-GPIO39-Pad48)",
+            "xy": [
+              821.13,
+              100.15
+            ]
+          }
+        ],
+        "49": [
+          {
+            "net": "MON_VSYS",
+            "xy": [
+              821.13,
+              99.75
+            ]
+          }
+        ],
+        "50": [
+          {
+            "net": "+3V3",
+            "xy": [
+              821.13,
+              99.35
+            ]
+          }
+        ],
+        "51": [
+          {
+            "net": "+1V1",
+            "xy": [
+              821.13,
+              98.95
+            ]
+          }
+        ],
+        "52": [
+          {
+            "net": "MON_5V",
+            "xy": [
+              821.13,
+              98.55
+            ]
+          }
+        ],
+        "53": [
+          {
+            "net": "MON_3V3",
+            "xy": [
+              821.13,
+              98.15
+            ]
+          }
+        ],
+        "54": [
+          {
+            "net": "MON_2V5",
+            "xy": [
+              821.13,
+              97.75
+            ]
+          }
+        ],
+        "55": [
+          {
+            "net": "MON_1V8",
+            "xy": [
+              821.13,
+              97.35
+            ]
+          }
+        ],
+        "56": [
+          {
+            "net": "MON_1V0",
+            "xy": [
+              821.13,
+              96.95
+            ]
+          }
+        ],
+        "57": [
+          {
+            "net": "MON_VCCIO_1",
+            "xy": [
+              821.13,
+              96.55
+            ]
+          }
+        ],
+        "58": [
+          {
+            "net": "MON_VCCIO_2",
+            "xy": [
+              821.13,
+              96.15
+            ]
+          }
+        ],
+        "59": [
+          {
+            "net": "+3V3",
+            "xy": [
+              821.13,
+              95.75
+            ]
+          }
+        ],
+        "60": [
+          {
+            "net": "+3V3",
+            "xy": [
+              821.13,
+              95.35
+            ]
+          }
+        ],
+        "61": [
+          {
+            "net": "SUP_VREG_AVDD",
+            "xy": [
+              820.02,
+              94.24
+            ]
+          }
+        ],
+        "62": [
+          {
+            "net": "GND",
+            "xy": [
+              819.62,
+              94.24
+            ]
+          }
+        ],
+        "63": [
+          {
+            "net": "SUP_LX",
+            "xy": [
+              819.22,
+              94.24
+            ]
+          }
+        ],
+        "64": [
+          {
+            "net": "+3V3",
+            "xy": [
+              818.82,
+              94.24
+            ]
+          }
+        ],
+        "65": [
+          {
+            "net": "+1V1",
+            "xy": [
+              818.42,
+              94.24
+            ]
+          }
+        ],
+        "66": [
+          {
+            "net": "USB_DM_MCU",
+            "xy": [
+              818.02,
+              94.24
+            ]
+          }
+        ],
+        "67": [
+          {
+            "net": "USB_DP_MCU",
+            "xy": [
+              817.62,
+              94.24
+            ]
+          }
+        ],
+        "68": [
+          {
+            "net": "+3V3",
+            "xy": [
+              817.22,
+              94.24
+            ]
+          }
+        ],
+        "69": [
+          {
+            "net": "+3V3",
+            "xy": [
+              816.82,
+              94.24
+            ]
+          }
+        ],
+        "70": [
+          {
+            "net": "SUPF_D3",
+            "xy": [
+              816.42,
+              94.24
+            ]
+          }
+        ],
+        "71": [
+          {
+            "net": "SUPF_CLK",
+            "xy": [
+              816.02,
+              94.24
+            ]
+          }
+        ],
+        "72": [
+          {
+            "net": "SUPF_D0",
+            "xy": [
+              815.62,
+              94.24
+            ]
+          }
+        ],
+        "73": [
+          {
+            "net": "SUPF_D2",
+            "xy": [
+              815.22,
+              94.24
+            ]
+          }
+        ],
+        "74": [
+          {
+            "net": "SUPF_D1",
+            "xy": [
+              814.82,
+              94.24
+            ]
+          }
+        ],
+        "75": [
+          {
+            "net": "SUPF_CS",
+            "xy": [
+              814.42,
+              94.24
+            ]
+          }
+        ],
+        "76": [
+          {
+            "net": "+3V3",
+            "xy": [
+              814.02,
+              94.24
+            ]
+          }
+        ],
+        "77": [
+          {
+            "net": "SUP_JTAG_TCK",
+            "xy": [
+              813.62,
+              94.24
+            ]
+          }
+        ],
+        "78": [
+          {
+            "net": "SUP_JTAG_TMS",
+            "xy": [
+              813.22,
+              94.24
+            ]
+          }
+        ],
+        "79": [
+          {
+            "net": "SUP_JTAG_TDI",
+            "xy": [
+              812.82,
+              94.24
+            ]
+          }
+        ],
+        "80": [
+          {
+            "net": "SUP_JTAG_TDO",
+            "xy": [
+              812.42,
+              94.24
+            ]
+          }
+        ],
+        "81": [
+          {
+            "net": "GND",
+            "xy": [
+              816.22,
+              99.15
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea743f0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U7"
+      ]
+    },
+    "U8": {
+      "value": "W25Q32JVZP",
+      "xy": [
+        798.34,
+        98.85
+      ],
+      "rotation": -90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "SUPF_CS",
+            "xy": [
+              795.33,
+              96.95
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "SUPF_D1",
+            "xy": [
+              795.33,
+              98.22
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "SUPF_D2",
+            "xy": [
+              795.33,
+              99.48
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "GND",
+            "xy": [
+              795.33,
+              100.75
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "SUPF_D0",
+            "xy": [
+              801.35,
+              100.75
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "SUPF_CLK",
+            "xy": [
+              801.35,
+              99.48
+            ]
+          }
+        ],
+        "7": [
+          {
+            "net": "SUPF_D3",
+            "xy": [
+              801.35,
+              98.22
+            ]
+          }
+        ],
+        "8": [
+          {
+            "net": "+3V3",
+            "xy": [
+              801.35,
+              96.95
+            ]
+          }
+        ],
+        "9": [
+          {
+            "net": "GND",
+            "xy": [
+              798.34,
+              98.85
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe9f4e70> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U7"
+      ]
+    },
+    "Y1": {
+      "value": "12MHz ABM8-272-T3",
+      "xy": [
+        816.22,
+        114.93
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "SUP_XIN",
+            "xy": [
+              815.12,
+              115.78
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              817.32,
+              115.78
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "SUP_XTAL_OUT",
+            "xy": [
+              817.32,
+              114.08
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "GND",
+            "xy": [
+              815.12,
+              114.08
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe91b1f0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U7"
+      ]
+    },
+    "X4": {
+      "value": "50MHz CMOS",
+      "xy": [
+        759.38,
+        95.51
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "+3V3",
+            "xy": [
+              758.28,
+              96.39
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              760.48,
+              96.39
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "SYS_CLK_OSC",
+            "xy": [
+              760.48,
+              94.63
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "+3V3",
+            "xy": [
+              758.28,
+              94.63
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea7eaf0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U1"
+      ]
+    },
+    "R147": {
+      "value": "33",
+      "xy": [
+        762.63,
+        94.63
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "SYS_CLK_OSC",
+            "xy": [
+              762.12,
+              94.63
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "SYS_CLK",
+            "xy": [
+              763.14,
+              94.63
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe90def0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U1"
+      ]
+    },
+    "R151": {
+      "value": "22",
+      "xy": [
+        788.03,
+        126.33
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "SDRAM_CLK",
+            "xy": [
+              787.52,
+              126.33
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "SDRAM_CLK_MEM",
+            "xy": [
+              788.54,
+              126.33
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe9f9470> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U1"
+      ]
+    },
+    "R104": {
+      "value": "33",
+      "xy": [
+        760.64,
+        98.75
+      ],
+      "rotation": 90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "PSRAM0_SCK",
+            "xy": [
+              760.64,
+              99.26
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "PSRAM0_SCK_MEM",
+            "xy": [
+              760.64,
+              98.24
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe92d7f0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U1"
+      ]
+    },
+    "R127": {
+      "value": "33",
+      "xy": [
+        731.97,
+        113.67
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "1": [
+          {
+            "net": "PSRAM3_IO3",
+            "xy": [
+              732.48,
+              113.67
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "PSRAM3_IO3_MEM",
+            "xy": [
+              731.46,
+              113.67
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea5d5f0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U1"
+      ]
+    },
+    "R170": {
+      "value": "27",
+      "xy": [
+        817.17,
+        86.28
+      ],
+      "rotation": -90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "USB_DP",
+            "xy": [
+              817.17,
+              85.77
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "USB_DP_MCU",
+            "xy": [
+              817.17,
+              86.79
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea4f630> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U7"
+      ]
+    },
+    "R171": {
+      "value": "27",
+      "xy": [
+        818.46,
+        86.28
+      ],
+      "rotation": -90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "USB_DM",
+            "xy": [
+              818.46,
+              85.77
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "USB_DM_MCU",
+            "xy": [
+              818.46,
+              86.79
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe92f230> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U7"
+      ]
+    },
+    "U11": {
+      "value": "AP63300WU-7",
+      "xy": [
+        759.14,
+        54.4
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "FB_5V",
+            "xy": [
+              760.34,
+              55.35
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "unconnected-(U11-EN-Pad2)",
+            "xy": [
+              760.34,
+              54.4
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "VSYS",
+            "xy": [
+              760.34,
+              53.45
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "GND",
+            "xy": [
+              757.94,
+              53.45
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "SW_5V",
+            "xy": [
+              757.94,
+              54.4
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "BOOT_5V",
+            "xy": [
+              757.94,
+              55.35
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea37130> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U11"
+      ]
+    },
+    "U12": {
+      "value": "AP63300WU-7",
+      "xy": [
+        689.7,
+        48.59
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "1": [
+          {
+            "net": "FB_3V3",
+            "xy": [
+              688.5,
+              47.64
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "unconnected-(U12-EN-Pad2)",
+            "xy": [
+              688.5,
+              48.59
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "VSYS",
+            "xy": [
+              688.5,
+              49.54
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "GND",
+            "xy": [
+              690.9,
+              49.54
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "SW_3V3",
+            "xy": [
+              690.9,
+              48.59
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "BOOT_3V3",
+            "xy": [
+              690.9,
+              47.64
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea419b0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U12"
+      ]
+    },
+    "U13": {
+      "value": "TLV62569DRLR",
+      "xy": [
+        763.24,
+        173.7
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "FB+2V5",
+            "xy": [
+              762.74,
+              174.42
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              763.24,
+              174.42
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "+5V",
+            "xy": [
+              763.74,
+              174.42
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "SW+2V5",
+            "xy": [
+              763.74,
+              172.98
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "EN_2V5",
+            "xy": [
+              763.24,
+              172.98
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "unconnected-(U13-NC-Pad6)",
+            "xy": [
+              762.74,
+              172.98
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea84f70> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U13"
+      ]
+    },
+    "U14": {
+      "value": "TLV62569DRLR",
+      "xy": [
+        782.18,
+        78.19
+      ],
+      "rotation": -90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "FB+1V8_IO",
+            "xy": [
+              781.46,
+              77.69
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              781.46,
+              78.19
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "+5V",
+            "xy": [
+              781.46,
+              78.69
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "SW+1V8_IO",
+            "xy": [
+              782.9,
+              78.69
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "+5V",
+            "xy": [
+              782.9,
+              78.19
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "unconnected-(U14-NC-Pad6)",
+            "xy": [
+              782.9,
+              77.69
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe92c1b0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U14"
+      ]
+    },
+    "U15": {
+      "value": "SY8047QDC",
+      "xy": [
+        763.25,
+        75.08
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "SW+1V0",
+            "xy": [
+              761.75,
+              74.33
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "SW+1V0",
+            "xy": [
+              761.75,
+              74.83
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "unconnected-(U15-NC-Pad3)",
+            "xy": [
+              761.75,
+              75.33
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "CORE_1V0_GOOD",
+            "xy": [
+              761.75,
+              75.83
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "FB+1V0",
+            "xy": [
+              762.5,
+              76.58
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "GND",
+            "xy": [
+              763.0,
+              76.58
+            ]
+          }
+        ],
+        "7": [
+          {
+            "net": "unconnected-(U15-NC-Pad7)",
+            "xy": [
+              763.5,
+              76.58
+            ]
+          }
+        ],
+        "8": [
+          {
+            "net": "unconnected-(U15-NC-Pad8)",
+            "xy": [
+              764.0,
+              76.58
+            ]
+          }
+        ],
+        "9": [
+          {
+            "net": "CORE_1V0_SS",
+            "xy": [
+              764.75,
+              75.83
+            ]
+          }
+        ],
+        "10": [
+          {
+            "net": "CORE_1V0_SVIN",
+            "xy": [
+              764.75,
+              75.33
+            ]
+          }
+        ],
+        "11": [
+          {
+            "net": "+5V",
+            "xy": [
+              764.75,
+              74.83
+            ]
+          }
+        ],
+        "12": [
+          {
+            "net": "+5V",
+            "xy": [
+              764.75,
+              74.33
+            ]
+          }
+        ],
+        "13": [
+          {
+            "net": "EN_1V0",
+            "xy": [
+              764.0,
+              73.58
+            ]
+          }
+        ],
+        "14": [
+          {
+            "net": "GND",
+            "xy": [
+              763.5,
+              73.58
+            ]
+          }
+        ],
+        "15": [
+          {
+            "net": "GND",
+            "xy": [
+              763.0,
+              73.58
+            ]
+          }
+        ],
+        "16": [
+          {
+            "net": "unconnected-(U15-NC-Pad16)",
+            "xy": [
+              762.5,
+              73.58
+            ]
+          }
+        ],
+        "17": [
+          {
+            "net": "GND",
+            "xy": [
+              763.25,
+              75.08
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbebe23f0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U15"
+      ]
+    },
+    "U16": {
+      "value": "TLV62569DRLR",
+      "xy": [
+        747.76,
+        76.74
+      ],
+      "rotation": -90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "FB+1V2_MGT",
+            "xy": [
+              747.04,
+              76.24
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              747.04,
+              76.74
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "+5V",
+            "xy": [
+              747.04,
+              77.24
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "SW+1V2_MGT",
+            "xy": [
+              748.48,
+              77.24
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "EN_1V2",
+            "xy": [
+              748.48,
+              76.74
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "unconnected-(U16-NC-Pad6)",
+            "xy": [
+              748.48,
+              76.24
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe9220f0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U16"
+      ]
+    },
+    "U18": {
+      "value": "CH224K",
+      "xy": [
+        814.67,
+        40.13
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "PD_VDD",
+            "xy": [
+              812.67,
+              43.13
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              813.67,
+              43.13
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "GND",
+            "xy": [
+              814.67,
+              43.13
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "unconnected-(U18-DP-Pad4)",
+            "xy": [
+              815.67,
+              43.13
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "unconnected-(U18-DM-Pad5)",
+            "xy": [
+              816.67,
+              43.13
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "USB_CC2",
+            "xy": [
+              816.67,
+              37.13
+            ]
+          }
+        ],
+        "7": [
+          {
+            "net": "USB_CC1",
+            "xy": [
+              815.67,
+              37.13
+            ]
+          }
+        ],
+        "8": [
+          {
+            "net": "VBUS",
+            "xy": [
+              814.67,
+              37.13
+            ]
+          }
+        ],
+        "9": [
+          {
+            "net": "PD_CFG1",
+            "xy": [
+              813.67,
+              37.13
+            ]
+          }
+        ],
+        "10": [
+          {
+            "net": "PD_PG",
+            "xy": [
+              812.67,
+              37.13
+            ]
+          }
+        ],
+        "11": [
+          {
+            "net": "GND",
+            "xy": [
+              814.67,
+              40.13
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe9059b0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U18"
+      ]
+    },
+    "U21": {
+      "value": "TPS22950CDDCR",
+      "xy": [
+        760.1,
+        35.79
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "1": [
+          {
+            "net": "EXT_EN",
+            "xy": [
+              761.05,
+              34.64
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "+5V",
+            "xy": [
+              760.1,
+              34.64
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "GND",
+            "xy": [
+              759.15,
+              34.64
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "U21_ILIM",
+            "xy": [
+              759.15,
+              36.94
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "+5V_EXT",
+            "xy": [
+              760.1,
+              36.94
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "EXT_FAULT",
+            "xy": [
+              761.05,
+              36.94
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea5d2f0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U21"
+      ]
+    },
+    "U22": {
+      "value": "TPS22950CDDCR",
+      "xy": [
+        695.91,
+        73.29
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "1": [
+          {
+            "net": "EXT_EN",
+            "xy": [
+              696.86,
+              72.14
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "+3V3",
+            "xy": [
+              695.91,
+              72.14
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "GND",
+            "xy": [
+              694.96,
+              72.14
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "U22_ILIM",
+            "xy": [
+              694.96,
+              74.44
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "+3V3_EXT",
+            "xy": [
+              695.91,
+              74.44
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "EXT_FAULT",
+            "xy": [
+              696.86,
+              74.44
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea21fb0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U22"
+      ]
+    },
+    "U23": {
+      "value": "TPS22953DSQR",
+      "xy": [
+        697.19,
+        93.75
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "": [
+          {
+            "net": "",
+            "xy": [
+              697.19,
+              93.75
+            ]
+          }
+        ],
+        "1": [
+          {
+            "net": "VCCIO_1",
+            "xy": [
+              698.2025,
+              94.55
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "VCCIO_1",
+            "xy": [
+              698.2025,
+              94.15
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "+3V3",
+            "xy": [
+              698.2025,
+              93.75
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "EXT_EN",
+            "xy": [
+              698.2025,
+              93.35
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "GND",
+            "xy": [
+              698.2025,
+              92.95
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "U23_CT",
+            "xy": [
+              696.1775,
+              92.95
+            ]
+          }
+        ],
+        "7": [
+          {
+            "net": "unconnected-(U23-PG-Pad7)",
+            "xy": [
+              696.1775,
+              93.35
+            ]
+          }
+        ],
+        "8": [
+          {
+            "net": "VCCIO_1_EXT",
+            "xy": [
+              696.1775,
+              93.75
+            ]
+          }
+        ],
+        "9": [
+          {
+            "net": "VCCIO_1_EXT",
+            "xy": [
+              696.1775,
+              94.15
+            ]
+          }
+        ],
+        "10": [
+          {
+            "net": "VCCIO_1_EXT",
+            "xy": [
+              696.1775,
+              94.55
+            ]
+          }
+        ],
+        "11": [
+          {
+            "net": "GND",
+            "xy": [
+              697.19,
+              93.75
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbebcac30> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U23"
+      ]
+    },
+    "U24": {
+      "value": "TPS22953DSQR",
+      "xy": [
+        834.07,
+        162.37
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "": [
+          {
+            "net": "",
+            "xy": [
+              834.07,
+              162.37
+            ]
+          }
+        ],
+        "1": [
+          {
+            "net": "VCCIO_2",
+            "xy": [
+              835.0825,
+              163.17
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "VCCIO_2",
+            "xy": [
+              835.0825,
+              162.77
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "+3V3",
+            "xy": [
+              835.0825,
+              162.37
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "EXT_EN",
+            "xy": [
+              835.0825,
+              161.97
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "GND",
+            "xy": [
+              835.0825,
+              161.57
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "U24_CT",
+            "xy": [
+              833.0575,
+              161.57
+            ]
+          }
+        ],
+        "7": [
+          {
+            "net": "unconnected-(U24-PG-Pad7)",
+            "xy": [
+              833.0575,
+              161.97
+            ]
+          }
+        ],
+        "8": [
+          {
+            "net": "VCCIO_2_EXT",
+            "xy": [
+              833.0575,
+              162.37
+            ]
+          }
+        ],
+        "9": [
+          {
+            "net": "VCCIO_2_EXT",
+            "xy": [
+              833.0575,
+              162.77
+            ]
+          }
+        ],
+        "10": [
+          {
+            "net": "VCCIO_2_EXT",
+            "xy": [
+              833.0575,
+              163.17
+            ]
+          }
+        ],
+        "11": [
+          {
+            "net": "GND",
+            "xy": [
+              834.07,
+              162.37
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea40a30> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U24"
+      ]
+    },
+    "U26": {
+      "value": "TPS259470ARPWR",
+      "xy": [
+        815.4,
+        61.71
+      ],
+      "rotation": -90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "VBUS_UVLO",
+            "xy": [
+              815.65,
+              60.835
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "VBUS_OVLO",
+            "xy": [
+              815.15,
+              61.01
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "unconnected-(U26-AUXOFF-Pad3)",
+            "xy": [
+              814.65,
+              60.835
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "EXT_FAULT",
+            "xy": [
+              814.65,
+              62.41
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "VBUS",
+            "xy": [
+              815.15,
+              62.585
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "VBUS_SS",
+            "xy": [
+              815.65,
+              62.41
+            ]
+          }
+        ],
+        "7": [
+          {
+            "net": "VBUS_DVDT",
+            "xy": [
+              816.325,
+              62.46
+            ]
+          }
+        ],
+        "8": [
+          {
+            "net": "GND",
+            "xy": [
+              816.325,
+              61.96
+            ]
+          }
+        ],
+        "9": [
+          {
+            "net": "VBUS_ILM",
+            "xy": [
+              816.325,
+              61.46
+            ]
+          }
+        ],
+        "10": [
+          {
+            "net": "unconnected-(U26-ITIMER-Pad10)",
+            "xy": [
+              816.325,
+              60.96
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea538f0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U26"
+      ]
+    },
+    "U34": {
+      "value": "TPS2121RUXR",
+      "xy": [
+        835.72,
+        134.83
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "+5V",
+            "xy": [
+              835.045,
+              134.48
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "+5V_BUCK",
+            "xy": [
+              835.045,
+              135.18
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "VBUS5_CP2",
+            "xy": [
+              834.97,
+              135.98
+            ]
+          }
+        ],
+        "4": [
+          {
+            "net": "GND",
+            "xy": [
+              835.47,
+              135.98
+            ]
+          }
+        ],
+        "5": [
+          {
+            "net": "VBUS5_OV1",
+            "xy": [
+              835.97,
+              135.98
+            ]
+          }
+        ],
+        "6": [
+          {
+            "net": "VBUS5_PR1",
+            "xy": [
+              836.47,
+              135.98
+            ]
+          }
+        ],
+        "7": [
+          {
+            "net": "VBUS",
+            "xy": [
+              836.395,
+              135.18
+            ]
+          }
+        ],
+        "8": [
+          {
+            "net": "+5V",
+            "xy": [
+              836.395,
+              134.48
+            ]
+          }
+        ],
+        "9": [
+          {
+            "net": "VBUS5_ST",
+            "xy": [
+              836.47,
+              133.68
+            ]
+          }
+        ],
+        "10": [
+          {
+            "net": "VBUS5_ILIM",
+            "xy": [
+              835.97,
+              133.68
+            ]
+          }
+        ],
+        "11": [
+          {
+            "net": "VBUS5_SS",
+            "xy": [
+              835.47,
+              133.68
+            ]
+          }
+        ],
+        "12": [
+          {
+            "net": "GND",
+            "xy": [
+              834.97,
+              133.68
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbebb3230> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U34"
+      ]
+    },
+    "Q3": {
+      "value": "BSS138LT1G",
+      "xy": [
+        839.9,
+        62.56
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "1": [
+          {
+            "net": "PD_REQ_9V",
+            "xy": [
+              838.66,
+              61.61
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              838.66,
+              63.51
+            ]
+          }
+        ],
+        "3": [
+          {
+            "net": "PD_CFG1",
+            "xy": [
+              841.14,
+              62.56
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea132b0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island Q3"
+      ]
+    },
+    "C267": {
+      "value": "10uF 50V",
+      "xy": [
+        759.14,
+        48.29
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "1": [
+          {
+            "net": "VSYS",
+            "xy": [
+              760.615,
+              48.29
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              757.665,
+              48.29
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbebbc3b0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U11"
+      ]
+    },
+    "C268": {
+      "value": "4.7uF",
+      "xy": [
+        768.25,
+        173.7
+      ],
+      "rotation": -90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "+5V",
+            "xy": [
+              768.25,
+              172.925
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              768.25,
+              174.475
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe92f930> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U13"
+      ]
+    },
+    "C269": {
+      "value": "4.7uF",
+      "xy": [
+        782.18,
+        81.74
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "1": [
+          {
+            "net": "+5V",
+            "xy": [
+              782.955,
+              81.74
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              781.405,
+              81.74
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbebb15b0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U14"
+      ]
+    },
+    "C270": {
+      "value": "4.7uF",
+      "xy": [
+        747.76,
+        81.75
+      ],
+      "rotation": 180.0,
+      "pads": {
+        "1": [
+          {
+            "net": "+5V",
+            "xy": [
+              748.535,
+              81.75
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              746.985,
+              81.75
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea6f730> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U16"
+      ]
+    },
+    "C271": {
+      "value": "100nF",
+      "xy": [
+        703.62,
+        93.75
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "+3V3",
+            "xy": [
+              703.14,
+              93.75
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              704.1,
+              93.75
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbebd2bf0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U23"
+      ]
+    },
+    "C272": {
+      "value": "1nF 50V",
+      "xy": [
+        696.18,
+        87.12
+      ],
+      "rotation": 90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "U23_CT",
+            "xy": [
+              696.18,
+              87.6
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              696.18,
+              86.64
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbebd21b0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U23"
+      ]
+    },
+    "C274": {
+      "value": "100nF",
+      "xy": [
+        840.5,
+        162.37
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "+3V3",
+            "xy": [
+              840.02,
+              162.37
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              840.98,
+              162.37
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbebe0fb0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U24"
+      ]
+    },
+    "C275": {
+      "value": "1nF 50V",
+      "xy": [
+        833.06,
+        155.74
+      ],
+      "rotation": 90.0,
+      "pads": {
+        "1": [
+          {
+            "net": "U24_CT",
+            "xy": [
+              833.06,
+              156.22
+            ]
+          }
+        ],
+        "2": [
+          {
+            "net": "GND",
+            "xy": [
+              833.06,
+              155.26
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea6e330> >",
+      "layer": "F.Cu",
+      "island": [
+        "island U24"
+      ]
+    },
+    "MK71": {
+      "value": "BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered",
+      "xy": [
+        120.9,
+        73.14
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "GND",
+            "xy": [
+              120.9,
+              73.14
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea21ff0> >",
+      "layer": "F.Cu",
+      "island": []
+    },
+    "MK72": {
+      "value": "BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered",
+      "xy": [
+        121.0,
+        93.34
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "GND",
+            "xy": [
+              121.0,
+              93.34
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe921030> >",
+      "layer": "F.Cu",
+      "island": []
+    },
+    "MK76": {
+      "value": "BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered",
+      "xy": [
+        721.9,
+        44.3
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "GND",
+            "xy": [
+              721.9,
+              44.3
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbea85230> >",
+      "layer": "F.Cu",
+      "island": [
+        "island J57"
+      ]
+    },
+    "MK77": {
+      "value": "BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered",
+      "xy": [
+        777.78,
+        44.3
+      ],
+      "rotation": 0.0,
+      "pads": {
+        "1": [
+          {
+            "net": "GND",
+            "xy": [
+              777.78,
+              44.3
+            ]
+          }
+        ]
+      },
+      "footprint": "<pcbnew.LIB_ID; proxy of <Swig Object of type 'LIB_ID *' at 0x768cbe92ccf0> >",
+      "layer": "F.Cu",
+      "island": [
+        "island J58"
+      ]
+    }
+  },
+  "findings": [
+    {
+      "id": 52,
+      "priority": "P1",
+      "title": "U34 overvoltage handoff is above downstream 5.5 V operating range"
+    },
+    {
+      "id": 53,
+      "priority": "P1",
+      "title": "J50 plus USB5V still draws +5V loads from USB"
+    },
+    {
+      "id": 54,
+      "priority": "P1",
+      "title": "FPGA configuration flash chip select has no required external pull-up"
+    },
+    {
+      "id": 55,
+      "priority": "P2",
+      "title": "Firmware cannot read advertised USB source current through wired CH224K"
+    },
+    {
+      "id": 56,
+      "priority": "P2",
+      "title": "TPS22953 unused PG pins float; reduced fault coverage needs qualification"
+    },
+    {
+      "id": 57,
+      "priority": "P2",
+      "title": "City power street omits new mux from its high-current path"
+    },
+    {
+      "id": 58,
+      "priority": "P2",
+      "title": "Restored X4 satellite is on the wrong FPGA side"
+    }
+  ],
+  "sources": [
+    {
+      "title": "TI TPS2121 rev F",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2121.pdf",
+      "sections": [
+        "7.5",
+        "9.3.5",
+        "9.5 Table 9-3",
+        "11",
+        "12.1"
+      ],
+      "sha256": "b2f5950f596dc2c4ca33e4ebac27fd35e4dcc68ea63e173466123e1118e91a06"
+    },
+    {
+      "title": "TI TLV62569 rev C",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv62569.pdf",
+      "sections": [
+        "6.1",
+        "6.3"
+      ]
+    },
+    {
+      "title": "AMD UG470 v1.17",
+      "url": "https://docs.amd.com/v/u/en-US/ug470_7Series_Config",
+      "sections": [
+        "Table 2-4 FCS_B and PUDC_B"
+      ],
+      "sha256": "52aa1f1943cdf631b5ff3d859a8d5905dc9fd198522e0e9d63cf3f87271d615c"
+    },
+    {
+      "title": "Winbond W25Q256JV rev Q, manufacturer-authored PDF hosted by TI",
+      "url": "https://e2e.ti.com/cfs-file/__key/communityserver-discussions-components-files/908/W25Q256JV-SPI-RevQ-02072025-Plus.pdf",
+      "sections": [
+        "4.1",
+        "7.1.4",
+        "9.3",
+        "Ordering information"
+      ]
+    },
+    {
+      "title": "TI TPS22953 rev D",
+      "url": "https://www.ti.com/lit/ds/symlink/tps22953.pdf",
+      "sections": [
+        "9.3.3",
+        "9.3.4",
+        "9.3.11",
+        "12.1"
+      ],
+      "sha256": "4b0e165f2de1e45c31b2547bde47eb2f03679f36219c59c491e9eb7ae1975790"
+    },
+    {
+      "title": "WCH CH224 manual 1 v2.1, manufacturer-authored distributor mirror",
+      "url": "https://atta.szlcsc.com/upload/public/pdf/source/20250227/6D68A1393FFD6E9F0B2393231A5DDBA5.pdf",
+      "sections": [
+        "Overview",
+        "4 Table 4-2",
+        "5.2.3"
+      ],
+      "sha256": "df4f8a9f305df715b1c3617e89505faaa2223a0e4053b44373c5deb565b63c0d"
+    },
+    {
+      "title": "Raspberry Pi RP2350 datasheet",
+      "url": "https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf",
+      "sections": [
+        "GPIO function table",
+        "PADS_BANK0 GPIO9"
+      ]
+    },
+    {
+      "title": "Raspberry Pi RP2350 hardware guide",
+      "url": "https://datasheets.raspberrypi.com/rp2350/hardware-design-with-rp2350.pdf",
+      "sections": [
+        "USB",
+        "Regulator layout"
+      ]
+    },
+    {
+      "title": "HCTL HC-TYPE-C-16P-01A drawing",
+      "url": "https://datasheet.lcsc.com/lcsc/2211161000_HCTL-HC-TYPE-C-16P-01A_C2894897.pdf",
+      "status": "Not visually verified: public download redirects to a JS viewer; raw PDF access denied. Clearance fix only is confirmed."
+    }
+  ]
+}

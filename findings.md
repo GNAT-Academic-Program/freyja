@@ -7,11 +7,11 @@ generated from `tools/`, and those inputs are reference material only. **Items
 
 Regenerate everything with the commands in `kicad/README.md`.
 
-**Latest review:** [2026-10-29 independent schematic and city audit](#audit-conclusion-and-scope),
-items 34–51, including the current checks, priority corrections, placement
-verdict and supported design decisions. **Corrections applied the same day:**
-see [the status table](#status-of-items-34-51-after-the-corrections-of-2026-10-29)
-at the end; the audit text itself is kept as written.
+**Latest review:** [independent re-audit after the corrections, 2026-10-29](#re-audit-verdict),
+against `9dd5fa8`: three P1 corrections remain, plus four new P2 findings
+(52–58) and the qualification/placement work listed there. Most earlier
+corrections are verified. Parts III and its correction-status table are
+retained as history; **Part IV is the current independent verdict**.
 
 ---
 
@@ -1337,3 +1337,330 @@ flags, compaction of the city onto the board, routing, the bench items
 (COUT, U34 source cases, power-down timing) and the J1 drawing check (LCSC
 refuses non-browser access).
 
+---
+
+# Part IV — independent re-audit after corrections, 2026-10-29
+
+## Re-audit verdict
+
+**Most corrections are present and electrically coherent, but the schematic
+still needs three corrections before committing a prototype PCB:** U34's
+overvoltage threshold permits the 5 V rail outside its loads' operating
+range; connecting J50 does not relieve USB of the 5 V load; and U6's flash
+chip select lacks its required pull-up. Four additional P2 findings cover
+source-current detection, load-switch support and the applied city plan.
+
+Baseline: `9dd5fa85e318972e9969e3accb2eaf53ae8f3831`, compared with the
+previous audit's `82cb093`. This review checked the changed generator,
+schematic/netlist, all actual PCB pin nets, island memberships and positions,
+the current city preview, and the cited manufacturer requirements. The
+correction-status table above was treated as a claim to verify. No circuit,
+placement, routing or generator was changed. Unrouted staging remains
+appropriate to this phase. P1/P2/P3 retain the definitions in Part III.
+
+Evidence, baseline hashes, relevant pin connections, source-case calculations,
+DRC pairs and selected pad coordinates are saved in
+[reaudit-2026-10-29.json](ref/board-review/reaudit-2026-10-29.json).
+
+| Independently reproduced check | Current result |
+|---|---|
+| Design model versus PCB pads | 544 parts / 544 footprints; **0 pin-net mismatches** |
+| Schematic export versus stored netlist | Matches |
+| Allocation versus XDC and gate top | Matches |
+| Parts-role coverage | 544/544; 0 problems or gaps |
+| ERC / schematic parity | 0 errors, 2 allowlisted temperature-diode warnings / 0 differences |
+| Assembly / copper | All footprints front; 8 copper layers; 0 tracks, 0 vias |
+| Footprint origins | 66 inside the outline, 478 staged outside |
+| DRC | **10 courtyard errors**, 298 warnings, 499 reported unconnected items; no remaining J1 hole-clearance errors |
+| Mechanical checker | **Fails with 10 findings**: four lattice/row findings and six A–F key-position findings |
+| Gate | Electrical PASS; mechanical FAIL; ordinary exit code 0, as now explicitly documented |
+| Deep FPGA signal balls | 80 at depth >=7: 17 inherent, 63 classified as allocation choices |
+
+The electrical gate now reports its scope honestly. Its PASS establishes
+consistency and the checks it implements; the analogue issues below remain
+outside those checks.
+
+## Verification of the earlier corrections
+
+| Earlier item | Independent disposition |
+|---|---|
+| 34 VCCO/VCCAUX sequencing | **Original indefinite firmware-dependent state removed.** U11 automatically starts; U14 EN is tied to its input. Keep the DS181 rail-ramp and power-down waveform check open. A load estimate is not a guaranteed discharge path. |
+| 35 USB backfeed | **Q2 body-diode defect removed.** U34 is correctly pinned and provides the intended reverse-blocking topology. Its threshold and source-priority implementation need items 52–53. |
+| 36 USB termination | **Verified.** The fitted pair is **R170/R171**, 27 ohm, between the connector/ESD nets and U7. The correction table's R162/R163 are actually U34 divider resistors. Final placement must keep the pair at U7. |
+| 37 PD default | **Verified topology.** CFG1 is pulled to PD_VDD, Q3 has a gate pull-down, and CFG2/CFG3 are grounded: default 5 V, asserted request 9 V. No higher digital code is available. This proves voltage selection, not available current. |
+| 38 Converter input caps | **Schematic and ownership verified.** C267 is 10 uF/50 V at U11; C268–C270 are 4.7 uF at U13/U14/U16, in their respective islands. Preserve short VIN/GND loops during compaction. |
+| 39 PSRAM startup | **Original conflict removed.** PUDC_B is high; all four memories have CE pull-ups and five clock/data pull-downs on their memory-side nets. The 150 us wait/reset sequence remains a gateware obligation. The global strap change also exposes item 54. |
+| 40 Regulator COUT | **Still open, now tracked.** Direct sums agree with the report. U11 also has **81.7 uF downstream of U34**, in addition to its direct 66 uF; the mux does not establish control-loop isolation. Qualify the complete network, jumper choices, effective capacitance and ESR. Exceeding an example's capacitor range is a qualification gap, not proof of instability. |
+| 41 Switch operation at 1.8 V | **Voltage-margin defect removed.** TPS22953 BIAS is +3V3 and the selected rails are within its input range. Support-pin and fault-coverage conditions remain in item 56. |
+| 42 Native controller peripherals | **Verified against the RP2350 function table.** SPI1 SCK/TX/RX = GPIO10/11/12, CSn = GPIO9; I2C1 SDA/SCL = GPIO14/31; UART0 TX/RX = GPIO32/33. Quad flash still needs the documented PIO handling. |
+| 43 Slave serial | **Closed by scope decision.** Fixed master SPI and volatile JTAG loading are now the contract; no copper change is required for that decision. |
+| 44 Island ownership | **Ownership fixed.** R104–R127 and R151 belong to U1; X4/R147/C246 are together and merged into U1; U8/Y1 are back with U7; Q2 is gone. Correct membership does not establish the final source-termination distance or clock-side placement; see item 58. |
+| 45 microSD access | **Design choice documented, mechanical proof pending.** Above-board card travel and 12 mm finger space must survive compaction and the populated shield/enclosure arrangement. |
+| 46 Source envelope | **Substantially improved, incomplete.** The model now distinguishes modes and hardware limits. It omits the mixed-source case in item 53 and relies on unavailable source information in item 55. Further model limits are listed below. |
+| 47 Gate scope | **Verified fixed.** Separate electrical/mechanical verdicts and `--strict` remove the earlier ambiguity. |
+| 48 Documentation | **Partly fixed.** Main pin maps are improved. The manual still calls the network edge “top” while the current city puts it below U1, and still offers full export on PD9 despite the budget rejecting it. `floorplan.md` still describes a left-side X4 that is now above U1. |
+| 49 J1 clearance | **DRC defect fixed; footprint qualification pending.** The custom pads clear the holes. The shortened land pattern still needs comparison with the HCTL drawing; the public PDF redirects to a JavaScript viewer and direct retrieval was denied in this review. No manufacturer-pattern match is claimed. |
+| 50 Telemetry | **Verified.** MON_1V8 senses the post-FB1 VCCAUX rail; ADC6/7 sense both selected VCCIO rails. The explicitly unmeasured, unused-GTP 1.2 V rail remains an accepted limitation. |
+| 51 Key posts | **Reference/ownership correction verified; mechanical closure incomplete.** MK76/MK77 follow the 5 V buses, and G/H/L/M pass the individual key-offset test. However, **J7/J57/MK76 still fails the signal-to-power-row lattice check**. This is separate from the six A–F key failures. See the mechanical disposition below. |
+
+The native-peripheral cross-check uses the
+[Raspberry Pi RP2350 datasheet](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf).
+USB and local regulator placement remain governed by the
+[Raspberry Pi hardware guide](https://datasheets.raspberrypi.com/rp2350/hardware-design-with-rp2350.pdf).
+
+## 52. P1 — U34 hands off above the downstream 5.5 V operating limit
+
+**Entities:** U34 OV1, R164 = 100k, R165 = 23.2k; U13/U14/U16 and the other
+5 V consumers. See `tools/design.py`, U34 support network.
+
+The rising trip is `1.06 × (1 + 100/23.2) = 5.629 V`. Using the specified
+1.01–1.10 V comparator reference and assuming 1% divider resistors, the static trip
+envelope is approximately **5.277–5.937 V**, before leakage and dynamics.
+U34 selects the rising VBUS until this trip. At light load its output can
+therefore exceed 5.5 V during a normal 5→9 V negotiation. The reverse
+transition also needs checking. The TLV62569's operating maximum is 5.5 V;
+its 6 V absolute maximum is not an operating allowance.
+[TI TPS2121, sections 7.5 and 9.3.5](https://www.ti.com/lit/ds/symlink/tps2121.pdf),
+[TI TLV62569, sections 6.1 and 6.3](https://www.ti.com/lit/ds/symlink/tlv62569.pdf).
+
+**Required correction:** establish a handoff/clamp design whose worst-case
+output stays within the downstream operating limits while accepting the
+allowed 5 V input range. Include divider/comparator tolerances and source
+slew. The advertised 5 us is a typical switchover figure, **not a guaranteed
+OV-response bound**; the comments currently treat it as one. Scope both
+negotiation directions after the schematic is corrected.
+
+## 53. P1 — J50 does not take over the 5 V load while USB supplies 5 V
+
+**Entities:** U34 PR1/CP2 dividers, D3/D4, J50; `budget.py::mode_rows()` and
+the manual's simultaneous-input claim.
+
+With both sources connected, PR1 is about 1.337 V at VBUS = 5 V and CP2 is
+about 1.187 V at +3V3 = 3.3 V. OV1 has not tripped. Table 9-3 consequently
+selects **IN1 = USB VBUS**, even if J50 supplies VSYS. This is a deliberate
+result of the fitted dividers, not an uncertain handoff race.
+[TI TPS2121, Table 9-3](https://www.ti.com/lit/ds/symlink/tps2121.pdf).
+
+| Connected sources | Actual source of the +5V rail |
+|---|---|
+| USB 5 V alone | USB through U34 IN1 |
+| USB 9 V alone | U11 through IN2 after OV1 trips; item 52 applies |
+| J50 alone | U11 through IN2 |
+| **J50 + USB 5 V** | **USB through IN1**, including downstream converters and +5V_EXT |
+| J50 + USB 9 V | U11 through IN2; D3/D4 select the VSYS source |
+
+The model's full J50 row assumes all loads come through D4. That assumption
+fails in the highlighted case. Its own 5 V allowance is about 1.72 A at
+the rail: a programming cable attached to a 500 mA computer port cannot
+supply it, despite the bench supply being connected. U34's 2–3 A current
+limit does not protect that source allocation.
+
+**Required correction:** give the external input an effective way to take
+the complete board load, or explicitly support and budget this hybrid
+case with the USB load capped appropriately. Update the source-state
+table and user contract together. The existing hardware has no MCU mux
+select connection that firmware can simply toggle.
+
+## 54. P1 — FPGA configuration-flash chip select has no startup pull-up
+
+**Entities:** U6 pin 1, U1 P18/FCS_B, R22, U7 GPIO9, PUDC_B.
+
+`FLASH_CS_B` connects only U1, U6 and R22; `SUP_FCS_B` continues through
+R22 to U7. Neither net has a pull-up. The FPGA's internal configuration
+pull-ups are now disabled, and its core remains off in recovery. The
+controller does not provide a hardware-guaranteed high CS during the
+flash supply ramp.
+
+UG470 Table 2-4 explicitly requires an **external pull-up of at most 4.7k
+to VCCO_14 on FCS_B**. Winbond also requires CS to follow VCC through
+power-up/down. Add that bias at the flash/configuration bus and include the
+controller's reset state in its sizing. This is a missing schematic part,
+not a firmware initialization fix.
+[AMD UG470, Table 2-4](https://docs.amd.com/v/u/en-US/ug470_7Series_Config),
+[Winbond W25Q256JV rev Q, sections 4.1 and 9.3, manufacturer-authored PDF hosted by TI](https://e2e.ti.com/cfs-file/__key/communityserver-discussions-components-files/908/W25Q256JV-SPI-RevQ-02072025-Plus.pdf).
+
+This finding is specifically CS. The fitted **IQ** ordering option has QE
+fixed high, so the WP/HOLD pins' quad-I/O behavior does not independently
+justify alleging two more missing control pull-ups.
+[Winbond ordering information and section 7.1.4](https://e2e.ti.com/cfs-file/__key/communityserver-discussions-components-files/908/W25Q256JV-SPI-RevQ-02072025-Plus.pdf).
+
+## 55. P2 — the source-current policy depends on information U7 cannot read
+
+**Entities:** U18 CH224K, USB_CC1/2, PD_PG, VBUS5_ST; `budget.py::SOURCES`
+and the generated power-budget instructions.
+
+The budget says Type-C Rp is “read by the CH224K” and that firmware reads
+the advertisement. CC1/2 connect only J1 and U18. U7 gets a voltage-request
+control and **PG**, not a current/contract data interface. VBUS5_ST reports
+the mux selection. These signals cannot distinguish 5 V/default, 1.5 A and
+3 A capability, or establish a 3 A PD contract.
+
+The WCH manual distinguishes the CH224K's resistor/logic configuration from
+the **CH224A/Q** I2C interface that can report contract current. That newer
+interface must not be attributed to the fitted K part.
+[WCH CH224 manual 1 v2.1, overview, Table 4-2 and section 5.2.3, manufacturer-authored mirror](https://atta.szlcsc.com/upload/public/pdf/source/20250227/6D68A1393FFD6E9F0B2393231A5DDBA5.pdf).
+
+**Required resolution:** provide observable source capability, or define a
+conservative/user-declared power policy that works with the existing
+signals. A successful voltage request alone cannot authorize the table's
+current allowance. Retain the safe hardware 9 V ceiling if changing the
+PD controller. Verify USB startup and the load allowed before enumeration
+separately from the table's explicitly configured 500 mA case.
+
+## 56. P2 — TPS22953 support and fault coverage are not fully closed
+
+**Entities:** U23/U24 pin 7 PG, their CT/BIAS bypass networks, PIN V branches.
+
+Both PG pins are marked unconnected. TI section 9.3.3 explicitly says to
+**tie unused PG to ground for proper functionality**. Ground them, or use
+them with the specified pull-ups in a deliberate reporting circuit.
+[TI TPS22953, section 9.3.3](https://www.ti.com/lit/ds/symlink/tps22953.pdf).
+
+The 1.8 V operating-range fix is valid, but the old aggregate current limit
+and fault indication were removed. Four slots share each PIN V domain;
+four 500 mA PTCs do not impose a 500 mA aggregate ceiling. `EXT_FAULT` now
+connects U26/U21/U22, not U23/U24. With SNS tied to OUT, the switches also
+have the documented automatic restart after an output-undervoltage fault.
+Qualify that behavior with a shorted branch and the upstream shared rail;
+do not assume a PTC necessarily trips before a base-board brownout.
+[TI TPS22953, sections 9.3.4 and 9.4](https://www.ti.com/lit/ds/symlink/tps22953.pdf).
+
+This tradeoff is acknowledged in the new extension document. The older item
+25's blanket “fault isolation fixed” description no longer describes this
+hardware. A 0.5 A software allocation remains possible, but is not enforced
+by U23/U24. At the 1.8 V jumper setting the upstream source also supplies
+VCCAUX, making this a meaningful fault test.
+
+Before freezing these islands, shorten the CT and BIAS loops. The current
+C272/C275 pad-to-CT distance is about 5.35 mm and C271/C274 to BIAS about
+4.94 mm, with other parts occupying the intervening area. The profile name
+“at pin” does not establish local placement. TI calls for CT and bypass
+close to the device and a copper clearance beneath CT.
+[TI TPS22953, section 12.1](https://www.ti.com/lit/ds/symlink/tps22953.pdf).
+
+## 57. P2 — the regulator street is missing its new high-current junction
+
+**Entities:** U11 → U34 → +5V → U14/U15/U16, the city `CRITICAL`/`DOORS`
+rules, and U34's IN2 bypass.
+
+The regulator row remains a sensible arrangement, but U34 is planned below
+U7 on the far right. In the staged city, U11→U34 is about 111 mm and
+U34→U15 about 94 mm; U11→U15 directly is only 21 mm. These are planning
+distances, not final trace lengths. The important error is that the
+planner still strongly attracts **U11 directly to U15**, while every ampere
+of regulated +5V now passes through U34.
+
+Move U34 into the upstream supply junction near U11 and the low-voltage
+row, and reserve the actual U11→U34→loads copper path. Reassess its
+connection toward J1 at the same time. IN2 has no bypass in U34's own
+island; the documented plan borrows U11's capacitors, which only works if
+the two become genuinely adjacent. TI calls for short, wide paths and
+local bypass on IN1, IN2 and OUT.
+[TI TPS2121, sections 11 and 12.1](https://www.ti.com/lit/ds/symlink/tps2121.pdf).
+
+This is a relative-placement correction worth doing before city
+compaction. Grouping the power converters into a street remains acceptable;
+aligning the real supply path is what makes that street useful.
+
+## 58. P2 — X4 returned to the power-door side instead of the SYS_CLK side
+
+**Entities:** X4/R147/C246, U1 M21, `city.py::attach`, `SATELLITES`, `RESEAT`.
+
+The latest satellite restoration recovered membership, but the actual PCB
+puts X4 at `(759.38, 95.51)` above U1 `(760.00, 122.83)`. SYS_CLK is ball
+M21 at `(752.50, 124.33)`, on the left side. R147's SYS_CLK pad is about
+31.55 mm straight-line from that ball in this staged placement. The plan
+explicitly labels the satellite **N side**, contradicting the floorplan's
+left-side correction and placing the clock beside the power door again.
+
+`attach()` averages shared supply pads along with the clock connection;
+its result can be dominated by +3V3. The pin-specific `RESEAT` rule only
+runs when its parts already belong to the host at planning time, so it
+did not govern the separately restored X4 island in this plan.
+
+Use the actual SYS_CLK pin to choose the side, independent of temporary
+group state. Keep **X4, R147 and C246** together when applying that rule
+(the current RESEAT list names only X4/R147). Put R147 at the oscillator
+output and retain a quiet, short clock corridor toward M21. The distance
+here flags the wrong neighborhood; it is not a claimed final SI failure.
+
+## Remaining mechanical and qualification work
+
+**The key-post correction is useful but has not proved the mating lattice.**
+`place.py --check` still reports J5/J3 pad-lattice disagreement; the
+J5/J55/MK69, J3/J53/MK65 and J7/J57/MK76 row-lattice failures; and the six
+A–F key offsets. Passing G/H/L/M's individual position-1 check does not
+close the row checks. Preserve the recorded above-board microSD access
+volume while settling these connector positions.
+
+The ten courtyard errors are six post-to-header pairs and **four
+post-to-capacitor pairs**: MK71/C159, MK72/C161, MK76/C143 and MK77/C145.
+The latter need their own clearance review; the zero-gap header-body
+argument alone does not dispose of them. These are courtyard findings,
+not demonstrated body intersections. Reposition the nearby capacitors or
+justify each exception from actual body, lead and assembly clearances.
+The full DRC pairs are in the evidence file.
+
+**The budget is a better planning model, not a power qualification.** Its
+recovery mode selects only RP2350/flash/U20 entries on +3V3, but X4 and the
+PHY's 3.3 V supply/internal LDO remain physically powered. SDRAM standby,
+other always-on circuitry and the controller's own regulator input power
+also need a consistent recovery accounting. Reset is not a supply switch;
+use reset/standby current evidence rather than the full-active figures or
+zero. This does not prove recovery exceeds 500 mA; it leaves its guarantee
+unproven. The light-mode 1.47 A estimate also has only about 30 mA margin
+against a 1.5 A source before estimate/efficiency uncertainty.
+
+`mode_rows()` additionally combines U26/U34 limits rather than checking
+each path separately, and the new inductor calculation uses nominal L,
+frequency and a 9 V input for the wide-input converters. Extend the checks
+to each path and the 21 V/tolerance envelope before treating PASS as
+qualification. The fitted inductors' nominal margins are a useful positive
+result; no saturation failure was demonstrated here.
+
+Keep item 40's complete regulator-network qualification and item 34's
+power-down/ramp measurements open. Final FPGA XPE/load estimates, escape
+trials, return paths, impedance geometry and prototype SI remain later
+milestones. In particular, source-resistor membership in U1 does not
+prove sufficiently short driver-side stubs after escape routing.
+
+**Neighborhoods that still make sense:** all four PSRAMs now occupy the
+bank-13 side; U13 remains beside bank 16 and the PHY; PHY/crystal/jack and
+connector-side ESD ownership remain coherent; SDRAM is between its bank
+14/35 escapes; the RP2350 still owns its flash and crystal. Keep these
+relationships while correcting U34 and X4. The unused-MGT supply remains
+a valid, optional simplification opportunity, not a new defect.
+
+Address 52–54 first, settle 55–56 before freezing the schematic, then
+repair 57–58 and the connector lattice while compacting. The earlier
+architecture/bank-voltage conclusions remain supported within their stated
+boundaries; the changes above are necessary to close the remaining gaps.
+
+
+## Status of the Part IV findings, 2026-10-29
+
+Corrected the same day, against `9dd5fa8`. Commits `cd74e9f` (schematic
+and budget), `e243a09`..`dd31f75` (one island each: Q6, Q7, U34 twice,
+J57, J58, U23, U24), `bb9ab7f` (city re-planned and applied). Gate
+electrical PASS (parts 553, ERC 0, netlist/XDC/guide in step, parity 0);
+DRC 8 courtyard errors (was 10); mechanical 9 findings (was 10). The
+entries "Re-audit corrections, part 1 and 2" in `ref/rev-a-report.md`
+carry the numbers.
+
+| Item | Status | What changed |
+|---|---|---|
+| 52 U34 handoff above 5.5 V | **FIXED** | The handoff is decided by intent, not by a threshold: Q6 (BSS138) pulls PR1 to ground while PD_REQ_9V is high and, through D24 (1N4148W) into 470k/10 uF, for 2.4-7.2 s after it falls (Table 9-3: PR1 < VREF with CP2 ≥ VREF selects IN2). The rail is on U11 before the charger moves VBUS and stays there until VBUS is back at 5 V; a dead or resetting controller releases the request through R173 and the same hold covers the fall. During the negotiation the rail is U11 in dropout, about 4.5 V (AP63300 LDO mode), inside every +5V consumer's range; EXT_EN stays off until the request is settled. OV1 stays at 5.63 V typical as a fault backstop only; `design.py` now computes its 5.26-5.96 V worst case (reference 1.01-1.10 V, 1 % resistors) and refuses a build that exceeds the TLV62569's 6 V absolute maximum or rejects a 5.25 V USB 2.0 port. The 5 us figure is called typical where it appears. |
+| 53 J50 + USB 5 V | **FIXED** | Q7 (BSS138) pulls PR1 to ground while VIN_EXT carries voltage (100k/33k before D4: on between 3.2 and 6.0 V, 2.2 V on the gate at the 9 V minimum, 5.2 V at 21 V). With J50 connected the whole board runs from J50 through U11, whatever is on USB. `budget.py`: the J50 row is also the J50 + USB row; each path (U34, U26) is checked against its own limit and the sum against the source. `user-manual.md`, `power-input.md`, `power.md` say so. |
+| 54 FCS_B pull-up | **FIXED** | R203, 4.7k from FLASH_CS_B to +3V3 (UG470 Table 2-4; W25Q256JV CS# follows VCC). Sized with the controller's reset state: an RP2350 pad at reset has its pull-down enabled, which through R22 (33 ohm) leaves CS near 3.0 V [verify the RP2350 pad reset defaults]. |
+| 55 source-current policy | **RESOLVED by policy, hardware option recorded** | No readable Rp: the CC lines go only to the CH224K, which has no data interface. The CH224A is pin-compatible but its I2C mode is the single-resistor mode, where register 0x0A can request up to 28 V (CH224 manual 1 v2.1, 5.2.3, Table 5-3), which would give up the 9 V ceiling by construction; not fitted. `budget.py` SOURCES now say what is observable: any 5 V source is a 500 mA port unless user-declared; a granted 9 V request (PD_PG) is a 15 W guarantee under the PD power rules [verify PD3 10.2], so light mode fits and full export does not; J50 is detected on MON_VSYS. Recovery is 0.21 A at 4.75 V: inside 500 mA, above the 100 mA an unconfigured USB 2.0 device may draw, stated as open (PHY, SDRAM, X4 and U20 sit on the always-on +3V3 with no switch). Hardware alternative if wanted: two dual comparators on CC1/CC2 at 0.66 V and 1.23 V into four spare GPIOs, through 1 M series resistors so Rd is not loaded. |
+| 56 TPS22953 PG and fault coverage | **PG FIXED; coverage stated, bench open** | U23/U24 PG tied to ground (SLVSCT5D 9.3.3); the symbol pin typed passive so ERC does not call the tie a driver conflict. `extension-ux.md` and `power-input.md` now say plainly: no fault report from U23/U24, four 500 mA PTCs are not a 500 mA ceiling, automatic restart after an output undervoltage (9.3.4, 9.4); the shorted-branch test against the shared rail is a bench item. Islands U23/U24 re-applied with the TPS22953 profile: CT pin to its capacitor pad 1.43 mm (was 5.35), BIAS 1.60 mm (was 4.94). |
+| 57 regulator junction | **FIXED** | C280, 1 uF at U34 IN2 (SLVSEA3F 11), innermost at pin 2 by profile rule; the 3 x 22 uF at U11 stay the bulk. `city.py`: U34 closes the top door row (U16, U15, U14, U34) on the USB side; CRITICAL pulls U11-U34 (6), U34-U15 (4), U34-J1 (2) replace U11-U15, so U11 sits above the row against the mux; Q6 and Q7 are satellites of U34 on its PR1 pin (same-side satellites now stack outward). U11 inside the row was tried both ways and rejected: at the right end it pushed U26 off J1, at the left end it pushed PSRAM U2 off the bank-13 side, which the audit asked to keep. Applied, in the 2.2x staged city: U11 to U34 45 mm (was 111), U34 to U15 40 (was 94), U34 to U14 23, U34 to U26 18; U26 kept its place at J1; the four PSRAMs stay on the bank-13 side. |
+| 58 X4 side | **FIXED** | `city.py` SATELLITES take a deciding net (X4: SYS_CLK), so attach() uses the M21 ball alone, not the +3V3 pads; RESEAT lists X4, R147 and C246. Applied: X4 on U1's west side at the ball row, R147's SYS_CLK pad 22.7 mm from M21 in the staged city (was 31.6, north side, beside the power door). floorplan.md corrected. |
+| mechanical | **PARTLY** | J7/J57/MK76 row lattice: `city.py` snaps the inboard L/M rows to the bus headers' 2.54 mm lattice (J57 is now 6 pitches below J7, MK76/MK77 at position 1 of their rows). J57/J58 re-applied with the slot-row profile change (PIN V fuse and 10 uF inboard, on the AUX fuse's row), which clears MK76/C143 and MK77/C145. Left to the owner (hand placement is authoritative): C159 and C161 on the board, 1.2 mm from MK71/MK72 (park them off the board and re-run J56/J65 with the same profile, or nudge them inboard by hand); the J5/J3 lattice (J5 sits 0.81 mm off J3's row); the A-F posts; the six post-to-header courtyard pairs are the zero-gap contract. |
+| budget model | **FIXED as asked** | Per-path limits; inductor peaks at the 21 V / 5.5 V envelope with L at -20 % (all pass, U12 3.19 A of 6.8 A worst); recovery column per load with standby/reset figures (U33 MRAM added to the table); the pre-enumeration allowance stated as not met. |
+
+Still open after this pass: item 40 (COUT beyond the validated range on
+U12-U16, bench), item 34 (DS181 ramp and power-down waveforms), the
+U23/U24 shorted-branch test, the J1 land pattern against the HCTL drawing
+[verify], the pre-enumeration current, the A-F posts and the J5/J3 lattice,
+compaction and routing.

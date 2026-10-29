@@ -530,3 +530,32 @@ What (findings Part IV, items 52-57; the independent re-audit against
 Open after this part: item 40 COUT qualification, item 34 DS181 ramp and
 power-down waveforms, the U23/U24 shorted-branch test, the pre-enumeration
 current, the J1 land pattern against the HCTL drawing.
+
+## Re-audit corrections, part 2: islands and the city 2026-10-29
+Parts: 553; ERC 0; DRC 8 courtyard errors (was 10: MK76/C143 and
+MK77/C145 cleared; the remaining pairs are the six post-to-header zero-gap
+pairs and the owner's C159/C161 beside MK71/MK72), 0 parity; mechanical 9
+findings (was 10: J7/J57/MK76 now on the lattice). Gate electrical PASS.
+What, one commit per island, each dry run reviewed:
+- Q6 (--without Q7: Q is not an anchor family, so the two transistors
+  pulled each other in) and Q7 (--without Q6), own design groups "Q6  mux
+  hold: 9 V request" and "Q7  mux hold: screw input present".
+- U34 re-applied twice: with C280 (IN2 bypass), then with a profile rule
+  "IN2 bypass" so the 1 uF is innermost at pin 2 and the 22 uF beside it.
+- J57 and J58 re-applied with the XFCN profile change: PIN V fuse and 10 uF
+  on the inboard row with the AUX fuse. The posts MK76/MK77 are an anchor
+  family and did not move with the chunk; the apply drops them from the
+  group and the city merges them back at position 1 (POST_WITH_ROW).
+- U23 and U24 re-applied: CT 1.43 mm and BIAS 1.60 mm pin to pad.
+- City, applied twice (bb9ab7f, then the final plan): door row U16, U15,
+  U14, U34 with U11 wired against the mux. U11 inside the row was tried at
+  both ends: right end pushed U26 off J1, left end pushed PSRAM U2 off the
+  bank-13 side (the first apply had that defect; corrected in the second).
+  Q6/Q7 are satellites of U34 on PR1 (city.py stacks same-side satellites
+  outward). SATELLITES net for X4; RESEAT with C246; the inboard L/M rows
+  snapped to the lattice. 488 footprints moved as rigid groups, none inside
+  the outline except MK76/MK77 (1.4 mm, with their rows). X4 west of U1 at
+  the SYS_CLK row (R147 pad to M21 22.7 mm staged, was 31.6 north);
+  U11 -> U34 45 mm (was 111), U34 -> U15 40 (was 94), U34 -> U14 23,
+  U34 -> U26 18, staged at 2.2x.
+Open: see the Part IV status table in findings.md.
