@@ -35,7 +35,7 @@ are not in these numbers.
 | Ref | Output | Board load | Rating | Used |
 |---|---|---:|---:|---:|
 | `U11` | +5V | 0.721 A | 3 A | 24 % |
-| `U12` | +3V3 | 0.934 A | 3 A | 31 % |
+| `U12` | +3V3 | 0.734 A | 3 A | 24 % |
 | `U13` | +2V5 | 0.140 A | 2 A | 7 % |
 | `U14` | +1V8_IO | 0.308 A | 2 A | 15 % |
 | `U15` | +1V0 | 1.650 A | 4 A | 41 % |
@@ -53,16 +53,15 @@ are not in these numbers.
 | +1V2_MGT | MGTAVTT, 2 lanes | 0.150 A | estimate | share of the 0.4 W transceiver line |
 | +3V3 | RP2350B supervisor + boot flash | 0.070 A | estimate | ref/power-input.md: 0.2 W |
 | +3V3 | FPGA bank 14 VCCO and its I/O | 0.100 A | estimate | one third of the 1.0 W VCCO/IO line |
-| +3V3 | PSRAM x4, all active | 0.200 A | estimate | ref/power-input.md: 0.66 W across four chips |
 | +3V3 | config flash W25Q256, program | 0.030 A | datasheet | W25Q256JV: 25 mA page-program peak |
 | +3V3 | RTL8211FD-CG, 1000Base-T link | 0.200 A | estimate | datasheet rev 1.7 gives no active-mode consumption table; planning allowance for a 1 Gb PHY with internal LDO, verify on the prototype |
 | +3V3 | ETH jack LEDs x2 through 510 ohm | 0.006 A | datasheet | RTL8211F Figure 5; about 3 mA each |
 | +3V3 | X4 50 MHz CMOS oscillator | 0.010 A | estimate | typical 3225 CMOS oscillator at 50 MHz into a 15 pF load |
 | +3V3 | Heartbeat and user LEDs x3, all on | 0.005 A | estimate | D9-D11 via 1k each; 5 mA budget allowance |
-| +3V3 | U9/U10 VCCA, U20, pull-ups, LED | 0.030 A | estimate | quiescent logic |
+| +3V3 | U20, pull-ups, LED | 0.030 A | estimate | quiescent logic |
 | +3V3 | FPGA bank 15 VCCO, worst case jumpered to 3.3V | 0.100 A | estimate | bank load only; connector export is checked from switch maximum below |
 | +3V3 | FPGA bank 34 VCCO, worst case jumpered to 3.3V | 0.100 A | estimate | bank load only; connector export is checked from switch maximum below |
-| +3V3 | FPGA banks 13/35 VCCO and bank 0 | 0.060 A | estimate | bank 13 carries the two 5V buses; 35 drives HDMI (TMDS_33 current comes from the monitor's 3.3 V pull-ups, not from VCCO) |
+| +3V3 | FPGA bank 35 VCCO and bank 0 | 0.060 A | estimate | bank 35 drives HDMI (TMDS_33 current comes from the monitor's 3.3 V pull-ups, not from VCCO); bank 13 is on +1V8_IO |
 | +3V3 | U31 TPD12S016 VCCA, level shifters on | 0.001 A | datasheet | SLLSE96F 8.2.2: about 200 uA fully on |
 | +2V5 | FPGA bank 16 VCCO: RGMII and eight LVDS_25 pairs | 0.120 A | estimate | LVDS_25 drivers about 3.5 mA each plus RGMII switching; replace with XPE |
 | +2V5 | RTL8211FD-CG DVDD_RG (RGMII pads) | 0.020 A | estimate | external 2.5 V I/O supply, CFG_EXT=1 CFG_LDO=01 |
@@ -83,7 +82,7 @@ not control it and nothing on the base board draws from it. Capacitors on
 
 The per-load estimates are retained in `LOADS`; cascaded 90%-efficient
 conversion gives 0.721 A on +5V and
-0.934 A on +3V3 before connector exports. FPGA values
+0.734 A on +3V3 before connector exports. FPGA values
 are planning estimates pending AMD XPE.
 The two VCCIO domains and the separate 3V3 export share U12's 3 A ceiling;
 their maximum switch-limit tolerances are not additive guaranteed allowances.

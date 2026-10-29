@@ -69,8 +69,6 @@ LOADS = [
      'ref/power-input.md: 0.2 W'),
     ('+3V3', 'FPGA bank 14 VCCO and its I/O', 0.10, 'estimate',
      'one third of the 1.0 W VCCO/IO line'),
-    ('+3V3', 'PSRAM x4, all active', 0.20, 'estimate',
-     'ref/power-input.md: 0.66 W across four chips'),
     ('+3V3', 'config flash W25Q256, program', 0.03, 'datasheet',
      'W25Q256JV: 25 mA page-program peak'),
     ('+3V3', 'RTL8211FD-CG, 1000Base-T link', 0.20, 'estimate',
@@ -82,15 +80,15 @@ LOADS = [
      'typical 3225 CMOS oscillator at 50 MHz into a 15 pF load'),
     ('+3V3', 'Heartbeat and user LEDs x3, all on', 0.005, 'estimate',
      'D9-D11 via 1k each; 5 mA budget allowance'),
-    ('+3V3', 'U9/U10 VCCA, U20, pull-ups, LED', 0.03, 'estimate',
+    ('+3V3', 'U20, pull-ups, LED', 0.03, 'estimate',
      'quiescent logic'),
     ('+3V3', 'FPGA bank 15 VCCO, worst case jumpered to 3.3V', 0.10, 'estimate',
      'bank load only; connector export is checked from switch maximum below'),
     ('+3V3', 'FPGA bank 34 VCCO, worst case jumpered to 3.3V', 0.10, 'estimate',
      'bank load only; connector export is checked from switch maximum below'),
-    ('+3V3', 'FPGA banks 13/35 VCCO and bank 0', 0.06, 'estimate',
-     'bank 13 carries the two 5V buses; 35 drives HDMI (TMDS_33 current '
-     'comes from the monitor\'s 3.3 V pull-ups, not from VCCO)'),
+    ('+3V3', 'FPGA bank 35 VCCO and bank 0', 0.06, 'estimate',
+     'bank 35 drives HDMI (TMDS_33 current comes from the monitor\'s 3.3 V '
+     'pull-ups, not from VCCO); bank 13 is on +1V8_IO'),
     ('+3V3', 'U31 TPD12S016 VCCA, level shifters on', 0.001, 'datasheet',
      'SLLSE96F 8.2.2: about 200 uA fully on'),
     # ---- +2V5: bank 16 I/O and the PHY RGMII pads

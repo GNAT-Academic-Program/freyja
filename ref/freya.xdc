@@ -12,27 +12,27 @@ set_property BITSTREAM.CONFIG.CONFIGRATE 33 [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
 # ---- BUS5V0
-set_property -dict {PACKAGE_PIN U24 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_DIR}]   ;# bank 13 IO_0_13
-set_property -dict {PACKAGE_PIN V26 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_IO0}]   ;# bank 13 IO_L2P_T0_13
-set_property -dict {PACKAGE_PIN W26 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_IO1}]   ;# bank 13 IO_L2N_T0_13
-set_property -dict {PACKAGE_PIN AB26 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_IO2}]   ;# bank 13 IO_L3P_T0_DQS_13
-set_property -dict {PACKAGE_PIN AC26 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_IO3}]   ;# bank 13 IO_L3N_T0_DQS_13
-set_property -dict {PACKAGE_PIN U25 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_IO4}]   ;# bank 13 IO_L1P_T0_13
-set_property -dict {PACKAGE_PIN U26 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_IO5}]   ;# bank 13 IO_L1N_T0_13
-set_property -dict {PACKAGE_PIN W25 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_IO6}]   ;# bank 13 IO_L4P_T0_13
-set_property -dict {PACKAGE_PIN Y26 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_IO7}]   ;# bank 13 IO_L4N_T0_13
-set_property -dict {PACKAGE_PIN V23 IOSTANDARD LVCMOS33} [get_ports {BUS5V0_OE_N}]   ;# bank 13 IO_L10P_T1_13
+set_property -dict {PACKAGE_PIN U24 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_DIR}]   ;# bank 13 IO_0_13
+set_property -dict {PACKAGE_PIN V26 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_IO0}]   ;# bank 13 IO_L2P_T0_13
+set_property -dict {PACKAGE_PIN W26 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_IO1}]   ;# bank 13 IO_L2N_T0_13
+set_property -dict {PACKAGE_PIN AB26 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_IO2}]   ;# bank 13 IO_L3P_T0_DQS_13
+set_property -dict {PACKAGE_PIN AC26 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_IO3}]   ;# bank 13 IO_L3N_T0_DQS_13
+set_property -dict {PACKAGE_PIN U25 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_IO4}]   ;# bank 13 IO_L1P_T0_13
+set_property -dict {PACKAGE_PIN U26 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_IO5}]   ;# bank 13 IO_L1N_T0_13
+set_property -dict {PACKAGE_PIN W25 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_IO6}]   ;# bank 13 IO_L4P_T0_13
+set_property -dict {PACKAGE_PIN Y26 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_IO7}]   ;# bank 13 IO_L4N_T0_13
+set_property -dict {PACKAGE_PIN V23 IOSTANDARD LVCMOS18} [get_ports {BUS5V0_OE_N}]   ;# bank 13 IO_L10P_T1_13
 # ---- BUS5V1
-set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_DIR}]   ;# bank 13 IO_25_13
-set_property -dict {PACKAGE_PIN Y25 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_IO0}]   ;# bank 13 IO_L5P_T0_13
-set_property -dict {PACKAGE_PIN AA25 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_IO1}]   ;# bank 13 IO_L5N_T0_13
-set_property -dict {PACKAGE_PIN V24 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_IO2}]   ;# bank 13 IO_L6P_T0_13
-set_property -dict {PACKAGE_PIN W24 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_IO3}]   ;# bank 13 IO_L6N_T0_VREF_13
-set_property -dict {PACKAGE_PIN AA24 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_IO4}]   ;# bank 13 IO_L7P_T1_13
-set_property -dict {PACKAGE_PIN AB25 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_IO5}]   ;# bank 13 IO_L7N_T1_13
-set_property -dict {PACKAGE_PIN AB24 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_IO6}]   ;# bank 13 IO_L9P_T1_DQS_13
-set_property -dict {PACKAGE_PIN AC24 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_IO7}]   ;# bank 13 IO_L9N_T1_DQS_13
-set_property -dict {PACKAGE_PIN W23 IOSTANDARD LVCMOS33} [get_ports {BUS5V1_OE_N}]   ;# bank 13 IO_L10N_T1_13
+set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_DIR}]   ;# bank 13 IO_25_13
+set_property -dict {PACKAGE_PIN Y25 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_IO0}]   ;# bank 13 IO_L5P_T0_13
+set_property -dict {PACKAGE_PIN AA25 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_IO1}]   ;# bank 13 IO_L5N_T0_13
+set_property -dict {PACKAGE_PIN V24 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_IO2}]   ;# bank 13 IO_L6P_T0_13
+set_property -dict {PACKAGE_PIN W24 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_IO3}]   ;# bank 13 IO_L6N_T0_VREF_13
+set_property -dict {PACKAGE_PIN AA24 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_IO4}]   ;# bank 13 IO_L7P_T1_13
+set_property -dict {PACKAGE_PIN AB25 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_IO5}]   ;# bank 13 IO_L7N_T1_13
+set_property -dict {PACKAGE_PIN AB24 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_IO6}]   ;# bank 13 IO_L9P_T1_DQS_13
+set_property -dict {PACKAGE_PIN AC24 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_IO7}]   ;# bank 13 IO_L9N_T1_DQS_13
+set_property -dict {PACKAGE_PIN W23 IOSTANDARD LVCMOS18} [get_ports {BUS5V1_OE_N}]   ;# bank 13 IO_L10N_T1_13
 # ---- DBG
 set_property -dict {PACKAGE_PIN N21 IOSTANDARD LVCMOS33} [get_ports {DBG_TCK}]   ;# bank 14 IO_L13P_T2_MRCC_14
 set_property -dict {PACKAGE_PIN M20 IOSTANDARD LVCMOS33} [get_ports {DBG_TDI}]   ;# bank 14 IO_L8P_T1_D11_14
@@ -85,10 +85,10 @@ set_property -dict {PACKAGE_PIN B25 IOSTANDARD LVDS_25} [get_ports {LINK_Q_TXC_P
 set_property -dict {PACKAGE_PIN A22 IOSTANDARD LVDS_25} [get_ports {LINK_Q_TXD_N}]   ;# bank 16 IO_L17N_T2_16
 set_property -dict {PACKAGE_PIN B22 IOSTANDARD LVDS_25} [get_ports {LINK_Q_TXD_P}]   ;# bank 16 IO_L17P_T2_16
 # ---- PHY
-set_property -dict {PACKAGE_PIN AA23 IOSTANDARD LVCMOS33} [get_ports {PHY_INT_N}]   ;# bank 13 IO_L8N_T1_13
+set_property -dict {PACKAGE_PIN AA23 IOSTANDARD LVCMOS18} [get_ports {PHY_INT_N}]   ;# bank 13 IO_L8N_T1_13
 set_property -dict {PACKAGE_PIN C17 IOSTANDARD LVCMOS25} [get_ports {PHY_MDC}]   ;# bank 16 IO_L7P_T1_16
 set_property -dict {PACKAGE_PIN B17 IOSTANDARD LVCMOS25} [get_ports {PHY_MDIO}]   ;# bank 16 IO_L7N_T1_16
-set_property -dict {PACKAGE_PIN AA22 IOSTANDARD LVCMOS33} [get_ports {PHY_RESET_N}]   ;# bank 13 IO_L8P_T1_13
+set_property -dict {PACKAGE_PIN AA22 IOSTANDARD LVCMOS18} [get_ports {PHY_RESET_N}]   ;# bank 13 IO_L8P_T1_13
 set_property -dict {PACKAGE_PIN D19 IOSTANDARD LVCMOS25} [get_ports {PHY_RXC}]   ;# bank 16 IO_L13P_T2_MRCC_16
 set_property -dict {PACKAGE_PIN C19 IOSTANDARD LVCMOS25} [get_ports {PHY_RXD0}]   ;# bank 16 IO_L13N_T2_MRCC_16
 set_property -dict {PACKAGE_PIN H17 IOSTANDARD LVCMOS25} [get_ports {PHY_RXD1}]   ;# bank 16 IO_0_16
@@ -108,33 +108,33 @@ set_property SLEW FAST [get_ports {PHY_TXD3}]
 set_property -dict {PACKAGE_PIN B21 IOSTANDARD LVCMOS25} [get_ports {PHY_TX_CTL}]   ;# bank 16 IO_L16N_T2_16
 set_property SLEW FAST [get_ports {PHY_TX_CTL}]
 # ---- PSRAM0
-set_property -dict {PACKAGE_PIN M26 IOSTANDARD LVCMOS33} [get_ports {PSRAM0_CE_B}]   ;# bank 14 IO_L20N_T3_A07_D23_14
-set_property -dict {PACKAGE_PIN R26 IOSTANDARD LVCMOS33} [get_ports {PSRAM0_IO0}]   ;# bank 14 IO_L22P_T3_A05_D21_14
-set_property -dict {PACKAGE_PIN P26 IOSTANDARD LVCMOS33} [get_ports {PSRAM0_IO1}]   ;# bank 14 IO_L22N_T3_A04_D20_14
-set_property -dict {PACKAGE_PIN K25 IOSTANDARD LVCMOS33} [get_ports {PSRAM0_IO2}]   ;# bank 14 IO_L7P_T1_D09_14
-set_property -dict {PACKAGE_PIN K26 IOSTANDARD LVCMOS33} [get_ports {PSRAM0_IO3}]   ;# bank 14 IO_L7N_T1_D10_14
-set_property -dict {PACKAGE_PIN N26 IOSTANDARD LVCMOS33} [get_ports {PSRAM0_SCK}]   ;# bank 14 IO_L20P_T3_A08_D24_14
+set_property -dict {PACKAGE_PIN T15 IOSTANDARD LVCMOS18} [get_ports {PSRAM0_CE_B}]   ;# bank 13 IO_L20N_T3_13
+set_property -dict {PACKAGE_PIN T17 IOSTANDARD LVCMOS18} [get_ports {PSRAM0_IO0}]   ;# bank 13 IO_L21P_T3_DQS_13
+set_property -dict {PACKAGE_PIN T18 IOSTANDARD LVCMOS18} [get_ports {PSRAM0_IO1}]   ;# bank 13 IO_L21N_T3_DQS_13
+set_property -dict {PACKAGE_PIN U15 IOSTANDARD LVCMOS18} [get_ports {PSRAM0_IO2}]   ;# bank 13 IO_L22P_T3_13
+set_property -dict {PACKAGE_PIN U16 IOSTANDARD LVCMOS18} [get_ports {PSRAM0_IO3}]   ;# bank 13 IO_L22N_T3_13
+set_property -dict {PACKAGE_PIN T14 IOSTANDARD LVCMOS18} [get_ports {PSRAM0_SCK}]   ;# bank 13 IO_L20P_T3_13
 # ---- PSRAM1
-set_property -dict {PACKAGE_PIN P25 IOSTANDARD LVCMOS33} [get_ports {PSRAM1_CE_B}]   ;# bank 14 IO_L19N_T3_A09_D25_VREF_14
-set_property -dict {PACKAGE_PIN L24 IOSTANDARD LVCMOS33} [get_ports {PSRAM1_IO0}]   ;# bank 14 IO_L9P_T1_DQS_14
-set_property -dict {PACKAGE_PIN L25 IOSTANDARD LVCMOS33} [get_ports {PSRAM1_IO1}]   ;# bank 14 IO_L9N_T1_DQS_D13_14
-set_property -dict {PACKAGE_PIN M24 IOSTANDARD LVCMOS33} [get_ports {PSRAM1_IO2}]   ;# bank 14 IO_L10P_T1_D14_14
-set_property -dict {PACKAGE_PIN M25 IOSTANDARD LVCMOS33} [get_ports {PSRAM1_IO3}]   ;# bank 14 IO_L10N_T1_D15_14
-set_property -dict {PACKAGE_PIN R25 IOSTANDARD LVCMOS33} [get_ports {PSRAM1_SCK}]   ;# bank 14 IO_L19P_T3_A10_D26_14
+set_property -dict {PACKAGE_PIN V14 IOSTANDARD LVCMOS18} [get_ports {PSRAM1_CE_B}]   ;# bank 13 IO_L23N_T3_13
+set_property -dict {PACKAGE_PIN V16 IOSTANDARD LVCMOS18} [get_ports {PSRAM1_IO0}]   ;# bank 13 IO_L24P_T3_13
+set_property -dict {PACKAGE_PIN V17 IOSTANDARD LVCMOS18} [get_ports {PSRAM1_IO1}]   ;# bank 13 IO_L24N_T3_13
+set_property -dict {PACKAGE_PIN V18 IOSTANDARD LVCMOS18} [get_ports {PSRAM1_IO2}]   ;# bank 13 IO_L19P_T3_13
+set_property -dict {PACKAGE_PIN W18 IOSTANDARD LVCMOS18} [get_ports {PSRAM1_IO3}]   ;# bank 13 IO_L19N_T3_VREF_13
+set_property -dict {PACKAGE_PIN U14 IOSTANDARD LVCMOS18} [get_ports {PSRAM1_SCK}]   ;# bank 13 IO_L23P_T3_13
 # ---- PSRAM2
-set_property -dict {PACKAGE_PIN T25 IOSTANDARD LVCMOS33} [get_ports {PSRAM2_CE_B}]   ;# bank 14 IO_L21N_T3_DQS_A06_D22_14
-set_property -dict {PACKAGE_PIN N23 IOSTANDARD LVCMOS33} [get_ports {PSRAM2_IO0}]   ;# bank 14 IO_L15P_T2_DQS_RDWR_B_14
-set_property -dict {PACKAGE_PIN N24 IOSTANDARD LVCMOS33} [get_ports {PSRAM2_IO1}]   ;# bank 14 IO_L15N_T2_DQS_DOUT_CSO_B_14
-set_property -dict {PACKAGE_PIN P23 IOSTANDARD LVCMOS33} [get_ports {PSRAM2_IO2}]   ;# bank 14 IO_L17P_T2_A14_D30_14
-set_property -dict {PACKAGE_PIN P24 IOSTANDARD LVCMOS33} [get_ports {PSRAM2_IO3}]   ;# bank 14 IO_L17N_T2_A13_D29_14
-set_property -dict {PACKAGE_PIN T24 IOSTANDARD LVCMOS33} [get_ports {PSRAM2_SCK}]   ;# bank 14 IO_L21P_T3_DQS_14
+set_property -dict {PACKAGE_PIN U19 IOSTANDARD LVCMOS18} [get_ports {PSRAM2_CE_B}]   ;# bank 13 IO_L17N_T2_13
+set_property -dict {PACKAGE_PIN V19 IOSTANDARD LVCMOS18} [get_ports {PSRAM2_IO0}]   ;# bank 13 IO_L18P_T2_13
+set_property -dict {PACKAGE_PIN W19 IOSTANDARD LVCMOS18} [get_ports {PSRAM2_IO1}]   ;# bank 13 IO_L18N_T2_13
+set_property -dict {PACKAGE_PIN T20 IOSTANDARD LVCMOS18} [get_ports {PSRAM2_IO2}]   ;# bank 13 IO_L15P_T2_DQS_13
+set_property -dict {PACKAGE_PIN U20 IOSTANDARD LVCMOS18} [get_ports {PSRAM2_IO3}]   ;# bank 13 IO_L15N_T2_DQS_13
+set_property -dict {PACKAGE_PIN T19 IOSTANDARD LVCMOS18} [get_ports {PSRAM2_SCK}]   ;# bank 13 IO_L17P_T2_13
 # ---- PSRAM3
-set_property -dict {PACKAGE_PIN R23 IOSTANDARD LVCMOS33} [get_ports {PSRAM3_CE_B}]   ;# bank 14 IO_L24N_T3_A00_D16_14
-set_property -dict {PACKAGE_PIN L22 IOSTANDARD LVCMOS33} [get_ports {PSRAM3_IO0}]   ;# bank 14 IO_L11P_T1_SRCC_14
-set_property -dict {PACKAGE_PIN L23 IOSTANDARD LVCMOS33} [get_ports {PSRAM3_IO1}]   ;# bank 14 IO_L11N_T1_SRCC_14
-set_property -dict {PACKAGE_PIN T22 IOSTANDARD LVCMOS33} [get_ports {PSRAM3_IO2}]   ;# bank 14 IO_L23P_T3_A03_D19_14
-set_property -dict {PACKAGE_PIN R22 IOSTANDARD LVCMOS33} [get_ports {PSRAM3_IO3}]   ;# bank 14 IO_L23N_T3_A02_D18_14
-set_property -dict {PACKAGE_PIN T23 IOSTANDARD LVCMOS33} [get_ports {PSRAM3_SCK}]   ;# bank 14 IO_L24P_T3_A01_D17_14
+set_property -dict {PACKAGE_PIN Y20 IOSTANDARD LVCMOS18} [get_ports {PSRAM3_CE_B}]   ;# bank 13 IO_L16N_T2_13
+set_property -dict {PACKAGE_PIN W21 IOSTANDARD LVCMOS18} [get_ports {PSRAM3_IO0}]   ;# bank 13 IO_L14P_T2_SRCC_13
+set_property -dict {PACKAGE_PIN Y21 IOSTANDARD LVCMOS18} [get_ports {PSRAM3_IO1}]   ;# bank 13 IO_L14N_T2_SRCC_13
+set_property -dict {PACKAGE_PIN Y22 IOSTANDARD LVCMOS18} [get_ports {PSRAM3_IO2}]   ;# bank 13 IO_L11P_T1_SRCC_13
+set_property -dict {PACKAGE_PIN Y23 IOSTANDARD LVCMOS18} [get_ports {PSRAM3_IO3}]   ;# bank 13 IO_L11N_T1_SRCC_13
+set_property -dict {PACKAGE_PIN W20 IOSTANDARD LVCMOS18} [get_ports {PSRAM3_SCK}]   ;# bank 13 IO_L16P_T2_13
 # ---- PUDC
 set_property -dict {PACKAGE_PIN P15 IOSTANDARD LVCMOS33} [get_ports {PUDC_B}]   ;# bank 14 IO_L3P_T0_DQS_PUDC_B_14
 # ---- SB

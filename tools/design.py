@@ -51,7 +51,7 @@ XTAL    = 'EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL'
 USBC    = 'Connector_USB:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A'
 LED0603 = 'LED_SMD:LED_0603_1608Metric'
 
-LCSC = {'APS1604M-3SQRx-SN':'C18214056',
+LCSC = {'APS6404L-SQN-SN':'C5360304',
         'TLV62569DRL':'C163217', 'TPS54202DDC':'C191884'}
 
 class Design:
@@ -245,7 +245,7 @@ V10MGT, GND = '+1V0_MGT', 'GND'
 # U14's output node. +1V8 proper is only VCCAUX and VCCADC, behind a bead, so
 # the FPGA's internal supplies do not share copper with 1.8 V I/O loads.
 V18IO = '+1V8_IO'
-VCCIO = {'13': V33, '14': V33, '15': 'VCCIO_1', '16': V25, '34': 'VCCIO_2', '35': V33}
+VCCIO = {'13': V18IO, '14': V33, '15': 'VCCIO_1', '16': V25, '34': 'VCCIO_2', '35': V33}
 
 RAIL_CHECK = []
 
@@ -334,14 +334,18 @@ def build():
 
     d.sheet('Memory')
     # ------------------------------------------------ PSRAM x4
+    # APS6404L-SQN-SN: 64 Mbit, VDD 1.62 to 1.98 V (datasheet rev 4.0 Table 9,
+    # p. 26), SOP-8L(150) (section 4.1, p. 5). Pinout as the KiCad symbol and
+    # the datasheet's top view (p. 4). VDD and the bypass are on +1V8_IO with
+    # bank 13 (tools/alloc.py PSRAM_BALLS).
     for c in range(4):
         p = f'PSRAM{c}_'
         d.group(f'PSRAM{c}')
-        d.add(f'U{2+c}', 'Memory_RAM:APS1604M-3SQRx-SN', 'APS1604M-3SQR-SN', SOIC8N,
+        d.add(f'U{2+c}', 'Memory_RAM:APS6404L-SQRx-SN', 'APS6404L-SQN-SN', SOIC8N,
               {'~{CE}': p+'CE_B_MEM', 'SCLK': p+'SCK_MEM',
                'SI/SIO0': p+'IO0_MEM', 'SO/SIO1': p+'IO1_MEM',
-               'SIO2': p+'IO2_MEM', 'SIO3': p+'IO3_MEM', 'VDD': V33, 'VSS': GND}, LCSC['APS1604M-3SQRx-SN'])
-        d.C('100nF', V33, GND)
+               'SIO2': p+'IO2_MEM', 'SIO3': p+'IO3_MEM', 'VDD': V18IO, 'VSS': GND}, LCSC['APS6404L-SQN-SN'])
+        d.C('100nF', V18IO, GND)
 
     d.sheet('Memory')
     # ------------------------------------------------ config flash (FPGA master SPI)
@@ -511,16 +515,18 @@ def build():
 
     d.sheet('Slots')
     # ------------------------------------------------ two complete 5V bus converters
+    # The A side faces FPGA bank 13 at +1V8_IO; DIR and OE are referenced to
+    # VCCA. SN74LXC8T245 SCES916A section 6.3: VCCA 1.08 to 5.5 V.
     for bus, ref in enumerate(('U9', 'U10')):
         d.group(f'5V BUS {bus} converter')
-        conn = {'VCCA': V33, 'VCCB': V5, 'GND': GND,
+        conn = {'VCCA': V18IO, 'VCCB': V5, 'GND': GND,
                 'DIR': f'BUS5V{bus}_DIR', '~{OE}': f'BUS5V{bus}_OE_N'}
         for i in range(8):
             conn[f'A{i+1}'] = f'BUS5V{bus}_IO{i}'
             conn[f'B{i+1}'] = f'BUS5V{bus}_PIN{i}'
         d.add(ref, 'odin:SN74LXC8T245PW', 'SN74LXC8T245PWR',
               TSSOP24_XLATE, conn, 'C4363995')
-        d.C('100nF', V33, GND); d.C('100nF', V5, GND)
+        d.C('100nF', V18IO, GND); d.C('100nF', V5, GND)
 
     d.sheet('Slots')
     # ------------------------------------------------ shield connectors
@@ -849,12 +855,13 @@ def build():
     d.reserve('R', 1)       # former R95, U19 enable pulldown
 
     # Default-disable the translators through FPGA configuration. OE is
-    # referenced to VCCA (+3V3); firmware/HDL must set DIR/data before OE low.
+    # referenced to VCCA (+1V8_IO, the bank 13 voltage; a 3.3 V pull-up
+    # would exceed the bank's VIN limit); HDL must set DIR/data before OE low.
     # Append resistors to keep existing designators stable.
     d.sheet('Slots')
     for bus in range(2):
         d.group(f'5V BUS {bus} converter')
-        d.R('10k', V33, f'BUS5V{bus}_OE_N', R0603)
+        d.R('10k', V18IO, f'BUS5V{bus}_OE_N', R0603)
 
     # Append to keep existing designators stable. DONE is open-drain by
     # default (UG470); no DriveDone setting is needed for this buffered LED.

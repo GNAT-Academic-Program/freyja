@@ -66,11 +66,13 @@ PARTS = {
     pinmap='generated from the standard 8-pin QSPI NOR pinout, '
            'tools/gen_kicad.py FLASH_PINS',
     src='Winbond W25Q256JV datasheet; LCSC C97522'),
-  'Memory_RAM:APS1604M-3SQRx-SN': dict(
-    mpn='APS1604M-3SQR-SN', pkg='SOP-8 150 mil (3.9x4.9 mm)',
+  'Memory_RAM:APS6404L-SQRx-SN': dict(
+    mpn='APS6404L-SQN-SN', pkg='SOP-8L(150), 3.9x4.9 mm body, 1.27 mm pitch, 6.0 mm lead span',
     fp='EasyEDA:SOIC-8_L4.9-W3.9-P1.27-LS6.0-BL',
-    rating='2.7-3.6 V, 16 Mbit QSPI PSRAM, tCEM 8 us',
-    pinmap='KiCad Memory_RAM symbol', src='APMemory datasheet; LCSC C18214056'),
+    rating='1.62-1.98 V, 64 Mbit QSPI PSRAM, 144 MHz, ICC 7 mA read/write, tCEM 8 us',
+    pinmap='KiCad Memory_RAM symbol; same 8-pin QSPI PSRAM pinout as the '
+           'datasheet top view (rev 4.0 p. 4)',
+    src='ref/datasheets/aps6404l-sqn.pdf (rev 4.0, Table 9 p. 26, drawing p. 5); LCSC C5360304'),
   # ------------------------------------------------------------ power train
   'Device:FerriteBead': dict(
     mpn='BLM18PG121SN1D', pkg='0603 (1608 metric)',

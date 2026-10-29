@@ -21,7 +21,7 @@ def uid(*a):
 
 RAIL = {'VCCINT':'+1V0', 'VCCBRAM':'+1V0', 'VCCAUX':'+1V8', 'VCCADC':'+1V8',
         'MGTAVCC':'+1V0_MGT', 'MGTAVTT':'+1V2_MGT',
-        'VCCO_0':'+3V3', 'VCCO_12':'+3V3', 'VCCO_13':'+3V3', 'VCCO_14':'+3V3',
+        'VCCO_0':'+3V3', 'VCCO_12':'+3V3', 'VCCO_13':'+1V8_IO', 'VCCO_14':'+3V3',
         'VCCO_15':'VCCIO_1', 'VCCO_16':'+2V5', 'VCCO_34':'VCCIO_2',
         'VCCO_35':'+3V3', 'VCCO_33':'+3V3',
         'GNDADC':'GND', 'VCCBATT':'GND'}
@@ -118,7 +118,7 @@ def main():
             nets_used.add(net)
 
     rails = sorted(r for r in nets_used if r in
-                   ('GND','+1V0','+1V8','+3V3','VCCIO_1','VCCIO_2','+1V0_MGT','+1V2_MGT'))
+                   ('GND','+1V0','+1V8','+1V8_IO','+3V3','VCCIO_1','VCCIO_2','+1V0_MGT','+1V2_MGT'))
     for i, r in enumerate(rails):
         fx, fy = snap(60), snap(60 + i*25)
         o.append(f'\t(symbol (lib_id "power:PWR_FLAG") (at {fx} {fy} 0) (unit 1)')

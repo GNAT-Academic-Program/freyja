@@ -346,12 +346,12 @@ GROUP.update({
         'unregulated, to the AUX pin of every extension port through each '
         'port\'s own fuse. The board itself never uses it.',
     # ---- Memory sheet
-    'PSRAM0': 'Working-memory chip 0: 2 MB of fast RAM for the FPGA design, on its own '
-              'four-bit (QSPI) bus to bank 14. The four chips are independent, so a '
+    'PSRAM0': 'Working-memory chip 0: 8 MB of fast RAM for the FPGA design, on its own '
+              'four-bit (QSPI) bus to bank 13 at 1.8 V. The four chips are independent, so a '
               'design can use them in parallel. Notes: ref/psram.md.',
-    'PSRAM1': 'Working-memory chip 1: 2 MB of RAM on its own QSPI bus to bank 14.',
-    'PSRAM2': 'Working-memory chip 2: 2 MB of RAM on its own QSPI bus to bank 14.',
-    'PSRAM3': 'Working-memory chip 3: 2 MB of RAM on its own QSPI bus to bank 14.',
+    'PSRAM1': 'Working-memory chip 1: 8 MB of RAM on its own QSPI bus to bank 13, at 1.8 V.',
+    'PSRAM2': 'Working-memory chip 2: 8 MB of RAM on its own QSPI bus to bank 13, at 1.8 V.',
+    'PSRAM3': 'Working-memory chip 3: 8 MB of RAM on its own QSPI bus to bank 13, at 1.8 V.',
     'config flash':
         'The FPGA\'s non-volatile memory. At power-on the FPGA reads its '
         'design (bitstream) from this 32 MB flash by itself (master SPI, set '
@@ -491,10 +491,10 @@ PART.update({
     'U23': ('slots A-D PIN V switch', 'TI TPS22950C load switch: VCCIO_1 to the PIN V pin of slots A-D, about 0.5 A limit.'),
     'U24': ('slots E-H PIN V switch', 'TI TPS22950C load switch: VCCIO_2 to the PIN V pin of slots E-H, about 0.5 A limit.'),
     'J68': ('AUX IN screw terminal', 'Optional 9-28 V DC input feeding only the AUX pin of every extension port, unregulated. Your supply, your current limit.'),
-    'U2': ('PSRAM 0', 'AP Memory APS1604M, 16 Mbit (2 MB) QSPI pseudo-static RAM, 3.3 V.'),
-    'U3': ('PSRAM 1', 'AP Memory APS1604M, 2 MB QSPI RAM.'),
-    'U4': ('PSRAM 2', 'AP Memory APS1604M, 2 MB QSPI RAM.'),
-    'U5': ('PSRAM 3', 'AP Memory APS1604M, 2 MB QSPI RAM.'),
+    'U2': ('PSRAM 0', 'AP Memory APS6404L-SQN, 64 Mbit (8 MB) QSPI pseudo-static RAM, 1.8 V, on bank 13.'),
+    'U3': ('PSRAM 1', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
+    'U4': ('PSRAM 2', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
+    'U5': ('PSRAM 3', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
     'U6': ('FPGA configuration flash', 'Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it.'),
     'U7': ('board controller', 'Raspberry Pi RP2350B microcontroller (two Cortex-M33 cores, 150 MHz): USB, FPGA programming, power sequencing and monitoring.'),
     'Y1': ('controller 12 MHz crystal', 'Abracon ABM8-272-T3, the crystal Raspberry Pi specifies for the RP2350.'),

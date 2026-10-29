@@ -26,7 +26,8 @@ PART = 'xc7a100tfgg676-2'
 
 # Bank -> VCCO -> single-ended standard. Banks 15 and 34 follow the J19/J20
 # jumpers; the file assumes the 3.3 V position, change both lines together.
-VCCO_STD = {'13': 'LVCMOS33', '14': 'LVCMOS33', '15': 'LVCMOS33',
+# Bank 13 is +1V8_IO (gen_sch.RAIL): the PSRAMs and the translators' A side.
+VCCO_STD = {'13': 'LVCMOS18', '14': 'LVCMOS33', '15': 'LVCMOS33',
             '34': 'LVCMOS33', '16': 'LVCMOS25', '35': 'LVCMOS33'}
 # Input clocks: net -> (period ns, note)
 CLOCKS = {SYS_CLK: (20.0, 'X4, 50 MHz CMOS oscillator'),

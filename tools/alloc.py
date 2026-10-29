@@ -56,6 +56,17 @@ LINK_PORTS = ('P', 'Q')
 LINK_PAIRS = ['TXC', 'TXD', 'RXD']           # plus RXC on the clock-capable pair
 # PHYRSTB and INTB are 3.3 V pins (RTL8211F Table 58 note): bank 13.
 BANK13_SINGLES = ['PHY_RESET_N', 'PHY_INT_N']
+# The four 1.8 V QSPI PSRAMs (APS6404L-SQN-SN) in bank 13, VCCO = +1V8_IO.
+# Hand-chosen: three whole pairs per chip in one patch of the ballmap, so the
+# four channels route with one pattern, and both MRCC pairs (U21/V21,
+# U22/V22) stay free. Lane order per chip: SCK, CE_B, IO0, IO1, IO2, IO3.
+PSRAM_BALLS = OrderedDict([
+    (0, ['T14', 'T15', 'T17', 'T18', 'U15', 'U16']),   # L20, L21, L22
+    (1, ['U14', 'V14', 'V16', 'V17', 'V18', 'W18']),   # L23, L24, L19
+    (2, ['T19', 'U19', 'V19', 'W19', 'T20', 'U20']),   # L17, L18, L15
+    (3, ['W20', 'Y20', 'W21', 'Y21', 'Y22', 'Y23']),   # L16, L14, L11
+])
+PSRAM_BANK = '13'
 # Bank 35 (3.3 V, the package's bottom-right corner as U1 is turned, facing
 # the bottom edge) drives HDMI: four TMDS_33 pairs, which need VCCO = 3.3 V
 # and are terminated by the monitor's 50 ohm pull-ups to 3.3 V (UG471,
@@ -134,22 +145,32 @@ def assign():
     net = dict(CONFIG_USE)
     names = {b: n for lst in io.values() for b, n in lst}
 
-    # ---- bank 14: the fabric clock, PSRAM x4 (3 pairs each) and the
-    # sideband, shallowest first. SYS_CLK is the 50 MHz oscillator (X4): a
-    # single-ended clock on the P side of an MRCC pair (UG472 ch. 2), so it
-    # reaches the MMCMs; the pair's N ball stays free.
+    # ---- bank 14: the fabric clock, twelve pairs held for the SDRAM address
+    # bus, then the sideband, shallowest first. SYS_CLK is the 50 MHz
+    # oscillator (X4): a single-ended clock on the P side of an MRCC pair
+    # (UG472 ch. 2), so it reaches the MMCMs; the pair's N ball stays free.
+    # The twelve pairs are the ones the PSRAMs used before they moved to
+    # bank 13; taking them here keeps the sideband on the balls it had.
     fp14, s14 = pairs_and_singles(io['14'])
     fp14 = _by_depth(t for t in fp14 if t[0] not in used and t[1] not in used)
     clk, _clk_n = _take_pair_named(fp14, used, 'MRCC', names)
     net[clk] = SYS_CLK
-    psram = OrderedDict()
-    lanes = ['SCK', 'CE_B', 'IO0', 'IO1', 'IO2', 'IO3']
-    for c in range(4):
-        balls = [b for pr in _take(fp14, used, 3) for b in pr]
-        psram[c] = balls
-        for b, ln in zip(balls, lanes): net[b] = f'PSRAM{c}_{ln}'
+    pool14 = [b for pr in _take(fp14, used, 12) for b in pr]
     sb = [b for pr in _take(fp14, used, 3) for b in pr]
     for b, n in zip(sb, SIDEBAND): net[b] = n
+
+    # ---- bank 13: the PSRAMs on their hand-chosen balls, before the buses
+    # take the rest of the bank.
+    psram = OrderedDict()
+    lanes = ['SCK', 'CE_B', 'IO0', 'IO1', 'IO2', 'IO3']
+    for c, balls in PSRAM_BALLS.items():
+        for b in balls:
+            if not names.get(b, '').endswith('_' + PSRAM_BANK):
+                raise RuntimeError(f'PSRAM{c}: {b} is not a bank {PSRAM_BANK} user I/O ball')
+            if b in used or 'MRCC' in names[b]:
+                raise RuntimeError(f'PSRAM{c}: {b} is taken or clock-capable (MRCC)')
+        used.update(balls); psram[c] = list(balls)
+        for b, ln in zip(balls, lanes): net[b] = f'PSRAM{c}_{ln}'
 
     # ---- slots. 15 and 34 are full, order is irrelevant; 13 is depth sorted.
     pools, singles = {}, {}
@@ -205,6 +226,7 @@ def assign():
 
     assign.link = link                    # for ballmap.py
     assign.hdmi = hdmi
+    assign.pool14 = pool14                # bank 14 balls held for the SDRAM address bus
     return net, psram, sb, slots, io, other
 
 def check(net, io):
@@ -224,7 +246,7 @@ def check(net, io):
         p, n = inv[f'LINK_{port}_RXC_P'], inv[f'LINK_{port}_RXC_N']
         if tag not in names[p] or names[p].split('_')[1][:-1] != names[n].split('_')[1][:-1]:
             probs.append(f'LINK_{port}_RXC is not a {tag} pair')
-    for pre, bank in (('PHY_', '16'), ('LINK_', '16'), ('HDMI_', '35'), ('BUS5V', '13'), ('PSRAM', '14'), ('SLOTA', '15'), ('SLOTE', '34')):
+    for pre, bank in (('PHY_', '16'), ('LINK_', '16'), ('HDMI_', '35'), ('BUS5V', '13'), ('PSRAM', PSRAM_BANK), ('SLOTA', '15'), ('SLOTE', '34')):
         for n, b in inv.items():
             if n.startswith(pre) and n not in BANK13_SINGLES and not names[b].endswith('_' + bank):
                 probs.append(f'{n} on {b} is not in bank {bank}')

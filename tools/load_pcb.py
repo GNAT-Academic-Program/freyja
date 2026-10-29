@@ -33,8 +33,10 @@ def parse():
         sh  = re.search(r'\(sheetpath \(names "([^"]*)"', chunk)
         # the component's own description comes before (libsource ...)
         desc = re.search(r'\(description "((?:[^"\\]|\\.)*)"\)', chunk.split('(libsource')[0])
+        lcsc = re.search(r'\(field \(name "LCSC"\) "([^"]*)"\)', chunk)
         comps[ref] = dict(value=val.group(1) if val else '',
                           role=desc.group(1).replace('\\"', '"') if desc else '',
+                          lcsc=lcsc.group(1) if lcsc else '',
                           fp=fp.group(1) if fp else '',
                           sheet=sh.group(1) if sh else '/',
                           dnp='(property (name "dnp")' in chunk)
@@ -116,6 +118,15 @@ def main():
             # shows in the bottom message bar on a single click and as
             # "Library Description" in the Properties panel.
             fp.SetLibDescription(c.get('role', ''))
+            # The order number travels with the schematic symbol; the copy an
+            # imported footprint carries is only refreshed here, so a part
+            # swap that keeps its package cannot leave the old number behind.
+            if c.get('lcsc'):
+                fld = fp.GetFieldByName('LCSC Part')
+                if fld is None:
+                    fld = fp.AddField(pcbnew.PCB_FIELD(fp, -1, 'LCSC Part'))
+                    fld.SetVisible(False)
+                fld.SetText(c['lcsc'])
             fp.SetDNP(bool(c.get('dnp')))
             if replace:
                 if prior is not None:

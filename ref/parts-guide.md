@@ -8,7 +8,7 @@ What every part on the board is for. The same text is in the schematic
 the PCB (select a footprint, Description field). Start with the sheet
 you care about; within it, groups appear in schematic order.
 
-- [FPGA](#fpga) (109 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
+- [FPGA](#fpga) (110 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
 - [Power](#power) (111 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (34 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
@@ -98,12 +98,12 @@ Decoupling for FPGA I/O bank 13's supply (VCCO): 2 x 4.7 uF and 4 x 0.47 uF, UG4
 
 | Ref | Value | What it does |
 |---|---|---|
-| C330 | 4.7uF 6.3V | 4.7uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483 |
-| C331 | 4.7uF 6.3V | 4.7uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483 |
-| C332 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483 |
-| C333 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483 |
-| C334 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483 |
-| C335 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_13 (+3V3), UG483 |
+| C330 | 4.7uF 6.3V | 4.7uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483 |
+| C331 | 4.7uF 6.3V | 4.7uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483 |
+| C332 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483 |
+| C333 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483 |
+| C334 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483 |
+| C335 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483 |
 
 ### decap VCCO_14
 
@@ -170,13 +170,21 @@ Decoupling for FPGA I/O bank 35's supply (VCCO): 2 x 4.7 uF and 4 x 0.47 uF, UG4
 | C364 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483 |
 | C365 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483 |
 
+### decap VCCO group +1V8_IO
+
+Bulk capacitor shared by every FPGA I/O bank powered from +1V8_IO: UG483 Table 2-2 note 3 asks one 47 uF per group of up to four banks on one voltage. See ref/decoupling.md.
+
+| Ref | Value | What it does |
+|---|---|---|
+| C366 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +1V8_IO (+1V8_IO), UG483 |
+
 ### decap VCCO group +3V3
 
 Bulk capacitor shared by every FPGA I/O bank powered from +3V3: UG483 Table 2-2 note 3 asks one 47 uF per group of up to four banks on one voltage. See ref/decoupling.md.
 
 | Ref | Value | What it does |
 |---|---|---|
-| C366 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +3V3 (+3V3), UG483 |
+| C367 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +3V3 (+3V3), UG483 |
 
 ### decap VCCO group VCCIO_1
 
@@ -184,7 +192,7 @@ Bulk capacitor shared by every FPGA I/O bank powered from VCCIO_1: UG483 Table 2
 
 | Ref | Value | What it does |
 |---|---|---|
-| C367 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group VCCIO_1 (VCCIO_1), UG483 |
+| C368 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group VCCIO_1 (VCCIO_1), UG483 |
 
 ### decap VCCO group +2V5
 
@@ -192,7 +200,7 @@ Bulk capacitor shared by every FPGA I/O bank powered from +2V5: UG483 Table 2-2 
 
 | Ref | Value | What it does |
 |---|---|---|
-| C368 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +2V5 (+2V5), UG483 |
+| C369 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +2V5 (+2V5), UG483 |
 
 ### decap VCCO group VCCIO_2
 
@@ -200,7 +208,7 @@ Bulk capacitor shared by every FPGA I/O bank powered from VCCIO_2: UG483 Table 2
 
 | Ref | Value | What it does |
 |---|---|---|
-| C369 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group VCCIO_2 (VCCIO_2), UG483 |
+| C370 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group VCCIO_2 (VCCIO_2), UG483 |
 
 ### decap +1V0_MGT
 
@@ -208,7 +216,6 @@ Decoupling for +1V0_MGT (+1V0_MGT), which powers the unused but powered transcei
 
 | Ref | Value | What it does |
 |---|---|---|
-| C370 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C371 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C372 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C373 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
@@ -218,7 +225,8 @@ Decoupling for +1V0_MGT (+1V0_MGT), which powers the unused but powered transcei
 | C377 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C378 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C379 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C392 | 4.7uF | 4.7uF FPGA decoupling on +1V0_MGT, UG483 |
+| C380 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
+| C393 | 4.7uF | 4.7uF FPGA decoupling on +1V0_MGT, UG483 |
 
 ### decap +1V2_MGT
 
@@ -226,7 +234,6 @@ Decoupling for +1V2_MGT (+1V2_MGT), which powers the unused but powered transcei
 
 | Ref | Value | What it does |
 |---|---|---|
-| C380 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C381 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C382 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C383 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
@@ -238,7 +245,8 @@ Decoupling for +1V2_MGT (+1V2_MGT), which powers the unused but powered transcei
 | C389 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C390 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C391 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C393 | 4.7uF | 4.7uF FPGA decoupling on +1V2_MGT, UG483 |
+| C392 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
+| C394 | 4.7uF | 4.7uF FPGA decoupling on +1V2_MGT, UG483 |
 
 ### config straps (UG470)
 
@@ -516,39 +524,39 @@ Four PSRAM chips for working memory and the flash the FPGA boots from.
 
 ### PSRAM0
 
-Working-memory chip 0: 2 MB of fast RAM for the FPGA design, on its own four-bit (QSPI) bus to bank 14. The four chips are independent, so a design can use them in parallel. Notes: ref/psram.md.
+Working-memory chip 0: 8 MB of fast RAM for the FPGA design, on its own four-bit (QSPI) bus to bank 13 at 1.8 V. The four chips are independent, so a design can use them in parallel. Notes: ref/psram.md.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U2 | APS1604M-3SQR-SN | PSRAM 0: AP Memory APS1604M, 16 Mbit (2 MB) QSPI pseudo-static RAM, 3.3 V. |
-| C111 | 100nF | 100nF bypass on +3V3, for U2 (PSRAM 0) |
+| U2 | APS6404L-SQN-SN | PSRAM 0: AP Memory APS6404L-SQN, 64 Mbit (8 MB) QSPI pseudo-static RAM, 1.8 V, on bank 13. |
+| C111 | 100nF | 100nF bypass on +1V8_IO, for U2 (PSRAM 0) |
 
 ### PSRAM1
 
-Working-memory chip 1: 2 MB of RAM on its own QSPI bus to bank 14.
+Working-memory chip 1: 8 MB of RAM on its own QSPI bus to bank 13, at 1.8 V.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U3 | APS1604M-3SQR-SN | PSRAM 1: AP Memory APS1604M, 2 MB QSPI RAM. |
-| C112 | 100nF | 100nF bypass on +3V3, for U3 (PSRAM 1) |
+| U3 | APS6404L-SQN-SN | PSRAM 1: AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13. |
+| C112 | 100nF | 100nF bypass on +1V8_IO, for U3 (PSRAM 1) |
 
 ### PSRAM2
 
-Working-memory chip 2: 2 MB of RAM on its own QSPI bus to bank 14.
+Working-memory chip 2: 8 MB of RAM on its own QSPI bus to bank 13, at 1.8 V.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U4 | APS1604M-3SQR-SN | PSRAM 2: AP Memory APS1604M, 2 MB QSPI RAM. |
-| C113 | 100nF | 100nF bypass on +3V3, for U4 (PSRAM 2) |
+| U4 | APS6404L-SQN-SN | PSRAM 2: AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13. |
+| C113 | 100nF | 100nF bypass on +1V8_IO, for U4 (PSRAM 2) |
 
 ### PSRAM3
 
-Working-memory chip 3: 2 MB of RAM on its own QSPI bus to bank 14.
+Working-memory chip 3: 8 MB of RAM on its own QSPI bus to bank 13, at 1.8 V.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U5 | APS1604M-3SQR-SN | PSRAM 3: AP Memory APS1604M, 2 MB QSPI RAM. |
-| C114 | 100nF | 100nF bypass on +3V3, for U5 (PSRAM 3) |
+| U5 | APS6404L-SQN-SN | PSRAM 3: AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13. |
+| C114 | 100nF | 100nF bypass on +1V8_IO, for U5 (PSRAM 3) |
 
 ### config flash
 
@@ -805,9 +813,9 @@ Lets the FPGA (3.3 V) talk to 5 V extensions on slot L. U9 shifts eight lines be
 | Ref | Value | What it does |
 |---|---|---|
 | U9 | SN74LXC8T245PWR | 5V BUS 0 translator: TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot L. |
-| C139 | 100nF | 100nF bypass on +3V3, for U9 (5V BUS 0 translator) |
+| C139 | 100nF | 100nF bypass on +1V8_IO, for U9 (5V BUS 0 translator) |
 | C140 | 100nF | 100nF bypass on +5V, for U9 (5V BUS 0 translator) |
-| R96 | 10k | 10k pull-up of BUS5V0_OE_N to +3V3, for U9 (5V BUS 0 translator): keeps the 5 V bus translator disabled until the FPGA enables it |
+| R96 | 10k | 10k pull-up of BUS5V0_OE_N to +1V8_IO, for U9 (5V BUS 0 translator): keeps the 5 V bus translator disabled until the FPGA enables it |
 
 ### 5V BUS 1 converter
 
@@ -816,9 +824,9 @@ Same as 5V BUS 0, for slot M: U10 shifts eight lines between the FPGA's 3.3 V an
 | Ref | Value | What it does |
 |---|---|---|
 | U10 | SN74LXC8T245PWR | 5V BUS 1 translator: TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot M. |
-| C141 | 100nF | 100nF bypass on +3V3, for U10 (5V BUS 1 translator) |
+| C141 | 100nF | 100nF bypass on +1V8_IO, for U10 (5V BUS 1 translator) |
 | C142 | 100nF | 100nF bypass on +5V, for U10 (5V BUS 1 translator) |
-| R97 | 10k | 10k pull-up of BUS5V1_OE_N to +3V3, for U10 (5V BUS 1 translator): keeps the 5 V bus translator disabled until the FPGA enables it |
+| R97 | 10k | 10k pull-up of BUS5V1_OE_N to +1V8_IO, for U10 (5V BUS 1 translator): keeps the 5 V bus translator disabled until the FPGA enables it |
 
 ### SHIELD HEADER ABCD
 

@@ -73,10 +73,10 @@ pair's N ball is left free.
 
 | Chip | SCK | CE# | IO0 | IO1 | IO2 | IO3 |
 |---|---|---|---|---|---|---|
-| PSRAM0 | N26 | M26 | R26 | P26 | K25 | K26 |
-| PSRAM1 | R25 | P25 | L24 | L25 | M24 | M25 |
-| PSRAM2 | T24 | T25 | N23 | N24 | P23 | P24 |
-| PSRAM3 | T23 | R23 | L22 | L23 | T22 | R22 |
+| PSRAM0 | T14 | T15 | T17 | T18 | U15 | U16 |
+| PSRAM1 | U14 | V14 | V16 | V17 | V18 | W18 |
+| PSRAM2 | T19 | U19 | V19 | W19 | T20 | U20 |
+| PSRAM3 | W20 | Y20 | W21 | Y21 | Y22 | Y23 |
 
 Each chip's six lines come from three adjacent differential pairs, so the
 group stays physically tight and length matching stays local.
