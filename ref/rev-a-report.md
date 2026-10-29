@@ -303,6 +303,15 @@ What, one commit per step:
 6. J74 TF-01A (C91145) microSD in SPI mode on L22 L23 T22 R22 T23, five 10k
    pull-ups, 100 nF + 10 uF; SD_CD read with the FPGA pull-up.
 7. Documents regenerated and the hand-written text updated.
+Same day, after the owner's word: U33 fitted on every board (no DNP).
+Islands built and parked for U32, U33 and J74 (generic rules, no layout
+profile: the datasheets give no layout example); U1 extended with FB1,
+C261, C262 and the +1V8_IO 47 uF C394. design.py now appends a new rail's
+group capacitor after the MGT ones (the first regeneration had renumbered
+C366..C393 and swapped two packages at reviewed spots); load_pcb.py keeps
+a replaced footprint in its island group. City plan rerun and applied:
+51 groups, 40 moved rigidly, J74 inboard south-west of U1 (no edge has
+its 14.5 mm), U32 below U1 between banks 14 and 35, U33 west of U1.
 Known: the 12 new footprints and FB1 sit in the import band below the
 board, unplaced; sequential C numbers above C250 shifted between steps 1
 and 5 (nothing on the board depends on them yet).

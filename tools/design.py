@@ -1184,8 +1184,9 @@ def build():
     # and VCCADC are the FPGA's internal supplies; they hang off the node as
     # +1V8 through one bead (50 mohm, 9 mV at the 0.18 A VCCAUX allowance,
     # inside VCCAUX's 1.71 V minimum) and keep their own UG483 decoupling.
-    # The 10 uF and 100 nF go at U14's output beside the regulator's own
-    # capacitors, which were the only ones on the node.
+    # The 10 uF and 100 nF are the node's own bulk (U14's 2 x 22 uF were the
+    # only capacitors on it); they sit with the bead at U1's +1V8_IO balls,
+    # the bead's load end (island U1).
     d.sheet('Power')
     d.group('VCCAUX filter')
     d.FB(V18IO, V18)
