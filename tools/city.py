@@ -531,6 +531,15 @@ def main():
             rs += ', marker: none'
         lines.append(f'  {b.anchor}: {{from: [{b.c0[0]:.2f}, {b.c0[1]:.2f}], to: [{b.pos[0]:.2f}, {b.pos[1]:.2f}], '
                      f'turn: {b.turn}, why: {why}{rs}}}')
+        for sl, (dxy, side, swhy, hl) in sat_info.items():
+            if hl != b.label:
+                continue
+            sc0 = marks[sl][0]
+            sc = ((sc0[0] + sc0[2]) / 2, (sc0[1] + sc0[3]) / 2)
+            vx, vy = I.rot(sc[0] + dxy[0] - b.c0[0], sc[1] + dxy[1] - b.c0[1], b.turn)
+            sa = sl.split()[1]
+            lines.append(f'  {sa}: {{from: [{sc[0]:.2f}, {sc[1]:.2f}], to: [{b.pos[0] + vx:.2f}, {b.pos[1] + vy:.2f}], '
+                         f'turn: {b.turn}, why: "satellite of {b.anchor}, {side} side: {swhy}", merge_into: {b.anchor}}}')
     for key, (pwr, axis) in sorted(POST_WITH_ROW.items()):
         rb = by_anchor[pwr]
         fp = BOARD.fps[key]
@@ -553,15 +562,6 @@ def main():
         lines.append(f'  {key}: {{from: [{fp.x:.2f}, {fp.y:.2f}], to: [{tx:.2f}, {ty:.2f}], turn: 0.0, '
                      f'why: key at position 1 of {pwr} with the row, merge_into: {pwr}}}')
         print(f'  {key} (slot key) leaves the board to stand at position 1 of {pwr} in the plan')
-        for sl, (dxy, side, swhy, hl) in sat_info.items():
-            if hl != b.label:
-                continue
-            sc0 = marks[sl][0]
-            sc = ((sc0[0] + sc0[2]) / 2, (sc0[1] + sc0[3]) / 2)
-            vx, vy = I.rot(sc[0] + dxy[0] - b.c0[0], sc[1] + dxy[1] - b.c0[1], b.turn)
-            sa = sl.split()[1]
-            lines.append(f'  {sa}: {{from: [{sc[0]:.2f}, {sc[1]:.2f}], to: [{b.pos[0] + vx:.2f}, {b.pos[1] + vy:.2f}], '
-                         f'turn: {b.turn}, why: "satellite of {b.anchor}, {side} side: {swhy}", merge_into: {b.anchor}}}')
     path = os.path.join(OUT_DIR, 'plan.yaml')
     open(path, 'w').write('\n'.join(lines) + '\n')
 

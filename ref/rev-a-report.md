@@ -467,3 +467,14 @@ Open: the ten courtyard overlaps are the zero-gap contract (17.78 mm socket
 + 2.54 mm post per 20.32 mm zone leaves no courtyard margin): decide on a
 documented exception for the posts or a wider zone; the A-F posts; the city
 compaction; routing.
+
+## City re-applied: the satellites back with their chips 2026-10-29
+Owner's question: why are X4, U8 and Y1 not in the city. Cause: the key-post
+loop added to city.py that morning was inserted in front of the loop that
+writes the satellite lines, which pushed that loop inside the new one, so
+no `merge_into` line was written for X4, U8 or Y1 and the three islands
+stayed in the lot. Fixed (the satellite loop is back inside the per-block
+loop), plan regenerated and applied: 311 footprints moved, none that was
+inside the outline. X4 is in island U1 on its north side at the SYS_CLK
+ball, U8 (west) and Y1 (south) in island U7. DRC unchanged: 10 courtyard
+overlaps at the key posts, 0 parity. Gate electrical PASS.
