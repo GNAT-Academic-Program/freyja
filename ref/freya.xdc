@@ -85,10 +85,10 @@ set_property -dict {PACKAGE_PIN B25 IOSTANDARD LVDS_25} [get_ports {LINK_Q_TXC_P
 set_property -dict {PACKAGE_PIN A22 IOSTANDARD LVDS_25} [get_ports {LINK_Q_TXD_N}]   ;# bank 16 IO_L17N_T2_16
 set_property -dict {PACKAGE_PIN B22 IOSTANDARD LVDS_25} [get_ports {LINK_Q_TXD_P}]   ;# bank 16 IO_L17P_T2_16
 # ---- PHY
-set_property -dict {PACKAGE_PIN AA23 IOSTANDARD LVCMOS18} [get_ports {PHY_INT_N}]   ;# bank 13 IO_L8N_T1_13
+set_property -dict {PACKAGE_PIN G2 IOSTANDARD LVCMOS33} [get_ports {PHY_INT_N}]   ;# bank 35 IO_L24P_T3_35
 set_property -dict {PACKAGE_PIN C17 IOSTANDARD LVCMOS25} [get_ports {PHY_MDC}]   ;# bank 16 IO_L7P_T1_16
 set_property -dict {PACKAGE_PIN B17 IOSTANDARD LVCMOS25} [get_ports {PHY_MDIO}]   ;# bank 16 IO_L7N_T1_16
-set_property -dict {PACKAGE_PIN AA22 IOSTANDARD LVCMOS18} [get_ports {PHY_RESET_N}]   ;# bank 13 IO_L8P_T1_13
+set_property -dict {PACKAGE_PIN G1 IOSTANDARD LVCMOS33} [get_ports {PHY_RESET_N}]   ;# bank 35 IO_L24N_T3_35
 set_property -dict {PACKAGE_PIN D19 IOSTANDARD LVCMOS25} [get_ports {PHY_RXC}]   ;# bank 16 IO_L13P_T2_MRCC_16
 set_property -dict {PACKAGE_PIN C19 IOSTANDARD LVCMOS25} [get_ports {PHY_RXD0}]   ;# bank 16 IO_L13N_T2_MRCC_16
 set_property -dict {PACKAGE_PIN H17 IOSTANDARD LVCMOS25} [get_ports {PHY_RXD1}]   ;# bank 16 IO_0_16

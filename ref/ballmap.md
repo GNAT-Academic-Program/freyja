@@ -189,8 +189,8 @@ The two 3.3 V PHY pins are in bank 13:
 
 | Ball | Net | Package name |
 |---|---|---|
-| AA22 | `PHY_RESET_N` | IO_L8P_T1_13 |
-| AA23 | `PHY_INT_N` | IO_L8N_T1_13 |
+| G1 | `PHY_RESET_N` | IO_L24N_T3_35 |
+| G2 | `PHY_INT_N` | IO_L24P_T3_35 |
 
 ## Video: bank 35 at 3.3 V
 

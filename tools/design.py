@@ -919,7 +919,8 @@ def build():
     # Pin names are the datasheet rev 1.7 Table 1-9 names as the imported
     # C2687133 symbol carries them. RGMII, MDC and MDIO run at the DVDD_RG
     # level, 2.5 V from +2V5, into bank 16 (VCCO = +2V5, tools/alloc.py).
-    # PHYRSTB and INTB are 3.3 V pins (Table 58 note) and go to bank 13.
+    # PHYRSTB and INTB are 3.3 V pins (Table 58 note) and go to bank 35
+    # (3.3 V; bank 13 is 1.8 V), tools/alloc.py PHY_CTL.
     # CLKOUT (pin 35) floats, Table 2; it outputs 125 MHz by default, so the
     # gateware clears it (PHYCR2) once MDIO is up.
     d.sheet('Network')
@@ -964,7 +965,7 @@ def build():
     d.R('2.49k 1%', 'PHY_RSET', GND)
 
     d.group('PHY straps and LEDs')
-    # PHYRSTB: 3.3 V input, Table 58 (VIH 2.0 V), driven from bank 13. The
+    # PHYRSTB: 3.3 V input, Table 58 (VIH 2.0 V), driven from bank 35. The
     # 1k pull-down holds it below 0.8 V against the FPGA's internal pull-up
     # during configuration (PUDC_B low) and until +2V5 is up (Table 53 note
     # 5 case II). Section 7.17: after release wait >= 72 ms before MDIO.

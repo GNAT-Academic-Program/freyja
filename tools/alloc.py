@@ -32,9 +32,10 @@ CONFIG_USE = OrderedDict([
     ('P18', 'FLASH_CS_B'),    ('P15', 'PUDC_B'),
 ])
 SIDEBAND = ['DBG_TCK', 'DBG_TMS', 'DBG_TDI', 'DBG_TDO', 'SB_UART_RX', 'SB_UART_TX']
-# Both 5 V buses live in bank 13 (3.3 V, the bottom-right of the package,
-# facing the bottom edge where J7/J8 sit). Bank 14 keeps the PSRAM, the
-# sideband and the flash. Direct slots: A-D bank 15, E-H bank 34.
+# Both 5 V buses live in bank 13 (+1V8_IO, the bottom-right of the package,
+# facing the bottom edge where J7/J8 sit) with the four PSRAMs. Bank 14
+# keeps the sideband, the flash and the fabric clock. Direct slots: A-D bank
+# 15, E-H bank 34.
 SLOT_BANK = OrderedDict([('L', '13'), ('M', '13'),
                          ('A', '15'), ('B', '15'), ('C', '15'), ('D', '15'),
                          ('E', '34'), ('F', '34'), ('G', '34'), ('H', '34')])
@@ -54,8 +55,11 @@ RGMII = ['PHY_RXD0', 'PHY_RXD1', 'PHY_RXD2', 'PHY_RXD3', 'PHY_RX_CTL',
 # pair (MRCC for P, SRCC for Q; both reach BUFG/BUFR, UG472 ch. 2).
 LINK_PORTS = ('P', 'Q')
 LINK_PAIRS = ['TXC', 'TXD', 'RXD']           # plus RXC on the clock-capable pair
-# PHYRSTB and INTB are 3.3 V pins (RTL8211F Table 58 note): bank 13.
-BANK13_SINGLES = ['PHY_RESET_N', 'PHY_INT_N']
+# PHYRSTB and INTB are 3.3 V pins (RTL8211F Table 58 note). Bank 13 is
+# 1.8 V now, so they sit on two plain bank 35 balls (3.3 V), the L24 pair,
+# hand-chosen so the HDMI allocation below is untouched.
+PHY_CTL = OrderedDict([('PHY_RESET_N', 'G1'), ('PHY_INT_N', 'G2')])
+PHY_CTL_BANK = '35'
 # The four 1.8 V QSPI PSRAMs (APS6404L-SQN-SN) in bank 13, VCCO = +1V8_IO.
 # Hand-chosen: three whole pairs per chip in one patch of the ballmap, so the
 # four channels route with one pattern, and both MRCC pairs (U21/V21,
@@ -70,7 +74,8 @@ PSRAM_BANK = '13'
 # Bank 35 (3.3 V, the package's bottom-right corner as U1 is turned, facing
 # the bottom edge) drives HDMI: four TMDS_33 pairs, which need VCCO = 3.3 V
 # and are terminated by the monitor's 50 ohm pull-ups to 3.3 V (UG471,
-# TMDS_33), plus the TPD12S016's A-side lines and its two enables.
+# TMDS_33), plus the TPD12S016's A-side lines and its two enables. The two
+# PHY control lines (PHY_CTL) share the bank.
 HDMI_PAIRS = ['CLK', 'D0', 'D1', 'D2']
 HDMI_SINGLES = ['HDMI_HPD', 'HDMI_SCL', 'HDMI_SDA', 'HDMI_CEC', 'HDMI_CT_HPD', 'HDMI_LS_OE']
 
@@ -190,8 +195,8 @@ def assign():
             else:
                 net[ball] = f'SLOT{s}_IO{i}'
     # One direction control and one active-low enable per bus, low speed,
-    # in the buses' 3.3 V bank. Then the two 3.3 V PHY control pins.
-    for n in ('BUS5V0_DIR', 'BUS5V1_DIR', 'BUS5V0_OE_N', 'BUS5V1_OE_N', *BANK13_SINGLES):
+    # in the buses' bank.
+    for n in ('BUS5V0_DIR', 'BUS5V1_DIR', 'BUS5V0_OE_N', 'BUS5V1_OE_N'):
         net[_take_singles(pools['13'], singles['13'], used, 1)[0]] = n
 
     # ---- bank 16: RGMII and the two link ports
@@ -223,6 +228,11 @@ def assign():
     # balls sit deep in the package
     ctl = [x for pr in _take(fp35, used, (len(HDMI_SINGLES) + 1) // 2) for x in pr]
     for b, n in zip(ctl, HDMI_SINGLES): net[b] = n
+    # the PHY control lines, after HDMI so its pairs are the ones they were
+    for n, b in PHY_CTL.items():
+        if not names.get(b, '').endswith('_' + PHY_CTL_BANK) or b in used:
+            raise RuntimeError(f'{n}: {b} is not a free bank {PHY_CTL_BANK} user I/O ball')
+        used.add(b); net[b] = n
 
     assign.link = link                    # for ballmap.py
     assign.hdmi = hdmi
@@ -248,10 +258,11 @@ def check(net, io):
             probs.append(f'LINK_{port}_RXC is not a {tag} pair')
     for pre, bank in (('PHY_', '16'), ('LINK_', '16'), ('HDMI_', '35'), ('BUS5V', '13'), ('PSRAM', PSRAM_BANK), ('SLOTA', '15'), ('SLOTE', '34')):
         for n, b in inv.items():
-            if n.startswith(pre) and n not in BANK13_SINGLES and not names[b].endswith('_' + bank):
+            if n.startswith(pre) and n not in PHY_CTL and not names[b].endswith('_' + bank):
                 probs.append(f'{n} on {b} is not in bank {bank}')
-    for n in BANK13_SINGLES:
-        if not names[inv[n]].endswith('_13'): probs.append(f'{n} is not in bank 13')
+    for n, b in PHY_CTL.items():
+        if inv.get(n) != b or not names[b].endswith('_' + PHY_CTL_BANK):
+            probs.append(f'{n} is not on {b} in bank {PHY_CTL_BANK}')
     return probs
 
 if __name__ == '__main__':

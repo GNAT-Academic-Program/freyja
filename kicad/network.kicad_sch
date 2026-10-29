@@ -4027,7 +4027,7 @@
 		(property "Value" "RTL8211FD-CG" (at 101.6 133.35 0) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "EasyEDA:QFN-40_L5.0-W5.0-P0.40-BL-EP3.7" (at 101.6 133.35 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "LCSC" "C2687133" (at 101.6 133.35 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "Description" "gigabit Ethernet PHY: Realtek RTL8211FD-CG: 10/100/1000Base-T transceiver between the FPGA's RGMII bus and the ETH jack. Managed over MDIO from the FPGA; reset and interrupt on bank 13 at 3.3 V." (at 101.6 133.35 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "gigabit Ethernet PHY: Realtek RTL8211FD-CG: 10/100/1000Base-T transceiver between the FPGA's RGMII bus and the ETH jack. Managed over MDIO from the FPGA; reset and interrupt on bank 35 at 3.3 V." (at 101.6 133.35 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/861dbe47-fb02-98d1-188c-76d89b3b4011" (reference "U30") (unit 1))))
 	)
 	(wire (pts (xy 125.73 78.74) (xy 128.27 78.74)) (stroke (width 0) (type default)) (uuid "32dcb6f8-b769-1df4-03f6-18d264f5783f"))

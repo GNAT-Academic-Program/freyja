@@ -1040,7 +1040,7 @@ U30 is the Ethernet PHY: it turns the FPGA's RGMII bus (four data bits each way 
 
 | Ref | Value | What it does |
 |---|---|---|
-| U30 | RTL8211FD-CG | gigabit Ethernet PHY: Realtek RTL8211FD-CG: 10/100/1000Base-T transceiver between the FPGA's RGMII bus and the ETH jack. Managed over MDIO from the FPGA; reset and interrupt on bank 13 at 3.3 V. |
+| U30 | RTL8211FD-CG | gigabit Ethernet PHY: Realtek RTL8211FD-CG: 10/100/1000Base-T transceiver between the FPGA's RGMII bus and the ETH jack. Managed over MDIO from the FPGA; reset and interrupt on bank 35 at 3.3 V. |
 | C232 | 100nF | 100nF bypass on +3V3, for U30 (gigabit Ethernet PHY) |
 | C233 | 100nF | 100nF bypass on +3V3, for U30 (gigabit Ethernet PHY) |
 | C234 | 100nF | 100nF bypass on +3V3, for U30 (gigabit Ethernet PHY) |

@@ -175,7 +175,7 @@ PART = {
     'U30': ('gigabit Ethernet PHY',
             'Realtek RTL8211FD-CG: 10/100/1000Base-T transceiver between the '
             'FPGA\'s RGMII bus and the ETH jack. Managed over MDIO from the '
-            'FPGA; reset and interrupt on bank 13 at 3.3 V.'),
+            'FPGA; reset and interrupt on bank 35 at 3.3 V.'),
     'U31': ('HDMI protection and level shifter',
             'TI TPD12S016: ESD clamps on the four HDMI pairs, DDC and CEC '
             'level shifting from 3.3 V to 5 V, hot plug buffer and a 55 mA '
