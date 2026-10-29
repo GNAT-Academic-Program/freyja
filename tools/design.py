@@ -51,7 +51,9 @@ HDR2x3  = 'EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1'
 HDR2x5  = 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical'
 HDR1x2  = 'Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical'
 XTAL    = 'EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL'
-USBC    = 'Connector_USB:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A'
+# KiCad's HCTL footprint with the four outer ground pads shortened on the
+# locating-hole side (tools/gen_kicad.py gen_usbc_fp, findings item 49).
+USBC    = 'odin:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A_Odin'
 LED0603 = 'LED_SMD:LED_0603_1608Metric'
 
 LCSC = {'APS6404L-SQN-SN':'C5360304',
@@ -934,9 +936,11 @@ def build():
     # FPGA-side net names/ball assignments remain stable. The _MEM side
     # reaches only the PSRAM pin; no direct path bypasses these resistors.
     # Append to preserve all existing reference designators.
+    # Grouped under U1: the resistors damp the FPGA's drive and belong at the
+    # FPGA escape, not beside the memory (islands.py reads the group name).
     d.sheet('Memory')
     for c in range(4):
-        d.group(f'PSRAM{c} series termination')
+        d.group(f'U1 PSRAM{c} series termination')
         for lane in ('SCK', 'CE_B', 'IO0', 'IO1', 'IO2', 'IO3'):
             net = f'PSRAM{c}_{lane}'
             d.R('33', net, net+'_MEM')
@@ -1106,7 +1110,7 @@ def build():
     # NEORV32 directly or through an MMCM. Pin 1 is the tri-state control,
     # high = running; tied to VDD. Pin names as the imported C717684 symbol.
     d.sheet('FPGA')
-    d.group('system clock')
+    d.group('X4 system clock')             # X4 is the anchor; R147 and the 100 nF stay with it
     d.add('X4', 'EasyEDA:OT322550MJBA4SL', '50MHz CMOS', 'EasyEDA:OSC-SMD_4P-L3.2-W2.5-BL',
           {'VDD': V33, 'GND': GND, 'OUTPUT': 'SYS_CLK_OSC', 'Tri-state': V33}, 'C717684')
     d.C('100nF', V33, GND)
@@ -1177,7 +1181,9 @@ def build():
           'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', sd, 'C62246')
     for _ in range(7): d.C('100nF', V33, GND)
     d.C('10uF', V33, GND, C0805)
+    d.group('U1 SDRAM clock source')       # 22 ohm at the FPGA ball, not at U32
     d.R('22', 'SDRAM_CLK', 'SDRAM_CLK_MEM')
+    d.group('SDRAM')
     d.R('10k', V33, 'SDRAM_CS_N', R0603)
     d.R('10k', 'SDRAM_CKE', GND, R0603)
 

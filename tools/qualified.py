@@ -269,10 +269,14 @@ PARTS = {
   # -------------------------------------------------------- USB and the PD
   'Connector:USB_C_Receptacle_USB2.0_16P': dict(
     mpn='HC-TYPE-C-16P-01A', pkg='USB-C receptacle, 16 position, mid-mount',
-    fp='Connector_USB:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A',
-    rating='5 A contacts, 20 V. Board never negotiates above 9 V',
+    fp='odin:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A_Odin',
+    rating='5 A contacts, 20 V. Board never negotiates above 9 V. Footprint: '
+           'KiCad\'s HCTL land pattern with the four outer ground pads (A1, A12, '
+           'B1, B12) shortened from 1.30 to 1.15 mm on the locating-hole side, '
+           'giving 0.31 mm hole-to-copper (board rule 0.25, JLC NPTH-to-track '
+           '0.20). [verify] against the HCTL drawing at order time',
     pinmap='KiCad Connector symbol for this exact part number',
-    src='HCTL datasheet as shipped with the KiCad footprint'),
+    src='HCTL datasheet as shipped with the KiCad footprint; tools/gen_kicad.py gen_usbc_fp'),
   'Interface_USB:CH224K': dict(
     mpn='CH224K', pkg='SSOP-10 with exposed pad (3.9x4.9 mm)',
     fp='EasyEDA:ESSOP-10_L4.9-W3.9-P1.0-LS6.0-TL-EP',

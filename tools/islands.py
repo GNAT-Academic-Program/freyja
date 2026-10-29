@@ -28,9 +28,11 @@ How membership is decided (pad geometry and nets, never ref prefixes alone)
   - From each unlocked passive, short nets are followed outward through other
     unlocked passives until a locked footprint stops the branch; (anchor,
     anchor pad, hops) is recorded per branch. One anchor reached: that is the
-    island. Several: fewest hops wins, a tie goes to the anchor whose pad is
-    closer to the passive's current position, and the runner-up is the
-    passive's destination (used to pick the side it is placed on).
+    island. Several: the anchor named by the part's design.py group wins
+    ('U1 PSRAM0 series termination' keeps the source damping at the driver,
+    'X4 system clock' keeps R147 at the oscillator); otherwise fewest hops,
+    then the anchor whose pad is closer to the passive's current position.
+    The runner-up is the passive's destination (picks the side it goes on).
   - A passive reaching no anchor (rail to GND decoupling) is assigned from
     tools/design.py when its group names the chip (`U13  5V to +2V5`) or a
     pin family (`decap VCCO_16`), else to the nearest anchor with a pad on
@@ -752,14 +754,21 @@ def extract(board, locked, anchors, design, max_pads, verbose=True):
             m.anchor, m.hops, m.pad, m.via = a, hops, pad, via
             if len(ranked) > 1:
                 b, (bh, bpad, bvia, _bd) = ranked[1]
+                # A series part between two chips belongs where design.py
+                # puts it: the group that names an anchor decides (source
+                # damping sits at the driver, 'U1 PSRAM0 series termination'),
+                # distance only breaks the tie when no group says anything.
+                g = group_anchor(groups[ref][0], board, locked) if groups and ref in groups else None
+                if g and g != a and g in ahits:
+                    gh, gpad, gvia, _gd = ahits[g]
+                    b, bh, bpad = a, hops, pad
+                    a, hops, pad, via = g, gh, gpad, gvia
+                    m.anchor, m.hops, m.pad, m.via = a, hops, pad, via
+                    m.notes.append(f'design.py group says {g}')
                 m.dest, m.dest_pad = b, bpad
                 tie = bh == hops
                 m.notes.append(f'also reaches {b} pad {bpad.number} in {bh} hop(s)'
-                               + ('; tie broken by distance' if tie else ''))
-                if groups and ref in groups:
-                    g = group_anchor(groups[ref][0], board, locked)
-                    if g and g != a and g in ahits:
-                        m.notes.append(f'design.py group says {g}')
+                               + ('; tie broken by distance' if tie and not (g and g == a) else ''))
             m.role = 'signal'
         elif hits:
             stops = ', '.join(f'{a} pad {v[1].number}' for a, v in sorted(hits.items()))

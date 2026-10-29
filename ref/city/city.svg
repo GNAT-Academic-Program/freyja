@@ -18,106 +18,106 @@
 <rect x="211.1" y="300.0" width="27.2" height="27.2" fill="#e8e8e8" stroke="#aaa" stroke-width="1.5"/>
 <rect x="880.8" y="486.6" width="27.2" height="27.2" fill="#e8e8e8" stroke="#aaa" stroke-width="1.5"/>
 <rect x="188.9" y="143.2" width="22.4" height="161.3" fill="#e8e8e8" stroke="#aaa" stroke-width="1.5"/>
-<rect x="388.2" y="381.0" width="50.9" height="79.9" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="392.2" y="397.0" font-size="14" fill="#036">U3</text>
-<rect x="271.8" y="491.6" width="44.0" height="72.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="275.8" y="507.6" font-size="14" fill="#036">J19</text>
-<rect x="436.1" y="264.1" width="48.1" height="44.9" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="440.1" y="280.1" font-size="14" fill="#036">MK71</text>
-<rect x="324.0" y="490.1" width="50.9" height="79.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="328.0" y="506.1" font-size="14" fill="#036">U4</text>
-<rect x="385.8" y="577.5" width="50.9" height="79.9" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="389.8" y="593.5" font-size="14" fill="#036">U5</text>
-<rect x="330.7" y="583.5" width="46.2" height="83.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="334.7" y="599.5" font-size="14" fill="#036">U33</text>
-<rect x="805.4" y="124.0" width="54.8" height="98.2" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="809.4" y="140.0" font-size="14" fill="#036">J1</text>
-<rect x="623.1" y="180.8" width="91.3" height="75.3" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="627.1" y="196.8" font-size="14" fill="#036">J58</text>
-<rect x="649.9" y="867.9" width="101.8" height="128.1" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="653.9" y="883.9" font-size="14" fill="#036">J70</text>
-<rect x="383.6" y="471.9" width="55.5" height="93.4" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="387.6" y="487.9" font-size="14" fill="#036">U6</text>
-<rect x="536.6" y="152.0" width="49.3" height="75.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="540.6" y="168.0" font-size="14" fill="#036">U10</text>
-<rect x="817.3" y="656.3" width="44.0" height="72.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="821.3" y="672.3" font-size="14" fill="#036">J20</text>
-<rect x="717.1" y="299.4" width="40.2" height="52.3" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="721.1" y="315.4" font-size="14" fill="#036">Q3</text>
-<rect x="378.0" y="297.3" width="49.3" height="75.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="382.0" y="313.3" font-size="14" fill="#036">U9</text>
-<rect x="684.5" y="554.8" width="50.9" height="79.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="688.5" y="570.8" font-size="14" fill="#036">U2</text>
-<rect x="622.7" y="338.7" width="56.0" height="66.7" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="626.7" y="354.7" font-size="14" fill="#036">U14</text>
-<rect x="513.3" y="932.0" width="93.4" height="64.0" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="517.3" y="948.0" font-size="14" fill="#036">J2</text>
-<rect x="779.3" y="230.7" width="79.6" height="120.2" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="783.3" y="246.7" font-size="14" fill="#036">U26</text>
-<rect x="659.6" y="264.1" width="48.1" height="44.9" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="663.6" y="280.1" font-size="14" fill="#036">MK72</text>
-<rect x="227.0" y="401.0" width="84.3" height="73.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="231.0" y="417.0" font-size="14" fill="#036">U12</text>
-<rect x="727.9" y="177.0" width="44.0" height="42.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="731.9" y="193.0" font-size="14" fill="#036">SW1</text>
-<rect x="319.6" y="415.1" width="52.0" height="64.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="323.6" y="431.1" font-size="14" fill="#036">U23</text>
 <rect x="399.6" y="180.8" width="91.3" height="75.3" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
 <text x="403.6" y="196.8" font-size="14" fill="#036">J57</text>
-<rect x="549.0" y="315.4" width="65.7" height="89.9" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="553.0" y="331.4" font-size="14" fill="#036">U15</text>
-<rect x="358.8" y="681.2" width="106.9" height="106.6" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="362.8" y="697.2" font-size="14" fill="#036">J74</text>
-<rect x="704.9" y="711.9" width="39.9" height="55.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="708.9" y="727.9" font-size="14" fill="#036">D9</text>
-<rect x="485.0" y="334.7" width="56.0" height="70.6" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="489.0" y="350.7" font-size="14" fill="#036">U16</text>
-<rect x="705.8" y="650.5" width="44.0" height="51.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="709.8" y="666.5" font-size="14" fill="#036">D11</text>
-<rect x="814.9" y="584.2" width="52.0" height="64.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="818.9" y="600.2" font-size="14" fill="#036">U24</text>
-<rect x="688.6" y="360.7" width="114.6" height="185.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="692.6" y="376.7" font-size="14" fill="#036">U7</text>
-<rect x="813.8" y="415.2" width="62.9" height="89.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="817.8" y="431.2" font-size="14" fill="#036">U17</text>
-<rect x="324.4" y="340.0" width="44.0" height="64.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="328.4" y="356.0" font-size="14" fill="#036">U21</text>
-<rect x="813.3" y="515.1" width="44.0" height="59.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="817.3" y="531.1" font-size="14" fill="#036">J51</text>
-<rect x="761.1" y="652.4" width="44.0" height="51.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="765.1" y="668.4" font-size="14" fill="#036">D10</text>
-<rect x="747.1" y="555.0" width="52.4" height="87.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="751.1" y="571.0" font-size="14" fill="#036">U20</text>
-<rect x="547.9" y="679.5" width="46.1" height="76.6" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="551.9" y="695.5" font-size="14" fill="#036">U13</text>
-<rect x="943.8" y="928.9" width="52.2" height="67.1" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="947.8" y="944.9" font-size="14" fill="#036">J68</text>
-<rect x="368.6" y="876.0" width="80.0" height="120.0" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="372.6" y="892.0" font-size="14" fill="#036">J72</text>
-<rect x="322.6" y="267.0" width="44.0" height="64.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="326.6" y="283.0" font-size="14" fill="#036">U22</text>
-<rect x="212.0" y="876.0" width="80.0" height="120.0" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="216.0" y="892.0" font-size="14" fill="#036">J71</text>
+<rect x="328.1" y="574.1" width="46.2" height="83.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="332.1" y="590.1" font-size="14" fill="#036">U33</text>
+<rect x="777.2" y="607.9" width="44.0" height="51.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="781.2" y="623.9" font-size="14" fill="#036">D11</text>
+<rect x="359.7" y="682.8" width="106.9" height="106.6" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="363.7" y="698.8" font-size="14" fill="#036">J74</text>
+<rect x="626.4" y="272.7" width="44.0" height="59.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="630.4" y="288.7" font-size="14" fill="#036">J51</text>
+<rect x="604.6" y="680.2" width="52.4" height="87.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="608.6" y="696.2" font-size="14" fill="#036">U20</text>
+<rect x="272.0" y="518.7" width="44.0" height="72.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="276.0" y="534.7" font-size="14" fill="#036">J19</text>
+<rect x="277.9" y="406.0" width="44.0" height="64.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="281.9" y="422.0" font-size="14" fill="#036">U22</text>
+<rect x="829.8" y="578.4" width="44.0" height="72.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="833.8" y="594.4" font-size="14" fill="#036">J20</text>
+<rect x="806.1" y="518.6" width="44.0" height="51.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="810.1" y="534.6" font-size="14" fill="#036">D10</text>
 <rect x="624.2" y="124.0" width="95.1" height="48.8" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
 <text x="628.2" y="140.0" font-size="14" fill="#036">J8</text>
-<rect x="727.1" y="228.6" width="44.0" height="62.6" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="731.1" y="244.6" font-size="14" fill="#036">U18</text>
-<rect x="758.2" y="713.3" width="39.9" height="72.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="762.2" y="729.3" font-size="14" fill="#036">D1</text>
-<rect x="609.5" y="680.4" width="85.3" height="149.6" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="613.5" y="696.4" font-size="14" fill="#036">U32</text>
-<rect x="475.0" y="682.6" width="63.4" height="113.2" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="479.0" y="698.6" font-size="14" fill="#036">U30</text>
-<rect x="400.7" y="124.0" width="95.1" height="48.8" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="404.7" y="140.0" font-size="14" fill="#036">J7</text>
-<rect x="229.7" y="124.0" width="83.6" height="59.2" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="233.7" y="140.0" font-size="14" fill="#036">J50</text>
-<rect x="807.3" y="856.0" width="86.2" height="140.0" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="811.3" y="872.0" font-size="14" fill="#036">J73</text>
-<rect x="556.7" y="764.7" width="44.0" height="42.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="560.7" y="780.7" font-size="14" fill="#036">J52</text>
-<rect x="518.1" y="235.8" width="84.9" height="71.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
-<text x="522.1" y="251.8" font-size="14" fill="#036">U11</text>
+<rect x="549.0" y="315.4" width="65.7" height="89.9" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="553.0" y="331.4" font-size="14" fill="#036">U15</text>
+<rect x="551.2" y="230.5" width="49.3" height="75.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="555.2" y="246.5" font-size="14" fill="#036">U10</text>
 <rect x="447.7" y="413.3" width="224.6" height="258.1" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
 <text x="451.7" y="429.3" font-size="14" fill="#036">U1</text>
+<rect x="499.2" y="204.2" width="44.0" height="42.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="503.2" y="220.2" font-size="14" fill="#036">SW1</text>
+<rect x="680.8" y="609.5" width="85.3" height="149.6" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="684.8" y="625.5" font-size="14" fill="#036">U32</text>
+<rect x="807.8" y="439.7" width="44.0" height="64.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="811.8" y="455.7" font-size="14" fill="#036">U24</text>
+<rect x="386.3" y="400.5" width="50.9" height="79.9" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="390.3" y="416.5" font-size="14" fill="#036">U5</text>
+<rect x="368.6" y="876.0" width="80.0" height="120.0" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="372.6" y="892.0" font-size="14" fill="#036">J72</text>
+<rect x="760.2" y="230.6" width="79.6" height="120.2" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="764.2" y="246.6" font-size="14" fill="#036">U26</text>
+<rect x="622.7" y="340.6" width="56.0" height="64.8" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="626.7" y="356.6" font-size="14" fill="#036">U14</text>
+<rect x="612.0" y="776.0" width="44.0" height="42.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="616.0" y="792.0" font-size="14" fill="#036">J52</text>
+<rect x="400.7" y="124.0" width="95.1" height="48.8" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="404.7" y="140.0" font-size="14" fill="#036">J7</text>
+<rect x="333.5" y="409.6" width="44.0" height="62.4" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="337.5" y="425.6" font-size="14" fill="#036">U23</text>
+<rect x="455.3" y="267.4" width="84.9" height="58.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="459.3" y="283.4" font-size="14" fill="#036">U11</text>
+<rect x="337.7" y="314.7" width="49.3" height="75.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="341.7" y="330.7" font-size="14" fill="#036">U9</text>
+<rect x="300.6" y="231.8" width="84.3" height="73.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="304.6" y="247.8" font-size="14" fill="#036">U12</text>
+<rect x="212.0" y="876.0" width="80.0" height="120.0" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="216.0" y="892.0" font-size="14" fill="#036">J71</text>
+<rect x="547.9" y="679.5" width="46.1" height="76.6" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="551.9" y="695.5" font-size="14" fill="#036">U13</text>
+<rect x="552.7" y="157.4" width="44.0" height="64.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="556.7" y="173.4" font-size="14" fill="#036">U21</text>
+<rect x="805.4" y="124.0" width="54.8" height="98.2" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="809.4" y="140.0" font-size="14" fill="#036">J1</text>
+<rect x="476.2" y="679.7" width="63.4" height="113.2" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="480.2" y="695.7" font-size="14" fill="#036">U30</text>
+<rect x="649.9" y="867.9" width="101.8" height="128.1" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="653.9" y="883.9" font-size="14" fill="#036">J70</text>
+<rect x="808.5" y="361.2" width="39.9" height="52.3" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="812.5" y="377.2" font-size="14" fill="#036">Q3</text>
+<rect x="688.5" y="309.6" width="62.9" height="89.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="692.5" y="325.6" font-size="14" fill="#036">U17</text>
+<rect x="383.8" y="490.3" width="55.5" height="93.4" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="387.8" y="506.3" font-size="14" fill="#036">U6</text>
+<rect x="775.1" y="670.3" width="39.9" height="72.0" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="779.1" y="686.3" font-size="14" fill="#036">D1</text>
+<rect x="387.5" y="592.8" width="50.9" height="79.9" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="391.5" y="608.8" font-size="14" fill="#036">U3</text>
+<rect x="751.7" y="159.1" width="44.0" height="62.6" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="755.7" y="175.1" font-size="14" fill="#036">U18</text>
+<rect x="554.9" y="765.9" width="39.9" height="55.7" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="558.9" y="781.9" font-size="14" fill="#036">D9</text>
+<rect x="907.7" y="466.9" width="48.1" height="44.9" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="911.7" y="482.9" font-size="14" fill="#036">MK71</text>
+<rect x="395.8" y="310.4" width="50.9" height="79.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="399.8" y="326.4" font-size="14" fill="#036">U4</text>
+<rect x="513.3" y="932.0" width="93.4" height="64.0" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="517.3" y="948.0" font-size="14" fill="#036">J2</text>
+<rect x="623.1" y="180.8" width="91.3" height="75.3" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="627.1" y="196.8" font-size="14" fill="#036">J58</text>
+<rect x="324.5" y="481.4" width="50.9" height="79.8" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="328.5" y="497.4" font-size="14" fill="#036">U2</text>
+<rect x="943.8" y="928.9" width="52.2" height="67.1" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="947.8" y="944.9" font-size="14" fill="#036">J68</text>
+<rect x="681.9" y="413.8" width="114.6" height="185.5" fill="#fff3c4" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="685.9" y="429.8" font-size="14" fill="#036">U7</text>
+<rect x="908.6" y="644.7" width="48.1" height="44.9" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="912.6" y="660.7" font-size="14" fill="#036">MK72</text>
+<rect x="807.3" y="856.0" width="86.2" height="140.0" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="811.3" y="872.0" font-size="14" fill="#036">J73</text>
+<rect x="485.0" y="334.7" width="56.0" height="70.6" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="489.0" y="350.7" font-size="14" fill="#036">U16</text>
+<rect x="229.7" y="124.0" width="83.6" height="59.2" fill="#cfe3ff" stroke="#06c" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="233.7" y="140.0" font-size="14" fill="#036">J50</text>
 </svg>

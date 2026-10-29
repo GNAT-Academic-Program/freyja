@@ -274,7 +274,7 @@ The XC7A100T has two quads of multi-gigabit transceivers (GTP). Rev A uses none 
 | R35 | 100 1% | 100 1% resistor from MGTRREF to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 216 (UG482 Figure 5-1) |
 | R89 | 100 1% | 100 1% resistor from MGTRREF_213 to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 213 (UG482 Table 5-5) |
 
-### system clock
+### X4 system clock
 
 The FPGA's own clock. X4 runs at 50 MHz from power-on and enters bank 14 on a clock-capable (MRCC) ball, so it can feed an MMCM and make any frequency the design needs. Without it nothing in the fabric would run until a network link came up.
 
@@ -583,7 +583,7 @@ The FPGA's non-volatile memory. At power-on the FPGA reads its design (bitstream
 | U6 | W25Q256JVEIQ | FPGA configuration flash: Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it. |
 | C115 | 100nF | 100nF bypass on +3V3, for U6 (FPGA configuration flash) |
 
-### PSRAM0 series termination
+### U1 PSRAM0 series termination
 
 One 33 ohm resistor per PSRAM0 line, placed next to the FPGA: they soften the fast signal edges so they do not ring along the trace. Values can be tuned after measurement (ref/psram.md).
 
@@ -596,7 +596,7 @@ One 33 ohm resistor per PSRAM0 line, placed next to the FPGA: they soften the fa
 | R108 | 33 | 33 series resistor between PSRAM0_IO2 and PSRAM0_IO2_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md) |
 | R109 | 33 | 33 series resistor between PSRAM0_IO3 and PSRAM0_IO3_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md) |
 
-### PSRAM1 series termination
+### U1 PSRAM1 series termination
 
 One 33 ohm resistor per PSRAM1 line, next to the FPGA, to damp ringing.
 
@@ -609,7 +609,7 @@ One 33 ohm resistor per PSRAM1 line, next to the FPGA, to damp ringing.
 | R114 | 33 | 33 series resistor between PSRAM1_IO2 and PSRAM1_IO2_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md) |
 | R115 | 33 | 33 series resistor between PSRAM1_IO3 and PSRAM1_IO3_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md) |
 
-### PSRAM2 series termination
+### U1 PSRAM2 series termination
 
 One 33 ohm resistor per PSRAM2 line, next to the FPGA, to damp ringing.
 
@@ -622,7 +622,7 @@ One 33 ohm resistor per PSRAM2 line, next to the FPGA, to damp ringing.
 | R120 | 33 | 33 series resistor between PSRAM2_IO2 and PSRAM2_IO2_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md) |
 | R121 | 33 | 33 series resistor between PSRAM2_IO3 and PSRAM2_IO3_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md) |
 
-### PSRAM3 series termination
+### U1 PSRAM3 series termination
 
 One 33 ohm resistor per PSRAM3 line, next to the FPGA, to damp ringing.
 
@@ -650,9 +650,16 @@ A 32 MB SDR SDRAM (Winbond W9825G6KH-6, 16 bits wide, up to 166 MHz) for designs
 | C255 | 100nF | 100nF bypass on +3V3, for U32 (SDRAM) |
 | C256 | 100nF | 100nF bypass on +3V3, for U32 (SDRAM) |
 | C257 | 10uF | 10uF bypass on +3V3, for U32 (SDRAM) |
-| R151 | 22 | 22 series resistor between SDRAM_CLK and SDRAM_CLK_MEM, for U32 (SDRAM): damps ringing on the SDRAM clock (22 ohm at the FPGA) |
 | R152 | 10k | 10k pull-up of SDRAM_CS_N to +3V3, for U32 (SDRAM): keeps the SDRAM deselected until a design drives CS |
 | R153 | 10k | 10k resistor from SDRAM_CKE to GND, for U32 (SDRAM): holds the SDRAM clock disabled (power-down) until a design drives CKE |
+
+### U1 SDRAM clock source
+
+The 22 ohm resistor in the SDRAM clock line. It sits at the FPGA ball that drives the clock, so it damps the edge at its source; it is in U1's island, not the SDRAM's (findings 44).
+
+| Ref | Value | What it does |
+|---|---|---|
+| R151 | 22 | 22 series resistor between SDRAM_CLK and SDRAM_CLK_MEM, for U32 (SDRAM): damps ringing on the SDRAM clock (22 ohm at the FPGA) |
 
 ### MRAM
 

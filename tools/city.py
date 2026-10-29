@@ -69,7 +69,10 @@ VARIANTS = {
         # spread evenly; the DC input takes the top-left corner, USB-C the
         # top-right, the AUX input moves to the bottom-right corner
         top=[('J50', 19.0), ('J7', 37.3), ('J8', 62.7), ('J1', 81.0)],
-        top_inboard={'J57': 'J7', 'J58': 'J8', 'MK71': 'J7', 'MK72': 'J8'},
+        # the L/M power rows and their keys (MK76 / MK77: design.py names the
+        # post MK{ord(slot)}, so MK71/MK72 are the G/H keys and belong to the
+        # side rows, findings 51) stack inboard of the bus headers
+        top_inboard={'J57': 'J7', 'J58': 'J8', 'MK76': 'J7', 'MK77': 'J8'},
         # the two LINK jacks (straight to the FPGA, experiments) and the real
         # Ethernet jack (through the PHY) are kept apart by the FPGA JTAG
         # header, so the two kinds read differently at a glance. HDMI OUT
@@ -93,7 +96,7 @@ VARIANTS = {
         top_inboard={},
         bottom=[('J2', 22.0), ('J51', 32.0), ('J52', 38.0), ('SW1', 44.0), ('J7', 54.0),
                 ('J8', 76.0), ('J68', 93.0)],
-        bottom_inboard={'J57': 'J7', 'J58': 'J8', 'MK71': 'J7', 'MK72': 'J8'}),
+        bottom_inboard={'J57': 'J7', 'J58': 'J8', 'MK76': 'J7', 'MK77': 'J8'}),
 }
 V = VARIANTS['best']
 
@@ -350,6 +353,36 @@ def main():
         b = by_anchor.get(a)
         if b:
             b.pos, b.fixed = rel_canvas(x, y), True
+    # key posts: a post still in the lot goes to position 1 of its own power
+    # row, one 2.54 pitch before pin 1 along the row (place.py --check's
+    # rule), when that row is already on the board; a post whose row is also
+    # a block rides with it through *_inboard above. A post on the board stays
+    # where the owner put it, and is only reported if place.py disagrees.
+    import placement as pl
+    for a, b in by_anchor.items():
+        if not a.startswith('MK') or b.fixed:
+            continue
+        slot = chr(int(a[2:]))
+        pwr = pl.POWER_REFS.get(slot)
+        if pwr is None or pwr not in BOARD.fps or pwr in by_anchor:
+            continue
+        row = BOARD.fps[pwr]
+        if not (o[0] <= row.x <= o[2] and o[1] <= row.y <= o[3]):
+            continue
+        pin1 = next((p for p in row.pads if p.number == '1'), None)
+        if pin1 is None:
+            continue
+        px, py = row.pad_pos(pin1)
+        axis = 0 if slot in 'LM' else 1
+        target = (px - 2.54, py) if axis == 0 else (px, py - 2.54)
+        cx, cy = canvas(target)
+        b.pos, b.fixed, b.why = (cx - b.aoff[0], cy - b.aoff[1]), True, f'key: position 1 of {pwr}'
+    for slot in 'ABCDEFGHLM':
+        key, pwr = f'MK{ord(slot)}', pl.POWER_REFS[slot]
+        if key in BOARD.fps and key not in by_anchor and pwr in by_anchor:
+            print(f'  NOTE {key} (slot {slot} key) sits on the board while its row {pwr} is a '
+                  f'planned block: move the post by hand to position 1 of {pwr}, or drag it '
+                  'off the board so the next plan places it with the row')
     # power doors: rows against the FPGA box, the aligned block on the column
     u1 = by_anchor.get('U1')
     for side, (row, key, net, _why) in DOORS.items():

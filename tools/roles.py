@@ -68,7 +68,7 @@ GROUP = {
         'their supplies powered, their receive inputs grounded and one 100 '
         'ohm 1 % calibration resistor per quad to MGTAVTT. These two '
         'resistors are that.',
-    'system clock':
+    'X4 system clock':
         'The FPGA\'s own clock. X4 runs at 50 MHz from power-on and enters '
         'bank 14 on a clock-capable (MRCC) ball, so it can feed an MMCM and '
         'make any frequency the design needs. Without it nothing in the '
@@ -390,6 +390,10 @@ GROUP.update({
         'by the mode straps). The board controller can rewrite it through the '
         'series resistors on the Board Controller sheet, and spare space can '
         'hold user data or software for a soft CPU.',
+    'U1 SDRAM clock source':
+        'The 22 ohm resistor in the SDRAM clock line. It sits at the FPGA ball '
+        'that drives the clock, so it damps the edge at its source; it is in '
+        'U1\'s island, not the SDRAM\'s (findings 44).',
     'SDRAM':
         'A 32 MB SDR SDRAM (Winbond W9825G6KH-6, 16 bits wide, up to 166 '
         'MHz) for designs that outgrow the PSRAMs: a framebuffer, a soft '
@@ -417,12 +421,12 @@ GROUP.update({
         '100 nF and 10 uF feed the card\'s supply at the socket; the shell '
         'is grounded. Cheap removable storage for a soft CPU: a filesystem, '
         'images to load into the PSRAMs, logs.',
-    'PSRAM0 series termination': 'One 33 ohm resistor per PSRAM0 line, placed next to the '
+    'U1 PSRAM0 series termination': 'One 33 ohm resistor per PSRAM0 line, placed next to the '
         'FPGA: they soften the fast signal edges so they do not ring along '
         'the trace. Values can be tuned after measurement (ref/psram.md).',
-    'PSRAM1 series termination': 'One 33 ohm resistor per PSRAM1 line, next to the FPGA, to damp ringing.',
-    'PSRAM2 series termination': 'One 33 ohm resistor per PSRAM2 line, next to the FPGA, to damp ringing.',
-    'PSRAM3 series termination': 'One 33 ohm resistor per PSRAM3 line, next to the FPGA, to damp ringing.',
+    'U1 PSRAM1 series termination': 'One 33 ohm resistor per PSRAM1 line, next to the FPGA, to damp ringing.',
+    'U1 PSRAM2 series termination': 'One 33 ohm resistor per PSRAM2 line, next to the FPGA, to damp ringing.',
+    'U1 PSRAM3 series termination': 'One 33 ohm resistor per PSRAM3 line, next to the FPGA, to damp ringing.',
     'PSRAM0 power-up state': 'Six 10k resistors at the PSRAM0 pins: CE# pulled up to its own '
         'supply, clock and the four data lines pulled down. The chip requires these '
         'levels from the first moment of its supply ramp until 150 us after it, and '

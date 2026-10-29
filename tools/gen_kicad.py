@@ -478,6 +478,34 @@ def gen_mram_fp():
     open(f'{PRET}/{MRAM_FP}.kicad_mod', 'w').write(t)
     return t.count('(pad ')
 
+USBC_SRC = '/usr/share/kicad/footprints/Connector_USB.pretty/USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A.kicad_mod'
+USBC_FP = 'USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A_Odin'
+
+def gen_usbc_fp():
+    """KiCad's HCTL USB-C land pattern with the four outer ground pads
+    (A1, A12, B1, B12) shortened on the side of the 0.65 mm locating holes.
+    As shipped they are 0.6 x 1.3 mm at y -3.745 and come within 0.185 mm of
+    the hole (DRC hole_clearance 0.25; JLC NPTH to copper 0.20). The pads
+    keep their outer end (y -4.395) and lose 0.15 mm at the hole end: 0.6 x
+    1.15 mm at y -3.82, 0.31 mm from the hole. [verify] the contact tail
+    position against the HCTL drawing before ordering (findings item 49)."""
+    import re
+    s = open(USBC_SRC).read()
+    n = 0
+    def fix(m):
+        nonlocal n; n += 1
+        return m.group(1) + '(at ' + m.group(2) + ' -3.82)' + m.group(3) + '(size 0.6 1.15)'
+    s = re.sub(r'(\(pad "(?:A1|A12|B1|B12)" smd roundrect\s*)\(at (-?3\.2) -3\.745\)(\s*)\(size 0\.6 1\.3\)',
+               fix, s)
+    assert n == 4, n
+    s = s.replace('(footprint "USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A"',
+                  f'(footprint "{USBC_FP}"', 1)
+    s = s.replace('(descr "', '(descr "Odin copy: A1/A12/B1/B12 pads shortened to 1.15 mm, 0.31 mm '
+                  'from the locating holes (tools/gen_kicad.py gen_usbc_fp, findings 49); ', 1)
+    os.makedirs(PRET, exist_ok=True)
+    open(f'{PRET}/{USBC_FP}.kicad_mod', 'w').write(s)
+    return n
+
 def gen_aux_footprints():
     """Datasheet land pattern for the AUX branch PTC."""
     os.makedirs(PRET, exist_ok=True)
@@ -516,6 +544,7 @@ if __name__ == '__main__':
     npads = gen_footprint()
     nlp = gen_inductor_fp()
     nap = gen_aux_footprints()
+    print(f'footprint {PRET}/{USBC_FP}.kicad_mod: {gen_usbc_fp()} pads shortened')
     print(f'footprint {PRET}/{MRAM_FP}.kicad_mod: {gen_mram_fp()} pads')
     print(f"symbol  {SYM}: {len(pins)} pins in {len(units)} units")
     for k, v in units.items(): print(f"   unit {k:18s} {len(v):3d} pins")

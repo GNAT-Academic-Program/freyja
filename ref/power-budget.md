@@ -7,7 +7,15 @@
 USB-C can start at 4.75 V. The SS34 plus USB eFuse model loses
 0.48 V at 0.6 A, leaving **4.27 V**. The screw input is
 **9–21 V DC**. U11/U12 are AP63300 devices (3.8–32 V operating) and cover
-the full VSYS envelope.
+the full VSYS envelope. Both run without an enable: +3V3, +5V and the 1.8 V
+rail behind U14 are present whenever the board has power, so the FPGA's
+VCCAUX never waits on firmware (DS181 Table 7, findings 34).
+
+On a plain 5 V source U11 cannot make 5 V from 4.3 V; U34 (TPS2121) then
+passes VBUS to the +5V rail directly while VBUS is between 4.44 and 5.63 V,
+and hands the rail to U11 within 5 us when a 9 V contract arrives or VBUS
+goes away. Both of its inputs block reverse current and the rail is
+limited to 2.5 A typical.
 
 The VIN clamp is SMBJ22A: 22 V standoff and 35.5 V maximum rated pulse clamp.
 The AP63300's 40 V/400 ms transient limit is the lowest transient limit after
@@ -70,6 +78,85 @@ are not in these numbers.
 | +1V1 | RP2350B core (DVDD) | 0.060 A | estimate | RP2350 at 150 MHz; the on-chip regulator is rated 200 mA |
 | +5V | U9/U10 VCCB | 0.020 A | estimate | quiescent translator supply |
 | +5V | HDMI 5 V to the monitor through U31 | 0.055 A | datasheet | TPD12S016 5V_OUT current limit, SLLSE96F |
+
+## Output capacitance against the datasheets (findings 40)
+
+Nominal values summed from the netlist: every capacitor directly between
+the regulator's output node and ground, FPGA decoupling and jumper-position
+capacitors included. The figures are BOM values, not effective capacitance
+(DC bias and temperature derate X5R/X7R by up to half); the loads behind a
+bead or inductor are frequency-dependent and listed beside, not added.
+
+| Ref | Node | Direct COUT | Validated | Behind a filter | Status | Datasheet |
+|---|---|---:|---:|---|---|---|
+| `U11` | +5V_BUCK | 66.0 uF | 68 uF | 81.7 uF on +5V behind U34 | inside | DS42002 p. 19: 22-68 uF ceramic for most applications |
+| `U12` | +3V3 | 221.4 uF | 68 uF | - | **beyond: bench qualification** | DS42002 p. 19: 22-68 uF ceramic for most applications |
+| `U13` | +2V5 | 103.4 uF | 47 uF | - | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
+| `U14` | +1V8_IO | 113.0 uF | 47 uF | 63.5 uF on +1V8 behind FB1 | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
+| `U15` | +1V0 | 506.9 uF | 44 uF | 10.4 uF on +1V0_MGT behind L9 | **beyond: bench qualification** | Silergy SY8047 rev 0.9 reference circuit: 2 x 22 uF |
+| `U16` | +1V2_MGT | 49.9 uF | 47 uF | - | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
+
+"Beyond" means the datasheet has not validated this much output
+capacitance, not that the regulator oscillates. Qualification is on the
+assembled board: start-up into the full bank, a load step at each jumper
+position, loop phase margin if the vendor supplies a model. Do not remove
+FPGA decoupling to make a row fit.
+
+## Inductor peak current
+
+Ripple from the buck equation (TLV62569 SLVSDG1C eq. 3) at the planning
+input voltage, load from the table above plus the connector allowance the
+rail carries (+5V: 1 A for +5V_EXT; +3V3: 0.5 A for +3V3_EXT and 1 A for
+both PIN V domains at 3.3 V). The fitted part must not saturate.
+
+| Ref | Inductor | Load | Ripple | Peak | Isat | |
+|---|---|---:|---:|---:|---:|---|
+| `U11` | `SRN6045TA-4R7M` | 1.72 A | 0.95 A | 2.19 A | 6.8 A | PASS |
+| `U12` | `SRN6045TA-4R7M` | 2.42 A | 0.89 A | 2.86 A | 6.8 A | PASS |
+| `U13` | `SRN4018-2R2M` | 0.14 A | 0.38 A | 0.33 A | 3 A | PASS |
+| `U14` | `SRN4018-2R2M` | 0.31 A | 0.35 A | 0.48 A | 3 A | PASS |
+| `U15` | `FTC201610S1R0MBCA` | 1.65 A | 0.64 A | 1.97 A | 4.6 A | PASS |
+| `U16` | `SRN4018-2R2M` | 0.15 A | 0.28 A | 0.29 A | 3 A | PASS |
+
+## Input source envelope (findings 46)
+
+| Export | Voltage | Allowance | Source of the figure |
+|---|---:|---:|---|
+| +5V_EXT | 5 V | 1 A | U21 TPS22950C 1.15k, 1.0 A typical |
+| +3V3_EXT | 3.3 V | 0.5 A | U22 TPS22950C 2.21k, 0.5 A typical |
+| VCCIO_1_EXT | 3.3 V | 0.5 A | U23 TPS22953, no limit of its own: one 500 mA PINV PTC |
+| VCCIO_2_EXT | 3.3 V | 0.5 A | U24 TPS22953, no limit of its own: one 500 mA PINV PTC |
+
+| Mode | Source | V | Board + export power | Current at the connector | Source or hardware limit | | Path |
+|---|---|---:|---:|---:|---:|---|---|
+| recovery | USB 2.0 port | 4.75 V | 0.84 W | 0.19 A | 0.50 A | fits | U34 0.09 A + U26 0.10 A |
+| recovery | USB-C 5V/1.5A | 4.75 V | 0.84 W | 0.19 A | 1.50 A | fits | U34 0.09 A + U26 0.10 A |
+| recovery | USB-C 5V/3A | 4.75 V | 0.84 W | 0.19 A | 3.00 A | fits | U34 0.09 A + U26 0.10 A |
+| recovery | USB-PD 9V | 9 V | 0.84 W | 0.10 A | 1.70 A | fits | U26 0.10 A |
+| recovery | J50 VIN | 9 V | 0.84 W | 0.10 A | 3.00 A | fits | D4 path |
+| light | USB 2.0 port | 4.75 V | 6.64 W | 1.47 A | 0.50 A | **does not fit** | U34 0.76 A + U26 0.71 A |
+| light | USB-C 5V/1.5A | 4.75 V | 6.64 W | 1.47 A | 1.50 A | fits | U34 0.76 A + U26 0.71 A |
+| light | USB-C 5V/3A | 4.75 V | 6.64 W | 1.47 A | 3.00 A | fits | U34 0.76 A + U26 0.71 A |
+| light | USB-PD 9V | 9 V | 6.64 W | 0.82 A | 1.70 A | fits | U26 0.82 A |
+| light | J50 VIN | 9 V | 6.64 W | 0.82 A | 3.00 A | fits | D4 path |
+| full | USB 2.0 port | 4.75 V | 16.59 W | 3.68 A | 0.50 A | **does not fit** | U34 1.81 A + U26 1.87 A |
+| full | USB-C 5V/1.5A | 4.75 V | 16.59 W | 3.68 A | 1.50 A | **does not fit** | U34 1.81 A + U26 1.87 A |
+| full | USB-C 5V/3A | 4.75 V | 16.59 W | 3.68 A | 3.00 A | **does not fit** | U34 1.81 A + U26 1.87 A |
+| full | USB-PD 9V | 9 V | 16.59 W | 2.05 A | 1.70 A | **does not fit** | U26 2.05 A |
+| full | J50 VIN | 9 V | 16.59 W | 2.05 A | 3.00 A | fits | D4 path |
+
+Modes: *recovery* is the controller alone with the FPGA unconfigured (the
+always-on +3V3, +5V and +1V8 chain); *light* is every board load with no
+connector export; *full* adds the export allowances. On a plain 5 V source
+the +5V loads come straight from VBUS through U34 and only the +3V3 side
+passes U26, so the port carries the sum of both paths. A plain USB 2.0 port
+carries recovery mode only; full operation needs a 9 V PD contract or J50.
+Firmware reads VBUS5_ST, PD_PG and the Type-C advertisement to stay inside
+the connected source's profile; the hardware limits (U26, U34, the PTCs)
+protect the board and the connector, not the source. The contract checked
+by `budget.py`: recovery and light fit a 9 V PD contract, full fits J50;
+on PD the export allowance is whatever U26's minimum limit leaves over the
+board load, and firmware must ration EXT_EN accordingly.
 
 ## AUX: raw pass-through, no converter
 

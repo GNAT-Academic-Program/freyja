@@ -6,10 +6,14 @@
 Read-only. Runs, in order: design.py / budget.py / qualified.py build checks,
 check_erc.py, netlist export to a scratch file compared with kicad/odin.net,
 ref/freya.xdc compared with a fresh gen_xdc export, DRC with schematic
-parity, place.py --check, depth.py. Exits non-zero if a
-blocking check fails (build errors, ERC, parity, netlist drift). DRC
-violations and unrouted counts are reported, not gated: the board is not
-routed yet.
+parity, place.py --check, depth.py.
+
+Two verdicts, printed separately so neither hides the other:
+  GATE electrical  - build, ERC, netlist/XDC/guide drift, schematic parity
+  GATE mechanical  - place.py --check (the connector lattice contract)
+The exit code is 1 if the electrical gate fails; with --strict also if the
+mechanical one does. DRC violations and unrouted counts are reported, not
+gated: the board is not routed yet.
 """
 import collections, json, os, re, subprocess, sys, tempfile
 
@@ -106,15 +110,21 @@ def main():
         if types: print('   error types:', dict(types))
 
     r = run([PY, 'tools/place.py', '--check'])
-    print('place.py --check exit', r.returncode, '|', (r.stdout.strip().splitlines() or [''])[-1])
+    mech_ok = r.returncode == 0
+    mech_lines = [l for l in r.stdout.strip().splitlines() if l.strip()]
+    print('place.py --check exit', r.returncode, '|', (mech_lines or [''])[-1])
 
     n, by = parts_and_sheets()
     print(f'parts          {n}  {by}')
     print('pcb            ', pcb_counts())
     r = run([PY, 'tools/depth.py', '--pcb'])
     print('depth          ', [l for l in r.stdout.splitlines() if l.startswith('depth >=')][0])
-    print('GATE', 'PASS' if ok else 'FAIL')
-    sys.exit(0 if ok else 1)
+    print('GATE electrical', 'PASS' if ok else 'FAIL')
+    print('GATE mechanical', 'PASS' if mech_ok else
+          f'FAIL ({len([l for l in mech_lines if l.startswith("  ")])} lattice findings; '
+          'placement in progress, see ref/rev-a-report.md)')
+    strict = '--strict' in sys.argv
+    sys.exit(0 if ok and (mech_ok or not strict) else 1)
 
 
 if __name__ == '__main__':

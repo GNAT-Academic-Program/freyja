@@ -1,7 +1,7 @@
 (export (version "E")
   (design
     (source "/home/ohenley/freyja/kicad/odin.kicad_sch")
-    (date "2026-10-29T13:43:28-0400")
+    (date "2026-10-29T13:51:04-0400")
     (tool "Eeschema 9.0.8+dfsg-1")
     (sheet (number "1") (name "/") (tstamps "/")
       (title_block
@@ -5716,11 +5716,11 @@
       (tstamps "f2165018-d2c6-a939-6744-5317184debe6"))
     (comp (ref "J1")
       (value "USB-C")
-      (footprint "Connector_USB:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A")
+      (footprint "odin:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A_Odin")
       (description "USB-C connector: Power in and USB 2.0 data to the board controller.")
       (fields
         (field (name "LCSC") "C2894897")
-        (field (name "Footprint") "Connector_USB:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A")
+        (field (name "Footprint") "odin:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A_Odin")
         (field (name "Datasheet"))
         (field (name "Description") "USB-C connector: Power in and USB 2.0 data to the board controller."))
       (libsource (lib "Connector") (part "USB_C_Receptacle_USB2.0_16P") (description "USB 2.0-only 16P Type-C Receptacle connector"))

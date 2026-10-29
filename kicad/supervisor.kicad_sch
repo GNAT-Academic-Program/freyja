@@ -7633,7 +7633,7 @@
 		(uuid "488052b6-35f0-75ee-47cf-bcbfcba9c810")
 		(property "Reference" "J1" (at 271.78 400.05 0) (effects (font (size 1.27 1.27))))
 		(property "Value" "USB-C" (at 271.78 453.39 0) (effects (font (size 1.27 1.27))))
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A" (at 271.78 453.39 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Footprint" "odin:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A_Odin" (at 271.78 453.39 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "LCSC" "C2894897" (at 271.78 453.39 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "USB-C connector: Power in and USB 2.0 data to the board controller." (at 271.78 453.39 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/3e2df089-f023-0194-2f85-195f6ca76ec6" (reference "J1") (unit 1))))

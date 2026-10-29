@@ -374,3 +374,41 @@ What:
   the overload protection. U21/U22 stay TPS22950C.
 Open for the owner: 28 staged footprints to island (PSRAM pulls belong at
 U2-U5, the TPS22953 parts at U23/U24; profiles added to island_profiles.yaml).
+
+## Audit corrections, part 3: tools 2026-10-29
+Parts: 544; roles 544/544; ERC 0 errors, 2 allowlisted warnings; DRC **0
+errors** (was 4), 295 warnings, 0 parity; nothing moved: 0 of 544 common
+footprints (J1's footprint swapped in place, its island group kept).
+Findings items 40, 44, 46, 47, 49, 51.
+What:
+- gate.py prints two verdicts, `GATE electrical` and `GATE mechanical`
+  (place.py --check), and no longer says PASS over a failed lattice check.
+  Exit code follows the electrical gate; `--strict` adds the mechanical one.
+  Today: electrical PASS, mechanical FAIL (14 lattice findings, phase B3).
+- islands.py: when a series part reaches two anchors, the anchor its
+  design.py group names wins (then hops, then distance). Groups renamed so
+  the source resistors follow their drivers: `U1 PSRAM{0-3} series
+  termination` (R104-R127), `U1 SDRAM clock source` (R151), `X4 system
+  clock` (R147, C246). Dry runs confirm: the U2 island now reports R104-R109
+  as U1's, the U1 island reports R147 as X4's. The board's KiCad groups still
+  hold R104-R127 in islands U2-U5 and R151 in U32; moving them is an apply:
+  `islands.py --anchor U1 --extend --with R104,...,R127,R151` after review.
+- city.py: the L/M keys are MK76/MK77 (design.py MK{ord(slot)}), not
+  MK71/MK72; an off-board key post is planned at position 1 of its own power
+  row (one pitch before pin 1, place.py's rule) when that row is on the
+  board, so MK71 goes to J56 and MK72 to J65. MK76/MK77 sit on the board at
+  the old bottom bus position while J7/J8 are planned at the top: the plan
+  prints a NOTE; they are hand placement and were not moved. Plan
+  regenerated (ref/city/plan.yaml), not applied in this commit.
+- J1: odin copy of KiCad's HCTL USB-C footprint with A1/A12/B1/B12 shortened
+  to 0.6 x 1.15 mm on the locating-hole side (0.31 mm hole-to-copper; rule
+  0.25, JLC NPTH-to-track 0.20). [verify] against the HCTL drawing, which
+  LCSC serves only through a browser.
+- budget.py: per-regulator output capacitance against what each datasheet
+  validated (U12 221 uF, U13 103 uF, U14 113 uF, U15 507 uF, U16 50 uF are
+  beyond: bench qualification, not a build error); inductor peak current
+  per rail against Isat (all pass, worst U12 2.86 of 6.8 A); an input
+  envelope by mode (recovery / light / full) per source profile with the
+  U26 and U34 limits. Checked contract: recovery and light fit a 9 V PD
+  contract, full export fits J50 only (2.05 A against U26's 1.7 A minimum
+  on PD). All in ref/power-budget.md.

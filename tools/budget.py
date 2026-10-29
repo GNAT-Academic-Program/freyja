@@ -2,11 +2,29 @@
 """Executable power limits and the generated Odin power-budget report."""
 import sys
 
+# (name, minimum voltage at the connector, current the source guarantees, note)
+# Currents are what the source profile promises, not what the board may take.
 SOURCES = [
-    ('USB-C default', 4.75, 0.9, 'USB vSafe5V minimum; source-current limited'),
-    ('USB-C 5V/3A', 5.00, 3.0, 'Type-C 3A advertisement'),
-    ('USB-PD 9V', 9.00, 3.0, 'Odin requests only 9 V'),
-    ('J50 VIN', 9.00, 3.0, 'official 9-21 V screw-input range'),
+    ('USB 2.0 port', 4.75, 0.5, 'configured bus power; an SDP guarantees no more'),
+    ('USB-C 5V/1.5A', 4.75, 1.5, 'Type-C 1.5 A advertisement (Rp), read by the CH224K'),
+    ('USB-C 5V/3A', 4.75, 3.0, 'Type-C 3 A advertisement'),
+    ('USB-PD 9V', 9.00, 3.0, 'the only contract above 5 V the CFG pins can form'),
+    ('J50 VIN', 9.00, 3.0, 'official 9-21 V screw-input range; 3 A is the planning figure'),
+]
+# Hardware limits on the two USB paths: U26 (eFuse to VSYS) and U34 (mux to
+# +5V) draw from the same connector when the source is plain 5 V.
+I_U26_MIN, I_U26_TYP = 1.70, 2.03     # TPS259470A 1.65k ILM, SLVSFC9C
+I_U34_MIN, I_U34_TYP = 2.00, 2.50     # TPS2121 44.2k RILM, SLVSEA3F Table 7.5
+ETA = 0.90                            # planning efficiency per conversion stage
+
+# Connector exports: planning allowances per protected bus, each the switch's
+# typical limit or, for the PIN V domains, one slot fuse's hold current.
+# They are not additive guarantees: ref/extension-ux.md.
+EXPORTS = [
+    ('+5V_EXT', 5.0, 1.00, 'U21 TPS22950C 1.15k, 1.0 A typical'),
+    ('+3V3_EXT', 3.3, 0.50, 'U22 TPS22950C 2.21k, 0.5 A typical'),
+    ('VCCIO_1_EXT', 3.3, 0.50, 'U23 TPS22953, no limit of its own: one 500 mA PINV PTC'),
+    ('VCCIO_2_EXT', 3.3, 0.50, 'U24 TPS22953, no limit of its own: one 500 mA PINV PTC'),
 ]
 
 VF_SS34 = 0.45
@@ -119,6 +137,118 @@ REGULATORS = [
     ('U15', 'SY8047QDC', '+5V', '+1V0', 2.5, 5.5, 4.0),
     ('U16', 'TLV62569DRLR', '+5V', '+1V2_MGT', 2.5, 5.5, 2.0),
 ]
+# Per regulator: the net its capacitors sit on, inductor key, switching
+# frequency, and what the datasheet has actually validated for COUT
+# (findings item 40). Anything above the validated figure is a bench
+# qualification item, not a build error: load-step and start-up on the
+# assembled board, every jumper position.
+REG_DETAIL = {
+    'U11': dict(node='+5V_BUCK', ind='4.7uH', fsw=500e3, vin=9.0,
+                cout_ok=68e-6, cite='DS42002 p. 19: 22-68 uF ceramic for most applications'),
+    'U12': dict(node='+3V3', ind='4.7uH', fsw=500e3, vin=9.0,
+                cout_ok=68e-6, cite='DS42002 p. 19: 22-68 uF ceramic for most applications'),
+    'U13': dict(node='+2V5', ind='2.2uH', fsw=1.5e6, vin=5.0,
+                cout_ok=47e-6, cite='SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF'),
+    'U14': dict(node='+1V8_IO', ind='2.2uH', fsw=1.5e6, vin=5.0,
+                cout_ok=47e-6, cite='SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF'),
+    'U15': dict(node='+1V0', ind='1uH_core', fsw=1.25e6, vin=5.0,
+                cout_ok=44e-6, cite='Silergy SY8047 rev 0.9 reference circuit: 2 x 22 uF'),
+    'U16': dict(node='+1V2_MGT', ind='2.2uH', fsw=1.5e6, vin=5.0,
+                cout_ok=47e-6, cite='SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF'),
+}
+# Rails that hang off a regulator node through a bead or inductor: their
+# capacitance is a frequency-dependent load, listed beside the direct sum.
+BEHIND = {'+1V8_IO': ('+1V8', 'FB1'), '+1V0': ('+1V0_MGT', 'L9')}
+
+
+def _farads(value):
+    import re
+    m = re.match(r'\s*([\d.]+)\s*(pF|nF|uF)', value)
+    if not m: return 0.0
+    return float(m.group(1)) * {'pF': 1e-12, 'nF': 1e-9, 'uF': 1e-6}[m.group(2)]
+
+
+def rail_caps(parts):
+    """Nominal rail-to-GND capacitance per net from the design parts."""
+    tot = {}
+    for p in parts:
+        if p['lib_id'] not in ('Device:C', 'Device:C_Polarized') or p.get('dnp'): continue
+        nets = set(p['pins'].values())
+        if 'GND' not in nets or len(nets) != 2: continue
+        rail = (nets - {'GND'}).pop()
+        tot[rail] = tot.get(rail, 0.0) + _farads(p['value'])
+    return tot
+
+
+def cout_rows(parts):
+    caps = rail_caps(parts)
+    rows = []
+    for ref, part, _src, out, _lo, _hi, _cap in REGULATORS:
+        d = REG_DETAIL[ref]
+        direct = caps.get(d['node'], 0.0)
+        extra = ''
+        if d['node'] in BEHIND:
+            r, via = BEHIND[d['node']]
+            extra = f'{caps.get(r, 0)*1e6:.1f} uF on {r} behind {via}'
+        if ref == 'U11':
+            extra = f'{caps.get("+5V", 0)*1e6:.1f} uF on +5V behind U34'
+        ok = direct <= d['cout_ok'] * 1.001
+        rows.append((ref, d['node'], direct, d['cout_ok'], extra, ok, d['cite']))
+    return rows
+
+
+def inductor_rows(parts):
+    """Peak inductor current per rail (TLV62569 SLVSDG1C eq. 3, the same
+    arithmetic for every buck) against the fitted part's saturation rating."""
+    loads = board_loads()
+    rows = []
+    for ref, part, _src, out, _lo, _hi, _cap in REGULATORS:
+        d = REG_DETAIL[ref]; ind = INDUCTOR[d['ind']]
+        vout = {'+5V': 5.0, '+3V3': 3.3, '+2V5': 2.5, '+1V8_IO': 1.8, '+1V0': 1.0, '+1V2_MGT': 1.2}[out]
+        iload = loads[out]
+        if out == '+5V': iload += 1.0          # +5V_EXT allowance rides on U11
+        if out == '+3V3': iload += 0.5 + 1.0   # +3V3_EXT and both PIN V domains at 3.3 V
+        ripple = vout * (1 - vout / d['vin']) / (ind['l'] * d['fsw'])
+        ipk = iload + ripple / 2
+        rows.append((ref, ind['mpn'], iload, ripple, ipk, ind['isat'], ipk <= ind['isat']))
+    return rows
+
+
+def mode_rows():
+    """Input-source envelope per operating mode (findings item 46).
+
+    recovery: controller only (+3V3 and the always-on +5V/+1V8 chain with the
+              FPGA unconfigured); light: every board load; full: board loads
+              plus the connector export allowances. Powers are at the
+              connector, with ETA per conversion stage; on a plain 5 V source
+              the +5V loads come straight from VBUS through U34 and only the
+              +3V3 side passes U26 and U12."""
+    loads = board_loads()
+    p33 = loads['+3V3'] * 3.3
+    p5_board = loads['+5V'] * 5.0
+    # recovery: RP2350 + flashes + the 1.8 V chain idle (VCCAUX, PSRAM standby)
+    p33_rec = sum(a for r, w, a, _k, _n in LOADS if r == '+3V3' and
+                  ('RP2350' in w or 'flash' in w or 'U20' in w)) * 3.3
+    p5_rec = (0.18 + 0.028) * 1.8 / ETA
+    exports = sum(v * a for _n, v, a, _c in EXPORTS)
+    modes = [('recovery', p33_rec, p5_rec), ('light', p33, p5_board),
+             ('full', p33 + sum(v*a for n, v, a, _c in EXPORTS if n != '+5V_EXT'),
+              p5_board + 5.0 * 1.0)]
+    rows = []
+    for name, p33m, p5m in modes:
+        for sname, v, imax, _note in SOURCES:
+            if v < 5.5:      # plain 5 V: +5V straight from VBUS (U34), +3V3 via U26/U12
+                i_mux = p5m / v
+                i_efuse = p33m / ETA / v
+                i_tot = i_mux + i_efuse
+                limit = min(imax, I_U26_MIN + I_U34_MIN)
+                hw = f'U34 {i_mux:.2f} A + U26 {i_efuse:.2f} A'
+            else:            # 9 V and up: everything through U26 (USB) or D4 (J50), U11 and U12
+                i_tot = (p33m + p5m) / ETA / v
+                limit = imax if sname.startswith('J50') else min(imax, I_U26_MIN)
+                hw = f'U26 {i_tot:.2f} A' if not sname.startswith('J50') else 'D4 path'
+            rows.append((name, sname, v, p33m + p5m, i_tot, limit, i_tot <= limit, hw))
+    return rows
 
 def board_loads():
     own = {rail: sum(amps for r, _, amps, _, _ in LOADS if r == rail)
@@ -130,6 +260,18 @@ def board_loads():
 
 def analyse():
     problems = []
+    import design
+    parts = design.build().parts
+    for ref, mpn, iload, ripple, ipk, isat, ok in inductor_rows(parts):
+        if not ok:
+            problems.append(f'{ref}: {mpn} peak {ipk:.2f} A exceeds its {isat:g} A saturation rating')
+    # Contract: recovery and light modes fit a 9 V PD contract; full export
+    # (every allowance at once) needs J50. A PD source carries full mode only
+    # as far as U26's minimum current limit allows, which the table shows.
+    for mode, src, v, p, i, lim, ok, hw in mode_rows():
+        if ((mode in ('recovery', 'light') and src == 'USB-PD 9V') or
+                (mode == 'full' and src == 'J50 VIN')) and not ok:
+            problems.append(f'{mode} mode does not fit {src}: {i:.2f} A against {lim:g} A')
     if VSYS_MIN < 3.8:
         problems.append(f'AP63300 minimum 3.8 V exceeds VSYS minimum {VSYS_MIN:.2f} V')
     if VSYS_MAX > 32.0:
@@ -141,6 +283,19 @@ def analyse():
     return problems
 
 def report():
+    import design
+    parts = design.build().parts
+    couts = '\n'.join(
+        f'| `{ref}` | {node} | {c*1e6:.1f} uF | {ok_*1e6:.0f} uF | {extra or "-"} | '
+        f'{"inside" if ok else "**beyond: bench qualification**"} | {cite} |'
+        for ref, node, c, ok_, extra, ok, cite in cout_rows(parts))
+    inds = '\n'.join(
+        f'| `{ref}` | `{mpn}` | {il:.2f} A | {rp:.2f} A | {ipk:.2f} A | {isat:g} A | {"PASS" if ok else "FAIL"} |'
+        for ref, mpn, il, rp, ipk, isat, ok in inductor_rows(parts))
+    modes = '\n'.join(
+        f'| {m} | {s} | {v:g} V | {p:.2f} W | {i:.2f} A | {lim:.2f} A | {"fits" if ok else "**does not fit**"} | {hw} |'
+        for m, s, v, p, i, lim, ok, hw in mode_rows())
+    exps = '\n'.join(f'| {n} | {v:g} V | {a:g} A | {c} |' for n, v, a, c in EXPORTS)
     regs = '\n'.join(
         f'| `{r}` | `{p}` | {src} | {out} | {lo:g}–{hi:g} V | {cap:g} A |'
         for r, p, src, out, lo, hi, cap in REGULATORS)
@@ -160,7 +315,15 @@ def report():
 USB-C can start at 4.75 V. The SS34 plus USB eFuse model loses
 {V_OR_DROP:.2f} V at 0.6 A, leaving **{VSYS_MIN:.2f} V**. The screw input is
 **9–21 V DC**. U11/U12 are AP63300 devices (3.8–32 V operating) and cover
-the full VSYS envelope.
+the full VSYS envelope. Both run without an enable: +3V3, +5V and the 1.8 V
+rail behind U14 are present whenever the board has power, so the FPGA's
+VCCAUX never waits on firmware (DS181 Table 7, findings 34).
+
+On a plain 5 V source U11 cannot make 5 V from 4.3 V; U34 (TPS2121) then
+passes VBUS to the +5V rail directly while VBUS is between 4.44 and 5.63 V,
+and hands the rail to U11 within 5 us when a 9 V contract arrives or VBUS
+goes away. Both of its inputs block reverse current and the rail is
+limited to {I_U34_TYP:g} A typical.
 
 The VIN clamp is SMBJ22A: 22 V standoff and 35.5 V maximum rated pulse clamp.
 The AP63300's 40 V/400 ms transient limit is the lowest transient limit after
@@ -187,6 +350,58 @@ are not in these numbers.
 | Rail | Load | Current | Basis | Note |
 |---|---|---:|---|---|
 {lines}
+
+## Output capacitance against the datasheets (findings 40)
+
+Nominal values summed from the netlist: every capacitor directly between
+the regulator's output node and ground, FPGA decoupling and jumper-position
+capacitors included. The figures are BOM values, not effective capacitance
+(DC bias and temperature derate X5R/X7R by up to half); the loads behind a
+bead or inductor are frequency-dependent and listed beside, not added.
+
+| Ref | Node | Direct COUT | Validated | Behind a filter | Status | Datasheet |
+|---|---|---:|---:|---|---|---|
+{couts}
+
+"Beyond" means the datasheet has not validated this much output
+capacitance, not that the regulator oscillates. Qualification is on the
+assembled board: start-up into the full bank, a load step at each jumper
+position, loop phase margin if the vendor supplies a model. Do not remove
+FPGA decoupling to make a row fit.
+
+## Inductor peak current
+
+Ripple from the buck equation (TLV62569 SLVSDG1C eq. 3) at the planning
+input voltage, load from the table above plus the connector allowance the
+rail carries (+5V: 1 A for +5V_EXT; +3V3: 0.5 A for +3V3_EXT and 1 A for
+both PIN V domains at 3.3 V). The fitted part must not saturate.
+
+| Ref | Inductor | Load | Ripple | Peak | Isat | |
+|---|---|---:|---:|---:|---:|---|
+{inds}
+
+## Input source envelope (findings 46)
+
+| Export | Voltage | Allowance | Source of the figure |
+|---|---:|---:|---|
+{exps}
+
+| Mode | Source | V | Board + export power | Current at the connector | Source or hardware limit | | Path |
+|---|---|---:|---:|---:|---:|---|---|
+{modes}
+
+Modes: *recovery* is the controller alone with the FPGA unconfigured (the
+always-on +3V3, +5V and +1V8 chain); *light* is every board load with no
+connector export; *full* adds the export allowances. On a plain 5 V source
+the +5V loads come straight from VBUS through U34 and only the +3V3 side
+passes U26, so the port carries the sum of both paths. A plain USB 2.0 port
+carries recovery mode only; full operation needs a 9 V PD contract or J50.
+Firmware reads VBUS5_ST, PD_PG and the Type-C advertisement to stay inside
+the connected source's profile; the hardware limits (U26, U34, the PTCs)
+protect the board and the connector, not the source. The contract checked
+by `budget.py`: recovery and light fit a 9 V PD contract, full fits J50;
+on PD the export allowance is whatever U26's minimum limit leaves over the
+board load, and firmware must ration EXT_EN accordingly.
 
 ## AUX: raw pass-through, no converter
 
