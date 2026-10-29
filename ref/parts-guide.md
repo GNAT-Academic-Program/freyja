@@ -9,9 +9,9 @@ the PCB (select a footprint, Description field). Start with the sheet
 you care about; within it, groups appear in schematic order.
 
 - [FPGA](#fpga) (110 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
-- [Power](#power) (119 parts): Inputs, the regulators that make every rail, extension power protection.
-- [Memory](#memory) (59 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
-- [Supervisor](#supervisor) (83 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
+- [Power](#power) (127 parts): Inputs, the regulators that make every rail, extension power protection.
+- [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
+- [Supervisor](#supervisor) (79 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
 - [Video](#video) (8 parts): HDMI output straight from the FPGA, with its protection chip.
@@ -250,7 +250,7 @@ Bulk capacitor shared by every FPGA I/O bank powered from +1V8_IO: UG483 Table 2
 
 ### config straps (UG470)
 
-How the FPGA loads its design at power-on. M[2:0] = 001 selects master SPI: the FPGA clocks its bitstream out of the W25Q256 flash (U6) by itself. The mode straps are 1 k, the most UG470 v1.17 Table 2-4 allows. PROGRAM_B and INIT_B are pulled up so the board controller can restart configuration; PUDC_B is strapped low so I/O pull-ups stay on while the FPGA configures, which holds outputs such as PHY_RESET_N in a known state. DONE lights D1 through Q4 once a design is running.
+How the FPGA loads its design at power-on. M[2:0] = 001 selects master SPI: the FPGA clocks its bitstream out of the W25Q256 flash (U6) by itself. The mode straps are 1 k, the most UG470 v1.17 Table 2-4 allows. PROGRAM_B and INIT_B are pulled up so the board controller can restart configuration; PUDC_B is strapped high so the FPGA adds no pull-ups while it configures: every line that needs a level (PHY reset, SDRAM CS/CKE, MRAM and microSD CS, the 5 V bus OE, the PSRAM clock and data) has its own resistor, and nothing fights it. DONE lights D1 through Q4 once a design is running.
 
 | Ref | Value | What it does |
 |---|---|---|
@@ -261,7 +261,7 @@ How the FPGA loads its design at power-on. M[2:0] = 001 selects master SPI: the 
 | R3 | 1k | 1k pull-down on CFG_M2, for U1 (FPGA): mode pin M2 = 0: master SPI boot (UG470 Table 2-4) |
 | R4 | 4.7k | 4.7k pull-up of CFG_PROG_B to +3V3, for U1 (FPGA): keeps PROGRAM_B released; pulling it low restarts configuration |
 | R5 | 4.7k | 4.7k pull-up of CFG_INIT_B to +3V3, for U1 (FPGA): keeps INIT_B released; it goes low on a configuration error |
-| R6 | 1k | 1k pull-down on PUDC_B, for U1 (FPGA): PUDC_B low: I/O pull-ups on during configuration (UG470) |
+| R6 | 1k | 1k pull-up of PUDC_B to +3V3, for U1 (FPGA): PUDC_B high: no I/O pull-ups during configuration, the external resistors set every line (UG470) |
 | R7 | 330 | 330 resistor from DONE_LED_A to +3V3, for D1 (FPGA DONE LED): sets D1's current |
 | R98 | 4.7k | 4.7k pull-up of CFG_DONE to +3V3, for Q4 (DONE LED driver) |
 
@@ -440,23 +440,27 @@ Protected switch between +3V3 and the 3.3 V pins of every extension port, limite
 
 ### U23  VCCIO_1 to VCCIO_1_EXT
 
-Protected switch for the PIN V supply of slots A-D (the voltage chosen on J19), limited to about 0.5 A, with reverse blocking.
+Switch for the PIN V supply of slots A-D (the voltage chosen on J19). It is biased from +3V3 so it works down to the 1.8 V setting, blocks current flowing back in while off, ramps its output in about 1.5 ms and shuts down when hot. Overload protection is each slot's 500 mA fuse; the switch itself has no current limit.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U23 | TPS22950CDDCR | slots A-D PIN V switch: TI TPS22950C load switch: VCCIO_1 to the PIN V pin of slots A-D, about 0.5 A limit. |
+| U23 | TPS22953DSQR | slots A-D PIN V switch: TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_1 to the PIN V pin of slots A-D. Blocks reverse current while off; the slot fuses limit the current. |
 | C220 | 1uF | 1uF bypass on VCCIO_1, for U23 (slots A-D PIN V switch) |
-| R76 | 2.21k | 2.21k resistor from U23_ILIM to GND, for U23 (slots A-D PIN V switch): sets the switch's current limit (TI equation in design.py) |
+| C271 | 100nF | 100nF bypass on +3V3, for U23 (slots A-D PIN V switch) |
+| C272 | 1nF 50V | 1nF 50V filter capacitor on U23_CT, for U23 (slots A-D PIN V switch): sets how fast U23 ramps its output, about 1.5 ms (TPS22953 CT) |
+| C273 | 1uF | 1uF bypass on VCCIO_1_EXT, for U23 (slots A-D PIN V switch) |
 
 ### U24  VCCIO_2 to VCCIO_2_EXT
 
-Protected switch for the PIN V supply of slots E-H (the voltage chosen on J20), limited to about 0.5 A, with reverse blocking.
+Switch for the PIN V supply of slots E-H (the voltage chosen on J20). It is biased from +3V3 so it works down to the 1.8 V setting, blocks current flowing back in while off, ramps its output in about 1.5 ms and shuts down when hot. Overload protection is each slot's 500 mA fuse; the switch itself has no current limit.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U24 | TPS22950CDDCR | slots E-H PIN V switch: TI TPS22950C load switch: VCCIO_2 to the PIN V pin of slots E-H, about 0.5 A limit. |
+| U24 | TPS22953DSQR | slots E-H PIN V switch: TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_2 to the PIN V pin of slots E-H. Blocks reverse current while off; the slot fuses limit the current. |
 | C221 | 1uF | 1uF bypass on VCCIO_2, for U24 (slots E-H PIN V switch) |
-| R77 | 2.21k | 2.21k resistor from U24_ILIM to GND, for U24 (slots E-H PIN V switch): sets the switch's current limit (TI equation in design.py) |
+| C274 | 100nF | 100nF bypass on +3V3, for U24 (slots E-H PIN V switch) |
+| C275 | 1nF 50V | 1nF 50V filter capacitor on U24_CT, for U24 (slots E-H PIN V switch): sets how fast U24 ramps its output, about 1.5 ms (TPS22953 CT) |
+| C276 | 1uF | 1uF bypass on VCCIO_2_EXT, for U24 (slots E-H PIN V switch) |
 
 ### MGTAVCC filter
 
@@ -479,6 +483,8 @@ Lets the board controller measure every supply. Each rail goes to one of its eig
 | C228 | 100nF | 100nF filter capacitor on MON_2V5, for U7 (board controller): rail monitor input to the board controller's ADC |
 | C229 | 100nF | 100nF filter capacitor on MON_1V8, for U7 (board controller): rail monitor input to the board controller's ADC |
 | C230 | 100nF | 100nF filter capacitor on MON_1V0, for U7 (board controller): rail monitor input to the board controller's ADC |
+| C277 | 100nF | 100nF filter capacitor on MON_VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC |
+| C278 | 100nF | 100nF filter capacitor on MON_VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R81 | 100k | 100k resistor from MON_VSYS to VSYS, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R82 | 16k | 16k resistor from MON_VSYS to GND, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R83 | 100k | 100k resistor from MON_5V to +5V, for U7 (board controller): rail monitor input to the board controller's ADC |
@@ -487,6 +493,8 @@ Lets the board controller measure every supply. Each rail goes to one of its eig
 | R86 | 1k | 1k resistor from MON_2V5 to +2V5, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R87 | 1k | 1k resistor from MON_1V8 to +1V8, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R88 | 1k | 1k resistor from MON_1V0 to +1V0, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R198 | 1k | 1k resistor from MON_VCCIO_1 to VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R199 | 1k | 1k resistor from MON_VCCIO_2 to VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC |
 
 ### AUX IN
 
@@ -672,6 +680,58 @@ A push-push microSD socket (Hroparts TF-01A) wired for SPI mode: chip select on 
 | R159 | 10k | 10k resistor from SD_MISO to +3V3, for J74 (microSD socket): SPI mode: DAT0 idles high |
 | R160 | 10k | 10k resistor from SD_DAT1 to +3V3, for J74 (microSD socket): unused DAT1 held high, as the SD specification asks in SPI mode |
 | R161 | 10k | 10k resistor from SD_DAT2 to +3V3, for J74 (microSD socket): unused DAT2 held high, as the SD specification asks in SPI mode |
+
+### PSRAM0 power-up state
+
+Six 10k resistors at the PSRAM0 pins: CE# pulled up to its own supply, clock and the four data lines pulled down. The chip requires these levels from the first moment of its supply ramp until 150 us after it, and an unconfigured FPGA leaves its pins floating, so resistors, not the FPGA, guarantee them (APS6404L section 8, findings 39).
+
+| Ref | Value | What it does |
+|---|---|---|
+| R174 | 10k | 10k pull-up of PSRAM0_CE_B_MEM to +1V8_IO, for U2 (PSRAM 0): CE# high and tracking VDD from power-up until the FPGA drives it (APS6404L section 8) |
+| R175 | 10k | 10k pull-down on PSRAM0_SCK_MEM, for U2 (PSRAM 0): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R176 | 10k | 10k pull-down on PSRAM0_IO0_MEM, for U2 (PSRAM 0): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R177 | 10k | 10k pull-down on PSRAM0_IO1_MEM, for U2 (PSRAM 0): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R178 | 10k | 10k pull-down on PSRAM0_IO2_MEM, for U2 (PSRAM 0): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R179 | 10k | 10k pull-down on PSRAM0_IO3_MEM, for U2 (PSRAM 0): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+
+### PSRAM1 power-up state
+
+Six 10k resistors at the PSRAM1 pins: CE# up, clock and data down, from power-up (APS6404L section 8).
+
+| Ref | Value | What it does |
+|---|---|---|
+| R180 | 10k | 10k pull-up of PSRAM1_CE_B_MEM to +1V8_IO, for U3 (PSRAM 1): CE# high and tracking VDD from power-up until the FPGA drives it (APS6404L section 8) |
+| R181 | 10k | 10k pull-down on PSRAM1_SCK_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R182 | 10k | 10k pull-down on PSRAM1_IO0_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R183 | 10k | 10k pull-down on PSRAM1_IO1_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R184 | 10k | 10k pull-down on PSRAM1_IO2_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R185 | 10k | 10k pull-down on PSRAM1_IO3_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+
+### PSRAM2 power-up state
+
+Six 10k resistors at the PSRAM2 pins: CE# up, clock and data down, from power-up (APS6404L section 8).
+
+| Ref | Value | What it does |
+|---|---|---|
+| R186 | 10k | 10k pull-up of PSRAM2_CE_B_MEM to +1V8_IO, for U4 (PSRAM 2): CE# high and tracking VDD from power-up until the FPGA drives it (APS6404L section 8) |
+| R187 | 10k | 10k pull-down on PSRAM2_SCK_MEM, for U4 (PSRAM 2): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R188 | 10k | 10k pull-down on PSRAM2_IO0_MEM, for U4 (PSRAM 2): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R189 | 10k | 10k pull-down on PSRAM2_IO1_MEM, for U4 (PSRAM 2): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R190 | 10k | 10k pull-down on PSRAM2_IO2_MEM, for U4 (PSRAM 2): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R191 | 10k | 10k pull-down on PSRAM2_IO3_MEM, for U4 (PSRAM 2): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+
+### PSRAM3 power-up state
+
+Six 10k resistors at the PSRAM3 pins: CE# up, clock and data down, from power-up (APS6404L section 8).
+
+| Ref | Value | What it does |
+|---|---|---|
+| R192 | 10k | 10k pull-up of PSRAM3_CE_B_MEM to +1V8_IO, for U5 (PSRAM 3): CE# high and tracking VDD from power-up until the FPGA drives it (APS6404L section 8) |
+| R193 | 10k | 10k pull-down on PSRAM3_SCK_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R194 | 10k | 10k pull-down on PSRAM3_IO0_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R195 | 10k | 10k pull-down on PSRAM3_IO1_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R196 | 10k | 10k pull-down on PSRAM3_IO2_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
+| R197 | 10k | 10k pull-down on PSRAM3_IO3_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8) |
 
 ## Supervisor
 
@@ -867,17 +927,6 @@ Two 27 ohm resistors in the USB data lines, right at the board controller, as Ra
 |---|---|---|
 | R170 | 27 | 27 series resistor between USB_DP and USB_DP_MCU, for J1 (USB-C connector): USB D+ at the controller, after its 27 ohm series resistor |
 | R171 | 27 | 27 series resistor between USB_DM and USB_DM_MCU, for J1 (USB-C connector): USB D- at the controller, after its 27 ohm series resistor |
-
-### rail monitors
-
-Lets the board controller measure every supply. Each rail goes to one of its eight analog inputs (ADC), which read 0-3.3 V. Rails at or below 3.3 V go through a 1 k resistor that protects the pin; VSYS and +5V are higher, so two resistors divide them down first. A 100 nF capacitor on each input steadies the reading. MON_1V8 reads +1V8 itself, the FPGA's VCCAUX behind the bead, so an open bead shows; the two jumpered domains are measured so firmware knows how J19/J20 are set. +1V2_MGT is the one rail not measured. Firmware uses this to check each regulator came up before enabling the next.
-
-| Ref | Value | What it does |
-|---|---|---|
-| C271 | 100nF | 100nF filter capacitor on MON_VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC |
-| C272 | 100nF | 100nF filter capacitor on MON_VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC |
-| R174 | 1k | 1k resistor from MON_VCCIO_1 to VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC |
-| R175 | 1k | 1k resistor from MON_VCCIO_2 to VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC |
 
 ## Slots
 

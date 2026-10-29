@@ -41,6 +41,7 @@ VSSOP8_LVC2T45 = 'EasyEDA:VSSOP-8_L2.1-W2.4-P0.50-LS3.2-BL'
 QFN16_SY8047 = 'EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6'
 VQFN10RPU = 'Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm'
 VQFN12RUX = 'Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm'   # TI RUX0012A (MPQF508)
+WSON10_DSQ = 'Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm'
 MRAM_FP = 'DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA'   # tools/gen_kicad.py gen_mram_fp
 EXT2x8  = 'EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54'
 EXT2x32 = 'EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1'
@@ -339,7 +340,16 @@ def build():
     # "directly, or via a <= 1 kohm resistor" to VCCO_0 or GND.
     d.R('1k', V33, 'CFG_M0'); d.R('1k', 'CFG_M1', GND); d.R('1k', 'CFG_M2', GND)
     d.R('4.7k', V33, 'CFG_PROG_B'); d.R('4.7k', V33, 'CFG_INIT_B')
-    d.R('1k', 'PUDC_B', GND)  # UG470: <=1k strap low; enables config pull-ups
+    # PUDC_B HIGH (UG470 v1.17 Table 2-4: VCCO_14 directly or via <= 1 k):
+    # no internal pull-ups during configuration, so an unconfigured FPGA
+    # leaves every I/O floating and the external resistors alone decide the
+    # state of each line. Every line that needs a level has one: SDRAM CS
+    # up / CKE down, MRAM CS/WP/HOLD up, microSD CS up, the 5 V bus OE up,
+    # PHY reset down, and the PSRAM CE up / clock and data down below. With
+    # PUDC_B low the pull-ups (DS181 IRPU, up to hundreds of uA) fought the
+    # pull-downs and held the PSRAM clock and data high through power-up,
+    # against APS6404L section 8 (findings item 39).
+    d.R('1k', V33, 'PUDC_B')
     # DONE drives only Q4's gate; LED current comes from +3V3.
     d.R('330', V33, 'DONE_LED_A')
     d.add('D1', 'EasyEDA:F.0603.00025_P2-0603G1TS2-06T-002',
@@ -824,8 +834,6 @@ def build():
     low_ext = [
         ('U21', V5,        '+5V_EXT',     '1.15k', 1.000),
         ('U22', V33,       '+3V3_EXT',    '2.21k', 0.500),
-        ('U23', 'VCCIO_1', 'VCCIO_1_EXT', '2.21k', 0.500),
-        ('U24', 'VCCIO_2', 'VCCIO_2_EXT', '2.21k', 0.500),
     ]
     for ref, vin, vout, rilim, _ilim in low_ext:
         d.group(f'{ref}  {vin} to {vout}')
@@ -833,6 +841,25 @@ def build():
               {'ON':'EXT_EN', 'VIN':vin, 'GND':GND, 'ILIM':f'{ref}_ILIM',
                'VOUT':vout, 'FLT':'EXT_FAULT'}, 'C7587833')
         d.R(rilim, f'{ref}_ILIM', GND, R0603)
+        d.C('1uF', vin, GND, C0603)
+    # The two jumpered domains can be 1.8 V, below the TPS22950's 1.8 V
+    # minimum input (SLVSFJ2B 7.3; findings item 41). U23/U24 are TI
+    # TPS22953 (SLVSCT5D): the switch runs from a separate BIAS pin on the
+    # always-on +3V3 (2.5-5.7 V) and passes 0.7 V to VBIAS, 5 A, with
+    # reverse current blocking while off (tRCB 10 us), an adjustable rise
+    # time (CT) and thermal shutdown. It has no programmable current limit:
+    # the 500 mA PINV branch PTC in every slot is the overload protection.
+    # EN threshold 0.7 V, so EXT_EN drives it directly; SNS is tied to the
+    # output (PG unused, left open). The ILIM resistor each had is consumed
+    # here so the later resistors keep their designators; the 1 uF input
+    # bypass stays, the BIAS 100 nF, CT 1 nF and OUT 1 uF are appended.
+    for ref, vin, vout in (('U23', 'VCCIO_1', 'VCCIO_1_EXT'),
+                           ('U24', 'VCCIO_2', 'VCCIO_2_EXT')):
+        d.group(f'{ref}  {vin} to {vout}')
+        d.add(ref, 'odin:TPS22953DSQ', 'TPS22953DSQR', WSON10_DSQ,
+              {'IN': vin, 'OUT': vout, 'BIAS': V33, 'EN': 'EXT_EN', 'GND': GND,
+               'CT': f'{ref}_CT', 'PG': '', 'SNS': vout, 'EP': GND}, 'C2680343')
+        d.reserve('R', 1)
         d.C('1uF', vin, GND, C0603)
 
     # U25 was consumed only by the deleted +12V_EXT selector tree. AUX_RAIL's
@@ -994,9 +1021,9 @@ def build():
 
     d.group('PHY straps and LEDs')
     # PHYRSTB: 3.3 V input, Table 58 (VIH 2.0 V), driven from bank 35. The
-    # 1k pull-down holds it below 0.8 V against the FPGA's internal pull-up
-    # during configuration (PUDC_B low) and until +2V5 is up (Table 53 note
-    # 5 case II). Section 7.17: after release wait >= 72 ms before MDIO.
+    # 1k pull-down holds it low while the FPGA pin floats (PUDC_B is high:
+    # no configuration pull-ups) and until +2V5 is up (Table 53 note 5 case
+    # II). Section 7.17: after release wait >= 72 ms before MDIO.
     d.R('1k', 'PHY_RESET_N', GND)
     # INTB is open drain (Table 4), 4.7k to 3.3 V.
     d.R('4.7k', V33, 'PHY_INT_N')
@@ -1278,6 +1305,35 @@ def build():
     d.group('USB-PD sink')
     d.R('10k', 'PD_VDD', 'PD_CFG1')        # CFG1 high = 5 V, before any controller
     d.R('100k', 'PD_REQ_9V', GND)          # Q3 off while the controller is dead or in reset
+
+    # ---- PSRAM power-up pin states (item 39). APS6404L-SQN rev 4.0 section
+    # 8: from the start of the VDD ramp until 150 us after it is stable, CE#
+    # must be high and track VDD within 200 mV, CLK low, and SI/SO/SIO[3:0]
+    # low; then a reset-enable/reset pair. The resistors sit on the memory
+    # side of the 33 ohm series resistors (the _MEM nets), 10k each: against
+    # a floating FPGA pin (PUDC_B high, 10 uA leakage) that is 0.1 V, far
+    # below the 0.4 V VIL; CE# follows VDD through the pull-up with no FPGA
+    # drive. 20 pull-downs cost 3.6 mA when every line is high. The 150 us
+    # wait and the reset sequence are the memory controller's job
+    # (ref/psram.md).
+    d.sheet('Memory')
+    for c in range(4):
+        d.group(f'PSRAM{c} power-up state')
+        d.R('10k', V18IO, f'PSRAM{c}_CE_B_MEM', R0603)
+        for lane in ('SCK', 'IO0', 'IO1', 'IO2', 'IO3'):
+            d.R('10k', f'PSRAM{c}_{lane}_MEM', GND, R0603)
+
+    # ---- TPS22953 support parts for U23/U24 (item 41). SLVSCT5D 12.1: CT
+    # close to the pin (25 V rated, copper cut-out under it), BIAS, IN and
+    # OUT each bypassed close to the pins.
+    d.sheet('Power')
+    for ref, vin, vout in (('U23', 'VCCIO_1', 'VCCIO_1_EXT'),
+                           ('U24', 'VCCIO_2', 'VCCIO_2_EXT')):
+        d.group(f'{ref}  {vin} to {vout}')
+        d.C('100nF', V33, GND)             # BIAS
+        d.C('1nF 50V', f'{ref}_CT', GND)   # about 1.5 ms rise (7.9, CT = 1000 pF)
+        d.C('1uF', vout, GND, C0603)       # OUT
+    d.sheet('Power')
 
     # ---- the two jumpered I/O domains are measured (item 50)
     d.group('rail monitors')

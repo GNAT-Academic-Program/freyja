@@ -57,10 +57,11 @@ GROUP = {
         'master SPI: the FPGA clocks its bitstream out of the W25Q256 flash '
         '(U6) by itself. The mode straps are 1 k, the most UG470 v1.17 Table '
         '2-4 allows. PROGRAM_B and INIT_B are pulled up so the board '
-        'controller can restart configuration; PUDC_B is strapped low so I/O '
-        'pull-ups stay on while the FPGA configures, which holds outputs '
-        'such as PHY_RESET_N in a known state. DONE lights D1 through Q4 '
-        'once a design is running.',
+        'controller can restart configuration; PUDC_B is strapped high so '
+        'the FPGA adds no pull-ups while it configures: every line that needs '
+        'a level (PHY reset, SDRAM CS/CKE, MRAM and microSD CS, the 5 V bus '
+        'OE, the PSRAM clock and data) has its own resistor, and nothing '
+        'fights it. DONE lights D1 through Q4 once a design is running.',
     'GTP calibration':
         'The XC7A100T has two quads of multi-gigabit transceivers (GTP). '
         'Rev A uses none of them, but UG482 Tables 5-5 and 5-6 still want '
@@ -227,7 +228,7 @@ NET = {
     'CFG_M2': 'mode pin M2 = 0: master SPI boot (UG470 Table 2-4)',
     'CFG_PROG_B': 'keeps PROGRAM_B released; pulling it low restarts configuration',
     'CFG_INIT_B': 'keeps INIT_B released; it goes low on a configuration error',
-    'PUDC_B': 'PUDC_B low: I/O pull-ups on during configuration (UG470)',
+    'PUDC_B': 'PUDC_B high: no I/O pull-ups during configuration, the external resistors set every line (UG470)',
     'DONE_LED_A': 'sets D1\'s current',
     'MGTRREF': 'calibration resistor for GTP quad 216 (UG482 Figure 5-1)',
     'MGTRREF_213': 'calibration resistor for GTP quad 213 (UG482 Table 5-5)',
@@ -350,11 +351,17 @@ GROUP.update({
         'port, limited to about 0.5 A, with reverse blocking. Keeps a faulty '
         'extension from taking down the board controller\'s supply.',
     'U23  VCCIO_1 to VCCIO_1_EXT':
-        'Protected switch for the PIN V supply of slots A-D (the voltage '
-        'chosen on J19), limited to about 0.5 A, with reverse blocking.',
+        'Switch for the PIN V supply of slots A-D (the voltage chosen on '
+        'J19). It is biased from +3V3 so it works down to the 1.8 V setting, '
+        'blocks current flowing back in while off, ramps its output in about '
+        '1.5 ms and shuts down when hot. Overload protection is each slot\'s '
+        '500 mA fuse; the switch itself has no current limit.',
     'U24  VCCIO_2 to VCCIO_2_EXT':
-        'Protected switch for the PIN V supply of slots E-H (the voltage '
-        'chosen on J20), limited to about 0.5 A, with reverse blocking.',
+        'Switch for the PIN V supply of slots E-H (the voltage chosen on '
+        'J20). It is biased from +3V3 so it works down to the 1.8 V setting, '
+        'blocks current flowing back in while off, ramps its output in about '
+        '1.5 ms and shuts down when hot. Overload protection is each slot\'s '
+        '500 mA fuse; the switch itself has no current limit.',
     'rail monitors':
         'Lets the board controller measure every supply. Each rail goes to '
         'one of its eight analog inputs (ADC), which read 0-3.3 V. Rails at '
@@ -416,6 +423,14 @@ GROUP.update({
     'PSRAM1 series termination': 'One 33 ohm resistor per PSRAM1 line, next to the FPGA, to damp ringing.',
     'PSRAM2 series termination': 'One 33 ohm resistor per PSRAM2 line, next to the FPGA, to damp ringing.',
     'PSRAM3 series termination': 'One 33 ohm resistor per PSRAM3 line, next to the FPGA, to damp ringing.',
+    'PSRAM0 power-up state': 'Six 10k resistors at the PSRAM0 pins: CE# pulled up to its own '
+        'supply, clock and the four data lines pulled down. The chip requires these '
+        'levels from the first moment of its supply ramp until 150 us after it, and '
+        'an unconfigured FPGA leaves its pins floating, so resistors, not the FPGA, '
+        'guarantee them (APS6404L section 8, findings 39).',
+    'PSRAM1 power-up state': 'Six 10k resistors at the PSRAM1 pins: CE# up, clock and data down, from power-up (APS6404L section 8).',
+    'PSRAM2 power-up state': 'Six 10k resistors at the PSRAM2 pins: CE# up, clock and data down, from power-up (APS6404L section 8).',
+    'PSRAM3 power-up state': 'Six 10k resistors at the PSRAM3 pins: CE# up, clock and data down, from power-up (APS6404L section 8).',
     # ---- Board Controller (Supervisor) sheet
     'U7  USB series resistors':
         'Two 27 ohm resistors in the USB data lines, right at the board '
@@ -547,8 +562,8 @@ PART.update({
     'U15': ('FPGA core regulator', 'Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output.'),
     'U21': ('extension 5 V switch', 'TI TPS22950C load switch: +5V to every slot\'s 5 V pin, about 1 A limit, reverse blocking.'),
     'U22': ('extension 3.3 V switch', 'TI TPS22950C load switch: +3V3 to every slot\'s 3.3 V pin, about 0.5 A limit.'),
-    'U23': ('slots A-D PIN V switch', 'TI TPS22950C load switch: VCCIO_1 to the PIN V pin of slots A-D, about 0.5 A limit.'),
-    'U24': ('slots E-H PIN V switch', 'TI TPS22950C load switch: VCCIO_2 to the PIN V pin of slots E-H, about 0.5 A limit.'),
+    'U23': ('slots A-D PIN V switch', 'TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_1 to the PIN V pin of slots A-D. Blocks reverse current while off; the slot fuses limit the current.'),
+    'U24': ('slots E-H PIN V switch', 'TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_2 to the PIN V pin of slots E-H. Blocks reverse current while off; the slot fuses limit the current.'),
     'J68': ('AUX IN screw terminal', 'Optional 9-28 V DC input feeding only the AUX pin of every extension port, unregulated. Your supply, your current limit.'),
     'U2': ('PSRAM 0', 'AP Memory APS6404L-SQN, 64 Mbit (8 MB) QSPI pseudo-static RAM, 1.8 V, on bank 13.'),
     'U3': ('PSRAM 1', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
@@ -637,6 +652,8 @@ NET_PREFIX = {
     'SUP_SDA': 'I2C data pull-up',
     'LED_': 'LED current limit',
     'U2': 'sets the switch\'s current limit (TI equation in design.py)',
+    'U23_CT': 'sets how fast U23 ramps its output, about 1.5 ms (TPS22953 CT)',
+    'U24_CT': 'sets how fast U24 ramps its output, about 1.5 ms (TPS22953 CT)',
     'SUP_': 'board controller to FPGA link (33 ohm series)',
 }
 COVERED = {'FPGA', 'Network', 'Power', 'Memory', 'Supervisor', 'Slots', 'Video'}
@@ -696,6 +713,13 @@ def derive(part, by_group, by_net):
     note = '; '.join(dict.fromkeys(filter(None, (_net_note(n) for n in nets))))
     hub = _hub(part, by_group, by_net)
     g = part['group']
+    if g.endswith('power-up state'):
+        sig = [n for n in nets if n != 'GND' and not _is_supply(n)][0]
+        if 'CE_B' in sig:
+            return (f'{v} pull-up of {sig} to +1V8_IO, for {hub}: CE# high and tracking VDD '
+                    'from power-up until the FPGA drives it (APS6404L section 8)')
+        return (f'{v} pull-down on {sig}, for {hub}: holds the line low from power-up '
+                'until the FPGA drives it (APS6404L section 8)')
     if g.startswith('decap '):
         rail = nets[0] if nets[0] != 'GND' else nets[-1]
         where = g[6:] if g[6:] == rail else f'{g[6:]} ({rail})'

@@ -351,3 +351,26 @@ Open for the owner: U34, the 27 ohm pair, Q3's new role, the input
 capacitors and the monitor parts sit in the import band; island them with
 islands.py (U34 has no datasheet layout example beyond "short wide traces,
 vias under IN/OUT", SLVSEA3F 12.1). Firmware: VBUS5_ST, PD_REQ_9V, new pins.
+
+## Audit corrections, part 2: memory power-up and the PIN V switches 2026-10-29
+Parts: 544 (was 516); roles 544/544; ERC 0 errors, 2 allowlisted warnings;
+DRC 4 errors (J1 holes), 0 parity; nothing moved: 0 of 516 common
+footprints; 28 new footprints staged, U23/U24 swapped in place (their island
+groups kept), R76/R77 removed.
+Findings items 39 and 41.
+What:
+- PUDC_B is strapped high (1 k to +3V3, UG470 Table 2-4): no configuration
+  pull-ups. Every line that needs a level has its own resistor already
+  (SDRAM CS/CKE, MRAM, microSD, 5 V bus OE, PHY reset); the PSRAMs get
+  theirs: per chip CE# 10k up to +1V8_IO, SCK and IO0-3 10k down, on the
+  _MEM side of the 33 ohm resistors (APS6404L rev 4.0 section 8: CE# tracks
+  VDD, clock and data low until 150 us after VDD, then reset-enable/reset).
+  The memory controller must implement the wait and the reset pair.
+- U23/U24 are TI TPS22953DSQR (SLVSCT5D): BIAS from +3V3, input 0.7 V to
+  VBIAS, so the 1.8 V setting of J19/J20 is inside the switch's rating
+  (the TPS22950 needed 1.8 V minimum). Reverse blocking while off, CT 1 nF
+  (about 1.5 ms rise), SNS tied to OUT, PG open, 100 nF BIAS and 1 uF OUT
+  bypass. No programmable current limit: the 500 mA PINV PTC per slot is
+  the overload protection. U21/U22 stay TPS22950C.
+Open for the owner: 28 staged footprints to island (PSRAM pulls belong at
+U2-U5, the TPS22953 parts at U23/U24; profiles added to island_profiles.yaml).

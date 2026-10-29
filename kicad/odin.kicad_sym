@@ -6565,6 +6565,103 @@
 		)
 		(embedded_fonts no)
 	)
+	(symbol "TPS22953DSQ"
+		(pin_names (offset 1.016))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 15.00 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "TPS22953DSQ"
+			(at 0 12.46 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm"
+			(at 0 9.92 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps22953.pdf"
+			(at 0 7.38 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "0.7V-to-VBIAS 5A load switch, separate 2.5-5.7V bias, reverse blocking when off, adjustable rise time"
+			(at 0 4.84 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "TPS22953DSQ_1_1"
+			(rectangle (start -12.70 8.89) (end 12.70 -8.89)
+				(stroke (width 0.254) (type default)) (fill (type background))
+			)
+			(pin power_in line
+				(at -17.78 6.35 0)
+				(length 5.08)
+				(name "IN" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -17.78 3.81 0)
+				(length 5.08)
+				(name "IN" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at -17.78 1.27 0)
+				(length 5.08)
+				(name "BIAS" (effects (font (size 1.27 1.27))))
+				(number "3" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 -1.27 0)
+				(length 5.08)
+				(name "EN" (effects (font (size 1.27 1.27))))
+				(number "4" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at -17.78 -3.81 0)
+				(length 5.08)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "5" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -17.78 -6.35 0)
+				(length 5.08)
+				(name "EP" (effects (font (size 1.27 1.27))))
+				(number "11" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 6.35 180)
+				(length 5.08)
+				(name "OUT" (effects (font (size 1.27 1.27))))
+				(number "9" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 3.81 180)
+				(length 5.08)
+				(name "OUT" (effects (font (size 1.27 1.27))))
+				(number "10" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at 17.78 1.27 180)
+				(length 5.08)
+				(name "SNS" (effects (font (size 1.27 1.27))))
+				(number "8" (effects (font (size 1.27 1.27))))
+			)
+			(pin open_collector line
+				(at 17.78 -1.27 180)
+				(length 5.08)
+				(name "PG" (effects (font (size 1.27 1.27))))
+				(number "7" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 -3.81 180)
+				(length 5.08)
+				(name "CT" (effects (font (size 1.27 1.27))))
+				(number "6" (effects (font (size 1.27 1.27))))
+			)
+		)
+	)
 	(symbol "TPS2121RUX"
 		(pin_names (offset 1.016))
 		(exclude_from_sim no)

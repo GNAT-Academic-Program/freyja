@@ -137,12 +137,24 @@ PARTS = {
            '650 kHz with FREQ grounded',
     pinmap='KiCad Regulator_Switching symbol',
     src='TI SLVS859B'),
+  'odin:TPS22953DSQ': dict(
+    mpn='TPS22953DSQR', pkg='WSON-10 with thermal pad, 2 x 2 mm, 0.4 mm pitch (TI DSQ)',
+    fp='Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm',
+    rating='VIN 0.7 V to VBIAS, VBIAS 2.5-5.7 V (+3V3 here), 5 A, 14 mohm; '
+           'reverse current blocking while disabled (tRCB 10 us), thermal '
+           'shutdown, EN threshold 0.7 V, CT = 1 nF gives about 1.5 ms rise; '
+           'no programmable current limit: the 500 mA PINV branch PTCs are the '
+           'overload protection. Carries the jumpered 1.8/2.5/3.3 V domains, '
+           'which the TPS22950 (1.8 V minimum input) could not guarantee',
+    pinmap='SLVSCT5D section 6 top view: 1-2 IN, 3 BIAS, 4 EN, 5 GND, 6 CT, '
+           '7 PG, 8 SNS, 9-10 OUT, pad GND; symbol generated in tools/gen_kicad.py',
+    src='TI TPS22953/TPS22954 datasheet SLVSCT5D (rev D, September 2016); LCSC C2680343'),
   'odin:TPS22950CDDC': dict(
     mpn='TPS22950CDDCR', pkg='SOT-23-THIN-6 (TI DDC)', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL_3',
     rating='1.8-5.5 V in, 6 V absolute max on VIN/VOUT, 3.2 A switch; '
            'adjustable current limit, thermal shutdown, fixed controlled '
            'turn-on, reverse blocking enabled and disabled. U21: 1.15k = '
-           '1.000 A typical (0.75-1.25 A). U22-U24: 2.21k = 0.500 A typical '
+           '1.000 A typical (0.75-1.25 A). U22: 2.21k = 0.500 A typical '
            '(0.38-0.62 A)',
     pinmap='TI DDC top view: 1 ON, 2 VIN, 3 GND, 4 ILIM, 5 VOUT, 6 FLT',
     src='TI TPS22950x datasheet SLVSFJ2B'),

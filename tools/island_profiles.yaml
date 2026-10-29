@@ -270,3 +270,46 @@ LINK :
     - name: ESD arrays in one row along the pin edge, each at its own pins
       match: {prefix: D}
       place: {dir: N}
+
+TPS22953:
+  source: TPS22953 datasheet SLVSCT5D, 12.1 Layout Guidelines (no dimensioned figure; 12.2 shows IN bypass at the IN pins, OUT bypass at the OUT pins, BIAS bypass and CT at their pins, vias under the pad)
+  pins: {IN: 1, BIAS: 3, EN: 4, GND: 5, CT: 6, PG: 7, SNS: 8, OUT: 9}
+  rules:
+    - name: input bypass at the IN pins
+      match: {cap_between: [IN, GND]}
+      place: {side: IN}
+    - name: output bypass at the OUT pins
+      match: {cap_between: [OUT, GND]}
+      place: {side: OUT}
+    - name: BIAS bypass at pin 3
+      match: {cap_between: [BIAS, GND]}
+      place: {side: BIAS}
+    - name: CT capacitor at pin 6, nothing under it
+      match: {prefix: C, pin: CT}
+      place: {side: CT}
+
+TPS2121:
+  source: TPS2121 datasheet SLVSEA3F, 12.1 Layout Guidelines (short wide IN1/IN2/OUT copper, vias under the input and output pins) and 11 Power Supply Recommendations (bypass on IN1, IN2 and OUT close to the pins); the control dividers have no placement guidance and take the signal rule
+  pins: {OUT: 1, IN2: 2, CP2: 3, OV2: 4, OV1: 5, PR1: 6, IN1: 7, ST: 9, ILIM: 10, SS: 11, GND: 12}
+  rules:
+    - name: IN1 bypass
+      match: {cap_between: [IN1, GND]}
+      place: {side: IN1}
+    - name: output bulk at OUT
+      match: {cap_between: [OUT, GND]}
+      place: {side: OUT}
+    - name: soft-start capacitor at SS
+      match: {prefix: C, pin: SS}
+      place: {side: SS}
+    - name: current-limit resistor at ILIM
+      match: {prefix: R, pin: ILIM}
+      place: {side: ILIM}
+    - name: PR1 divider at pin 6
+      match: {prefix: R, pin: PR1}
+      place: {side: PR1}
+    - name: OV1 divider at pin 5
+      match: {prefix: R, pin: OV1}
+      place: {side: OV1}
+    - name: CP2 divider at pin 3
+      match: {prefix: R, pin: CP2}
+      place: {side: CP2}
