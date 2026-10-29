@@ -86,7 +86,12 @@ not an exact 1.0 A-hold device; its temperature derating must be respected.
 This remains a deviation from the exact 1 A-hold request, not a silent rating
 change. PIN V/3V3/5V branch PTCs remain 500/300/500 mA.
 
-Four low-voltage protection channels remain (U21-U24), with EXT_EN/EXT_FAULT.
+Four low-voltage protection channels remain (U21-U24) under EXT_EN. U21/U22
+(TPS22950C) limit current and report on EXT_FAULT; U23/U24 are TPS22953
+switches biased from +3V3 so the 1.8 V PIN V setting is inside their rating:
+they block reverse current while off and ramp in about 1.5 ms, and the
+500 mA PINV fuse in each slot is the overload limit. The controller measures
+both PIN V domains (MON_VCCIO_1/2), so firmware knows the jumper setting.
 AUX no longer has U25's active reverse-blocking/current-limit protection.
 PTCs isolate sustained branch faults; overload can droop the shared source.
 Never backfeed a power contact. A PTC is not instantaneous short protection.

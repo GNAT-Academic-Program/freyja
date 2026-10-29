@@ -172,9 +172,25 @@ over USB-C, have the supervisor write it into PSRAM, then release `PROG_B`.
 The fabric wakes up with its data already in memory. No bootloader in HDL, no
 UART trickle, no SD card required.
 
-This is a proposal, not a decision — it wants confirming that the chosen
-PSRAM bank's IO really are high-Z during config (check `PUDC_B` strapping,
-which sets whether unconfigured IO float or pull up).
+This is a proposal, not a decision. Since 2026-10-29 `PUDC_B` is strapped
+high, so unconfigured I/O float and the PSRAM pins are held by their own
+resistors (next section); a supervisor driving the bus would have to
+overcome 10k pull-downs, which it can.
+
+## Power-up pin states (findings 39)
+
+APS6404L rev 4.0 section 8: from the start of the VDD ramp until 150 us after
+VDD is stable, CE# must be high and track VDD within 200 mV, CLK must be low
+and SI/SO/SIO[3:0] must be low; then a reset-enable (66h) / reset (99h) pair
+puts the chip in its default SPI standby state. The FPGA cannot provide
+that: it is unconfigured during the ramp and, with PUDC_B high, leaves its
+pins floating. So each chip has six 10k resistors on the memory side of the
+33 ohm series resistors: CE#_MEM up to +1V8_IO, SCK_MEM and IO0..3_MEM down.
+Against a floating FPGA pin (10 uA leakage) a line sits at 0.1 V, below the
+0.4 V VIL; 20 pull-downs cost 3.6 mA when every line is high. The memory
+controller must still wait 150 us after its own clock is stable and issue the
+reset pair before the first access; a reset after boot does not prove the
+electrical requirement was met, the resistors do.
 
 ## To verify
 
@@ -186,6 +202,5 @@ which sets whether unconfigured IO float or pull up).
 - tCEM is 8 us for the standard grade (Table 10), as before.
 - Four independent buses and all 24 series paths are verified in the
   generated netlist. Physical routing and signal integrity still need checking.
-- Whether the supervisor-preload path above is worth its one GPIO. Depends on
-  `PUDC_B` strapping and on whether the supervisor GPIO budget has slack after
-  step 5.
+- Whether the supervisor-preload path above is worth its one GPIO. The
+  controller has spare pins (19, 20, 23, 26, 28, 29, 35-39).

@@ -1,0 +1,1301 @@
+{
+  "audit_date": "2026-10-29",
+  "timezone": "America/Toronto",
+  "commit": "82cb0938c6455028b90daab5a02ca6a5c5cf2f56",
+  "tool_version": "9.0.8",
+  "baseline_hashes_sha256": {
+    "tools/design.py": "a0c9c29e626afb35a3e2b798b4371e57c2b2e3917877ec08d9a7eb52f7073ec7",
+    "tools/alloc.py": "678cba298e5229cd325094963a4c452b93056fae1bbfacd5164a3f01759ed3a5",
+    "tools/gen_sch.py": "effa1ba730173191fc60c9050a0f40c87de4ac312bcd76ee379799c620d5b0d4",
+    "tools/city.py": "5c1aef109aca8c0fa11bf839ae5939af8ee88d954c9d19010dfb2131c2db2a0e",
+    "tools/island_profiles.yaml": "0bacd627d812e43e792390caec9705ba100300b1d3d266f7fbfb331dae224449",
+    "tools/gate.py": "6620f287ce7b84465d5653255b166a38ab80fa8829d368b2f4afdd3e897a8e33",
+    "tools/budget.py": "7f62e2abcc04c3e8ca610b9bc1e5603b09ec451f9d6e7ddb0e15824dbd5470c4",
+    "floorplan.md": "1fdb747348fad519518b446150e7dce11038498571c56b1564f3c360cb8cfaf8",
+    "ref/city/plan.yaml": "c939a1cef6c7c72d7136da16c4c36ad98b5ab2b44800736c1bba773ff39ef335",
+    "kicad/odin.kicad_pcb": "023a194a8bd8c8fcc04dd4fd579099ad3f32b8e95f4e49b6906f981b8f08cf16",
+    "kicad/odin.net": "724c0f097556fd686112195d52d4657a2026f4661a1f15a9a158547ca314c2e7",
+    "ref/freya.xdc": "1da07cf83f9b9c98a5a9be3ddaa0d560a5bcbdab97845997b80a2ec04f96dc97",
+    "gateware/gate/gate.xdc": "033b9fdd43aaab4fe98f1592d7973dd3afb8b9fcb66e1eae43f38918ce456a25",
+    "kicad/fpga.kicad_sch": "fdb68de601eff8d5fc05db9bfc14749023980920c4980930d3cbdb1c8117a233",
+    "kicad/memory.kicad_sch": "20ec6d73d71b9762056fc2472f98ee5b85b5d215c4d56a6ab474054ef82746b3",
+    "kicad/network.kicad_sch": "1885d44cca1d7cc5e9ddccfb091de3310b647c0efbc7cbb2bb03a3e64cb531d6",
+    "kicad/odin.kicad_sch": "a60e428d6196eaa7d6ac5febf0b29caee35206b0751b15ea44b1bfa74cd9956d",
+    "kicad/power.kicad_sch": "f20525c77d061575150777b4a65b99670b49365909204a8a2c4362793c41aaf8",
+    "kicad/slots.kicad_sch": "ba3d42d85b2a627d908b00f5485c44ea326a224beb082757a6083973fb71776b",
+    "kicad/supervisor.kicad_sch": "c924e897750457b8ee46e68f389b952d80d473268657c3d73abef6ad47199631",
+    "kicad/video.kicad_sch": "f3bdb09ea56c2a1d1728bace571d2c38822a1493814f5921163a7b8629848459"
+  },
+  "checks": {
+    "model_vs_pcb_pin_net_mismatches": [],
+    "schematic_netlist_export_matches": true,
+    "xdc_and_gate_top_match_generator": true,
+    "erc_errors": 0,
+    "erc_allowlisted_warnings": [
+      "FPGA_DXP",
+      "FPGA_DXN"
+    ],
+    "schematic_parity_count": 0,
+    "drc_counts": {
+      "error": 4,
+      "warning": 296
+    },
+    "drc_errors": [
+      {
+        "description": "Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1847 mm)",
+        "items": [
+          {
+            "description": "Pad A1 [GND] of J1 on F.Cu",
+            "pos": {
+              "x": 831.4,
+              "y": 35.595
+            },
+            "uuid": "06f1aaa8-8ce6-4cfc-a432-7017b5141cc7"
+          },
+          {
+            "description": "NPTH pad of J1",
+            "pos": {
+              "x": 831.09,
+              "y": 34.455
+            },
+            "uuid": "97ae5e81-d600-4c36-98c6-a2652904a9d3"
+          }
+        ],
+        "severity": "error",
+        "type": "hole_clearance"
+      },
+      {
+        "description": "Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1847 mm)",
+        "items": [
+          {
+            "description": "Pad A12 [GND] of J1 on F.Cu",
+            "pos": {
+              "x": 825.0,
+              "y": 35.595
+            },
+            "uuid": "34901a01-dded-4074-8479-90877be39c64"
+          },
+          {
+            "description": "NPTH pad of J1",
+            "pos": {
+              "x": 825.31,
+              "y": 34.455
+            },
+            "uuid": "610299e1-694b-488b-bada-cfa7cdffd0bd"
+          }
+        ],
+        "severity": "error",
+        "type": "hole_clearance"
+      },
+      {
+        "description": "Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1847 mm)",
+        "items": [
+          {
+            "description": "Pad B1 [GND] of J1 on F.Cu",
+            "pos": {
+              "x": 825.0,
+              "y": 35.595
+            },
+            "uuid": "fecde25a-c439-4bfe-8c31-a5c8eb6982cc"
+          },
+          {
+            "description": "NPTH pad of J1",
+            "pos": {
+              "x": 825.31,
+              "y": 34.455
+            },
+            "uuid": "610299e1-694b-488b-bada-cfa7cdffd0bd"
+          }
+        ],
+        "severity": "error",
+        "type": "hole_clearance"
+      },
+      {
+        "description": "Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1847 mm)",
+        "items": [
+          {
+            "description": "Pad B12 [GND] of J1 on F.Cu",
+            "pos": {
+              "x": 831.4,
+              "y": 35.595
+            },
+            "uuid": "799bc69e-ca85-4b6f-b09f-002d4b2cac28"
+          },
+          {
+            "description": "NPTH pad of J1",
+            "pos": {
+              "x": 831.09,
+              "y": 34.455
+            },
+            "uuid": "97ae5e81-d600-4c36-98c6-a2652904a9d3"
+          }
+        ],
+        "severity": "error",
+        "type": "hole_clearance"
+      }
+    ],
+    "drc_unconnected_items": 499,
+    "parts": 499,
+    "footprint_origins_inside_outline": 66,
+    "footprint_origins_outside_outline": 433,
+    "copper_layers": 8,
+    "tracks": 0,
+    "vias": 0,
+    "mechanical_lattice_exit_code": 1,
+    "gate_exit_code": 0,
+    "gate_scope_note": "gate.py prints GATE PASS despite failed placement checker; DRC errors/unconnected items are intentionally not gating at this stage."
+  },
+  "commands": [
+    "python3 tools/gate.py",
+    "kicad-cli pcb drc --schematic-parity --severity-all --format json -o /tmp/odin-audit/drc.json kicad/odin.kicad_pcb",
+    "/usr/bin/python3: pcbnew.LoadBoard, extract every footprint/pad/group; compare each connected design.build() pin net to its PCB pad net"
+  ],
+  "direct_capacitance": {
+    "+2V5": {
+      "nominal_direct_uF": 103.38,
+      "parts": [
+        {
+          "ref": "C348",
+          "uF": 4.7
+        },
+        {
+          "ref": "C349",
+          "uF": 4.7
+        },
+        {
+          "ref": "C350",
+          "uF": 0.47
+        },
+        {
+          "ref": "C351",
+          "uF": 0.47
+        },
+        {
+          "ref": "C352",
+          "uF": 0.47
+        },
+        {
+          "ref": "C353",
+          "uF": 0.47
+        },
+        {
+          "ref": "C368",
+          "uF": 47.0
+        },
+        {
+          "ref": "C198",
+          "uF": 22.0
+        },
+        {
+          "ref": "C199",
+          "uF": 22.0
+        },
+        {
+          "ref": "C236",
+          "uF": 0.1
+        },
+        {
+          "ref": "C237",
+          "uF": 1.0
+        }
+      ]
+    },
+    "+1V8_IO": {
+      "nominal_direct_uF": 112.98,
+      "parts": [
+        {
+          "ref": "C330",
+          "uF": 4.7
+        },
+        {
+          "ref": "C331",
+          "uF": 4.7
+        },
+        {
+          "ref": "C332",
+          "uF": 0.47
+        },
+        {
+          "ref": "C333",
+          "uF": 0.47
+        },
+        {
+          "ref": "C334",
+          "uF": 0.47
+        },
+        {
+          "ref": "C335",
+          "uF": 0.47
+        },
+        {
+          "ref": "C394",
+          "uF": 47.0
+        },
+        {
+          "ref": "C111",
+          "uF": 0.1
+        },
+        {
+          "ref": "C112",
+          "uF": 0.1
+        },
+        {
+          "ref": "C113",
+          "uF": 0.1
+        },
+        {
+          "ref": "C114",
+          "uF": 0.1
+        },
+        {
+          "ref": "C139",
+          "uF": 0.1
+        },
+        {
+          "ref": "C141",
+          "uF": 0.1
+        },
+        {
+          "ref": "C201",
+          "uF": 22.0
+        },
+        {
+          "ref": "C202",
+          "uF": 22.0
+        },
+        {
+          "ref": "C261",
+          "uF": 10.0
+        },
+        {
+          "ref": "C262",
+          "uF": 0.1
+        }
+      ]
+    },
+    "+1V8": {
+      "nominal_direct_uF": 63.55,
+      "parts": [
+        {
+          "ref": "C319",
+          "uF": 47.0
+        },
+        {
+          "ref": "C320",
+          "uF": 4.7
+        },
+        {
+          "ref": "C321",
+          "uF": 4.7
+        },
+        {
+          "ref": "C322",
+          "uF": 4.7
+        },
+        {
+          "ref": "C323",
+          "uF": 0.47
+        },
+        {
+          "ref": "C324",
+          "uF": 0.47
+        },
+        {
+          "ref": "C325",
+          "uF": 0.47
+        },
+        {
+          "ref": "C326",
+          "uF": 0.47
+        },
+        {
+          "ref": "C327",
+          "uF": 0.47
+        },
+        {
+          "ref": "C328",
+          "uF": 0.1
+        }
+      ]
+    },
+    "+1V2_MGT": {
+      "nominal_direct_uF": 49.9,
+      "parts": [
+        {
+          "ref": "C380",
+          "uF": 0.1
+        },
+        {
+          "ref": "C381",
+          "uF": 0.1
+        },
+        {
+          "ref": "C382",
+          "uF": 0.1
+        },
+        {
+          "ref": "C383",
+          "uF": 0.1
+        },
+        {
+          "ref": "C384",
+          "uF": 0.1
+        },
+        {
+          "ref": "C385",
+          "uF": 0.1
+        },
+        {
+          "ref": "C386",
+          "uF": 0.1
+        },
+        {
+          "ref": "C387",
+          "uF": 0.1
+        },
+        {
+          "ref": "C388",
+          "uF": 0.1
+        },
+        {
+          "ref": "C389",
+          "uF": 0.1
+        },
+        {
+          "ref": "C390",
+          "uF": 0.1
+        },
+        {
+          "ref": "C391",
+          "uF": 0.1
+        },
+        {
+          "ref": "C393",
+          "uF": 4.7
+        },
+        {
+          "ref": "C204",
+          "uF": 22.0
+        },
+        {
+          "ref": "C205",
+          "uF": 22.0
+        }
+      ]
+    },
+    "+1V0": {
+      "nominal_direct_uF": 506.9,
+      "parts": [
+        {
+          "ref": "C301",
+          "uF": 330.0
+        },
+        {
+          "ref": "C302",
+          "uF": 4.7
+        },
+        {
+          "ref": "C303",
+          "uF": 4.7
+        },
+        {
+          "ref": "C304",
+          "uF": 4.7
+        },
+        {
+          "ref": "C305",
+          "uF": 4.7
+        },
+        {
+          "ref": "C306",
+          "uF": 4.7
+        },
+        {
+          "ref": "C307",
+          "uF": 4.7
+        },
+        {
+          "ref": "C308",
+          "uF": 0.47
+        },
+        {
+          "ref": "C309",
+          "uF": 0.47
+        },
+        {
+          "ref": "C310",
+          "uF": 0.47
+        },
+        {
+          "ref": "C311",
+          "uF": 0.47
+        },
+        {
+          "ref": "C312",
+          "uF": 0.47
+        },
+        {
+          "ref": "C313",
+          "uF": 0.47
+        },
+        {
+          "ref": "C314",
+          "uF": 0.47
+        },
+        {
+          "ref": "C315",
+          "uF": 0.47
+        },
+        {
+          "ref": "C316",
+          "uF": 100.0
+        },
+        {
+          "ref": "C317",
+          "uF": 0.47
+        },
+        {
+          "ref": "C318",
+          "uF": 0.47
+        },
+        {
+          "ref": "C211",
+          "uF": 22.0
+        },
+        {
+          "ref": "C212",
+          "uF": 22.0
+        }
+      ]
+    },
+    "+3V3": {
+      "nominal_direct_uF": 221.16,
+      "parts": [
+        {
+          "ref": "C329",
+          "uF": 47.0
+        },
+        {
+          "ref": "C336",
+          "uF": 4.7
+        },
+        {
+          "ref": "C337",
+          "uF": 4.7
+        },
+        {
+          "ref": "C338",
+          "uF": 0.47
+        },
+        {
+          "ref": "C339",
+          "uF": 0.47
+        },
+        {
+          "ref": "C340",
+          "uF": 0.47
+        },
+        {
+          "ref": "C341",
+          "uF": 0.47
+        },
+        {
+          "ref": "C360",
+          "uF": 4.7
+        },
+        {
+          "ref": "C361",
+          "uF": 4.7
+        },
+        {
+          "ref": "C362",
+          "uF": 0.47
+        },
+        {
+          "ref": "C363",
+          "uF": 0.47
+        },
+        {
+          "ref": "C364",
+          "uF": 0.47
+        },
+        {
+          "ref": "C365",
+          "uF": 0.47
+        },
+        {
+          "ref": "C366",
+          "uF": 47.0
+        },
+        {
+          "ref": "C115",
+          "uF": 0.1
+        },
+        {
+          "ref": "C116",
+          "uF": 0.1
+        },
+        {
+          "ref": "C117",
+          "uF": 0.1
+        },
+        {
+          "ref": "C118",
+          "uF": 0.1
+        },
+        {
+          "ref": "C119",
+          "uF": 0.1
+        },
+        {
+          "ref": "C120",
+          "uF": 0.1
+        },
+        {
+          "ref": "C121",
+          "uF": 0.1
+        },
+        {
+          "ref": "C122",
+          "uF": 0.1
+        },
+        {
+          "ref": "C123",
+          "uF": 0.1
+        },
+        {
+          "ref": "C124",
+          "uF": 0.1
+        },
+        {
+          "ref": "C125",
+          "uF": 0.1
+        },
+        {
+          "ref": "C126",
+          "uF": 0.1
+        },
+        {
+          "ref": "C130",
+          "uF": 4.7
+        },
+        {
+          "ref": "C136",
+          "uF": 0.1
+        },
+        {
+          "ref": "C138",
+          "uF": 0.1
+        },
+        {
+          "ref": "C182",
+          "uF": 0.1
+        },
+        {
+          "ref": "C195",
+          "uF": 22.0
+        },
+        {
+          "ref": "C196",
+          "uF": 22.0
+        },
+        {
+          "ref": "C197",
+          "uF": 22.0
+        },
+        {
+          "ref": "C219",
+          "uF": 1.0
+        },
+        {
+          "ref": "C232",
+          "uF": 0.1
+        },
+        {
+          "ref": "C233",
+          "uF": 0.1
+        },
+        {
+          "ref": "C234",
+          "uF": 0.1
+        },
+        {
+          "ref": "C235",
+          "uF": 10.0
+        },
+        {
+          "ref": "C246",
+          "uF": 0.1
+        },
+        {
+          "ref": "C247",
+          "uF": 0.1
+        },
+        {
+          "ref": "C250",
+          "uF": 0.1
+        },
+        {
+          "ref": "C251",
+          "uF": 0.1
+        },
+        {
+          "ref": "C252",
+          "uF": 0.1
+        },
+        {
+          "ref": "C253",
+          "uF": 0.1
+        },
+        {
+          "ref": "C254",
+          "uF": 0.1
+        },
+        {
+          "ref": "C255",
+          "uF": 0.1
+        },
+        {
+          "ref": "C256",
+          "uF": 0.1
+        },
+        {
+          "ref": "C257",
+          "uF": 10.0
+        },
+        {
+          "ref": "C258",
+          "uF": 0.1
+        },
+        {
+          "ref": "C259",
+          "uF": 0.1
+        },
+        {
+          "ref": "C260",
+          "uF": 10.0
+        }
+      ]
+    },
+    "+5V": {
+      "nominal_direct_uF": 89.6,
+      "parts": [
+        {
+          "ref": "C140",
+          "uF": 0.1
+        },
+        {
+          "ref": "C142",
+          "uF": 0.1
+        },
+        {
+          "ref": "C189",
+          "uF": 22.0
+        },
+        {
+          "ref": "C190",
+          "uF": 22.0
+        },
+        {
+          "ref": "C191",
+          "uF": 22.0
+        },
+        {
+          "ref": "C200",
+          "uF": 0.1
+        },
+        {
+          "ref": "C203",
+          "uF": 0.1
+        },
+        {
+          "ref": "C206",
+          "uF": 0.1
+        },
+        {
+          "ref": "C207",
+          "uF": 22.0
+        },
+        {
+          "ref": "C218",
+          "uF": 1.0
+        },
+        {
+          "ref": "C248",
+          "uF": 0.1
+        }
+      ]
+    }
+  },
+  "island_membership": {
+    "island J57": [
+      "C143",
+      "C144",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "J57"
+    ],
+    "island U33": [
+      "C258",
+      "R154",
+      "R155",
+      "R156",
+      "U33"
+    ],
+    "island D11": [
+      "D11",
+      "R130"
+    ],
+    "island J74": [
+      "C259",
+      "C260",
+      "J74",
+      "R157",
+      "R158",
+      "R159",
+      "R160",
+      "R161"
+    ],
+    "island J51": [
+      "J51"
+    ],
+    "island U20": [
+      "C138",
+      "R14",
+      "R15",
+      "R16",
+      "R17",
+      "R33",
+      "R34",
+      "U20"
+    ],
+    "island J19": [
+      "C163",
+      "C164",
+      "J19"
+    ],
+    "island U22": [
+      "C219",
+      "R75",
+      "U22"
+    ],
+    "island J20": [
+      "C165",
+      "C166",
+      "J20"
+    ],
+    "island D10": [
+      "D10",
+      "R129"
+    ],
+    "island J8": [
+      "J8"
+    ],
+    "island U15": [
+      "C207",
+      "C208",
+      "C209",
+      "C210",
+      "C211",
+      "C212",
+      "L7",
+      "R65",
+      "R66",
+      "R67",
+      "R68",
+      "R94",
+      "U15"
+    ],
+    "island U10": [
+      "C141",
+      "C142",
+      "R97",
+      "U10"
+    ],
+    "island U1": [
+      "C224",
+      "C261",
+      "C262",
+      "C301",
+      "C302",
+      "C303",
+      "C304",
+      "C305",
+      "C306",
+      "C307",
+      "C308",
+      "C309",
+      "C310",
+      "C311",
+      "C312",
+      "C313",
+      "C314",
+      "C315",
+      "C316",
+      "C317",
+      "C318",
+      "C319",
+      "C320",
+      "C321",
+      "C322",
+      "C323",
+      "C324",
+      "C325",
+      "C326",
+      "C327",
+      "C328",
+      "C329",
+      "C330",
+      "C331",
+      "C332",
+      "C333",
+      "C334",
+      "C335",
+      "C336",
+      "C337",
+      "C338",
+      "C339",
+      "C340",
+      "C341",
+      "C342",
+      "C343",
+      "C344",
+      "C345",
+      "C346",
+      "C347",
+      "C348",
+      "C349",
+      "C350",
+      "C351",
+      "C352",
+      "C353",
+      "C354",
+      "C355",
+      "C356",
+      "C357",
+      "C358",
+      "C359",
+      "C360",
+      "C361",
+      "C362",
+      "C363",
+      "C364",
+      "C365",
+      "C366",
+      "C367",
+      "C368",
+      "C369",
+      "C370",
+      "C371",
+      "C372",
+      "C373",
+      "C374",
+      "C375",
+      "C376",
+      "C377",
+      "C378",
+      "C379",
+      "C380",
+      "C381",
+      "C382",
+      "C383",
+      "C384",
+      "C385",
+      "C386",
+      "C387",
+      "C388",
+      "C389",
+      "C390",
+      "C391",
+      "C392",
+      "C393",
+      "C394",
+      "FB1",
+      "L9",
+      "R1",
+      "R18",
+      "R19",
+      "R2",
+      "R3",
+      "R35",
+      "R4",
+      "R5",
+      "R6",
+      "R89",
+      "U1"
+    ],
+    "island SW1": [
+      "R12",
+      "SW1"
+    ],
+    "island U32": [
+      "C250",
+      "C251",
+      "C252",
+      "C253",
+      "C254",
+      "C255",
+      "C256",
+      "C257",
+      "R151",
+      "R152",
+      "R153",
+      "U32"
+    ],
+    "island U24": [
+      "C221",
+      "R73",
+      "R77",
+      "U24"
+    ],
+    "island U5": [
+      "C114",
+      "R122",
+      "R123",
+      "R124",
+      "R125",
+      "R126",
+      "R127",
+      "U5"
+    ],
+    "island J72": [
+      "D22",
+      "D23",
+      "J72"
+    ],
+    "island U26": [
+      "C183",
+      "C184",
+      "C185",
+      "C186",
+      "C187",
+      "D3",
+      "R46",
+      "R50",
+      "R51",
+      "R52",
+      "R53",
+      "R54",
+      "U26"
+    ],
+    "island U14": [
+      "C201",
+      "C202",
+      "C203",
+      "L5",
+      "R61",
+      "R62",
+      "R92",
+      "U14"
+    ],
+    "island J52": [
+      "J52"
+    ],
+    "island J7": [
+      "J7"
+    ],
+    "island U23": [
+      "C220",
+      "R72",
+      "R76",
+      "U23"
+    ],
+    "island U11": [
+      "C188",
+      "C189",
+      "C190",
+      "C191",
+      "L2",
+      "R55",
+      "R56",
+      "R90",
+      "U11"
+    ],
+    "island U9": [
+      "C139",
+      "C140",
+      "R96",
+      "U9"
+    ],
+    "island U12": [
+      "C192",
+      "C193",
+      "C194",
+      "C195",
+      "C196",
+      "C197",
+      "L3",
+      "R57",
+      "R58",
+      "U12"
+    ],
+    "island J71": [
+      "D20",
+      "D21",
+      "J71"
+    ],
+    "island U13": [
+      "C198",
+      "C199",
+      "C200",
+      "L4",
+      "R59",
+      "R60",
+      "R91",
+      "U13"
+    ],
+    "island U21": [
+      "C218",
+      "R74",
+      "U21"
+    ],
+    "island J1": [
+      "D6",
+      "D7",
+      "J1",
+      "Q2"
+    ],
+    "island U30": [
+      "C232",
+      "C233",
+      "C234",
+      "C235",
+      "C236",
+      "C237",
+      "C238",
+      "C239",
+      "C240",
+      "C241",
+      "C242",
+      "C244",
+      "C245",
+      "R131",
+      "R132",
+      "R133",
+      "R134",
+      "R135",
+      "R136",
+      "R137",
+      "R138",
+      "R139",
+      "R140",
+      "R141",
+      "R142",
+      "R143",
+      "R146",
+      "U30",
+      "X3"
+    ],
+    "island J70": [
+      "C243",
+      "J70",
+      "R144",
+      "R145"
+    ],
+    "island Q3": [
+      "Q3",
+      "R49"
+    ],
+    "island U17": [
+      "C182",
+      "R37",
+      "R45",
+      "R98",
+      "U17"
+    ],
+    "island U6": [
+      "C115",
+      "R21",
+      "R22",
+      "R23",
+      "R24",
+      "R25",
+      "R26",
+      "U6"
+    ],
+    "island D1": [
+      "D1",
+      "Q4",
+      "R7"
+    ],
+    "island U3": [
+      "C112",
+      "R110",
+      "R111",
+      "R112",
+      "R113",
+      "R114",
+      "R115",
+      "U3"
+    ],
+    "island U18": [
+      "C137",
+      "R11",
+      "U18"
+    ],
+    "island D9": [
+      "D9",
+      "R128"
+    ],
+    "island MK71": [
+      "MK71"
+    ],
+    "island U4": [
+      "C113",
+      "R116",
+      "R117",
+      "R118",
+      "R119",
+      "R120",
+      "R121",
+      "U4"
+    ],
+    "island J2": [
+      "J2"
+    ],
+    "island J58": [
+      "C145",
+      "C146",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "J58"
+    ],
+    "island U2": [
+      "C111",
+      "R104",
+      "R105",
+      "R106",
+      "R107",
+      "R108",
+      "R109",
+      "U2"
+    ],
+    "island J68": [
+      "J68"
+    ],
+    "island U7": [
+      "C116",
+      "C117",
+      "C118",
+      "C119",
+      "C120",
+      "C121",
+      "C122",
+      "C123",
+      "C124",
+      "C125",
+      "C126",
+      "C127",
+      "C128",
+      "C129",
+      "C130",
+      "C131",
+      "C132",
+      "C133",
+      "C134",
+      "C135",
+      "C136",
+      "C225",
+      "C226",
+      "C227",
+      "C228",
+      "C229",
+      "C230",
+      "L1",
+      "R10",
+      "R13",
+      "R20",
+      "R27",
+      "R28",
+      "R29",
+      "R30",
+      "R31",
+      "R32",
+      "R38",
+      "R47",
+      "R48",
+      "R8",
+      "R81",
+      "R82",
+      "R83",
+      "R84",
+      "R85",
+      "R86",
+      "R87",
+      "R88",
+      "R9",
+      "U7",
+      "U8",
+      "Y1"
+    ],
+    "island MK72": [
+      "MK72"
+    ],
+    "island J73": [
+      "C247",
+      "C248",
+      "C249",
+      "J73",
+      "R148",
+      "R149",
+      "R150",
+      "U31"
+    ],
+    "island U16": [
+      "C204",
+      "C205",
+      "C206",
+      "L6",
+      "R63",
+      "R64",
+      "R93",
+      "U16"
+    ],
+    "island J50": [
+      "D4",
+      "D8",
+      "J50"
+    ],
+    "city frame": []
+  },
+  "external_primary_documents_downloaded": {
+    "ds181": {
+      "url": "https://docs.amd.com/v/u/en-US/ds181_Artix_7_Data_Sheet",
+      "downloaded_pdf_sha256": "3f0cb482d645e217ae834e9370c1320300abb85a8046287250f9a48856aed070"
+    },
+    "rp-hardware": {
+      "url": "https://datasheets.raspberrypi.com/rp2350/hardware-design-with-rp2350.pdf",
+      "downloaded_pdf_sha256": "cef88bc7d87e67b4262ee15f2b94b03566667143f4e8daf6931828bef6408059"
+    },
+    "rp-datasheet": {
+      "url": "https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf",
+      "downloaded_pdf_sha256": "a638d6780da919162660691bfa02c6dcf7c2a0b6e9f18e2d7519c80b664a2e39"
+    },
+    "sy8047": {
+      "url": "https://atta.szlcsc.com/upload/public/pdf/source/20220517/73BFF7B078F09CB6F3A268820B2D4DA9.pdf",
+      "downloaded_pdf_sha256": "35a9f476df657f9b230fe58c7bc7f473d23476765cd1387beecf6fb5019287a3"
+    },
+    "rtl8211fd": {
+      "url": "https://static.chipdip.ru/lib/595/DOC042595102.pdf",
+      "downloaded_pdf_sha256": "16573d8541222cfa70486784c3d5d48cae3117e54c602d95b8a844eace172ec0"
+    },
+    "hanrun": {
+      "url": "https://hrdzcn.oss-cn-beijing.aliyuncs.com/202601/ab534667d942f65.pdf",
+      "downloaded_pdf_sha256": "d3a5d7212145ea71b6f643d90478eac1cdb08ef26a191cac525d4ab7fb344ac1"
+    },
+    "nanopi-r2s-plus": {
+      "url": "https://wiki.friendlyelec.com/wiki/images/d/da/NanoPi_R2S_Plus_2309_SCH.PDF",
+      "downloaded_pdf_sha256": "6215be11b40d79322e34354665468ed9cd66e70444798894c799a0f71d13548c"
+    }
+  },
+  "limitations": [
+    "Read-only schematic and placement-intent audit; hardware design was not modified.",
+    "Capacitance figures are nominal direct rail-to-GND sums, not effective DC-biased capacitances.",
+    "City is enlarged staging, not final placement; staging distances are not final routing lengths.",
+    "No functional interface timing, SI, thermal, surge or bench measurements were performed."
+  ]
+}

@@ -8,7 +8,7 @@ Six pages, one per functional block, from `odin.kicad_sch` (the root):
 | Page | Contents |
 |---|---|
 | `fpga.kicad_sch` | FPGA, decoupling, configuration straps |
-| `power.kicad_sch` | input, regulators, monitoring and five protected extension buses |
+| `power.kicad_sch` | input, the +5V source mux, regulators, monitoring and four protected extension buses |
 | `memory.kicad_sch` | PSRAM x4 (1.8 V), SDRAM, MRAM, microSD and configuration flash |
 | `supervisor.kicad_sch` | RP2350B, USB-C, flash, links to the FPGA |
 | `slots.kicad_sch` | Nine extension slots, rail selection, fusing, shifting |

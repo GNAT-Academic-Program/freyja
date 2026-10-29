@@ -26,10 +26,11 @@ Banks 12 and 33 exist in the FGG676 ball list but have only VCCO balls on the
 XC7A100T (unbonded). They are tied to `+3V3` and are not banks for the
 per-bank row.
 
-Voltage groups today: `+3V3` = banks 13, 14, 16, 35 (one 47 uF), `VCCIO_1` =
-bank 15 (one), `VCCIO_2` = bank 34 (one). The grouping is computed from
-`gen_sch.RAIL`, so moving bank 16 to `+2V5` (phase A4) adds its own 47 uF
-automatically.
+Voltage groups today: `+3V3` = banks 14 and 35 (one 47 uF, C366), `VCCIO_1`
+= bank 15 (one), `+2V5` = bank 16 (one), `VCCIO_2` = bank 34 (one), `+1V8_IO`
+= bank 13 (one, C394, appended after the MGT capacitors). The grouping is
+computed from `gen_sch.RAIL`; a bank that moves to another rail regroups its
+47 uF automatically.
 
 Total: 15 + 3 + 9 + 1 + 36 + 3 = 67 UG483 parts, plus 24 MGT and 1 VCCADC
 = 92. The previous scheme was 96 x 100 nF plus 14 x 4.7 uF (110).

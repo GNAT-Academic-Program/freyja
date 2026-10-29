@@ -65,7 +65,7 @@ against the manufacturer datasheet.
 | 1 | `SRN6045TA-4R7M` | 3.3 V supply inductor | C2044594 |
 | 1 | `2.54-2*5P` | keyed FPGA JTAG header | `C5665` — imported and linked |
 | 1 | `BM03B-SRSS-TB(LF)(SN)` | keyed controller SWD header | `C160389` — imported and linked |
-| 1 | `KF301-5.0-2P` | 9–14 V external power terminal | `C474881` — imported and linked |
+| 1 | `KF301-5.0-2P` | 9–21 V external power terminal | `C474881` — imported and linked |
 | 4 | `F.0603.00025/P2-0603G1TS2-06T-002` | green DONE, heartbeat and two user LEDs | `C7496818` — imported and linked |
 | 13 | `F254D-02-PT-B` | removable 2.54 mm selector shunts | `C501335` — imported; loose accessory |
 | 1 | `PCF8574T_3,518` | status LED expander | `C7605` — imported and linked |
@@ -128,7 +128,8 @@ Place it beside U25; the 25V rating is explicit in the generated BOM value.
 
 - D8: **SMBJ15A-13-F**, Diodes Incorporated, **C135046**, unidirectional
   TVS in standard KiCad `Diode_SMD:D_SMB`; cathode pad 1 to VIN_EXT.
-- R49: **47k**, 0603, Q2 gate pulldown path; retain the 100k source pull-up.
+- R49 and the Q2 gate network are gone (2026-10-29): U34 TPS2121RUXR
+  (C485916) selects the +5V source; U23/U24 are TPS22953DSQR (C2680343).
   Use 1% resistors for the documented divider tolerance calculation.
 
 ## Ordinary resistors and capacitors

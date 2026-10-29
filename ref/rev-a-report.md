@@ -423,3 +423,20 @@ and MK72 now stand at position 1 of J56 and J65 in the sketch (the plan's
 `why` text lost its colon, which broke the YAML flow mapping). MK76/MK77
 remain where the owner put them, with the plan's NOTE. The 53 footprints
 staged by parts 1-3 are not in any island yet and did not move.
+
+## Audit corrections, part 4: documents 2026-10-29
+Parts: 544; gate electrical PASS, mechanical FAIL (B3 open); no netlist or
+board change. Findings items 43, 45, 48, plus the status table for 34-51
+appended to findings.md and the audit's evidence file
+ref/board-review/audit-2026-10-29.json committed.
+What: user-manual.md (ground columns 3 and 6, post + 1x7 power row, one
+2x32 body per edge, slots left/right and buses on top, AUX instead of the
+per-slot selectors, 9-21 V input, 5 V default / 9 V on request, no slave
+serial), floorplan.md (current plan header, microSD access from above with
+a cut-out contract, top-edge network section marked historical, R104-R127
+ownership), network.md (PHY controls on bank 35), decoupling.md (voltage
+groups), supervisor-flash.md (start-up order without enables, MultiBoot and
+address-mode cautions), psram.md (power-up states section), power.md,
+power-input.md, extension-ux.md (U23/U24, MON_VCCIO), island-layouts.md
+(U34, U23/U24 rows), status-leds.md, gameboy-extension.md,
+jlcpcb-import-checklist.md, kicad/README.md.

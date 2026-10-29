@@ -26,7 +26,8 @@ source; the three marked **[verify]** are not in the Realtek datasheet (rev
   does that. Never put a fast load switch in front of the PHY.
 - `+2V5` is enabled by the supervisor after `+3V3`. Allowed by Table 53 note 5
   **Case II** only because `PHYRSTB` is held low until `+2V5` is up: the 1 kΩ
-  pull-down on `PHY_RESET_N` does that.
+  pull-down on `PHY_RESET_N` does that, against a floating FPGA pin (PUDC_B
+  is high, so the FPGA adds no pull-up during configuration).
 - Reset: ≥ 10 ms low (Table 5), then wait **≥ 72 ms** before the first MDIO
   access (§7.17, revised in rev 1.7). Gateware owns both timings.
 
@@ -37,8 +38,8 @@ source; the three marked **[verify]** are not in the Realtek datasheet (rev
 | TXC, TXD[3:0], TXCTL | `PHY_TXC`, `PHY_TXD0..3`, `PHY_TX_CTL` | 16 | 2.5 V | fabric → PHY |
 | RXC, RXD[3:0], RXCTL | `PHY_RXC`, `PHY_RXD0..3`, `PHY_RX_CTL` | 16 | 2.5 V | PHY → fabric; `PHY_RXC` on an MRCC ball |
 | MDC, MDIO | `PHY_MDC`, `PHY_MDIO` | 16 | DVDD_RG = 2.5 V (Table 58) | 1.5 kΩ pull-up to `+2V5` (§7.11.2) |
-| PHYRSTB | `PHY_RESET_N` | 13 | 3.3 V (Table 58 note) | 1 kΩ pull-down; LVCMOS33 output |
-| INTB | `PHY_INT_N` | 13 | 3.3 V, open drain (Table 4) | 4.7 kΩ pull-up to `+3V3` |
+| PHYRSTB | `PHY_RESET_N` | 35 | 3.3 V (Table 58 note) | 1 kΩ pull-down; LVCMOS33 output |
+| INTB | `PHY_INT_N` | 35 | 3.3 V, open drain (Table 4) | 4.7 kΩ pull-up to `+3V3` |
 | CLKOUT | — | — | — | floating (Table 2); outputs 125 MHz by default, clear PHYCR2 from gateware |
 
 RGMII delays: TXDLY = 1 and RXDLY = 1 strap the PHY's 2 ns delays on (Table 6),

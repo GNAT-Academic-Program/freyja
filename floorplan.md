@@ -3,6 +3,22 @@
 **Intent doc for `tools/placement.py` / `tools/place.py`. The code is
 authoritative; this page says why.** Rev A state, 2026-10-23.
 
+**Current plan (2026-10-28, owner's choice: `tools/city.py` variant `best`):**
+U1 turned 90 degrees, the network jacks (LINK P, LINK Q, ETH) and HDMI on the
+**bottom** edge with the JTAG header and AUX IN, the two 5 V bus headers on
+the **top** edge with the DC input and USB-C, slots E-H on the left and A-D
+on the right. The zone sketch and the "top edge: network" section below are
+the earlier contract and are kept as history; `ref/city/plan.yaml` and
+`ref/city/city.svg` are the plan being compacted by hand. The lattice rules
+(signal 2x32, power 1x7, post at position 1) are unchanged and still checked.
+
+**microSD access (findings 45):** J74 sits inboard, south-west of U1, card
+opening toward the bottom edge. Access is **from above**: keep the card's
+travel (the socket body plus 10 mm toward its opening) and a finger-width
+(12 mm) above it free of tall parts, and give any shield or enclosure a
+cut-out over that rectangle. No board-edge opening is reserved. Check
+insertion and ejection with J72/J2 populated before the layout is frozen.
+
 ## Zones
 
 ```text
@@ -33,7 +49,7 @@ and right sockets expose identical y-lattices (bottom pair: x-lattices) and
 that the rows stay on the grid. It refuses to write a board that breaks
 this. Stack height remains a mechanical purchase choice.
 
-## Top edge: network
+## Top edge: network (historical; the current plan puts the jacks on the bottom)
 
 Three tab-down RJ45 jacks at 17.8 mm pitch, mouths about 3 mm past the edge:
 LINK P (J71, x = 25.0), LINK Q (J72, x = 42.8), ETH (J70, x = 60.6). J50
@@ -78,11 +94,13 @@ the board is assembled on one side. Full rule and table: `ref/decoupling.md`.
 
 ## PSRAM termination placement
 
-`tools/place.py` places R104–R127 in a column just outside the FPGA's right
-edge (15.4 mm from U1 centre, 1 mm pitch), ordered by their associated ball
-row/column. Their pad 1 faces the FPGA. This rule keeps them out of the
-PSRAM-chip group packing; refine their positions as escape routing develops.
-See [the PSRAM layout note](ref/psram.md) for net names and tuning limits.
+R104–R127 (and R151, the SDRAM clock resistor) damp the FPGA's drive and
+belong at the FPGA escape, not beside the memory: their design.py groups name
+U1 (`U1 PSRAM0 series termination`, `U1 SDRAM clock source`) and
+`tools/islands.py` gives the named anchor ownership. On the board they still
+sit in the islands of U2–U5 and U32 from before that rule; moving them is
+`islands.py --anchor U1 --extend --with R104,...,R127,R151` after review
+(findings 44). See [the PSRAM layout note](ref/psram.md) for tuning limits.
 ## Island placement (tools/islands.py)
 
 Hand placement stays authoritative. `tools/islands.py` is the only script

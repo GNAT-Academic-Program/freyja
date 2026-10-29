@@ -7,6 +7,12 @@ generated from `tools/`, and those inputs are reference material only. **Items
 
 Regenerate everything with the commands in `kicad/README.md`.
 
+**Latest review:** [2026-10-29 independent schematic and city audit](#audit-conclusion-and-scope),
+items 34–51, including the current checks, priority corrections, placement
+verdict and supported design decisions. **Corrections applied the same day:**
+see [the status table](#status-of-items-34-51-after-the-corrections-of-2026-10-29)
+at the end; the audit text itself is kept as written.
+
 ---
 
 # Part I — historical (EasyEDA era, closed)
@@ -750,3 +756,580 @@ P3–P6 always written high, and masked updates so heartbeat/user LEDs cannot
 change SFP power or drive PG low. PG polling and LED control share the SFP
 upstream bus, so a stuck bus also stops heartbeat updates. This implements
 the hardware; supervisor firmware and physical placement/routing remain.
+
+# Part III — independent schematic and city audit, 2026-10-29
+
+## Audit conclusion and scope
+
+**The architecture and much of the voltage-domain planning are sound, but
+the schematic needs corrections before detailed placement is frozen.** The
+most consequential findings are the FPGA's indefinite partial-power state,
+USB backfeed through Q2, missing USB termination, an unsafe PD startup
+default, inadequate local buck input bypass, and PSRAM power-up pin states.
+Passing ERC has not established correct bring-up.
+
+This review covers the current seven-sheet KiCad design, `tools/design.py`,
+ball allocation, actual PCB island membership, `ref/city/plan.yaml`, the city
+preview, and the floorplan/routing rules. Baseline: commit `82cb093` plus the
+working tree at review time. Earlier EasyEDA exports are historical. The
+older statements marked FIXED above are not evidence that the current
+design still satisfies the associated requirement; some reference numbers
+have since been reused.
+
+This is a review of the schematic and placement intent. Unrouted connections,
+staging outside the outline, and the absence of final copper are expected
+at this stage. They are not counted as design defects. No parts, nets,
+placement, routing, or generator behavior were changed for this audit.
+
+**Priorities:** P1 = correct before committing the prototype PCB; P2 = resolve
+the design choice or qualification before placement/routing is frozen;
+P3 = resolve during the normal footprint/fabrication review. A qualification
+gap means the decision is unproven, not that failure has been demonstrated.
+
+| Independently reproduced check | Result |
+|---|---|
+| Schematic export versus stored netlist | Matches |
+| Declarative design pin nets versus actual PCB pads | 0 mismatches across 499 parts |
+| XDC and gate top versus allocation generator | Matches |
+| ERC | 0 errors; the 2 documented temperature-diode label warnings |
+| PCB schematic parity | 0 differences |
+| Copper / assembly | 8 copper layers, all components on front; 0 tracks, 0 vias |
+| Footprint staging | 66 origins inside the board, 433 outside |
+| DRC | 4 hole-clearance errors, 296 warnings, 499 unconnected items |
+| Mechanical lattice checker | Fails; not propagated into `GATE PASS` |
+
+The last two rows need interpretation; see items 47 and 49. Machine-readable
+snapshot evidence is in
+[audit-2026-10-29.json](ref/board-review/audit-2026-10-29.json).
+
+## 34. P1 — always-on FPGA VCCO with switchable VCCAUX violates the recovery case
+
+**Evidence:** `tools/gen_sch.py` connects bank 0 and banks 14/35, plus the
+unbonded-bank supply balls, directly to always-on `+3V3`. `U14` supplies
+`+1V8_IO`, then FB1 supplies VCCAUX/VCCADC as `+1V8`. U14 depends on `+5V`
+and `EN_1V8`; both can remain off while a blank RP2350 flash sits in the ROM
+USB loader. The same condition occurs during controller reset or a policy
+that powers down the FPGA while retaining the supervisor.
+
+AMD distinguishes its recommended supply order from a reliability limit:
+with 3.3 V VCCO, VCCO minus VCCAUX must not exceed 2.625 V beyond the
+per-cycle time allowance. DS181 Table 7 specifies 500 ms at the stated
+100 °C condition. Here the difference is about 3.27 V for an unbounded
+time. Holding PROGRAM_B low does not change the supply voltages.
+[AMD DS181, Power-On/Off Power Supply Sequencing and Table 7](https://docs.amd.com/v/u/en-US/ds181_Artix_7_Data_Sheet).
+
+**Required change:** separate the supervisor's always-on domain from the
+FPGA supply policy, or provide an autonomous AUX/VCCO relationship that
+satisfies this bound. Prove it during ROM recovery, reset, faults and
+power-down, including discharge of the large capacitor banks. Firmware
+alone cannot fix the blank-flash case. Also check powered peripheral signals
+against any FPGA bank that the revised scheme leaves unpowered.
+
+## 35. P1 — Q2 bypasses USB reverse blocking and current protection
+
+**Evidence:** Q2 source/pin 2 is VBUS; drain/pin 3 is `+5V`. Its intrinsic
+diode conducts from `+5V` toward VBUS. With J50 powering U11 and the USB
+source absent or falling, USB VBUS can therefore be energized even with
+Q2 commanded off. When Q2 is on, its channel conducts both ways. D3/D4 and
+U26 do not interrupt this separate path.
+
+This follows from the actual net connections and the MOSFET internal
+schematic; it is not a firmware hypothesis.
+[Diodes DMG2305UX, internal schematic and ratings](https://www.diodes.com/datasheet/download/DMG2305UX.pdf).
+
+The forward bypass also feeds the `+5V` loads without U26's current limit
+or specified output slew. C183 slows the gate; it does not establish a
+bounded load-current ramp. A firmware mistake or reset during a PD voltage
+transition can still pass 9 V into 5.5 V-rated consumers.
+
+**Required change:** give the bypass reverse blocking and a defined current/
+inrush limit, with a hardware voltage-valid interlock if it must be safe
+independently of firmware. Back-to-back FETs or a suitable power-path device
+are candidate implementations, not an audited replacement circuit. Verify
+USB alone, J50 alone, both sources, either source being removed, and 5-to-9 V
+transitions. This reopens the system-level protection claims in items 10/24.
+
+## 36. P1 — RP2350 USB D+ and D− lack their required 27 ohm resistors
+
+**Evidence:** J1, D6 and U7 pins 66/67 share `USB_DM` and `USB_DP` directly.
+Neither path contains a series resistor. The 33 ohm supervisor-to-FPGA
+resistors serve unrelated nets.
+
+Raspberry Pi requires 27 ohm USB series termination close to the MCU.
+Add both resistors to the U7 island, with separate connector-side net names.
+Keep D6 at J1 and route the pair through the protection point without stubs.
+[Hardware design with RP2350, section 5.1](https://datasheets.raspberrypi.com/rp2350/hardware-design-with-rp2350.pdf).
+
+This is a schematic correction even though the USB cable carries only
+full-speed data. USB enumeration and ROM recovery are not established until
+this is corrected and tested.
+
+## 37. P1 — CH224K has no independent safe voltage default
+
+**Evidence:** U18 CFG1/2/3 go directly to RP2350 GPIO27/28/29. There is no
+external configuration resistor on CFG1. The board relies on firmware to
+forbid requests above 9 V, but U18 starts from VBUS before that firmware.
+
+WCH explicitly warns that MCU startup/default pin states can select 20 V,
+and specifies a configuration resistor when the downstream system cannot
+tolerate that. A 6.8 kohm CFG1-to-ground setting selects 9 V in resistor
+configuration. The exact interaction with subsequent GPIO drive must be
+checked before adopting that implementation.
+[WCH CH224 datasheet, section 5.2, manufacturer-authored mirror](https://uelectronics.com/wp-content/uploads/2025/04/ch224k-Datasheet.pdf).
+
+**Consequence:** U26's approximately 10 V OVLO disconnects the supervisor
+path at a high request, potentially removing the controller that would
+correct it. D7 is a 13 V-standoff TVS, not a continuous 20 V regulator.
+RP2350 internal pulls are not an independently powered startup strap.
+This is a missing guarantee; an actual 20 V startup was not measured.
+
+**Required change:** establish a safe hardware default valid before MCU
+power-up and through ROM recovery/reset. Verify cold attach on a PD source
+offering 20 V, then every permitted voltage transition. Retain the 9 V
+firmware ceiling after adding the hardware default.
+
+## 38. P1 — several buck islands lack local input energy storage
+
+| Converter | What its island currently contains at VIN | Conclusion |
+|---|---|---|
+| U11 AP63300, VSYS to 5 V | No VIN-to-GND capacitor | C185/C186 belong to U26, C192 to U12; none travels with U11 |
+| U12 AP63300, VSYS to 3.3 V | C192, 10 uF | Correct ownership; verify effective capacitance at 21 V |
+| U13 / U14 / U16 TLV62569 | C200 / C203 / C206, each 100 nF | Small HF bypass only; no local multi-uF input reservoir |
+| U15 SY8047 | C207, 22 uF, plus SVIN RC filter | Correct reference topology; retain the tight power loop |
+
+TI's TLV62569 example uses 4.7 uF at VIN. Its layout guidance requires a
+short input-capacitor loop. The AP63300 guidance likewise places input
+capacitors directly across VIN/GND. A common upstream capacitor is not
+proof of an adequate local switching-current loop.
+[TI TLV62569, sections 8.2.2.5 and 10](https://www.ti.com/lit/ds/symlink/tlv62569.pdf),
+[Diodes AP63300, PCB Layout](https://www.diodes.com/datasheet/download/AP63300_AP63301.pdf).
+
+**Required change:** assign or add a properly rated local input capacitor
+to U11; add the reference-sized local input capacitors to U13/U14/U16 and
+their island profiles. Select against DC bias and ripple current. Place
+these before the inductor/output row and close the VIN-cap-GND loop locally.
+The regulator street can remain; its shared supply does not replace these
+capacitors.
+
+## 39. P1 — PSRAM startup pin states conflict with PUDC_B low
+
+**Evidence:** all four PSRAMs share U14's `+1V8_IO` with bank 13. Their CE,
+clock and data pins have series resistors but no external state-setting
+resistors. PUDC_B is strapped low, enabling FPGA configuration pull-ups.
+
+AP Memory requires, from the start of the supply ramp through 150 us after
+stable VDD: CE high tracking VDD within 200 mV, clock low, and all four
+data pins low. Initialization then requires the reset command sequence.
+FPGA pull-ups on clock/data give the opposite idle state; before FPGA
+initialization their availability is also not established.
+[APS6404L-SQN rev 4.0, section 8](ref/datasheets/aps6404l-sqn.pdf).
+
+**Required change:** define hardware pin states that satisfy the entire
+power-up interval, including FPGA-unconfigured operation. Candidate pulls
+must overcome the worst configuration pull-up and meet the PSRAM thresholds
+without excessive operating load. An alternative supply/isolation scheme
+must provide the same guarantee. Put these parts at the PSRAM-side nodes,
+then explicitly implement 150 us wait, reset-enable/reset, and reset recovery
+in the memory controller. A reset command after boot is not evidence that
+the earlier electrical requirement was met.
+
+## 40. P2 — total regulator output capacitance has not been qualified
+
+Summing actual direct rail-to-ground capacitor values, rather than only the
+two capacitors inside each regulator box, gives:
+
+| Rail | Nominal direct capacitance | Additional state-dependent load |
+|---|---:|---|
+| U13 `+2V5` | 103.38 uF | J19/J20 bank capacitors and enabled connector branches |
+| U14 `+1V8_IO` | 112.98 uF | 63.55 uF behind FB1, plus selected banks/branches |
+| U16 `+1V2_MGT` | 49.90 uF | No connector export |
+| U15 `+1V0` | 506.90 uF | MGT filter capacitance behind L9 |
+| U12 `+3V3` | 221.16 uF | Selected VCCIO banks, switched branches, inserted cards/modules |
+
+These are BOM-value sums, not measured effective capacitances. The bead and
+inductor loads are frequency-dependent, not simply parallel capacitors.
+The selectable banks add 44 uF each before the branch loads are enabled.
+
+TLV62569 Table 4 validates particular LC combinations up to 2 x 22 uF for
+these voltages; it asks for other combinations to be checked individually.
+Matching the local two-cap example therefore does not qualify U13/U14's
+assembled load. Do not remove FPGA decoupling just to make this table fit.
+[TI TLV62569, sections 8.2.2.3–5](https://www.ti.com/lit/ds/symlink/tlv62569.pdf).
+
+U15's recovered Silergy datasheet confirms the pin map, 0.6 V feedback,
+22 uF PVIN bypass, 1 uF SVIN bypass and programmed soft-start topology.
+It does not demonstrate stability with this board's approximately 507 uF
+direct output network.
+[Silergy SY8047 rev 0.9, manufacturer-authored mirror](https://atta.szlcsc.com/upload/public/pdf/source/20220517/73BFF7B078F09CB6F3A268820B2D4DA9.pdf).
+
+**Required resolution:** qualify startup, loop stability and load release
+with effective capacitance/ESR bounds and every jumper/load state; use vendor
+support, simulation and representative load-step measurements as appropriate.
+Revisit compensation or regulator selection if necessary. Oscillation has
+not been established by this audit.
+
+## 41. P2 — the 1.8 V extension setting has no load-switch input margin
+
+U23/U24 take their VIN from selectable VCCIO_1/VCCIO_2. The 1.8 V setting is
+nominally 1.8024 V, while TPS22950C specifies VIN >= 1.8 V. Even a 1% low
+rail is below that bound, before divider tolerance, ripple and copper loss.
+[TI TPS22950x, Recommended Operating Conditions](https://www.ti.com/lit/ds/symlink/tps22950.pdf).
+
+This does not invalidate the FPGA/PSRAM 1.8 V domain, whose operating window
+is wider. It invalidates a guaranteed protected extension supply across that
+domain's tolerance. Select a switch qualified below the minimum rail, or
+choose a rail target/tolerance that simultaneously meets every consumer's
+limits. Bench success at room-temperature nominal voltage is insufficient.
+
+The switch choices otherwise make sense: reverse blocking, externally held
+OFF enables, fault reporting, local input bypass and the documented
+current-limit settings are useful protections.
+
+## 42. P2 — RP2350 pin allocation requires avoidable custom peripheral handling
+
+| Board function | Assigned GPIO | Native peripheral function |
+|---|---:|---|
+| SUP_SCL | 14 | I2C1 SDA |
+| SUP_SDA | 31 | I2C1 SCL |
+| SUP_UART_TX | 19 | UART0 RTS, or auxiliary UART0 RX |
+| SUP_UART_RX | 20 | UART1 TX, or auxiliary UART0 TX |
+
+The I2C roles are reversed. The UART assignments do not form a native
+transmit/receive pair for one UART. Swapping just the UART signal names
+does not automatically make a valid pair.
+[RP2350 datasheet, GPIO functions](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf).
+
+**Recommendation:** swap the I2C assignments and allocate a legal UART pair
+while spare GPIOs remain. Otherwise explicitly budget PIO/software drivers
+and test recovery when the expander bus stalls. The shared FPGA-flash SPI
+pins also do not form a native SPI peripheral pinout; that interface needs
+an intentional PIO/software implementation. These are functional planning
+issues, not electrically crossed I2C wires: software can implement the
+present mapping, at additional complexity.
+
+## 43. P2 — hard-strapped master SPI cannot also provide slave-serial loading
+
+M[2:0] are hard-strapped to 001. The RP2350 cannot change M1/M2. AMD assigns
+001 to master SPI and 111 to slave serial; PROGRAM_B resets configuration
+but does not override mode straps. After release the FPGA drives CCLK in
+master mode, so the supervisor must not also drive it as a slave-serial
+source.
+[AMD UG470, Configuration Modes and Serial Configuration](https://docs.amd.com/v/u/en-US/ug470_7Series_Config).
+
+The direct flash-writing plan remains plausible while PROGRAM_B holds the
+FPGA reset, with correct bus ownership. For volatile FPGA loading, either
+use the already-wired JTAG path and correct the slave-serial promise, or add
+a deliberate mode-selection circuit. Firmware must also restore the flash's
+boot-compatible address/protocol state before releasing PROGRAM_B. Verify
+golden/fallback addressing with the actual 256 Mbit flash rather than
+assuming every MultiBoot address is interchangeable.
+
+## 44. P2 — several island memberships do not preserve the intended electrical location
+
+The actual PCB groups, not the older placement prose, contain:
+
+| Parts | Current group | Required placement decision |
+|---|---|---|
+| R104–R109, R110–R115, R116–R121, R122–R127 | U2, U3, U4, U5 respectively | FPGA-driven clock/CE source damping belongs at the FPGA escape, not locked to the memory island |
+| R151, 22 ohm SDRAM clock | U32 | Source is U1; move its ownership/location to the FPGA clock escape |
+| Q2 | J1 | Keep with the reviewed power path |
+| Q2 gate parts R46/C183 | U26 | They serve Q2, not U26; prevent their separation when moving blocks |
+| X4, R147, C246 | Ungrouped | Keep the oscillator, source resistor and bypass as one clock island attached to U1 |
+
+A membership error is significant now because a rigid group move preserves
+the error. `place.py` can place PSRAM resistors at the FPGA, but that is not
+where their current city groups keep them. Split source parts from memory
+load parts deliberately, or add an explicit source-location constraint.
+R147 should remain at X4, which is the source of SYS_CLK.
+
+Bidirectional PSRAM data needs separate consideration: an FPGA-end resistor
+does not source-terminate memory-driven reads. Retain tuning footprints and
+verify both directions; do not add a second 33 ohm automatically. The
+existing warning in `ref/psram.md` is correct.
+
+## 45. P2 — the inboard microSD socket needs an access contract
+
+The city script deliberately gives J74 no edge reservation. Its opening
+faces toward the bottom, broadly behind J72's edge position. A push-push
+socket needs space for the card's travel and a finger/tool to latch and
+eject it; a no-overlap rectangle around the socket body does not supply that.
+
+**Resolution:** choose explicit access from above with a keep-out through
+any shield/enclosure, or reserve a board-edge opening and move other blocks.
+Check insertion and ejection with adjacent jacks populated and a shield
+installed. Inboard placement can be acceptable; the current plan does not
+yet establish usable access. Do not treat J74 as an ordinary wired IC.
+
+## 46. P2 — power checks do not establish the aggregate input-source envelope
+
+`budget.py` currently checks board-only rail load against regulator ratings
+and the VSYS input window. It does not enforce source-profile power,
+simultaneous exported loads, thermal limits, or the inductor checks claimed
+in some documentation.
+
+The current planning model consumes approximately 0.721 A from 5 V and
+0.919 A from 3.3 V: about **6.64 W** before upstream losses and extensions.
+Its default-USB profile supplies only 4.75 V x 0.9 A = 4.28 W. That profile
+can support a restricted mode, not the modeled full board. Moreover, 900 mA
+is not a universal USB default; ordinary USB 2.0 configured bus power is
+500 mA, and higher Type-C current requires the corresponding advertisement
+or contract.
+[USB-IF power compliance policy](https://compliance.usb.org/index.asp?Format=Standard&UpdateFile=Policies).
+
+For both VCCIO domains selected to 3.3 V, nominal low-voltage switch limits
+allow another 1 A x 5 V + 3 x 0.5 A x 3.3 V = 9.95 W. Together this is
+16.59 W. Assuming 90% upstream efficiency and roughly 8.5 V after the USB
+path requires about 2.17 A, already above U26's 2.03 A typical limit.
+Using the switch upper-limit tolerances raises this to about 2.49 A. These
+are planning calculations, not measured efficiencies or available allocations.
+
+**Resolution:** define recovery/light/full-power input modes and a shared
+export allowance for each. Include source-current knowledge, U26 minimum
+limit, jumper combinations, conversion losses, DC-biased capacitors,
+inductor peak current and hot-board thermals in qualification. Existing
+warnings that fuse ratings are not additive remain necessary. A 4 A
+regulator label also does not prove a 4 A core at temperature; XPE and the
+chosen inductor's tolerance/saturation curve remain open work.
+
+## 47. P2 — a green gate currently conceals a failed mechanical check
+
+`tools/gate.py` prints `place.py --check exit 1`, then still prints
+`GATE PASS`: that return code never updates `ok`. The present lattice
+failure is understandable while connectors and posts are staged or remain
+in old hand positions; reporting a complete pass is nevertheless misleading.
+Separate electrical-consistency and mechanical gates, or make the final
+status depend on every check it claims to enforce.
+
+The existing Vivado gate has a different, deliberate limit:
+`gateware/gate/gate.xdc` false-paths all inputs and outputs. Its routed
+bitstream is useful evidence for legal balls/I/O primitives and internal
+implementation, not for PSRAM, SDRAM, RGMII, HDMI or cable timing. The
+existing timing report's success must be interpreted within that scope.
+No new Vivado functional timing sign-off was performed in this audit.
+
+Before routing, define real interface budgets: flight time, clock-to-data,
+setup/hold, skew and allowable via/layer changes. RGMII clock skew must be
+provided once; the PHY's enabled delay straps should not be combined with
+another automatic MAC-side delay without analysis.
+
+## 48. P2 — contradictory documents can produce an incorrectly wired shield
+
+`ref/user-manual.md` still shows the old signal-row grounds in the last
+two columns. The current schematic uses columns 3 and 6 for ground. It also
+describes obsolete connector bodies, per-slot selectors and a 14 V input
+ceiling. `floorplan.md` retains its old opposite slot sides/top-network
+contract above the accepted rotated city. `ref/network.md` still calls the
+PHY controls bank 13, although they now correctly use bank 35.
+
+Other stale examples include the old VCCO grouping in `ref/decoupling.md`,
+the deleted boost in `ref/supervisor-flash.md`, and SFP-related details in
+older findings. These are not just prose discrepancies when a user builds
+a mating PCB from the wrong pin table.
+
+**Resolution:** establish one current connector/power/floorplan contract,
+mark earlier revisions as historical, and regenerate all dependent tables.
+Keep item 14's shield mating, key projection and height qualification open.
+The circuit-to-PCB net map is consistent; the human-facing contract is not.
+
+## 49. P3 — USB-C footprint holes violate the current drill-clearance rule
+
+All four actual DRC errors are J1: ground pads A1/A12/B1/B12 versus its
+NPTH locating holes. Actual hole clearance is 0.1847 mm; the board rule is
+0.2500 mm. This is a footprint/fabrication issue independent of unfinished
+routing. Check the connector drawing and the chosen fabricator's hole-to-
+copper capability; correct the footprint or justify a local rule. Do not
+silently lower the global hole clearance.
+
+## 50. P2 — telemetry does not cover every rail the supervisor claims to verify
+
+The six ADC connections measure VSYS, 5 V, 3.3 V, 2.5 V, `+1V8_IO` and
+1.0 V. There is no measurement of `+1V2_MGT`, either selected VCCIO domain,
+or actual `+1V8` **after FB1**. Core PG is additionally read through U17.
+Consequently, an open/missing FB1 can leave VCCAUX absent while MON_1V8
+reports a healthy regulator output. The jumpers are not automatically sensed.
+
+**Resolution:** measure the rails needed for the intended sequencing/fault
+policy, especially actual VCCAUX, or narrow the claimed observability and
+document the checks firmware cannot make. Spare ADC-capable GPIO46 is
+available, but all desired measurements may need further pin allocation or
+a multiplexer. Keep monitor bypass capacitors at the ADC inputs and evaluate
+fault voltages as well as nominal divider ratios. This is separate from
+item 34: observing a supply cannot enforce its required startup relationship.
+
+## 51. P2 — city planning assigns the wrong key posts to the 5 V buses
+
+Both city variants associate MK71 with J7 and MK72 with J8. In the current
+design, `MK{ord(slot)}` makes MK71/MK72 the **G/H** keys; L/M require
+**MK76/MK77**. The latter remain in the board's fixed-ghost set instead of
+traveling with the proposed top bus neighborhoods. All these posts are GND,
+so electrical parity cannot detect the semantic mistake.
+
+Correct the city anchor references and group each post with the power row
+it actually keys. Keep G/H keys with their side-edge sections. This is a
+specific planning error beyond the expected unfinished placement, and one
+reason the mating lattice must be verified from real pad coordinates.
+
+## City planning verdict
+
+**A regulator street is acceptable.** Regulator proximity should minimize
+the high-current output path and input switching loop, while quiet feedback
+and clocks remain protected. Putting all regulator bodies in a neat row is
+not itself an electrical requirement. The accepted U1 rotation and opposite
+slot sides are a reasonable starting point; the score is a wiring heuristic,
+not a routing or power-integrity proof.
+
+| Neighborhood | Assessment and placement instruction |
+|---|---|
+| U15 core supply above U1 | Keep its priority and a wide output corridor into the core balls. Align the **inductor output/output capacitor copper**, not merely the IC centre. Keep FB sensing away from SW and take the sense point from the intended regulated output. |
+| U14 1.8 V / U16 MGT in the same row | The row is reasonable. With the actual 90-degree U1 rotation, bank 13's PSRAM/buffer balls are toward the upper-left. Consider U14 on that side before spending the left corridor on the unused-MGT regulator. VCCAUX still needs its filtered, quiet distribution. |
+| U13 2.5 V below U1 beside U30 | Good relative location for bank 16 and the PHY's 2.5 V pads. Keep its switching loop clear of the PHY crystal and pair escape. Resolve its capacitor qualification first. |
+| U11 feeding the low-voltage regulators | Good upstream relationship to the row. Add its own input bypass and local bypass at every downstream converter; keep the wide 5 V distribution out of sensitive clock corridors. |
+| U12 3.3 V on the left | Acceptable for a distributed rail with broad plane copper; it need not sit beside the RP2350. Keep VSYS input routing and local CIN controlled, and check worst-case drop to the distant supervisor/SDRAM. |
+| U2–U5 PSRAM | Give all four short escapes toward their bank-13 balls before legalizing slow support circuitry. U2 is currently to the right while the others are left; this is an avoidable detour candidate, not proof of an unroutable board. Group by timing-critical nets, and split the source resistors as in item 44. |
+| U7 supervisor with U8/Y1 | Correct neighborhood and useful satellites. Keep the regulator loop as a protected sub-island, USB resistors at U7, crystal loop quiet, and QSPI short. Avoid putting U14/U15 switch-node fields across Y1 or VREG_AVDD. |
+| U30 / X3 / J70 | Keeping the PHY between bank 16 and its jack is sound. Its present lateral offset from J70 still needs a clear four-pair MDI corridor; prefer moving slow/status blocks over bending those pairs through power circuitry. |
+| J71/J72 and ESD arrays | Correct ownership of connector-side ESD; use flow-through paths and very short ground returns. Their bottom-left position agrees with the network-facing bank. |
+| J73 with U31 | Correct satellite choice and edge location for bank 35. Preserve the direct connector-to-protection paths and differential pair corridors. |
+| U32 SDRAM | The lower corner between bank 35 data/control and bank 14 address is a reasonable compromise. Orient its data and address pin rows toward their actual escapes and prioritize the forwarded clock; move R151 to its source. |
+| U33 MRAM | Correct low-speed bank-14 neighborhood; lower placement priority than PSRAM/SDRAM/clock escapes. |
+| J74 microSD | Connectivity attracts it to the right functional neighborhood, but access must override the wire-count solution. See item 45. |
+| Slots, power rows, keys | The intended parallel lattice is appropriate for bridging shields. Correct the MK71/MK72 versus MK76/MK77 planning error in item 51, then reconcile old positions and run the real pad-coordinate check. |
+| J1/U26/Q2 and J50/D4/D8 | Correct to treat these as source-entry neighborhoods. Rework the electrical path first, put TVS return loops at the entry, and keep Q2's gate network with Q2. |
+| J68 AUX | Keep an edge position with wire bend/screwdriver clearance and an independent wide path to the branch fuses. Its raw, unswitched behavior is a deliberate product constraint. |
+
+### Power plane and routing implications
+
+The eight-layer S/GND/S/PWR/GND/S/GND/S concept is sensible: signal escape
+layers have nearby ground references, and the power/ground pair is tight.
+Keep these ground planes continuous; the small RP2350 LX clearance called
+for by its reference layout is a local exception, not permission to split
+signal return planes. Outer-layer differential geometry must not be reused
+on an inner layer without recalculation. USB also needs a defined 90 ohm
+pair geometry; it currently has no dedicated net class. The 0.125 mm RGMII/
+SDRAM width is an outer-layer estimate, not a universal 50 ohm rule for
+In2/In5.
+
+The power doors are a useful way to reserve corridors. They do not prove
+that In3 has room for every split rail or that narrow In5 power traces can
+replace plane areas without cost. Draw those polygons and trial-escape a
+representative set of core supply vias and deep signal balls before fixing
+every neighborhood. The depth report contains 80 assigned signal balls at
+depth >=7, of which 63 are classified as allocation choices; this is a
+reason to trial-route the escapes, not proof that 63 can all be eliminated.
+
+As an illustrative copper calculation, a 15 mm x 5 mm corridor of 15.2 um
+copper is about 3.4 milliohms at room temperature, or 14 mV drop at 4 A,
+before vias and necks. The 1 V rail has little voltage margin after regulator
+and resistor tolerances. Check the complete supply/return path, hot copper,
+and output-capacitor/load locations; a favourable centroid score cannot
+establish this. The 4 A figure here is a sizing example, not a measured load.
+
+### Island rules to preserve during compaction
+
+1. Reserve connector mating/card/cable/tool space before packing circuitry.
+2. Place local switching loops and the RP2350 reference regulator first;
+   keep feedback/analogue nodes away from SW/LX and inductor fields.
+3. Place FPGA/source clock resistors at their actual drivers, then memory
+   loads and timing-critical escapes. Keep ESD at the external entry.
+4. Preserve each bank's capacitor ownership while changing U1 orientation.
+   The top-side-only decoupling ring is not inherently wrong: UG483 permits
+   these mid-frequency capacitors within two electrical inches, with low-
+   inductance mounting. Vias and plane continuity decide whether this ring
+   actually works.
+   [AMD UG483, PCB Capacitor Placement](https://docs.amd.com/v/u/en-US/ug483_7Series_PCB).
+5. Pack slow expanders, LEDs and service details into the remaining space.
+   A rigid island is a convenience, not a reason to retain an electrically
+   wrong orientation or separated input capacitor.
+
+## Electrical decisions supported by this audit
+
+| Decision | Conclusion and evidence boundary |
+|---|---|
+| FPGA bank voltages | Coherent: bank 13 at 1.8 V for PSRAM/translators; bank 14 at 3.3 V for configuration; bank 16 at 2.5 V for RGMII/LVDS; bank 35 at 3.3 V for HDMI/SDRAM; selectable banks 15/34. This does not resolve item 34's sequencing defect. |
+| Configuration straps | CFGBVS high agrees with 3.3 V configuration; 001 straps agree with master SPI; PROGRAM_B/INIT_B pull-ups, low PUDC_B strap and buffered DONE LED have sensible topology. Slave serial and startup defaults are separate findings. |
+| Hardware JTAG ownership | U20 plus J52 gives a useful independent isolation path for external recovery. Verify the header's chosen cable pinout; it is not a standard AMD 14-pin header. |
+| FPGA decoupling values | The VCCINT/VCCBRAM/VCCAUX and per-bank networks match the cited UG483 device/package prescription. Keep local bank placement and via inductance under review; capacitance quantity does not qualify the regulators' control loops. |
+| PSRAM part/voltage | APS6404L-SQN-SN is the 1.8 V, 64 Mbit SOP-8 part, giving 8 MB per chip and 32 MB total. Bank 13 now matches it. Four independent buses are correctly connected; initialization and SI remain open. |
+| SDRAM / MRAM / SD | The present pin maps and 3.3 V supply domains are coherent. SDRAM has seven supply bypasses and CS/CKE bias parts; MRAM has CS/WP/HOLD pull-ups; SD SPI contacts and five pulls are present. This is topology evidence, not 166 MHz SDRAM qualification or a guarantee for every SD card's peak current. |
+| 5 V translators | SN74LXC8T245 supports the 1.8 V A side; DIR/OE reference that side, with OE held disabled externally. The B side is 5 V. A-H remain direct FPGA pins; the existence of translators on L/M does not protect A-H. |
+| Extension power | Bank voltage and selected PIN V have the same upstream source; separate protected low-voltage exports preserve the base-board domains during a branch fault. The 1.8 V switch margin, aggregate budget and mechanical pin map still need resolution. |
+| PHY digital interface | Realtek rev 1.7 supports external 2.5 V RGMII with CFG_EXT=1/CFG_LDO=01. Reset held low permits its delayed I/O supply; 10 ms reset and at least 72 ms settling remain gateware obligations. The 3.3 V reset/interrupt controls correctly moved to bank 35. |
+| Ethernet jack wiring | HanRun's current rev B drawing confirms P1 as common chip-side centre taps, P10 as the internal 75 ohm/capacitor network return, MDI polarities, and LED 11/12 and 14/13 polarity. The current schematic agrees. |
+| PHY analogue passives | A published FriendlyELEC RTL8211F design supports the 2.49 kohm RSET and capacitively grounded centre-tap approach. That board uses the switching-core variant: it does **not** independently prove the exact FD internal-LDO output capacitor requirement. Keep that distinction and verify FD loop/rail behavior. |
+| Raw LVDS links | Real pair positions and clock-capable receive pins are allocated; bank voltage and internal DIFF_TERM intent agree. Existing STP-only, common-ground, both-boards-powered restrictions are substantive electrical constraints. They do not establish arbitrary cable length, hot-plug or unpowered-peer tolerance. |
+| HDMI | TMDS_33 in a 3.3 V bank with receiver termination and the TPD12S016 companion is coherent. VCCA/VCC5V/5V_OUT bypass, enables, DDC/HPD/CEC paths and utility-pin resistor are present. Keep U31 at the jack; 720p operation still needs actual serializer/timing and SI validation. |
+| Supervisor regulator/crystal | The selected inductor, AVDD RC filter, crystal load and damping topology are reasonable. Preserve winding orientation and the reference local copper arrangement; consider the recommended extra remote DVDD bulk capacitor. A generic ring profile alone does not prove regulator layout equivalence. |
+| Input ratings | The stated 21 V J50 operating range is consistent with the wide-input bucks and explicit VSYS capacitor ratings. TVS clamps are pulse limits, not continuous overvoltage regulation; bench/surge testing must use a defined source impedance and waveform. |
+| AUX pass-through | A separate raw input with 33 V branch PTCs is coherent for the stated 9–28 V use. It is unregulated and unswitched; EXT_EN does not isolate it. Preserve the explicit no-backfeed and shared-capacity contract. |
+
+Sources for the cross-checks above:
+[AMD UG470](https://docs.amd.com/v/u/en-US/ug470_7Series_Config),
+[AMD UG483](https://docs.amd.com/v/u/en-US/ug483_7Series_PCB),
+[AP Memory datasheet](ref/datasheets/aps6404l-sqn.pdf),
+[Winbond SDRAM datasheet](ref/datasheets/w9825g6kh.pdf),
+[Everspin MRAM datasheet](ref/datasheets/mr25h10cdf.pdf),
+[TI SN74LXC8T245](https://www.ti.com/lit/ds/symlink/sn74lxc8t245.pdf),
+[Realtek rev 1.7, manufacturer-authored mirror](https://static.chipdip.ru/lib/595/DOC042595102.pdf),
+[HanRun rev B drawing](https://hrdzcn.oss-cn-beijing.aliyuncs.com/202601/ab534667d942f65.pdf),
+[FriendlyELEC NanoPi R2S Plus schematic, sheet 11](https://wiki.friendlyelec.com/wiki/images/d/da/NanoPi_R2S_Plus_2309_SCH.PDF),
+[TI TPD12S016](https://www.ti.com/lit/ds/symlink/tpd12s016.pdf),
+[Raspberry Pi hardware guide](https://datasheets.raspberrypi.com/rp2350/hardware-design-with-rp2350.pdf).
+
+### Optional simplification, not a defect
+
+The unused GTPs do not have to consume a powered regulator neighborhood.
+UG482 Table 5-4 permits grounding MGTAVCC/MGTAVTT/MGTRREF when the entire
+power-supply group is unused, with the specified RX/TX/reference-clock
+connections. The current powered treatment is also a valid design choice
+if its supply requirements are met. If rev A will truly never use GTP,
+evaluate removing U16 and the associated filtering/decoupling; do not ground
+only one of the supplies or mix the two prescribed schemes.
+[AMD UG482, Unused GTP Quad Power Supply Group](https://docs.amd.com/v/u/en-US/ug482_7Series_GTP_Transceivers).
+
+## Recommended order of resolution
+
+Correct items 34–39 first, because they can change the power tree, nets and
+island contents. Resolve regulator/load-switch qualification and source
+budgets next. Then settle native peripheral use and the FPGA-loading modes,
+repair island ownership, and reconcile the mechanical/access contract.
+Only then compact the city, trial-route critical escapes and freeze the
+plane corridors. Final routing/SI, prototype measurements and fabrication
+checks remain later milestones; the absence of those results at this stage
+is expected.
+
+## Status of items 34–51 after the corrections of 2026-10-29
+
+Commits a557379, 49ebd65, b9d464b, cd02e23 and the documents commit that
+follows. Every step ends with the electrical gate passing (ERC 0 errors,
+DRC 0 errors, parity 0) and nothing inside the board outline moved; the new
+parts (53 footprints) are staged in the import band for the owner to island.
+The entries in `ref/rev-a-report.md` carry the numbers.
+
+| Item | Status | What changed |
+|---|---|---|
+| 34 VCCO/VCCAUX | **FIXED** | U11 (EN floating, DS42002 automatic start) and U14 (EN tied to +5V, SLVSDG1C EN ≤ 6 V) run whenever +3V3 does, so VCCAUX is up within the regulators' own start-up of the 3.3 V banks and never depends on firmware or a blank flash. Power-down: both banks discharge through their loads within tens of ms (221 µF on +3V3 into ≥ 100 mA; 176 µF on 1.8 V); **[verify]** the DS181 Table 7 500 ms bound on the prototype with a scope. GPIO23/26 freed. |
+| 35 Q2 backfeed | **FIXED** | Q2/Q3 gate network removed. U34 TPS2121 power mux: IN1 VBUS, IN2 U11 (+5V_BUCK), OUT +5V; reverse blocking both inputs, 2.5 A limit, 100 nF soft start, 5 µs switchover; dividers select VBUS only between 4.44 V (PR1 > CP2) and 5.63 V (OV1), so a 9 V contract hands the rail to U11 without firmware. ST on GPIO21. Items 10/21/24 are superseded by this path. **[verify]** the five source cases on the bench. |
+| 36 USB 27 Ω | **FIXED** | R162/R163, 27 Ω 0402 at U7 (USB_DP_MCU/USB_DM_MCU); J1 and D6 stay on USB_DP/USB_DM. |
+| 37 PD default | **FIXED** | CFG1 10k pull-up to the CH224K's own 3.3 V (5 V request before any controller, WCH Table 5-2); Q3 pulls it low for 9 V (PD_REQ_9V, GPIO27, gate pull-down); CFG2/CFG3 grounded, so 9 V is the highest code the pins can form. Firmware ceiling in item 19 is now also copper. |
+| 38 input caps | **FIXED** | 10 µF 50 V 1210 across U11's VIN; 4.7 µF 0603 at each TLV62569 VIN (U13/U14/U16). Island profiles place them on the VIN flank. |
+| 39 PSRAM power-up | **FIXED** | PUDC_B strapped high (no configuration pull-ups; every line that needs a level already had its resistor). Per PSRAM: CE#_MEM 10k up to +1V8_IO, SCK/IO0-3_MEM 10k down. Gateware obligation: 150 µs wait and the 66h/99h reset pair (ref/psram.md). |
+| 40 COUT qualification | **open, now tracked** | `budget.py` sums the direct output capacitance per regulator against each datasheet's validated figure: U12 221 µF, U13 103 µF, U14 113 µF, U15 507 µF, U16 50 µF are beyond it. Bench qualification (start-up, load step per jumper position) before fabrication sign-off; table in ref/power-budget.md. |
+| 41 1.8 V switch | **FIXED** | U23/U24 are TPS22953DSQR: BIAS from +3V3, input 0.7 V to VBIAS, reverse blocking while off, CT 1 nF. No programmable current limit; the 500 mA PINV fuses are the overload protection. |
+| 42 controller pins | **FIXED** | SPI1 for the flash bus (SCK 10, TX 11, RX 12, CSn 9; FD2 13, FD3 7 by PIO for quad), I2C1 SDA 14 / SCL 31, UART0 TX 32 / RX 33, EXT_FAULT 34. Verified against the RP2350 pin-function table (Zephyr `rpi-pico-pinctrl-common.h`, generated from the datasheet). |
+| 43 slave serial | **documented** | No slave-serial path exists or is promised: M[2:0] are 001 in copper; volatile loading is JTAG through U20; MultiBoot addressing and the W25Q256 address mode are called out in ref/supervisor-flash.md. |
+| 44 island ownership | **tool fixed, board pending** | `islands.py`: the anchor a part's design.py group names wins. Groups renamed `U1 PSRAM{n} series termination`, `U1 SDRAM clock source`, `X4 system clock`; dry runs confirm the new ownership. Q2's parts are gone. The board's KiCad groups still hold R104–R127 in U2–U5 and R151 in U32: `islands.py --anchor U1 --extend --with …` after the owner's review. |
+| 45 microSD access | **decided** | Access from above: card travel plus 12 mm finger room kept clear of tall parts, shield/enclosure cut-out over it, no edge opening (floorplan.md). Check with J72/J2 populated before freezing. |
+| 46 source envelope | **FIXED (tool), contract set** | `budget.py` models recovery / light / full modes per source profile with the U26 and U34 limits: a USB 2.0 port carries recovery only; light fits any Type-C ≥ 1.5 A or PD 9 V; full export fits J50 only (2.05 A against U26's 1.7 A minimum on PD). Inductor peak current is now checked (all pass). Firmware must ration EXT_EN by source. |
+| 47 gate | **FIXED** | `gate.py` prints `GATE electrical` and `GATE mechanical` separately; the exit code follows the electrical gate, `--strict` adds the mechanical one. Today: electrical PASS, mechanical FAIL (B3 open). |
+| 48 stale documents | **FIXED** | user-manual.md (pin tables, connector bodies, AUX instead of per-slot selectors, 21 V input, slot sides), floorplan.md (current plan header, microSD contract, historical top-edge section), network.md (bank 35), decoupling.md (groups), supervisor-flash.md (start-up order, no slave serial), psram.md, power*.md, extension-ux.md, island-layouts.md, status-leds.md, gameboy-extension.md, jlcpcb-import-checklist.md. |
+| 49 J1 holes | **FIXED** | odin copy of the KiCad footprint with A1/A12/B1/B12 shortened to 0.6 × 1.15 mm on the hole side: 0.31 mm hole-to-copper (rule 0.25, JLC NPTH-to-track 0.20). DRC: 0 errors. **[verify]** against the HCTL drawing (LCSC serves it only through a browser). |
+| 50 telemetry | **FIXED** | MON_1V8 reads +1V8 (VCCAUX, after FB1); ADC6/ADC7 read VCCIO_1/VCCIO_2 so the jumpers are sensed. +1V2_MGT is the one unmeasured rail (no GTP load in rev A; U16 has no PG). |
+| 51 key posts | **FIXED** | city.py maps MK76/MK77 to J7/J8 and plans an off-board post at position 1 of its own row; the plan was applied: MK71/MK72 at J56/J65 in the sketch. MK76/MK77 are hand placement at the old bottom position and are flagged, not moved. |
+
+Not changed on purpose: the unused GTP quads stay powered (the audit's
+optional simplification), the TPS22950C stays on U21/U22, and the hand
+placement inside the outline. Remaining owner work: island the 53 staged
+footprints (U34, Q3's new role, the PSRAM pulls, the TPS22953 parts, input
+capacitors, monitors, USB resistors), move R104–R127/R151 into U1's island,
+place MK76/MK77 with J7/J8, compact the city, then route.
+

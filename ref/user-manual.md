@@ -39,7 +39,7 @@ This manual is for using the board. If you are designing an extension, read
 
 1. Leave all extensions unplugged.
 2. Set both **A–D PIN VOLTAGE** and **E–H PIN VOLTAGE** to **3.3 V**.
-3. Set each **SLOT _ POWER** selector to **3.3 V**, or leave its jumper off.
+3. Leave **AUX IN** unconnected.
 4. Plug USB-C into Odin.
 5. Wait for the board controller to start.
 6. Plug in one simple extension and test it before adding the next.
@@ -47,20 +47,26 @@ This manual is for using the board. If you are designing an extension, read
 Use a USB-PD charger when the board carries displays, speakers or motors. A computer port is fine for programming and light work, but it may
 not have enough power for everything at once.
 
-Odin never asks USB-C for more than 9 V.
+Odin asks USB-C for 5 V by default and for 9 V only once the board controller
+is running and has decided to; its pins cannot form any higher request.
 
 ### Optional power input
 
 `OPTIONAL POWER IN` is not required for normal use. It is a second way to
 power Odin from a regulated bench supply when USB-C cannot provide enough
-power. Connect **9–14 V** to the pin marked `+` and supply ground to `GND`.
-USB-C may remain connected; Odin uses the higher source. Never exceed 14 V.
+power. Connect **9–21 V** to the pin marked `+` and supply ground to `GND`.
+USB-C may remain connected; Odin uses the higher source. Never exceed 21 V.
+Full extension power (every connector rail loaded at once) needs this input
+or a 9 V USB-PD charger; see [power-budget.md](power-budget.md).
 
 ## The extension idea, from zero
 
-Odin has eight shield sections arranged on opposite sides of the 100 x 100 mm
-board. Each section has a 16-position signal block and a separate 8-pin power
-row. Two additional ports are complete 5 V-compatible eight-bit buses.
+Odin has eight shield sections on the left and right edges of the 100 x 100 mm
+board (A–D on the right, E–H on the left). Each section has a 16-position
+signal block and a separate keyed power row: a grounded post at position 1
+and a seven-contact socket. Two additional ports are complete 5 V-compatible
+eight-bit buses. The authoritative pin map is
+[extension-ux.md](extension-ux.md); the tables below repeat it.
 
 ```text
 one direct slot
@@ -74,8 +80,9 @@ power | o o o o o o o o |
        24 pins total
 ```
 
-Twelve pins are signals. Four grounds complete the signal block. Power gets
-its own unmistakable row with four supplies and four grounds.
+Twelve pins are signals. Four grounds complete the signal block, in columns
+3 and 6 of both rows. Power gets its own unmistakable row: a key post, then
+PIN V, 3V3, 5V and AUX, each beside a ground.
 
 ### Where are the I/Os?
 
@@ -83,9 +90,9 @@ Here. `IO` means a signal you can use as an input or an output.
 
 ```text
               1     2     3     4     5     6     7     8
-signal row 1  IO0   IO2   IO4   IO6   IO8   IO10  GND   GND
-signal row 2  IO1   IO3   IO5   IO7   IO9   IO11  GND   GND
-power row     GND   PIN V GND   3V3   GND   5V    GND   SLOT PWR
+signal row 1  IO0   IO2   GND   IO4   IO6   GND   IO8   IO10
+signal row 2  IO1   IO3   GND   IO5   IO7   GND   IO9   IO11
+power row     POST  PIN V GND   3V3   GND   5V    GND   AUX
 ```
 
 Use `IO0..IO11` as ordinary independent signals. Some adjacent pins can also
@@ -116,10 +123,10 @@ complete FPGA banks and gets 96 direct I/O.
 
 The schematic names four 16-pin sections on each edge. Those are electrical
 zones, not a demand for four separate plastic connectors. Odin uses the
-physical arrangement: **two continuous 2x16 stack-through signal headers and
-two parallel 1x16 stack-through power headers on each edge**. A 16 shield uses
-half of one pair, a 32 uses one whole pair, and a 64 uses both. The guide pins
-and outlines must make those partial positions unambiguous.
+physical arrangement: **one continuous 2x32 female signal body per edge, and
+per zone one 1x7 female power socket with a grounded key post in front of
+it**. A 16 shield uses one zone on each edge, a 32 two, and a 64 all four. The
+key posts and outlines must make those partial positions unambiguous.
 
 The bridge gives the extension support at both ends, almost the full board
 area above Odin, and matching connectors on top so another shield can stack.
@@ -131,21 +138,20 @@ switch.
 The required arrangement is:
 
 ```text
-                    100 mm
-       +----------------------------------+
-       | [ A ][ B ][ C ][ D ]            |  bank 15
-       |                                  |
-       |             ODIN                 |  shield bridges
-       |                                  |  across this space
-       | [ E ][ F ][ G ][ H ]            |  bank 34
-       +----------------------------------+
-
-       [ L ]  separate 5 V-safe legacy connector
+                       100 mm
+          +----------------------------+
+      E   |  [ L ]            [ M ]    |   A        top: the two 5 V buses
+      F   |                            |   B
+          |           ODIN             |            left: E-H (bank 34)
+      G   |                            |   C        right: A-D (bank 15)
+      H   |                            |   D
+          +----------------------------+
 ```
 
-Matching pairs are A/E, B/F, C/G and D/H. Placement must put each pair directly
-opposite its partner. All eight connectors need the same pitch, orientation
-and distance from the board edges.
+Matching pairs are A/E, B/F, C/G and D/H, directly opposite each other across
+the board on one 2.54 mm lattice. All eight zones have the same pitch,
+orientation and distance from the board edge; `tools/place.py --check`
+verifies that from the real pad coordinates.
 
 **Their exact coordinates do not exist yet because placement has not been
 done.** Until those coordinates and a real extension outline are drawn and
@@ -195,9 +201,9 @@ but blocks the next board is not a working guide.
 
 ```text
              column  1     2     3     4     5     6     7     8
- signal row 1        IO0   IO2   IO4   IO6   IO8   IO10  GND   GND
- signal row 2        IO1   IO3   IO5   IO7   IO9   IO11  GND   GND
- power row           GND   PIN V GND   3V3   GND   5V    GND   SLOT PWR
+ signal row 1        IO0   IO2   GND   IO4   IO6   GND   IO8   IO10
+ signal row 2        IO1   IO3   GND   IO5   IO7   GND   IO9   IO11
+ power row           POST  PIN V GND   3V3   GND   5V    GND   AUX
 ```
 
 The separate post beside the header is the **guide pin**. The extension has a
@@ -213,7 +219,7 @@ Never shift the extension sideways by one column. Check the guide pin before pow
 | `PIN V` | The signal voltage for that FPGA group: 3.3, 2.5 or 1.8 V |
 | `+5V` | Fixed supply for 5 V parts |
 | `+3V3` | Fixed supply for ordinary 3.3 V parts |
-| `SEL PWR` | Selected beside that slot: 12 V, 5 V or 3.3 V |
+| `AUX` | Whatever you wire to **AUX IN** (9–28 V, unregulated), through that slot's own fuse. Nothing when AUX IN is empty |
 
 `PIN V` is both a power output and the voltage used by the FPGA pins. The
 schematic calls it `VCCIO`; the board says PIN VOLTAGE because that says what
@@ -337,7 +343,7 @@ Use:
 PIN V   3.3 V   FPGA signal level
 +3V3            display, SD card and audio logic
 +5V             audio amplifier
-SEL PWR 12 V    backlight driver, if required
+AUX 12 V        backlight driver, if required (12 V wired to AUX IN)
 ```
 
 The framebuffer belongs in PSRAM. A 320 x 240 RGB565 frame is about 150 KB;
@@ -432,6 +438,11 @@ Fit **EXT JTAG** (`J52`) before attaching an external programmer.
 That disconnects the board controller from the same four wires. Remove the
 jumper for normal board-controlled programming.
 
+The FPGA loads itself from its flash (master SPI) at power-on. The board
+controller writes that flash while it holds the FPGA in reset, and loads a
+design directly into the FPGA over the same JTAG wires. There is no
+slave-serial path: the mode pins are fixed in copper.
+
 ## Network and link ports
 
 **ETH** is a 1000Base-T jack behind an RTL8211FD-CG PHY on RGMII. The FPGA
@@ -456,13 +467,13 @@ current.
 - Remove the extension and try again.
 - Use a USB-PD charger instead of a computer port.
 - Check the extension for a short.
-- Start with SLOT POWER unselected or set to 3.3 V.
+- Start with AUX IN unconnected.
 
 ### An extension does nothing
 
 - Check the guide pin and header alignment.
 - Check PIN VOLTAGE for the whole group.
-- Check its SLOT POWER selector.
+- Check whether it needs AUX, and what AUX IN is wired to.
 - Remember that each 5V BUS uses one shared direction control.
 - Remember that a blown or tripped branch fuse is not fixed by HDL.
 
@@ -486,7 +497,7 @@ fault until it works alone on a current-limited bench supply.
 4. Each 5V BUS is a complete eight-bit bus with shared direction.
 5. The four connector rails share the board's total power.
 6. Never feed power into an Odin power-output pin.
-7. Start a new extension at 3.3 V with SLOT POWER unselected.
+7. Start a new extension at 3.3 V with AUX IN unconnected.
 8. Test one extension before stacking several.
 9. Use a PD charger for power-heavy projects.
 10. When in doubt, unplug power first.

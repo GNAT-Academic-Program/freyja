@@ -84,7 +84,7 @@ gives it four times the single-module current budget.
 |---|---|
 | 4 contiguous **direct** slots in one bank | Tier 2 needs a 64 with nothing in the signal path and one voltage domain |
 | +5V able to source **≥1 A** to extensions | class-D amp peaks |
-| AUX jumperable to 12V on those slots | backlight; 12V is boosted on-board so it works on any USB source |
+| AUX at 12 V on those slots | backlight; 12 V has to be wired to AUX IN, there is no on-board boost |
 | **PSRAM reachable from fabric** | see framebuffer note below |
 | Board oscillator + MMCM | extension carries no crystal |
 

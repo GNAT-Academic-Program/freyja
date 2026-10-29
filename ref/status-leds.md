@@ -26,7 +26,7 @@ MON_1V0 for a voltage check. No automatic firmware interpretation exists yet.
 
 Maintain a software shadow of U17's **output latch**, initialized to 0xFF.
 Serialize all U17 writes behind one bus lock; U17 is the only device on
-`SUP_SCL`/`SUP_SDA` (RP2350 GPIO14/GPIO31) in rev A.
+`SUP_SCL`/`SUP_SDA` (RP2350 GPIO31/GPIO14, I2C1 SCL/SDA) in rev A.
 Never use a port read as the writeback value: a low PG input must not become
 a latched-low output, and LED pin readback need not equal its output latch.
 

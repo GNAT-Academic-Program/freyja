@@ -65,13 +65,18 @@ has negotiated anything.
 
 The order, on a virgin board:
 
-1. USB-C plugged in. `VBUS` = 5 V, the default before any negotiation.
-2. `U12` sees `VSYS` and produces +3V3 unconditionally.
-3. RP2350 boots. Flash is blank, so its ROM enters USB bootloader mode.
+1. USB-C plugged in. `VBUS` = 5 V: the CH224K asks for 5 V on its own
+   (CFG1 pull-up), whatever the controller is doing.
+2. `U12` makes +3V3, `U11` makes +5V and `U14` makes the 1.8 V rail, all
+   without an enable; `U34` passes the 5 V `VBUS` straight to the +5V rail
+   while the source is plain 5 V.
+3. RP2350 boots. Flash is blank, so its ROM enters USB bootloader mode. The
+   FPGA already has VCCO, VCCAUX and its configuration flash; only its core
+   (+1V0), +2V5 and +1V2 wait for firmware.
 4. You drag firmware on. It writes the flash and resets.
-5. Now firmware runs: it measures `VSYS`, decides whether to ask the source
-   for 9 V, closes or opens the `VBUS` pass switch accordingly, and brings up
-   +5V, +2V5, +1V8, +1V0, +1V2 and the 12 V boost in order.
+5. Now firmware runs: it reads `VBUS5_ST`, `PD_PG` and the monitors, asks
+   the source for 9 V (`PD_REQ_9V`) if it decides to, and brings up +2V5,
+   +1V0 and +1V2 in order.
 
 Steps 1–4 need nothing but a cable.
 
@@ -80,8 +85,9 @@ Steps 1–4 need nothing but a cable.
 Firmware is maybe 400 KB. The rest is the interesting part:
 
 - **Board state that must survive power-off.** Which PD voltage to request,
-  which rails are allowed on, each SLOT POWER policy, the board serial, and
-  the PIN VOLTAGE jumper positions as last read.
+  which rails are allowed on, the EXT_EN policy per source profile, the
+  board serial, and the PIN VOLTAGE jumper positions as measured on
+  MON_VCCIO_1/2.
 - **A fault log.** Which rail browned out, at what input voltage, how long
   ago. The board controller already measures every rail; writing the
   interesting moments down turns "it randomly resets" into a timestamped
@@ -95,10 +101,16 @@ Firmware is maybe 400 KB. The rest is the interesting part:
 ## Where FPGA image redundancy actually belongs — not here
 
 It is tempting to keep a golden FPGA image in the controller memory and
-slave-serial it in when the main one fails. Don't. Artix-7 already has
-**MultiBoot with fallback** (UG470): a golden image at address 0 of the config
-flash that jumps to an update image and falls back automatically on a CRC
-failure, in hardware, with no board-controller involvement and no 2 MB of bit-banging.
+slave-serial it in when the main one fails. Don't, and the board cannot:
+M[2:0] are strapped 001 (master SPI) in copper and PROGRAM_B does not change
+them (UG470, findings 43). Volatile loading goes over JTAG through U20, which
+the controller already owns. Artix-7 has **MultiBoot with fallback**
+(UG470): a golden image at address 0 of the config flash that jumps to an
+update image and falls back automatically on a CRC failure, in hardware, with
+no board-controller involvement. Verify the golden/update addressing against
+the 256 Mbit W25Q256's 3- and 4-byte address modes before relying on it, and
+restore the flash's boot-compatible address mode before releasing PROGRAM_B
+after writing it.
 
 `U6` is 32 MB. Use MultiBoot and spend the controller memory on things only
 the board controller can do. Do not publish an image count until the generated

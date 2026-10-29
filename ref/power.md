@@ -4,7 +4,7 @@
 
 | Input | Allowed operating range | Destination |
 |---|---|---|
-| USB-C | 5 V fallback; request at most 9 V PD | base board through VSYS; 5 V bypass via Q2 |
+| USB-C | 5 V by default; 9 V PD on the controller's request, nothing higher | base board through VSYS; plain 5 V also straight to the +5V rail through U34 |
 | J50 VIN | 9-21 V DC | base board through D4 to VSYS |
 | J68 AUX IN | 9-28 V DC, correct polarity | `AUX_RAIL` and the ten slot AUX branch PTCs only; no base-board supply |
 
@@ -33,8 +33,12 @@ control it. Change the external supply with the board unpowered.
 supply on J68. The KF301 terminal is rated well above that. A short heats and
 trips the branch PTC; an aggregate overload is the external supply's problem
 and droops the shared rail. Existing branch fuses remain PIN V 500 mA, 3V3
-300 mA, 5V 500 mA. U21-U24 protect the low-voltage exports; AUX has no active
-reverse blocking. Do not backfeed any connector power pin.
+300 mA, 5V 500 mA. U21/U22 limit and report; U23/U24 (TPS22953) block
+reverse current while off and rely on the PINV fuses for overload. AUX has no
+active reverse blocking. Do not backfeed any connector power pin. The input
+envelope per source profile and operating mode is in
+[power-budget.md](power-budget.md): a plain USB 2.0 port carries the
+controller alone, full extension export needs J50.
 
 ## VIN and VSYS component audit
 
