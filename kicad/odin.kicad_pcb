@@ -11743,7 +11743,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "21b340d1-4d32-4432-a2cd-98a909d263b4")
-		(at 38.95 254.296231)
+		(at 448.88 29.4)
 		(descr "100nF bypass on +3V3, for U32 (SDRAM)")
 		(tags "capacitor")
 		(property "Reference" "C251"
@@ -14770,7 +14770,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "2b963827-9f44-4f38-b458-6585422965a3")
-		(at 32.5 290.071231)
+		(at 448.88 24.6)
 		(descr "100nF bypass on +3V3, for U32 (SDRAM)")
 		(tags "capacitor")
 		(property "Reference" "C252"
@@ -21331,11 +21331,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "42837c8b-f6e3-4f95-b20a-9b314ff55637")
-		(at 42.5 290.071231)
+		(at 432.43 31 180)
 		(descr "100nF bypass on +3V3, for U32 (SDRAM)")
 		(tags "capacitor")
 		(property "Reference" "C254"
-			(at 0 -1.16 0)
+			(at 0 -1.16 180)
 			(layer "F.Fab")
 			(uuid "da1b20ba-4b32-49e0-8f2d-36f75f214fbb")
 			(effects
@@ -21346,7 +21346,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 180)
 			(layer "F.Fab")
 			(uuid "78bd1d66-8498-41af-9e85-85df6e8138cb")
 			(effects
@@ -21357,7 +21357,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "733fb73e-0cb8-4ae6-bfd2-c033e7f09379")
@@ -21369,7 +21369,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +3V3, for U32 (SDRAM)"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "711c954b-172e-4227-9e93-e324b6d5f9e5")
@@ -21381,7 +21381,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "24f2e82d-58f2-43c7-95ee-f3579b777114")
@@ -21436,7 +21436,7 @@
 			(uuid "ee23ceb3-dd5b-45e9-93a7-a651f29371f2")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "e32d1d00-fc5c-496f-9b16-22854656c5d7")
 			(effects
@@ -21447,7 +21447,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -21455,7 +21455,7 @@
 			(uuid "98746bb6-616a-42b7-bae6-ada20a4a9c65")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -26859,7 +26859,7 @@
 	(footprint "Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm"
 		(layer "F.Cu")
 		(uuid "5000330a-2499-4985-90cf-63217054aff9")
-		(at 86.755 300.456231)
+		(at 440.65 31)
 		(descr "SDRAM: Winbond W9825G6KH-6, 256 Mbit (32 MB) 16-bit SDR SDRAM, 3.3 V, TSOP-54: bank 35 data and control, bank 14 address.")
 		(tags "TSOPII TSOP2")
 		(property "Reference" "U32"
@@ -27490,11 +27490,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "50133498-f236-45db-8aa5-96b5986f4843")
-		(at 63.95 290.071231)
+		(at 445.63 43.84 90)
 		(descr "22 series resistor between SDRAM_CLK and SDRAM_CLK_MEM, for U32 (SDRAM): damps ringing on the SDRAM clock (22 ohm at the FPGA)")
 		(tags "resistor")
 		(property "Reference" "R151"
-			(at 0 -1.17 0)
+			(at 0 -1.17 90)
 			(layer "F.Fab")
 			(uuid "cdbb3f0c-6674-4300-8799-767c7b73ca69")
 			(effects
@@ -27505,7 +27505,7 @@
 			)
 		)
 		(property "Value" "22"
-			(at 0 1.17 0)
+			(at 0 1.17 90)
 			(layer "F.Fab")
 			(uuid "707b5540-55da-47f2-98bb-84cfc8f3afea")
 			(effects
@@ -27516,7 +27516,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "17351996-5e7b-4f01-b8ea-a75af7cfde47")
@@ -27528,7 +27528,7 @@
 			)
 		)
 		(property "Description" "22 series resistor between SDRAM_CLK and SDRAM_CLK_MEM, for U32 (SDRAM): damps ringing on the SDRAM clock (22 ohm at the FPGA)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "59840cd9-d240-4582-8d38-52ea845328fa")
@@ -27583,7 +27583,7 @@
 			(uuid "84f65831-ef31-4fd4-a703-cff5b0287671")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "58541e9d-6ecd-44b5-bab5-8414be3fbc11")
 			(effects
@@ -27594,7 +27594,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0)
+			(at -0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -27602,7 +27602,7 @@
 			(uuid "a73047f4-16f4-47c9-83bf-a54f6f7c7eaf")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0)
+			(at 0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -34818,11 +34818,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "68ff75eb-b963-441a-8f89-1419c01485b8")
-		(at 37.5 290.071231)
+		(at 434.9 43.82 -90)
 		(descr "100nF bypass on +3V3, for U32 (SDRAM)")
 		(tags "capacitor")
 		(property "Reference" "C253"
-			(at 0 -1.16 0)
+			(at 0 -1.16 270)
 			(layer "F.Fab")
 			(uuid "aecb2f39-f0cd-444c-837a-0b718776e620")
 			(effects
@@ -34833,7 +34833,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 270)
 			(layer "F.Fab")
 			(uuid "72587464-1571-4db2-8e40-3617a0fffd03")
 			(effects
@@ -34844,7 +34844,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "afc65050-52b2-44c9-981a-f95dc069c64f")
@@ -34856,7 +34856,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +3V3, for U32 (SDRAM)"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ca629e89-e3d8-4606-aeeb-3d7f0b8aa71a")
@@ -34868,7 +34868,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "ee26b7ad-2acd-4dcb-8af0-54f13e2dafb6")
@@ -34923,7 +34923,7 @@
 			(uuid "f441136d-eba1-4755-b2a8-3f0e8b246b27")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "9c1351c8-c2fa-4edb-ad28-df17185c8517")
 			(effects
@@ -34934,7 +34934,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 270)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -34942,7 +34942,7 @@
 			(uuid "384f23ce-863f-4c1d-a0f7-de5729cb4b1b")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 270)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -48447,11 +48447,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8c7e9b33-4293-41c0-8c49-a624906e863b")
-		(at 52.5 290.071231)
+		(at 432.43 22.2 180)
 		(descr "100nF bypass on +3V3, for U32 (SDRAM)")
 		(tags "capacitor")
 		(property "Reference" "C256"
-			(at 0 -1.16 0)
+			(at 0 -1.16 180)
 			(layer "F.Fab")
 			(uuid "a3f4f618-fd47-4a72-a800-865e0a8ef742")
 			(effects
@@ -48462,7 +48462,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 180)
 			(layer "F.Fab")
 			(uuid "0faea85a-0612-4a36-ad35-e4509ebab50e")
 			(effects
@@ -48473,7 +48473,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "79eecff9-9c2f-4ae8-a591-a7874932841f")
@@ -48485,7 +48485,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +3V3, for U32 (SDRAM)"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ff391e8b-1567-4cf0-8698-f064688afa55")
@@ -48497,7 +48497,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "034a03aa-28ce-4a68-b32d-e7c1fc2d0b66")
@@ -48552,7 +48552,7 @@
 			(uuid "deadb9e9-b2ef-46cb-bea3-a030973ab76b")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "ed3766b9-1422-4c52-80c0-0449d47fb5ee")
 			(effects
@@ -48563,7 +48563,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -48571,7 +48571,7 @@
 			(uuid "6a416365-da40-4de6-aed5-b9ac8b9d38eb")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -60417,11 +60417,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "aaeb2faf-1b03-44e2-91a1-641ab7881bf3")
-		(at 75.465 290.071231)
+		(at 447.18 44.39 -90)
 		(descr "10k resistor from SDRAM_CKE to GND, for U32 (SDRAM): holds the SDRAM clock disabled (power-down) until a design drives CKE")
 		(tags "resistor")
 		(property "Reference" "R153"
-			(at 0 -1.43 0)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "e73f3428-7877-4bf0-8ba9-f04f1da5bb68")
 			(effects
@@ -60432,7 +60432,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "e8cc21be-a578-4698-89ca-c930b21e663c")
 			(effects
@@ -60443,7 +60443,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c6a4497a-07c3-4b93-9964-8f62f5bf7fe7")
@@ -60455,7 +60455,7 @@
 			)
 		)
 		(property "Description" "10k resistor from SDRAM_CKE to GND, for U32 (SDRAM): holds the SDRAM clock disabled (power-down) until a design drives CKE"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "57f4287f-7bcc-4dd6-946f-c0f47d6bdc64")
@@ -60510,7 +60510,7 @@
 			(uuid "2d3819d4-8fd8-4829-821a-b73607e0bd5f")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "fe7acebc-e00d-4dfd-a2c5-42d2de160a11")
 			(effects
@@ -60521,7 +60521,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -60529,7 +60529,7 @@
 			(uuid "15e9a849-3488-4e34-93b8-28a6956ab56c")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -63359,11 +63359,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "b44dc0c3-cb01-440b-842f-2a05d3c62d01")
-		(at 47.5 290.071231)
+		(at 432.43 27 180)
 		(descr "100nF bypass on +3V3, for U32 (SDRAM)")
 		(tags "capacitor")
 		(property "Reference" "C255"
-			(at 0 -1.16 0)
+			(at 0 -1.16 180)
 			(layer "F.Fab")
 			(uuid "656bec32-d491-43d2-ba01-3147776a4ed9")
 			(effects
@@ -63374,7 +63374,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 180)
 			(layer "F.Fab")
 			(uuid "8a34d54c-b452-458c-8769-5fbf15a303f9")
 			(effects
@@ -63385,7 +63385,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5c45c511-d4ca-4ad3-a538-ee056431fe50")
@@ -63397,7 +63397,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +3V3, for U32 (SDRAM)"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1410aad5-b9b3-4fba-8755-6a1274d4a772")
@@ -63409,7 +63409,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "0e4bf006-633a-4df5-aaa9-7cb0ed83e10b")
@@ -63464,7 +63464,7 @@
 			(uuid "b6d31357-eec5-420b-9a65-347abd9dfc28")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "f182ac06-c781-4ba7-81ab-a7b168cd6114")
 			(effects
@@ -63475,7 +63475,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -63483,7 +63483,7 @@
 			(uuid "4f02ade3-ac24-4c2f-bb08-fc0a55278fa6")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -64257,11 +64257,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "b4e55c3d-91e8-4b92-a524-70ea22f31af8")
-		(at 69.455 290.071231)
+		(at 436.4 44.39 90)
 		(descr "10k pull-up of SDRAM_CS_N to +3V3, for U32 (SDRAM): keeps the SDRAM deselected until a design drives CS")
 		(tags "resistor")
 		(property "Reference" "R152"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "003b26a9-8fbc-4828-9f60-f9caf1fbbd77")
 			(effects
@@ -64272,7 +64272,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "be93854a-850f-4060-86a6-4a909941a1e2")
 			(effects
@@ -64283,7 +64283,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8ccbc77f-919a-4ad1-a29d-9d227036f173")
@@ -64295,7 +64295,7 @@
 			)
 		)
 		(property "Description" "10k pull-up of SDRAM_CS_N to +3V3, for U32 (SDRAM): keeps the SDRAM deselected until a design drives CS"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "45404e6a-14c9-43a6-bfce-72b6572d1bb8")
@@ -64350,7 +64350,7 @@
 			(uuid "293eaf1f-3a8c-4a82-89be-017f3a4b39e7")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "798681a1-809a-4453-8ffd-d3d24abba591")
 			(effects
@@ -64361,7 +64361,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -64369,7 +64369,7 @@
 			(uuid "348cff35-2c90-4f7e-bf4e-d79d7c0e8d34")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -87025,11 +87025,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "cf92812d-bf1a-4019-85d0-428ee1988408")
-		(at 33.225 254.301231)
+		(at 434.36 18.18 90)
 		(descr "100nF bypass on +3V3, for U32 (SDRAM)")
 		(tags "capacitor")
 		(property "Reference" "C250"
-			(at 0 -1.16 0)
+			(at 0 -1.16 90)
 			(layer "F.Fab")
 			(uuid "505c5c24-f0bb-496d-b777-1fae0a156071")
 			(effects
@@ -87040,7 +87040,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 90)
 			(layer "F.Fab")
 			(uuid "c6537471-9382-49ff-ae9d-e61d6f41a3f8")
 			(effects
@@ -87051,7 +87051,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "da012522-06a6-4a21-8947-1cca4c261868")
@@ -87063,7 +87063,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +3V3, for U32 (SDRAM)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "26496576-1bf4-4f73-ac76-37795db673d3")
@@ -87075,7 +87075,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "722a646b-c78f-4ac3-b1b6-e569e7a5cce0")
@@ -87130,7 +87130,7 @@
 			(uuid "37aa8ca8-0d95-4ba1-968e-9b4aa90fc3ea")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "e4eca3c5-4f07-49b8-b4e1-cb3776113cb0")
 			(effects
@@ -87141,7 +87141,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -87149,7 +87149,7 @@
 			(uuid "9ef13f2f-1db8-4cb7-b983-3c7812004476")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -98630,11 +98630,11 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "fc5ea970-2a6f-423a-872c-16d2d5468267")
-		(at 58.225 290.076231)
+		(at 436.14 17.39 90)
 		(descr "10uF bypass on +3V3, for U32 (SDRAM)")
 		(tags "capacitor")
 		(property "Reference" "C257"
-			(at 0 -1.68 0)
+			(at 0 -1.68 90)
 			(layer "F.Fab")
 			(uuid "6e9e8422-3bc7-474e-98af-ba08ef7bc341")
 			(effects
@@ -98645,7 +98645,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 0 1.68 0)
+			(at 0 1.68 90)
 			(layer "F.Fab")
 			(uuid "6998bb79-c737-43f6-8cd7-2b6aa1511fa0")
 			(effects
@@ -98656,7 +98656,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9fd6f8e4-5142-4842-80c2-95332da1a1ec")
@@ -98668,7 +98668,7 @@
 			)
 		)
 		(property "Description" "10uF bypass on +3V3, for U32 (SDRAM)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "435514ba-1dc3-4f0f-8304-875131392927")
@@ -98680,7 +98680,7 @@
 			)
 		)
 		(property "LCSC Part" "C15850"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "3049dc7b-9105-4b3b-85c7-266a43234a56")
@@ -98735,7 +98735,7 @@
 			(uuid "2118d515-1259-41ae-a178-6ff8dde8429a")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "9d95f20c-42e8-4161-8e38-3c16a84655e8")
 			(effects
@@ -98746,7 +98746,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.95 0)
+			(at -0.95 0 90)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -98754,7 +98754,7 @@
 			(uuid "3980df7c-68ac-405e-a6b3-1650b12b5d36")
 		)
 		(pad "2" smd roundrect
-			(at 0.95 0)
+			(at 0.95 0 90)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -103256,4 +103256,71 @@
 		)
 	)
 	(embedded_fonts no)
+	(gr_rect
+		(start 429.995 14.165)
+		(end 451.315 47.395)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "aafb197a-8d2f-4451-af1a-2b4a51f9da75")
+	)
+	(gr_rect
+		(start 429.995 10.005)
+		(end 451.315 14.165)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "cb8eb674-8b3a-4a0f-b279-b38a1613efaf")
+	)
+	(gr_text "island U32"
+		(at 430.395 11.605 0)
+		(layer "Cmts.User")
+		(uuid "44b88e05-88de-45ef-a311-c7b71b6e20c8")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "SDRAM\ngeneric, 12 parts, 2026-10-29"
+		(at 430.395 11.905 0)
+		(layer "Cmts.User")
+		(uuid "5ebfdf44-c740-4a8e-a7cb-74934b0ac176")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U32"
+		(uuid "d7257c89-44af-4555-b575-eb2c3a4fd9e6")
+		(members
+			"aafb197a-8d2f-4451-af1a-2b4a51f9da75"
+			"cb8eb674-8b3a-4a0f-b279-b38a1613efaf"
+			"44b88e05-88de-45ef-a311-c7b71b6e20c8"
+			"5ebfdf44-c740-4a8e-a7cb-74934b0ac176"
+			"5000330a-2499-4985-90cf-63217054aff9"
+			"cf92812d-bf1a-4019-85d0-428ee1988408"
+			"21b340d1-4d32-4432-a2cd-98a909d263b4"
+			"2b963827-9f44-4f38-b458-6585422965a3"
+			"68ff75eb-b963-441a-8f89-1419c01485b8"
+			"42837c8b-f6e3-4f95-b20a-9b314ff55637"
+			"b44dc0c3-cb01-440b-842f-2a05d3c62d01"
+			"8c7e9b33-4293-41c0-8c49-a624906e863b"
+			"fc5ea970-2a6f-423a-872c-16d2d5468267"
+			"50133498-f236-45db-8aa5-96b5986f4843"
+			"b4e55c3d-91e8-4b92-a524-70ea22f31af8"
+			"aaeb2faf-1b03-44e2-91a1-641ab7881bf3"
+		)
+	)
 )
