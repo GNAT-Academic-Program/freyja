@@ -32970,7 +32970,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "580977ee-ad5a-4075-aaf6-0cdcf40cc6e7")
-		(at 804.29 131.6 -90)
+		(at 466.61 190.56 -90)
 		(descr "1k series resistor between SUP_XOUT and SUP_XTAL_OUT, for U7 (board controller): limits the crystal drive level (RP-008280); crystal output, after the drive-limit resistor")
 		(tags "resistor")
 		(property "Reference" "R9"
@@ -50427,7 +50427,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "851ab769-d860-4a1a-95fb-6df8f3b3df2e")
-		(at 801.89 137.39 -90)
+		(at 464.2 196.35 -90)
 		(descr "15 pF load capacitor on the 12 MHz crystal's input (RP-008280 section 4)")
 		(tags "capacitor")
 		(property "Reference" "C133"
@@ -95338,7 +95338,7 @@
 	(footprint "EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL"
 		(layer "F.Cu")
 		(uuid "d978d681-386e-46dc-842b-f4bab4fd426f")
-		(at 802.99 134.51)
+		(at 465.3 193.47)
 		(descr "controller 12 MHz crystal: Abracon ABM8-272-T3, the crystal Raspberry Pi specifies for the RP2350.")
 		(property "Reference" "Y1"
 			(at 0 -4.85 0)
@@ -99593,7 +99593,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "e8dd446a-c42e-4b28-82ab-bf7ceb437d34")
-		(at 803.02 131.62 90)
+		(at 465.33 190.58 90)
 		(descr "15 pF load capacitor on the 12 MHz crystal's output (RP-008280 section 4)")
 		(tags "capacitor")
 		(property "Reference" "C134"
@@ -110609,6 +110609,65 @@
 			"4df7bac5-5132-4b10-bd04-4ba88d92974f"
 			"3dfc7117-cde1-49df-bb5e-54ff13311886"
 			"6e17d493-8822-4ad1-85b9-9c7bbb7e5871"
+		)
+	)
+	(gr_rect
+		(start 462 188.105)
+		(end 471.98 198.785)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "72700e91-e619-470a-88a4-1f910fe4b647")
+	)
+	(gr_rect
+		(start 462 181.005)
+		(end 471.98 188.105)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "3be302c8-96dc-45cb-b389-69007aed2a37")
+	)
+	(gr_text "island Y1"
+		(at 462.4 182.605 0)
+		(layer "Cmts.User")
+		(uuid "36a350d7-738b-472a-9974-a92721f602b1")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "controller 12\nMHz crystal\ngeneric, 4\nparts,\n2026-10-29"
+		(at 462.4 182.905 0)
+		(layer "Cmts.User")
+		(uuid "fb8d887f-b51e-499b-beba-20a8d7c13dca")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island Y1"
+		(uuid "44e16aed-1424-4531-acc0-2374df086c25")
+		(members
+			"72700e91-e619-470a-88a4-1f910fe4b647"
+			"3be302c8-96dc-45cb-b389-69007aed2a37"
+			"36a350d7-738b-472a-9974-a92721f602b1"
+			"fb8d887f-b51e-499b-beba-20a8d7c13dca"
+			"d978d681-386e-46dc-842b-f4bab4fd426f"
+			"851ab769-d860-4a1a-95fb-6df8f3b3df2e"
+			"e8dd446a-c42e-4b28-82ab-bf7ceb437d34"
+			"580977ee-ad5a-4075-aaf6-0cdcf40cc6e7"
 		)
 	)
 )
