@@ -1,61 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="533" height="475" viewBox="0 0 533 475" font-family="monospace">
-<rect x="0" y="0" width="533" height="475" fill="#fbfaf6"/>
-<rect x="-10175.0" y="-2144.9" width="2200.0" height="2200.0" fill="none" stroke="#000" stroke-width="2"/>
-<polygon points="-6104.0,-829.6 -6033.6,-829.6 -6033.6,-764.7 -6104.0,-764.7" fill="none" stroke="#b8860b" stroke-width="1" stroke-dasharray="4,3"/>
-<polygon points="235.4,121.2 305.8,121.2 305.8,186.1 235.4,186.1" fill="#fff1b8" stroke="#b8860b" stroke-width="1" />
-<polygon points="288.2,168.7 305.8,168.7 305.8,180.4 288.2,180.4" fill="#e67e22" stroke="none" stroke-width="1" />
-<text x="297.0" y="166.9" font-size="8" fill="#555" text-anchor="middle">1</text>
-<polygon points="288.2,147.8 305.8,147.8 305.8,159.5 288.2,159.5" fill="#e67e22" stroke="none" stroke-width="1" />
-<text x="297.0" y="146.0" font-size="8" fill="#555" text-anchor="middle">2</text>
-<polygon points="288.2,126.9 305.8,126.9 305.8,138.6 288.2,138.6" fill="#c8c8c8" stroke="none" stroke-width="1" />
-<text x="297.0" y="125.1" font-size="8" fill="#555" text-anchor="middle">3</text>
-<polygon points="235.4,126.9 253.0,126.9 253.0,138.6 235.4,138.6" fill="#333" stroke="none" stroke-width="1" />
-<text x="244.2" y="125.1" font-size="8" fill="#555" text-anchor="middle">4</text>
-<polygon points="235.4,147.8 253.0,147.8 253.0,159.5 235.4,159.5" fill="#e67e22" stroke="none" stroke-width="1" />
-<text x="244.2" y="146.0" font-size="8" fill="#555" text-anchor="middle">5</text>
-<polygon points="235.4,168.7 253.0,168.7 253.0,180.4 235.4,180.4" fill="#e67e22" stroke="none" stroke-width="1" />
-<text x="244.2" y="166.9" font-size="8" fill="#555" text-anchor="middle">6</text>
-<text x="270.6" y="153.7" font-size="12" font-weight="bold" fill="#7a5a00" text-anchor="middle" dominant-baseline="middle">U11</text>
-<polygon points="66.0,87.1 224.4,87.1 224.4,220.2 66.0,220.2" fill="#9fd8a8" stroke="#333" stroke-width="1" />
-<polygon points="66.0,90.7 114.4,90.7 114.4,216.6 66.0,216.6" fill="#e67e22" stroke="none" stroke-width="1" />
-<polygon points="176.0,90.7 224.4,90.7 224.4,216.6 176.0,216.6" fill="#e67e22" stroke="none" stroke-width="1" />
-<text x="145.2" y="173.5" font-size="10" fill="#111" text-anchor="middle">L2</text>
-<polygon points="291.2,218.5 250.0,218.5 250.0,197.1 291.2,197.1" fill="#d6b3f0" stroke="#333" stroke-width="1" />
-<polygon points="287.3,214.6 275.0,214.6 275.0,201.0 287.3,201.0" fill="#e67e22" stroke="none" stroke-width="1" />
-<polygon points="266.2,214.6 253.9,214.6 253.9,201.0 266.2,201.0" fill="#e67e22" stroke="none" stroke-width="1" />
-<text x="270.6" y="227.6" font-size="10" fill="#111" text-anchor="middle">C188</text>
-<polygon points="229.3,66.0 305.2,66.0 305.2,110.2 229.3,110.2" fill="#9fd8a8" stroke="#333" stroke-width="1" />
-<polygon points="235.4,72.2 257.4,72.2 257.4,104.1 235.4,104.1" fill="#e67e22" stroke="none" stroke-width="1" />
-<polygon points="277.2,72.2 299.2,72.2 299.2,104.1 277.2,104.1" fill="#333" stroke="none" stroke-width="1" />
-<text x="267.3" y="107.9" font-size="10" fill="#111" text-anchor="middle">C189</text>
-<polygon points="315.1,66.0 391.1,66.0 391.1,110.2 315.1,110.2" fill="#9fd8a8" stroke="#333" stroke-width="1" />
-<polygon points="321.2,72.2 343.2,72.2 343.2,104.1 321.2,104.1" fill="#e67e22" stroke="none" stroke-width="1" />
-<polygon points="363.0,72.2 385.0,72.2 385.0,104.1 363.0,104.1" fill="#333" stroke="none" stroke-width="1" />
-<text x="353.1" y="107.9" font-size="10" fill="#111" text-anchor="middle">C191</text>
-<polygon points="316.9,299.0 316.9,232.8 350.1,232.8 350.1,299.0" fill="#d6b3f0" stroke="#333" stroke-width="1" />
-<polygon points="323.1,292.8 323.1,275.2 344.0,275.2 344.0,292.8" fill="#e67e22" stroke="none" stroke-width="1" />
-<polygon points="323.1,256.5 323.1,238.9 344.0,238.9 344.0,256.5" fill="#333" stroke="none" stroke-width="1" />
-<text x="333.5" y="285.7" font-size="10" fill="#111" text-anchor="middle">R90</text>
-<polygon points="391.0,66.0 467.0,66.0 467.0,110.2 391.0,110.2" fill="#9fd8a8" stroke="#333" stroke-width="1" />
-<polygon points="397.1,72.2 419.1,72.2 419.1,104.1 397.1,104.1" fill="#e67e22" stroke="none" stroke-width="1" />
-<polygon points="438.9,72.2 460.9,72.2 460.9,104.1 438.9,104.1" fill="#333" stroke="none" stroke-width="1" />
-<text x="429.0" y="107.9" font-size="10" fill="#111" text-anchor="middle">C190</text>
-<polygon points="363.1,230.3 296.9,230.3 296.9,197.1 363.1,197.1" fill="#d6b3f0" stroke="#333" stroke-width="1" />
-<polygon points="356.9,224.2 339.4,224.2 339.4,203.3 356.9,203.3" fill="#e67e22" stroke="none" stroke-width="1" />
-<polygon points="320.6,224.2 303.1,224.2 303.1,203.3 320.6,203.3" fill="#333" stroke="none" stroke-width="1" />
-<text x="330.0" y="233.5" font-size="10" fill="#111" text-anchor="middle">R56</text>
-<polygon points="350.1,120.6 350.1,186.8 316.9,186.8 316.9,120.6" fill="#d6b3f0" stroke="#333" stroke-width="1" />
-<polygon points="344.0,126.7 344.0,144.3 323.1,144.3 323.1,126.7" fill="#e67e22" stroke="none" stroke-width="1" />
-<polygon points="344.0,163.0 344.0,180.6 323.1,180.6 323.1,163.0" fill="#e67e22" stroke="none" stroke-width="1" />
-<text x="333.5" y="173.5" font-size="10" fill="#111" text-anchor="middle">R55</text>
-<text x="8" y="381" font-size="12" font-weight="bold">islands.py --anchor U11 --apply</text>
-<rect x="8" y="387" width="12" height="12" fill="#9fd8a8" stroke="#333"/><text x="26" y="397" font-size="11">chain</text>
-<rect x="8" y="402" width="12" height="12" fill="#a9c9f5" stroke="#333"/><text x="26" y="412" font-size="11">decoupling</text>
-<rect x="8" y="417" width="12" height="12" fill="#d6b3f0" stroke="#333"/><text x="26" y="427" font-size="11">signal</text>
-<rect x="150" y="387" width="12" height="12" fill="#e67e22"/><text x="168" y="397" font-size="11">pad on an island net</text>
-<rect x="150" y="402" width="12" height="12" fill="#333"/><text x="168" y="412" font-size="11">GND pad</text>
-<rect x="150" y="417" width="12" height="12" fill="none" stroke="#999" stroke-dasharray="4,3"/><text x="168" y="427" font-size="11">previous position</text>
-<rect x="150" y="432" width="12" height="12" fill="#f5b7b1" stroke="#c0392b" stroke-dasharray="3,2"/><text x="168" y="442" font-size="11">could not be placed (left where it is)</text>
-<text x="400" y="397" font-size="11">previous positions out of view: L2, C188, C189, C191, R90, C190, R56, R55</text>
-<text x="400" y="412" font-size="11">grid: 492.5..516.7 x 127.5..144.1 mm, 22 px/mm</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="533" height="489" viewBox="0 0 533 489" font-family="monospace">
+<rect x="0" y="0" width="533" height="489" fill="#fbfaf6"/>
+<rect x="-8767.0" y="-828.4" width="2200.0" height="2200.0" fill="none" stroke="#000" stroke-width="2"/>
+<polygon points="6919.4,-57.9 6989.8,-57.9 6989.8,7.0 6919.4,7.0" fill="none" stroke="#b8860b" stroke-width="1" stroke-dasharray="4,3"/>
+<polygon points="235.4,203.7 305.8,203.7 305.8,268.6 235.4,268.6" fill="#fff1b8" stroke="#b8860b" stroke-width="1" />
+<polygon points="288.2,251.2 305.8,251.2 305.8,262.9 288.2,262.9" fill="#e67e22" stroke="none" stroke-width="1" />
+<text x="297.0" y="249.4" font-size="8" fill="#555" text-anchor="middle">1</text>
+<polygon points="288.2,230.3 305.8,230.3 305.8,242.0 288.2,242.0" fill="#c8c8c8" stroke="none" stroke-width="1" />
+<text x="297.0" y="228.5" font-size="8" fill="#555" text-anchor="middle">2</text>
+<polygon points="288.2,209.4 305.8,209.4 305.8,221.1 288.2,221.1" fill="#e67e22" stroke="none" stroke-width="1" />
+<text x="297.0" y="207.6" font-size="8" fill="#555" text-anchor="middle">3</text>
+<polygon points="235.4,209.4 253.0,209.4 253.0,221.1 235.4,221.1" fill="#333" stroke="none" stroke-width="1" />
+<text x="244.2" y="207.6" font-size="8" fill="#555" text-anchor="middle">4</text>
+<polygon points="235.4,230.3 253.0,230.3 253.0,242.0 235.4,242.0" fill="#e67e22" stroke="none" stroke-width="1" />
+<text x="244.2" y="228.5" font-size="8" fill="#555" text-anchor="middle">5</text>
+<polygon points="235.4,251.2 253.0,251.2 253.0,262.9 235.4,262.9" fill="#e67e22" stroke="none" stroke-width="1" />
+<text x="244.2" y="249.4" font-size="8" fill="#555" text-anchor="middle">6</text>
+<text x="270.6" y="236.2" font-size="12" font-weight="bold" fill="#7a5a00" text-anchor="middle" dominant-baseline="middle">U11</text>
+<polygon points="66.0,169.6 224.4,169.6 224.4,302.7 66.0,302.7" fill="#9fd8a8" stroke="#333" stroke-width="1" />
+<polygon points="66.0,173.2 114.4,173.2 114.4,299.1 66.0,299.1" fill="#e67e22" stroke="none" stroke-width="1" />
+<polygon points="176.0,173.2 224.4,173.2 224.4,299.1 176.0,299.1" fill="#e67e22" stroke="none" stroke-width="1" />
+<text x="145.2" y="256.0" font-size="10" fill="#111" text-anchor="middle">L2</text>
+<polygon points="291.2,301.0 250.0,301.0 250.0,279.6 291.2,279.6" fill="#d6b3f0" stroke="#333" stroke-width="1" />
+<polygon points="287.3,297.1 275.0,297.1 275.0,283.5 287.3,283.5" fill="#e67e22" stroke="none" stroke-width="1" />
+<polygon points="266.2,297.1 253.9,297.1 253.9,283.5 266.2,283.5" fill="#e67e22" stroke="none" stroke-width="1" />
+<text x="270.6" y="310.1" font-size="10" fill="#111" text-anchor="middle">C188</text>
+<polygon points="321.8,137.5 219.5,137.5 219.5,66.0 321.8,66.0" fill="#a9c9f5" stroke="#333" stroke-width="1" />
+<polygon points="315.7,131.4 290.4,131.4 290.4,72.1 315.7,72.1" fill="#e67e22" stroke="none" stroke-width="1" />
+<polygon points="250.8,131.4 225.5,131.4 225.5,72.1 250.8,72.1" fill="#333" stroke="none" stroke-width="1" />
+<text x="270.6" y="121.5" font-size="10" fill="#111" text-anchor="middle">C267</text>
+<polygon points="229.3,148.5 305.2,148.5 305.2,192.7 229.3,192.7" fill="#9fd8a8" stroke="#333" stroke-width="1" />
+<polygon points="235.4,154.7 257.4,154.7 257.4,186.6 235.4,186.6" fill="#e67e22" stroke="none" stroke-width="1" />
+<polygon points="277.2,154.7 299.2,154.7 299.2,186.6 277.2,186.6" fill="#333" stroke="none" stroke-width="1" />
+<text x="267.3" y="190.4" font-size="10" fill="#111" text-anchor="middle">C189</text>
+<polygon points="315.1,148.5 391.1,148.5 391.1,192.7 315.1,192.7" fill="#9fd8a8" stroke="#333" stroke-width="1" />
+<polygon points="321.2,154.7 343.2,154.7 343.2,186.6 321.2,186.6" fill="#e67e22" stroke="none" stroke-width="1" />
+<polygon points="363.0,154.7 385.0,154.7 385.0,186.6 363.0,186.6" fill="#333" stroke="none" stroke-width="1" />
+<text x="353.1" y="190.4" font-size="10" fill="#111" text-anchor="middle">C191</text>
+<polygon points="391.0,148.5 467.0,148.5 467.0,192.7 391.0,192.7" fill="#9fd8a8" stroke="#333" stroke-width="1" />
+<polygon points="397.1,154.7 419.1,154.7 419.1,186.6 397.1,186.6" fill="#e67e22" stroke="none" stroke-width="1" />
+<polygon points="438.9,154.7 460.9,154.7 460.9,186.6 438.9,186.6" fill="#333" stroke="none" stroke-width="1" />
+<text x="429.0" y="190.4" font-size="10" fill="#111" text-anchor="middle">C190</text>
+<polygon points="363.1,312.8 296.9,312.8 296.9,279.6 363.1,279.6" fill="#d6b3f0" stroke="#333" stroke-width="1" />
+<polygon points="356.9,306.7 339.4,306.7 339.4,285.8 356.9,285.8" fill="#e67e22" stroke="none" stroke-width="1" />
+<polygon points="320.6,306.7 303.1,306.7 303.1,285.8 320.6,285.8" fill="#333" stroke="none" stroke-width="1" />
+<text x="330.0" y="316.0" font-size="10" fill="#111" text-anchor="middle">R56</text>
+<polygon points="350.1,203.1 350.1,269.3 316.9,269.3 316.9,203.1" fill="#d6b3f0" stroke="#333" stroke-width="1" />
+<polygon points="344.0,209.2 344.0,226.8 323.1,226.8 323.1,209.2" fill="#e67e22" stroke="none" stroke-width="1" />
+<polygon points="344.0,245.5 344.0,263.1 323.1,263.1 323.1,245.5" fill="#e67e22" stroke="none" stroke-width="1" />
+<text x="333.5" y="256.0" font-size="10" fill="#111" text-anchor="middle">R55</text>
+<text x="8" y="395" font-size="12" font-weight="bold">islands.py --anchor U11 --apply</text>
+<rect x="8" y="401" width="12" height="12" fill="#9fd8a8" stroke="#333"/><text x="26" y="411" font-size="11">chain</text>
+<rect x="8" y="416" width="12" height="12" fill="#a9c9f5" stroke="#333"/><text x="26" y="426" font-size="11">decoupling</text>
+<rect x="8" y="431" width="12" height="12" fill="#d6b3f0" stroke="#333"/><text x="26" y="441" font-size="11">signal</text>
+<rect x="150" y="401" width="12" height="12" fill="#e67e22"/><text x="168" y="411" font-size="11">pad on an island net</text>
+<rect x="150" y="416" width="12" height="12" fill="#333"/><text x="168" y="426" font-size="11">GND pad</text>
+<rect x="150" y="431" width="12" height="12" fill="none" stroke="#999" stroke-dasharray="4,3"/><text x="168" y="441" font-size="11">previous position</text>
+<rect x="150" y="446" width="12" height="12" fill="#f5b7b1" stroke="#c0392b" stroke-dasharray="3,2"/><text x="168" y="456" font-size="11">could not be placed (left where it is)</text>
+<text x="400" y="411" font-size="11">previous positions out of view: L2, C188, C267, C189, C191, C190, R56, R55</text>
+<text x="400" y="426" font-size="11">grid: 428.5..452.7 x 67.7..84.9 mm, 22 px/mm</text>
 </svg>

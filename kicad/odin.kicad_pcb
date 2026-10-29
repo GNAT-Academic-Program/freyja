@@ -1849,7 +1849,7 @@
 	(footprint "EasyEDA:IND-SMD_L6.0-W6.0"
 		(layer "F.Cu")
 		(uuid "02bd4d60-d15b-4cd8-916c-e68a7a5f13c9")
-		(at 738.92 66.5)
+		(at 435.1 78.39)
 		(descr "4.7uH SRN6045TA-4R7M inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node")
 		(property "Reference" "L2"
 			(at 0 -4 0)
@@ -2209,7 +2209,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0300b92e-2901-4150-9c23-b5a4c67f4b40")
-		(at 744.62 68.96 180)
+		(at 440.8 80.85 180)
 		(descr "100nF capacitor between BOOT_5V and SW_5V, for U11 (5 V regulator, always on): bootstrap capacitor for the regulator's high-side switch; regulator switching node")
 		(tags "capacitor")
 		(property "Reference" "C188"
@@ -7961,11 +7961,11 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "171a6cc4-8cc3-467a-bb6c-fec80149283c")
-		(at 56.725 254.921231)
+		(at 440.8 72.28 180)
 		(descr "10uF 50V bypass on VSYS, for U11 (5 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C267"
-			(at 0 -2.3 0)
+			(at 0 -2.3 180)
 			(layer "F.Fab")
 			(uuid "cc084a6e-10a5-4f95-aa17-56313146ebce")
 			(effects
@@ -7976,7 +7976,7 @@
 			)
 		)
 		(property "Value" "10uF 50V"
-			(at 0 2.3 0)
+			(at 0 2.3 180)
 			(layer "F.Fab")
 			(uuid "671842c6-3e96-4bae-bf35-31fb3856b7cf")
 			(effects
@@ -7987,7 +7987,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4392a182-063f-48ee-a9c2-15df2e6f1bc3")
@@ -7999,7 +7999,7 @@
 			)
 		)
 		(property "Description" "10uF 50V bypass on VSYS, for U11 (5 V regulator, always on)"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "cb3d7c44-2d9f-4ee8-b44a-3ad6d0eb15f3")
@@ -8011,7 +8011,7 @@
 			)
 		)
 		(property "LCSC Part" "C77102"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "3773752c-6b83-441c-bf04-b9608b25089e")
@@ -8066,7 +8066,7 @@
 			(uuid "696e7416-a951-4ac2-8ad2-923f19e5f3a6")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "402d8dd0-4997-49b8-ac2d-135adbe5ba54")
 			(effects
@@ -8077,7 +8077,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -1.475 0)
+			(at -1.475 0 180)
 			(size 1.15 2.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.217391)
@@ -8085,7 +8085,7 @@
 			(uuid "4060e6b0-6530-45f1-8c86-a655f4848b17")
 		)
 		(pad "2" smd roundrect
-			(at 1.475 0)
+			(at 1.475 0 180)
 			(size 1.15 2.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.217391)
@@ -26174,7 +26174,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "47b24bf6-6244-40e9-9091-9b278e9327c8")
-		(at 744.47 63.52)
+		(at 440.65 75.41)
 		(descr "22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C189"
@@ -46699,7 +46699,7 @@
 	(footprint "EasyEDA:TSOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "7d81e816-b447-4041-957a-fc84308de6e4")
-		(at 744.62 66.5)
+		(at 440.8 78.39)
 		(descr "5 V regulator, always on: Diodes AP63300, 3 A switching regulator: VSYS to +5V_BUCK, then U34 to +5V. Starts by itself.")
 		(property "Reference" "U11"
 			(at 0 -4.95 0)
@@ -52799,7 +52799,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "8b8a52e4-8d2c-4afb-aa9b-2b5d38a76054")
-		(at 748.37 63.52)
+		(at 444.55 75.41)
 		(descr "22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C191"
@@ -63238,7 +63238,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "a683adfd-5974-4cd1-b47c-6da53214b68e")
-		(at 751.82 63.52)
+		(at 448 75.41)
 		(descr "22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C190"
@@ -94684,7 +94684,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "d6edac5b-e0c1-4c5d-9536-9146de7be84c")
-		(at 747.32 69.23 180)
+		(at 443.5 81.12 180)
 		(descr "19.1k resistor from FB_5V to GND, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R56"
@@ -99029,7 +99029,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e60e3c57-1730-4b09-9b07-bb8d55b6eeb8")
-		(at 747.48 66.5 -90)
+		(at 443.66 78.39 -90)
 		(descr "100k series resistor between +5V_BUCK and FB_5V, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R55"
@@ -108179,69 +108179,6 @@
 		)
 	)
 	(gr_rect
-		(start 733.82 61.015)
-		(end 755.045 71.485)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "77ff33e9-d0c7-43df-b581-da03843e02d3")
-	)
-	(gr_rect
-		(start 733.82 55.875)
-		(end 755.045 61.015)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "fc1bc73a-dbe1-4948-8b94-541047426757")
-	)
-	(gr_text "island U11"
-		(at 734.22 57.475 0)
-		(layer "Cmts.User")
-		(uuid "15b6fb5e-0940-4167-906f-caca7152807b")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "5 V regulator, always on\n5 V regulator AP63300, 9 parts,\n2026-10-28"
-		(at 734.22 57.775 0)
-		(layer "Cmts.User")
-		(uuid "e1e63836-1570-4fdc-9c79-6511d2383280")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(group "island U11"
-		(uuid "cd44d690-1b62-43eb-9cee-319e1f1588e1")
-		(members
-			"77ff33e9-d0c7-43df-b581-da03843e02d3"
-			"fc1bc73a-dbe1-4948-8b94-541047426757"
-			"15b6fb5e-0940-4167-906f-caca7152807b"
-			"e1e63836-1570-4fdc-9c79-6511d2383280"
-			"7d81e816-b447-4041-957a-fc84308de6e4"
-			"0300b92e-2901-4150-9c23-b5a4c67f4b40"
-			"47b24bf6-6244-40e9-9091-9b278e9327c8"
-			"a683adfd-5974-4cd1-b47c-6da53214b68e"
-			"8b8a52e4-8d2c-4afb-aa9b-2b5d38a76054"
-			"02bd4d60-d15b-4cd8-916c-e68a7a5f13c9"
-			"e60e3c57-1730-4b09-9b07-bb8d55b6eeb8"
-			"d6edac5b-e0c1-4c5d-9536-9146de7be84c"
-		)
-	)
-	(gr_rect
 		(start 757.795 52.755)
 		(end 770.115 66.535)
 		(stroke
@@ -110518,6 +110455,70 @@
 			"6f54abb6-7223-446e-82ec-789b94915d7d"
 			"06677c63-6067-4f33-8c12-7f2b2df42b47"
 			"97c89a65-0a9f-4de6-9bb4-ec0c850b1bf4"
+		)
+	)
+	(gr_rect
+		(start 430 69.155)
+		(end 451.225 83.375)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "320afcc0-5ffe-48c3-9faa-c9e86795672e")
+	)
+	(gr_rect
+		(start 430 64.995)
+		(end 451.225 69.155)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "a90a3fc3-1913-4771-8bb9-d070a8ad08c4")
+	)
+	(gr_text "island U11"
+		(at 430.4 66.595 0)
+		(layer "Cmts.User")
+		(uuid "2031ffef-9e68-402c-8066-de0ff45aa42d")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "5 V regulator, always on\nAP63300, 9 parts, 2026-10-29"
+		(at 430.4 66.895 0)
+		(layer "Cmts.User")
+		(uuid "9439d63c-d1bd-4aba-8018-14aa69c689c8")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U11"
+		(uuid "df68c357-0183-4190-87b9-da602c8b4c1c")
+		(members
+			"320afcc0-5ffe-48c3-9faa-c9e86795672e"
+			"a90a3fc3-1913-4771-8bb9-d070a8ad08c4"
+			"2031ffef-9e68-402c-8066-de0ff45aa42d"
+			"9439d63c-d1bd-4aba-8018-14aa69c689c8"
+			"7d81e816-b447-4041-957a-fc84308de6e4"
+			"0300b92e-2901-4150-9c23-b5a4c67f4b40"
+			"47b24bf6-6244-40e9-9091-9b278e9327c8"
+			"a683adfd-5974-4cd1-b47c-6da53214b68e"
+			"8b8a52e4-8d2c-4afb-aa9b-2b5d38a76054"
+			"171a6cc4-8cc3-467a-bb6c-fec80149283c"
+			"02bd4d60-d15b-4cd8-916c-e68a7a5f13c9"
+			"e60e3c57-1730-4b09-9b07-bb8d55b6eeb8"
+			"d6edac5b-e0c1-4c5d-9536-9146de7be84c"
 		)
 	)
 )
