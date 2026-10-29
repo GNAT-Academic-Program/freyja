@@ -14,6 +14,7 @@ you care about; within it, groups appear in schematic order.
 - [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
+- [Video](#video) (8 parts): HDMI output straight from the FPGA, with its protection chip.
 
 ## FPGA
 
@@ -21,7 +22,7 @@ The Artix-7 itself, its decoupling, how it boots and its clock.
 
 ### U1  FPGA
 
-The FPGA is the board: every user design (a NEORV32 RISC-V core, a video pipeline, a protocol bridge) runs here. Its six user I/O banks are dedicated by job: bank 13 drives the two 5 V buses and the PHY reset/interrupt, bank 14 the PSRAM, the configuration flash, the board-controller sideband and the 50 MHz clock, banks 15 and 34 the direct extension slots A-D and E-H at a jumper-selected voltage, bank 16 the network at 2.5 V, bank 35 nothing. Ball-by-ball list: ref/ballmap.md; constraints: ref/freya.xdc.
+The FPGA is the board: every user design (a NEORV32 RISC-V core, a video pipeline, a protocol bridge) runs here. Its six user I/O banks are dedicated by job: bank 13 drives the two 5 V buses and the PHY reset/interrupt, bank 14 the PSRAM, the configuration flash, the board-controller sideband and the 50 MHz clock, banks 15 and 34 the direct extension slots A-D and E-H at a jumper-selected voltage, bank 16 the network at 2.5 V, bank 35 the HDMI output. Ball-by-ball list: ref/ballmap.md; constraints: ref/freya.xdc.
 
 | Ref | Value | What it does |
 |---|---|---|
@@ -1095,4 +1096,23 @@ The second link port, wired as the mirror of LINK P so a straight cable from a P
 | D22 | TPD4E1U06DBVR | LINK Q ESD, pins 1-2 and 3-6: TI TPD4E1U06 four-line ESD clamp (0.8 pF) on LINK Q's incoming clock and data pairs. |
 | D23 | TPD4E1U06DBVR | LINK Q ESD, pins 4-5 and 7-8: TI TPD4E1U06 four-line ESD clamp (0.8 pF) on LINK Q's outgoing clock and data pairs. |
 | J72 | LINK Q | LINK Q jack: Plain shielded RJ45 (no magnetics) carrying four LVDS pairs of link port Q, mirrored from P. Not an Ethernet port. |
+
+## Video
+
+HDMI output straight from the FPGA, with its protection chip.
+
+### HDMI out
+
+A video output for monitors and TVs. Bank 35 drives the four HDMI lanes directly as TMDS_33 pairs, the standard Artix-7 way: the monitor's own 50 ohm pull-ups to 3.3 V terminate them, so the board adds none. 720p at 60 Hz fits comfortably; 1080p at 60 Hz does not. U31 sits at the connector: it clamps ESD on every line, shifts the DDC (EDID) and CEC lines between 3.3 V and the cable's 5 V, buffers hot plug, and feeds the cable's 5 V pin through a 55 mA current limit (TI SLLSE96F, Figure 18). Its two enables are pulled on, so EDID works under any design. The unused utility pin goes to ground through 75 ohm, as TI's layout example asks.
+
+| Ref | Value | What it does |
+|---|---|---|
+| J73 | HDMI OUT | HDMI OUT jack: Amphenol 10029449 HDMI type A socket: video out from FPGA bank 35, DVI-compatible, 720p60 and below. |
+| U31 | TPD12S016PWR | HDMI protection and level shifter: TI TPD12S016: ESD clamps on the four HDMI pairs, DDC and CEC level shifting from 3.3 V to 5 V, hot plug buffer and a 55 mA current-limited 5 V for the cable. |
+| C247 | 100nF | 100nF bypass on +3V3, for U31 (HDMI protection and level shifter) |
+| C248 | 100nF | 100nF bypass on +5V, for U31 (HDMI protection and level shifter) |
+| C249 | 100nF | 100nF bypass on HDMI_5V, for U31 (HDMI protection and level shifter) |
+| R148 | 100k | 100k pull-up of HDMI_CT_HPD to +3V3, for U31 (HDMI protection and level shifter) |
+| R149 | 100k | 100k pull-up of HDMI_LS_OE to +3V3, for U31 (HDMI protection and level shifter) |
+| R150 | 75 | 75 pull-down on HDMI_UTILITY, for J73 (HDMI OUT jack) |
 

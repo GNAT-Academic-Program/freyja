@@ -44,7 +44,7 @@ Inside each bank the allocator takes the shallowest balls first.
 | 15 | **settable** 3.3 / 2.5 / 1.8 | slots A B C D |
 | 34 | **settable** 3.3 / 2.5 / 1.8 | slots E F G H |
 | 16 | **fixed 2.5V** | RGMII + MDIO to the PHY, LINK P and LINK Q |
-| 35 | fixed 3.3V | powered, unused |
+| 35 | fixed 3.3V | HDMI out: four TMDS_33 pairs and the TPD12S016 lines |
 
 ## Config flash and strap
 
@@ -192,6 +192,29 @@ The two 3.3 V PHY pins are in bank 13:
 | AA22 | `PHY_RESET_N` | IO_L8P_T1_13 |
 | AA23 | `PHY_INT_N` | IO_L8N_T1_13 |
 
+## Video: bank 35 at 3.3 V
+
+HDMI out. The four lanes are TMDS_33 pairs, terminated by the monitor's
+50 ohm pull-ups to 3.3 V; the six control lines go to U31 (TPD12S016),
+which shifts DDC and CEC to the cable's 5 V. All fourteen balls sit in
+the package's two outer rows.
+
+| Pair | P | N | Package name |
+|---|---|---|---|
+| CLK | A3 | A2 | IO_L20P_T3_35 |
+| D0 | C1 | B1 | IO_L21P_T3_DQS_35 |
+| D1 | E1 | D1 | IO_L23P_T3_35 |
+| D2 | B5 | A5 | IO_L15P_T2_DQS_35 |
+
+| Ball | Net | Package name |
+|---|---|---|
+| B2 | `HDMI_CEC` | IO_L19N_T3_VREF_35 |
+| F2 | `HDMI_CT_HPD` | IO_L22P_T3_35 |
+| B4 | `HDMI_HPD` | IO_L16P_T2_35 |
+| E2 | `HDMI_LS_OE` | IO_L22N_T3_35 |
+| A4 | `HDMI_SCL` | IO_L16N_T2_35 |
+| C2 | `HDMI_SDA` | IO_L19P_T3_35 |
+
 ## GTP banks 213 and 216 — unused, powered
 
 Rev A has no transceiver load. Both quads keep MGTAVCC/MGTAVTT powered,
@@ -252,5 +275,5 @@ all RX pins to GND, TX and reference-clock pins floating, and one 100 ohm
 - 5V bus data: **16**
 - 5V bus direction: **2**
 - 5V bus enable: **2**
-- **assigned HR I/O: 185 of 300**
-- **free: 115** for base-board peripherals
+- **assigned HR I/O: 199 of 300**
+- **free: 101** for base-board peripherals

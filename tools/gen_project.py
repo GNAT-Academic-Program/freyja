@@ -14,14 +14,15 @@ from identity import PRODUCT, HW_VERSION
 
 DIR    = 'kicad'
 PWRLIB = '/usr/share/kicad/symbols/power.kicad_sym'
-SHEETS = ['FPGA', 'Power', 'Memory', 'Supervisor', 'Slots', 'Network']
+SHEETS = ['FPGA', 'Power', 'Memory', 'Supervisor', 'Slots', 'Network', 'Video']
 DISPLAY_NAME = {'Supervisor': 'Board Controller'}
 TITLE  = {'FPGA':'FPGA, decoupling and configuration straps',
           'Power':'Power tree: VSYS input, regulators, AUX IN pass-through and monitoring',
           'Memory':'PSRAM x4 (independent buses) and configuration flash',
           'Supervisor':'Board controller: RP2350B, USB-C, startup memory and FPGA control',
           'Slots':'Ten keyed extension ports, branch fusing and level shifting',
-          'Network':'Network: RTL8211FD-CG gigabit PHY and ETH jack, LINK P and LINK Q raw LVDS ports'}
+          'Network':'Network: RTL8211FD-CG gigabit PHY and ETH jack, LINK P and LINK Q raw LVDS ports',
+          'Video':'Video: HDMI out from bank 35 (TMDS_33) through a TPD12S016'}
 GNDS   = {'GND'}
 RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
           '+2V5':'power:+2V5', '+3V3':'power:+3V3', '+5V':'power:+5V',

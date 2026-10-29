@@ -80,7 +80,10 @@ LOADS = [
     ('+3V3', 'FPGA bank 34 VCCO, worst case jumpered to 3.3V', 0.10, 'estimate',
      'bank load only; connector export is checked from switch maximum below'),
     ('+3V3', 'FPGA banks 13/35 VCCO and bank 0', 0.06, 'estimate',
-     'bank 13 carries the two 5V buses; 35 is powered but unused'),
+     'bank 13 carries the two 5V buses; 35 drives HDMI (TMDS_33 current '
+     'comes from the monitor\'s 3.3 V pull-ups, not from VCCO)'),
+    ('+3V3', 'U31 TPD12S016 VCCA, level shifters on', 0.001, 'datasheet',
+     'SLLSE96F 8.2.2: about 200 uA fully on'),
     # ---- +2V5: bank 16 I/O and the PHY RGMII pads
     ('+2V5', 'FPGA bank 16 VCCO: RGMII and eight LVDS_25 pairs', 0.12, 'estimate',
      'LVDS_25 drivers about 3.5 mA each plus RGMII switching; replace with XPE'),
@@ -91,6 +94,8 @@ LOADS = [
      'RP2350 at 150 MHz; the on-chip regulator is rated 200 mA'),
     # ---- +5V
     ('+5V', 'U9/U10 VCCB', 0.02, 'estimate', 'quiescent translator supply'),
+    ('+5V', 'HDMI 5 V to the monitor through U31', 0.055, 'datasheet',
+     'TPD12S016 5V_OUT current limit, SLLSE96F'),
     # AUX has no internal board load; it feeds the ten fused branches.
 ]
 

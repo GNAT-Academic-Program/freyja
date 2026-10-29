@@ -285,6 +285,32 @@ PARTS = {
     pinmap='YXC OT3225: 1 tri-state (high = output on, tied to VDD), 2 GND, '
            '3 OUTPUT, 4 VDD; imported C717684 symbol agrees',
     src='YXC OT322550MJBA4SL listing; LCSC C717684'),
+  # ------------------------------------------------------- HDMI out
+  'odin:TPD12S016PW': dict(
+    mpn='TPD12S016PWR', pkg='TSSOP-24 (TI PW), 4.4 x 7.8 mm, 0.65 mm pitch',
+    fp='Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm',
+    rating='HDMI companion: VCCA 1.1-3.6 V (3.3 V here), VCC5V 4.5-5.5 V; '
+           '55 mA current-limited 5V_OUT with reverse blocking; DDC level '
+           'shifting to 5 V, 750 pF cable drive; 8-channel TMDS ESD, '
+           'IEC 61000-4-2 +/-8 kV contact; HDMI 1.4 data rate',
+    pinmap='SLLSE96F Pin Functions table, PW column, and the PW top view: '
+           '1 CEC_A, 2 SCL_A, 3 SDA_A, 4 HPD_A, 5 LS_OE, 6/14/19 GND, 7 CEC_B, '
+           '8 SCL_B, 9 SDA_B, 10 HPD_B, 11 VCC5V, 12 CT_HPD, 13 5V_OUT, '
+           '15 CLK-, 16 CLK+, 17 D0-, 18 D0+, 20 D1-, 21 D1+, 22 D2-, 23 D2+, '
+           '24 VCCA; symbol generated in tools/gen_kicad.py gen_hdmi()',
+    src='TI TPD12S016 datasheet SLLSE96F (rev F, October 2015); LCSC C201665'),
+  'Connector:HDMI_A': dict(
+    mpn='10029449-001RLF', pkg='HDMI type A receptacle, right angle, SMT contacts '
+        'with four through-hole shell legs',
+    fp='Connector_Video:HDMI_A_Amphenol_10029449-x01xLF_Horizontal',
+    rating='19 contacts, HDMI 1.4; 0.5 A contacts, 40 V; carries four TMDS_33 '
+           'pairs, DDC, CEC, hot plug and the 55 mA 5 V',
+    pinmap='KiCad Connector:HDMI_A pin numbers are the HDMI standard contacts '
+           '1-19; the KiCad footprint is drawn for this Amphenol family and '
+           'names 10029449-001RLF in its description; SH = shell',
+    src='Amphenol ICC 10029449 drawing (linked from the KiCad footprint); LCSC '
+        'C428493. [verify] stock at order time: C427307 (-111RLF) is the '
+        'same family, confirm its land pattern before substituting'),
   # ------------------------------------------------------- FPGA decoupling
   # UG483 v1.14 Table 2-5 names the parts; the ceramic 1210/0805/0603 values
   # are ordinary passives matched at BOM time (C > nominal, X7R or X5R, ESR

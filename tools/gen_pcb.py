@@ -25,7 +25,9 @@ DIFF_GAP = 0.200
 # a few ohm off, so 0.125 mm. Estimate, to be confirmed with JLC's
 # calculator at order time (ref/pcb-impedance.md).
 RGMII_WIDTH = 0.125
-LVDS_PATTERNS = ('LINK_*',)
+# The HDMI TMDS_33 pairs are 100 ohm differential too and share the class's
+# outer-layer geometry and rules (HDMI 1.4: 100 ohm +/-15 %).
+LVDS_PATTERNS = ('LINK_*', 'HDMI_CLK_*', 'HDMI_D0_*', 'HDMI_D1_*', 'HDMI_D2_*')
 MDI_PATTERNS = ('ETH_MDI*',)
 RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'PHY_RX_CTL')
 GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'PSRAM', 'AUX_5A')
@@ -105,7 +107,11 @@ def sexpr_block(text, marker):
     """Locate one balanced block, ignoring parentheses in quoted strings."""
     start = text.index(marker)
     depth, quoted, escaped = 0, False, False
-    for i in range(start, len(text)):
+    # scan from the block's own '(' : a marker may begin with whitespace
+    # ('\n\t(layers'), and a scan from there ends at once at depth 0, which
+    # made update_stackup insert the 8-layer list in front of the old one
+    # instead of replacing it (KiCad reads the last list: 6 layers)
+    for i in range(text.index('(', start), len(text)):
         c = text[i]
         if escaped:
             escaped = False

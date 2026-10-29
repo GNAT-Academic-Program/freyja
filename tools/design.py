@@ -1043,6 +1043,47 @@ def build():
     # 33 ohm at the source keeps the edge clean over the few centimetres to U1.
     d.R('33', 'SYS_CLK_OSC', 'SYS_CLK')
 
+    # ------------------------------------------------ Video
+    # HDMI out (DVI-compatible), straight from the fabric. Bank 35 runs at
+    # 3.3 V, so its four pairs use TMDS_33: the FPGA sinks current and the
+    # monitor's 50 ohm pull-ups to 3.3 V terminate each line (UG471, TMDS_33),
+    # so the board adds no termination. 10:1 serialisation in OSERDESE2 makes
+    # 720p60 (742.5 Mb/s per lane) comfortable on a -2 part; 1080p60 does not
+    # fit an HR bank. Pairs and control lines: tools/alloc.py.
+    d.sheet('Video')
+    d.group('HDMI out')
+    # TPD12S016PW (TI SLLSE96F), Example 2, Figure 18 and Table 3: VCCA at
+    # 3.3 V, CT_HPD and LS_OE driven by the controller (here two bank 35
+    # balls). The TMDS lines pass the chip's ESD pins on their way to the
+    # connector; the A side of DDC/CEC/HPD is at VCCA, the B side at 5 V.
+    d.add('U31', 'odin:TPD12S016PW', 'TPD12S016PWR',
+          'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm',
+          {'D2+': 'HDMI_D2_P', 'D2-': 'HDMI_D2_N', 'D1+': 'HDMI_D1_P', 'D1-': 'HDMI_D1_N',
+           'D0+': 'HDMI_D0_P', 'D0-': 'HDMI_D0_N', 'CLK+': 'HDMI_CLK_P', 'CLK-': 'HDMI_CLK_N',
+           'HPD_A': 'HDMI_HPD', 'SCL_A': 'HDMI_SCL', 'SDA_A': 'HDMI_SDA', 'CEC_A': 'HDMI_CEC',
+           'HPD_B': 'HDMI_HPD_B', 'SCL_B': 'HDMI_SCL_B', 'SDA_B': 'HDMI_SDA_B', 'CEC_B': 'HDMI_CEC_B',
+           'CT_HPD': 'HDMI_CT_HPD', 'LS_OE': 'HDMI_LS_OE',
+           'VCCA': V33, 'VCC5V': '+5V', '5V_OUT': 'HDMI_5V', 'GND': GND}, 'C201665')
+    # Figure 18: 0.1 uF on VCCA, on VCC5V and on 5V_OUT.
+    d.C('100nF', V33, GND); d.C('100nF', '+5V', GND); d.C('100nF', 'HDMI_5V', GND)
+    # The two enables default on, so DDC (EDID) and hot plug work under any
+    # bitstream; a design may drive them low to save about 170 uA (8.2.2).
+    d.R('100k', V33, 'HDMI_CT_HPD'); d.R('100k', V33, 'HDMI_LS_OE')
+    # Amphenol 10029449-001RLF, right-angle HDMI type A. Pin 14 (utility,
+    # HDMI 1.4 HEAC) is not used: SLLSE96F Figure 19 note, "if unused, tie
+    # Reserve Pin to Ground with 75 ohm resistor". The pair shields, DDC/CEC
+    # ground and the shell go to ground.
+    d.add('J73', 'Connector:HDMI_A', 'HDMI OUT',
+          'Connector_Video:HDMI_A_Amphenol_10029449-x01xLF_Horizontal',
+          {'D2+': 'HDMI_D2_P', 'D2-': 'HDMI_D2_N', 'D2S': GND,
+           'D1+': 'HDMI_D1_P', 'D1-': 'HDMI_D1_N', 'D1S': GND,
+           'D0+': 'HDMI_D0_P', 'D0-': 'HDMI_D0_N', 'D0S': GND,
+           'CK+': 'HDMI_CLK_P', 'CK-': 'HDMI_CLK_N', 'CKS': GND,
+           'CEC': 'HDMI_CEC_B', 'SCL': 'HDMI_SCL_B', 'SDA': 'HDMI_SDA_B',
+           'GND': GND, '+5V': 'HDMI_5V', 'HPD': 'HDMI_HPD_B', 'SH': GND,
+           'UTILITY': 'HDMI_UTILITY'}, 'C428493')
+    d.R('75', 'HDMI_UTILITY', GND)
+
     # Mandatory connector-accounting gate. A post is a ground probe/key, not
     # a mated contact; each section separately has four signal grounds plus
     # the three female power-row grounds.

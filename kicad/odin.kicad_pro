@@ -2734,6 +2734,22 @@
         "pattern": "LINK_*"
       },
       {
+        "netclass": "LVDS_100R",
+        "pattern": "HDMI_CLK_*"
+      },
+      {
+        "netclass": "LVDS_100R",
+        "pattern": "HDMI_D0_*"
+      },
+      {
+        "netclass": "LVDS_100R",
+        "pattern": "HDMI_D1_*"
+      },
+      {
+        "netclass": "LVDS_100R",
+        "pattern": "HDMI_D2_*"
+      },
+      {
         "netclass": "MDI_100R",
         "pattern": "ETH_MDI*"
       },

@@ -334,6 +334,30 @@ def gen_extension_protection():
             'https://www.diodes.com/datasheet/download/AP63300_AP63301.pdf',
             '3.8-32V input, 3A synchronous buck converter, TSOT26'))
 
+def gen_hdmi():
+    """TPD12S016PW, the HDMI companion chip (ESD on the four TMDS pairs, DDC
+    and CEC level shifting, current-limited 5 V to the connector). KiCad
+    ships only the TPD12S520. Pin numbers are the PW (TSSOP-24) column of
+    the Pin Functions table and the PW top view, TI SLLSE96F."""
+    pins = [('1', 'CEC_A', 'bidirectional', 'L'), ('2', 'SCL_A', 'bidirectional', 'L'),
+            ('3', 'SDA_A', 'bidirectional', 'L'), ('4', 'HPD_A', 'output', 'L'),
+            ('5', 'LS_OE', 'input', 'L'), ('12', 'CT_HPD', 'input', 'L'),
+            ('24', 'VCCA', 'power_in', 'L'), ('11', 'VCC5V', 'power_in', 'L'),
+            ('6', 'GND', 'power_in', 'L'), ('14', 'GND', 'power_in', 'L'),
+            ('19', 'GND', 'power_in', 'L'),
+            ('23', 'D2+', 'passive', 'R'), ('22', 'D2-', 'passive', 'R'),
+            ('21', 'D1+', 'passive', 'R'), ('20', 'D1-', 'passive', 'R'),
+            ('18', 'D0+', 'passive', 'R'), ('17', 'D0-', 'passive', 'R'),
+            ('16', 'CLK+', 'passive', 'R'), ('15', 'CLK-', 'passive', 'R'),
+            ('7', 'CEC_B', 'bidirectional', 'R'), ('8', 'SCL_B', 'bidirectional', 'R'),
+            ('9', 'SDA_B', 'bidirectional', 'R'), ('10', 'HPD_B', 'input', 'R'),
+            ('13', '5V_OUT', 'power_out', 'R')]
+    return gen_box_symbol('TPD12S016PW', pins,
+                          'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm',
+                          'https://www.ti.com/lit/ds/symlink/tpd12s016.pdf',
+                          'HDMI companion: 12-channel ESD, DDC/CEC level shifting, '
+                          '55 mA current-limited 5 V load switch, TSSOP-24')
+
 LFP = 'L_Abracon_AOTA-B201610S_2.0x1.6mm'
 
 def gen_inductor_fp():
@@ -408,7 +432,7 @@ if __name__ == '__main__':
     units = gen_symbol(pins)
     t = open(SYM).read()
     open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + gen_osc() + gen_rails() +
-                         gen_lxc() + gen_extension_protection() + ')\n')
+                         gen_lxc() + gen_extension_protection() + gen_hdmi() + ')\n')
     npads = gen_footprint()
     nlp = gen_inductor_fp()
     nap = gen_aux_footprints()

@@ -49,7 +49,7 @@ def main():
     W("| 15 | **settable** 3.3 / 2.5 / 1.8 | slots A B C D |")
     W("| 34 | **settable** 3.3 / 2.5 / 1.8 | slots E F G H |")
     W("| 16 | **fixed 2.5V** | RGMII + MDIO to the PHY, LINK P and LINK Q |")
-    W("| 35 | fixed 3.3V | powered, unused |")
+    W("| 35 | fixed 3.3V | HDMI out: four TMDS_33 pairs and the TPD12S016 lines |")
     W("")
 
     names = {b: n for lst in list(io.values()) + list(other.values()) for b, n in lst}
@@ -66,6 +66,7 @@ def main():
         elif n.startswith('PHY_'): groups['RGMII'].append((ball, n))
         elif n.startswith('LINK_'): groups['links'].append((ball, n))
         elif n == 'SYS_CLK': groups['system clock'].append((ball, n))
+        elif n.startswith('HDMI_'): groups['HDMI'].append((ball, n))
         else: raise ValueError(f'Unclassified allocated net: {ball} {n}')
     assert len(groups['supervisor sideband']) == len(sb) == len(SIDEBAND)
     assert sum(map(len, groups.values())) == len(net)
@@ -142,6 +143,21 @@ def main():
     W("| Ball | Net | Package name |")
     W("|---|---|---|")
     for ball, n in groups['PHY control']: W(f"| {ball} | `{n}` | {names[ball]} |")
+    W("")
+    W("## Video: bank 35 at 3.3 V\n")
+    W("HDMI out. The four lanes are TMDS_33 pairs, terminated by the monitor's")
+    W("50 ohm pull-ups to 3.3 V; the six control lines go to U31 (TPD12S016),")
+    W("which shifts DDC and CEC to the cable's 5 V. All fourteen balls sit in")
+    W("the package's two outer rows.\n")
+    W("| Pair | P | N | Package name |")
+    W("|---|---|---|---|")
+    for name, (pb, nb) in assign.hdmi.items():
+        W(f"| {name} | {pb} | {nb} | {names[pb]} |")
+    W("")
+    W("| Ball | Net | Package name |")
+    W("|---|---|---|")
+    for ball, n in sorted(groups['HDMI'], key=lambda t: t[1]):
+        if not n.endswith(('_P', '_N')): W(f"| {ball} | `{n}` | {names[ball]} |")
     W("")
     W("## GTP banks 213 and 216 — unused, powered\n")
     W("Rev A has no transceiver load. Both quads keep MGTAVCC/MGTAVTT powered,")

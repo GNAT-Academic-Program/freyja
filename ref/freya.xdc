@@ -44,6 +44,21 @@ set_property -dict {PACKAGE_PIN R14 IOSTANDARD LVCMOS33} [get_ports {FLASH_D0_MO
 set_property -dict {PACKAGE_PIN R15 IOSTANDARD LVCMOS33} [get_ports {FLASH_D1_MISO}]   ;# bank 14 IO_L1N_T0_D01_DIN_14
 set_property -dict {PACKAGE_PIN P14 IOSTANDARD LVCMOS33} [get_ports {FLASH_D2_WP}]   ;# bank 14 IO_L2P_T0_D02_14
 set_property -dict {PACKAGE_PIN N14 IOSTANDARD LVCMOS33} [get_ports {FLASH_D3_HOLD}]   ;# bank 14 IO_L2N_T0_D03_14
+# ---- HDMI
+set_property -dict {PACKAGE_PIN B2 IOSTANDARD LVCMOS33} [get_ports {HDMI_CEC}]   ;# bank 35 IO_L19N_T3_VREF_35
+set_property -dict {PACKAGE_PIN A2 IOSTANDARD TMDS_33} [get_ports {HDMI_CLK_N}]   ;# bank 35 IO_L20N_T3_35
+set_property -dict {PACKAGE_PIN A3 IOSTANDARD TMDS_33} [get_ports {HDMI_CLK_P}]   ;# bank 35 IO_L20P_T3_35
+set_property -dict {PACKAGE_PIN F2 IOSTANDARD LVCMOS33} [get_ports {HDMI_CT_HPD}]   ;# bank 35 IO_L22P_T3_35
+set_property -dict {PACKAGE_PIN B1 IOSTANDARD TMDS_33} [get_ports {HDMI_D0_N}]   ;# bank 35 IO_L21N_T3_DQS_35
+set_property -dict {PACKAGE_PIN C1 IOSTANDARD TMDS_33} [get_ports {HDMI_D0_P}]   ;# bank 35 IO_L21P_T3_DQS_35
+set_property -dict {PACKAGE_PIN D1 IOSTANDARD TMDS_33} [get_ports {HDMI_D1_N}]   ;# bank 35 IO_L23N_T3_35
+set_property -dict {PACKAGE_PIN E1 IOSTANDARD TMDS_33} [get_ports {HDMI_D1_P}]   ;# bank 35 IO_L23P_T3_35
+set_property -dict {PACKAGE_PIN A5 IOSTANDARD TMDS_33} [get_ports {HDMI_D2_N}]   ;# bank 35 IO_L15N_T2_DQS_35
+set_property -dict {PACKAGE_PIN B5 IOSTANDARD TMDS_33} [get_ports {HDMI_D2_P}]   ;# bank 35 IO_L15P_T2_DQS_35
+set_property -dict {PACKAGE_PIN B4 IOSTANDARD LVCMOS33} [get_ports {HDMI_HPD}]   ;# bank 35 IO_L16P_T2_35
+set_property -dict {PACKAGE_PIN E2 IOSTANDARD LVCMOS33} [get_ports {HDMI_LS_OE}]   ;# bank 35 IO_L22N_T3_35
+set_property -dict {PACKAGE_PIN A4 IOSTANDARD LVCMOS33} [get_ports {HDMI_SCL}]   ;# bank 35 IO_L16N_T2_35
+set_property -dict {PACKAGE_PIN C2 IOSTANDARD LVCMOS33} [get_ports {HDMI_SDA}]   ;# bank 35 IO_L19P_T3_35
 # ---- LINK
 set_property -dict {PACKAGE_PIN C18 IOSTANDARD LVDS_25} [get_ports {LINK_P_RXC_N}]   ;# bank 16 IO_L12N_T1_MRCC_16
 set_property DIFF_TERM TRUE [get_ports {LINK_P_RXC_N}]

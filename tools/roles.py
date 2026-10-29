@@ -48,7 +48,7 @@ GROUP = {
         'the PHY reset/interrupt, bank 14 the PSRAM, the configuration flash, '
         'the board-controller sideband and the 50 MHz clock, banks 15 and 34 '
         'the direct extension slots A-D and E-H at a jumper-selected voltage, '
-        'bank 16 the network at 2.5 V, bank 35 nothing. Ball-by-ball list: '
+        'bank 16 the network at 2.5 V, bank 35 the HDMI output. Ball-by-ball list: '
         'ref/ballmap.md; constraints: ref/freya.xdc.',
     'config straps (UG470)':
         'How the FPGA loads its design at power-on. M[2:0] = 001 selects '
@@ -107,6 +107,18 @@ GROUP = {
         'data pair in. Cable LINK P of one board to LINK Q of the other, and '
         'power both boards before plugging in (ref/link-ports.md). The two '
         'arrays clamp ESD at the jack.',
+    # ---- Video sheet
+    'HDMI out':
+        'A video output for monitors and TVs. Bank 35 drives the four HDMI '
+        'lanes directly as TMDS_33 pairs, the standard Artix-7 way: the '
+        'monitor\'s own 50 ohm pull-ups to 3.3 V terminate them, so the '
+        'board adds none. 720p at 60 Hz fits comfortably; 1080p at 60 Hz '
+        'does not. U31 sits at the connector: it clamps ESD on every line, '
+        'shifts the DDC (EDID) and CEC lines between 3.3 V and the cable\'s '
+        '5 V, buffers hot plug, and feeds the cable\'s 5 V pin through a 55 '
+        'mA current limit (TI SLLSE96F, Figure 18). Its two enables are '
+        'pulled on, so EDID works under any design. The unused utility pin '
+        'goes to ground through 75 ohm, as TI\'s layout example asks.',
     'LINK Q':
         'The second link port, wired as the mirror of LINK P so a straight '
         'cable from a P to a Q connects outputs to inputs. Same rules: STP '
@@ -164,6 +176,13 @@ PART = {
             'Realtek RTL8211FD-CG: 10/100/1000Base-T transceiver between the '
             'FPGA\'s RGMII bus and the ETH jack. Managed over MDIO from the '
             'FPGA; reset and interrupt on bank 13 at 3.3 V.'),
+    'U31': ('HDMI protection and level shifter',
+            'TI TPD12S016: ESD clamps on the four HDMI pairs, DDC and CEC '
+            'level shifting from 3.3 V to 5 V, hot plug buffer and a 55 mA '
+            'current-limited 5 V for the cable.'),
+    'J73': ('HDMI OUT jack',
+            'Amphenol 10029449 HDMI type A socket: video out from FPGA bank '
+            '35, DVI-compatible, 720p60 and below.'),
     'J70': ('ETH jack',
             'HanRun HR911130A RJ45 with 1000Base-T magnetics and green/yellow '
             'LEDs. Green: link and activity; yellow: 1000 Mb/s link.'),
@@ -541,7 +560,7 @@ NET_PREFIX = {
     'U2': 'sets the switch\'s current limit (TI equation in design.py)',
     'SUP_': 'board controller to FPGA link (33 ohm series)',
 }
-COVERED = {'FPGA', 'Network', 'Power', 'Memory', 'Supervisor', 'Slots'}
+COVERED = {'FPGA', 'Network', 'Power', 'Memory', 'Supervisor', 'Slots', 'Video'}
 
 
 # Nets that are supplies, for telling a bypass capacitor from a filter one.
@@ -684,7 +703,7 @@ def check(parts):
 
 
 # ---------------------------------------------------------------- guide
-SHEET_ORDER = ['FPGA', 'Power', 'Memory', 'Supervisor', 'Slots', 'Network']
+SHEET_ORDER = ['FPGA', 'Power', 'Memory', 'Supervisor', 'Slots', 'Network', 'Video']
 SHEET_INTRO = {
     'FPGA': 'The Artix-7 itself, its decoupling, how it boots and its clock.',
     'Power': 'Inputs, the regulators that make every rail, extension power protection.',
@@ -692,6 +711,7 @@ SHEET_INTRO = {
     'Supervisor': 'The RP2350B board controller: USB, power sequencing, programming the FPGA.',
     'Slots': 'The ten extension ports: connectors, per-slot fuses, 5 V level shifting.',
     'Network': 'Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.',
+    'Video': 'HDMI output straight from the FPGA, with its protection chip.',
 }
 
 

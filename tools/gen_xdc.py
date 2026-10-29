@@ -27,7 +27,7 @@ PART = 'xc7a100tfgg676-2'
 # Bank -> VCCO -> single-ended standard. Banks 15 and 34 follow the J19/J20
 # jumpers; the file assumes the 3.3 V position, change both lines together.
 VCCO_STD = {'13': 'LVCMOS33', '14': 'LVCMOS33', '15': 'LVCMOS33',
-            '34': 'LVCMOS33', '16': 'LVCMOS25'}
+            '34': 'LVCMOS33', '16': 'LVCMOS25', '35': 'LVCMOS33'}
 # Input clocks: net -> (period ns, note)
 CLOCKS = {SYS_CLK: (20.0, 'X4, 50 MHz CMOS oscillator'),
           'PHY_RXC': (8.0, 'RTL8211FD-CG RXC at 1000 Mb/s, 2 ns RXDLY inside the PHY'),
@@ -38,12 +38,12 @@ CLOCKS = {SYS_CLK: (20.0, 'X4, 50 MHz CMOS oscillator'),
 def direction(net):
     """in / out / inout as the board sees the FPGA pin."""
     if net == SYS_CLK or re.match(r'PHY_(RXC|RXD\d|RX_CTL|INT_N)$|LINK_[PQ]_RX[CD]_[PN]$'
-                                  r'|SB_UART_RX$|DBG_T(CK|MS|DI)$|PUDC_B$', net):
+                                  r'|SB_UART_RX$|DBG_T(CK|MS|DI)$|PUDC_B$|HDMI_HPD$', net):
         return 'in'
     if re.match(r'PHY_(TXC|TXD\d|TX_CTL|MDC|RESET_N)$|LINK_[PQ]_TX[CD]_[PN]$|SB_UART_TX$'
-                r'|DBG_TDO$|BUS5V\d_(DIR|OE_N)$', net):
+                r'|DBG_TDO$|BUS5V\d_(DIR|OE_N)$|HDMI_(CLK|D\d)_[PN]$|HDMI_(CT_HPD|LS_OE)$', net):
         return 'out'
-    if re.match(r'SLOT[A-H]_IO\d+$|BUS5V\d_IO\d$|PHY_MDIO$|FLASH_|PSRAM\d_', net):
+    if re.match(r'SLOT[A-H]_IO\d+$|BUS5V\d_IO\d$|PHY_MDIO$|FLASH_|PSRAM\d_|HDMI_(SCL|SDA|CEC)$', net):
         return 'inout'
     raise ValueError(f'no direction rule for {net}')
 
@@ -60,6 +60,8 @@ def rows():
         bank = bank_of(names[ball])
         if n.startswith('LINK_'):
             std = 'LVDS_25'
+        elif re.match(r'HDMI_(CLK|D\d)_[PN]$', n):
+            std = 'TMDS_33'               # UG471: 3.3 V VCCO, 50 ohm to 3.3 V at the sink
         else:
             std = VCCO_STD[bank]
         out.append(dict(net=n, ball=ball, bank=bank, std=std, pkg=names[ball],
@@ -102,11 +104,12 @@ def xdc(rs):
 def verilog(rs):
     """Every port used: inputs fold into a register, outputs come from a
     counter, inouts get an IOBUF, LVDS pairs real differential buffers."""
-    ins = [r for r in rs if r['dir'] == 'in' and r['std'] != 'LVDS_25']
-    outs = [r for r in rs if r['dir'] == 'out' and r['std'] != 'LVDS_25']
+    DIFF = ('LVDS_25', 'TMDS_33')
+    ins = [r for r in rs if r['dir'] == 'in' and r['std'] not in DIFF]
+    outs = [r for r in rs if r['dir'] == 'out' and r['std'] not in DIFF]
     ios = [r for r in rs if r['dir'] == 'inout']
     lv_in = sorted({r['net'][:-2] for r in rs if r['std'] == 'LVDS_25' and r['dir'] == 'in'})
-    lv_out = sorted({r['net'][:-2] for r in rs if r['std'] == 'LVDS_25' and r['dir'] == 'out'})
+    lv_out = sorted({(r['net'][:-2], r['std']) for r in rs if r['std'] in DIFF and r['dir'] == 'out'})
     ports = []
     for r in rs:
         kw = {'in': 'input', 'out': 'output', 'inout': 'inout'}[r['dir']]
@@ -155,8 +158,8 @@ def verilog(rs):
     for i, r in enumerate(outs):
         o.append(f"    assign {r['net']} = cnt[{i % 20}] ^ fold ^ lvfold ^ iofold;")
     # LVDS transmit pairs
-    for i, base in enumerate(lv_out):
-        o.append(f'    OBUFDS #(.IOSTANDARD("LVDS_25")) ob_{i} '
+    for i, (base, std) in enumerate(lv_out):
+        o.append(f'    OBUFDS #(.IOSTANDARD("{std}")) ob_{i} '
                  f'(.I(cnt[{(i + 3) % 20}] ^ fold), .O({base}_P), .OB({base}_N));')
     o.append('endmodule')
     return '\n'.join(o) + '\n'

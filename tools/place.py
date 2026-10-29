@@ -51,12 +51,12 @@ def courtyard_wh(fp):
 # ------------------------------------------------------------- tier 2
 def layout_islands(fps, skip):
     """Stage every connectivity island as its own tight tile in columns to
-    the right of the board, in tools/islands.py order, matching the ISLxx
+    the right of the board, in tools/island_classes.py order, matching the ISLxx
     net classes one to one. Each tile is a box-selectable cluster: grab it
     whole, drop it on the board. Hubs not in the contract (U7) and the
     rail-only bulk groups are staged as tiles too. Parts inside a tile stay
     contiguous by schematic group."""
-    import islands as isl
+    import island_classes as isl
     rows, parts, local, hubs, loose = isl.compute()
     TILE_W, GAP, X0, Y0, YMAX, COL = 30.0, 4.0, 110.0, 0.0, 100.0, 36.0
 

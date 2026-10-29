@@ -56,6 +56,12 @@ LINK_PORTS = ('P', 'Q')
 LINK_PAIRS = ['TXC', 'TXD', 'RXD']           # plus RXC on the clock-capable pair
 # PHYRSTB and INTB are 3.3 V pins (RTL8211F Table 58 note): bank 13.
 BANK13_SINGLES = ['PHY_RESET_N', 'PHY_INT_N']
+# Bank 35 (3.3 V, the package's bottom-right corner as U1 is turned, facing
+# the bottom edge) drives HDMI: four TMDS_33 pairs, which need VCCO = 3.3 V
+# and are terminated by the monitor's 50 ohm pull-ups to 3.3 V (UG471,
+# TMDS_33), plus the TPD12S016's A-side lines and its two enables.
+HDMI_PAIRS = ['CLK', 'D0', 'D1', 'D2']
+HDMI_SINGLES = ['HDMI_HPD', 'HDMI_SCL', 'HDMI_SDA', 'HDMI_CEC', 'HDMI_CT_HPD', 'HDMI_LS_OE']
 
 def load():
     io, other = defaultdict(list), defaultdict(list)
@@ -185,7 +191,20 @@ def assign():
             net[p], net[n] = f'LINK_{port}_{name}_P', f'LINK_{port}_{name}_N'
     for b, n in zip(_take_singles(fp16, s16, used, len(rgmii)), rgmii): net[b] = n
 
+    # ---- bank 35: HDMI, shallowest first
+    fp35, s35 = pairs_and_singles(io['35'])
+    fp35 = _by_depth(fp35)
+    hdmi = OrderedDict()
+    for name, (p, n) in zip(HDMI_PAIRS, _take(fp35, used, len(HDMI_PAIRS))):
+        hdmi[name] = (p, n)
+        net[p], net[n] = f'HDMI_{name}_P', f'HDMI_{name}_N'
+    # the control lines take whole shallow pairs: the bank's leftover single
+    # balls sit deep in the package
+    ctl = [x for pr in _take(fp35, used, (len(HDMI_SINGLES) + 1) // 2) for x in pr]
+    for b, n in zip(ctl, HDMI_SINGLES): net[b] = n
+
     assign.link = link                    # for ballmap.py
+    assign.hdmi = hdmi
     return net, psram, sb, slots, io, other
 
 def check(net, io):
@@ -205,7 +224,7 @@ def check(net, io):
         p, n = inv[f'LINK_{port}_RXC_P'], inv[f'LINK_{port}_RXC_N']
         if tag not in names[p] or names[p].split('_')[1][:-1] != names[n].split('_')[1][:-1]:
             probs.append(f'LINK_{port}_RXC is not a {tag} pair')
-    for pre, bank in (('PHY_', '16'), ('LINK_', '16'), ('BUS5V', '13'), ('PSRAM', '14'), ('SLOTA', '15'), ('SLOTE', '34')):
+    for pre, bank in (('PHY_', '16'), ('LINK_', '16'), ('HDMI_', '35'), ('BUS5V', '13'), ('PSRAM', '14'), ('SLOTA', '15'), ('SLOTE', '34')):
         for n, b in inv.items():
             if n.startswith(pre) and n not in BANK13_SINGLES and not names[b].endswith('_' + bank):
                 probs.append(f'{n} on {b} is not in bank {bank}')

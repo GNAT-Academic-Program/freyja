@@ -1,0 +1,272 @@
+# Layout profiles for tools/islands.py, one per IC family, each derived from the
+# datasheet layout example. The audit behind every entry is ref/island-layouts.md.
+# Keys are substrings of the anchor's Value field. Rules run in order; a part takes
+# the first rule that matches it; parts no rule matches get the generic rules.
+#
+#   match:  prefix: R|C|L     reference prefix
+#           pin: ROLE         the part has a pad on the net of that pin
+#           cap_between: [A, B]   a capacitor between the nets of pins A and B;
+#                             OUT is the regulator output rail, GND is GND
+#           between: [A, B]   any part whose two nets are the nets of pins A and B
+#                             (a divider resistor between OUT and FB, or FB and GND)
+#           value: 4.7uF      the Value field's first token (4u7, 4.7uF, 4.7 uF match)
+#   place:  side: ROLE        a row outside the side holding that pin, the pad on
+#                             the pin's net facing it
+#           outside: NAME     the row starts beyond the parts an earlier rule NAME
+#                             placed (stacking inner to outer, as in a figure)
+#           flank: ROLE       a row on the flank next to that pin's corner, level
+#           flank: opposite ROLE   with the IC; or the opposite flank
+#           face: {NET: dir}  the pad on NET (a pin role, OUT or GND) points
+#                             inward, outward, N, E, S or W (chip frame, as in the
+#                             datasheet figure at rotation 0); a pad pointing along
+#                             the edge makes the part lie along it, which is how
+#                             a flank is filled compactly
+#           overhang: MM      a side row may pass the corners by MM (small packages:
+#                             two 0603 across a 2.7 mm WQFN side need 0.3)
+#           at: pin           a flank part sits at the pin's corner, not mid-flank
+#           dir: N|E|S|W      a row on that side (figure frame), each part at its own
+#           dir: inboard      pin; inboard/outboard is the long side facing the board
+#                             centre or away from it (a chunk in the lot: S or E)
+#           lie: along        the part lies lengthwise along the edge
+#           gap: MM           distance from the anchor courtyard for this rule
+#                             (default --ring-gap)
+#   figure_rotation: R  the footprint rotation at which it looks like the datasheet
+#                       figure; face directions are the figure's own. Check the
+#                       footprint's pin positions at rotation 0 against the figure
+#                       before writing a profile (the TSOT26 is upside down).
+#
+# General rules (learned on U13, 2026-10-28): caps on one node share one outward
+# GND edge so one pour strip serves them; parts beside a flank lie along it and
+# stack along it; a divider's shared-net pads sit in one column at the pin they
+# serve.
+
+TLV62569:
+  source: TLV62569 datasheet SLVSDG1C, 10.1 Layout Guidelines and 10.2 Layout Example, Figure 21 (DRL); output caps and divider amended by hand on U13 (ref/island-layouts.md)
+  pins: {FB: 1, GND: 2, VIN: 3, SW: 4, EN: 5}
+  rules:
+    - name: inductor at SW
+      match: {prefix: L, pin: SW}
+      place: {side: SW}
+    - name: input cap on the VIN flank, GND toward the GND pin row
+      match: {cap_between: [VIN, GND]}
+      place: {flank: VIN, face: {GND: S}}
+    - name: output caps along the far flank, one shared GND edge outward
+      match: {cap_between: [OUT, GND]}
+      place: {flank: opposite VIN, face: {GND: outward}}
+    - name: feedback divider along the FB row, FB pads in one column at pin FB
+      match: {prefix: R, pin: FB}
+      place: {side: FB, face: {FB: W}}
+    - name: enable pull-down at EN
+      match: {prefix: R, pin: EN}
+      place: {side: EN}
+
+TPS22950:
+  source: TPS22950 datasheet SLVSFJ2B, 10.4.1 Layout Guidelines and Figure 10-4 (SOT6 layout example)
+  pins: {ON: 1, VIN: 2, GND: 3, ILIM: 4, VOUT: 5, FLT: 6}
+  rules:
+    - name: input cap at VIN
+      match: {cap_between: [VIN, GND]}
+      place: {side: VIN}
+    - name: current-limit resistor at ILIM
+      match: {prefix: R, pin: ILIM}
+      place: {side: ILIM}
+
+SN74LXC8T245:
+  source: SN74LXC8T245 datasheet SCES916A, 11.1 Layout Guidelines and Figure 11-1 (two 0.1 uF bypass caps at the VCC end of the package, GND pads meeting at one shared GND via)
+  pins: {VCCA: 1, DIR: 2, GND: 12, OE: 22, VCCB: 24}
+  rules:
+    - name: VCCA bypass at pin 1, GND toward the shared via
+      match: {cap_between: [VCCA, GND]}
+      place: {side: VCCA, face: {GND: N}}
+    - name: VCCB bypass at pin 24, GND toward the shared via
+      match: {cap_between: [VCCB, GND]}
+      place: {side: VCCB, face: {GND: S}}
+    - name: OE pull-up at pin 22
+      match: {prefix: R, pin: OE}
+      place: {side: OE}
+
+TPD12S016:
+  source: TPD12S016 datasheet SLLSE96F, 10.1 Layout Guidelines and 10.2 Figure 19 (RKT layout example; the PW package keeps the same pin order), Figure 18 for the three 0.1 uF caps
+  pins: {CEC_A: 1, LS_OE: 5, GND: 6, VCC5V: 11, CT_HPD: 12, 5V_OUT: 13, VCCA: 24}
+  rules:
+    - name: VCCA bypass at pin 24
+      match: {cap_between: [VCCA, GND]}
+      place: {side: VCCA}
+    - name: VCC5V bypass at pin 11
+      match: {cap_between: [VCC5V, GND]}
+      place: {side: VCC5V}
+    - name: 5V_OUT bypass at pin 13
+      match: {cap_between: [5V_OUT, GND]}
+      place: {side: 5V_OUT}
+    - name: CT_HPD pull-up at pin 12
+      match: {prefix: R, pin: CT_HPD}
+      place: {side: CT_HPD}
+    - name: LS_OE pull-up at pin 5
+      match: {prefix: R, pin: LS_OE}
+      place: {side: LS_OE}
+
+RP2350:
+  source: RP2350 datasheet 6.3.8 External components and PCB layout requirements, Figure 26 (Pico 2 regulator layout, pins FB VIN LX PGND AVDD left to right); one 100 nF per power pin per RP-008280 2.2.1 is left to the generic ring
+  pins: {AVDD: 61, PGND: 62, LX: 63, VIN: 64, FB: 65}
+  rules:
+    # Figure 26, inner to outer on the regulator pin side: CIN lies across VIN
+    # and PGND against the pins, COUT lies just outside it (must sit between
+    # VREG_VIN and VREG_PGND), the inductor outermost with its LX pad over the
+    # LX/PGND end; the AVDD RC filter stands in a column at the AVDD end, CFILT
+    # inner with its GND pad toward the chip, RFILT outer with the AVDD pad
+    # toward the chip. CIN keeps its own GND via; CFILT shares no via with
+    # CIN/COUT (6.3.8.1).
+    - name: CIN
+      match: {cap_between: [VIN, GND], value: 4.7uF}
+      place: {side: VIN, face: {GND: E}}
+    - name: COUT
+      match: {cap_between: [OUT, GND], value: 4.7uF}
+      place: {side: LX, face: {GND: E}, outside: CIN}
+    - name: L
+      match: {prefix: L, pin: LX}
+      place: {side: LX, face: {LX: E}, outside: COUT}
+    - name: CFILT
+      match: {cap_between: [AVDD, GND]}
+      place: {side: AVDD, face: {GND: inward}}
+    - name: RFILT
+      match: {prefix: R, pin: AVDD}
+      place: {side: AVDD, face: {AVDD: inward}, outside: CFILT}
+
+AP63300:
+  source: AP63300/AP63301 datasheet DS42002 Rev. 3-2 (Diodes, August 2019), Layout p. 19, Figure 39 Recommended PCB Layout; pin table p. 3 (TSOT26 FB 1, EN 2, VIN 3, GND 4, SW 5, BST 6)
+  pins: {FB: 1, EN: 2, VIN: 3, GND: 4, SW: 5, BST: 6}
+  # The KiCad TSOT26 footprint at rotation 0 has pin 1 at the E side bottom;
+  # Figure 39 draws pin 1 at the W side top, so the footprint turned by 180
+  # looks like the figure. Directions below are the figure's.
+  figure_rotation: 180
+  rules:
+    # Figure 39, chip drawn with FB/EN/VIN down the W side and BST/SW/GND down
+    # the E side. L stands E of SW. C3 (BST) lies along the N flank at the BST
+    # corner, SW pad toward L. C1 (input) lies along the S flank under VIN, GND
+    # pad toward the GND pin; C2 (output) lies along the S flank under GND, GND
+    # pad toward C1, so the two caps share the GND copper between them. R1
+    # (VOUT to FB) stands W of FB with the FB pad up and C4 (feed-forward)
+    # stands beside it, outside; R2 (FB to GND) lies along the N flank at the
+    # FB corner with the GND pad E. Guidelines 2 to 5: input caps across VIN
+    # and GND, L at SW, output caps at GND, feedback parts at FB, all close.
+    # The EN pull-down is not in the figure; it stands under R1 along the W edge.
+    - name: inductor at SW
+      match: {prefix: L, pin: SW}
+      place: {side: SW}
+    - name: bootstrap cap along the N flank at BST, SW pad toward L
+      match: {cap_between: [BST, SW]}
+      place: {flank: BST, face: {SW: E}}
+    - name: input cap along the S flank under VIN, GND pad toward the GND pin
+      match: {cap_between: [VIN, GND]}
+      place: {flank: VIN, face: {GND: E}}
+    - name: output caps along the S flank under GND, GND pad toward the input cap
+      match: {cap_between: [OUT, GND]}
+      place: {flank: GND, face: {GND: W}}
+    - name: upper divider W of FB
+      match: {prefix: R, between: [OUT, FB]}
+      place: {side: FB, face: {FB: N}}
+    - name: feed-forward cap beside the upper divider, outside
+      match: {cap_between: [OUT, FB]}
+      place: {side: FB, face: {FB: N}, outside: upper divider W of FB}
+    - name: lower divider along the N flank at FB, GND pad E
+      match: {between: [FB, GND]}
+      place: {flank: FB, face: {GND: E}}
+    - name: enable pull-down under the divider along the W edge
+      match: {prefix: R, pin: EN}
+      place: {side: EN, face: {GND: S}}
+
+TPS259470:
+  source: TPS25947 datasheet SLVSFC9C (TI, rev. May 2026), 8.4.1 Layout Guidelines and 8.4.2 Figure 8-22 Layout Example; pin table 5-1 (RPW WQFN-10 EN/UVLO 1, OVLO 2, FLT 4, IN 5, OUT 6, DVDT 7, GND 8, ILM 9, ITIMER 10)
+  pins: {UVLO: 1, OVLO: 2, FLT: 4, IN: 5, OUT: 6, DVDT: 7, GND: 8, ILM: 9, ITIMER: 10}
+  # Directions are the KiCad footprint's at rotation 0: pins 1 to 3 down the W
+  # side, 4 to 6 down the E side, 7 to 10 along the N edge. 8.4.1: the
+  # 0.1 uF decoupling cap closest to the IN and GND terminals with the
+  # smallest loop; RILM, CdVdT, CITIMER and the EN/UVLO, OVLO divider
+  # resistors close to their pins, their other end to the GND pin by the
+  # shortest trace; GND a quiet plane island. Figure 8-22 shows the caps
+  # across the pins they serve and the resistors in a block at their pins.
+  # This board has the 10 uF bulk cap but no 0.1 uF at IN [verify]; the
+  # OR-ing FET gate RC (R46, C183 on VBUS/VBUS5_GATE) sits in this island by
+  # nearest anchor and goes outside the input cap.
+  rules:
+    - name: input cap on the IN side
+      match: {cap_between: [IN, GND]}
+      place: {side: IN, face: {GND: N}}
+    - name: dVdT cap along the N edge over pins 7 and 8
+      match: {cap_between: [DVDT, GND]}
+      place: {side: DVDT, face: {GND: W}}
+    - name: ILM resistor across the N edge at pin 9
+      match: {between: [ILM, GND]}
+      place: {side: ILM}
+    - name: UVLO divider across the W edge at pin 1
+      match: {prefix: R, pin: UVLO}
+      place: {side: UVLO, overhang: 0.3}
+    - name: OVLO divider across the W edge outside the UVLO divider
+      match: {prefix: R, pin: OVLO}
+      place: {side: OVLO, outside: UVLO divider across the W edge at pin 1, overhang: 0.3}
+    - name: OR-ing gate RC on IN outside the input cap
+      match: {pin: IN}
+      place: {side: IN, outside: input cap on the IN side, overhang: 0.3}
+
+SY8047:
+  source: no datasheet reachable (LCSC bot gate, 2026-10-28); pin roles read from the board nets (TQFN-16 3x3, SW 1 2, PG 4, FB 5, GND 6 14 15 17, SS 9, SVIN 10, VIN 11 12, EN 13), layout from common synchronous buck practice as in the TLV62569 and AP63300 figures [verify against the SY8047 datasheet layout page when it is in ref/datasheets/]
+  pins: {SW: 1, PG: 4, FB: 5, GND: 14, SS: 9, SVIN: 10, VIN: 11, EN: 13}
+  # Footprint frame at rotation 0: SW pins on the W side, FB and a GND pin on
+  # the S side, SS, SVIN, VIN on the E side, EN and two GND pins on the N
+  # side. Input cap lies along the E edge across VIN and the N-corner GND
+  # pin; L stands W of SW; output caps lie along the N edge with GND pads
+  # over pins 14/15 and the output pads toward L; the SVIN filter cap and its
+  # 10 R stacked outside the input cap at pin 10; SS cap on the S flank at its
+  # corner; the FB network in one row at pin 5 with the low resistor lying
+  # across FB and GND pin 6; PG pull-up at pin 4 beside L; EN pull at 13.
+  rules:
+    - name: inductor at SW
+      match: {prefix: L, pin: SW}
+      place: {side: SW}
+    - name: input cap along the E edge across VIN and the GND corner
+      match: {cap_between: [VIN, GND]}
+      place: {side: VIN, face: {GND: N}}
+    - name: output caps along the N edge over the GND pins
+      match: {cap_between: [OUT, GND]}
+      place: {side: GND, face: {GND: E}}
+    - name: SVIN filter cap at pin 10 beside the input cap
+      match: {cap_between: [SVIN, GND]}
+      place: {side: SVIN, overhang: 0.5}
+    - name: SVIN filter resistor outside its cap
+      match: {between: [VIN, SVIN]}
+      place: {side: SVIN, outside: SVIN filter cap at pin 10 beside the input cap}
+    - name: soft-start cap on the S flank at the SS corner
+      match: {cap_between: [SS, GND]}
+      place: {flank: SS, at: pin}
+    - name: FB network in one row at pin 5 with the low resistor across FB and GND pin 6
+      match: {pin: FB}
+      place: {side: FB, face: {GND: E}, overhang: 0.5}
+    - name: power-good pull-up at pin 4
+      match: {prefix: R, pin: PG}
+      place: {side: PG}
+    - name: enable pull at pin 13
+      match: {prefix: R, pin: EN}
+      place: {side: EN}
+
+XFCN PM254V-11-07:
+  source: no datasheet layout (a 7-pin power header); owner's own hand placement of slot rows J53, J62, J54, J63, J55 on the morning of 2026-10-28 (check_positions snapshot before the first island apply), pins 1 PIN_VOLTAGE, 2 GND, 3 3V3, 4 GND, 5 5V, 6 GND, 7 AUX
+  pins: {PINV: 1, V3: 3, V5: 5, AUX: 7}
+  rules:
+    # The owner's rows: one line 2.3 to 2.5 mm off the pins on the side facing
+    # the board edge, in pin order: fuse and 10 uF on PIN_VOLTAGE, fuse and
+    # 100 nF on 3V3, fuse on 5V, each at its own pin; the AUX fuse on the
+    # side facing the board centre, near the pin 1 end, 4.3 mm off the pins.
+    - name: AUX fuse on the inboard side
+      match: {pin: AUX}
+      place: {dir: inboard}
+    - name: slot power row on the outboard side
+      match: {}
+      place: {dir: outboard, lie: along, gap: 0.15, overhang: 1.5}
+
+LINK :
+  source: no layout figure; TI TPD4E1U06 datasheet guidance (ESD arrays as close to the connector pins as possible, before any other part on the line) and the RJ45 pin row on the N edge of the footprint at rotation 0
+  pins: {}
+  rules:
+    - name: ESD arrays in one row along the pin edge, each at its own pins
+      match: {prefix: D}
+      place: {dir: N}

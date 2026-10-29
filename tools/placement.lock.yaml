@@ -1,0 +1,14 @@
+# Placement rule for tools/islands.py (owner, 2026-10-28, replaces the first
+# lock list, which was a safety brake while the placer was new).
+#
+# Position decides, for one footprint, first match wins:
+#   1. inside the board outline                 -> stays (hand placement)
+#   2. the anchor of the run                    -> anchor
+#   3. in another island's 'island X' group     -> belongs to that island
+#   4. prefix in anchor_families                -> anchor (moves only as the
+#                                                  anchor of its own chunk)
+#   5. otherwise                                -> free to move
+# Move a part onto the board and it stays there. islands.py prints the
+# resulting table on every run. Edited by hand, never written by a script.
+
+anchor_families: [U, J, X, Y, SW, MK]
