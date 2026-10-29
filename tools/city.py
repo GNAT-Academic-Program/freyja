@@ -142,9 +142,12 @@ CRITICAL = {
 # Per side: blocks in order left to right, the block aligned on the column,
 # and the net whose balls set the column (their mean x).
 DOORS = {
-    'top': (['U16', 'U15', 'U14'], 'U15', '+1V0',
+    'top': (['U11', 'U34', 'U16', 'U15', 'U14'], 'U15', '+1V0',
             '1.0 V core (U15, 4 A) straight down the middle column on In3; 1.8 V (U14) '
-            'and 1.2 V (U16) beside it, fed on In5 through the same door'),
+            'and 1.2 V (U16) beside it, fed on In5 through the same door; U11 and the '
+            '+5V mux U34 open the row at the DC-input end, so U11 -> U34 -> the three '
+            '5 V converters is one straight path along the door and U26 keeps its place '
+            'at the USB connector (re-audit 2026-10-29, item 57)'),
     'bottom': (['U13'], 'U13', '+1V0',
                '2.5 V up the middle column from below, then left on In3 under the bank 16 '
                'corner; the PHY beside it shares the rail'),
