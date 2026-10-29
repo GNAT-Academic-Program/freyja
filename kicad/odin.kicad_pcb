@@ -15632,7 +15632,7 @@
 	(footprint "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm"
 		(layer "F.Cu")
 		(uuid "293169d7-f977-4b02-b6c2-c5421c474f29")
-		(at 697.19 93.75 180)
+		(at 433.16 113.27 180)
 		(descr "slots A-D PIN V switch: TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_1 to the PIN V pin of slots A-D. Blocks reverse current while off; the slot fuses limit the current.")
 		(tags "Texas WSON NoLead")
 		(property "Reference" "U23"
@@ -18621,11 +18621,11 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "327ff684-8b3a-4f57-bb17-c1fb0e7a58aa")
-		(at 697.19 90.06 90)
+		(at 434.06 116.55 -90)
 		(descr "1uF bypass on VCCIO_1, for U23 (slots A-D PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C220"
-			(at 0 -1.43 90)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "57a784d5-95ed-4506-b406-3722b76825aa")
 			(effects
@@ -18636,7 +18636,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 0 1.43 90)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "62b9ccba-2d5a-41d8-9a25-377e3d65a1df")
 			(effects
@@ -18647,7 +18647,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e3e68638-e85a-4052-80e2-8b690c6f2aa5")
@@ -18659,7 +18659,7 @@
 			)
 		)
 		(property "Description" "1uF bypass on VCCIO_1, for U23 (slots A-D PIN V switch)"
-			(at 0 0 90)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c0a6e99d-102d-4a8c-a225-4fb7928f0ca7")
@@ -18671,7 +18671,7 @@
 			)
 		)
 		(property "LCSC Part" "C29936"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "1754208b-d792-412c-ab77-f850d19d33d1")
@@ -18726,7 +18726,7 @@
 			(uuid "b0db9081-f94b-4873-825c-ebd5e71e70c9")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "5705a50c-3ff2-4e22-9e93-250ae1f15c51")
 			(effects
@@ -18737,7 +18737,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.775 0 90)
+			(at -0.775 0 270)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -18745,7 +18745,7 @@
 			(uuid "f21b49f6-c8ff-40ec-b7cf-78e06b6dffd6")
 		)
 		(pad "2" smd roundrect
-			(at 0.775 0 90)
+			(at 0.775 0 270)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -20042,7 +20042,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "362a86d8-645b-4b44-9b83-9f81d91f7ddf")
-		(at 696.18 87.12 90)
+		(at 432.15 110.56 90)
 		(descr "1nF 50V filter capacitor on U23_CT, for U23 (slots A-D PIN V switch): sets how fast U23 ramps its output, about 1.5 ms (TPS22953 CT)")
 		(tags "capacitor")
 		(property "Reference" "C272"
@@ -20724,7 +20724,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "3a586a72-344b-4692-bd5c-0777e04c0ec0")
-		(at 703.62 93.75)
+		(at 436.25 113.27)
 		(descr "100nF bypass on +3V3, for U23 (slots A-D PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C271"
@@ -55977,7 +55977,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "932acc0c-fef3-4f4c-840a-fb3a374999bd")
-		(at 696.29 97.03 -90)
+		(at 432.26 116.55 -90)
 		(descr "1uF bypass on VCCIO_1_EXT, for U23 (slots A-D PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C273"
@@ -56854,7 +56854,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "948fad0b-066d-45de-843b-20b2ee57c26d")
-		(at 700.68 92.82)
+		(at 436.82 111.97)
 		(descr "100k pull-down on EXT_EN, for U7 (board controller): from the board controller: turns extension power on; off by default")
 		(tags "resistor")
 		(property "Reference" "R72"
@@ -108392,28 +108392,6 @@
 		(uuid "d0a47b5c-428f-4cef-bea8-6276e4f80e8c")
 	)
 	(gr_rect
-		(start 694.035 78.565)
-		(end 706.055 84.685)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "3eea2275-c066-48a3-8791-16d57cd45f42")
-	)
-	(gr_rect
-		(start 694.035 84.685)
-		(end 706.055 100.035)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "2d8ef768-89cd-4308-b6dd-afed9f476e17")
-	)
-	(gr_rect
 		(start 700.595 146.295)
 		(end 727.325 150.455)
 		(stroke
@@ -109550,18 +109528,6 @@
 			(justify left top)
 		)
 	)
-	(gr_text "slots A-D PIN V\nswitch\nTPS22953, 6 parts,\n2026-10-29"
-		(at 694.435 80.465 0)
-		(layer "Cmts.User")
-		(uuid "19041e91-3bfd-415a-8d24-e65799a6a331")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
 	(gr_text "microSD socket\ngeneric, 8 parts, 2026-10-29"
 		(at 700.995 148.195 0)
 		(layer "Cmts.User")
@@ -110330,18 +110296,6 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island U23"
-		(at 694.435 80.165 0)
-		(layer "Cmts.User")
-		(uuid "b445ef3e-c17e-4586-a31b-b4559450c687")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
 	(gr_text "island J74"
 		(at 700.995 147.895 0)
 		(layer "Cmts.User")
@@ -111026,15 +110980,6 @@
 			"fd263597-ce13-4f62-804f-64a63325f965"
 		)
 	)
-	(group "island U23"
-		(uuid "4c590515-e749-4d65-8e76-d42c3dd01294")
-		(members "19041e91-3bfd-415a-8d24-e65799a6a331" "293169d7-f977-4b02-b6c2-c5421c474f29"
-			"2d8ef768-89cd-4308-b6dd-afed9f476e17" "327ff684-8b3a-4f57-bb17-c1fb0e7a58aa"
-			"362a86d8-645b-4b44-9b83-9f81d91f7ddf" "3a586a72-344b-4692-bd5c-0777e04c0ec0"
-			"3eea2275-c066-48a3-8791-16d57cd45f42" "932acc0c-fef3-4f4c-840a-fb3a374999bd"
-			"948fad0b-066d-45de-843b-20b2ee57c26d" "b445ef3e-c17e-4586-a31b-b4559450c687"
-		)
-	)
 	(group "island U16"
 		(uuid "548aa110-c35a-48e1-92a0-35bea6b58221")
 		(members "1757b1c4-491c-48fb-809d-62eb3fef5cf5" "17fa6aba-c039-4e54-804e-99aa4caa5e85"
@@ -111711,6 +111656,67 @@
 			"82a6b1e5-a320-46f6-b4e4-fa684a80d6bd"
 			"d8e68604-36d9-4c97-8b1e-95c4fe23d73b"
 			"9e4298d7-e27e-4dfc-b926-3805b295719f"
+		)
+	)
+	(gr_rect
+		(start 430.005 108.125)
+		(end 441.005 119.555)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "8b080f37-0c15-44bc-a8a9-eae259f46630")
+	)
+	(gr_rect
+		(start 430.005 102.005)
+		(end 441.005 108.125)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "71819962-7e51-4499-8beb-5c508cf6afc4")
+	)
+	(gr_text "island U23"
+		(at 430.405 103.605 0)
+		(layer "Cmts.User")
+		(uuid "fead3ecd-c521-4e02-bf4a-70531ff9077b")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "slots A-D PIN V\nswitch\nTPS22953, 6\nparts, 2026-10-29"
+		(at 430.405 103.905 0)
+		(layer "Cmts.User")
+		(uuid "5ca22f57-a893-4be7-841a-fc3adef11167")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U23"
+		(uuid "ca2503a1-870c-4a08-9a70-872f8e976b69")
+		(members
+			"8b080f37-0c15-44bc-a8a9-eae259f46630"
+			"71819962-7e51-4499-8beb-5c508cf6afc4"
+			"fead3ecd-c521-4e02-bf4a-70531ff9077b"
+			"5ca22f57-a893-4be7-841a-fc3adef11167"
+			"293169d7-f977-4b02-b6c2-c5421c474f29"
+			"327ff684-8b3a-4f57-bb17-c1fb0e7a58aa"
+			"3a586a72-344b-4692-bd5c-0777e04c0ec0"
+			"362a86d8-645b-4b44-9b83-9f81d91f7ddf"
+			"932acc0c-fef3-4f4c-840a-fb3a374999bd"
+			"948fad0b-066d-45de-843b-20b2ee57c26d"
 		)
 	)
 )
