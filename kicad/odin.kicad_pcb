@@ -4055,11 +4055,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "09c3b006-ad6f-42da-aad1-ce0a29abbb9d")
-		(at 87.095 299.001231)
+		(at 438.94 213.14 90)
 		(descr "10k pull-down on PSRAM1_IO3_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R185"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "824ff834-ad85-4daa-8de8-1e5b99f78fc6")
 			(effects
@@ -4070,7 +4070,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "d79c1c8f-5812-415a-adfb-8ac630a3c2df")
 			(effects
@@ -4081,7 +4081,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "70c4206a-96fe-449b-8f32-f11ffc2b9969")
@@ -4093,7 +4093,7 @@
 			)
 		)
 		(property "Description" "10k pull-down on PSRAM1_IO3_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8288479c-220d-4c67-b483-ef83df977f57")
@@ -4148,7 +4148,7 @@
 			(uuid "538fbe69-1488-4dac-8dec-d6c383653098")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "336962ca-c5ea-480c-9c3a-58bd330eca94")
 			(effects
@@ -4159,7 +4159,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -4167,7 +4167,7 @@
 			(uuid "fefe9024-9023-4ad6-b30b-a13841c18599")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -20189,7 +20189,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3963bedc-d6b4-452c-8e42-194fd4a54a6a")
-		(at 57.044999 299.001231)
+		(at 433 221.25)
 		(descr "10k pull-up of PSRAM1_CE_B_MEM to +1V8_IO, for U3 (PSRAM 1): CE# high and tracking VDD from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R180"
@@ -22791,11 +22791,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3e310abd-6037-44fe-bc02-14b608ba415c")
-		(at 63.054999 299.001231)
+		(at 440.76 213.14 90)
 		(descr "10k pull-down on PSRAM1_SCK_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R181"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "5d6ae803-a942-4628-90b5-65e8d9837643")
 			(effects
@@ -22806,7 +22806,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "81252503-e8f9-450a-b289-da8b56fa1d7b")
 			(effects
@@ -22817,7 +22817,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8d37ad7f-360f-471e-a02a-85210117dc01")
@@ -22829,7 +22829,7 @@
 			)
 		)
 		(property "Description" "10k pull-down on PSRAM1_SCK_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "63dc0a76-a81f-47ef-a0c5-8fed92fabfff")
@@ -22884,7 +22884,7 @@
 			(uuid "ebb78c89-9dce-48fb-b9ca-17747f90170a")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "d91faffa-eaac-45a9-a917-f9859e3b666a")
 			(effects
@@ -22895,7 +22895,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -22903,7 +22903,7 @@
 			(uuid "3acef753-bb0a-4db0-9a24-92e6276d3735")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -24648,7 +24648,7 @@
 	(footprint "EasyEDA:SOIC-8_L4.9-W3.9-P1.27-LS6.0-BL"
 		(layer "F.Cu")
 		(uuid "45079f01-7912-47e5-9fb7-05cfe9238e77")
-		(at 723.21 150.75)
+		(at 439.85 218.65)
 		(descr "PSRAM 1: AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.")
 		(property "Reference" "U3"
 			(at 0 -6.6 0)
@@ -25038,7 +25038,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "45d712a4-5bab-40b0-9f7e-698dca3316dd")
-		(at 719.3 148.15 180)
+		(at 435.94 216.05 180)
 		(descr "100nF bypass on +1V8_IO, for U3 (PSRAM 1)")
 		(tags "capacitor")
 		(property "Reference" "C112"
@@ -63610,7 +63610,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "a7c4c890-a11d-41a4-93c3-24f7cb6adeb3")
-		(at 69.064999 299.001231)
+		(at 444.33 216.05)
 		(descr "10k pull-down on PSRAM1_IO0_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R182"
@@ -93244,11 +93244,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "d18447b6-6d37-44c4-bb1b-05d4ff8e1ce2")
-		(at 75.074999 299.001231)
+		(at 438.94 224.16 -90)
 		(descr "10k pull-down on PSRAM1_IO1_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R183"
-			(at 0 -1.43 0)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "6b8536ae-703b-44e8-b869-7dca6e85f640")
 			(effects
@@ -93259,7 +93259,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "9e014766-e5aa-481b-a597-9e9bfb0f7d06")
 			(effects
@@ -93270,7 +93270,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7b428bc1-6e0c-4ecf-b878-e4d13a002339")
@@ -93282,7 +93282,7 @@
 			)
 		)
 		(property "Description" "10k pull-down on PSRAM1_IO1_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8)"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ab0fa93f-fbbc-464f-b39d-0bb7b01db498")
@@ -93337,7 +93337,7 @@
 			(uuid "bc3a6c2a-eb6b-4927-aefc-400e3f4685c7")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "b4387b11-b47f-4de8-a5fe-ce02c076ac48")
 			(effects
@@ -93348,7 +93348,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -93356,7 +93356,7 @@
 			(uuid "9a8ade6b-66c8-48c2-9d5a-ed680fa0394c")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -102138,11 +102138,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f03525fe-d514-47e0-a114-be8752d58b1b")
-		(at 81.085 299.001231)
+		(at 440.76 224.16 -90)
 		(descr "10k pull-down on PSRAM1_IO2_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R184"
-			(at 0 -1.43 0)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "71bc1658-99d8-45f4-a5ef-c731a3337acb")
 			(effects
@@ -102153,7 +102153,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "4e6a342c-6aa2-4563-8313-c917c838627c")
 			(effects
@@ -102164,7 +102164,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f832aa24-4c5e-4c16-8824-4daa1c1ce0d4")
@@ -102176,7 +102176,7 @@
 			)
 		)
 		(property "Description" "10k pull-down on PSRAM1_IO2_MEM, for U3 (PSRAM 1): holds the line low from power-up until the FPGA drives it (APS6404L section 8)"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6caa754d-ab78-4ffa-a46f-3d21bb68145a")
@@ -102231,7 +102231,7 @@
 			(uuid "275dc446-4a8d-4828-99ca-f4077b5ba924")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "1add194b-e9d3-4fa6-9034-2c042270466a")
 			(effects
@@ -102242,7 +102242,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -102250,7 +102250,7 @@
 			(uuid "163f5f8d-075f-4f94-a76d-bbd7800146bd")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -108298,69 +108298,6 @@
 		)
 	)
 	(gr_rect
-		(start 716.865 143.335)
-		(end 729.595 158.165)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "36b7b90c-3f9f-4271-91cd-469930f67028")
-	)
-	(gr_rect
-		(start 716.865 138.195)
-		(end 729.595 143.335)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "f34b5ab2-83f0-41f2-b2ec-b4a3d8f81485")
-	)
-	(gr_text "island U3"
-		(at 717.265 139.795 0)
-		(layer "Cmts.User")
-		(uuid "1719d0c2-1c45-4131-8c61-3c825a5a43b4")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "PSRAM 1\ngeneric, 8 parts,\n2026-10-28"
-		(at 717.265 140.095 0)
-		(layer "Cmts.User")
-		(uuid "097e3d42-8ebc-40a1-8d10-345748b154df")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(group "island U3"
-		(uuid "0400583b-3d2c-48d1-bb1e-3767b2c11470")
-		(members
-			"36b7b90c-3f9f-4271-91cd-469930f67028"
-			"f34b5ab2-83f0-41f2-b2ec-b4a3d8f81485"
-			"1719d0c2-1c45-4131-8c61-3c825a5a43b4"
-			"097e3d42-8ebc-40a1-8d10-345748b154df"
-			"45079f01-7912-47e5-9fb7-05cfe9238e77"
-			"45d712a4-5bab-40b0-9f7e-698dca3316dd"
-			"a8324be9-6967-4661-83e7-14d3dffaa36d"
-			"fdda04d7-8382-41a8-9ee9-784c9bd3229c"
-			"0fbd1e91-08c2-4eee-85ae-7ad9becd5010"
-			"e8789f12-d404-48b0-9d5a-a6381383d8b6"
-			"acff2393-1176-4757-9604-301f4ef8d73a"
-			"2a63769c-15d3-43d1-9719-71121cb0231f"
-		)
-	)
-	(gr_rect
 		(start 731.925 97.495)
 		(end 788.075 157.865)
 		(stroke
@@ -110521,6 +110458,69 @@
 			"e0c023ee-14ac-4127-b7a2-7768ec8c585d"
 			"3660f2c9-b7f4-47bd-80c0-d37c57ade2e1"
 			"98ed041d-d67b-41e6-9ee7-152f4c22d483"
+		)
+	)
+	(gr_rect
+		(start 429.995 210.135)
+		(end 447.335 227.165)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "8d906fbd-5f3d-42cc-97ae-8efe25c9eae6")
+	)
+	(gr_rect
+		(start 429.995 204.995)
+		(end 447.335 210.135)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "7f16676c-7da7-4a9d-bbab-adfb8189b9fa")
+	)
+	(gr_text "island U3"
+		(at 430.395 206.595 0)
+		(layer "Cmts.User")
+		(uuid "99b7319c-2876-4b05-ae32-60378f79eb42")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "PSRAM 1\ngeneric, 8 parts,\n2026-10-29"
+		(at 430.395 206.895 0)
+		(layer "Cmts.User")
+		(uuid "a6f036fc-8542-40fe-a7ae-503c81bbd6ba")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U3"
+		(uuid "dd6907a6-35bb-4e58-a61b-a019008c12e1")
+		(members
+			"8d906fbd-5f3d-42cc-97ae-8efe25c9eae6"
+			"7f16676c-7da7-4a9d-bbab-adfb8189b9fa"
+			"99b7319c-2876-4b05-ae32-60378f79eb42"
+			"a6f036fc-8542-40fe-a7ae-503c81bbd6ba"
+			"45079f01-7912-47e5-9fb7-05cfe9238e77"
+			"45d712a4-5bab-40b0-9f7e-698dca3316dd"
+			"3963bedc-d6b4-452c-8e42-194fd4a54a6a"
+			"3e310abd-6037-44fe-bc02-14b608ba415c"
+			"a7c4c890-a11d-41a4-93c3-24f7cb6adeb3"
+			"d18447b6-6d37-44c4-bb1b-05d4ff8e1ce2"
+			"f03525fe-d514-47e0-a114-be8752d58b1b"
+			"09c3b006-ad6f-42da-aad1-ce0a29abbb9d"
 		)
 	)
 )
