@@ -353,36 +353,37 @@ def main():
         b = by_anchor.get(a)
         if b:
             b.pos, b.fixed = rel_canvas(x, y), True
-    # key posts: a post still in the lot goes to position 1 of its own power
-    # row, one 2.54 pitch before pin 1 along the row (place.py --check's
-    # rule), when that row is already on the board; a post whose row is also
-    # a block rides with it through *_inboard above. A post on the board stays
-    # where the owner put it, and is only reported if place.py disagrees.
+    # key posts (findings 51; owner 2026-10-29: place them). place.py's rule:
+    # the post is one 2.54 pitch before pin 1 along the row, in line with it.
+    #  - a post still in the lot whose row is on the board goes straight onto
+    #    the board at that spot (real coordinates, `marker: none`: the island
+    #    marker is dropped, the post becomes hand placement);
+    #  - a post on the board whose row is a planned block (the L/M rows that
+    #    moved to the top edge) joins that block at the same offset from the
+    #    row's planned pin 1 (`merge_into` the row), so it rides with the row.
     import placement as pl
-    for a, b in by_anchor.items():
-        if not a.startswith('MK') or b.fixed:
-            continue
-        slot = chr(int(a[2:]))
-        pwr = pl.POWER_REFS.get(slot)
-        if pwr is None or pwr not in BOARD.fps or pwr in by_anchor:
-            continue
-        row = BOARD.fps[pwr]
-        if not (o[0] <= row.x <= o[2] and o[1] <= row.y <= o[3]):
-            continue
-        pin1 = next((p for p in row.pads if p.number == '1'), None)
-        if pin1 is None:
-            continue
-        px, py = row.pad_pos(pin1)
-        axis = 0 if slot in 'LM' else 1
-        target = (px - 2.54, py) if axis == 0 else (px, py - 2.54)
-        cx, cy = canvas(target)
-        b.pos, b.fixed, b.why = (cx - b.aoff[0], cy - b.aoff[1]), True, f'key at position 1 of {pwr}'
+    POST_ON_BOARD, POST_WITH_ROW = {}, {}
     for slot in 'ABCDEFGHLM':
         key, pwr = f'MK{ord(slot)}', pl.POWER_REFS[slot]
-        if key in BOARD.fps and key not in by_anchor and pwr in by_anchor:
-            print(f'  NOTE {key} (slot {slot} key) sits on the board while its row {pwr} is a '
-                  f'planned block: move the post by hand to position 1 of {pwr}, or drag it '
-                  'off the board so the next plan places it with the row')
+        if key not in BOARD.fps or pwr not in BOARD.fps:
+            continue
+        axis = 0 if slot in 'LM' else 1
+        b = by_anchor.get(key)
+        row_b = by_anchor.get(pwr)
+        row = BOARD.fps[pwr]
+        row_on_board = o[0] <= row.x <= o[2] and o[1] <= row.y <= o[3]
+        if b and not b.fixed and row_on_board and row_b is None:
+            pin1 = next((p for p in row.pads if p.number == '1'), None)
+            pin3 = next((p for p in row.pads if p.number == '3'), None)
+            if pin1 is None or pin3 is None:
+                continue
+            p1, p3 = row.pad_pos(pin1), row.pad_pos(pin3)
+            d = 1.0 if p3[axis] > p1[axis] else -1.0
+            target = (p1[0] - 2.54 * d, p1[1]) if axis == 0 else (p1[0], p1[1] - 2.54 * d)
+            b.pos, b.fixed, b.why = (target[0] - b.aoff[0], target[1] - b.aoff[1]), True, f'key at position 1 of {pwr} on the board'
+            POST_ON_BOARD[key] = pwr
+        elif b is None and row_b is not None:
+            POST_WITH_ROW[key] = (pwr, axis)
     # power doors: rows against the FPGA box, the aligned block on the column
     u1 = by_anchor.get('U1')
     for side, (row, key, net, _why) in DOORS.items():
@@ -526,8 +527,32 @@ def main():
         if b.label in reseats:
             rs = ', reseat: {' + ', '.join(f'{r}: [{d[0]:.3f}, {d[1]:.3f}]'
                                            for r, d in reseats[b.label][0].items()) + '}'
+        if b.anchor in POST_ON_BOARD:
+            rs += ', marker: none'
         lines.append(f'  {b.anchor}: {{from: [{b.c0[0]:.2f}, {b.c0[1]:.2f}], to: [{b.pos[0]:.2f}, {b.pos[1]:.2f}], '
                      f'turn: {b.turn}, why: {why}{rs}}}')
+    for key, (pwr, axis) in sorted(POST_WITH_ROW.items()):
+        rb = by_anchor[pwr]
+        fp = BOARD.fps[key]
+        row = BOARD.fps[pwr]
+        pin1 = next((p for p in row.pads if p.number == '1'), None)
+        pin3 = next((p for p in row.pads if p.number == '3'), None)
+        if pin1 is None or pin3 is None:
+            print(f'  NOTE {key}: row {pwr} has no pin 1/3; post not planned')
+            continue
+        # the row's own pads after the block's rigid move (turn about c0, then to)
+        p1, p3 = row.pad_pos(pin1), row.pad_pos(pin3)
+        o1 = I.rot(p1[0] - rb.c0[0], p1[1] - rb.c0[1], rb.turn)
+        o3 = I.rot(p3[0] - rb.c0[0], p3[1] - rb.c0[1], rb.turn)
+        d = 1.0 if o3[axis] > o1[axis] else -1.0
+        tx, ty = rb.pos[0] + o1[0], rb.pos[1] + o1[1]
+        if axis == 0:
+            tx -= 2.54 * d
+        else:
+            ty -= 2.54 * d
+        lines.append(f'  {key}: {{from: [{fp.x:.2f}, {fp.y:.2f}], to: [{tx:.2f}, {ty:.2f}], turn: 0.0, '
+                     f'why: key at position 1 of {pwr} with the row, merge_into: {pwr}}}')
+        print(f'  {key} (slot key) leaves the board to stand at position 1 of {pwr} in the plan')
         for sl, (dxy, side, swhy, hl) in sat_info.items():
             if hl != b.label:
                 continue

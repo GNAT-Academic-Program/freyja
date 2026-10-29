@@ -1317,19 +1317,23 @@ The entries in `ref/rev-a-report.md` carry the numbers.
 | 41 1.8 V switch | **FIXED** | U23/U24 are TPS22953DSQR: BIAS from +3V3, input 0.7 V to VBIAS, reverse blocking while off, CT 1 nF. No programmable current limit; the 500 mA PINV fuses are the overload protection. |
 | 42 controller pins | **FIXED** | SPI1 for the flash bus (SCK 10, TX 11, RX 12, CSn 9; FD2 13, FD3 7 by PIO for quad), I2C1 SDA 14 / SCL 31, UART0 TX 32 / RX 33, EXT_FAULT 34. Verified against the RP2350 pin-function table (Zephyr `rpi-pico-pinctrl-common.h`, generated from the datasheet). |
 | 43 slave serial | **documented** | No slave-serial path exists or is promised: M[2:0] are 001 in copper; volatile loading is JTAG through U20; MultiBoot addressing and the W25Q256 address mode are called out in ref/supervisor-flash.md. |
-| 44 island ownership | **tool fixed, board pending** | `islands.py`: the anchor a part's design.py group names wins. Groups renamed `U1 PSRAM{n} series termination`, `U1 SDRAM clock source`, `X4 system clock`; dry runs confirm the new ownership. Q2's parts are gone. The board's KiCad groups still hold R104–R127 in U2–U5 and R151 in U32: `islands.py --anchor U1 --extend --with …` after the owner's review. |
+| 44 island ownership | **FIXED** | `islands.py`: the anchor a part's design.py group names wins, and a part parked in another island is reclaimed when its group names the run's anchor. Groups renamed `U1 PSRAM{n} series termination`, `U1 SDRAM clock source`, `X4 system clock`. Applied (owner's go-ahead): R104–R127 and R151 are in U1's island at its escape, X4/R147/C246 are one island, Q2's parts are gone. |
 | 45 microSD access | **decided** | Access from above: card travel plus 12 mm finger room kept clear of tall parts, shield/enclosure cut-out over it, no edge opening (floorplan.md). Check with J72/J2 populated before freezing. |
 | 46 source envelope | **FIXED (tool), contract set** | `budget.py` models recovery / light / full modes per source profile with the U26 and U34 limits: a USB 2.0 port carries recovery only; light fits any Type-C ≥ 1.5 A or PD 9 V; full export fits J50 only (2.05 A against U26's 1.7 A minimum on PD). Inductor peak current is now checked (all pass). Firmware must ration EXT_EN by source. |
 | 47 gate | **FIXED** | `gate.py` prints `GATE electrical` and `GATE mechanical` separately; the exit code follows the electrical gate, `--strict` adds the mechanical one. Today: electrical PASS, mechanical FAIL (B3 open). |
 | 48 stale documents | **FIXED** | user-manual.md (pin tables, connector bodies, AUX instead of per-slot selectors, 21 V input, slot sides), floorplan.md (current plan header, microSD contract, historical top-edge section), network.md (bank 35), decoupling.md (groups), supervisor-flash.md (start-up order, no slave serial), psram.md, power*.md, extension-ux.md, island-layouts.md, status-leds.md, gameboy-extension.md, jlcpcb-import-checklist.md. |
 | 49 J1 holes | **FIXED** | odin copy of the KiCad footprint with A1/A12/B1/B12 shortened to 0.6 × 1.15 mm on the hole side: 0.31 mm hole-to-copper (rule 0.25, JLC NPTH-to-track 0.20). DRC: 0 errors. **[verify]** against the HCTL drawing (LCSC serves it only through a browser). |
 | 50 telemetry | **FIXED** | MON_1V8 reads +1V8 (VCCAUX, after FB1); ADC6/ADC7 read VCCIO_1/VCCIO_2 so the jumpers are sensed. +1V2_MGT is the one unmeasured rail (no GTP load in rev A; U16 has no PG). |
-| 51 key posts | **FIXED** | city.py maps MK76/MK77 to J7/J8 and plans an off-board post at position 1 of its own row; the plan was applied: MK71/MK72 at J56/J65 in the sketch. MK76/MK77 are hand placement at the old bottom position and are flagged, not moved. |
+| 51 key posts | **FIXED** | city.py maps MK76/MK77 to J7/J8; an off-board post whose row is on the board goes onto the board at position 1 of that row, a post on the board whose row is a planned block joins the block at the same offset. Applied (owner's go-ahead): MK71/MK72 stand one pitch before J56/J65 on the board, MK76/MK77 ride with J57/J58 at the top edge; slots G, H, L and M pass `place.py --check`. Consequence to decide: the zero-gap contract makes the KiCad courtyards of each post and its neighbouring rows overlap by about 0.5 mm (10 DRC courtyard errors; the plastic bodies touch but do not overlap). Either a documented courtyard exception for the posts, or more than 20.32 mm per zone. |
 
 Not changed on purpose: the unused GTP quads stay powered (the audit's
 optional simplification), the TPS22950C stays on U21/U22, and the hand
-placement inside the outline. Remaining owner work: island the 53 staged
-footprints (U34, Q3's new role, the PSRAM pulls, the TPS22953 parts, input
-capacitors, monitors, USB resistors), move R104–R127/R151 into U1's island,
-place MK76/MK77 with J7/J8, compact the city, then route.
+placement inside the outline. Same day, on the owner's go-ahead: every
+staged footprint islanded (X4, U34, Q3, U11, U13, U14, U16, U7, U2–U5, U23,
+U24, U8, Y1, U1 extended with the source resistors), the city re-planned
+and applied, the four key posts placed. Remaining owner work: the post
+courtyard decision above, the six hand-placed posts A–F that `place.py`
+flags, compaction of the city onto the board, routing, the bench items
+(COUT, U34 source cases, power-down timing) and the J1 drawing check (LCSC
+refuses non-browser access).
 

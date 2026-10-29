@@ -24,19 +24,19 @@ ghosts:
   MK76: [840.20, 156.52, 847.00, 163.32]
   MK77: [840.20, 111.64, 847.00, 118.44]
 islands:
-  D1: {from: [814.53, 177.32], to: [818.76, 166.56], turn: 0.0, why: wired}
-  D9: {from: [801.22, 174.94], to: [763.70, 188.44], turn: 0.0, why: wired}
-  D10: {from: [815.76, 159.57], to: [827.03, 126.12], turn: 0.0, why: wired}
-  D11: {from: [801.95, 159.11], to: [819.79, 148.45], turn: 0.0, why: wired}
+  D1: {from: [818.76, 166.56], to: [751.18, 30.04], turn: 0.0, why: wired}
+  D9: {from: [763.69, 188.44], to: [784.97, 192.23], turn: 0.0, why: wired}
+  D10: {from: [827.03, 126.12], to: [732.83, 63.69], turn: 0.0, why: wired}
+  D11: {from: [819.78, 148.45], to: [766.41, 188.90], turn: 0.0, why: wired}
   J1: {from: [828.20, 33.27], to: [828.20, 33.27], turn: 0.0, why: edge}
   J2: {from: [760.00, 231.00], to: [760.00, 231.00], turn: 0.0, why: edge}
-  J7: {from: [732.06, 27.11], to: [732.06, 27.10], turn: 0.0, why: edge}
-  J8: {from: [787.94, 27.11], to: [787.94, 27.10], turn: 0.0, why: edge}
-  J19: {from: [693.43, 121.97], to: [693.49, 128.74], turn: 0.0, why: wired}
-  J20: {from: [829.84, 163.15], to: [832.96, 143.67], turn: 0.0, why: wired}
+  J7: {from: [732.06, 27.10], to: [732.06, 27.11], turn: 0.0, why: edge}
+  J8: {from: [787.94, 27.10], to: [787.94, 27.11], turn: 0.0, why: edge}
+  J19: {from: [693.50, 128.73], to: [717.36, 184.67], turn: 0.0, why: wired}
+  J20: {from: [832.96, 143.66], to: [753.24, 200.94], turn: 0.0, why: wired}
   J50: {from: [687.88, 28.40], to: [687.88, 28.40], turn: 0.0, why: edge}
-  J51: {from: [828.83, 126.24], to: [782.09, 65.65], turn: 0.0, why: wired}
-  J52: {from: [764.67, 186.51], to: [778.51, 189.35], turn: 0.0, why: wired}
+  J51: {from: [782.09, 65.65], to: [822.73, 154.77], turn: 0.0, why: wired}
+  J52: {from: [778.51, 189.35], to: [730.96, 180.39], turn: 0.0, why: wired}
   J57: {from: [731.31, 44.13], to: [731.31, 44.13], turn: 0.0, why: edge}
   J58: {from: [787.19, 44.13], to: [787.19, 44.13], turn: 0.0, why: edge}
   J68: {from: [862.48, 230.62], to: [862.48, 230.62], turn: 0.0, why: edge}
@@ -44,34 +44,37 @@ islands:
   J71: {from: [683.00, 224.00], to: [683.00, 224.00], turn: 0.0, why: edge}
   J72: {from: [722.16, 224.00], to: [722.16, 224.00], turn: 0.0, why: edge}
   J73: {from: [832.60, 221.51], to: [832.60, 221.51], turn: 0.0, why: edge}
-  J74: {from: [723.06, 173.63], to: [723.29, 174.02], turn: 0.0, why: wired}
-  MK71: {from: [735.02, 61.65], to: [852.95, 112.34], turn: 0.0, why: key at position 1 of J56}
-  MK72: {from: [790.90, 61.65], to: [853.16, 156.78], turn: 0.0, why: key at position 1 of J65}
-  Q3: {from: [804.30, 71.39], to: [827.15, 86.84], turn: 0.0, why: wired}
-  SW1: {from: [807.50, 39.59], to: [750.30, 46.39], turn: 0.0, why: wired}
-  U1: {from: [760.00, 125.60], to: [760.00, 125.60], turn: 0.0, why: centre}
-  U2: {from: [797.49, 138.67], to: [707.49, 120.32], turn: 0.0, why: wired}
-  U3: {from: [723.41, 95.23], to: [723.23, 148.18], turn: 0.0, why: wired}
-  U4: {from: [707.37, 122.51], to: [725.33, 77.59], turn: 0.0, why: wired}
-  U5: {from: [722.83, 144.35], to: [722.93, 100.11], turn: 0.0, why: wired}
-  U6: {from: [722.83, 119.64], to: [722.89, 124.27], turn: 0.0, why: wired}
-  U7: {from: [806.47, 103.36], to: [804.80, 116.64], turn: 0.0, why: wired}
-  U9: {from: [720.65, 73.78], to: [710.60, 78.13], turn: 0.0, why: wired}
-  U10: {from: [760.30, 37.46], to: [763.96, 57.07], turn: 0.0, why: wired}
-  U11: {from: [760.13, 57.83], to: [744.43, 65.73], turn: 0.0, why: wired}
-  U12: {from: [687.29, 99.44], to: [705.68, 57.14], turn: 0.0, why: wired}
-  U13: {from: [762.74, 169.44], to: [762.74, 169.44], turn: 0.0, why: door}
-  U14: {from: [782.67, 83.00], to: [782.67, 84.46], turn: 0.0, why: door}
-  U15: {from: [765.46, 80.10], to: [765.46, 80.09], turn: 0.0, why: door}
-  U16: {from: [748.25, 82.51], to: [748.25, 82.51], turn: 0.0, why: door}
-  U17: {from: [831.29, 105.02], to: [799.99, 78.62], turn: 0.0, why: wired}
-  U18: {from: [807.26, 54.98], to: [813.42, 37.59], turn: 0.0, why: wired}
-  U20: {from: [813.33, 139.68], to: [777.70, 170.98], turn: 0.0, why: wired}
-  U21: {from: [706.62, 83.00], to: [763.67, 37.36], turn: 0.0, why: wired}
-  U22: {from: [706.15, 64.75], to: [694.97, 99.50], turn: 0.0, why: wired}
-  U23: {from: [706.41, 101.78], to: [706.54, 100.40], turn: 0.0, why: wired}
-  U24: {from: [830.21, 144.04], to: [825.10, 107.94], turn: 0.0, why: wired}
-  U26: {from: [824.77, 62.71], to: [820.00, 62.67], turn: 0.0, why: wired}
-  U30: {from: [746.67, 174.80], to: [746.97, 174.08], turn: 0.0, why: wired}
-  U32: {from: [783.05, 178.80], to: [800.85, 161.08], turn: 0.0, why: wired}
-  U33: {from: [708.44, 146.31], to: [707.80, 143.98], turn: 0.0, why: wired}
+  J74: {from: [723.29, 174.03], to: [713.96, 159.62], turn: 0.0, why: wired}
+  MK71: {from: [852.96, 112.34], to: [123.87, 70.57], turn: 0.0, why: key at position 1 of J56 on the board, marker: none}
+  MK72: {from: [853.16, 156.78], to: [123.96, 90.77], turn: 0.0, why: key at position 1 of J65 on the board, marker: none}
+  Q3: {from: [435.69, 57.05], to: [839.90, 59.50], turn: 0.0, why: wired}
+  SW1: {from: [750.29, 46.39], to: [763.80, 33.70], turn: 0.0, why: wired}
+  U1: {from: [492.49, 89.47], to: [760.00, 125.60], turn: 0.0, why: centre}
+  U2: {from: [438.66, 192.07], to: [717.72, 83.81], turn: 0.0, why: wired}
+  U3: {from: [438.66, 216.08], to: [718.84, 108.04], turn: 0.0, why: wired}
+  U4: {from: [438.66, 240.07], to: [718.22, 132.49], turn: 0.0, why: wired}
+  U5: {from: [438.68, 264.07], to: [698.78, 117.72], turn: 0.0, why: wired}
+  U6: {from: [722.89, 124.28], to: [800.11, 134.51], turn: 0.0, why: wired}
+  U7: {from: [446.08, 163.05], to: [819.78, 95.71], turn: 0.0, why: wired}
+  U9: {from: [710.61, 78.13], to: [710.79, 60.62], turn: 0.0, why: wired}
+  U10: {from: [763.95, 57.08], to: [798.08, 66.40], turn: 0.0, why: wired}
+  U11: {from: [440.61, 74.19], to: [762.36, 50.32], turn: 0.0, why: wired}
+  U12: {from: [705.68, 57.14], to: [691.05, 52.63], turn: 0.0, why: wired}
+  U13: {from: [436.76, 94.57], to: [763.74, 170.64], turn: 0.0, why: door}
+  U14: {from: [437.01, 115.10], to: [782.67, 74.90], turn: 0.0, why: door}
+  U15: {from: [765.46, 80.09], to: [765.46, 72.76], turn: 0.0, why: door}
+  U16: {from: [437.01, 135.83], to: [748.25, 74.17], turn: 0.0, why: door}
+  U17: {from: [800.00, 78.62], to: [818.04, 133.88], turn: 0.0, why: wired}
+  U18: {from: [813.42, 37.59], to: [813.78, 37.56], turn: 0.0, why: wired}
+  U20: {from: [777.69, 170.98], to: [780.60, 172.05], turn: 0.0, why: wired}
+  U21: {from: [763.66, 37.36], to: [696.98, 72.40], turn: 0.0, why: wired}
+  U22: {from: [694.98, 99.50], to: [692.73, 140.49], turn: 0.0, why: wired}
+  U23: {from: [468.01, 20.74], to: [686.58, 93.30], turn: 0.0, why: wired}
+  U24: {from: [468.00, 43.74], to: [824.03, 175.05], turn: 0.0, why: wired}
+  U26: {from: [820.00, 62.67], to: [822.23, 62.58], turn: 0.0, why: wired}
+  U30: {from: [746.97, 174.08], to: [746.59, 175.68], turn: 0.0, why: wired}
+  U32: {from: [800.85, 161.08], to: [803.56, 167.28], turn: 0.0, why: wired}
+  U33: {from: [707.81, 143.99], to: [700.56, 93.40], turn: 0.0, why: wired}
+  U34: {from: [436.91, 38.06], to: [835.72, 134.02], turn: 0.0, why: wired}
+  MK76: {from: [118.00, 93.60], to: [721.90, 44.30], turn: 0.0, why: key at position 1 of J57 with the row, merge_into: J57}
+  MK77: {from: [118.00, 73.20], to: [777.78, 44.30], turn: 0.0, why: key at position 1 of J58 with the row, merge_into: J58}

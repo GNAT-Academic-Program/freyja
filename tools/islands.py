@@ -600,11 +600,13 @@ def profile_for(profiles, anchor):
     return None, None
 
 
-def lock_state(fp, board, island_of, anchor_ref, families):
+def lock_state(fp, board, island_of, anchor_ref, families, groups=None):
     """Position decides (owner, 2026-10-28): a part on the board stays where
     the owner put it; a part outside the outline may move. Parked parts
     belong to their island; ICs, connectors, crystals, switches and posts
-    are anchors (they move only as the anchor of their own chunk)."""
+    are anchors (they move only as the anchor of their own chunk). A part
+    parked in another island whose design.py group names this run's anchor
+    is reclaimed: it was parked before the group said where it belongs."""
     o = board.outline
     if o and o[0] <= fp.x <= o[2] and o[1] <= fp.y <= o[3]:
         return True, 'on the board (hand placement)'
@@ -612,6 +614,9 @@ def lock_state(fp, board, island_of, anchor_ref, families):
         return True, 'anchor of this run'
     grp = island_of.get(fp.ref)
     if grp and grp != f'island {anchor_ref}':
+        g = groups.get(fp.ref, ('',))[0] if groups else ''
+        if anchor_ref and anchor_ref in re.findall(r'[A-Za-z]+\d+', g or ''):
+            return False, f'reclaimed from {grp}: design.py group "{g.strip()}" names {anchor_ref}'
         return True, f'parked in another island\'s group'
     if fp.prefix() in families:
         return True, f'anchor family {fp.prefix()}'
@@ -1862,15 +1867,35 @@ def plan_edits(board, members):
     return edits
 
 
-def marker_edits(board, anchor_ref, box, note, member_refs, absorb=()):
+def marker_edits(board, anchor_ref, box, note, member_refs, absorb=(), take=()):
     """Replace this island's marker: a dashed box round the parked parts under
     a solid title bar carrying the label and the note, grouped with the
     island's footprints under the label's name, so the island, its box and
     its title move as one and read as one. Old markers of the same label
-    (and stale duplicates) are removed first."""
+    (and stale duplicates) are removed first. Refs in `take` are removed
+    from the other island group that holds them (reclaimed parts)."""
     import uuid
     edits = []
     label = f'island {anchor_ref}'
+    take_uuids = set()
+    for r in take:
+        fp = board.fps.get(r)
+        u = fp.node.find('uuid') if fp else None
+        if u:
+            take_uuids.add(u.atoms()[1].value)
+    for g in board.top.findall('group'):
+        name = g.atoms()[1].value if len(g.atoms()) > 1 else ''
+        mem = g.find('members')
+        if not (name.startswith('island ') and name != label and mem):
+            continue
+        for a in mem.atoms()[1:]:
+            if a.value in take_uuids:
+                st = a.start
+                while st > 0 and board.text[st - 1] in ' \t':
+                    st -= 1
+                if st > 0 and board.text[st - 1] == '\n':
+                    st -= 1
+                edits.append((st, a.end, ''))
     for n in board.markers().get(label, (None, []))[1]:
         st = n.start
         while st > 0 and board.text[st - 1] in ' \t':
@@ -1902,7 +1927,7 @@ def marker_edits(board, anchor_ref, box, note, member_refs, absorb=()):
         name = g.atoms()[1].value if len(g.atoms()) > 1 else ''
         mem = g.find('members')
         if name.startswith('island ') and name != label and name not in absorb and mem:
-            taken.update(a.value for a in mem.atoms()[1:])
+            taken.update(a.value for a in mem.atoms()[1:] if a.value not in take_uuids)
     members = list(ids)
     for r in member_refs:
         fp = board.fps.get(r)
@@ -1930,9 +1955,12 @@ def city_edits(board, plan):
     marks = board.markers()
     entries = plan.get('islands') or {}
     final = {}                                  # host anchor -> (refs, polygons, absorbed labels)
+    bare = []                                   # entries that end with no marker (a post set on the board)
     for anchor_ref, mv in entries.items():
         label = f'island {anchor_ref}'
         refs = groups.get(label)
+        if not refs and anchor_ref in board.fps and mv.get('merge_into'):
+            refs = [anchor_ref]                 # a lone footprint (a key post) joining a block
         if not refs:
             print(f'  city: {label} has no group; skipped')
             continue
@@ -1940,8 +1968,11 @@ def city_edits(board, plan):
         tx, ty = mv['to']
         turn = float(mv.get('turn') or 0)
         host = str(mv.get('merge_into') or anchor_ref)
+        if mv.get('marker') == 'none':
+            bare.append(label)
+            host = None
         f = final.setdefault(host, ([], [], []))
-        if host != anchor_ref:
+        if host != anchor_ref and host is not None:
             f[2].append(label)
         reseat = mv.get('reseat') or {}             # ref -> [dx, dy]: a member moved inside its own group first
         for r in refs:
@@ -1955,7 +1986,18 @@ def city_edits(board, plan):
             members.append(m)
             f[0].append(r)
             f[1].append(fp.polygon(m.new))
+    for label in bare:                          # the post lands on the board: its marker and group go
+        # markers() lists the box, the bar, the texts and the group node itself
+        for n in marks.get(label, (None, []))[1]:
+            st = n.start
+            while st > 0 and board.text[st - 1] in ' \t':
+                st -= 1
+            if st > 0 and board.text[st - 1] == '\n':
+                st -= 1
+            edits.append((st, n.end, ''))
     for host, (refs, polys, absorbed) in final.items():
+        if host is None:
+            continue
         label = f'island {host}'
         box = bbox_of([p for poly in polys for p in poly])
         note = ''
@@ -2359,7 +2401,10 @@ def main():
 
     families = load_locks(args.locks)
     island_of = board.island_groups()
-    locks = {ref: lock_state(fp, board, island_of, args.anchor, families) for ref, fp in board.fps.items()}
+    design = load_design()
+    locks = {ref: lock_state(fp, board, island_of, args.anchor, families, design[0])
+             for ref, fp in board.fps.items()}
+    reclaimed = {ref for ref, (lk, why) in locks.items() if not lk and why.startswith('reclaimed')}
 
     # single-sided assembly
     back = sorted(ref for ref, fp in board.fps.items() if not locks[ref][0] and fp.layer != 'F.Cu')
@@ -2383,7 +2428,6 @@ def main():
 
     print_lock_table(board, locks)
     print()
-    design = load_design()
     members, chain_rails = extract(board, locks, anchors, design, args.short_net_max_pads)
 
     if args.list_anchors:
@@ -2504,8 +2548,10 @@ def main():
     edits = plan_edits(board, island)
     if planner.chunk and 'chunk_box' in info:
         note = make_note(pname, len(info['chunk_refs']))
-        edits += marker_edits(board, anchor.ref, info['chunk_box'], note, info['chunk_refs'])
-        print(f'  marker: dashed box with a title bar on {MARK_LAYER}, grouped with the parts as "island {anchor.ref}"')
+        took = sorted(reclaimed & set(info['chunk_refs']), key=natural)
+        edits += marker_edits(board, anchor.ref, info['chunk_box'], note, info['chunk_refs'], take=took)
+        print(f'  marker: dashed box with a title bar on {MARK_LAYER}, grouped with the parts as "island {anchor.ref}"'
+              + (f'; taken out of their old island groups: {" ".join(took)}' if took else ''))
     new_text = apply_edits(board.text, edits)
     open(args.board, 'w', encoding='utf-8').write(new_text)
     errs = verify_written(args.board, moves, board)

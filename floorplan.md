@@ -6,8 +6,8 @@ authoritative; this page says why.** Rev A state, 2026-10-23.
 **Current plan (2026-10-28, owner's choice: `tools/city.py` variant `best`):**
 U1 turned 90 degrees, the network jacks (LINK P, LINK Q, ETH) and HDMI on the
 **bottom** edge with the JTAG header and AUX IN, the two 5 V bus headers on
-the **top** edge with the DC input and USB-C, slots E-H on the left and A-D
-on the right. The zone sketch and the "top edge: network" section below are
+the **top** edge with the DC input and USB-C, slots A-D (J3) on the left and
+E-H (J5) on the right. The zone sketch and the "top edge: network" section below are
 the earlier contract and are kept as history; `ref/city/plan.yaml` and
 `ref/city/city.svg` are the plan being compacted by hand. The lattice rules
 (signal 2x32, power 1x7, post at position 1) are unchanged and still checked.

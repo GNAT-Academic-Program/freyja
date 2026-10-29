@@ -62,7 +62,7 @@ or a 9 V USB-PD charger; see [power-budget.md](power-budget.md).
 ## The extension idea, from zero
 
 Odin has eight shield sections on the left and right edges of the 100 x 100 mm
-board (A–D on the right, E–H on the left). Each section has a 16-position
+board (A–D on the left, E–H on the right). Each section has a 16-position
 signal block and a separate keyed power row: a grounded post at position 1
 and a seven-contact socket. Two additional ports are complete 5 V-compatible
 eight-bit buses. The authoritative pin map is
@@ -140,11 +140,11 @@ The required arrangement is:
 ```text
                        100 mm
           +----------------------------+
-      E   |  [ L ]            [ M ]    |   A        top: the two 5 V buses
-      F   |                            |   B
-          |           ODIN             |            left: E-H (bank 34)
-      G   |                            |   C        right: A-D (bank 15)
-      H   |                            |   D
+      A   |  [ L ]            [ M ]    |   E        top: the two 5 V buses
+      B   |                            |   F
+          |           ODIN             |            left: A-D (bank 15)
+      C   |                            |   G        right: E-H (bank 34)
+      D   |                            |   H
           +----------------------------+
 ```
 

@@ -440,3 +440,30 @@ address-mode cautions), psram.md (power-up states section), power.md,
 power-input.md, extension-ux.md (U23/U24, MON_VCCIO), island-layouts.md
 (U34, U23/U24 rows), status-leds.md, gameboy-extension.md,
 jlcpcb-import-checklist.md, kicad/README.md.
+
+## Islands placed and the city re-applied (owner's go-ahead) 2026-10-29
+Parts: 544; roles 544/544; ERC 0 errors; DRC 10 errors (all
+courtyards_overlap: each of the four key posts against its neighbouring
+rows and one hand-placed capacitor), 0 parity; parity and netlist
+unchanged. Gate electrical PASS; mechanical: slots G, H, L, M pass, A-F
+still fail (the owner's hand-placed posts sit 2.8 mm beside their rows).
+What, one commit per island, each render reviewed:
+- New islands: X4 (R147, C246), U34 (profile TPS2121: dividers, SS, ILIM,
+  bulk), Q3 (--with R172 R173), U8 and Y1 (U7's satellites, which the U7
+  extension had dropped out of the merged group; lesson recorded).
+- Extended: U11/U13/U14/U16 (input capacitors on the VIN flank), U7 (27 ohm
+  pair, PIN V monitors), U2-U5 (six 10k each), U23/U24 (profile TPS22953:
+  BIAS and CT at their pins, OUT bypass), U1 (--extend: R104-R127 and R151
+  laid out at the FPGA escape on the N/W/E sides; R151 reclaimed out of
+  island U32, islands.py lock_state/marker_edits).
+- City: plan regenerated and applied (430 footprints moved, none that was
+  inside the outline except the two posts below). MK71/MK72 moved from the
+  lot onto the board at position 1 of J56/J65 (120.90, 73.14) and (121.00,
+  93.34), their island markers dropped; MK76/MK77 left the old bottom bus
+  position and joined the J57/J58 blocks at the top edge, one pitch before
+  pin 1. The first apply corrupted the file (the marker group deleted
+  twice); restored from git, fixed, re-applied.
+Open: the ten courtyard overlaps are the zero-gap contract (17.78 mm socket
++ 2.54 mm post per 20.32 mm zone leaves no courtyard margin): decide on a
+documented exception for the posts or a wider zone; the A-F posts; the city
+compaction; routing.
