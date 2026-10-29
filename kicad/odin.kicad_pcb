@@ -2356,7 +2356,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "0495d7cd-18f9-49a5-907b-69c7160c7fda")
-		(at 78.53 259.296231)
+		(at 440.56 31.83)
 		(descr "33k pull-down on EXT_PRESENT, for Q7 (mux: screw input present): Q7's gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT")
 		(tags "resistor")
 		(property "Reference" "R202"
@@ -24411,7 +24411,7 @@
 	(footprint "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "43b7676e-8bbf-4939-9347-47936db614a3")
-		(at 60.1925 259.911231)
+		(at 433.27 31.1)
 		(descr "mux: screw input present: Small N-MOSFET that pulls U34's PR1 to ground while the screw input (J50) carries voltage, so the whole board runs from J50 through U11 even with a 5 V USB cable plugged in.")
 		(property "Reference" "Q7"
 			(at 0 -4.95 0)
@@ -92174,11 +92174,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ca5f2df8-706f-45ff-91b1-4d037de39973")
-		(at 72.52 259.296231)
+		(at 437.05 31.83 180)
 		(descr "100k series resistor between EXT_PRESENT and VIN_EXT, for J50 (POWER IN screw terminal): Q7's gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT")
 		(tags "resistor")
 		(property "Reference" "R201"
-			(at 0 -1.43 0)
+			(at 0 -1.43 180)
 			(layer "F.Fab")
 			(uuid "6bdde339-961b-4c2c-b44c-0a1814619d56")
 			(effects
@@ -92189,7 +92189,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 0 1.43 0)
+			(at 0 1.43 180)
 			(layer "F.Fab")
 			(uuid "c4380953-ae19-4b27-a0c9-34481151c653")
 			(effects
@@ -92200,7 +92200,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "2a9bd99c-2105-45ef-8380-0c8a177bea30")
@@ -92212,7 +92212,7 @@
 			)
 		)
 		(property "Description" "100k series resistor between EXT_PRESENT and VIN_EXT, for J50 (POWER IN screw terminal): Q7's gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "fc69c64b-9876-4e71-8891-fed1f6a8ba89")
@@ -92267,7 +92267,7 @@
 			(uuid "533f1122-1ae8-45ac-9a56-6ca9a5cf16d0")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "244b0c66-803a-42ff-bbc9-187316e099ca")
 			(effects
@@ -92278,7 +92278,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 180)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -92286,7 +92286,7 @@
 			(uuid "cea655b5-ed83-45d7-9be0-c337a59a019a")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 180)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -111631,6 +111631,64 @@
 			"f3762cb9-3d11-4f36-978f-f82d396e5074"
 			"ef43770b-edc6-466f-96d9-5fc5e1f4624e"
 			"e5ee0c86-b200-4953-a148-ead6b6d00103"
+		)
+	)
+	(gr_rect
+		(start 429.9975 28.116231)
+		(end 443.565 34.086231)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "23997547-c32d-485f-a700-df11380441e5")
+	)
+	(gr_rect
+		(start 429.9975 21.996231)
+		(end 443.565 28.116231)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "10042f2e-45fa-4c02-8a63-10736af6baaf")
+	)
+	(gr_text "island Q7"
+		(at 430.3975 23.596231 0)
+		(layer "Cmts.User")
+		(uuid "fed4d53d-4b97-4bd5-b0c1-f0d97ec3e915")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "mux: screw input\npresent\ngeneric, 3 parts,\n2026-10-29"
+		(at 430.3975 23.896231 0)
+		(layer "Cmts.User")
+		(uuid "81094ee5-dc77-4a4d-810e-57a51d286643")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island Q7"
+		(uuid "a96e8504-03cd-4f0a-8c45-dbf26e37cada")
+		(members
+			"23997547-c32d-485f-a700-df11380441e5"
+			"10042f2e-45fa-4c02-8a63-10736af6baaf"
+			"fed4d53d-4b97-4bd5-b0c1-f0d97ec3e915"
+			"81094ee5-dc77-4a4d-810e-57a51d286643"
+			"43b7676e-8bbf-4939-9347-47936db614a3"
+			"ca5f2df8-706f-45ff-91b1-4d037de39973"
+			"0495d7cd-18f9-49a5-907b-69c7160c7fda"
 		)
 	)
 )
