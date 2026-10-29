@@ -1127,7 +1127,7 @@ def build():
     d.R('10k', V33, 'SDRAM_CS_N', R0603)
     d.R('10k', 'SDRAM_CKE', GND, R0603)
 
-    # ------------------------------------------------ MRAM, populate option
+    # ------------------------------------------------ MRAM
     # Everspin MR25H10CDF (datasheet rev 9.5): 1 Mbit SPI MRAM, VDD 2.7 to
     # 3.6 V (Table 4.1, p. 10), DFN-8 Small Flag 5 x 6 mm, 1.27 mm pitch,
     # 2.0 x 2.0 mm exposed pad that connects to nothing but VSS (Figure 6.2,
@@ -1136,17 +1136,16 @@ def build():
     # signal tracks the power supply during power-up" (section 4, p. 13):
     # 10k to +3V3. WP and HOLD are not driven by the FPGA: 10k to +3V3
     # each, so writes are allowed and the interface never pauses. Balls:
-    # tools/alloc.py MRAM_BALLS. The whole group is DNP: a build that wants
-    # the MRAM fits U33 and these four passives.
+    # tools/alloc.py MRAM_BALLS. Fitted on every board (owner, 2026-10-29).
     d.sheet('Memory')
-    d.group('MRAM (populate option)')
+    d.group('MRAM')
     d.add('U33', 'EasyEDA:MR25H10CDF', 'MR25H10CDF', f'odin:{MRAM_FP}',
           {'~{CS}': 'MRAM_CS', 'SO': 'MRAM_SO', '~{WP}': 'MRAM_WP', 'VSS': GND,
            'SI': 'MRAM_SI', 'SCK': 'MRAM_SCK', '~{HOLD}': 'MRAM_HOLD',
-           'VDD': V33, 'EP': GND}, 'C246234', dnp=True)
-    d.C('100nF', V33, GND, dnp=True)
+           'VDD': V33, 'EP': GND}, 'C246234')
+    d.C('100nF', V33, GND)
     for net in ('MRAM_CS', 'MRAM_WP', 'MRAM_HOLD'):
-        d.R('10k', V33, net, R0603, dnp=True)
+        d.R('10k', V33, net, R0603)
 
     # ------------------------------------------------ microSD socket
     # Hroparts TF-01A (LCSC C91145, JLC extended), push-push, 1.85 mm: pins

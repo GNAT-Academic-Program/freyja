@@ -105,7 +105,7 @@ def main():
     W("\nCLK is an output on a plain ball (no MRCC/SRCC), through 22 ohm; CS and CKE")
     W("are plain I/O with no configuration function. The address balls are the")
     W("block of columns 23-26, rows M-T, that the PSRAMs left.\n")
-    W("## MRAM — MR25H10CDF, bank 14 (populate option)\n")
+    W("## MRAM — MR25H10CDF, bank 14\n")
     W("| Ball | Net | Package name |")
     W("|---|---|---|")
     for ball, n in groups['MRAM']: W(f"| {ball} | `{n}` | {names[ball]} |")

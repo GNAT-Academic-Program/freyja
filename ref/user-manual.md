@@ -535,7 +535,7 @@ See [status indicators and firmware rules](status-leds.md).
 |---|---|---|---|---|---|---|
 | APS6404L-SQN-SN PSRAM, x4 (U2-U5) | C5360304 | 4 x 8 MB | QSPI, one private 6-line port per chip | 1.8 V | 13 | yes |
 | W9825G6KH-6 SDRAM (U32) | C62246 | 32 MB | 16-bit SDR, 39 lines | 3.3 V | 35 (data, control), 14 (address) | yes |
-| MR25H10CDF MRAM (U33) | C246234 | 128 KB | SPI, 4 lines | 3.3 V | 14 | no (populate option) |
+| MR25H10CDF MRAM (U33) | C246234 | 128 KB | SPI, 4 lines | 3.3 V | 14 | yes |
 | microSD socket TF-01A (J74) | C91145 | card | SPI mode, 5 lines incl. card detect | 3.3 V | 14 | yes |
 | W25Q256JVEIQ configuration flash (U6) | C97522 | 32 MB | QSPI, master SPI boot | 3.3 V | 14 and bank 0 | yes |
 

@@ -297,8 +297,9 @@ What, one commit per step:
 4. U32 W9825G6KH-6 (C62246): DQ/control on 24 plain bank 35 balls, A0-A12
    and BA0/BA1 on the bank 14 block the PSRAMs left; 7 x 100 nF + 10 uF,
    22 ohm on CLK, 10k CS up, 10k CKE down; SDRAM_CLK in its own XDC section.
-5. U33 MR25H10CDF (C246234) on K25 K26 L24 L25, DNP populate option with
-   its 100 nF and three 10k; footprint with two ground vias in the pad.
+5. U33 MR25H10CDF (C246234) on K25 K26 L24 L25 with its 100 nF and three
+   10k; footprint with two ground vias in the pad. Fitted on every board
+   (owner, 2026-10-29; it was a DNP option for one commit).
 6. J74 TF-01A (C91145) microSD in SPI mode on L22 L23 T22 R22 T23, five 10k
    pull-ups, 100 nF + 10 uF; SD_CD read with the FPGA pull-up.
 7. Documents regenerated and the hand-written text updated.

@@ -31,7 +31,7 @@ against the manufacturer datasheet.
 | 4 | `APS6404L-SQN-SN` | work memory, 1.8 V | `C5360304` |
 | 1 | `W25Q256JVEIQ` | FPGA startup memory | `C97522` |
 | 1 | `W9825G6KH-6` | SDRAM, 32 MB, 3.3 V | `C62246` |
-| 1 | `MR25H10CDF` | SPI MRAM, populate option (DNP) | `C246234` |
+| 1 | `MR25H10CDF` | SPI MRAM | `C246234` |
 | 1 | `TF-01A` | microSD socket, SPI mode | `C91145` — imported with easyeda2kicad |
 | 1 | `RP2350B` | board controller | C42415655 |
 | 1 | `ABM8-272-T3` | controller 12 MHz crystal | C20625731 |

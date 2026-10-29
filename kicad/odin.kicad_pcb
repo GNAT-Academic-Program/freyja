@@ -2570,7 +2570,7 @@
 		(property "UI_LABEL" "G POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "20ea317b-b2c8-49d3-bea1-0066aa35f17c")
+			(uuid "4ba06eb2-f40f-40c9-8cbb-e8c8c2758061")
 			(effects
 				(font
 					(size 1 1)
@@ -3986,7 +3986,7 @@
 		(property "UI_LABEL" "KEY F"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "b4cb1f03-7977-43d9-8285-29a0baef8151")
+			(uuid "a985a22d-0ae3-4cc7-be55-b4f1a957948c")
 			(effects
 				(font
 					(size 1 1)
@@ -6598,7 +6598,7 @@
 		(property "UI_LABEL" "F POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "4889b590-2b78-4b39-97b9-254904b59ddd")
+			(uuid "1433e9f5-07d5-4abb-8b61-de608785c22c")
 			(effects
 				(font
 					(size 1 1)
@@ -12544,7 +12544,7 @@
 		(property "UI_LABEL" "FPGA DONE"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "a7d180bc-c34c-4dec-9bec-e3652171efdb")
+			(uuid "b887468e-ae59-4887-bf2c-7ac8f918c97f")
 			(effects
 				(font
 					(size 1 1)
@@ -13623,7 +13623,7 @@
 		(property "UI_LABEL" "KEY D"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "b6488cbc-28de-4de1-9941-e43bb0483a1c")
+			(uuid "d7a48dae-16f5-4470-a88a-43c030a00e6a")
 			(effects
 				(font
 					(size 1 1)
@@ -14093,7 +14093,7 @@
 		(property "UI_LABEL" "E-H PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "68050694-372b-4e7a-a107-3751a4d9ed4f")
+			(uuid "d2c1a53c-c856-46f8-b9a1-72e1b0e51e00")
 			(effects
 				(font
 					(size 1 1)
@@ -14105,7 +14105,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "92d15f44-ff3b-4ab4-b1b7-508d72310e8c")
+			(uuid "91695c14-9d81-4a1c-9e56-800d0ea35944")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -14117,7 +14117,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "e1d97a66-b3db-4435-9134-5d11b32e3569")
+			(uuid "95667a3c-eadf-4e31-b3dc-edd93c4b345d")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -15053,7 +15053,7 @@
 		(layer "F.Cu")
 		(uuid "2d02c30c-d9c2-48e2-931e-a992fe9af5ae")
 		(at 45.025 337.341231)
-		(descr "NOT FITTED. 10k resistor from MRAM_HOLD to +3V3, for U33 (SPI MRAM (option)): hold released: transfers never pause")
+		(descr "10k resistor from MRAM_HOLD to +3V3, for U33 (SPI MRAM): hold released: transfers never pause")
 		(tags "resistor")
 		(property "Reference" "R156"
 			(at 0 -1.43 0)
@@ -15089,7 +15089,7 @@
 				)
 			)
 		)
-		(property "Description" "NOT FITTED. 10k resistor from MRAM_HOLD to +3V3, for U33 (SPI MRAM (option)): hold released: transfers never pause"
+		(property "Description" "10k resistor from MRAM_HOLD to +3V3, for U33 (SPI MRAM): hold released: transfers never pause"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15101,7 +15101,7 @@
 				)
 			)
 		)
-		(attr smd dnp)
+		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
 			(end 0.237258 -0.5225)
@@ -17762,7 +17762,7 @@
 		(property "UI_LABEL" "KEY B"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "8d3f4c69-01d9-4989-afea-99e2574aa48f")
+			(uuid "021f2e01-a485-49b8-9247-c39cca6d54a0")
 			(effects
 				(font
 					(size 1 1)
@@ -18154,7 +18154,7 @@
 		(property "UI_LABEL" "L POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b2f579b3-ce1d-43a8-84c4-5ba5eea496ea")
+			(uuid "4b51b692-9c3d-4f8e-8c0e-a3ce8e7bf937")
 			(effects
 				(font
 					(size 1 1)
@@ -18356,7 +18356,7 @@
 		(layer "F.Cu")
 		(uuid "3a69166b-cb36-483b-91ab-0e5a0e20f3e9")
 		(at 33.225 279.066231)
-		(descr "NOT FITTED. 100nF bypass on +3V3, for U33 (SPI MRAM (option))")
+		(descr "100nF bypass on +3V3, for U33 (SPI MRAM)")
 		(tags "capacitor")
 		(property "Reference" "C258"
 			(at 0 -1.16 0)
@@ -18392,7 +18392,7 @@
 				)
 			)
 		)
-		(property "Description" "NOT FITTED. 100nF bypass on +3V3, for U33 (SPI MRAM (option))"
+		(property "Description" "100nF bypass on +3V3, for U33 (SPI MRAM)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -18416,7 +18416,7 @@
 				)
 			)
 		)
-		(attr smd dnp)
+		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
 			(end 0.107836 -0.36)
@@ -18713,7 +18713,7 @@
 		(property "UI_LABEL" "H POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "f12b3cfa-5d48-4a30-b0c1-ae4d1960d56d")
+			(uuid "69d1408b-60a7-4bb8-8a69-acf3684503c6")
 			(effects
 				(font
 					(size 1 1)
@@ -19801,7 +19801,7 @@
 		(property "UI_ROLE" "WORK MEMORY 2"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "abb268e0-1417-426b-83e5-d82d3c9153d2")
+			(uuid "78423406-5542-4a2b-99e4-c337b761362d")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -20609,7 +20609,7 @@
 		(property "UI_LABEL" "USER 2"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "459c7cfc-9640-4b1a-bb8d-990cbef3c0c2")
+			(uuid "b683e1fe-7d6b-4e21-9f6b-1a2d78a4348d")
 			(effects
 				(font
 					(size 1 1)
@@ -20887,7 +20887,7 @@
 		(property "UI_ROLE" "1V0 SUPPLY\nFPGA CORE"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "c41eff04-6114-43b5-a07f-7ccfd1332bc3")
+			(uuid "f25ddc9f-eb29-47fd-b658-d23681bec5e9")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -21913,7 +21913,7 @@
 		(property "UI_ROLE" "WORK MEMORY 1"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e323eb82-601f-4a77-9258-81d06ad0c95a")
+			(uuid "0afafcde-3306-4f9e-a9a7-49bbd6d07435")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -23183,7 +23183,7 @@
 		(property "UI_LABEL" "CTRL BOOT"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "8012131d-5a99-45f6-8f4d-b799b0ff3078")
+			(uuid "b1f318cb-40c5-4a35-a74d-79a3cfc79f0c")
 			(effects
 				(font
 					(size 1 1)
@@ -23586,7 +23586,7 @@
 		(property "UI_ROLE" "ETHERNET PHY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "11653b75-6df6-4491-ad81-fde223b6ab70")
+			(uuid "908ddfaa-0b3b-4b13-a730-92bd27716bdc")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -25402,7 +25402,7 @@
 		(property "UI_LABEL" "A-D PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "234944e0-93bf-40ed-9be2-4bf0261bab78")
+			(uuid "70d5dbad-2f9f-4042-8a9c-d232834768b6")
 			(effects
 				(font
 					(size 1 1)
@@ -25414,7 +25414,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "cef79059-79ba-43a6-8cc5-24c739cfed78")
+			(uuid "e0235ab8-7af4-41c3-929c-23809bba4f19")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -25426,7 +25426,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "a4ba3579-b23d-424d-bc08-70b13a7a15c8")
+			(uuid "ccc89cb9-eff4-4a10-a865-ff187fd682f6")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -25701,7 +25701,7 @@
 		(property "UI_ROLE" "CONTROLLER MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5fc6a743-c279-44ac-8319-e97d643b2247")
+			(uuid "272dfacf-7814-434a-9f69-8d1bc95d3102")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -25958,7 +25958,7 @@
 		(property "UI_LABEL" "CTRL SWD"
 			(at 0 5.263 0)
 			(layer "F.SilkS")
-			(uuid "a9d706ea-f0c1-4d56-bfac-e51184d34457")
+			(uuid "f04be580-97a2-46d8-a219-da49d98ba52b")
 			(effects
 				(font
 					(size 1 1)
@@ -26658,7 +26658,7 @@
 		(property "UI_LABEL" "M POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "c9d9a57b-d63a-42e0-909e-ed1169f72634")
+			(uuid "c3813ba2-53b0-41f8-8232-aeb347ec0076")
 			(effects
 				(font
 					(size 1 1)
@@ -30606,7 +30606,7 @@
 		(property "UI_LABEL" "EXT JTAG"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "a6b5fa19-1519-45af-a916-ad7dc21115c7")
+			(uuid "6581386a-0d1c-4bbe-89ad-03eb0ed29acf")
 			(effects
 				(font
 					(size 1 1)
@@ -30618,7 +30618,7 @@
 		(property "UI_STATES" "OPEN: CTRL\nFIT: EXT"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "9d9b775a-0819-439d-a251-ee1fedfb7d61")
+			(uuid "9472afaf-c960-4a01-b95c-fabb08752544")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -31119,7 +31119,7 @@
 		(property "UI_ROLE" "WORK MEMORY 3"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "1474b777-e538-4a57-863e-bc6fe1e9c51d")
+			(uuid "80217069-36c2-4264-982a-5e2cb6176598")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -31509,7 +31509,7 @@
 		(property "UI_ROLE" "A-D PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5d2db9cf-9cb9-4f38-bcc8-f0dbc475182c")
+			(uuid "a46a96e2-02ed-4c19-9936-a33e451fe44c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -32161,7 +32161,7 @@
 		(property "UI_ROLE" "STATUS EXPANDER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "8283c11b-3e0b-4f29-93aa-c16d2872f296")
+			(uuid "deb70665-e51f-45f8-a514-aaaef6dcf288")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -34133,7 +34133,7 @@
 		(property "UI_LABEL" "9-21V POWER IN"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6cf5238a-0228-47b6-8945-14dc9f130c1e")
+			(uuid "e8f817bb-33e5-4220-9444-6928bf94e2cb")
 			(effects
 				(font
 					(size 1 1)
@@ -34145,7 +34145,7 @@
 		(property "UI_PINS" "9-21V +\nGND"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "117a19b8-c4eb-409c-b102-07c13dbdd45b")
+			(uuid "c12fd383-1768-4588-a796-d4154cfc280c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -34414,7 +34414,7 @@
 		(layer "F.Cu")
 		(uuid "65d84138-10e9-4395-ba01-0c8ae17c6ed4")
 		(at 39.015 337.341231)
-		(descr "NOT FITTED. 10k resistor from MRAM_WP to +3V3, for U33 (SPI MRAM (option)): write protect released: writes to the status register allowed")
+		(descr "10k resistor from MRAM_WP to +3V3, for U33 (SPI MRAM): write protect released: writes to the status register allowed")
 		(tags "resistor")
 		(property "Reference" "R155"
 			(at 0 -1.43 0)
@@ -34450,7 +34450,7 @@
 				)
 			)
 		)
-		(property "Description" "NOT FITTED. 10k resistor from MRAM_WP to +3V3, for U33 (SPI MRAM (option)): write protect released: writes to the status register allowed"
+		(property "Description" "10k resistor from MRAM_WP to +3V3, for U33 (SPI MRAM): write protect released: writes to the status register allowed"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34462,7 +34462,7 @@
 				)
 			)
 		)
-		(attr smd dnp)
+		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
 			(end 0.237258 -0.5225)
@@ -36917,7 +36917,7 @@
 		(property "UI_ROLE" "E-H PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e54af16c-9d96-410f-997f-a2d0420a746a")
+			(uuid "45e434a7-40e4-4096-9a39-644c965a77a6")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -38017,7 +38017,7 @@
 		(property "UI_ROLE" "SLOT 3V3 PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "32f88ee0-f326-4860-adca-6bc529e26168")
+			(uuid "d5c5e14b-ca88-4591-8ef1-50934be29cbe")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -38252,7 +38252,7 @@
 		(property "UI_LABEL" "KEY G"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "80076d0e-df02-448c-8abc-5e7f7398656a")
+			(uuid "addaf4ce-2aca-4376-b835-7f3c0b9d2a16")
 			(effects
 				(font
 					(size 1 1)
@@ -38508,7 +38508,7 @@
 		(property "UI_LABEL" "KEY C"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "12ba5085-446f-49db-8800-3eedbcad43fb")
+			(uuid "b62b9c96-160a-49a5-bf2d-0f8a6d05fa67")
 			(effects
 				(font
 					(size 1 1)
@@ -38972,7 +38972,7 @@
 		(layer "F.Cu")
 		(uuid "76ab8d2f-8d80-4b52-b85b-d862c29294e9")
 		(at 52.444999 339.841231)
-		(descr "NOT FITTED. SPI MRAM (option): Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes. Populate option, DNP by default; bank 14.")
+		(descr "SPI MRAM: Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes; bank 14.")
 		(property "Reference" "U33"
 			(at 0 -6.9 0)
 			(layer "F.Fab")
@@ -39007,7 +39007,7 @@
 				)
 			)
 		)
-		(property "Description" "NOT FITTED. SPI MRAM (option): Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes. Populate option, DNP by default; bank 14."
+		(property "Description" "SPI MRAM: Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes; bank 14."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -39031,7 +39031,7 @@
 				)
 			)
 		)
-		(attr smd dnp)
+		(attr smd)
 		(fp_line
 			(start -2.5 3)
 			(end -2.5 -3)
@@ -40449,7 +40449,7 @@
 		(property "UI_LABEL" "CTRL HB"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "4fee8cb2-38ba-4243-811e-99a9256494bc")
+			(uuid "e771734f-1881-4df3-b3b4-d575006f385a")
 			(effects
 				(font
 					(size 1 1)
@@ -41382,7 +41382,7 @@
 		(property "UI_LABEL" "A | B | C | D"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "dc71ee2c-90dc-41fd-9daf-2b652889b88e")
+			(uuid "444ffd13-8263-4ff4-830c-5bc286189391")
 			(effects
 				(font
 					(size 1 1)
@@ -42894,7 +42894,7 @@
 		(property "UI_ROLE" "5V SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3b37a625-b19e-421a-8924-f17475c4200a")
+			(uuid "6547c872-36f5-4281-9eb3-25a4553820b8")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -43407,7 +43407,7 @@
 		(property "UI_LABEL" "D POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5c526792-8aaf-4646-873f-1463f9d18032")
+			(uuid "ba00ff42-b597-4d26-9027-d0565f73d093")
 			(effects
 				(font
 					(size 1 1)
@@ -44089,7 +44089,7 @@
 		(property "UI_LABEL" "C POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b52dfb55-958d-4d09-bac9-7953fc230262")
+			(uuid "c0dcf1bf-12a9-4f4d-8dda-e587dc9c0420")
 			(effects
 				(font
 					(size 1 1)
@@ -44353,7 +44353,7 @@
 		(property "UI_ROLE" "3V3 SUPPLY\nALWAYS ON"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "091e82de-52a0-4047-9cb4-f214cf9c7588")
+			(uuid "310b5275-59a5-4e0c-8315-b77f45b758fb")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -46569,7 +46569,7 @@
 		(property "UI_ROLE" "5V BUS 0 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "8a8f2411-d632-4711-a903-3c2a37e56775")
+			(uuid "02fd615f-acb8-49e1-8e84-90ad5f9e305b")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -46961,7 +46961,7 @@
 		(property "UI_ROLE" "FPGA STARTUP MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6ff55c2f-0cda-4e63-906c-7f2819c7ea8c")
+			(uuid "447d6b1d-932f-477b-aa82-fdf3e2e7bc6c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -49086,7 +49086,7 @@
 		(property "UI_ROLE" "WORK MEMORY 0"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "24ad3af9-611a-4c5f-9e14-bde65f2f3cad")
+			(uuid "e0ec6117-ac03-4cae-b453-3873b3660a49")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -51043,7 +51043,7 @@
 		(property "UI_ROLE" "USB INPUT PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "62dd1b8f-e014-422d-b9db-7dcbf9c26ea3")
+			(uuid "69306e41-d7a4-44ed-90e7-9601b494743f")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -52322,7 +52322,7 @@
 		(property "UI_ROLE" "SLOT 5V PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3abfcd84-7e37-40ad-8262-1eb0cf0dbbfa")
+			(uuid "a9d010f3-8f8e-495d-a48d-28c904dcefc6")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -52562,7 +52562,7 @@
 		(property "UI_LABEL" "USB-C"
 			(at 0 5 0)
 			(layer "F.SilkS")
-			(uuid "f1ef78fe-5fb4-404d-be36-e9bc36059cf1")
+			(uuid "6dd17d37-c26a-4c2c-92c4-2d240e7464f3")
 			(effects
 				(font
 					(size 1 1)
@@ -55089,7 +55089,7 @@
 		(property "UI_LABEL" "E POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "2d530c2b-0c2e-44fa-8b37-7bf926859a6d")
+			(uuid "63a44bf1-73cb-46bc-9998-20c313c675bc")
 			(effects
 				(font
 					(size 1 1)
@@ -55908,7 +55908,7 @@
 		(property "UI_LABEL" "B POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "a065b3ee-4994-4b77-9d19-9ffd5de90795")
+			(uuid "e7e98337-d6a2-4d07-a048-658e8bb74f2e")
 			(effects
 				(font
 					(size 1 1)
@@ -57042,7 +57042,7 @@
 		(property "UI_LABEL" "KEY E"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "d460549a-6fd8-4d19-8dde-b52142b5e6ef")
+			(uuid "30cf409e-971e-4674-8bb5-15e158a82da7")
 			(effects
 				(font
 					(size 1 1)
@@ -58786,7 +58786,7 @@
 		(property "UI_ROLE" "BOARD CONTROLLER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "aecb379e-49d4-4fca-95d5-6deccc24cd28")
+			(uuid "a9a5fc57-dfb6-47cc-8b6e-ce6cc8106076")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -58798,7 +58798,7 @@
 		(property "PART_ID" "RP2350B"
 			(at 0 7 0)
 			(layer "F.SilkS")
-			(uuid "cb0d6750-068a-45e8-a3d9-27e9dce5216e")
+			(uuid "4354dd2c-4084-49e9-834a-a1b77a3e5417")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -59991,7 +59991,7 @@
 		(property "UI_LABEL" "FPGA JTAG"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "0072c5ab-222c-41f5-bff8-250e4cf7a994")
+			(uuid "a81acb5e-8e8e-496a-91d5-86dbdb58be51")
 			(effects
 				(font
 					(size 1 1)
@@ -61203,7 +61203,7 @@
 		(property "UI_ROLE" "FPGA CLOCK\n50MHz"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6d1c7a08-765d-4e96-ae98-7916039aa67b")
+			(uuid "3608f59b-005f-4758-9818-0e91e55b007f")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -61883,7 +61883,7 @@
 		(property "UI_LABEL" "LINK P"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "aa89feeb-f517-4e84-b029-113d9ca5b749")
+			(uuid "5da5a106-3d14-44de-af0e-ad39cfc36f65")
 			(effects
 				(font
 					(size 1 1)
@@ -61895,7 +61895,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "d91d297f-bc6e-4dc8-b0ab-ed8bbc22088b")
+			(uuid "c894d7bb-e27e-4d6e-b417-8c225122e048")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -62943,7 +62943,7 @@
 		(property "UI_ROLE" "2V5 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "56a9f473-3a6a-48f4-91c1-e537824ff322")
+			(uuid "716797fc-9cdf-4b8a-a08c-e8fc5b3eff7b")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -63313,7 +63313,7 @@
 		(property "UI_LABEL" "KEY L"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "1c3b2d43-02e1-43f3-9d25-b017284e010d")
+			(uuid "838469dc-8085-4b5b-9f69-e26dd96d2e76")
 			(effects
 				(font
 					(size 1 1)
@@ -63570,7 +63570,7 @@
 		(property "UI_LABEL" "USER 1"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "419cf5f2-38b1-4de6-a7bd-20bcd62891f7")
+			(uuid "f100f60d-e6fb-4d34-bcc6-ddf81337fb45")
 			(effects
 				(font
 					(size 1 1)
@@ -63849,7 +63849,7 @@
 		(property "UI_LABEL" "ETH"
 			(at 0 10.895 0)
 			(layer "F.SilkS")
-			(uuid "b07aa95e-422c-4b0a-b0dc-dec66432063e")
+			(uuid "8da775e4-0294-4493-82fb-cc3e3cdaf3f5")
 			(effects
 				(font
 					(size 1 1)
@@ -64885,7 +64885,7 @@
 		(property "UI_LABEL" "5V BUS 0"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "eb6b6214-8170-4b5b-a8a9-b7889e04db60")
+			(uuid "a0b7b0ac-5441-4c8e-9403-d198ded90f06")
 			(effects
 				(font
 					(size 1 1)
@@ -66506,7 +66506,7 @@
 		(property "UI_ROLE" "PROGRAMMABLE LOGIC"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6751045d-b4a2-4087-9419-0eccc6aab5cb")
+			(uuid "0da751ed-8581-4795-8cee-8d9f7c5186e1")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -66518,7 +66518,7 @@
 		(property "PART_ID" "XC7A100T-2FGG676I"
 			(at 0 16 0)
 			(layer "F.SilkS")
-			(uuid "3418a90f-cd31-4aef-b113-7797792f2d4c")
+			(uuid "fe00277c-0e8c-4b2f-a09d-c949e2f2691f")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -79590,7 +79590,7 @@
 		(property "UI_LABEL" "E | F | G | H"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "8196d100-a249-46ac-b382-70efb44a74ce")
+			(uuid "2cf32907-fdb6-4699-ac37-7f50627c0942")
 			(effects
 				(font
 					(size 1 1)
@@ -80535,7 +80535,7 @@
 		(property "UI_LABEL" "LINK Q"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "3334bff0-429c-4751-9d9b-b2a78ad21c89")
+			(uuid "7a3a5735-269c-4380-8e37-fc4e4136ff4f")
 			(effects
 				(font
 					(size 1 1)
@@ -80547,7 +80547,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "8d212b1e-de08-4ea0-a631-787e26fa96d1")
+			(uuid "a7eb63dd-6c04-4812-92c7-086b6b801670")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -81336,7 +81336,7 @@
 		(property "UI_LABEL" "5V BUS 1"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "ae14cdf3-b37b-4e6e-8e79-4cae9190ef9c")
+			(uuid "f7f4bf8f-71a5-4f16-911c-542b2bc673d1")
 			(effects
 				(font
 					(size 1 1)
@@ -81756,7 +81756,7 @@
 		(layer "F.Cu")
 		(uuid "c1ea4b6a-21aa-46eb-b6d5-334316906225")
 		(at 33.005 337.341231)
-		(descr "NOT FITTED. 10k resistor from MRAM_CS to +3V3, for U33 (SPI MRAM (option)): keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4)")
+		(descr "10k resistor from MRAM_CS to +3V3, for U33 (SPI MRAM): keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4)")
 		(tags "resistor")
 		(property "Reference" "R154"
 			(at 0 -1.43 0)
@@ -81792,7 +81792,7 @@
 				)
 			)
 		)
-		(property "Description" "NOT FITTED. 10k resistor from MRAM_CS to +3V3, for U33 (SPI MRAM (option)): keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4)"
+		(property "Description" "10k resistor from MRAM_CS to +3V3, for U33 (SPI MRAM): keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81804,7 +81804,7 @@
 				)
 			)
 		)
-		(attr smd dnp)
+		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
 			(end 0.237258 -0.5225)
@@ -82236,7 +82236,7 @@
 		(property "UI_LABEL" "AUX IN 9-28V UNREGULATED\nYOUR RAIL, YOUR PROBLEM"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "42d29691-ce03-4d27-8acf-21695993ab48")
+			(uuid "3e344a89-7181-47cc-bb1f-02432434a7db")
 			(effects
 				(font
 					(size 1 1)
@@ -82248,7 +82248,7 @@
 		(property "UI_PINS" "AUX +\nGND"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "e5e9c091-d312-45f1-a47b-a0282ba0446a")
+			(uuid "645d6bf9-e8e3-422a-b69a-0ba045dcaef7")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -82579,7 +82579,7 @@
 		(property "UI_ROLE" "USB POWER REQUEST"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "21e0c1f6-733b-4f58-b3ad-612dc31bdcf1")
+			(uuid "23baf280-f47c-497c-97c2-45d670a2040f")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -84701,7 +84701,7 @@
 		(property "UI_ROLE" "5V BUS 1 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "287ecafc-1307-4dac-a962-6c2c62f371d4")
+			(uuid "8ad0c3fb-8473-4693-9a7f-32ba5715e690")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -88399,7 +88399,7 @@
 		(property "UI_ROLE" "JTAG OWNER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "742a4dfb-f5d2-4fb1-b46f-161653147487")
+			(uuid "406b14ec-1372-4674-9ce9-6c74d140c422")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -91707,7 +91707,7 @@
 		(property "UI_LABEL" "KEY H"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "8d8c0b3c-977e-46c8-a516-a4a9de0ed6e3")
+			(uuid "634bb46d-c162-43ef-88bf-e193528f4be4")
 			(effects
 				(font
 					(size 1 1)
@@ -92221,7 +92221,7 @@
 		(property "UI_ROLE" "1V2 SUPPLY\nTRANSCEIVERS"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "1d4e7331-33aa-45d7-9504-546b1ad2bd13")
+			(uuid "ff5eb0ab-2937-4425-9f21-59632e7d9f71")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -93878,7 +93878,7 @@
 		(property "UI_ROLE" "1V8 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3e628b53-eca7-4706-b80d-7b6e2d82bb0f")
+			(uuid "8c324c35-4d54-4661-a075-41e1e2e86000")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -94542,7 +94542,7 @@
 		(property "UI_LABEL" "KEY A"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "631c37d9-4178-4bfe-b03e-e33ab0a4a6a8")
+			(uuid "e471e13c-ba2b-4903-aaf8-a128a39feb67")
 			(effects
 				(font
 					(size 1 1)
@@ -94651,7 +94651,7 @@
 		(property "UI_LABEL" "KEY M"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "d5acfc1f-b7b4-4795-a4ef-720088fd584c")
+			(uuid "ea5f9395-ff92-42c9-9cff-82b76a96af9f")
 			(effects
 				(font
 					(size 1 1)
@@ -94761,7 +94761,7 @@
 		(property "UI_LABEL" "A POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "cd34224c-553b-45e5-828f-e3ad09c34af0")
+			(uuid "c1bc9308-8e74-4cef-acad-3f0d26eb781f")
 			(effects
 				(font
 					(size 1 1)

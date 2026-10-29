@@ -381,11 +381,10 @@ GROUP.update({
         'the FPGA damps the clock; CS is pulled up and CKE pulled down so '
         'the chip stays deselected and in power-down until a design drives '
         'them.',
-    'MRAM (populate option)':
+    'MRAM':
         'A 128 KB non-volatile SPI memory (Everspin MR25H10CDF) that keeps '
         'its contents without power and has no write wear: settings, logs, '
-        'a boot menu, a save file. Not fitted by default; a build that wants '
-        'it fits U33 and these four passives together. CS is pulled up so '
+        'a boot menu, a save file. CS is pulled up so '
         'the chip stays deselected while power comes up (datasheet section '
         '4); WP and HOLD are pulled up and not connected to the FPGA, so '
         'writes are allowed and transfers never pause. The exposed pad is '
@@ -537,7 +536,7 @@ PART.update({
     'U4': ('PSRAM 2', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
     'U5': ('PSRAM 3', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
     'J74': ('microSD socket', 'Hroparts TF-01A push-push microSD socket, SPI mode to FPGA bank 14 at 3.3 V; card detect on the switch.'),
-    'U33': ('SPI MRAM (option)', 'Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes. Populate option, DNP by default; bank 14.'),
+    'U33': ('SPI MRAM', 'Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes; bank 14.'),
     'U32': ('SDRAM', 'Winbond W9825G6KH-6, 256 Mbit (32 MB) 16-bit SDR SDRAM, 3.3 V, TSOP-54: bank 35 data and control, bank 14 address.'),
     'U6': ('FPGA configuration flash', 'Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it.'),
     'U7': ('board controller', 'Raspberry Pi RP2350B microcontroller (two Cortex-M33 cores, 150 MHz): USB, FPGA programming, power sequencing and monitoring.'),

@@ -134,7 +134,7 @@ CLK is an output on a plain ball (no MRCC/SRCC), through 22 ohm; CS and CKE
 are plain I/O with no configuration function. The address balls are the
 block of columns 23-26, rows M-T, that the PSRAMs left.
 
-## MRAM — MR25H10CDF, bank 14 (populate option)
+## MRAM — MR25H10CDF, bank 14
 
 | Ball | Net | Package name |
 |---|---|---|

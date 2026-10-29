@@ -18,7 +18,7 @@ SHEETS = ['FPGA', 'Power', 'Memory', 'Supervisor', 'Slots', 'Network', 'Video']
 DISPLAY_NAME = {'Supervisor': 'Board Controller'}
 TITLE  = {'FPGA':'FPGA, decoupling and configuration straps',
           'Power':'Power tree: VSYS input, regulators, AUX IN pass-through and monitoring',
-          'Memory':'PSRAM x4 (independent buses, 1.8 V), SDRAM, MRAM option, microSD and configuration flash',
+          'Memory':'PSRAM x4 (independent buses, 1.8 V), SDRAM, MRAM, microSD and configuration flash',
           'Supervisor':'Board controller: RP2350B, USB-C, startup memory and FPGA control',
           'Slots':'Ten keyed extension ports, branch fusing and level shifting',
           'Network':'Network: RTL8211FD-CG gigabit PHY and ETH jack, LINK P and LINK Q raw LVDS ports',
