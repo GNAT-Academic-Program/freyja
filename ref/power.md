@@ -4,11 +4,13 @@
 
 | Input | Allowed operating range | Destination |
 |---|---|---|
-| USB-C | 5 V by default; 9 V PD on the controller's request, nothing higher | base board through VSYS; plain 5 V also straight to the +5V rail through U34 |
+| USB-C | 5 V by default; 9 V PD on the controller's request, nothing higher | base board through VSYS; plain 5 V also straight to the +5V rail through U34, except while the controller asks for 9 V or J50 is powered (then U11) |
 | J50 VIN | 9-21 V DC | base board through D4 to VSYS |
 | J68 AUX IN | 9-28 V DC, correct polarity | `AUX_RAIL` and the ten slot AUX branch PTCs only; no base-board supply |
 
-USB and J50 are diode-ORed. USB must never negotiate above 9 V.
+USB and J50 are diode-ORed into VSYS; a powered J50 also moves the +5V
+rail onto U11 (U34, Q7), so with both connected the whole board runs from
+J50. USB must never negotiate above 9 V.
 
 ## AUX in rev A
 

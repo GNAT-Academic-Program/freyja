@@ -8,8 +8,8 @@ What every part on the board is for. The same text is in the schematic
 the PCB (select a footprint, Description field). Start with the sheet
 you care about; within it, groups appear in schematic order.
 
-- [FPGA](#fpga) (110 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
-- [Power](#power) (127 parts): Inputs, the regulators that make every rail, extension power protection.
+- [FPGA](#fpga) (111 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
+- [Power](#power) (135 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (79 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
@@ -284,6 +284,14 @@ The FPGA's own clock. X4 runs at 50 MHz from power-on and enters bank 14 on a cl
 | C246 | 100nF | 100nF bypass on +3V3, for X4 (50 MHz FPGA clock) |
 | R147 | 33 | 33 series resistor between SYS_CLK and SYS_CLK_OSC, for X4 (50 MHz FPGA clock): damps ringing on the clock line |
 
+### config flash
+
+The FPGA's non-volatile memory. At power-on the FPGA reads its design (bitstream) from this 32 MB flash by itself (master SPI, set by the mode straps). The board controller can rewrite it through the series resistors on the Board Controller sheet, and spare space can hold user data or software for a soft CPU.
+
+| Ref | Value | What it does |
+|---|---|---|
+| R203 | 4.7k | 4.7k pull-up of FLASH_CS_B to +3V3, for U6 (FPGA configuration flash) |
+
 ## Power
 
 Inputs, the regulators that make every rail, extension power protection.
@@ -516,23 +524,45 @@ The split between +1V8_IO and +1V8. VCCAUX and VCCADC are the FPGA's internal su
 
 ### U34  +5V source select
 
-Chooses what feeds the +5V rail: USB power straight from the connector, or U11. A regulator cannot make 5 V out of 5 V, so on a plain 5 V USB source the mux passes VBUS to the rail; the moment a USB-PD charger raises VBUS above about 5.6 V, or VBUS is absent, it switches to U11 within microseconds. The choice is set by three resistor dividers, not by firmware, and the chip blocks current flowing backwards into either source, limits the rail current to about 2.5 A and ramps it up gently. ST tells the board controller which source is in use.
+Chooses what feeds the +5V rail: USB power straight from the connector, or U11. A regulator cannot make 5 V out of 5 V, so on a plain 5 V USB source the mux passes VBUS to the rail. It hands the rail to U11 while the board controller asks the charger for 9 V and for a few seconds after (Q6), while the screw input is powered (Q7), and, as a backstop, if VBUS rises above about 5.6 V unasked or goes away. The choice is wired, not firmware: dividers and two small transistors. The chip blocks current flowing backwards into either source, limits the rail current to about 2.5 A and ramps it up gently. ST tells the board controller which source is in use.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U34 | TPS2121RUXR | +5V source mux: TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail, hands over to U11 the moment VBUS goes above 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A. |
+| U34 | TPS2121RUXR | +5V source mux: TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail; hands the rail to U11 while the board controller asks for 9 V (Q6), while the screw input is powered (Q7), or if VBUS goes above about 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A. |
 | C263 | 100nF | 100nF capacitor from VBUS5_SS to GND, for U34 (+5V source mux): sets how fast U34 ramps the +5V rail, about 780 V/s |
 | C264 | 100nF 25V | 100nF 25V bypass on VBUS, for U34 (+5V source mux) |
 | C265 | 22uF | 22uF bypass on +5V, for U34 (+5V source mux) |
 | C266 | 22uF | 22uF bypass on +5V, for U34 (+5V source mux) |
-| R162 | 100k | 100k resistor from VBUS5_PR1 to VBUS, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) |
-| R163 | 36.5k | 36.5k resistor from VBUS5_PR1 to GND, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) |
-| R164 | 100k | 100k resistor from VBUS5_OV1 to VBUS, for U34 (+5V source mux): U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V |
-| R165 | 23.2k | 23.2k resistor from VBUS5_OV1 to GND, for U34 (+5V source mux): U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V |
+| C280 | 1uF | 1uF bypass on +5V_BUCK, for U34 (+5V source mux) |
+| R162 | 100k | 100k resistor from VBUS5_PR1 to VBUS, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) unless Q6 (9 V request) or Q7 (screw input present) holds it at ground |
+| R163 | 36.5k | 36.5k resistor from VBUS5_PR1 to GND, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) unless Q6 (9 V request) or Q7 (screw input present) holds it at ground |
+| R164 | 100k | 100k resistor from VBUS5_OV1 to VBUS, for U34 (+5V source mux): U34 VBUS overvoltage backstop: VBUS is dropped above 5.3-5.9 V (5.63 V typical) if a source raises it unasked |
+| R165 | 23.2k | 23.2k resistor from VBUS5_OV1 to GND, for U34 (+5V source mux): U34 VBUS overvoltage backstop: VBUS is dropped above 5.3-5.9 V (5.63 V typical) if a source raises it unasked |
 | R166 | 100k | 100k resistor from VBUS5_CP2 to +3V3, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover |
 | R167 | 56.2k | 56.2k resistor from VBUS5_CP2 to GND, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover |
 | R168 | 44.2k | 44.2k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 2.5 A |
 | R169 | 10k | 10k resistor from VBUS5_ST to +3V3, for U7 (board controller): U34 status to the board controller: low when U11 feeds +5V |
+
+### Q6  mux hold: 9 V request
+
+Keeps U34 on U11 around a 9 V negotiation. The controller's 9 V request charges a capacitor through D24 at once and the capacitor drains through its resistor in 2-7 s, so the rail leaves VBUS before the charger moves it and returns only when VBUS is back at 5 V. No voltage threshold can do that within the tolerances involved.
+
+| Ref | Value | What it does |
+|---|---|---|
+| D24 | 1N4148W | mux hold diode: 1N4148W: charges the Q6 hold capacitor from PD_REQ_9V at once and lets it drain slowly through its own resistor. |
+| Q6 | BSS138LT1G | mux: 9 V request hold: Small N-MOSFET that pulls U34's PR1 to ground while the board controller asks for 9 V and for 2-7 s after it stops (D24, R, C hold), so the +5V rail is on U11 before VBUS moves and until it is back at 5 V. |
+| C279 | 10uF | 10uF capacitor from SEL_IN2 to GND, for Q6 (mux: 9 V request hold): Q6's gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s |
+| R200 | 470k | 470k resistor from SEL_IN2 to GND, for Q6 (mux: 9 V request hold): Q6's gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s |
+
+### Q7  mux hold: screw input present
+
+Keeps U34 on U11 whenever the screw input carries voltage, so a bench supply on J50 carries the whole board even with a 5 V USB cable plugged in; before, the USB port kept the 5 V load.
+
+| Ref | Value | What it does |
+|---|---|---|
+| Q7 | BSS138LT1G | mux: screw input present: Small N-MOSFET that pulls U34's PR1 to ground while the screw input (J50) carries voltage, so the whole board runs from J50 through U11 even with a 5 V USB cable plugged in. |
+| R201 | 100k | 100k series resistor between EXT_PRESENT and VIN_EXT, for J50 (POWER IN screw terminal): Q7's gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT |
+| R202 | 33k | 33k pull-down on EXT_PRESENT, for Q7 (mux: screw input present): Q7's gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT |
 
 ## Memory
 

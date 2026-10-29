@@ -107,7 +107,10 @@ SATELLITES = {
     'Y1': ('U7', 'RP2350 12 MHz crystal: at XIN/XOUT, short traces, no other signal between (RP2350 hardware design guide RP-008280, crystal section)'),
     'U8': ('U7', 'RP2350 QSPI flash: QSPI traces as short as possible (RP-008280, flash section)'),
     'X3': ('U30', 'PHY 25 MHz crystal at the PHY XTAL pins (RTL8211F)'),
-    'X4': ('U1', '50 MHz fabric clock at its MRCC ball, 33 ohm at the source (floorplan.md)'),
+    # a third element names the one net that decides the side: the clock
+    # must sit at the SYS_CLK ball, not at the mean of every +3V3 pad the
+    # two share (re-audit 2026-10-29, item 58)
+    'X4': ('U1', '50 MHz fabric clock at its MRCC ball M21, 33 ohm at the source (floorplan.md)', 'SYS_CLK'),
     'U31': ('J73', 'HDMI protection chip as close to the connector as possible, no vias '
                    'between them (TI SLLSE96F 10.1)'),
 }
@@ -122,7 +125,12 @@ CRITICAL = {
     frozenset(('U1', 'U2')): (3.0, 'PSRAM bus'), frozenset(('U1', 'U3')): (3.0, 'PSRAM bus'),
     frozenset(('U1', 'U4')): (3.0, 'PSRAM bus'), frozenset(('U1', 'U5')): (3.0, 'PSRAM bus'),
     frozenset(('U1', 'U30')): (3.0, 'RGMII to the PHY'),
-    frozenset(('U11', 'U15')): (4.0, '5 V from U11 into the top power door, short and wide'),
+    # every ampere of regulated +5V passes U11 -> U34 -> the rail (item 57):
+    # the mux is the junction, so it is pulled to U11 first and the door
+    # second; U11 is no longer pulled straight to U15
+    frozenset(('U11', 'U34')): (6.0, '+5V_BUCK from U11 into the mux IN2, short and wide; U34 borrows U11 bulk'),
+    frozenset(('U34', 'U15')): (4.0, 'the +5V rail from the mux OUT into the top power door, short and wide'),
+    frozenset(('U34', 'J1')): (2.0, 'VBUS into the mux IN1'),
 }
 
 # Power doors: regulators lined up against one side of the FPGA so each
@@ -145,7 +153,7 @@ DOORS = {
 # inside the group to the side where that pin is (key: group anchor; the
 # net is the chip pin's net, followed through the series part).
 RESEAT = {
-    'U1': (['X4', 'R147'], 'SYS_CLK',
+    'U1': (['X4', 'R147', 'C246'], 'SYS_CLK',
            '50 MHz oscillator and its 33 ohm source resistor at the SYS_CLK MRCC ball, '
            'away from the top power door'),
 }
@@ -215,15 +223,19 @@ class Block:
         return (x + self.rel[0], y + self.rel[1], x + self.rel[2], y + self.rel[3])
 
 
-def attach(host_refs, sat_refs, why, gap=0.8):
+def attach(host_refs, sat_refs, why, gap=0.8, net=None):
     """Where a satellite goes beside its chip, in the board's own frame:
     outside the chip island's parts, on the side where the chip's pins
-    shared with the satellite are, centred on those pins. Returns
-    ((dx, dy) to add to every satellite part, side letter, why)."""
+    shared with the satellite are (only the pins on `net` when one is
+    named: a supply rail shared by both must not outvote the one signal
+    pin), centred on those pins. Returns ((dx, dy) to add to every
+    satellite part, side letter, why)."""
     hb = I.bbox_of([p for r in host_refs for p in BOARD.fps[r].polygon()])
     sb = I.bbox_of([p for r in sat_refs for p in BOARD.fps[r].polygon()])
     sat_nets = {p.net for r in sat_refs for p in BOARD.fps[r].pads
                 if p.net and p.net != I.GND and not p.net.startswith('unconnected')}
+    if net:
+        sat_nets = {net}
     pins = [BOARD.fps[r].pad_pos(p) for r in host_refs for p in BOARD.fps[r].pads if p.net in sat_nets]
     hc = ((hb[0] + hb[2]) / 2, (hb[1] + hb[3]) / 2)
     pc = (sum(x for x, _ in pins) / len(pins), sum(y for _, y in pins) / len(pins)) if pins else hc
@@ -259,6 +271,15 @@ def reseat(host_refs, sat_refs, anchor, net, gap=0.8):
     return (x0 - sb[0], y0 - sb[1]), side
 
 
+def pad_rel(block, ref, number):
+    """A pad's offset from the block pivot, after the block's turn."""
+    fp = BOARD.fps[ref]
+    p = next(p for p in fp.pads if p.number == number)
+    px, py = fp.pad_pos(p)
+    sx_, sy_ = block.shift.get(ref, (0.0, 0.0))
+    return I.rot(px + sx_ - block.c0[0], py + sy_ - block.c0[1], block.turn)
+
+
 def overlaps(a, b, gap=0.0):
     return not (a[2] + gap <= b[0] or b[2] + gap <= a[0] or a[3] + gap <= b[1] or b[3] + gap <= a[1])
 
@@ -277,11 +298,13 @@ def main():
         groups.setdefault(label, []).append(ref)
     marks = BOARD.markers()
     sat_info = {}
-    for sat, (host, why) in SATELLITES.items():
+    for sat, info in SATELLITES.items():
+        host, why = info[0], info[1]
+        net = info[2] if len(info) > 2 else None
         hl, sl = f'island {host}', f'island {sat}'
         if hl not in groups or sl not in groups:
             continue
-        sat_info[sl] = attach(groups[hl], groups[sl], why) + (hl,)
+        sat_info[sl] = attach(groups[hl], groups[sl], why, net=net) + (hl,)
     reseats = {}
     for a, (srefs, net, _why) in RESEAT.items():
         lab = f'island {a}'
@@ -347,7 +370,16 @@ def main():
             edge_far = edge.pos[1] + (edge.rel[3] if at_top else edge.rel[1])
             depth = stacked.get(edge_ref, edge_far + (GAP if at_top else -GAP))
             cy = depth - b.rel[1] if at_top else depth - b.rel[3]
+            # the inboard row's contacts sit on the edge row's 2.54 mm
+            # lattice (place.py's row check, re-audit 2026-10-29): the pin
+            # rows are moved apart, never closer, to the next multiple
+            py_b = pad_rel(b, b.anchor, '1')[1]
+            py_e = pad_rel(edge, edge.anchor, '1')[1]
+            dy = (cy + py_b) - (edge.pos[1] + py_e)
+            n = math.ceil(abs(dy) / 2.54 - 1e-6)
+            cy += (n * 2.54 - abs(dy)) * (1.0 if dy >= 0 else -1.0)
             b.pos, b.fixed = (edge.pos[0] + edge.aoff[0] - b.aoff[0], cy), True
+            depth = cy + (b.rel[1] if at_top else b.rel[3])
             stacked[edge_ref] = depth + (b.h + GAP if at_top else -(b.h + GAP))
     for a, (x, y) in V['inner'].items():
         b = by_anchor.get(a)

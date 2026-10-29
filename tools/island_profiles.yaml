@@ -259,6 +259,15 @@ XFCN PM254V-11-07:
     - name: AUX fuse on the inboard side
       match: {pin: AUX}
       place: {dir: inboard}
+    # The key post stands one pitch before pin 1 on the row line (findings
+    # 51); the outboard row runs past pin 1 and its 10 uF landed on the
+    # post's courtyard (re-audit 2026-10-29). The PIN V fuse and bulk go
+    # inboard, at their own pin, on the AUX fuse's row: 4.3 mm off the pin
+    # line, where the post's courtyard (1.5 mm each side of the line) is
+    # not reached. The outboard row keeps the 3V3 and 5V parts.
+    - name: PIN V fuse and bulk capacitor on the inboard side, clear of the key post
+      match: {pin: PINV}
+      place: {dir: inboard}
     - name: slot power row on the outboard side
       match: {}
       place: {dir: outboard, lie: along, gap: 0.15, overhang: 1.5}

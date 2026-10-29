@@ -116,6 +116,14 @@ after writing it.
 the board controller can do. Do not publish an image count until the generated
 `XC7A100T` bitstream size is measured.
 
+`U6`'s chip select (`FLASH_CS_B`) carries a 4.7 k pull-up to +3V3 (UG470
+Table 2-4: FCS_B needs at most 4.7 k to VCCO_14; the FPGA's internal
+configuration pull-ups are off with PUDC_B high, and the W25Q256JV wants
+CS# to follow VCC through power-up and power-down). The controller reaches
+it through R22 (33 ohm); its pads at reset have their pull-downs enabled,
+which leaves CS high through the 4.7 k, so neither a dead nor a resetting
+controller selects the flash (findings item 54).
+
 ## Sizing
 
 The controller has 4 MB. Reserve the firmware and fault-log space first, then

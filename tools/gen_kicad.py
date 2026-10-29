@@ -331,12 +331,15 @@ def gen_extension_protection():
            ('9','ST','open_collector','R'), ('10','ILIM','passive','R'),
            ('11','SS','passive','R'), ('12','GND','power_in','R')]
     # TPS22953 DSQ (SLVSCT5D section 6, DQC/DSQ top view): pins 1-2 IN, 3 BIAS,
-    # 4 EN, 5 GND, 6 CT, 7 PG, 8 SNS, 9-10 OUT, 11 the exposed pad (GND)
+    # 4 EN, 5 GND, 6 CT, 7 PG, 8 SNS, 9-10 OUT, 11 the exposed pad (GND).
+    # PG is an open-drain output that the board ties to ground, as 9.3.3
+    # requires of an unused PG (findings item 56); typed passive so ERC does
+    # not call the ground tie a driver conflict.
     sw53 = [('1','IN','power_in','L'), ('2','IN','passive','L'),
             ('3','BIAS','power_in','L'), ('4','EN','input','L'),
             ('5','GND','power_in','L'), ('11','EP','passive','L'),
             ('9','OUT','passive','R'), ('10','OUT','passive','R'),
-            ('8','SNS','input','R'), ('7','PG','open_collector','R'),
+            ('8','SNS','input','R'), ('7','PG','passive','R'),
             ('6','CT','passive','R')]
     return (gen_box_symbol('TPS22953DSQ', sw53,
             'Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm',

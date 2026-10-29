@@ -5,7 +5,8 @@ Odin is an FPGA board for building the thing you meant to build.
 One USB-C cable powers it and programs it. Four PSRAM chips give the FPGA
 32 MB of working memory on four private ports, and a 32 MB SDRAM sits beside
 them. Ten extension ports carry signals and useful power.
-A gigabit Ethernet jack and two raw link ports sit on the top edge.
+A gigabit Ethernet jack and two raw link ports sit on the bottom edge,
+opposite the two extension bus headers.
 
 This manual is for using the board. If you are designing an extension, read
 `ref/extension-ux.md` after this.
@@ -49,15 +50,22 @@ not have enough power for everything at once.
 
 Odin asks USB-C for 5 V by default and for 9 V only once the board controller
 is running and has decided to; its pins cannot form any higher request.
+While it asks, the board's 5 V runs a little low for under a second;
+extension power stays off until the request is settled. A 9 V charger is
+good for at least 15 W. A computer port is treated as 500 mA unless you
+tell the board controller otherwise: it cannot measure what a 5 V port
+offers.
 
 ### Optional power input
 
 `OPTIONAL POWER IN` is not required for normal use. It is a second way to
 power Odin from a regulated bench supply when USB-C cannot provide enough
 power. Connect **9–21 V** to the pin marked `+` and supply ground to `GND`.
-USB-C may remain connected; Odin uses the higher source. Never exceed 21 V.
-Full extension power (every connector rail loaded at once) needs this input
-or a 9 V USB-PD charger; see [power-budget.md](power-budget.md).
+USB-C may remain connected; while the optional input is powered, Odin runs
+from it and uses USB only to talk to the computer. Never exceed 21 V.
+Full extension power (every connector rail loaded at once) needs this
+input; a 9 V USB-PD charger carries the board and part of the extensions.
+See [power-budget.md](power-budget.md).
 
 ## The extension idea, from zero
 

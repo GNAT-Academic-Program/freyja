@@ -478,3 +478,55 @@ loop), plan regenerated and applied: 311 footprints moved, none that was
 inside the outline. X4 is in island U1 on its north side at the SYS_CLK
 ball, U8 (west) and Y1 (south) in island U7. DRC unchanged: 10 courtyard
 overlaps at the key posts, 0 parity. Gate electrical PASS.
+
+## Re-audit corrections, part 1: schematic 2026-10-29
+Parts: 553 (+9: Q6, Q7, D24, R200-R203, C279, C280); roles 553/553; ERC 0
+errors; netlist, XDC and guide in step; DRC 10 courtyard errors (unchanged,
+the key posts), 0 parity; load_pcb moved nothing, staged the nine new
+footprints. Gate electrical PASS; mechanical FAIL (unchanged).
+What (findings Part IV, items 52-57; the independent re-audit against
+9dd5fa8, evidence in ref/board-review/reaudit-2026-10-29.json):
+- 52/53, U34 selection by intent: Q6 pulls PR1 to ground while PD_REQ_9V
+  is high and, through D24 into 470k/10 uF, for 2.4-7.2 s after it falls,
+  so the +5V rail is on U11 before the charger moves VBUS and until it is
+  back at 5 V (Table 9-3, PR1 < VREF with CP2 high selects IN2). Q7 pulls
+  PR1 to ground while VIN_EXT carries more than 3.2-6 V (100k/33k), so a
+  powered J50 carries the whole board with a USB cable attached. OV1 stays
+  at 5.63 V typical (5.26-5.96 V worst case, now computed and checked in
+  design.py against the 6 V TLV62569 absolute maximum and the 5.25 V USB
+  2.0 port) as a backstop only. During a negotiation the rail is U11 in
+  dropout, about 4.5 V. No comparator threshold can separate vSafe5V's
+  5.5 V from the TLV62569's 5.5 V, so none is asked to.
+- 54: R203, 4.7k from FLASH_CS_B to +3V3 (UG470 Table 2-4; W25Q256JV CS
+  follows VCC); the controller's reset pull-down through R22 leaves it high.
+- 56: U23/U24 PG tied to ground (SLVSCT5D 9.3.3); the symbol pin typed
+  passive so ERC does not call the tie a driver conflict. Fault coverage
+  stated plainly in extension-ux.md and power-input.md: no report, no
+  aggregate limit, automatic restart after an output undervoltage; bench.
+- 57: C280, 1 uF at U34 IN2 (SLVSEA3F 11); the 3 x 22 uF at U11 stay the
+  bulk, and city.py now pulls U11 -> U34 (6) and U34 -> U15 (4) instead of
+  U11 -> U15 directly; U34 -> J1 (2).
+- 58: city.py attach() takes the deciding net (X4: SYS_CLK, not the +3V3
+  pads), RESEAT lists X4, R147 and C246; city.py snaps the inboard L/M rows
+  (J57/J58) to the edge rows' 2.54 mm lattice. Applied in part 2.
+- 55: no hardware change. CH224K exposes no contract data (the CH224A/Q I2C
+  status register is not on the K; the A is pin-compatible but its I2C
+  mode is the single-resistor mode, in which register 0x0A can request up
+  to 28 V, which would give up the 9 V ceiling by construction). Policy in
+  budget.py: any 5 V source is a 500 mA port unless user-declared; a
+  granted 9 V request is a 15 W guarantee (PD power rules [verify]);
+  J50 is detected on MON_VSYS. The alternative, two dual comparators on
+  the CC lines into four spare GPIOs, is recorded as the hardware option.
+- budget.py: each path checked against its own limiter (U34, U26) and the
+  sum against the source; inductor peaks at the 21 V / 5.5 V envelope with
+  L at -20 % (all pass); LOADS carry a recovery column (standby or reset
+  currents, never zero for a powered part; U33 MRAM added): recovery is
+  0.21 A at 4.75 V, inside a 500 mA port, above the 100 mA an unconfigured
+  USB 2.0 device may draw, stated as open, not met.
+- Documents: user-manual.md (jacks on the bottom edge, no full export on
+  PD, what the controller can know about a port, the brief 5 V dip),
+  power-input.md, power.md, extension-ux.md, island-layouts.md,
+  floorplan.md (X4 left, U34 junction), supervisor-flash.md (FCS_B).
+Open after this part: item 40 COUT qualification, item 34 DS181 ramp and
+power-down waveforms, the U23/U24 shorted-branch test, the pre-enumeration
+current, the J1 land pattern against the HCTL drawing.

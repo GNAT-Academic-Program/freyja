@@ -205,9 +205,10 @@ def fb_divider(vout, vref, rtop=100e3):
 ADC_FS      = 3.3    # ADC_AVDD; also the full-scale reference
 ADC_CEIL    = 3.0    # design ceiling, leaving headroom below ADC_AVDD
 VSYS_ABSMAX = 21.0   # official J50 ceiling; D4 only subtracts from this
-V5_ABSMAX   = 9.0    # U34 drops VBUS above 5.63 V within 5 us; 9 V on the rail
-                     # would be a mux fault, and a monitor that dies in that
-                     # fault cannot report it, so the divider is sized for it
+V5_ABSMAX   = 9.0    # U34 leaves VBUS before a 9 V request (Q6) and drops a
+                     # VBUS above 5.3-5.9 V (OV1); 9 V on the rail would be a
+                     # mux fault, and a monitor that dies in that fault cannot
+                     # report it, so the divider is sized for it
 
 # E24 for monitors, not E96: firmware calibrates a divider ratio, so precision
 # buys nothing here, while being a value people actually stock buys something.
@@ -852,7 +853,10 @@ def build():
     # time (CT) and thermal shutdown. It has no programmable current limit:
     # the 500 mA PINV branch PTC in every slot is the overload protection.
     # EN threshold 0.7 V, so EXT_EN drives it directly; SNS is tied to the
-    # output (PG unused, left open). The ILIM resistor each had is consumed
+    # output. PG is not used and is tied to ground, which SLVSCT5D 9.3.3
+    # requires of an unused PG (findings item 56); the switch itself does
+    # not report a fault, so the PTC branches stay the overload protection.
+    # The ILIM resistor each had is consumed
     # here so the later resistors keep their designators; the 1 uF input
     # bypass stays, the BIAS 100 nF, CT 1 nF and OUT 1 uF are appended.
     for ref, vin, vout in (('U23', 'VCCIO_1', 'VCCIO_1_EXT'),
@@ -860,7 +864,7 @@ def build():
         d.group(f'{ref}  {vin} to {vout}')
         d.add(ref, 'odin:TPS22953DSQ', 'TPS22953DSQR', WSON10_DSQ,
               {'IN': vin, 'OUT': vout, 'BIAS': V33, 'EN': 'EXT_EN', 'GND': GND,
-               'CT': f'{ref}_CT', 'PG': '', 'SNS': vout, 'EP': GND}, 'C2680343')
+               'CT': f'{ref}_CT', 'PG': GND, 'SNS': vout, 'EP': GND}, 'C2680343')
         d.reserve('R', 1)
         d.C('1uF', vin, GND, C0603)
 
@@ -1252,20 +1256,39 @@ def build():
     # TI TPS2121 priority power mux (SLVSEA3F): IN1 is VBUS, IN2 is U11's
     # output. Both channels block reverse current (9.3.6), the output is
     # current-limited on both (9.3.2) and soft-started (9.3.1), and the
-    # switchover is seamless (9.3.7). The selection is wired, not firmware:
-    #   PR1 = VBUS x 36.5/136.5, CP2 = +3V3 x 56.2/156.2 = 1.19 V, so VBUS
-    #   wins while it is above 4.44 V (PR1 > CP2, Table 9-3), which is a plain
-    #   5 V source;
-    #   OV1 = VBUS x 23.2/123.2 crosses the 1.06 V reference at 5.63 V, so a
-    #   9 V contract takes VBUS out of the choice within 5 us and U11 feeds
-    #   the rail; U11 runs all the time, so there is no gap to bridge;
+    # switchover is seamless (9.3.7). The selection is wired, not firmware,
+    # and it is decided by intent, not by measuring VBUS (items 52, 53):
+    #   PR1 = VBUS x 36.5/136.5, CP2 = +3V3 x 56.2/156.2 = 1.19 V, so a plain
+    #   5 V VBUS wins (PR1 > CP2, Table 9-3) while nothing pulls PR1 down;
+    #   Q6 pulls PR1 to ground while the controller asks for 9 V and for a
+    #   few seconds after it stops asking (D24/R/C hold below), so the rail
+    #   is on U11 before VBUS starts toward 9 V and stays there until VBUS
+    #   is back at 5 V. No comparator threshold can separate the 5.5 V the
+    #   USB-PD vSafe5V range allows from the TLV62569's 5.5 V operating
+    #   maximum (the OV1 reference alone is 1.01-1.10 V, 7.5 % of window),
+    #   so the handoff is not left to one;
+    #   Q7 pulls PR1 to ground while the screw input carries voltage, so
+    #   with J50 connected the whole board runs from J50 through U11 even
+    #   when a 5 V USB cable is also plugged in (item 53: before, a 500 mA
+    #   computer port kept the +5V load while a bench supply sat idle);
+    #   OV1 = VBUS x 23.2/123.2 crosses the 1.06 V reference at 5.63 V
+    #   nominal (5.28-5.94 V over the reference and 1 % resistors): a fault
+    #   backstop against a source that raises VBUS without being asked,
+    #   inside the TLV62569's 6 V absolute maximum (survival, not an
+    #   operating allowance), above the 5.25 V a USB 2.0 port may deliver;
     #   OV2 to GND (U11 is regulated), CP2 above the reference whenever +3V3
-    #   is up enables the 5 us fast switchover (CP2 low: 100 us, no PD
-    #   transition can happen before +3V3 exists);
+    #   is up enables the fast switchover (tSW 5 us typical, SLVSEA3F 7.5;
+    #   100 us with CP2 low; no PD transition can happen before +3V3 exists);
     #   RILM 44.2k: 2.5 A typical (2.0-3.0 A, Table 7.5), above the 1.72 A
     #   worst-case rail load, below the 5 A connector contacts;
     #   CSS 100 nF: about 780 V/s at 5 V (Table 9-1), 80 mA into the rail's
     #   ~100 uF.
+    # While Q6 or Q7 holds PR1 low on a plain 5 V VBUS, IN2 is U11 in its
+    # low-dropout mode (AP63300 DS42002 section 14, near 100 % duty), about
+    # VSYS minus 0.1 V: the +5V rail sits near 4.5 V for the length of the
+    # negotiation (TLV62569 and SY8047 run from 2.5 V; +5V_EXT is off until
+    # firmware enables it). Firmware asks for 9 V at start-up, before EXT_EN,
+    # and withdraws the request if PD_PG does not confirm it.
     # ST (open drain, 10k pull-up, 6-20k allowed) tells the controller which
     # input feeds the rail: high = VBUS or none, low = U11.
     d.sheet('Power')
@@ -1282,13 +1305,20 @@ def build():
     d.R('10k', V33, 'VBUS5_ST', R0603)
     d.C('100nF', 'VBUS', GND)          # IN1 bypass; the 10 uF attach allowance is at U26
     for _ in range(2): d.C('22uF', V5, GND, C0805)   # OUT: the rail's bulk after the mux
+    VREF_MIN, VREF_TYP, VREF_MAX = 1.01, 1.06, 1.10          # SLVSEA3F 7.5, rising
     MUX_CHECK.clear()
-    MUX_CHECK.extend([('VBUS selected above', 1.19 * 136.5 / 36.5),
-                      ('VBUS invalid above (OV1 rising)', 1.06 * 123.2 / 23.2),
-                      ('VBUS valid again below (OV1 falling)', 1.04 * 123.2 / 23.2),
+    MUX_CHECK.extend([('VBUS selected above (PR1 > CP2, nothing pulling PR1)', 1.19 * 136.5 / 36.5),
+                      ('VBUS invalid above (OV1 rising, typical)', VREF_TYP * 123.2 / 23.2),
+                      ('OV1 rising, minimum (reference and 1 % resistors)', VREF_MIN * 123.2 / 23.2 * 0.98),
+                      ('OV1 rising, maximum (reference and 1 % resistors)', VREF_MAX * 123.2 / 23.2 * 1.02),
+                      ('VBUS valid again below (OV1 falling, typical)', 1.04 * 123.2 / 23.2),
                       ('PR1 at 20 V', 20 * 36.5 / 136.5)])
-    if MUX_CHECK[3][1] > 5.5:
+    if MUX_CHECK[5][1] > 5.5:
         raise ValueError('TPS2121 PR1 pin would exceed 5.5 V at 20 V on VBUS')
+    if MUX_CHECK[3][1] > 6.0:
+        raise ValueError('OV1 worst case exceeds the TLV62569 6 V absolute maximum')
+    if MUX_CHECK[2][1] < 5.25:
+        raise ValueError('OV1 worst case would reject a USB 2.0 port at 5.25 V')
 
     # ---- local input energy storage per converter (item 38): TLV62569
     # SLVSDG1C 8.2.2.5 (4.7 uF at VIN), AP63300 DS42002 Figure 39 (10 uF
@@ -1348,6 +1378,66 @@ def build():
         d.C('100nF', mon, GND)
         ADC_CHECK.append((mon, 3.3, 3.3, ADC_FS, ADC_FS, '1k (series)', '-', 1e3))
 
+    # ---- U34 selection by intent (items 52 and 53), appended for designators.
+    # Q6 holds PR1 low while PD_REQ_9V is high and, through D24 and the
+    # R/C below, for a few seconds after it falls: on the way up the rail
+    # is on U11 before the charger moves VBUS; on the way down it stays
+    # there until VBUS is back at 5 V (a PD source completes the 9 -> 5 V
+    # step well inside a second; tSrcTransition and tSrcSettle, USB PD
+    # section 7.6 [verify]). Hold: 470k x 10 uF = 4.7 s; the gate starts at
+    # 3.3 V minus one 1N4148W drop (about 2.85 V) and BSS138 turns off at
+    # 0.8-1.5 V: 2.4 s minimum (C -20 %), 7.2 s maximum. 1N4148W leakage is
+    # 25 nA at 20 V (SOD-123 datasheets), BSS138 IGSS 100 nA at 20 V: under
+    # 0.05 V on a 3 uA node. A dead or resetting controller lets PD_REQ_9V
+    # fall (R173), which is the same release path. PR1 pulled to ground is
+    # Table 9-3's "PR1 < VREF, CP2 >= VREF" row: IN2 whenever IN2 is valid.
+    d.sheet('Power')
+    d.group('Q6  mux hold: 9 V request')     # its own island, the RC at its gate
+    d.add('Q6', 'Transistor_FET:Q_NMOS_GSD', 'BSS138LT1G',
+          'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
+          {'D': 'VBUS5_PR1', 'S': GND, 'G': 'SEL_IN2'}, 'C82045')
+    d.add('D24', 'Device:D', '1N4148W', 'Diode_SMD:D_SOD-123',
+          {'A': 'PD_REQ_9V', 'K': 'SEL_IN2'}, 'C81598')
+    d.R('470k', 'SEL_IN2', GND, R0603)
+    d.C('10uF', 'SEL_IN2', GND, C0805)
+    # Q7 holds PR1 low while the screw input carries voltage: 100k/33k from
+    # VIN_EXT (before D4, so VBUS cannot lift it) gives 2.2 V at the 9 V
+    # minimum input, above BSS138's 1.5 V maximum threshold, and 5.2 V at
+    # 21 V, inside its 20 V gate rating. It turns on between 3.2 and 6.0 V
+    # of VIN_EXT, below the 9 V where U11 regulates, so the board is on U11
+    # before J50 reaches its range. The 0603 top resistor sees 21 V.
+    d.group('Q7  mux hold: screw input present')     # its own island
+    d.add('Q7', 'Transistor_FET:Q_NMOS_GSD', 'BSS138LT1G',
+          'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
+          {'D': 'VBUS5_PR1', 'S': GND, 'G': 'EXT_PRESENT'}, 'C82045')
+    d.R('100k', 'VIN_EXT', 'EXT_PRESENT', R0603); d.R('33k', 'EXT_PRESENT', GND, R0603)
+    # IN2 bypass at U34's own pin (item 57): SLVSEA3F 11 wants each of IN1,
+    # IN2 and OUT bypassed close to the device; the 3 x 22 uF at U11 are the
+    # bulk and stay the planning reason for putting U34 beside U11.
+    d.group('U34  +5V source select')
+    d.C('1uF', V5BUCK, GND, C0603)
+    MUX_CHECK.extend([('Q6 hold after PD_REQ_9V falls, minimum (s)', 0.47e6 * 10e-6 * 0.8 * 0.99 * __import__('math').log(2.85 / 1.5)),
+                      ('Q6 hold after PD_REQ_9V falls, maximum (s)', 0.47e6 * 10e-6 * 1.2 * 1.01 * __import__('math').log(2.85 / 0.8)),
+                      ('Q7 on above VIN_EXT, latest (Vth 1.5 V)', 1.5 * 133 / 33),
+                      ('Q7 gate at 21 V on VIN_EXT', 21 * 33 / 133)])
+    if MUX_CHECK[-1][1] > 20.0:
+        raise ValueError('Q7 gate exceeds the BSS138 20 V rating at 21 V on J50')
+    if MUX_CHECK[-2][1] > 9.0:
+        raise ValueError('Q7 is not guaranteed on at the 9 V minimum screw input')
+
+    # ---- FPGA configuration flash chip select (item 54). UG470 Table 2-4:
+    # FCS_B needs an external pull-up of at most 4.7k to VCCO_14 (+3V3);
+    # the internal configuration pull-ups are off (PUDC_B high, item 39)
+    # and W25Q256JV 4.1/9.3 wants CS# to follow VCC through power-up and
+    # power-down. The controller reaches FLASH_CS_B through R22 (33 ohm):
+    # an RP2350 pad at reset has its pull-down enabled (about 50-80k,
+    # RP2350 datasheet, pad control registers [verify]), which leaves CS
+    # near 3.0 V through 4.7k, so neither the dead nor the resetting
+    # controller can select the flash.
+    d.sheet('FPGA')
+    d.group('config flash')
+    d.R('4.7k', V33, 'FLASH_CS_B')
+
     # Mandatory connector-accounting gate. A post is a ground probe/key, not
     # a mated contact; each section separately has four signal grounds plus
     # the three female power-row grounds.
@@ -1384,7 +1474,8 @@ if __name__ == '__main__':
         flag = 'OK' if abs(act-tgt)/tgt < 0.02 else 'FAIL'
         print(f"  {rail:9s} {tgt:5.2f}V {act:6.3f}V  {rt}/{rb}  {flag}")
     print("\nU34 +5V source select (TPS2121)")
-    for what, v in MUX_CHECK: print(f"  {what:40s} {v:5.2f} V")
+    for what, v in MUX_CHECK:
+        print(f"  {what:56s} {v:5.2f} {'s' if '(s)' in what else 'V'}")
     print("\nmonitor        rail      reads   at max          divider   Zsrc")
     for name, vnom, vn, vmax, vm, rt, rb, z in ADC_CHECK:
         print(f"  {name:10s} {vnom:5.2f}V  {vn:5.3f}V  {vm:5.3f}V@{vmax:5.2f}V  "

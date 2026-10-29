@@ -6648,7 +6648,7 @@
 				(name "SNS" (effects (font (size 1.27 1.27))))
 				(number "8" (effects (font (size 1.27 1.27))))
 			)
-			(pin open_collector line
+			(pin passive line
 				(at 17.78 -1.27 180)
 				(length 5.08)
 				(name "PG" (effects (font (size 1.27 1.27))))

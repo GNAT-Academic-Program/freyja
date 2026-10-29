@@ -196,6 +196,13 @@ PARTS = {
            'transient limit is the lowest downstream transient absolute maximum',
     pinmap='1 cathode to VIN_EXT; 2 anode to GND',
     src='BORN SMBJ22A datasheet; LCSC C151920'),
+  'D24': dict(
+    mpn='1N4148W', pkg='SOD-123', fp='Diode_SMD:D_SOD-123',
+    rating='75 V, 150 mA small-signal switching diode. Charges U34\'s IN2 hold '
+           'node from PD_REQ_9V; what matters is reverse leakage, 25 nA at '
+           '20 V (under 0.05 V on the 470k/10 uF node, findings item 52)',
+    pinmap='1 cathode to SEL_IN2; 2 anode to PD_REQ_9V (KiCad Device:D)',
+    src='generic 1N4148W, multiple vendors; LCSC C81598 [verify at order time]'),
   'odin:TPS2121RUX': dict(
     mpn='TPS2121RUXR', pkg='VQFN-HR-12, 2 x 2.5 mm, 0.5 mm pitch (TI RUX, MPQF508)',
     fp='Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm',

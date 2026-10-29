@@ -90,8 +90,14 @@ Four low-voltage protection channels remain (U21-U24) under EXT_EN. U21/U22
 (TPS22950C) limit current and report on EXT_FAULT; U23/U24 are TPS22953
 switches biased from +3V3 so the 1.8 V PIN V setting is inside their rating:
 they block reverse current while off and ramp in about 1.5 ms, and the
-500 mA PINV fuse in each slot is the overload limit. The controller measures
-both PIN V domains (MON_VCCIO_1/2), so firmware knows the jumper setting.
+500 mA PINV fuse in each slot is the overload limit. They report nothing
+(PG is tied to ground as the datasheet asks of an unused PG; EXT_FAULT
+comes from U21/U22/U26 only), four slots share each domain so four 500 mA
+fuses are not a 500 mA ceiling, and the switch restarts by itself after an
+output undervoltage (TPS22953 9.3.4, 9.4): a shorted PIN V branch against
+the shared upstream rail is a bench test, not a proven isolation. The
+controller measures both PIN V domains (MON_VCCIO_1/2), so firmware knows
+the jumper setting.
 AUX no longer has U25's active reverse-blocking/current-limit protection.
 PTCs isolate sustained branch faults; overload can droop the shared source.
 Never backfeed a power contact. A PTC is not instantaneous short protection.

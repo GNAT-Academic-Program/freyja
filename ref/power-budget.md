@@ -12,10 +12,18 @@ rail behind U14 are present whenever the board has power, so the FPGA's
 VCCAUX never waits on firmware (DS181 Table 7, findings 34).
 
 On a plain 5 V source U11 cannot make 5 V from 4.3 V; U34 (TPS2121) then
-passes VBUS to the +5V rail directly while VBUS is between 4.44 and 5.63 V,
-and hands the rail to U11 within 5 us when a 9 V contract arrives or VBUS
-goes away. Both of its inputs block reverse current and the rail is
-limited to 2.5 A typical.
+passes VBUS to the +5V rail directly. The rail goes to U11 (findings
+items 52, 53) while the controller asks for 9 V and for 2-7 s after it
+stops (Q6, so the handoff happens before VBUS moves and lasts until it is
+back at 5 V, not at a comparator threshold that cannot separate a 5.5 V
+vSafe5V from the TLV62569's 5.5 V operating maximum), while the screw input
+carries voltage (Q7: J50 connected means the whole board runs from J50,
+USB cable or not), and if VBUS goes above 5.3-5.9 V unasked (OV1, a fault
+backstop inside the 6 V absolute maximum) or away. During a 5 V -> 9 V
+negotiation the rail is U11 in low-dropout mode, about 4.5 V, which every
++5V consumer accepts; firmware asks for 9 V before it enables EXT_EN.
+Both of U34's inputs block reverse current and the rail is limited to
+2.5 A typical.
 
 The VIN clamp is SMBJ22A: 22 V standoff and 35.5 V maximum rated pulse clamp.
 The AP63300's 40 V/400 ms transient limit is the lowest transient limit after
@@ -40,44 +48,50 @@ Sum of the `LOADS` lines below on each output, with the downstream rails
 reflected into +5V and +3V3 at 90 % conversion efficiency. Connector exports
 are not in these numbers.
 
-| Ref | Output | Board load | Rating | Used |
-|---|---|---:|---:|---:|
-| `U11` | +5V | 0.721 A | 3 A | 24 % |
-| `U12` | +3V3 | 0.919 A | 3 A | 31 % |
-| `U13` | +2V5 | 0.140 A | 2 A | 7 % |
-| `U14` | +1V8_IO | 0.308 A | 2 A | 15 % |
-| `U15` | +1V0 | 1.650 A | 4 A | 41 % |
-| `U16` | +1V2_MGT | 0.150 A | 2 A | 8 % |
+| Ref | Output | Board load | Recovery | Rating | Used |
+|---|---|---:|---:|---:|---:|
+| `U11` | +5V | 0.721 A | 0.025 A | 3 A | 24 % |
+| `U12` | +3V3 | 0.946 A | 0.240 A | 3 A | 32 % |
+| `U13` | +2V5 | 0.140 A | 0.000 A | 2 A | 7 % |
+| `U14` | +1V8_IO | 0.308 A | 0.056 A | 2 A | 15 % |
+| `U15` | +1V0 | 1.650 A | 0.000 A | 4 A | 41 % |
+| `U16` | +1V2_MGT | 0.150 A | 0.000 A | 2 A | 8 % |
 
-| Rail | Load | Current | Basis | Note |
-|---|---|---:|---|---|
-| +1V0 | XC7A100T VCCINT, busy design | 1.500 A | estimate | pre-bitstream planning allowance; replace with an AMD XPE result |
-| +1V0 | VCCBRAM | 0.050 A | estimate | share of the 0.25 W AUX/BRAM line |
-| +1V0 | +1V0_MGT (MGTAVCC, filtered off +1V0) | 0.100 A | estimate | 2 lanes, share of the 0.4 W transceiver line |
-| +1V8_IO | XC7A100T VCCAUX and VCCADC (+1V8, through FB1) | 0.180 A | estimate | pre-bitstream planning allowance; replace with an AMD XPE result |
-| +1V8_IO | FPGA bank 13 VCCO and its I/O | 0.100 A | estimate | one third of the 1.0 W VCCO/IO line, as for bank 14 |
-| +1V8_IO | PSRAM x4 APS6404L-SQN-SN, all reading | 0.028 A | datasheet | APS6404L-SQN datasheet rev 4.0 Table 9 (p. 26): ICC read/write 7 mA max per chip, output load not included |
-| +1V8_IO | U9/U10 VCCA, quiescent | 0.000 A | datasheet | SN74LXC8T245 SCES916A section 6.5: ICCA 4 uA max per device; switching current is counted in the bank 13 line |
-| +1V2_MGT | MGTAVTT, 2 lanes | 0.150 A | estimate | share of the 0.4 W transceiver line |
-| +3V3 | RP2350B supervisor + boot flash | 0.070 A | estimate | ref/power-input.md: 0.2 W |
-| +3V3 | FPGA bank 14 VCCO and its I/O | 0.100 A | estimate | one third of the 1.0 W VCCO/IO line |
-| +3V3 | config flash W25Q256, program | 0.030 A | datasheet | W25Q256JV: 25 mA page-program peak |
-| +3V3 | microSD card in J74, writing | 0.100 A | estimate | SD specification: up to 100 mA average for a 3.3 V card; peaks are carried by the 10 uF at the socket |
-| +3V3 | W9825G6KH-6 SDRAM, burst read/write | 0.085 A | datasheet | W9825G6KH rev A03 p. 14, DC characteristics: IDD4 85 mA max at the -6 grade |
-| +3V3 | RTL8211FD-CG, 1000Base-T link | 0.200 A | estimate | datasheet rev 1.7 gives no active-mode consumption table; planning allowance for a 1 Gb PHY with internal LDO, verify on the prototype |
-| +3V3 | ETH jack LEDs x2 through 510 ohm | 0.006 A | datasheet | RTL8211F Figure 5; about 3 mA each |
-| +3V3 | X4 50 MHz CMOS oscillator | 0.010 A | estimate | typical 3225 CMOS oscillator at 50 MHz into a 15 pF load |
-| +3V3 | Heartbeat and user LEDs x3, all on | 0.005 A | estimate | D9-D11 via 1k each; 5 mA budget allowance |
-| +3V3 | U20, pull-ups, LED | 0.030 A | estimate | quiescent logic |
-| +3V3 | FPGA bank 15 VCCO, worst case jumpered to 3.3V | 0.100 A | estimate | bank load only; connector export is checked from switch maximum below |
-| +3V3 | FPGA bank 34 VCCO, worst case jumpered to 3.3V | 0.100 A | estimate | bank load only; connector export is checked from switch maximum below |
-| +3V3 | FPGA bank 35 VCCO and bank 0 | 0.060 A | estimate | bank 35 drives HDMI (TMDS_33 current comes from the monitor's 3.3 V pull-ups, not from VCCO); bank 13 is on +1V8_IO |
-| +3V3 | U31 TPD12S016 VCCA, level shifters on | 0.001 A | datasheet | SLLSE96F 8.2.2: about 200 uA fully on |
-| +2V5 | FPGA bank 16 VCCO: RGMII and eight LVDS_25 pairs | 0.120 A | estimate | LVDS_25 drivers about 3.5 mA each plus RGMII switching; replace with XPE |
-| +2V5 | RTL8211FD-CG DVDD_RG (RGMII pads) | 0.020 A | estimate | external 2.5 V I/O supply, CFG_EXT=1 CFG_LDO=01 |
-| +1V1 | RP2350B core (DVDD) | 0.060 A | estimate | RP2350 at 150 MHz; the on-chip regulator is rated 200 mA |
-| +5V | U9/U10 VCCB | 0.020 A | estimate | quiescent translator supply |
-| +5V | HDMI 5 V to the monitor through U31 | 0.055 A | datasheet | TPD12S016 5V_OUT current limit, SLLSE96F |
+| Rail | Load | Current | Recovery | Basis | Note |
+|---|---|---:|---:|---|---|
+| +1V0 | XC7A100T VCCINT, busy design | 1.500 A | off | estimate | pre-bitstream planning allowance; replace with an AMD XPE result |
+| +1V0 | VCCBRAM | 0.050 A | off | estimate | share of the 0.25 W AUX/BRAM line |
+| +1V0 | +1V0_MGT (MGTAVCC, filtered off +1V0) | 0.100 A | off | estimate | 2 lanes, share of the 0.4 W transceiver line |
+| +1V8_IO | XC7A100T VCCAUX and VCCADC (+1V8, through FB1) | 0.180 A | 0.0500 A | estimate | pre-bitstream planning allowance; replace with an AMD XPE result. Recovery: unconfigured quiescent ICCAUXQ, planning figure [verify DS181] |
+| +1V8_IO | FPGA bank 13 VCCO and its I/O | 0.100 A | 0.0050 A | estimate | one third of the 1.0 W VCCO/IO line, as for bank 14; recovery: VCCO quiescent |
+| +1V8_IO | PSRAM x4 APS6404L-SQN-SN, all reading | 0.028 A | 0.0008 A | datasheet | APS6404L-SQN datasheet rev 4.0 Table 9 (p. 26): ICC read/write 7 mA max per chip, output load not included; standby ISBSTD 200 uA each |
+| +1V8_IO | U9/U10 VCCA, quiescent | 0.000 A | 0.0001 A | datasheet | SN74LXC8T245 SCES916A section 6.5: ICCA 4 uA max per device; switching current is counted in the bank 13 line |
+| +1V2_MGT | MGTAVTT, 2 lanes | 0.150 A | off | estimate | share of the 0.4 W transceiver line |
+| +3V3 | RP2350B supervisor + boot flash | 0.070 A | 0.0700 A | estimate | ref/power-input.md: 0.2 W; the controller runs in recovery |
+| +3V3 | FPGA bank 14 VCCO and its I/O | 0.100 A | 0.0050 A | estimate | one third of the 1.0 W VCCO/IO line; recovery: VCCO quiescent, core off |
+| +3V3 | config flash W25Q256, program | 0.030 A | 0.0001 A | datasheet | W25Q256JV: 25 mA page-program peak; standby under 100 uA [verify W25Q256JV 9.3] |
+| +3V3 | microSD card in J74, writing | 0.100 A | 0.0020 A | estimate | SD specification: up to 100 mA average for a 3.3 V card; peaks are carried by the 10 uF at the socket; an idle inserted card about 1-2 mA |
+| +3V3 | W9825G6KH-6 SDRAM, burst read/write | 0.085 A | 0.0300 A | datasheet | W9825G6KH rev A03 p. 14, DC characteristics: IDD4 85 mA max at the -6 grade; recovery: IDD2 30 mA, the standby figure with CKE high, taken because the unconfigured FPGA leaves its inputs floating (PUDC_B high) |
+| +3V3 | U33 MR25H10 MRAM | 0.027 A | 0.0001 A | datasheet | MR25H10 DC table: IDDW 27 mA max at 40 MHz; ISB 115 uA max |
+| +3V3 | RTL8211FD-CG, 1000Base-T link | 0.200 A | 0.0500 A | estimate | datasheet rev 1.7 gives no active-mode consumption table; planning allowance for a 1 Gb PHY with internal LDO, verify on the prototype. Recovery: held in reset by the unconfigured FPGA strap state, still powered; planning figure [verify on the prototype] |
+| +3V3 | ETH jack LEDs x2 through 510 ohm | 0.006 A | 0.0000 A | datasheet | RTL8211F Figure 5; about 3 mA each; no link in recovery |
+| +3V3 | X4 50 MHz CMOS oscillator | 0.010 A | 0.0100 A | estimate | typical 3225 CMOS oscillator at 50 MHz into a 15 pF load; always powered |
+| +3V3 | Heartbeat and user LEDs x3, all on | 0.005 A | 0.0050 A | estimate | D9-D11 via 1k each; 5 mA budget allowance |
+| +3V3 | U20, pull-ups, LED | 0.030 A | 0.0300 A | estimate | quiescent logic |
+| +3V3 | FPGA bank 15 VCCO, worst case jumpered to 3.3V | 0.100 A | 0.0050 A | estimate | bank load only; connector export is checked from switch maximum below |
+| +3V3 | FPGA bank 34 VCCO, worst case jumpered to 3.3V | 0.100 A | 0.0050 A | estimate | bank load only; connector export is checked from switch maximum below |
+| +3V3 | FPGA bank 35 VCCO and bank 0 | 0.060 A | 0.0050 A | estimate | bank 35 drives HDMI (TMDS_33 current comes from the monitor's 3.3 V pull-ups, not from VCCO); bank 13 is on +1V8_IO |
+| +3V3 | U31 TPD12S016 VCCA, level shifters on | 0.001 A | 0.0002 A | datasheet | SLLSE96F 8.2.2: about 200 uA fully on |
+| +2V5 | FPGA bank 16 VCCO: RGMII and eight LVDS_25 pairs | 0.120 A | off | estimate | LVDS_25 drivers about 3.5 mA each plus RGMII switching; replace with XPE |
+| +2V5 | RTL8211FD-CG DVDD_RG (RGMII pads) | 0.020 A | off | estimate | external 2.5 V I/O supply, CFG_EXT=1 CFG_LDO=01 |
+| +1V1 | RP2350B core (DVDD) | 0.060 A | 0.0600 A | estimate | RP2350 at 150 MHz; the on-chip regulator is rated 200 mA |
+| +5V | U9/U10 VCCB | 0.020 A | 0.0010 A | estimate | quiescent translator supply |
+| +5V | HDMI 5 V to the monitor through U31 | 0.055 A | 0.0000 A | datasheet | TPD12S016 5V_OUT current limit, SLLSE96F; U31 is off in recovery |
+
+Recovery is the controller alone with the FPGA unconfigured: +1V0, +2V5 and
++1V2_MGT are held off, everything on +3V3, +1V8_IO and +5V is still
+powered and listed at its standby or reset current (datasheet where one
+exists, a planning figure marked [verify] otherwise), never at zero.
 
 ## Output capacitance against the datasheets (findings 40)
 
@@ -89,7 +103,7 @@ bead or inductor are frequency-dependent and listed beside, not added.
 
 | Ref | Node | Direct COUT | Validated | Behind a filter | Status | Datasheet |
 |---|---|---:|---:|---|---|---|
-| `U11` | +5V_BUCK | 66.0 uF | 68 uF | 81.7 uF on +5V behind U34 | inside | DS42002 p. 19: 22-68 uF ceramic for most applications |
+| `U11` | +5V_BUCK | 67.0 uF | 68 uF | 81.7 uF on +5V behind U34 | inside | DS42002 p. 19: 22-68 uF ceramic for most applications |
 | `U12` | +3V3 | 221.4 uF | 68 uF | - | **beyond: bench qualification** | DS42002 p. 19: 22-68 uF ceramic for most applications |
 | `U13` | +2V5 | 103.4 uF | 47 uF | - | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
 | `U14` | +1V8_IO | 113.0 uF | 47 uF | 63.5 uF on +1V8 behind FB1 | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
@@ -107,16 +121,19 @@ FPGA decoupling to make a row fit.
 Ripple from the buck equation (TLV62569 SLVSDG1C eq. 3) at the planning
 input voltage, load from the table above plus the connector allowance the
 rail carries (+5V: 1 A for +5V_EXT; +3V3: 0.5 A for +3V3_EXT and 1 A for
-both PIN V domains at 3.3 V). The fitted part must not saturate.
+both PIN V domains at 3.3 V). The envelope column repeats the peak at the
+highest input the converter can see (21 V on U11/U12, 5.5 V on the 5 V
+row) with the inductance at -20 % (the fitted parts are "M" tolerance);
+that is the figure checked against saturation.
 
-| Ref | Inductor | Load | Ripple | Peak | Isat | |
-|---|---|---:|---:|---:|---:|---|
-| `U11` | `SRN6045TA-4R7M` | 1.72 A | 0.95 A | 2.19 A | 6.8 A | PASS |
-| `U12` | `SRN6045TA-4R7M` | 2.42 A | 0.89 A | 2.86 A | 6.8 A | PASS |
-| `U13` | `SRN4018-2R2M` | 0.14 A | 0.38 A | 0.33 A | 3 A | PASS |
-| `U14` | `SRN4018-2R2M` | 0.31 A | 0.35 A | 0.48 A | 3 A | PASS |
-| `U15` | `FTC201610S1R0MBCA` | 1.65 A | 0.64 A | 1.97 A | 4.6 A | PASS |
-| `U16` | `SRN4018-2R2M` | 0.15 A | 0.28 A | 0.29 A | 3 A | PASS |
+| Ref | Inductor | Load | Ripple | Peak | Peak, envelope | Isat | |
+|---|---|---:|---:|---:|---:|---:|---|
+| `U11` | `SRN6045TA-4R7M` | 1.72 A | 0.95 A | 2.19 A | 2.73 A at 21 V | 6.8 A | PASS |
+| `U12` | `SRN6045TA-4R7M` | 2.45 A | 0.89 A | 2.89 A | 3.19 A at 21 V | 6.8 A | PASS |
+| `U13` | `SRN4018-2R2M` | 0.14 A | 0.38 A | 0.33 A | 0.40 A at 5.5 V | 3 A | PASS |
+| `U14` | `SRN4018-2R2M` | 0.31 A | 0.35 A | 0.48 A | 0.54 A at 5.5 V | 3 A | PASS |
+| `U15` | `FTC201610S1R0MBCA` | 1.65 A | 0.64 A | 1.97 A | 2.06 A at 5.5 V | 4.6 A | PASS |
+| `U16` | `SRN4018-2R2M` | 0.15 A | 0.28 A | 0.29 A | 0.33 A at 5.5 V | 3 A | PASS |
 
 ## Input source envelope (findings 46)
 
@@ -129,34 +146,56 @@ both PIN V domains at 3.3 V). The fitted part must not saturate.
 
 | Mode | Source | V | Board + export power | Current at the connector | Source or hardware limit | | Path |
 |---|---|---:|---:|---:|---:|---|---|
-| recovery | USB 2.0 port | 4.75 V | 0.84 W | 0.19 A | 0.50 A | fits | U34 0.09 A + U26 0.10 A |
-| recovery | USB-C 5V/1.5A | 4.75 V | 0.84 W | 0.19 A | 1.50 A | fits | U34 0.09 A + U26 0.10 A |
-| recovery | USB-C 5V/3A | 4.75 V | 0.84 W | 0.19 A | 3.00 A | fits | U34 0.09 A + U26 0.10 A |
-| recovery | USB-PD 9V | 9 V | 0.84 W | 0.10 A | 1.70 A | fits | U26 0.10 A |
-| recovery | J50 VIN | 9 V | 0.84 W | 0.10 A | 3.00 A | fits | D4 path |
-| light | USB 2.0 port | 4.75 V | 6.64 W | 1.47 A | 0.50 A | **does not fit** | U34 0.76 A + U26 0.71 A |
-| light | USB-C 5V/1.5A | 4.75 V | 6.64 W | 1.47 A | 1.50 A | fits | U34 0.76 A + U26 0.71 A |
-| light | USB-C 5V/3A | 4.75 V | 6.64 W | 1.47 A | 3.00 A | fits | U34 0.76 A + U26 0.71 A |
-| light | USB-PD 9V | 9 V | 6.64 W | 0.82 A | 1.70 A | fits | U26 0.82 A |
-| light | J50 VIN | 9 V | 6.64 W | 0.82 A | 3.00 A | fits | D4 path |
-| full | USB 2.0 port | 4.75 V | 16.59 W | 3.68 A | 0.50 A | **does not fit** | U34 1.81 A + U26 1.87 A |
-| full | USB-C 5V/1.5A | 4.75 V | 16.59 W | 3.68 A | 1.50 A | **does not fit** | U34 1.81 A + U26 1.87 A |
-| full | USB-C 5V/3A | 4.75 V | 16.59 W | 3.68 A | 3.00 A | **does not fit** | U34 1.81 A + U26 1.87 A |
-| full | USB-PD 9V | 9 V | 16.59 W | 2.05 A | 1.70 A | **does not fit** | U26 2.05 A |
-| full | J50 VIN | 9 V | 16.59 W | 2.05 A | 3.00 A | fits | D4 path |
+| recovery | USB 2.0 port | 4.75 V | 0.91 W | 0.21 A | 0.50 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 1.70 A |
+| recovery | USB-C 5V/1.5A | 4.75 V | 0.91 W | 0.21 A | 1.50 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 1.70 A |
+| recovery | USB-C 5V/3A | 4.75 V | 0.91 W | 0.21 A | 3.00 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 1.70 A |
+| recovery | USB-PD 9V | 9 V | 0.91 W | 0.11 A | 1.67 A | fits | U26 0.11 A of 1.70 A |
+| recovery | J50 VIN | 9 V | 0.91 W | 0.11 A | 3.00 A | fits | D4 path, no limiter of its own |
+| light | USB 2.0 port | 4.75 V | 6.73 W | 1.49 A | 0.50 A | **does not fit** | U34 0.76 A of 2.00 A + U26 0.73 A of 1.70 A |
+| light | USB-C 5V/1.5A | 4.75 V | 6.73 W | 1.49 A | 1.50 A | fits | U34 0.76 A of 2.00 A + U26 0.73 A of 1.70 A |
+| light | USB-C 5V/3A | 4.75 V | 6.73 W | 1.49 A | 3.00 A | fits | U34 0.76 A of 2.00 A + U26 0.73 A of 1.70 A |
+| light | USB-PD 9V | 9 V | 6.73 W | 0.83 A | 1.67 A | fits | U26 0.83 A of 1.70 A |
+| light | J50 VIN | 9 V | 6.73 W | 0.83 A | 3.00 A | fits | D4 path, no limiter of its own |
+| full | USB 2.0 port | 4.75 V | 16.68 W | 3.70 A | 0.50 A | **does not fit** | U34 1.81 A of 2.00 A + U26 1.89 A of 1.70 A |
+| full | USB-C 5V/1.5A | 4.75 V | 16.68 W | 3.70 A | 1.50 A | **does not fit** | U34 1.81 A of 2.00 A + U26 1.89 A of 1.70 A |
+| full | USB-C 5V/3A | 4.75 V | 16.68 W | 3.70 A | 3.00 A | **does not fit** | U34 1.81 A of 2.00 A + U26 1.89 A of 1.70 A |
+| full | USB-PD 9V | 9 V | 16.68 W | 2.06 A | 1.67 A | **does not fit** | U26 2.06 A of 1.70 A |
+| full | J50 VIN | 9 V | 16.68 W | 2.06 A | 3.00 A | fits | D4 path, no limiter of its own |
 
 Modes: *recovery* is the controller alone with the FPGA unconfigured (the
-always-on +3V3, +5V and +1V8 chain); *light* is every board load with no
+recovery column of the load table); *light* is every board load with no
 connector export; *full* adds the export allowances. On a plain 5 V source
 the +5V loads come straight from VBUS through U34 and only the +3V3 side
-passes U26, so the port carries the sum of both paths. A plain USB 2.0 port
-carries recovery mode only; full operation needs a 9 V PD contract or J50.
-Firmware reads VBUS5_ST, PD_PG and the Type-C advertisement to stay inside
-the connected source's profile; the hardware limits (U26, U34, the PTCs)
-protect the board and the connector, not the source. The contract checked
-by `budget.py`: recovery and light fit a 9 V PD contract, full fits J50;
-on PD the export allowance is whatever U26's minimum limit leaves over the
-board load, and firmware must ration EXT_EN accordingly.
+passes U26, so the port carries the sum of both paths; each path is checked
+against its own limiter and the sum against the source. With J50 connected
+U34 puts the whole board on U11 (Q7), so the J50 row also covers J50 with a
+USB cable attached: USB then carries nothing but the CH224K.
+
+**Source policy (findings item 55).** The controller cannot read a 5 V
+Type-C advertisement: the CC lines go only to the CH224K, which has no
+data interface (that is the CH224A/Q, not the fitted K). What it can read
+is PD_PG (the 9 V request was granted), VBUS5_ST (which input feeds +5V)
+and MON_VSYS (J50 present). So:
+
+1. Any 5 V source is planned as a USB 2.0 port, 500 mA: recovery mode only.
+   Recovery draws about 211 mA at 4.75 V. That fits
+   the configured 500 mA but not the 100 mA USB 2.0 allows an unconfigured
+   device: the PHY, SDRAM, oscillator and expander sit on the always-on
+   +3V3 with no switch. Open item: accept it (ports rarely police the
+   100 mA step) or give those loads a switch in rev B; this table does not
+   claim the pre-enumeration allowance is met.
+2. A granted 9 V request is a 15 W guarantee (a 9 V PDO is offered at 1.67 A
+   or more under the PD power rules [verify PD3 10.2]): light mode fits,
+   full export does not, and firmware rations EXT_EN inside what U26's
+   minimum limit leaves over the board load.
+3. A 5 V port above 500 mA (1.5 A / 3 A rows) is a user-declared setting the
+   controller stores; it is never detected. J50 is detected (MON_VSYS) and
+   carries full mode.
+
+The hardware limits (U26, U34, the PTCs) protect the board and the
+connector, not the source. The contract checked by `budget.py`: recovery
+fits a USB 2.0 port, recovery and light fit a 9 V PD contract, full fits
+J50.
 
 ## AUX: raw pass-through, no converter
 
@@ -171,7 +210,7 @@ not control it and nothing on the base board draws from it. Capacitors on
 
 The per-load estimates are retained in `LOADS`; cascaded 90%-efficient
 conversion gives 0.721 A on +5V and
-0.919 A on +3V3 before connector exports. FPGA values
+0.946 A on +3V3 before connector exports. FPGA values
 are planning estimates pending AMD XPE.
 The two VCCIO domains and the separate 3V3 export share U12's 3 A ceiling;
 their maximum switch-limit tolerances are not additive guaranteed allowances.

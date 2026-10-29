@@ -278,13 +278,24 @@ GROUP.update({
     'U34  +5V source select':
         'Chooses what feeds the +5V rail: USB power straight from the '
         'connector, or U11. A regulator cannot make 5 V out of 5 V, so on a '
-        'plain 5 V USB source the mux passes VBUS to the rail; the moment a '
-        'USB-PD charger raises VBUS above about 5.6 V, or VBUS is absent, it '
-        'switches to U11 within microseconds. The choice is set by three '
-        'resistor dividers, not by firmware, and the chip blocks current '
-        'flowing backwards into either source, limits the rail current to '
-        'about 2.5 A and ramps it up gently. ST tells the board controller '
-        'which source is in use.',
+        'plain 5 V USB source the mux passes VBUS to the rail. It hands the '
+        'rail to U11 while the board controller asks the charger for 9 V and '
+        'for a few seconds after (Q6), while the screw input is powered (Q7), '
+        'and, as a backstop, if VBUS rises above about 5.6 V unasked or goes '
+        'away. The choice is wired, not firmware: dividers and two small '
+        'transistors. The chip blocks current flowing backwards into either '
+        'source, limits the rail current to about 2.5 A and ramps it up '
+        'gently. ST tells the board controller which source is in use.',
+    'Q6  mux hold: 9 V request':
+        'Keeps U34 on U11 around a 9 V negotiation. The controller\'s 9 V '
+        'request charges a capacitor through D24 at once and the capacitor '
+        'drains through its resistor in 2-7 s, so the rail leaves VBUS before '
+        'the charger moves it and returns only when VBUS is back at 5 V. No '
+        'voltage threshold can do that within the tolerances involved.',
+    'Q7  mux hold: screw input present':
+        'Keeps U34 on U11 whenever the screw input carries voltage, so a '
+        'bench supply on J50 carries the whole board even with a 5 V USB '
+        'cable plugged in; before, the USB port kept the 5 V load.',
     'U11  VSYS to +5V':
         'Switching regulator (buck converter) that makes +5V from VSYS. It '
         'runs whenever power is present (no enable), like U12, so the FPGA\'s '
@@ -556,8 +567,11 @@ PART.update({
     'D3': ('USB input diode', 'SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB.'),
     'D4': ('screw input diode', 'SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it.'),
     'D8': ('screw input surge clamp', 'SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V.'),
-    'U34': ('+5V source mux', 'TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail, hands over to U11 the moment VBUS goes above 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A.'),
+    'U34': ('+5V source mux', 'TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail; hands the rail to U11 while the board controller asks for 9 V (Q6), while the screw input is powered (Q7), or if VBUS goes above about 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A.'),
     'Q3': ('9 V request switch', 'Small N-MOSFET the board controller (PD_REQ_9V) uses to pull the CH224K\'s CFG1 low and ask the charger for 9 V. Off: 5 V.'),
+    'Q6': ('mux: 9 V request hold', 'Small N-MOSFET that pulls U34\'s PR1 to ground while the board controller asks for 9 V and for 2-7 s after it stops (D24, R, C hold), so the +5V rail is on U11 before VBUS moves and until it is back at 5 V.'),
+    'D24': ('mux hold diode', '1N4148W: charges the Q6 hold capacitor from PD_REQ_9V at once and lets it drain slowly through its own resistor.'),
+    'Q7': ('mux: screw input present', 'Small N-MOSFET that pulls U34\'s PR1 to ground while the screw input (J50) carries voltage, so the whole board runs from J50 through U11 even with a 5 V USB cable plugged in.'),
     'U11': ('5 V regulator, always on', 'Diodes AP63300, 3 A switching regulator: VSYS to +5V_BUCK, then U34 to +5V. Starts by itself.'),
     'U12': ('3.3 V regulator, always on', 'Diodes AP63300, 3 A switching regulator: VSYS to +3V3. Starts by itself.'),
     'U13': ('2.5 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +2V5.'),
@@ -614,9 +628,11 @@ NET.update({
     'VBUS_OVLO': 'sets U26\'s cut-off voltage, about 10 V',
     'VBUS_ILM': 'sets U26\'s current limit, about 2 A',
     'VBUS_DVDT': 'sets how slowly U26 ramps VSYS up, about 0.9 V/ms',
-    'VBUS5_PR1': 'U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2)',
+    'VBUS5_PR1': 'U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) unless Q6 (9 V request) or Q7 (screw input present) holds it at ground',
+    'SEL_IN2': 'Q6\'s gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s',
+    'EXT_PRESENT': 'Q7\'s gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT',
     'VBUS5_CP2': 'U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover',
-    'VBUS5_OV1': 'U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V',
+    'VBUS5_OV1': 'U34 VBUS overvoltage backstop: VBUS is dropped above 5.3-5.9 V (5.63 V typical) if a source raises it unasked',
     'VBUS5_ILIM': 'sets U34\'s current limit, about 2.5 A',
     'VBUS5_SS': 'sets how fast U34 ramps the +5V rail, about 780 V/s',
     'VBUS5_ST': 'U34 status to the board controller: low when U11 feeds +5V',

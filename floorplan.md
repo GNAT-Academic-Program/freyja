@@ -79,9 +79,16 @@ placement, not a measured contract.
   unused in rev A (powered, RX grounded).
 - USB-C keeps the top-right corner: VBUS parts, PD sink and the regulator
   row anchor there, one entry point for all power.
-- X4, the 50 MHz fabric oscillator, sits just above U1 near bank 14's MRCC
-  ball it drives (`SYS_CLK`, `ref/ballmap.md`), short trace, 33 Ω at the
-  source.
+- X4, the 50 MHz fabric oscillator, sits at U1's left, outside the
+  decoupling ring at the MRCC ball it drives (`SYS_CLK`, ball M21,
+  `ref/ballmap.md`), short trace, 33 Ω at the source, away from the top
+  power door. The city picks that side from the SYS_CLK pin alone (not from
+  the +3V3 pads the two share) and reseats X4, R147 and C246 together
+  (re-audit 2026-10-29, item 58).
+- U34, the +5V source mux, is the junction every ampere of regulated 5 V
+  passes through (U11 -> U34 -> U15/U14/U16 and +5V_EXT): the city pulls it
+  to U11 first and to the top power door second, and its IN2 bypass is at
+  its own pin with U11's bulk beside it (item 57).
 
 ## FPGA decoupling placement
 
