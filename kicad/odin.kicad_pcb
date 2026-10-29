@@ -3761,7 +3761,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "08348b48-d6ef-47ea-b841-61e06e7f39f0")
-		(at 760.2 172.25 180)
+		(at 433.22 97.38 180)
 		(descr "22uF bypass on +2V5, for U13 (2.5 V regulator)")
 		(tags "capacitor")
 		(property "Reference" "C198"
@@ -12708,7 +12708,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "219e62ee-73f8-4a08-b77d-90547f89d37e")
-		(at 760.2 174.55 180)
+		(at 433.22 99.68 180)
 		(descr "22uF bypass on +2V5, for U13 (2.5 V regulator)")
 		(tags "capacitor")
 		(property "Reference" "C199"
@@ -32823,7 +32823,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "57221796-1b05-4fba-8462-ff18f253ed6d")
-		(at 765.06 172.5 -90)
+		(at 438.08 97.63 -90)
 		(descr "100nF bypass on +5V, for U13 (2.5 V regulator)")
 		(tags "capacitor")
 		(property "Reference" "C200"
@@ -33117,7 +33117,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "582d39f3-7ee3-4316-81e0-d71b51cae9ec")
-		(at 763.25 176.76)
+		(at 436.27 101.89)
 		(descr "31.6k resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R60"
@@ -55448,7 +55448,7 @@
 	(footprint "EasyEDA:IND-SMD_L4.0-W4.0_SNR4018"
 		(layer "F.Cu")
 		(uuid "925090ba-b620-407c-831d-7e7777c49897")
-		(at 763.25 168.76 -90)
+		(at 436.27 93.89 -90)
 		(descr "2.2uH SRN4018-2R2M inductor between +2V5 and SW+2V5, for U13 (2.5 V regulator): regulator switching node")
 		(property "Reference" "L4"
 			(at 0 -4 270)
@@ -68184,7 +68184,7 @@
 	(footprint "EasyEDA:SOT-563_L1.6-W1.2-P0.50-LS1.6-BL"
 		(layer "F.Cu")
 		(uuid "b37c7b10-e8ff-4e53-949d-2f72ec9fc3d6")
-		(at 763.25 172.5)
+		(at 436.27 97.63)
 		(descr "2.5 V regulator: TI TLV62569, 2 A switching regulator: +5V to +2V5.")
 		(property "Reference" "U13"
 			(at 0 -4.723 0)
@@ -92815,7 +92815,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "cd2301e4-cb4c-43f9-bc2b-d4bf17629c76")
-		(at 763.55 174.75 180)
+		(at 436.57 99.88 180)
 		(descr "100k resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R59"
@@ -103107,11 +103107,11 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f2a2eb73-899c-4bf5-a46c-a727fe43b944")
-		(at 63.555 254.296231)
+		(at 441.28 97.63 -90)
 		(descr "4.7uF bypass on +5V, for U13 (2.5 V regulator)")
 		(tags "capacitor")
 		(property "Reference" "C268"
-			(at 0 -1.43 0)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "204d7cf4-e38b-4149-99df-8d869a9f1b59")
 			(effects
@@ -103122,7 +103122,7 @@
 			)
 		)
 		(property "Value" "4.7uF"
-			(at 0 1.43 0)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "263918d6-d4b4-44b2-bb18-662cce6e0345")
 			(effects
@@ -103133,7 +103133,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7c79960a-1fb5-4f4e-bc9f-6f568056795e")
@@ -103145,7 +103145,7 @@
 			)
 		)
 		(property "Description" "4.7uF bypass on +5V, for U13 (2.5 V regulator)"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "190a6586-73c1-4e9c-8bf6-9e3a418c5c46")
@@ -103157,7 +103157,7 @@
 			)
 		)
 		(property "LCSC Part" "C277476"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "e12d7fb2-8670-487b-a0e2-4bf58312a1d7")
@@ -103212,7 +103212,7 @@
 			(uuid "d3d0489f-aa36-48a2-a99f-a36828e12332")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "550d5dd5-f92d-4b2c-84ea-2067439664a4")
 			(effects
@@ -103223,7 +103223,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.775 0)
+			(at -0.775 0 270)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -103231,7 +103231,7 @@
 			(uuid "7a566886-a38f-4fee-af64-1fc451850f50")
 		)
 		(pad "2" smd roundrect
-			(at 0.775 0)
+			(at 0.775 0 270)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -103989,7 +103989,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f557c550-ca8d-4ebd-b559-fa7b50cb79d9")
-		(at 766.25 169.5 90)
+		(at 439.27 94.63 90)
 		(descr "100k pull-down on EN_2V5, for U7 (board controller): keeps the regulator off until the board controller enables it")
 		(tags "resistor")
 		(property "Reference" "R91"
@@ -108051,69 +108051,6 @@
 		)
 	)
 	(gr_rect
-		(start 756.975 165.01)
-		(end 768.505 179.015)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "b6b0a615-9e1d-4952-b0be-48a850f9bb0b")
-	)
-	(gr_rect
-		(start 756.975 159.87)
-		(end 768.505 165.01)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "8bd45acc-f8e7-4368-b85d-5e29d826261a")
-	)
-	(gr_text "island U13"
-		(at 757.375 161.47 0)
-		(layer "Cmts.User")
-		(uuid "6b29b62a-30ae-41ea-82d3-c41f851dde41")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "2.5 V regulator\nTLV62569, 8 parts,\n2026-10-28"
-		(at 757.375 161.77 0)
-		(layer "Cmts.User")
-		(uuid "a8b18a00-bce7-471c-8832-c25f3648f47b")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(group "island U13"
-		(uuid "56f6fbe9-e1c9-430d-b20d-c3ba914c6891")
-		(members
-			"b6b0a615-9e1d-4952-b0be-48a850f9bb0b"
-			"8bd45acc-f8e7-4368-b85d-5e29d826261a"
-			"6b29b62a-30ae-41ea-82d3-c41f851dde41"
-			"a8b18a00-bce7-471c-8832-c25f3648f47b"
-			"b37c7b10-e8ff-4e53-949d-2f72ec9fc3d6"
-			"08348b48-d6ef-47ea-b841-61e06e7f39f0"
-			"219e62ee-73f8-4a08-b77d-90547f89d37e"
-			"57221796-1b05-4fba-8462-ff18f253ed6d"
-			"925090ba-b620-407c-831d-7e7777c49897"
-			"cd2301e4-cb4c-43f9-bc2b-d4bf17629c76"
-			"582d39f3-7ee3-4316-81e0-d71b51cae9ec"
-			"f557c550-ca8d-4ebd-b559-fa7b50cb79d9"
-		)
-	)
-	(gr_rect
 		(start 695.145 52.115)
 		(end 716.22 66.335)
 		(stroke
@@ -110519,6 +110456,70 @@
 			"02bd4d60-d15b-4cd8-916c-e68a7a5f13c9"
 			"e60e3c57-1730-4b09-9b07-bb8d55b6eeb8"
 			"d6edac5b-e0c1-4c5d-9536-9146de7be84c"
+		)
+	)
+	(gr_rect
+		(start 429.995 90.14)
+		(end 443.535 104.145)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "0136ca49-bf21-40a5-93b0-d4f6f32814d2")
+	)
+	(gr_rect
+		(start 429.995 85)
+		(end 443.535 90.14)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "0b5c8ed1-8a53-4712-ac8e-93fe6c8874db")
+	)
+	(gr_text "island U13"
+		(at 430.395 86.6 0)
+		(layer "Cmts.User")
+		(uuid "29d8ef41-7870-4423-a2bb-45db0c44972b")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "2.5 V regulator\nTLV62569, 9 parts,\n2026-10-29"
+		(at 430.395 86.9 0)
+		(layer "Cmts.User")
+		(uuid "f159fe56-361a-4c1f-97bc-85f7c93ead6a")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U13"
+		(uuid "86053178-510f-41f3-aa66-866dafdee3e1")
+		(members
+			"0136ca49-bf21-40a5-93b0-d4f6f32814d2"
+			"0b5c8ed1-8a53-4712-ac8e-93fe6c8874db"
+			"29d8ef41-7870-4423-a2bb-45db0c44972b"
+			"f159fe56-361a-4c1f-97bc-85f7c93ead6a"
+			"b37c7b10-e8ff-4e53-949d-2f72ec9fc3d6"
+			"08348b48-d6ef-47ea-b841-61e06e7f39f0"
+			"219e62ee-73f8-4a08-b77d-90547f89d37e"
+			"57221796-1b05-4fba-8462-ff18f253ed6d"
+			"f2a2eb73-899c-4bf5-a46c-a727fe43b944"
+			"925090ba-b620-407c-831d-7e7777c49897"
+			"cd2301e4-cb4c-43f9-bc2b-d4bf17629c76"
+			"582d39f3-7ee3-4316-81e0-d71b51cae9ec"
+			"f557c550-ca8d-4ebd-b559-fa7b50cb79d9"
 		)
 	)
 )
