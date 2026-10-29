@@ -72,6 +72,13 @@ PARTS = {
     rating='2.7-3.6 V, 16 Mbit QSPI PSRAM, tCEM 8 us',
     pinmap='KiCad Memory_RAM symbol', src='APMemory datasheet; LCSC C18214056'),
   # ------------------------------------------------------------ power train
+  'Device:FerriteBead': dict(
+    mpn='BLM18PG121SN1D', pkg='0603 (1608 metric)',
+    fp='Inductor_SMD:L_0603_1608Metric',
+    rating='120 ohm at 100 MHz, 2 A, 50 mohm DC; VCCAUX draws 0.18 A '
+           'through it (9 mV), inside the 1.71 V VCCAUX minimum',
+    pinmap='two-terminal, KiCad Device symbol',
+    src='Murata BLM18PG121SN1D; LCSC C14709 (JLC basic)'),
   'Regulator_Switching:TPS54202DDC': dict(
     mpn='TPS54202DDCR', pkg='SOT-23 (6)', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL',
     rating='4.5-28 V in, 2 A out, 500 kHz, 5 ms internal soft start. '

@@ -25,6 +25,7 @@ TITLE  = {'FPGA':'FPGA, decoupling and configuration straps',
           'Video':'Video: HDMI out from bank 35 (TMDS_33) through a TPD12S016'}
 GNDS   = {'GND'}
 RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
+          '+1V8_IO':'odin:+1V8_IO',
           '+2V5':'power:+2V5', '+3V3':'power:+3V3', '+5V':'power:+5V',
           'VSYS':'odin:VSYS', 'VBUS':'power:VBUS',
           'VCCIO_1':'odin:VCCIO_1', 'VCCIO_2':'odin:VCCIO_2',
@@ -34,7 +35,7 @@ RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
 PWRSYM = dict(RAILS); PWRSYM['GND'] = 'power:GND'
 # a rail's flag belongs on the page where that rail is actually made
 RAIL_HOME = {'GND':'Power', 'VSYS':'Power', '+5V':'Power', '+3V3':'Power',
-             '+2V5':'Power', '+1V8':'Power', '+1V0':'Power',
+             '+2V5':'Power', '+1V8':'Power', '+1V8_IO':'Power', '+1V0':'Power',
              '+1V2_MGT':'Power', '+1V0_MGT':'Power',
              '+1V1':'Supervisor', 'VBUS':'Supervisor', 'PD_VDD':'Supervisor',
              'SUP_VREG_AVDD':'Supervisor',

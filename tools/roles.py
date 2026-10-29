@@ -283,10 +283,21 @@ GROUP.update({
         'Small switching regulator that makes +2V5 from +5V for FPGA bank 16 '
         '(network) and the PHY\'s RGMII pins. Enabled by the board controller '
         '(EN_2V5); the feedback resistors set 2.5 V.',
-    'U14  5V to +1V8':
-        'Small switching regulator that makes +1V8 from +5V for the FPGA\'s '
-        'auxiliary supply (VCCAUX) and its ADC. Enabled by the board '
-        'controller (EN_1V8); the feedback resistors set 1.8 V.',
+    'U14  5V to +1V8_IO':
+        'Small switching regulator that makes 1.8 V from +5V. Its output '
+        'node is +1V8_IO: FPGA bank 13 and the 1.8 V memory on it, the 1.8 V '
+        'position of the J19/J20 jumpers, and, through the bead below, the '
+        'FPGA\'s auxiliary supply (VCCAUX) and its ADC as +1V8. Enabled by '
+        'the board controller (EN_1V8); the feedback resistors set 1.8 V.',
+    'VCCAUX filter':
+        'The split between +1V8_IO and +1V8. VCCAUX and VCCADC are the '
+        'FPGA\'s internal supplies (clocking, I/O pre-drivers, the XADC) and '
+        'should not share copper with switching 1.8 V I/O loads, so they '
+        'hang off U14\'s output through one ferrite bead (120 ohm at 100 '
+        'MHz, 2 A, 50 mohm: 9 mV at the 0.18 A VCCAUX allowance, inside '
+        'VCCAUX\'s 1.71 V minimum). The 10 uF and 100 nF sit at U14\'s '
+        'output beside its own capacitors; VCCAUX keeps its UG483 decoupling '
+        'on the +1V8 side.',
     'U16  5V to +1V2_MGT':
         'Small switching regulator that makes +1V2_MGT from +5V for the FPGA '
         'transceivers\' MGTAVTT supply. The transceivers are unused in rev A '
@@ -472,7 +483,7 @@ PART.update({
     'U11': ('5 V regulator', 'Diodes AP63300, 3 A switching regulator: VSYS to +5V.'),
     'U12': ('3.3 V regulator, always on', 'Diodes AP63300, 3 A switching regulator: VSYS to +3V3. Starts by itself.'),
     'U13': ('2.5 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +2V5.'),
-    'U14': ('1.8 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V8.'),
+    'U14': ('1.8 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC).'),
     'U16': ('1.2 V transceiver regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT.'),
     'U15': ('FPGA core regulator', 'Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output.'),
     'U21': ('extension 5 V switch', 'TI TPS22950C load switch: +5V to every slot\'s 5 V pin, about 1 A limit, reverse blocking.'),

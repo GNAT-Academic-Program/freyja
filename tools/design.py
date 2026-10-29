@@ -147,6 +147,10 @@ class Design:
         ind = INDUCTOR[key]
         return self.add(self.seq('L'), 'Device:L', f"{key} {ind['mpn']}",
                         ind['fp'], {'1': a, '2': b}, ind.get('lcsc', ''))
+    def FB(self, a, b):
+        """Murata BLM18PG121SN1D: 120 ohm at 100 MHz, 2 A, 50 mohm, 0603."""
+        return self.add(self.seq('FB'), 'Device:FerriteBead', '120R 2A BLM18PG121SN1D',
+                        'Inductor_SMD:L_0603_1608Metric', {'1': a, '2': b}, 'C14709')
     def F(self, val, a, b):
         # KiCad ships no *polyfuse* footprint, which is what the symbol's filter
         # asks for; a 1206 chip PTC is the physically correct package.
@@ -238,6 +242,9 @@ def adc_divider(name, vnom, vabsmax, rtop=100e3):
 # ---------------------------------------------------------------- rails
 VSYS, V5, V33, V25, V18, V10, V12MGT = 'VSYS', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
 V10MGT, GND = '+1V0_MGT', 'GND'
+# U14's output node. +1V8 proper is only VCCAUX and VCCADC, behind a bead, so
+# the FPGA's internal supplies do not share copper with 1.8 V I/O loads.
+V18IO = '+1V8_IO'
 VCCIO = {'13': V33, '14': V33, '15': 'VCCIO_1', '16': V25, '34': 'VCCIO_2', '35': V33}
 
 RAIL_CHECK = []
@@ -618,7 +625,7 @@ def build():
         d.add(f'J{jn}', 'EasyEDA:Header-Male-2.54_2x3',
               '2.54-2*3P', HDR2x3,
               {'1': V33, '2': net, '3': V25, '4': net,
-               '5': V18, '6': net}, 'C65114')
+               '5': V18IO, '6': net}, 'C65114')
         for _ in range(2): d.C('22uF', net, GND, C0805)
 
     # ------------------------------------------------ GTP: unused, powered
@@ -730,7 +737,7 @@ def build():
     for _ in range(3): d.C('22uF', V33, GND, C0805)
 
     for ref, rail, en, vtgt in (('U13', V25, 'EN_2V5', 2.5),
-                                ('U14', V18, 'EN_1V8', 1.8),
+                                ('U14', V18IO, 'EN_1V8', 1.8),
                                 ('U16', V12MGT, 'EN_1V2', 1.2)):
         top, bot, act = fb_divider(vtgt, 0.600)   # TLV62569 Vfb = 0.600 V
         RAIL_CHECK.append((rail, vtgt, act, top, bot))
@@ -815,7 +822,7 @@ def build():
     # The rails at or below +3V3 need no division, only a series resistor to
     # limit current into the pin's ESD structure if the rail overshoots.
     for rail, mon, vnom in ((V33,'MON_3V3',3.3), (V25,'MON_2V5',2.5),
-                            (V18,'MON_1V8',1.8), (V10,'MON_1V0',1.0)):
+                            (V18IO,'MON_1V8',1.8), (V10,'MON_1V0',1.0)):
         d.R('1k', rail, mon, R0603)
         ADC_CHECK.append((mon, vnom, vnom, ADC_FS, ADC_FS, '1k (series)', '-', 1e3))
     # One capacitor per monitor node. Two jobs: it supplies the charge the
@@ -1083,6 +1090,20 @@ def build():
            'GND': GND, '+5V': 'HDMI_5V', 'HPD': 'HDMI_HPD_B', 'SH': GND,
            'UTILITY': 'HDMI_UTILITY'}, 'C428493')
     d.R('75', 'HDMI_UTILITY', GND)
+
+    # ------------------------------------------------ +1V8_IO and +1V8
+    # U14's output node is +1V8_IO (L5, its 2 x 22 uF and the feedback divider
+    # sit on it): the 1.8 V position of J19/J20 and the MON_1V8 series
+    # resistor are there, and bank 13 with its loads joins it next. VCCAUX
+    # and VCCADC are the FPGA's internal supplies; they hang off the node as
+    # +1V8 through one bead (50 mohm, 9 mV at the 0.18 A VCCAUX allowance,
+    # inside VCCAUX's 1.71 V minimum) and keep their own UG483 decoupling.
+    # The 10 uF and 100 nF go at U14's output beside the regulator's own
+    # capacitors, which were the only ones on the node.
+    d.sheet('Power')
+    d.group('VCCAUX filter')
+    d.FB(V18IO, V18)
+    d.C('10uF', V18IO, GND, C0805); d.C('100nF', V18IO, GND)
 
     # Mandatory connector-accounting gate. A post is a ground probe/key, not
     # a mated contact; each section separately has four signal grounds plus

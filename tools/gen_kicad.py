@@ -241,7 +241,7 @@ def gen_osc():
 
 # SUP_VREG_AVDD is the RP2350's analogue regulator supply behind its 33R/4.7uF
 # filter -- a real local rail, not a signal, so it gets a real power symbol.
-CUSTOM_RAILS = ['VCCIO_1', 'VCCIO_2', '+1V0_MGT', '+1V2_MGT', 'VSYS',
+CUSTOM_RAILS = ['VCCIO_1', 'VCCIO_2', '+1V0_MGT', '+1V2_MGT', '+1V8_IO', 'VSYS',
                 'PD_VDD', 'SUP_VREG_AVDD', '+5V_EXT', '+3V3_EXT',
                 'VCCIO_1_EXT', 'VCCIO_2_EXT', 'AUX_RAIL']
 

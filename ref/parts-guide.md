@@ -9,7 +9,7 @@ the PCB (select a footprint, Description field). Start with the sheet
 you care about; within it, groups appear in schematic order.
 
 - [FPGA](#fpga) (109 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
-- [Power](#power) (108 parts): Inputs, the regulators that make every rail, extension power protection.
+- [Power](#power) (111 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (34 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
@@ -363,19 +363,19 @@ Small switching regulator that makes +2V5 from +5V for FPGA bank 16 (network) an
 | R60 | 31.6k | 31.6k resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage |
 | R91 | 100k | 100k pull-down on EN_2V5, for U7 (board controller): keeps the regulator off until the board controller enables it |
 
-### U14  5V to +1V8
+### U14  5V to +1V8_IO
 
-Small switching regulator that makes +1V8 from +5V for the FPGA's auxiliary supply (VCCAUX) and its ADC. Enabled by the board controller (EN_1V8); the feedback resistors set 1.8 V.
+Small switching regulator that makes 1.8 V from +5V. Its output node is +1V8_IO: FPGA bank 13 and the 1.8 V memory on it, the 1.8 V position of the J19/J20 jumpers, and, through the bead below, the FPGA's auxiliary supply (VCCAUX) and its ADC as +1V8. Enabled by the board controller (EN_1V8); the feedback resistors set 1.8 V.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U14 | TLV62569DRLR | 1.8 V regulator: TI TLV62569, 2 A switching regulator: +5V to +1V8. |
-| C201 | 22uF | 22uF bypass on +1V8, for U14 (1.8 V regulator) |
-| C202 | 22uF | 22uF bypass on +1V8, for U14 (1.8 V regulator) |
+| U14 | TLV62569DRLR | 1.8 V regulator: TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). |
+| C201 | 22uF | 22uF bypass on +1V8_IO, for U14 (1.8 V regulator) |
+| C202 | 22uF | 22uF bypass on +1V8_IO, for U14 (1.8 V regulator) |
 | C203 | 100nF | 100nF bypass on +5V, for U14 (1.8 V regulator) |
-| L5 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V8 and SW+1V8, for U14 (1.8 V regulator): regulator switching node |
-| R61 | 100k | 100k resistor from FB+1V8 to +1V8, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage |
-| R62 | 49.9k | 49.9k resistor from FB+1V8 to GND, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage |
+| L5 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V8_IO and SW+1V8_IO, for U14 (1.8 V regulator): regulator switching node |
+| R61 | 100k | 100k resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage |
+| R62 | 49.9k | 49.9k resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage |
 | R92 | 100k | 100k pull-down on EN_1V8, for U7 (board controller): keeps the regulator off until the board controller enables it |
 
 ### U16  5V to +1V2_MGT
@@ -489,7 +489,7 @@ Lets the board controller measure every supply. Each rail goes to one of its ana
 | R84 | 47k | 47k resistor from MON_5V to GND, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R85 | 1k | 1k resistor from MON_3V3 to +3V3, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R86 | 1k | 1k resistor from MON_2V5 to +2V5, for U7 (board controller): rail monitor input to the board controller's ADC |
-| R87 | 1k | 1k resistor from MON_1V8 to +1V8, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R87 | 1k | 1k resistor from MON_1V8 to +1V8_IO, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R88 | 1k | 1k resistor from MON_1V0 to +1V0, for U7 (board controller): rail monitor input to the board controller's ADC |
 
 ### AUX IN
@@ -499,6 +499,16 @@ Optional extra power for extensions that need more than 5 V (motors, LED strips,
 | Ref | Value | What it does |
 |---|---|---|
 | J68 | AUX IN 9-28V UNREGULATED | AUX IN screw terminal: Optional 9-28 V DC input feeding only the AUX pin of every extension port, unregulated. Your supply, your current limit. |
+
+### VCCAUX filter
+
+The split between +1V8_IO and +1V8. VCCAUX and VCCADC are the FPGA's internal supplies (clocking, I/O pre-drivers, the XADC) and should not share copper with switching 1.8 V I/O loads, so they hang off U14's output through one ferrite bead (120 ohm at 100 MHz, 2 A, 50 mohm: 9 mV at the 0.18 A VCCAUX allowance, inside VCCAUX's 1.71 V minimum). The 10 uF and 100 nF sit at U14's output beside its own capacitors; VCCAUX keeps its UG483 decoupling on the +1V8 side.
+
+| Ref | Value | What it does |
+|---|---|---|
+| C250 | 10uF | 10uF bypass on +1V8_IO |
+| C251 | 100nF | 100nF bypass on +1V8_IO |
+| FB1 | 120R 2A BLM18PG121SN1D | 120R 2A BLM18PG121SN1D resettable fuse feeding +1V8_IO from +1V8 |
 
 ## Memory
 
