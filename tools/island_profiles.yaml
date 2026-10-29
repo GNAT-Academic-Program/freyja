@@ -304,6 +304,9 @@ TPS2121:
     - name: IN1 bypass
       match: {cap_between: [IN1, GND]}
       place: {side: IN1}
+    - name: IN2 bypass, innermost at pin 2 (the bulk on this node is U11's)
+      match: {cap_between: [IN2, GND]}
+      place: {side: IN2}
     - name: output bulk at OUT
       match: {cap_between: [OUT, GND]}
       place: {side: OUT}
