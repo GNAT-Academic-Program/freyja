@@ -14,6 +14,11 @@
 (rule "RGMII width"
   (condition "A.hasNetclass('RGMII')")
   (constraint track_width (min 0.125mm) (opt 0.125mm)))
+# SDRAM: the same 50 ohm outer-layer width; length-match DQ, DQM, address
+# and control to SDRAM_CLK by hand (within a few mm at 166 MHz).
+(rule "SDRAM width"
+  (condition "A.hasNetclass('SDRAM')")
+  (constraint track_width (min 0.125mm) (opt 0.125mm)))
 # 100 ohm differential pairs: the LVDS_25 link pairs and the PHY's MDI pairs.
 # Geometry is calculated only for L1 over In1 and B.Cu over In6.
 (rule "100R outer geometry"

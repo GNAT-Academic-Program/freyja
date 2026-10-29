@@ -30,7 +30,11 @@ RGMII_WIDTH = 0.125
 LVDS_PATTERNS = ('LINK_*', 'HDMI_CLK_*', 'HDMI_D0_*', 'HDMI_D1_*', 'HDMI_D2_*')
 MDI_PATTERNS = ('ETH_MDI*',)
 RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'PHY_RX_CTL')
-GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'PSRAM', 'AUX_5A')
+# The SDR SDRAM bus (W9825G6KH-6, up to 166 MHz, 3.3 V single-ended) wants
+# the same outer-layer 50 ohm geometry as RGMII; CLK has its 22 ohm at the
+# FPGA and the data/control lines are length-matched by hand to it.
+SDRAM_PATTERNS = ('SDRAM_*',)
+GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'SDRAM', 'PSRAM', 'AUX_5A')
 
 
 def emit_rules():
@@ -47,6 +51,7 @@ def emit_rules():
         dict(diff, name='LVDS_100R', priority=0),
         dict(diff, name='MDI_100R', priority=0),
         dict(default, name='RGMII', priority=1, track_width=RGMII_WIDTH),
+        dict(default, name='SDRAM', priority=1, track_width=RGMII_WIDTH),
         dict(default, name='PSRAM', priority=1, track_width=0.1),
         dict(default, name='AUX_5A', priority=2, track_width=2.0,
              via_diameter=1.0, via_drill=0.5),
@@ -56,6 +61,7 @@ def emit_rules():
     settings['netclass_patterns'] += [dict(netclass='LVDS_100R', pattern=p) for p in LVDS_PATTERNS]
     settings['netclass_patterns'] += [dict(netclass='MDI_100R', pattern=p) for p in MDI_PATTERNS]
     settings['netclass_patterns'] += [dict(netclass='RGMII', pattern=p) for p in RGMII_PATTERNS]
+    settings['netclass_patterns'] += [dict(netclass='SDRAM', pattern=p) for p in SDRAM_PATTERNS]
     settings['netclass_patterns'].append(dict(netclass='PSRAM', pattern='PSRAM*'))
     settings['netclass_patterns'].append(dict(netclass='AUX_5A', pattern='AUX_RAIL'))
     project['board']['design_settings']['rules'].update(
@@ -77,6 +83,11 @@ def emit_rules():
 # by hand (KiCad has no bus-skew rule); the PHY's 2 ns delays do the rest.
 (rule "RGMII width"
   (condition "A.hasNetclass('RGMII')")
+  (constraint track_width (min {RGMII_WIDTH}mm) (opt {RGMII_WIDTH}mm)))
+# SDRAM: the same 50 ohm outer-layer width; length-match DQ, DQM, address
+# and control to SDRAM_CLK by hand (within a few mm at 166 MHz).
+(rule "SDRAM width"
+  (condition "A.hasNetclass('SDRAM')")
   (constraint track_width (min {RGMII_WIDTH}mm) (opt {RGMII_WIDTH}mm)))
 # 100 ohm differential pairs: the LVDS_25 link pairs and the PHY's MDI pairs.
 # Geometry is calculated only for L1 over In1 and B.Cu over In6.
