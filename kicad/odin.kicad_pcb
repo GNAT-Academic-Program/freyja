@@ -3050,11 +3050,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "06677c63-6067-4f33-8c12-7f2b2df42b47")
-		(at 52.5 272.746231)
+		(at 438.92 60.11 180)
 		(descr "10k resistor from PD_CFG1 to PD_VDD, for U18 (USB-PD negotiator): CH224K request: high (pull-up) = 5 V, pulled low by Q3 = 9 V; CH224K's internal regulator output")
 		(tags "resistor")
 		(property "Reference" "R172"
-			(at 0 -1.17 0)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "e17729fe-7d01-4fe0-a73f-19cd455ebb97")
 			(effects
@@ -3065,7 +3065,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.17 0)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "cbe40bf6-b656-402f-bbb2-3be7ff26ac4a")
 			(effects
@@ -3076,7 +3076,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9f691ebf-06cf-46e2-8e0e-39620aff3f64")
@@ -3088,7 +3088,7 @@
 			)
 		)
 		(property "Description" "10k resistor from PD_CFG1 to PD_VDD, for U18 (USB-PD negotiator): CH224K request: high (pull-up) = 5 V, pulled low by Q3 = 9 V; CH224K's internal regulator output"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6a610d21-e872-4c46-b52f-161682db0e20")
@@ -3143,7 +3143,7 @@
 			(uuid "45db8a9a-475f-471f-a4b8-a2d4b072ed87")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "4440f66f-b40d-445c-8bc5-081790bf252b")
 			(effects
@@ -3154,7 +3154,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -3162,7 +3162,7 @@
 			(uuid "521dc733-3f6c-491e-8fd7-f2652aca7f00")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -39568,7 +39568,7 @@
 	(footprint "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "6f54abb6-7223-446e-82ec-789b94915d7d")
-		(at 825.39 90.39 180)
+		(at 435.69 60.11 180)
 		(descr "9 V request switch: Small N-MOSFET the board controller (PD_REQ_9V) uses to pull the CH224K's CFG1 low and ask the charger for 9 V. Off: 5 V.")
 		(property "Reference" "Q3"
 			(at 0 -4.95 180)
@@ -57422,11 +57422,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "97c89a65-0a9f-4de6-9bb4-ec0c850b1bf4")
-		(at 57.5 272.746231)
+		(at 432.46 59.16 180)
 		(descr "100k resistor from PD_REQ_9V to GND, for U7 (board controller): Q3's gate; off (5 V) unless the board controller drives it high")
 		(tags "resistor")
 		(property "Reference" "R173"
-			(at 0 -1.17 0)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "4c3d284a-9edd-4a31-abae-af134210df0f")
 			(effects
@@ -57437,7 +57437,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 0 1.17 0)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "d4bb97a4-8298-4a0d-8dc8-f1aebd69ff21")
 			(effects
@@ -57448,7 +57448,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "871bd23d-85fe-4f8f-a59f-f470984a7c16")
@@ -57460,7 +57460,7 @@
 			)
 		)
 		(property "Description" "100k resistor from PD_REQ_9V to GND, for U7 (board controller): Q3's gate; off (5 V) unless the board controller drives it high"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6faa95d3-ff72-4665-ae64-ac56a8e757a7")
@@ -57472,7 +57472,7 @@
 			)
 		)
 		(property "LCSC Part" "C25741"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a7c72b31-7600-4550-8066-e8fb443af761")
@@ -57527,7 +57527,7 @@
 			(uuid "04a9c551-d457-48c1-8287-3f01eec9958f")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "f0fdc04a-54f2-4d56-8aa0-1f2163da434a")
 			(effects
@@ -57538,7 +57538,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -57546,7 +57546,7 @@
 			(uuid "bc2f3573-50eb-447d-a008-2bfe5db35693")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -109003,62 +109003,6 @@
 		)
 	)
 	(gr_rect
-		(start 822.115 87.405)
-		(end 832.095 93.375)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "4167d21f-f2b8-4a02-b2d1-caf4fe36532f")
-	)
-	(gr_rect
-		(start 822.115 79.325)
-		(end 832.095 87.405)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "22e163f5-c6dc-4f5f-97c5-6f08034f2674")
-	)
-	(gr_text "island Q3"
-		(at 822.515 80.925 0)
-		(layer "Cmts.User")
-		(uuid "75332a15-bedf-496d-83a9-018aa8b792b3")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "9 V request\nswitch\npass switch\ndriver generic,\n2 parts,\n2026-10-28"
-		(at 822.515 81.225 0)
-		(layer "Cmts.User")
-		(uuid "b931b3e5-c83f-4550-952b-86f09f505e3b")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(group "island Q3"
-		(uuid "d0a51331-9dc8-4b26-b94e-5a355464f36c")
-		(members
-			"4167d21f-f2b8-4a02-b2d1-caf4fe36532f"
-			"22e163f5-c6dc-4f5f-97c5-6f08034f2674"
-			"75332a15-bedf-496d-83a9-018aa8b792b3"
-			"b931b3e5-c83f-4550-952b-86f09f505e3b"
-			"6f54abb6-7223-446e-82ec-789b94915d7d"
-		)
-	)
-	(gr_rect
 		(start 847.155 156.305)
 		(end 859.175 162.395)
 		(stroke
@@ -110516,6 +110460,64 @@
 			"963a14c2-712a-4597-af16-da2dece7dc8c"
 			"24959646-1c6e-4526-a8b3-dd75fda10463"
 			"2700677e-3f29-4dc4-be74-d9767a362100"
+		)
+	)
+	(gr_rect
+		(start 430.005 57.125)
+		(end 441.375 63.095)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "6db8634c-5bc6-47a7-ab00-3bac21d77857")
+	)
+	(gr_rect
+		(start 430.005 51.005)
+		(end 441.375 57.125)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "8f838063-e30f-48f0-b2e7-9acd2a3226fa")
+	)
+	(gr_text "island Q3"
+		(at 430.405 52.605 0)
+		(layer "Cmts.User")
+		(uuid "b29e7c7e-d26a-4034-ad35-67e8bdaa27c0")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "9 V request\nswitch\ngeneric, 3 parts,\n2026-10-29"
+		(at 430.405 52.905 0)
+		(layer "Cmts.User")
+		(uuid "efbbc4e3-a836-455b-a814-5f20018a24ca")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island Q3"
+		(uuid "4b8d5883-8406-4fea-9403-1992ca1057fa")
+		(members
+			"6db8634c-5bc6-47a7-ab00-3bac21d77857"
+			"8f838063-e30f-48f0-b2e7-9acd2a3226fa"
+			"b29e7c7e-d26a-4034-ad35-67e8bdaa27c0"
+			"efbbc4e3-a836-455b-a814-5f20018a24ca"
+			"6f54abb6-7223-446e-82ec-789b94915d7d"
+			"06677c63-6067-4f33-8c12-7f2b2df42b47"
+			"97c89a65-0a9f-4de6-9bb4-ec0c850b1bf4"
 		)
 	)
 )
