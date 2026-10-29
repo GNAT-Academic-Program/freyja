@@ -45,8 +45,8 @@ islands:
   J72: {from: [722.16, 224.00], to: [722.16, 224.00], turn: 0.0, why: edge}
   J73: {from: [832.60, 221.51], to: [832.60, 221.51], turn: 0.0, why: edge}
   J74: {from: [723.06, 173.63], to: [723.29, 174.02], turn: 0.0, why: wired}
-  MK71: {from: [735.02, 61.65], to: [852.95, 112.34], turn: 0.0, why: key: position 1 of J56}
-  MK72: {from: [790.90, 61.65], to: [853.16, 156.78], turn: 0.0, why: key: position 1 of J65}
+  MK71: {from: [735.02, 61.65], to: [852.95, 112.34], turn: 0.0, why: key at position 1 of J56}
+  MK72: {from: [790.90, 61.65], to: [853.16, 156.78], turn: 0.0, why: key at position 1 of J65}
   Q3: {from: [804.30, 71.39], to: [827.15, 86.84], turn: 0.0, why: wired}
   SW1: {from: [807.50, 39.59], to: [750.30, 46.39], turn: 0.0, why: wired}
   U1: {from: [760.00, 125.60], to: [760.00, 125.60], turn: 0.0, why: centre}

@@ -376,7 +376,7 @@ def main():
         axis = 0 if slot in 'LM' else 1
         target = (px - 2.54, py) if axis == 0 else (px, py - 2.54)
         cx, cy = canvas(target)
-        b.pos, b.fixed, b.why = (cx - b.aoff[0], cy - b.aoff[1]), True, f'key: position 1 of {pwr}'
+        b.pos, b.fixed, b.why = (cx - b.aoff[0], cy - b.aoff[1]), True, f'key at position 1 of {pwr}'
     for slot in 'ABCDEFGHLM':
         key, pwr = f'MK{ord(slot)}', pl.POWER_REFS[slot]
         if key in BOARD.fps and key not in by_anchor and pwr in by_anchor:

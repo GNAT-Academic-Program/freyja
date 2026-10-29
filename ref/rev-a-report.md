@@ -412,3 +412,14 @@ What:
   U26 and U34 limits. Checked contract: recovery and light fit a 9 V PD
   contract, full export fits J50 only (2.05 A against U26's 1.7 A minimum
   on PD). All in ref/power-budget.md.
+
+## City plan applied: G/H keys at their rows 2026-10-29
+Parts: 544; ERC 0 errors; DRC 0 errors, 0 parity. `check_positions.py`:
+254 of 544 moved, every one of them outside the outline before and after
+(the 66 hand-placed footprints untouched). Gate electrical PASS, mechanical
+FAIL (unchanged: B3 open).
+The corrected plan (part 3) applied with `islands.py --city --apply`: MK71
+and MK72 now stand at position 1 of J56 and J65 in the sketch (the plan's
+`why` text lost its colon, which broke the YAML flow mapping). MK76/MK77
+remain where the owner put them, with the plan's NOTE. The 53 footprints
+staged by parts 1-3 are not in any island yet and did not move.
