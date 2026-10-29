@@ -66444,7 +66444,7 @@
 	(footprint "EasyEDA:OSC-SMD_4P-L3.2-W2.5-BL"
 		(layer "F.Cu")
 		(uuid "ad448fda-3d34-45e0-a718-e09641dcf0d4")
-		(at 734.39 126.18)
+		(at 433.3 22.46)
 		(descr "50 MHz FPGA clock: YXC OT322550MJBA4SL 50 MHz CMOS oscillator: the fabric's always-running clock (SYS_CLK), into a bank 14 MRCC ball.")
 		(property "Reference" "X4"
 			(at 0 -4.875 0)
@@ -91156,7 +91156,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c8d7eaac-f24d-481a-91d8-0262658eb1e8")
-		(at 737.65 125.3)
+		(at 436.55 21.58)
 		(descr "33 series resistor between SYS_CLK and SYS_CLK_OSC, for X4 (50 MHz FPGA clock): damps ringing on the clock line")
 		(tags "resistor")
 		(property "Reference" "R147"
@@ -92455,7 +92455,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "cc8a2d6f-f275-41f5-9c08-b7313967aa4d")
-		(at 756.44 96.86 90)
+		(at 432.2 19.54 90)
 		(descr "100nF bypass on +3V3, for X4 (50 MHz FPGA clock)")
 		(tags "capacitor")
 		(property "Reference" "C246"
@@ -110390,6 +110390,64 @@
 			"247318e4-0471-4a5a-831a-cdd4efeba2ec"
 			"21ae1c0b-10af-4d77-b76e-2e2b5597172d"
 			"1498025a-5c57-40e2-b48d-d01fd7036b42"
+		)
+	)
+	(gr_rect
+		(start 430 17.105)
+		(end 439.98 25.44)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "46647c17-bf02-4fb4-b789-541fe0c2c61b")
+	)
+	(gr_rect
+		(start 430 10.005)
+		(end 439.98 17.105)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "483c0645-045f-4901-ad2a-eedddd54cb1e")
+	)
+	(gr_text "island X4"
+		(at 430.4 11.605 0)
+		(layer "Cmts.User")
+		(uuid "9ec61a73-fa25-447f-b50f-db914b3cc211")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "50 MHz FPGA\nclock\ngeneric, 3\nparts,\n2026-10-29"
+		(at 430.4 11.905 0)
+		(layer "Cmts.User")
+		(uuid "adad614f-28b0-4077-9a78-074abb2567d4")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island X4"
+		(uuid "fffc7e7d-0066-4e9b-8bd0-899a1a395b04")
+		(members
+			"46647c17-bf02-4fb4-b789-541fe0c2c61b"
+			"483c0645-045f-4901-ad2a-eedddd54cb1e"
+			"9ec61a73-fa25-447f-b50f-db914b3cc211"
+			"adad614f-28b0-4077-9a78-074abb2567d4"
+			"ad448fda-3d34-45e0-a718-e09641dcf0d4"
+			"cc8a2d6f-f275-41f5-9c08-b7313967aa4d"
+			"c8d7eaac-f24d-481a-91d8-0262658eb1e8"
 		)
 	)
 )
