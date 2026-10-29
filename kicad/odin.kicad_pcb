@@ -2356,7 +2356,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "04cac9cd-ad07-4c37-9757-9202eccdacc7")
-		(at 744.47 135.02 180)
+		(at 476.96 100.09 180)
 		(descr "100 1% resistor from MGTRREF to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 216 (UG482 Figure 5-1)")
 		(tags "resistor")
 		(property "Reference" "R35"
@@ -3332,7 +3332,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "071acbd9-e1ef-4b04-8e58-2b227015f97f")
-		(at 740.52 117.24 180)
+		(at 473.01 82.31 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C333"
@@ -3908,7 +3908,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "09ae50a1-20b9-43f8-975e-9dc8ec19dc04")
-		(at 750.56 106.66 90)
+		(at 483.05 71.73 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C380"
@@ -5000,11 +5000,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0fbd1e91-08c2-4eee-85ae-7ad9becd5010")
-		(at 727.14 148.15 180)
+		(at 489.26 62.61 90)
 		(descr "33 series resistor between PSRAM1_IO0 and PSRAM1_IO0_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R112"
-			(at 0 -1.17 180)
+			(at 0 -1.17 90)
 			(layer "F.Fab")
 			(uuid "fe4f59dc-aa06-4b86-97f8-f7bed8217d7b")
 			(effects
@@ -5015,7 +5015,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 180)
+			(at 0 1.17 90)
 			(layer "F.Fab")
 			(uuid "7194d97c-92ee-4c24-9fc7-eb02b93550d5")
 			(effects
@@ -5026,7 +5026,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 180)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1aae0568-d554-4c33-a060-0ed7f26d2bc9")
@@ -5038,7 +5038,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM1_IO0 and PSRAM1_IO0_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 180)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f5ecfa08-54e5-4c7f-9334-2e8c303a6b8a")
@@ -5050,7 +5050,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "8f1fc641-fb0e-4343-8654-0a173eae927f")
@@ -5105,7 +5105,7 @@
 			(uuid "31490e2c-467c-4a6b-bfee-bb93ecca4c96")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 180)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "03cac10f-1765-475e-8c23-e51451125765")
 			(effects
@@ -5116,7 +5116,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 180)
+			(at -0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -5124,7 +5124,7 @@
 			(uuid "3eae688a-6757-4ddf-af57-59a89c115933")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 180)
+			(at 0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -5507,7 +5507,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0fe4e0ae-aa22-4964-9342-77688ac38dcb")
-		(at 760.18 144.48 -90)
+		(at 492.67 109.55 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C370"
@@ -6149,7 +6149,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "13197684-9de0-44b1-b733-4b802d2df35c")
-		(at 729.24 77.55 180)
+		(at 464.46 83.98 180)
 		(descr "33 series resistor between PSRAM2_IO0 and PSRAM2_IO0_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R118"
@@ -6296,11 +6296,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "131d45e5-36a0-4e94-a774-f70f3f74d4b1")
-		(at 725.95 75.2 -90)
+		(at 464.46 90.43 180)
 		(descr "33 series resistor between PSRAM2_SCK and PSRAM2_SCK_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R116"
-			(at 0 -1.17 270)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "3cf59637-c1ca-4430-aaae-40863fba50ee")
 			(effects
@@ -6311,7 +6311,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 270)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "5c44b7ff-989b-4e6b-8dc9-943c653ec77c")
 			(effects
@@ -6322,7 +6322,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "42632911-7ec4-45f5-8709-d90a8eb2c0a5")
@@ -6334,7 +6334,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM2_SCK and PSRAM2_SCK_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0c7b9394-130f-460b-bf89-2df3c2ff7d46")
@@ -6346,7 +6346,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "bf7b32d7-8c3d-4f48-97c0-7ea4cdf34f78")
@@ -6401,7 +6401,7 @@
 			(uuid "482cb5af-0429-49ed-b518-84fc898ba856")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "019f5b45-9c68-4ae1-b7ea-8f7ddbfbe0c0")
 			(effects
@@ -6412,7 +6412,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 270)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -6420,7 +6420,7 @@
 			(uuid "3c526590-a221-41c9-89bd-c74234ec270a")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 270)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -7191,7 +7191,7 @@
 	(footprint "Inductor_SMD:L_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "15c82c06-5a9d-4edf-9cd9-c4a4bd2c60e8")
-		(at 741.92 106.09 90)
+		(at 474.41 71.16 90)
 		(descr "120R 2A BLM18PG121SN1D resettable fuse feeding +1V8_IO from +1V8")
 		(tags "inductor")
 		(property "Reference" "FB1"
@@ -7338,7 +7338,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "15d84117-04c0-4965-b09d-726e878a4456")
-		(at 757.74 105.87 90)
+		(at 490.23 70.94 90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C306"
@@ -9806,7 +9806,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1bbc5ed2-bc6d-43ee-98a3-1cc6d89e2bf7")
-		(at 708.11 127.84 90)
+		(at 491.84 62.61 90)
 		(descr "33 series resistor between PSRAM0_IO2 and PSRAM0_IO2_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R108"
@@ -10619,7 +10619,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "1e2a25af-fa74-432e-a97d-d344b7676b61")
-		(at 779.7 121.55)
+		(at 512.19 86.62)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C355"
@@ -10754,7 +10754,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "1e3f5987-adcf-4cb6-ad8f-16224b8d930a")
-		(at 779.48 119.49)
+		(at 511.97 84.56)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C324"
@@ -10889,7 +10889,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "1e4a83a9-e229-40b3-bef5-9b3732772a47")
-		(at 759.73 101.32 90)
+		(at 492.22 66.39 90)
 		(descr "100uF 2.5V FPGA decoupling on VCCBRAM (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C316"
@@ -11690,11 +11690,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "204f0825-35d5-461c-b29e-2f8c95a0da05")
-		(at 723.41 85.11 90)
+		(at 464.46 85.27 180)
 		(descr "33 series resistor between PSRAM2_CE_B and PSRAM2_CE_B_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R117"
-			(at 0 -1.17 90)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "41842c11-e2f8-4625-be64-85687cb9b967")
 			(effects
@@ -11705,7 +11705,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 90)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "d96da1c2-b062-4a49-a64e-839d7cb1664e")
 			(effects
@@ -11716,7 +11716,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1cdb2387-99a3-405e-9ebf-7edb37106696")
@@ -11728,7 +11728,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM2_CE_B and PSRAM2_CE_B_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "2042abc6-4ba8-4315-aacf-b19d6a47a689")
@@ -11740,7 +11740,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "31b4bbcb-5056-43cf-a404-bde88f23a7df")
@@ -11795,7 +11795,7 @@
 			(uuid "9f395652-3667-4767-9145-ec852216f4ef")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "521c74bd-4a37-4343-809b-3578740367d7")
 			(effects
@@ -11806,7 +11806,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -11814,7 +11814,7 @@
 			(uuid "27966815-0d07-4a4b-90c9-5869cf67b9eb")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -11837,7 +11837,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "205f80fb-b862-4040-90da-0d6b2b2ea198")
-		(at 744.47 123.43 180)
+		(at 476.96 88.5 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C340"
@@ -12201,7 +12201,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "2146f0e8-d94d-492d-a0bf-70b983c42b53")
-		(at 763.28 101.32 90)
+		(at 495.77 66.39 90)
 		(descr "47uF 6.3V FPGA decoupling on VCCO_0 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C329"
@@ -13223,7 +13223,7 @@
 	(footprint "EasyEDA:IND-SMD_L2.5-W2.0-1"
 		(layer "F.Cu")
 		(uuid "21efb7e3-0de6-4742-b849-67eb7229fe19")
-		(at 775.65 134.72 180)
+		(at 508.14 99.79 180)
 		(descr "1uH VLS252010HBX-1R0M-1 inductor between +1V0 and +1V0_MGT")
 		(property "Reference" "L9"
 			(at 0 -4 180)
@@ -13396,7 +13396,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "21f74fb9-85fc-4b72-9f5b-3e9928a23ba2")
-		(at 784.25 124.12)
+		(at 516.74 89.19)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group VCCIO_2 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C369"
@@ -13678,7 +13678,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "22f229b2-8e8d-4b21-a38f-0875f3e31192")
-		(at 740.52 124.98 180)
+		(at 473.01 90.05 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C341"
@@ -14227,7 +14227,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "24fccb0b-919e-409c-aec5-3bae2833f691")
-		(at 759.93 141.32 -90)
+		(at 492.42 106.39 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C302"
@@ -16575,11 +16575,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "2a63769c-15d3-43d1-9719-71121cb0231f")
-		(at 722.56 145.79 -90)
+		(at 485.39 62.61 90)
 		(descr "33 series resistor between PSRAM1_IO3 and PSRAM1_IO3_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R115"
-			(at 0 -1.17 270)
+			(at 0 -1.17 90)
 			(layer "F.Fab")
 			(uuid "09f63b45-7f15-4f08-bd4a-ddb362b0c19e")
 			(effects
@@ -16590,7 +16590,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 270)
+			(at 0 1.17 90)
 			(layer "F.Fab")
 			(uuid "2b163f0a-6670-4058-8c12-84fd95dce397")
 			(effects
@@ -16601,7 +16601,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "fc9d968d-3da8-486c-950e-968d263420e7")
@@ -16613,7 +16613,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM1_IO3 and PSRAM1_IO3_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8f8cb2ea-2ebc-44cc-8d20-c5090a98f536")
@@ -16625,7 +16625,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "73d23608-0e65-4b68-a312-29531b7c8d2a")
@@ -16680,7 +16680,7 @@
 			(uuid "f2060d8c-92ac-4a78-9d20-0ada90876566")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "0db8a658-819c-4a1f-9411-0603c3f34389")
 			(effects
@@ -16691,7 +16691,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 270)
+			(at -0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -16699,7 +16699,7 @@
 			(uuid "62855b48-f951-47e4-813a-acfcd70b9194")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 270)
+			(at 0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -17016,7 +17016,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "2c27569e-a24b-4f87-9ed7-c076677a3d53")
-		(at 779.7 115.12)
+		(at 512.19 80.19)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C354"
@@ -17568,7 +17568,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "2d697e53-27cb-4d2c-aafc-70473d0b8883")
-		(at 766.07 145.05 -90)
+		(at 498.56 110.12 -90)
 		(descr "4.7uF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C393"
@@ -17715,7 +17715,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "2d7e9207-deac-4c1e-b226-7409324ec759")
-		(at 726.84 100.08 180)
+		(at 464.46 81.4 180)
 		(descr "33 series resistor between PSRAM3_IO0 and PSRAM3_IO0_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R124"
@@ -18009,7 +18009,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "2e221051-16e5-481a-97c7-feeae0779363")
-		(at 765.61 141.1 -90)
+		(at 498.1 106.17 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C313"
@@ -18144,7 +18144,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "2e998307-1085-4943-9eaa-747f2a24b278")
-		(at 740.09 105.87 90)
+		(at 472.58 70.94 90)
 		(descr "10uF bypass on +1V8_IO")
 		(tags "capacitor")
 		(property "Reference" "C261"
@@ -18915,7 +18915,7 @@
 	(footprint "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D"
 		(layer "F.Cu")
 		(uuid "3356b334-d9c2-4b33-9b47-886a622dcc1d")
-		(at 762.48 151.93 -90)
+		(at 494.97 117 -90)
 		(descr "330uF 2.5V T520V337M2R5ATE025 FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor tantalum")
 		(property "Reference" "C301"
@@ -19099,7 +19099,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3412c846-bba5-4eca-90dd-0be8f70ac60e")
-		(at 761.99 141.1 -90)
+		(at 494.48 106.17 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C311"
@@ -19234,11 +19234,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "34755f31-8f10-4ebb-bb2a-000c589898e9")
-		(at 725.95 85.11 90)
+		(at 464.46 91.72 180)
 		(descr "33 series resistor between PSRAM2_IO2 and PSRAM2_IO2_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R120"
-			(at 0 -1.17 90)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "e6e946ba-8e84-4601-bc18-9ed448226dcb")
 			(effects
@@ -19249,7 +19249,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 90)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "173b2a64-28c6-4947-8ac5-7b32584c703e")
 			(effects
@@ -19260,7 +19260,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "79fe3bf0-d64e-4f49-b505-211a6d26ef49")
@@ -19272,7 +19272,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM2_IO2 and PSRAM2_IO2_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "01045693-0968-4170-80f6-e6e7c95984e1")
@@ -19284,7 +19284,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "907b95e0-4080-4fbd-b3cb-7ce094c7ccd6")
@@ -19339,7 +19339,7 @@
 			(uuid "c42d5b04-2526-4fd5-bf16-f462ff7d37e3")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "db310023-dff9-4399-884b-f79cdbc21c99")
 			(effects
@@ -19350,7 +19350,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -19358,7 +19358,7 @@
 			(uuid "6793e970-88b2-4d97-91e3-d8b789ae414a")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -19528,7 +19528,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "34b6adee-9074-44d7-8124-ce4c8d67a376")
-		(at 744.25 129.11 180)
+		(at 476.74 94.18 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C343"
@@ -21589,7 +21589,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "3b67ed1f-6c5f-4b73-a68c-61b6f33136e2")
-		(at 762.59 105.87 90)
+		(at 495.08 70.94 90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C305"
@@ -21849,7 +21849,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3c2aa4c2-412b-439d-a512-a0a21af8952d")
-		(at 769.15 145.05 -90)
+		(at 501.64 110.12 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C362"
@@ -21984,7 +21984,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3cee7071-9f83-43dc-b9c7-c72c02a78764")
-		(at 747.23 137.15 -90)
+		(at 479.72 102.22 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C350"
@@ -22656,7 +22656,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "3e1e47b6-7d8b-4538-9974-302218698eb7")
-		(at 779.7 117.43)
+		(at 512.19 82.5)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C307"
@@ -26861,7 +26861,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "481ff5fe-ec41-4a47-8498-a418604e3c44")
-		(at 746.5 106.64 90)
+		(at 478.99 71.71 90)
 		(descr "1k pull-up of PUDC_B to +3V3, for U1 (FPGA): PUDC_B high: no I/O pull-ups during configuration, the external resistors set every line (UG470)")
 		(tags "resistor")
 		(property "Reference" "R6"
@@ -27302,7 +27302,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "49d343ac-b534-462a-b0e5-aa1de72e0ffc")
-		(at 752.1 106.09 90)
+		(at 484.59 71.16 90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCBRAM (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C317"
@@ -27437,7 +27437,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "4ab1f4e6-0fba-44ea-b76e-6d1f1675c6a4")
-		(at 775.53 126.27)
+		(at 508.02 91.34)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C359"
@@ -27572,7 +27572,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "4abd44a1-675a-4938-bfea-9e49af652c3b")
-		(at 745.02 109.87)
+		(at 477.51 74.94)
 		(descr "33 series resistor between CFG_PROG_B and SUP_PROG_B, for U7 (board controller): keeps PROGRAM_B released; pulling it low restarts configuration; board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R18"
@@ -27719,7 +27719,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "4addca45-7279-4fa6-a663-2acfcfffaeb3")
-		(at 749.04 137.15 -90)
+		(at 481.53 102.22 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C353"
@@ -28001,7 +28001,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "4c2a9f80-a0fb-48f7-9f56-2dc64fc7a039")
-		(at 763.8 141.1 -90)
+		(at 496.29 106.17 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C315"
@@ -28951,7 +28951,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "4e9def6e-8be1-445c-8d87-4415183d0a2f")
-		(at 774.98 114.43)
+		(at 507.47 79.5)
 		(descr "1k pull-down on CFG_M1, for U1 (FPGA): mode pin M1 = 0: master SPI boot (UG470 Table 2-4)")
 		(tags "resistor")
 		(property "Reference" "R2"
@@ -29245,7 +29245,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "4f56d0f8-ee03-41ec-91b8-349da2d0d3a9")
-		(at 757.87 141.1 -90)
+		(at 490.36 106.17 -90)
 		(descr "4.7uF bypass on +1V0_MGT")
 		(tags "capacitor")
 		(property "Reference" "C224"
@@ -30288,11 +30288,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "50133498-f236-45db-8aa5-96b5986f4843")
-		(at 805.82 176.22 90)
+		(at 520.52 90.19 0)
 		(descr "22 series resistor between SDRAM_CLK and SDRAM_CLK_MEM, for U32 (SDRAM): damps ringing on the SDRAM clock (22 ohm at the FPGA)")
 		(tags "resistor")
 		(property "Reference" "R151"
-			(at 0 -1.17 90)
+			(at 0 -1.17 0)
 			(layer "F.Fab")
 			(uuid "cdbb3f0c-6674-4300-8799-767c7b73ca69")
 			(effects
@@ -30303,7 +30303,7 @@
 			)
 		)
 		(property "Value" "22"
-			(at 0 1.17 90)
+			(at 0 1.17 0)
 			(layer "F.Fab")
 			(uuid "707b5540-55da-47f2-98bb-84cfc8f3afea")
 			(effects
@@ -30314,7 +30314,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "17351996-5e7b-4f01-b8ea-a75af7cfde47")
@@ -30326,7 +30326,7 @@
 			)
 		)
 		(property "Description" "22 series resistor between SDRAM_CLK and SDRAM_CLK_MEM, for U32 (SDRAM): damps ringing on the SDRAM clock (22 ohm at the FPGA)"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "59840cd9-d240-4582-8d38-52ea845328fa")
@@ -30381,7 +30381,7 @@
 			(uuid "84f65831-ef31-4fd4-a703-cff5b0287671")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "58541e9d-6ecd-44b5-bab5-8414be3fbc11")
 			(effects
@@ -30392,7 +30392,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 0)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -30400,7 +30400,7 @@
 			(uuid "a73047f4-16f4-47c9-83bf-a54f6f7c7eaf")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 0)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -30840,7 +30840,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "520198a8-5889-4d71-8a75-5db4f2a53daa")
-		(at 751.1 137.37 -90)
+		(at 483.59 102.44 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C349"
@@ -32022,11 +32022,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "54efd2ac-de25-4800-9290-4d723943f8eb")
-		(at 722.26 107.64 90)
+		(at 464.46 74.95 180)
 		(descr "33 series resistor between PSRAM3_IO1 and PSRAM3_IO1_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R125"
-			(at 0 -1.17 90)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "e3d7db78-593c-4d14-9549-62551d415912")
 			(effects
@@ -32037,7 +32037,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 90)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "24da8fd3-28ba-4dba-abdd-89dc6ba4ac8a")
 			(effects
@@ -32048,7 +32048,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "13f12e15-1d18-43b4-9bbf-52e413bd288d")
@@ -32060,7 +32060,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM3_IO1 and PSRAM3_IO1_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5e52afe6-e069-4af9-965b-ce6288e955e2")
@@ -32072,7 +32072,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "57b9c2e1-b559-4d4d-b4d4-e0e505d929f3")
@@ -32127,7 +32127,7 @@
 			(uuid "bee164a0-209d-41e2-80d5-b044ad65f273")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "68ae9763-5677-4864-ac38-60693a145b77")
 			(effects
@@ -32138,7 +32138,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -32146,7 +32146,7 @@
 			(uuid "83e39a2d-36ae-4697-b623-97b898b206b4")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -32541,7 +32541,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "554e646c-056e-49f6-9c57-8ca663c2a813")
-		(at 755.06 140.53 -90)
+		(at 487.55 105.6 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C377"
@@ -33977,7 +33977,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "5c0d98b6-d13b-4485-b77b-5f30916effd8")
-		(at 762.99 145.05 -90)
+		(at 495.48 110.12 -90)
 		(descr "4.7uF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C392"
@@ -34124,7 +34124,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "5c96ac90-ca7f-4c4a-8327-0536fdc2ca51")
-		(at 757.03 137.37 -90)
+		(at 489.52 102.44 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C348"
@@ -34931,7 +34931,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "6029d3ad-5546-427e-9c06-2ea48cd00f22")
-		(at 740.52 115.43 180)
+		(at 473.01 80.5 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C334"
@@ -35549,7 +35549,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "624a8ce8-f8a1-44d8-8a37-c1306d5555c6")
-		(at 772.52 141.32 -90)
+		(at 505.01 106.39 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C321"
@@ -35831,7 +35831,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "62e165f2-0952-4075-a702-3bfc43d600cb")
-		(at 753.79 140.53 -90)
+		(at 486.28 105.6 -90)
 		(descr "100nF FPGA decoupling on VCCADC (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C328"
@@ -35978,7 +35978,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "62e846a5-822e-4d7f-a1a1-40b478df5d3b")
-		(at 744.47 108.32 180)
+		(at 476.96 73.39 180)
 		(descr "100 1% resistor from MGTRREF_213 to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 213 (UG482 Table 5-5)")
 		(tags "resistor")
 		(property "Reference" "R89"
@@ -36248,7 +36248,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "634b0ffa-fa55-456f-be14-a05dc6e29598")
-		(at 744.47 121.62 180)
+		(at 476.96 86.69 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C345"
@@ -37037,7 +37037,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "64a17bb0-3533-4add-ad43-32a33f0d60c2")
-		(at 758.64 145.05 -90)
+		(at 491.13 110.12 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C327"
@@ -37172,7 +37172,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "64ae0955-b993-4591-bb15-3913c94d696d")
-		(at 775.75 128.33)
+		(at 508.24 93.4)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C360"
@@ -38068,7 +38068,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "688f4c47-1e02-4d74-8308-c6110abbeab7")
-		(at 747.75 106.09 90)
+		(at 480.24 71.16 90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C335"
@@ -38350,7 +38350,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "695be20f-14d1-4f19-a1f5-7e8356daf3bb")
-		(at 768.42 140.53 -90)
+		(at 500.91 105.6 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C389"
@@ -38497,7 +38497,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6c078e09-b28c-46ac-984b-2a8a1613c67e")
-		(at 767.61 144.48 -90)
+		(at 500.1 109.55 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C391"
@@ -39004,7 +39004,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6dd43b0c-a4f3-4d31-88cf-ed97a299ca37")
-		(at 774.98 113.12 180)
+		(at 507.47 78.19 180)
 		(descr "1k pull-up of CFG_M0 to +3V3, for U1 (FPGA): mode pin M0 = 1: master SPI boot (UG470 Table 2-4, at most 1 k)")
 		(tags "resistor")
 		(property "Reference" "R1"
@@ -39286,7 +39286,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "6eb16b06-6c97-47b6-a837-acd4cfb79a7f")
-		(at 770.21 141.32 -90)
+		(at 502.7 106.39 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C320"
@@ -39421,7 +39421,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6f0434ad-7f41-48c0-a4bf-8433af68f354")
-		(at 767.96 106.66 90)
+		(at 500.45 71.73 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C376"
@@ -42031,7 +42031,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "73817ee9-9104-4f1e-8eb1-262d5a02ed7c")
-		(at 759.53 106.66 90)
+		(at 492.02 71.73 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C375"
@@ -42287,7 +42287,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "7569b1f3-b8bd-4523-8397-6dbd46003433")
-		(at 740.3 113.37 180)
+		(at 472.79 78.44 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C331"
@@ -42422,7 +42422,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "7581d6e4-fd6f-452c-8945-4ede81fdf7df")
-		(at 775.75 130.64)
+		(at 508.24 95.71)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C361"
@@ -42557,7 +42557,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "7657c90f-6e7c-4308-98fb-c706c2559de4")
-		(at 760.8 106.66 90)
+		(at 493.29 71.73 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C382"
@@ -43260,7 +43260,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "77533b8d-f478-41d3-b8be-0b06fcc25f1b")
-		(at 755.43 105.87 90)
+		(at 487.92 70.94 90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C303"
@@ -43395,7 +43395,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "77cf29ae-f7dd-41df-9a38-ccc29eda8c1b")
-		(at 745.02 111.16)
+		(at 477.51 76.23)
 		(descr "4.7k pull-up of CFG_PROG_B to +3V3, for U1 (FPGA): keeps PROGRAM_B released; pulling it low restarts configuration")
 		(tags "resistor")
 		(property "Reference" "R4"
@@ -43983,7 +43983,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "791528e4-a814-4eca-8399-efae37d0bb47")
-		(at 770.96 145.05 -90)
+		(at 503.45 110.12 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C363"
@@ -44679,7 +44679,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "79e9fb9f-3e57-47dc-8396-d27ec7fea495")
-		(at 767.15 140.53 -90)
+		(at 499.64 105.6 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C379"
@@ -45051,7 +45051,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "7aa19e08-8690-4ee6-be0f-1b6d9af9952a")
-		(at 779.48 127.23)
+		(at 511.97 92.3)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C325"
@@ -46564,7 +46564,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "7bd60f88-99d3-4132-8008-83936fc5dafc")
-		(at 775.53 124.46)
+		(at 508.02 89.53)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C326"
@@ -47476,7 +47476,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "7e85edc7-0b92-4b87-b94a-8dbcb15332d9")
-		(at 761.9 136.58 -90)
+		(at 494.39 101.65 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C387"
@@ -48119,7 +48119,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "804c5330-4992-41aa-836e-67f56fa3950a")
-		(at 767.06 137.15 -90)
+		(at 499.55 102.22 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCBRAM (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C318"
@@ -48754,7 +48754,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "80e80438-29f5-4d9a-b3d2-88dab1c9ddb1")
-		(at 758.82 136.58 -90)
+		(at 491.31 101.65 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C386"
@@ -49408,7 +49408,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "83aed680-6770-4923-bb62-2040fd74be69")
-		(at 773.04 106.66 90)
+		(at 505.53 71.73 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C385"
@@ -50157,7 +50157,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "84333754-86f2-4b7d-855e-ffd24e8f459b")
-		(at 775.53 119.03)
+		(at 508.02 84.1)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C357"
@@ -50292,7 +50292,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "849402fc-a13a-41d4-a0c2-7eb69b647725")
-		(at 784.25 118.12)
+		(at 516.74 83.19)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group +3V3 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C366"
@@ -50870,11 +50870,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "862040cd-ee75-4168-81e9-424223b4057d")
-		(at 723.56 107.64 90)
+		(at 464.46 76.24 180)
 		(descr "33 series resistor between PSRAM3_IO2 and PSRAM3_IO2_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R126"
-			(at 0 -1.17 90)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "a02e83b3-f070-4452-a271-9bde0df2b705")
 			(effects
@@ -50885,7 +50885,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 90)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "a892941e-6051-4c94-8252-9318d9972ef6")
 			(effects
@@ -50896,7 +50896,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ad0d10cb-ad60-4c90-beac-044d167e2d0c")
@@ -50908,7 +50908,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM3_IO2 and PSRAM3_IO2_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "d6b78f54-56ad-4ae4-8508-2594ed5c1d0f")
@@ -50920,7 +50920,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "099f3587-30a4-4680-ad09-2153cc1f5feb")
@@ -50975,7 +50975,7 @@
 			(uuid "d215d25d-331b-4d46-b793-88bdc2eea218")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "b5fd806a-6994-4b47-aa32-3a6eb4073f0f")
 			(effects
@@ -50986,7 +50986,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -50994,7 +50994,7 @@
 			(uuid "892e8593-af0f-4449-83b5-0ff416a284ea")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -52652,11 +52652,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8b7698c7-8e23-4147-ab0f-02fbad9a4a77")
-		(at 724.66 85.11 90)
+		(at 464.46 78.82 180)
 		(descr "33 series resistor between PSRAM2_IO1 and PSRAM2_IO1_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R119"
-			(at 0 -1.17 90)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "021cc271-d705-4b4d-a985-18c7dc768d6f")
 			(effects
@@ -52667,7 +52667,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 90)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "ecf83c84-767c-4b2d-8241-abecd89f2879")
 			(effects
@@ -52678,7 +52678,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "925d722e-fa73-46b0-823f-d7c4cd476f5b")
@@ -52690,7 +52690,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM2_IO1 and PSRAM2_IO1_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4d394c59-1363-4bed-8f24-89b88566f763")
@@ -52702,7 +52702,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "c210699e-43e0-449f-a4c8-74455b5d3cc4")
@@ -52757,7 +52757,7 @@
 			(uuid "cf06fe51-db28-4e67-9cf0-0faf27557721")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "a4209165-c7cc-45d4-b76f-dcb2170acb0b")
 			(effects
@@ -52768,7 +52768,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -52776,7 +52776,7 @@
 			(uuid "ef86c838-f2df-4763-ac10-457017443228")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -54941,7 +54941,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "907e1e19-5e9f-47f3-a977-5cfbff6f1b46")
-		(at 769.23 106.66 90)
+		(at 501.72 71.73 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C383"
@@ -55088,7 +55088,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "91370c66-2f36-4493-9716-2c513c0d3192")
-		(at 740.52 120.86 180)
+		(at 473.01 85.93 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C339"
@@ -56746,7 +56746,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "9674f081-c703-451a-95c4-68288ab62924")
-		(at 764.38 106.66 90)
+		(at 496.87 71.73 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C373"
@@ -57569,11 +57569,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "983bf86a-7410-43a9-82b8-ade7983e5167")
-		(at 722.26 97.72 -90)
+		(at 464.46 77.53 180)
 		(descr "33 series resistor between PSRAM3_IO3 and PSRAM3_IO3_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R127"
-			(at 0 -1.17 270)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "4db96f10-1cf5-4643-adbd-1f0efb4fb625")
 			(effects
@@ -57584,7 +57584,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 270)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "cd2b1dbf-30d6-47dc-95d2-19f6b4a90a71")
 			(effects
@@ -57595,7 +57595,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ac282fd8-ebff-426e-987b-37fd3984b09e")
@@ -57607,7 +57607,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM3_IO3 and PSRAM3_IO3_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "08b6f014-d456-4cff-82fe-ffd49cf83b23")
@@ -57619,7 +57619,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "7b64c03d-670a-4d40-a660-09cbb4a09bd4")
@@ -57674,7 +57674,7 @@
 			(uuid "2487bde2-d7bf-4daa-9580-eb9d720c8086")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "76618561-fe1d-415b-a0f0-836844a615d2")
 			(effects
@@ -57685,7 +57685,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 270)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -57693,7 +57693,7 @@
 			(uuid "851bfdc1-dfe3-48fa-a334-842af742059c")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 270)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -57986,7 +57986,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "991c7adc-785d-47dd-8a0b-1df32a30293d")
-		(at 775.53 122.65)
+		(at 508.02 87.72)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C358"
@@ -58346,7 +58346,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9980298c-9a95-4493-b7c5-94dd92fd6328")
-		(at 779.48 125.42)
+		(at 511.97 90.49)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C356"
@@ -58706,7 +58706,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "99c4b614-5dbb-46fd-8732-2c64c3b512a0")
-		(at 765.25 137.15 -90)
+		(at 497.74 102.22 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C314"
@@ -58988,11 +58988,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "9ac38606-231b-49e7-8a32-b731fa0be927")
-		(at 721.01 107.64 90)
+		(at 464.46 73.66 180)
 		(descr "33 series resistor between PSRAM3_CE_B and PSRAM3_CE_B_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R123"
-			(at 0 -1.17 90)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "e8b9e693-061a-4bf3-9bc1-54153c41aca2")
 			(effects
@@ -59003,7 +59003,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 90)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "0e4f4855-be54-482b-8953-9e1e6adf20b4")
 			(effects
@@ -59014,7 +59014,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0c47278f-d9b0-48ea-b5ab-668d717fa72f")
@@ -59026,7 +59026,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM3_CE_B and PSRAM3_CE_B_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8c842586-4b5e-497c-8123-08101ff654d6")
@@ -59038,7 +59038,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "f0956c12-69a0-4ada-8b58-d93005fd0c2e")
@@ -59093,7 +59093,7 @@
 			(uuid "9c2b73e9-6d5a-48cf-b788-dc76116fec41")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "e11b7dba-2250-45bb-9a71-4b569b16b232")
 			(effects
@@ -59104,7 +59104,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -59112,7 +59112,7 @@
 			(uuid "4feaa2fe-1d4b-41c1-ae1b-58a82deef877")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -59135,7 +59135,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9ae711f2-0c2a-47b8-aaed-f57a541f3a2f")
-		(at 744.47 125.24 180)
+		(at 476.96 90.31 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C338"
@@ -61290,11 +61290,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a1b9d306-d00c-407d-8d4e-8e7ecca4a895")
-		(at 706.82 127.84 90)
+		(at 464.46 89.14 180)
 		(descr "33 series resistor between PSRAM0_IO1 and PSRAM0_IO1_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R107"
-			(at 0 -1.17 90)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "d9a6646c-715a-4b2a-bd94-6fc6905e59e2")
 			(effects
@@ -61305,7 +61305,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 90)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "680035ad-02df-4c18-9ddb-80f0e6978d69")
 			(effects
@@ -61316,7 +61316,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "421ce927-1a2c-4bd6-94b2-e582116e10e2")
@@ -61328,7 +61328,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM0_IO1 and PSRAM0_IO1_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "db1bd503-ab30-4be5-8307-9b91cdc4c825")
@@ -61340,7 +61340,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "dd7092eb-06a5-413d-818e-3944ed73b0eb")
@@ -61395,7 +61395,7 @@
 			(uuid "8342e333-6dc2-401d-9c17-2fffd4d5ae14")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "742494c6-4545-4723-9e02-82252efc46cf")
 			(effects
@@ -61406,7 +61406,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -61414,7 +61414,7 @@
 			(uuid "e0206693-aaac-4a50-9c04-25403318ef39")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -61437,7 +61437,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a332ec8f-a074-4149-8ed9-874b8be45f14")
-		(at 711.4 120.28 180)
+		(at 464.46 87.85 180)
 		(descr "33 series resistor between PSRAM0_IO0 and PSRAM0_IO0_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R106"
@@ -62110,7 +62110,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "a4756486-9bc1-4009-9fed-c5150ffcc27f")
-		(at 766.17 105.87 90)
+		(at 498.66 70.94 90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C304"
@@ -62662,7 +62662,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "a5fffa0d-6094-469d-8c91-04794007e6fc")
-		(at 744.25 119.56 180)
+		(at 476.74 84.63 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C336"
@@ -64724,11 +64724,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a8324be9-6967-4661-83e7-14d3dffaa36d")
-		(at 723.85 145.79 -90)
+		(at 494.42 62.61 90)
 		(descr "33 series resistor between PSRAM1_SCK and PSRAM1_SCK_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R110"
-			(at 0 -1.17 270)
+			(at 0 -1.17 90)
 			(layer "F.Fab")
 			(uuid "a5aad763-ee9d-4df9-a497-685bd5f8c434")
 			(effects
@@ -64739,7 +64739,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 270)
+			(at 0 1.17 90)
 			(layer "F.Fab")
 			(uuid "31cea995-ab5e-4661-a652-67dfebbafe0a")
 			(effects
@@ -64750,7 +64750,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e060e1db-efc2-47fa-b85c-73121cc65dce")
@@ -64762,7 +64762,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM1_SCK and PSRAM1_SCK_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ffc09b62-4b13-4594-a3c6-9392dc9b16dc")
@@ -64774,7 +64774,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "45a8beea-b613-4139-9db2-443ce867a270")
@@ -64829,7 +64829,7 @@
 			(uuid "ba545152-7823-47a0-997e-ad73ae7aa187")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "28a8671a-094b-4250-a8bf-9334afb83f57")
 			(effects
@@ -64840,7 +64840,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 270)
+			(at -0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -64848,7 +64848,7 @@
 			(uuid "c39e2e7a-d4f7-4a8d-8b89-116a8cbba977")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 270)
+			(at 0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -66003,7 +66003,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "abf68181-9e9b-4a8e-8c9b-bfaf59216d1f")
-		(at 738.58 106.66 90)
+		(at 471.07 71.73 90)
 		(descr "100nF bypass on +1V8_IO")
 		(tags "capacitor")
 		(property "Reference" "C262"
@@ -66150,11 +66150,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "acff2393-1176-4757-9604-301f4ef8d73a")
-		(at 723.85 155.71 90)
+		(at 464.46 82.69 180)
 		(descr "33 series resistor between PSRAM1_IO2 and PSRAM1_IO2_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R114"
-			(at 0 -1.17 90)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "7fee0d87-2a0a-47b6-b0ac-982ee32f2ee9")
 			(effects
@@ -66165,7 +66165,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 90)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "4467a748-3144-45cd-a608-b156eeaf4b37")
 			(effects
@@ -66176,7 +66176,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1f8c625b-5ff7-46fd-998a-d2b0a0c32118")
@@ -66188,7 +66188,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM1_IO2 and PSRAM1_IO2_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "040e9a68-f21e-4e82-a7c0-7053f09fdf6d")
@@ -66200,7 +66200,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "c72a2add-206f-4aa7-bbeb-322dcffa4972")
@@ -66255,7 +66255,7 @@
 			(uuid "8c05cbd9-ffd4-49ed-bba3-efec8b037233")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "98245b6a-f370-4fbf-bd66-bb27c4177f3f")
 			(effects
@@ -66266,7 +66266,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -66274,7 +66274,7 @@
 			(uuid "643e5e15-6a55-45e0-88a6-f1bc9a590c08")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -66694,7 +66694,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "afe908c3-5431-41c5-9ec0-dd558f8a135c")
-		(at 754.97 137.15 -90)
+		(at 487.46 102.22 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C346"
@@ -66829,11 +66829,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "afebfd83-13f6-4080-b6a7-804e5e65e66c")
-		(at 723.56 97.72 -90)
+		(at 464.46 80.11 180)
 		(descr "33 series resistor between PSRAM3_SCK and PSRAM3_SCK_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R122"
-			(at 0 -1.17 270)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "e0f26581-54df-43c0-924e-946825a90e32")
 			(effects
@@ -66844,7 +66844,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 270)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "527afb5e-36b1-44c0-b1b0-2bf243654f7e")
 			(effects
@@ -66855,7 +66855,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "50a76aba-523f-453d-88eb-ea470e1ecfb6")
@@ -66867,7 +66867,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM3_SCK and PSRAM3_SCK_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b308a91a-4fab-4876-89a3-4f648c312176")
@@ -66879,7 +66879,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "9db7a607-aab0-4313-af82-481416f93064")
@@ -66934,7 +66934,7 @@
 			(uuid "ad3ace63-c077-4831-8132-51be1bec3719")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "57baae33-73e7-497e-ae66-5e3fe2aeb837")
 			(effects
@@ -66945,7 +66945,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 270)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -66953,7 +66953,7 @@
 			(uuid "11bab8e5-497c-4852-9709-cc02b11ab17e")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 270)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -67495,7 +67495,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "b16891c8-33b5-4696-a61f-6e0422e779c8")
-		(at 758.12 149.82 -90)
+		(at 490.61 114.89 -90)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group VCCIO_1 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C367"
@@ -68049,7 +68049,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "b34be4e4-9c3d-4990-8c34-d3d91846d407")
-		(at 754.58 149.82 -90)
+		(at 487.07 114.89 -90)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group +2V5 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C368"
@@ -70731,7 +70731,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "b6eeab18-c4ff-49c8-bdce-25d122f1f32b")
-		(at 775.53 132.7)
+		(at 508.02 97.77)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C364"
@@ -72017,7 +72017,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "bb6d363f-0b1f-4ee1-be47-fe4bee605f8d")
-		(at 735.75 119.12 180)
+		(at 468.24 84.19 180)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group +1V8_IO (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C394"
@@ -72152,7 +72152,7 @@
 	(footprint "EasyEDA:FBGA-676_L27.0-W27.0-R26-C26-P1.00-BL"
 		(layer "F.Cu")
 		(uuid "bb86f875-3b4d-467b-a60b-fe3d34a6d6bc")
-		(at 760 121.62 90)
+		(at 492.49 86.69 90)
 		(descr "FPGA: Xilinx/AMD Artix-7 XC7A100T-2FGG676I: 101k logic cells, 4.9 Mb block RAM, 240 DSP slices. Runs whatever design you load; configures itself from U6 at power-on or is loaded by the board controller over JTAG.")
 		(property "Reference" "U1"
 			(at 0 -16.5 90)
@@ -85100,7 +85100,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "bdee2b8b-cf58-48b1-a002-526f1a18602b")
-		(at 740.3 122.92 180)
+		(at 472.79 87.99 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C337"
@@ -86180,7 +86180,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "be86622c-d437-42e2-91c9-f2deb9fe2ddd")
-		(at 756.33 140.53 -90)
+		(at 488.82 105.6 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C388"
@@ -88028,7 +88028,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "c2a1532d-33e4-4928-8c60-80b4fc5d44f7")
-		(at 779.48 123.61)
+		(at 511.97 88.68)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C308"
@@ -88994,11 +88994,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c48850c6-8f91-49de-99e9-35aaf12d6671")
-		(at 706.82 117.93 -90)
+		(at 487.97 62.61 90)
 		(descr "33 series resistor between PSRAM0_IO3 and PSRAM0_IO3_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R109"
-			(at 0 -1.17 270)
+			(at 0 -1.17 90)
 			(layer "F.Fab")
 			(uuid "4f411ba9-b2d7-45d3-bac1-386abe0a3f73")
 			(effects
@@ -89009,7 +89009,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 270)
+			(at 0 1.17 90)
 			(layer "F.Fab")
 			(uuid "0943048f-4675-4452-8622-de74e0c0d0d5")
 			(effects
@@ -89020,7 +89020,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "082543a2-3c20-4fad-8515-06cf16b716ef")
@@ -89032,7 +89032,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM0_IO3 and PSRAM0_IO3_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "2b564001-7069-4f86-b63d-5779b37fe3bb")
@@ -89044,7 +89044,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "eff1fe17-d28a-42af-86d6-2664aa1adeb2")
@@ -89099,7 +89099,7 @@
 			(uuid "56a028fe-a496-4fea-9c97-2cc4a826b20f")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "4db59809-6f77-4791-bbd5-cbbc1bf51591")
 			(effects
@@ -89110,7 +89110,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 270)
+			(at -0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -89118,7 +89118,7 @@
 			(uuid "07689348-d646-48b5-a61b-07240fe4a745")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 270)
+			(at 0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -89288,7 +89288,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c4de003a-447b-4eb2-acfb-5f0377d73e48")
-		(at 774.98 117.01 180)
+		(at 507.47 82.08 180)
 		(descr "33 series resistor between CFG_INIT_B and SUP_INIT_B, for U7 (board controller): keeps INIT_B released; it goes low on a configuration error; board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R19"
@@ -89435,7 +89435,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "c501b568-6cf0-4ece-ac42-5cab11a6ce0a")
-		(at 772.77 145.05 -90)
+		(at 505.26 110.12 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C365"
@@ -90053,7 +90053,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c6a12406-7c9c-4eff-a705-1cd2dec95de7")
-		(at 753.64 106.66 90)
+		(at 486.13 71.73 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C372"
@@ -91303,7 +91303,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ca45699e-6867-441c-ba39-79a27fe2b670")
-		(at 774.98 115.72)
+		(at 507.47 80.79)
 		(descr "1k pull-down on CFG_M2, for U1 (FPGA): mode pin M2 = 0: master SPI boot (UG470 Table 2-4)")
 		(tags "resistor")
 		(property "Reference" "R3"
@@ -91597,7 +91597,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "cad638fb-3869-41ef-aef5-645b41def464")
-		(at 705.57 127.84 90)
+		(at 490.55 62.61 90)
 		(descr "33 series resistor between PSRAM0_CE_B and PSRAM0_CE_B_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R105"
@@ -92038,7 +92038,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "cc1e4f7d-a90d-410e-b090-de8a2501adea")
-		(at 764.53 144.48 -90)
+		(at 497.02 109.55 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C390"
@@ -92185,7 +92185,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "cc1fead1-613b-4152-a821-04a19c08acb0")
-		(at 756.58 145.27 -90)
+		(at 489.07 110.34 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C322"
@@ -92320,7 +92320,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "cc8932b5-340a-4873-8c2d-930ef7a7506d")
-		(at 763.44 137.15 -90)
+		(at 495.93 102.22 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C310"
@@ -94819,7 +94819,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "d8b7c990-93f4-45da-ba47-2dccfec99be5")
-		(at 771.77 106.66 90)
+		(at 504.26 71.73 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C384"
@@ -95576,11 +95576,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "d9f197ea-1b5a-40fe-8191-f3ad335885b0")
-		(at 724.66 75.2 -90)
+		(at 464.46 86.56 180)
 		(descr "33 series resistor between PSRAM2_IO3 and PSRAM2_IO3_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R121"
-			(at 0 -1.17 270)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "3210b29c-7a59-46a1-a1af-9d2460e6ac8b")
 			(effects
@@ -95591,7 +95591,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 270)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "79882b60-8390-4f90-943f-ad0bdd70b40c")
 			(effects
@@ -95602,7 +95602,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f08c6110-1776-48eb-8443-3ad8a36a27a9")
@@ -95614,7 +95614,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM2_IO3 and PSRAM2_IO3_MEM, for U4 (PSRAM 2): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c662dc76-f12b-4f29-944c-ad6df33366ca")
@@ -95626,7 +95626,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "56fe534b-57af-4f62-ba20-13045534b001")
@@ -95681,7 +95681,7 @@
 			(uuid "fb3f4a82-f5cb-4d2b-b05b-0a038d54abff")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "0f0dc626-6583-4edc-88dd-2d41b6ef9a99")
 			(effects
@@ -95692,7 +95692,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 270)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -95700,7 +95700,7 @@
 			(uuid "6f73b7ce-38fb-47a7-ac53-59a2a889fbe7")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 270)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -96017,7 +96017,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "da9a90aa-b393-419a-a8ec-451007ffa758")
-		(at 749.29 106.66 90)
+		(at 481.78 71.73 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C381"
@@ -96164,7 +96164,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "dac8e362-52d0-4307-b798-92e85ee73b7e")
-		(at 753.16 137.15 -90)
+		(at 485.65 102.22 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C352"
@@ -96299,7 +96299,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "dae139aa-c9c3-4d4b-91ed-7c62141f5095")
-		(at 775.53 120.84)
+		(at 508.02 85.91)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C309"
@@ -96929,7 +96929,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "de54f72a-d699-4a4e-8799-ff96a3071713")
-		(at 744.47 133.48 180)
+		(at 476.96 98.55 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C351"
@@ -97396,7 +97396,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "e04a5d33-aaa4-43d1-8300-b87695ebb013")
-		(at 740.3 111.06 180)
+		(at 472.79 76.13 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C330"
@@ -97666,7 +97666,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e1159389-f264-43fd-b35b-089dee693a15")
-		(at 744.47 127.05 180)
+		(at 476.96 92.12 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C344"
@@ -97801,7 +97801,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e12e8611-4a86-4033-b615-587cb2f14888")
-		(at 752.25 141.1 -90)
+		(at 484.74 106.17 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C312"
@@ -99299,7 +99299,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "e843ff62-fea6-4044-b6e2-52c306f8c190")
-		(at 770.5 106.66 90)
+		(at 502.99 71.73 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C374"
@@ -99446,7 +99446,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "e8789f12-d404-48b0-9d5a-a6381383d8b6")
-		(at 722.56 155.71 90)
+		(at 486.68 62.61 90)
 		(descr "33 series resistor between PSRAM1_IO1 and PSRAM1_IO1_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R113"
@@ -101010,7 +101010,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ed01c575-0482-4832-b11b-68decbaf2595")
-		(at 761.45 144.48 -90)
+		(at 493.94 109.55 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C371"
@@ -101157,11 +101157,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ed64047a-1952-4ae7-ae8f-99b21441dc64")
-		(at 708.11 117.93 -90)
+		(at 493.13 62.61 90)
 		(descr "33 series resistor between PSRAM0_SCK and PSRAM0_SCK_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R104"
-			(at 0 -1.17 270)
+			(at 0 -1.17 90)
 			(layer "F.Fab")
 			(uuid "f79314fe-ad32-4f88-93a7-8a9b6501c1bd")
 			(effects
@@ -101172,7 +101172,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 270)
+			(at 0 1.17 90)
 			(layer "F.Fab")
 			(uuid "65112555-78ab-4655-87c0-c904b50b09b9")
 			(effects
@@ -101183,7 +101183,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7123440a-5a30-4808-8aa4-88e1228420bd")
@@ -101195,7 +101195,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between PSRAM0_SCK and PSRAM0_SCK_MEM, for U2 (PSRAM 0): damps ringing on the PSRAM line (ref/psram.md)"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7c3dc246-86be-4e3c-b0c0-62420fb75b33")
@@ -101207,7 +101207,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "92723bfe-c52d-421d-af80-897fa06c16b3")
@@ -101262,7 +101262,7 @@
 			(uuid "f54b6ccb-f681-4a9a-8159-056524cc9356")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "80fa3e6d-b6c9-4d7a-bb64-253baaed6b31")
 			(effects
@@ -101273,7 +101273,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 270)
+			(at -0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -101281,7 +101281,7 @@
 			(uuid "0ad55707-ab98-4780-b7d2-74d5d5eb086a")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 270)
+			(at 0.51 0 90)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -101574,7 +101574,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "eea6672f-da3a-4f75-81fd-3f42e0d76f1a")
-		(at 740.52 119.05 180)
+		(at 473.01 84.12 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C332"
@@ -102420,7 +102420,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f0df188d-432f-43dc-bd94-18f50bf768f3")
-		(at 768.6 136.58 -90)
+		(at 501.09 101.65 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C378"
@@ -102567,7 +102567,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f1500be5-2039-403f-8e03-7e57925e7208")
-		(at 760.36 137.15 -90)
+		(at 492.85 102.22 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C347"
@@ -102837,7 +102837,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "f187d725-3940-43ab-949b-5877261c3cac")
-		(at 766.82 149.82 -90)
+		(at 499.31 114.89 -90)
 		(descr "47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C319"
@@ -102972,7 +102972,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "f235ea07-7821-4b12-9e11-fa2dee2e4d1e")
-		(at 744.25 131.42 180)
+		(at 476.74 96.49 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C342"
@@ -105524,7 +105524,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "fd6e262a-f1ee-4faf-9482-9e7a6008e3bd")
-		(at 779.48 113.06)
+		(at 511.97 78.13)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C323"
@@ -105806,7 +105806,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "fdda04d7-8382-41a8-9ee9-784c9bd3229c")
-		(at 721.31 155.71 90)
+		(at 495.71 62.61 90)
 		(descr "33 series resistor between PSRAM1_CE_B and PSRAM1_CE_B_MEM, for U3 (PSRAM 1): damps ringing on the PSRAM line (ref/psram.md)")
 		(tags "resistor")
 		(property "Reference" "R111"
@@ -106408,7 +106408,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ffbc98af-6aea-4fb6-a1bf-3a6a335fc817")
-		(at 774.98 112 180)
+		(at 507.47 77.07 180)
 		(descr "4.7k pull-up of CFG_INIT_B to +3V3, for U1 (FPGA): keeps INIT_B released; it goes low on a configuration error")
 		(tags "resistor")
 		(property "Reference" "R5"
@@ -107289,7 +107289,6 @@
 			"b44dc0c3-cb01-440b-842f-2a05d3c62d01"
 			"8c7e9b33-4293-41c0-8c49-a624906e863b"
 			"fc5ea970-2a6f-423a-872c-16d2d5468267"
-			"50133498-f236-45db-8aa5-96b5986f4843"
 			"b4e55c3d-91e8-4b92-a524-70ea22f31af8"
 			"aaeb2faf-1b03-44e2-91a1-641ab7881bf3"
 		)
@@ -108053,171 +108052,6 @@
 			"2574d7bc-6dbb-4674-a7b7-61f92778d3fa"
 			"a63da201-9268-4e17-bdd9-57316cc11b56"
 			"0246a872-65f7-4cb0-9d97-086a974eb8de"
-		)
-	)
-	(gr_rect
-		(start 731.925 97.495)
-		(end 788.075 157.865)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "117b1f49-4dad-47d5-9d88-8d20d51b9457")
-	)
-	(gr_rect
-		(start 731.925 93.335)
-		(end 788.075 97.495)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "b0b63dfb-72ee-4c14-b0aa-c696861e8a1d")
-	)
-	(gr_text "island U1"
-		(at 732.325 94.935 0)
-		(layer "Cmts.User")
-		(uuid "1cf26c55-fa69-4a2b-b910-93481ab31054")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "FPGA\ngeneric, 110 parts, 2026-10-29"
-		(at 732.325 95.235 0)
-		(layer "Cmts.User")
-		(uuid "db5af891-877f-4004-90ee-3dff94569ac9")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(group "island U1"
-		(uuid "c9faa6d5-9b41-4ca4-a466-ebfdd349a870")
-		(members
-			"117b1f49-4dad-47d5-9d88-8d20d51b9457"
-			"b0b63dfb-72ee-4c14-b0aa-c696861e8a1d"
-			"1cf26c55-fa69-4a2b-b910-93481ab31054"
-			"db5af891-877f-4004-90ee-3dff94569ac9"
-			"bb86f875-3b4d-467b-a60b-fe3d34a6d6bc"
-			"4f56d0f8-ee03-41ec-91b8-349da2d0d3a9"
-			"2e998307-1085-4943-9eaa-747f2a24b278"
-			"abf68181-9e9b-4a8e-8c9b-bfaf59216d1f"
-			"3356b334-d9c2-4b33-9b47-886a622dcc1d"
-			"24fccb0b-919e-409c-aec5-3bae2833f691"
-			"77533b8d-f478-41d3-b8be-0b06fcc25f1b"
-			"a4756486-9bc1-4009-9fed-c5150ffcc27f"
-			"3b67ed1f-6c5f-4b73-a68c-61b6f33136e2"
-			"15d84117-04c0-4965-b09d-726e878a4456"
-			"3e1e47b6-7d8b-4538-9974-302218698eb7"
-			"c2a1532d-33e4-4928-8c60-80b4fc5d44f7"
-			"dae139aa-c9c3-4d4b-91ed-7c62141f5095"
-			"cc8932b5-340a-4873-8c2d-930ef7a7506d"
-			"3412c846-bba5-4eca-90dd-0be8f70ac60e"
-			"e12e8611-4a86-4033-b615-587cb2f14888"
-			"2e221051-16e5-481a-97c7-feeae0779363"
-			"99c4b614-5dbb-46fd-8732-2c64c3b512a0"
-			"4c2a9f80-a0fb-48f7-9f56-2dc64fc7a039"
-			"1e4a83a9-e229-40b3-bef5-9b3732772a47"
-			"49d343ac-b534-462a-b0e5-aa1de72e0ffc"
-			"804c5330-4992-41aa-836e-67f56fa3950a"
-			"f187d725-3940-43ab-949b-5877261c3cac"
-			"6eb16b06-6c97-47b6-a837-acd4cfb79a7f"
-			"624a8ce8-f8a1-44d8-8a37-c1306d5555c6"
-			"cc1fead1-613b-4152-a821-04a19c08acb0"
-			"fd6e262a-f1ee-4faf-9482-9e7a6008e3bd"
-			"1e3f5987-adcf-4cb6-ad8f-16224b8d930a"
-			"7aa19e08-8690-4ee6-be0f-1b6d9af9952a"
-			"7bd60f88-99d3-4132-8008-83936fc5dafc"
-			"64a17bb0-3533-4add-ad43-32a33f0d60c2"
-			"62e165f2-0952-4075-a702-3bfc43d600cb"
-			"2146f0e8-d94d-492d-a0bf-70b983c42b53"
-			"e04a5d33-aaa4-43d1-8300-b87695ebb013"
-			"7569b1f3-b8bd-4523-8397-6dbd46003433"
-			"eea6672f-da3a-4f75-81fd-3f42e0d76f1a"
-			"071acbd9-e1ef-4b04-8e58-2b227015f97f"
-			"6029d3ad-5546-427e-9c06-2ea48cd00f22"
-			"688f4c47-1e02-4d74-8308-c6110abbeab7"
-			"a5fffa0d-6094-469d-8c91-04794007e6fc"
-			"bdee2b8b-cf58-48b1-a002-526f1a18602b"
-			"9ae711f2-0c2a-47b8-aaed-f57a541f3a2f"
-			"91370c66-2f36-4493-9716-2c513c0d3192"
-			"205f80fb-b862-4040-90da-0d6b2b2ea198"
-			"22f229b2-8e8d-4b21-a38f-0875f3e31192"
-			"f235ea07-7821-4b12-9e11-fa2dee2e4d1e"
-			"34b6adee-9074-44d7-8124-ce4c8d67a376"
-			"e1159389-f264-43fd-b35b-089dee693a15"
-			"634b0ffa-fa55-456f-be14-a05dc6e29598"
-			"afe908c3-5431-41c5-9ec0-dd558f8a135c"
-			"f1500be5-2039-403f-8e03-7e57925e7208"
-			"5c96ac90-ca7f-4c4a-8327-0536fdc2ca51"
-			"520198a8-5889-4d71-8a75-5db4f2a53daa"
-			"3cee7071-9f83-43dc-b9c7-c72c02a78764"
-			"de54f72a-d699-4a4e-8799-ff96a3071713"
-			"dac8e362-52d0-4307-b798-92e85ee73b7e"
-			"4addca45-7279-4fa6-a663-2acfcfffaeb3"
-			"2c27569e-a24b-4f87-9ed7-c076677a3d53"
-			"1e2a25af-fa74-432e-a97d-d344b7676b61"
-			"9980298c-9a95-4493-b7c5-94dd92fd6328"
-			"84333754-86f2-4b7d-855e-ffd24e8f459b"
-			"991c7adc-785d-47dd-8a0b-1df32a30293d"
-			"4ab1f4e6-0fba-44ea-b76e-6d1f1675c6a4"
-			"64ae0955-b993-4591-bb15-3913c94d696d"
-			"7581d6e4-fd6f-452c-8945-4ede81fdf7df"
-			"3c2aa4c2-412b-439d-a512-a0a21af8952d"
-			"791528e4-a814-4eca-8399-efae37d0bb47"
-			"b6eeab18-c4ff-49c8-bdce-25d122f1f32b"
-			"c501b568-6cf0-4ece-ac42-5cab11a6ce0a"
-			"849402fc-a13a-41d4-a0c2-7eb69b647725"
-			"b16891c8-33b5-4696-a61f-6e0422e779c8"
-			"b34be4e4-9c3d-4990-8c34-d3d91846d407"
-			"21f74fb9-85fc-4b72-9f5b-3e9928a23ba2"
-			"0fe4e0ae-aa22-4964-9342-77688ac38dcb"
-			"ed01c575-0482-4832-b11b-68decbaf2595"
-			"c6a12406-7c9c-4eff-a705-1cd2dec95de7"
-			"9674f081-c703-451a-95c4-68288ab62924"
-			"e843ff62-fea6-4044-b6e2-52c306f8c190"
-			"73817ee9-9104-4f1e-8eb1-262d5a02ed7c"
-			"6f0434ad-7f41-48c0-a4bf-8433af68f354"
-			"554e646c-056e-49f6-9c57-8ca663c2a813"
-			"f0df188d-432f-43dc-bd94-18f50bf768f3"
-			"79e9fb9f-3e57-47dc-8396-d27ec7fea495"
-			"09ae50a1-20b9-43f8-975e-9dc8ec19dc04"
-			"da9a90aa-b393-419a-a8ec-451007ffa758"
-			"7657c90f-6e7c-4308-98fb-c706c2559de4"
-			"907e1e19-5e9f-47f3-a977-5cfbff6f1b46"
-			"d8b7c990-93f4-45da-ba47-2dccfec99be5"
-			"83aed680-6770-4923-bb62-2040fd74be69"
-			"80e80438-29f5-4d9a-b3d2-88dab1c9ddb1"
-			"7e85edc7-0b92-4b87-b94a-8dbcb15332d9"
-			"be86622c-d437-42e2-91c9-f2deb9fe2ddd"
-			"695be20f-14d1-4f19-a1f5-7e8356daf3bb"
-			"cc1e4f7d-a90d-410e-b090-de8a2501adea"
-			"6c078e09-b28c-46ac-984b-2a8a1613c67e"
-			"5c0d98b6-d13b-4485-b77b-5f30916effd8"
-			"2d697e53-27cb-4d2c-aafc-70473d0b8883"
-			"bb6d363f-0b1f-4ee1-be47-fe4bee605f8d"
-			"15c82c06-5a9d-4edf-9cd9-c4a4bd2c60e8"
-			"21efb7e3-0de6-4742-b849-67eb7229fe19"
-			"6dd43b0c-a4f3-4d31-88cf-ed97a299ca37"
-			"4e9def6e-8be1-445c-8d87-4415183d0a2f"
-			"ca45699e-6867-441c-ba39-79a27fe2b670"
-			"77cf29ae-f7dd-41df-9a38-ccc29eda8c1b"
-			"ffbc98af-6aea-4fb6-a1bf-3a6a335fc817"
-			"481ff5fe-ec41-4a47-8498-a418604e3c44"
-			"4abd44a1-675a-4938-bfea-9e49af652c3b"
-			"c4de003a-447b-4eb2-acfb-5f0377d73e48"
-			"04cac9cd-ad07-4c37-9757-9202eccdacc7"
-			"62e846a5-822e-4d7f-a1a1-40b478df5d3b"
 		)
 	)
 	(gr_rect
@@ -110527,6 +110361,196 @@
 			"a4356e60-ddf3-4bf6-92a0-43f8e8d04e4b"
 			"be3be9ce-ac88-433f-a459-38e610ef1cd2"
 			"ee05c57d-c8f9-4b8f-b710-f3e493c66c80"
+		)
+	)
+	(gr_rect
+		(start 462.005 60.155)
+		(end 522.975 122.935)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "af3a765c-4375-49ec-b9fe-5cad055fa115")
+	)
+	(gr_rect
+		(start 462.005 55.995)
+		(end 522.975 60.155)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "332a02d8-bbfb-4e4d-8f25-fca4fba314ab")
+	)
+	(gr_text "island U1"
+		(at 462.405 57.595 0)
+		(layer "Cmts.User")
+		(uuid "ba39e84e-98ec-4c3d-b6e9-3dc31e6ac7e7")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "FPGA\ngeneric, 135 parts, 2026-10-29"
+		(at 462.405 57.895 0)
+		(layer "Cmts.User")
+		(uuid "44c15769-9b8c-4441-9a1c-9d3004b641cd")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U1"
+		(uuid "fa30a1f8-34cc-467f-819f-564ccc97371c")
+		(members
+			"af3a765c-4375-49ec-b9fe-5cad055fa115"
+			"332a02d8-bbfb-4e4d-8f25-fca4fba314ab"
+			"ba39e84e-98ec-4c3d-b6e9-3dc31e6ac7e7"
+			"44c15769-9b8c-4441-9a1c-9d3004b641cd"
+			"bb86f875-3b4d-467b-a60b-fe3d34a6d6bc"
+			"4f56d0f8-ee03-41ec-91b8-349da2d0d3a9"
+			"2e998307-1085-4943-9eaa-747f2a24b278"
+			"abf68181-9e9b-4a8e-8c9b-bfaf59216d1f"
+			"3356b334-d9c2-4b33-9b47-886a622dcc1d"
+			"24fccb0b-919e-409c-aec5-3bae2833f691"
+			"77533b8d-f478-41d3-b8be-0b06fcc25f1b"
+			"a4756486-9bc1-4009-9fed-c5150ffcc27f"
+			"3b67ed1f-6c5f-4b73-a68c-61b6f33136e2"
+			"15d84117-04c0-4965-b09d-726e878a4456"
+			"3e1e47b6-7d8b-4538-9974-302218698eb7"
+			"c2a1532d-33e4-4928-8c60-80b4fc5d44f7"
+			"dae139aa-c9c3-4d4b-91ed-7c62141f5095"
+			"cc8932b5-340a-4873-8c2d-930ef7a7506d"
+			"3412c846-bba5-4eca-90dd-0be8f70ac60e"
+			"e12e8611-4a86-4033-b615-587cb2f14888"
+			"2e221051-16e5-481a-97c7-feeae0779363"
+			"99c4b614-5dbb-46fd-8732-2c64c3b512a0"
+			"4c2a9f80-a0fb-48f7-9f56-2dc64fc7a039"
+			"1e4a83a9-e229-40b3-bef5-9b3732772a47"
+			"49d343ac-b534-462a-b0e5-aa1de72e0ffc"
+			"804c5330-4992-41aa-836e-67f56fa3950a"
+			"f187d725-3940-43ab-949b-5877261c3cac"
+			"6eb16b06-6c97-47b6-a837-acd4cfb79a7f"
+			"624a8ce8-f8a1-44d8-8a37-c1306d5555c6"
+			"cc1fead1-613b-4152-a821-04a19c08acb0"
+			"fd6e262a-f1ee-4faf-9482-9e7a6008e3bd"
+			"1e3f5987-adcf-4cb6-ad8f-16224b8d930a"
+			"7aa19e08-8690-4ee6-be0f-1b6d9af9952a"
+			"7bd60f88-99d3-4132-8008-83936fc5dafc"
+			"64a17bb0-3533-4add-ad43-32a33f0d60c2"
+			"62e165f2-0952-4075-a702-3bfc43d600cb"
+			"2146f0e8-d94d-492d-a0bf-70b983c42b53"
+			"e04a5d33-aaa4-43d1-8300-b87695ebb013"
+			"7569b1f3-b8bd-4523-8397-6dbd46003433"
+			"eea6672f-da3a-4f75-81fd-3f42e0d76f1a"
+			"071acbd9-e1ef-4b04-8e58-2b227015f97f"
+			"6029d3ad-5546-427e-9c06-2ea48cd00f22"
+			"688f4c47-1e02-4d74-8308-c6110abbeab7"
+			"a5fffa0d-6094-469d-8c91-04794007e6fc"
+			"bdee2b8b-cf58-48b1-a002-526f1a18602b"
+			"9ae711f2-0c2a-47b8-aaed-f57a541f3a2f"
+			"91370c66-2f36-4493-9716-2c513c0d3192"
+			"205f80fb-b862-4040-90da-0d6b2b2ea198"
+			"22f229b2-8e8d-4b21-a38f-0875f3e31192"
+			"f235ea07-7821-4b12-9e11-fa2dee2e4d1e"
+			"34b6adee-9074-44d7-8124-ce4c8d67a376"
+			"e1159389-f264-43fd-b35b-089dee693a15"
+			"634b0ffa-fa55-456f-be14-a05dc6e29598"
+			"afe908c3-5431-41c5-9ec0-dd558f8a135c"
+			"f1500be5-2039-403f-8e03-7e57925e7208"
+			"5c96ac90-ca7f-4c4a-8327-0536fdc2ca51"
+			"520198a8-5889-4d71-8a75-5db4f2a53daa"
+			"3cee7071-9f83-43dc-b9c7-c72c02a78764"
+			"de54f72a-d699-4a4e-8799-ff96a3071713"
+			"dac8e362-52d0-4307-b798-92e85ee73b7e"
+			"4addca45-7279-4fa6-a663-2acfcfffaeb3"
+			"2c27569e-a24b-4f87-9ed7-c076677a3d53"
+			"1e2a25af-fa74-432e-a97d-d344b7676b61"
+			"9980298c-9a95-4493-b7c5-94dd92fd6328"
+			"84333754-86f2-4b7d-855e-ffd24e8f459b"
+			"991c7adc-785d-47dd-8a0b-1df32a30293d"
+			"4ab1f4e6-0fba-44ea-b76e-6d1f1675c6a4"
+			"64ae0955-b993-4591-bb15-3913c94d696d"
+			"7581d6e4-fd6f-452c-8945-4ede81fdf7df"
+			"3c2aa4c2-412b-439d-a512-a0a21af8952d"
+			"791528e4-a814-4eca-8399-efae37d0bb47"
+			"b6eeab18-c4ff-49c8-bdce-25d122f1f32b"
+			"c501b568-6cf0-4ece-ac42-5cab11a6ce0a"
+			"849402fc-a13a-41d4-a0c2-7eb69b647725"
+			"b16891c8-33b5-4696-a61f-6e0422e779c8"
+			"b34be4e4-9c3d-4990-8c34-d3d91846d407"
+			"21f74fb9-85fc-4b72-9f5b-3e9928a23ba2"
+			"0fe4e0ae-aa22-4964-9342-77688ac38dcb"
+			"ed01c575-0482-4832-b11b-68decbaf2595"
+			"c6a12406-7c9c-4eff-a705-1cd2dec95de7"
+			"9674f081-c703-451a-95c4-68288ab62924"
+			"e843ff62-fea6-4044-b6e2-52c306f8c190"
+			"73817ee9-9104-4f1e-8eb1-262d5a02ed7c"
+			"6f0434ad-7f41-48c0-a4bf-8433af68f354"
+			"554e646c-056e-49f6-9c57-8ca663c2a813"
+			"f0df188d-432f-43dc-bd94-18f50bf768f3"
+			"79e9fb9f-3e57-47dc-8396-d27ec7fea495"
+			"09ae50a1-20b9-43f8-975e-9dc8ec19dc04"
+			"da9a90aa-b393-419a-a8ec-451007ffa758"
+			"7657c90f-6e7c-4308-98fb-c706c2559de4"
+			"907e1e19-5e9f-47f3-a977-5cfbff6f1b46"
+			"d8b7c990-93f4-45da-ba47-2dccfec99be5"
+			"83aed680-6770-4923-bb62-2040fd74be69"
+			"80e80438-29f5-4d9a-b3d2-88dab1c9ddb1"
+			"7e85edc7-0b92-4b87-b94a-8dbcb15332d9"
+			"be86622c-d437-42e2-91c9-f2deb9fe2ddd"
+			"695be20f-14d1-4f19-a1f5-7e8356daf3bb"
+			"cc1e4f7d-a90d-410e-b090-de8a2501adea"
+			"6c078e09-b28c-46ac-984b-2a8a1613c67e"
+			"5c0d98b6-d13b-4485-b77b-5f30916effd8"
+			"2d697e53-27cb-4d2c-aafc-70473d0b8883"
+			"bb6d363f-0b1f-4ee1-be47-fe4bee605f8d"
+			"15c82c06-5a9d-4edf-9cd9-c4a4bd2c60e8"
+			"21efb7e3-0de6-4742-b849-67eb7229fe19"
+			"6dd43b0c-a4f3-4d31-88cf-ed97a299ca37"
+			"4e9def6e-8be1-445c-8d87-4415183d0a2f"
+			"ca45699e-6867-441c-ba39-79a27fe2b670"
+			"77cf29ae-f7dd-41df-9a38-ccc29eda8c1b"
+			"ffbc98af-6aea-4fb6-a1bf-3a6a335fc817"
+			"481ff5fe-ec41-4a47-8498-a418604e3c44"
+			"4abd44a1-675a-4938-bfea-9e49af652c3b"
+			"c4de003a-447b-4eb2-acfb-5f0377d73e48"
+			"04cac9cd-ad07-4c37-9757-9202eccdacc7"
+			"62e846a5-822e-4d7f-a1a1-40b478df5d3b"
+			"ed64047a-1952-4ae7-ae8f-99b21441dc64"
+			"cad638fb-3869-41ef-aef5-645b41def464"
+			"a332ec8f-a074-4149-8ed9-874b8be45f14"
+			"a1b9d306-d00c-407d-8d4e-8e7ecca4a895"
+			"1bbc5ed2-bc6d-43ee-98a3-1cc6d89e2bf7"
+			"c48850c6-8f91-49de-99e9-35aaf12d6671"
+			"a8324be9-6967-4661-83e7-14d3dffaa36d"
+			"fdda04d7-8382-41a8-9ee9-784c9bd3229c"
+			"0fbd1e91-08c2-4eee-85ae-7ad9becd5010"
+			"e8789f12-d404-48b0-9d5a-a6381383d8b6"
+			"acff2393-1176-4757-9604-301f4ef8d73a"
+			"2a63769c-15d3-43d1-9719-71121cb0231f"
+			"131d45e5-36a0-4e94-a774-f70f3f74d4b1"
+			"204f0825-35d5-461c-b29e-2f8c95a0da05"
+			"13197684-9de0-44b1-b733-4b802d2df35c"
+			"8b7698c7-8e23-4147-ab0f-02fbad9a4a77"
+			"34755f31-8f10-4ebb-bb2a-000c589898e9"
+			"d9f197ea-1b5a-40fe-8191-f3ad335885b0"
+			"afebfd83-13f6-4080-b6a7-804e5e65e66c"
+			"9ac38606-231b-49e7-8a32-b731fa0be927"
+			"2d7e9207-deac-4c1e-b226-7409324ec759"
+			"54efd2ac-de25-4800-9290-4d723943f8eb"
+			"862040cd-ee75-4168-81e9-424223b4057d"
+			"983bf86a-7410-43a9-82b8-ade7983e5167"
+			"50133498-f236-45db-8aa5-96b5986f4843"
 		)
 	)
 )
