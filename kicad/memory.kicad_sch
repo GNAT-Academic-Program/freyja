@@ -415,7 +415,7 @@
     )
     (property
       "Footprint"
-      "EasyEDA:TF-SMD_TF-01A"
+      "EasyEDA:TF-SMD_TF-01A-NPTH"
       (id 2)
       (at 0 -25.40 0)
       (effects (font (size 1.27 1.27) ) hide)
@@ -2859,7 +2859,7 @@
 		(uuid "09e01777-f2cc-6ed4-8b94-98531269b138")
 		(property "Reference" "J74" (at 275.59 739.14 0) (effects (font (size 1.27 1.27))))
 		(property "Value" "microSD" (at 275.59 782.32 0) (effects (font (size 1.27 1.27))))
-		(property "Footprint" "EasyEDA:TF-SMD_TF-01A" (at 275.59 782.32 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Footprint" "EasyEDA:TF-SMD_TF-01A-NPTH" (at 275.59 782.32 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "LCSC" "C91145" (at 275.59 782.32 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "microSD socket: Hroparts TF-01A push-push microSD socket, SPI mode to FPGA bank 14 at 3.3 V; card detect on the switch." (at 275.59 782.32 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/97100407-f2fb-0487-90af-0c60df3be2db" (reference "J74") (unit 1))))

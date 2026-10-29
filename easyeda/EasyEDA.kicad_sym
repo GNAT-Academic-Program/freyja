@@ -19203,7 +19203,7 @@
     )
     (property
       "Footprint"
-      "EasyEDA:TF-SMD_TF-01A"
+      "EasyEDA:TF-SMD_TF-01A-NPTH"
       (id 2)
       (at 0 -25.40 0)
       (effects (font (size 1.27 1.27) ) hide)

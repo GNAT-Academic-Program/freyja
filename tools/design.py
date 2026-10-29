@@ -1165,11 +1165,12 @@ def build():
     # The SD specification wants CS, CMD, DAT0 and the unused DAT1/DAT2
     # pulled up in SPI mode: 10k each. The detect switch closes to the
     # shell; the FPGA reads it through its own pull-up (ref/freya.xdc).
-    # [verify] switch polarity on the prototype. Balls: tools/alloc.py
+    # The two locating pegs are plain holes (the import had them plated with
+    # no annular ring). [verify] switch polarity on the prototype. Balls: tools/alloc.py
     # SD_BALLS.
     d.sheet('Memory')
     d.group('microSD socket')
-    d.add('J74', 'EasyEDA:TF-01A_C91145', 'microSD', 'EasyEDA:TF-SMD_TF-01A',
+    d.add('J74', 'EasyEDA:TF-01A_C91145', 'microSD', 'EasyEDA:TF-SMD_TF-01A-NPTH',
           {'DAT2(RSV)': 'SD_DAT2', 'CDDAT3(CS)': 'SD_CS', 'CMD(DI)': 'SD_MOSI',
            'VDD': V33, 'CLK(SCLK)': 'SD_SCK', 'VSS': GND, 'DAT0(D0)': 'SD_MISO',
            'DAT1(RSV)': 'SD_DAT1', 'CD': 'SD_CD', 'GND': GND}, 'C91145')

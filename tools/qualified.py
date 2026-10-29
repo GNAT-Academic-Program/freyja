@@ -68,7 +68,7 @@ PARTS = {
     src='Winbond W25Q256JV datasheet; LCSC C97522'),
   'EasyEDA:TF-01A_C91145': dict(
     mpn='TF-01A', pkg='SMD push-push microSD socket, 1.85 mm, two 1.0 mm locating pegs',
-    fp='EasyEDA:TF-SMD_TF-01A',
+    fp='EasyEDA:TF-SMD_TF-01A-NPTH',
     rating='1 A, 30 V contact rating; card supply 3.3 V; SPI mode wiring',
     pinmap='imported C91145 symbol: pins 1-8 the microSD contacts in card order, '
            '9 the detect switch, 10-13 the shell; drawing is mechanical only',

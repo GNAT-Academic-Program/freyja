@@ -1,7 +1,7 @@
 (export (version "E")
   (design
     (source "/home/ohenley/freyja/kicad/odin.kicad_sch")
-    (date "2026-10-29T10:56:43-0400")
+    (date "2026-10-29T10:59:39-0400")
     (tool "Eeschema 9.0.8+dfsg-1")
     (sheet (number "1") (name "/") (tstamps "/")
       (title_block
@@ -3907,11 +3907,11 @@
       (tstamps "8502ccae-337c-3542-cd91-7702ff528a23"))
     (comp (ref "J74")
       (value "microSD")
-      (footprint "EasyEDA:TF-SMD_TF-01A")
+      (footprint "EasyEDA:TF-SMD_TF-01A-NPTH")
       (description "microSD socket: Hroparts TF-01A push-push microSD socket, SPI mode to FPGA bank 14 at 3.3 V; card detect on the switch.")
       (fields
         (field (name "LCSC") "C91145")
-        (field (name "Footprint") "EasyEDA:TF-SMD_TF-01A")
+        (field (name "Footprint") "EasyEDA:TF-SMD_TF-01A-NPTH")
         (field (name "Datasheet"))
         (field (name "Description") "microSD socket: Hroparts TF-01A push-push microSD socket, SPI mode to FPGA bank 14 at 3.3 V; card detect on the switch."))
       (libsource (lib "EasyEDA") (part "TF-01A_C91145") (description ""))
@@ -8938,7 +8938,7 @@
       (fields
         (field (name "Reference") "Card")
         (field (name "Value") "TF-01A_C91145")
-        (field (name "Footprint") "EasyEDA:TF-SMD_TF-01A")
+        (field (name "Footprint") "EasyEDA:TF-SMD_TF-01A-NPTH")
         (field (name "Datasheet") "https://lcsc.com/product-detail/Card-Sockets_TF-01A_C91145.html")
         (field (name "Description"))
         (field (name "Manufacturer") "韩国韩荣")
