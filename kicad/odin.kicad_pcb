@@ -4853,11 +4853,11 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "0f71c881-1d17-4c5b-8bfc-633c4a7c0ed4")
-		(at 69.565 254.296231)
+		(at 436.52 121.95 180)
 		(descr "4.7uF bypass on +5V, for U14 (1.8 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C269"
-			(at 0 -1.43 0)
+			(at 0 -1.43 180)
 			(layer "F.Fab")
 			(uuid "71873805-b044-4f13-98ec-515181fcc643")
 			(effects
@@ -4868,7 +4868,7 @@
 			)
 		)
 		(property "Value" "4.7uF"
-			(at 0 1.43 0)
+			(at 0 1.43 180)
 			(layer "F.Fab")
 			(uuid "7617b272-4905-4c6a-964b-d5e62e63d068")
 			(effects
@@ -4879,7 +4879,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "27656a64-f7a2-4b8f-8e20-64d3d8d5efd7")
@@ -4891,7 +4891,7 @@
 			)
 		)
 		(property "Description" "4.7uF bypass on +5V, for U14 (1.8 V regulator, always on)"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "430d7ea4-821f-4adf-89e7-84442e7ab0d4")
@@ -4903,7 +4903,7 @@
 			)
 		)
 		(property "LCSC Part" "C277476"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "6649d735-10f6-480b-a408-821aeb7fe23e")
@@ -4958,7 +4958,7 @@
 			(uuid "06327013-3a3a-4b90-a312-b1058262cbac")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "1da121b1-5bea-421e-96ed-b57b7836c76f")
 			(effects
@@ -4969,7 +4969,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.775 0)
+			(at -0.775 0 180)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -4977,7 +4977,7 @@
 			(uuid "34dfb44c-84d8-4f6f-8744-368bb2b168d3")
 		)
 		(pad "2" smd roundrect
-			(at 0.775 0)
+			(at 0.775 0 180)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -31333,7 +31333,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "540c6eb6-cc5a-4827-8ff4-278616277863")
-		(at 777.92 87.54 -90)
+		(at 432.26 118.4 -90)
 		(descr "49.9k resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R62"
@@ -34649,7 +34649,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "5de2f7d2-4f6e-4a37-bdd3-4c680c1c12db")
-		(at 782.18 89.35 180)
+		(at 436.52 120.21 180)
 		(descr "100nF bypass on +5V, for U14 (1.8 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C203"
@@ -50562,7 +50562,7 @@
 	(footprint "EasyEDA:IND-SMD_L4.0-W4.0_SNR4018"
 		(layer "F.Cu")
 		(uuid "85cc78a3-424e-4237-b733-a5215797f1be")
-		(at 785.92 87.54 180)
+		(at 440.26 118.4 180)
 		(descr "2.2uH SRN4018-2R2M inductor between +1V8_IO and SW+1V8_IO, for U14 (1.8 V regulator, always on): regulator switching node")
 		(property "Reference" "L5"
 			(at 0 -4 180)
@@ -86834,7 +86834,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "bff78157-9261-4cda-8ab5-c3c58185e64b")
-		(at 782.43 84.49 90)
+		(at 436.77 115.35 90)
 		(descr "22uF bypass on +1V8_IO, for U14 (1.8 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C202"
@@ -99728,7 +99728,7 @@
 	(footprint "EasyEDA:SOT-563_L1.6-W1.2-P0.50-LS1.6-BL"
 		(layer "F.Cu")
 		(uuid "e9abddf8-9a6a-4882-b3d0-9a85aad20cdd")
-		(at 782.18 87.54 -90)
+		(at 436.52 118.4 -90)
 		(descr "1.8 V regulator, always on: TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). Enable tied to +5V.")
 		(property "Reference" "U14"
 			(at 0 -4.723 270)
@@ -101439,7 +101439,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ee7acb1d-c22a-47cf-98ae-d0dae494d640")
-		(at 779.93 87.84 90)
+		(at 434.27 118.7 90)
 		(descr "100k resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R61"
@@ -102273,7 +102273,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "f058002e-a3b0-44e8-a322-d0452b14f0ad")
-		(at 780.13 84.49 90)
+		(at 434.47 115.35 90)
 		(descr "22uF bypass on +1V8_IO, for U14 (1.8 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C201"
@@ -107989,68 +107989,6 @@
 		)
 	)
 	(gr_rect
-		(start 775.665 81.265)
-		(end 789.67 91.335)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "6a07ae00-706a-4219-93dd-1fec190cf255")
-	)
-	(gr_rect
-		(start 775.665 74.165)
-		(end 789.67 81.265)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "63ba5a5f-7753-4702-b9da-3cbf58bf48ca")
-	)
-	(gr_text "island U14"
-		(at 776.065 75.765 0)
-		(layer "Cmts.User")
-		(uuid "605c2f6f-14f0-4eb8-920f-aa596339bf69")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "1.8 V regulator,\nalways on\n1.8 V regulator\nTLV62569, 8 parts,\n2026-10-28"
-		(at 776.065 76.065 0)
-		(layer "Cmts.User")
-		(uuid "25f0e123-b52b-403a-bda1-f9320308f37c")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(group "island U14"
-		(uuid "d316a45c-3892-4a9f-a6fd-59206e9417e3")
-		(members
-			"6a07ae00-706a-4219-93dd-1fec190cf255"
-			"63ba5a5f-7753-4702-b9da-3cbf58bf48ca"
-			"605c2f6f-14f0-4eb8-920f-aa596339bf69"
-			"25f0e123-b52b-403a-bda1-f9320308f37c"
-			"e9abddf8-9a6a-4882-b3d0-9a85aad20cdd"
-			"f058002e-a3b0-44e8-a322-d0452b14f0ad"
-			"bff78157-9261-4cda-8ab5-c3c58185e64b"
-			"5de2f7d2-4f6e-4a37-bdd3-4c680c1c12db"
-			"85cc78a3-424e-4237-b733-a5215797f1be"
-			"ee7acb1d-c22a-47cf-98ae-d0dae494d640"
-			"540c6eb6-cc5a-4827-8ff4-278616277863"
-		)
-	)
-	(gr_rect
 		(start 695.145 52.115)
 		(end 716.22 66.335)
 		(stroke
@@ -110520,6 +110458,69 @@
 			"cd2301e4-cb4c-43f9-bc2b-d4bf17629c76"
 			"582d39f3-7ee3-4316-81e0-d71b51cae9ec"
 			"f557c550-ca8d-4ebd-b559-fa7b50cb79d9"
+		)
+	)
+	(gr_rect
+		(start 430.005 112.125)
+		(end 444.01 124.205)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "78b83d2d-f574-46ff-80fa-209bbe5eda67")
+	)
+	(gr_rect
+		(start 430.005 106.005)
+		(end 444.01 112.125)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "41c4d4a2-3586-4c0c-ac40-af28f2f70dc0")
+	)
+	(gr_text "island U14"
+		(at 430.405 107.605 0)
+		(layer "Cmts.User")
+		(uuid "3912e848-cd43-47fa-9a6d-1a5ecb7411aa")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "1.8 V regulator,\nalways on\nTLV62569, 8 parts,\n2026-10-29"
+		(at 430.405 107.905 0)
+		(layer "Cmts.User")
+		(uuid "d16efd7e-08db-4699-b051-372d326f0a44")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U14"
+		(uuid "e4a5c523-8f60-4bad-a893-615288eb9e22")
+		(members
+			"78b83d2d-f574-46ff-80fa-209bbe5eda67"
+			"41c4d4a2-3586-4c0c-ac40-af28f2f70dc0"
+			"3912e848-cd43-47fa-9a6d-1a5ecb7411aa"
+			"d16efd7e-08db-4699-b051-372d326f0a44"
+			"e9abddf8-9a6a-4882-b3d0-9a85aad20cdd"
+			"f058002e-a3b0-44e8-a322-d0452b14f0ad"
+			"bff78157-9261-4cda-8ab5-c3c58185e64b"
+			"5de2f7d2-4f6e-4a37-bdd3-4c680c1c12db"
+			"0f71c881-1d17-4c5b-8bfc-633c4a7c0ed4"
+			"85cc78a3-424e-4237-b733-a5215797f1be"
+			"ee7acb1d-c22a-47cf-98ae-d0dae494d640"
+			"540c6eb6-cc5a-4827-8ff4-278616277863"
 		)
 	)
 )
