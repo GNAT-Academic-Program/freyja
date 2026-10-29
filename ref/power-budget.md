@@ -35,7 +35,7 @@ are not in these numbers.
 | Ref | Output | Board load | Rating | Used |
 |---|---|---:|---:|---:|
 | `U11` | +5V | 0.721 A | 3 A | 24 % |
-| `U12` | +3V3 | 0.734 A | 3 A | 24 % |
+| `U12` | +3V3 | 0.819 A | 3 A | 27 % |
 | `U13` | +2V5 | 0.140 A | 2 A | 7 % |
 | `U14` | +1V8_IO | 0.308 A | 2 A | 15 % |
 | `U15` | +1V0 | 1.650 A | 4 A | 41 % |
@@ -54,6 +54,7 @@ are not in these numbers.
 | +3V3 | RP2350B supervisor + boot flash | 0.070 A | estimate | ref/power-input.md: 0.2 W |
 | +3V3 | FPGA bank 14 VCCO and its I/O | 0.100 A | estimate | one third of the 1.0 W VCCO/IO line |
 | +3V3 | config flash W25Q256, program | 0.030 A | datasheet | W25Q256JV: 25 mA page-program peak |
+| +3V3 | W9825G6KH-6 SDRAM, burst read/write | 0.085 A | datasheet | W9825G6KH rev A03 p. 14, DC characteristics: IDD4 85 mA max at the -6 grade |
 | +3V3 | RTL8211FD-CG, 1000Base-T link | 0.200 A | estimate | datasheet rev 1.7 gives no active-mode consumption table; planning allowance for a 1 Gb PHY with internal LDO, verify on the prototype |
 | +3V3 | ETH jack LEDs x2 through 510 ohm | 0.006 A | datasheet | RTL8211F Figure 5; about 3 mA each |
 | +3V3 | X4 50 MHz CMOS oscillator | 0.010 A | estimate | typical 3225 CMOS oscillator at 50 MHz into a 15 pF load |
@@ -82,7 +83,7 @@ not control it and nothing on the base board draws from it. Capacitors on
 
 The per-load estimates are retained in `LOADS`; cascaded 90%-efficient
 conversion gives 0.721 A on +5V and
-0.734 A on +3V3 before connector exports. FPGA values
+0.819 A on +3V3 before connector exports. FPGA values
 are planning estimates pending AMD XPE.
 The two VCCIO domains and the separate 3V3 export share U12's 3 A ceiling;
 their maximum switch-limit tolerances are not additive guaranteed allowances.

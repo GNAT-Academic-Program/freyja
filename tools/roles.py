@@ -230,6 +230,9 @@ NET = {
     'MGTRREF': 'calibration resistor for GTP quad 216 (UG482 Figure 5-1)',
     'MGTRREF_213': 'calibration resistor for GTP quad 213 (UG482 Table 5-5)',
     'SYS_CLK': 'damps ringing on the clock line',
+    'SDRAM_CLK': 'damps ringing on the SDRAM clock (22 ohm at the FPGA)',
+    'SDRAM_CS_N': 'keeps the SDRAM deselected until a design drives CS',
+    'SDRAM_CKE': 'holds the SDRAM clock disabled (power-down) until a design drives CKE',
     'PHY_RSET': 'sets U30\'s transmit bias current (2.49 k 1 %, [verify] ref/network.md)',
     'PHY_1V0': 'U30\'s internal 1.0 V LDO output; feeds only its own core pins',
     'PHY_RESET_N': 'holds U30 in reset until the FPGA drives it (Table 53 note 5)',
@@ -358,6 +361,16 @@ GROUP.update({
         'by the mode straps). The board controller can rewrite it through the '
         'series resistors on the Board Controller sheet, and spare space can '
         'hold user data or software for a soft CPU.',
+    'SDRAM':
+        'A 32 MB SDR SDRAM (Winbond W9825G6KH-6, 16 bits wide, up to 166 '
+        'MHz) for designs that outgrow the PSRAMs: a framebuffer, a soft '
+        'CPU\'s main memory, a capture buffer. Its data and control lines '
+        'come from bank 35 and its address lines from bank 14, both at 3.3 '
+        'V. One 100 nF per VDD/VDDQ pin pair (seven, datasheet pins 1, 14, '
+        '27 and 3, 9, 43, 49) and a 10 uF bulk; a 22 ohm series resistor at '
+        'the FPGA damps the clock; CS is pulled up and CKE pulled down so '
+        'the chip stays deselected and in power-down until a design drives '
+        'them.',
     'PSRAM0 series termination': 'One 33 ohm resistor per PSRAM0 line, placed next to the '
         'FPGA: they soften the fast signal edges so they do not ring along '
         'the trace. Values can be tuned after measurement (ref/psram.md).',
@@ -495,6 +508,7 @@ PART.update({
     'U3': ('PSRAM 1', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
     'U4': ('PSRAM 2', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
     'U5': ('PSRAM 3', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
+    'U32': ('SDRAM', 'Winbond W9825G6KH-6, 256 Mbit (32 MB) 16-bit SDR SDRAM, 3.3 V, TSOP-54: bank 35 data and control, bank 14 address.'),
     'U6': ('FPGA configuration flash', 'Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it.'),
     'U7': ('board controller', 'Raspberry Pi RP2350B microcontroller (two Cortex-M33 cores, 150 MHz): USB, FPGA programming, power sequencing and monitoring.'),
     'Y1': ('controller 12 MHz crystal', 'Abracon ABM8-272-T3, the crystal Raspberry Pi specifies for the RP2350.'),

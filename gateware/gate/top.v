@@ -105,6 +105,45 @@ module top (
     input  PUDC_B,
     input  SB_UART_RX,
     output SB_UART_TX,
+    output SDRAM_A0,
+    output SDRAM_A1,
+    output SDRAM_A10,
+    output SDRAM_A11,
+    output SDRAM_A12,
+    output SDRAM_A2,
+    output SDRAM_A3,
+    output SDRAM_A4,
+    output SDRAM_A5,
+    output SDRAM_A6,
+    output SDRAM_A7,
+    output SDRAM_A8,
+    output SDRAM_A9,
+    output SDRAM_BA0,
+    output SDRAM_BA1,
+    output SDRAM_CAS_N,
+    output SDRAM_CKE,
+    output SDRAM_CS_N,
+    inout  SDRAM_DQ0,
+    inout  SDRAM_DQ1,
+    inout  SDRAM_DQ10,
+    inout  SDRAM_DQ11,
+    inout  SDRAM_DQ12,
+    inout  SDRAM_DQ13,
+    inout  SDRAM_DQ14,
+    inout  SDRAM_DQ15,
+    inout  SDRAM_DQ2,
+    inout  SDRAM_DQ3,
+    inout  SDRAM_DQ4,
+    inout  SDRAM_DQ5,
+    inout  SDRAM_DQ6,
+    inout  SDRAM_DQ7,
+    inout  SDRAM_DQ8,
+    inout  SDRAM_DQ9,
+    output SDRAM_LDQM,
+    output SDRAM_RAS_N,
+    output SDRAM_UDQM,
+    output SDRAM_WE_N,
+    output SDRAM_CLK,
     inout  SLOTA_IO0,
     inout  SLOTA_IO1,
     inout  SLOTA_IO10,
@@ -332,199 +371,231 @@ module top (
     wire io_48;
     IOBUF iob_48 (.I(cnt[8]), .T(cnt[20]), .O(io_48), .IO(PSRAM3_SCK));
     wire io_49;
-    IOBUF iob_49 (.I(cnt[9]), .T(cnt[21]), .O(io_49), .IO(SLOTA_IO0));
+    IOBUF iob_49 (.I(cnt[9]), .T(cnt[21]), .O(io_49), .IO(SDRAM_DQ0));
     wire io_50;
-    IOBUF iob_50 (.I(cnt[10]), .T(cnt[22]), .O(io_50), .IO(SLOTA_IO1));
+    IOBUF iob_50 (.I(cnt[10]), .T(cnt[22]), .O(io_50), .IO(SDRAM_DQ1));
     wire io_51;
-    IOBUF iob_51 (.I(cnt[11]), .T(cnt[23]), .O(io_51), .IO(SLOTA_IO10));
+    IOBUF iob_51 (.I(cnt[11]), .T(cnt[23]), .O(io_51), .IO(SDRAM_DQ10));
     wire io_52;
-    IOBUF iob_52 (.I(cnt[12]), .T(cnt[24]), .O(io_52), .IO(SLOTA_IO11));
+    IOBUF iob_52 (.I(cnt[12]), .T(cnt[24]), .O(io_52), .IO(SDRAM_DQ11));
     wire io_53;
-    IOBUF iob_53 (.I(cnt[13]), .T(cnt[25]), .O(io_53), .IO(SLOTA_IO2));
+    IOBUF iob_53 (.I(cnt[13]), .T(cnt[25]), .O(io_53), .IO(SDRAM_DQ12));
     wire io_54;
-    IOBUF iob_54 (.I(cnt[14]), .T(cnt[26]), .O(io_54), .IO(SLOTA_IO3));
+    IOBUF iob_54 (.I(cnt[14]), .T(cnt[26]), .O(io_54), .IO(SDRAM_DQ13));
     wire io_55;
-    IOBUF iob_55 (.I(cnt[15]), .T(cnt[27]), .O(io_55), .IO(SLOTA_IO4));
+    IOBUF iob_55 (.I(cnt[15]), .T(cnt[27]), .O(io_55), .IO(SDRAM_DQ14));
     wire io_56;
-    IOBUF iob_56 (.I(cnt[16]), .T(cnt[20]), .O(io_56), .IO(SLOTA_IO5));
+    IOBUF iob_56 (.I(cnt[16]), .T(cnt[20]), .O(io_56), .IO(SDRAM_DQ15));
     wire io_57;
-    IOBUF iob_57 (.I(cnt[17]), .T(cnt[21]), .O(io_57), .IO(SLOTA_IO6));
+    IOBUF iob_57 (.I(cnt[17]), .T(cnt[21]), .O(io_57), .IO(SDRAM_DQ2));
     wire io_58;
-    IOBUF iob_58 (.I(cnt[18]), .T(cnt[22]), .O(io_58), .IO(SLOTA_IO7));
+    IOBUF iob_58 (.I(cnt[18]), .T(cnt[22]), .O(io_58), .IO(SDRAM_DQ3));
     wire io_59;
-    IOBUF iob_59 (.I(cnt[19]), .T(cnt[23]), .O(io_59), .IO(SLOTA_IO8));
+    IOBUF iob_59 (.I(cnt[19]), .T(cnt[23]), .O(io_59), .IO(SDRAM_DQ4));
     wire io_60;
-    IOBUF iob_60 (.I(cnt[0]), .T(cnt[24]), .O(io_60), .IO(SLOTA_IO9));
+    IOBUF iob_60 (.I(cnt[0]), .T(cnt[24]), .O(io_60), .IO(SDRAM_DQ5));
     wire io_61;
-    IOBUF iob_61 (.I(cnt[1]), .T(cnt[25]), .O(io_61), .IO(SLOTB_IO0));
+    IOBUF iob_61 (.I(cnt[1]), .T(cnt[25]), .O(io_61), .IO(SDRAM_DQ6));
     wire io_62;
-    IOBUF iob_62 (.I(cnt[2]), .T(cnt[26]), .O(io_62), .IO(SLOTB_IO1));
+    IOBUF iob_62 (.I(cnt[2]), .T(cnt[26]), .O(io_62), .IO(SDRAM_DQ7));
     wire io_63;
-    IOBUF iob_63 (.I(cnt[3]), .T(cnt[27]), .O(io_63), .IO(SLOTB_IO10));
+    IOBUF iob_63 (.I(cnt[3]), .T(cnt[27]), .O(io_63), .IO(SDRAM_DQ8));
     wire io_64;
-    IOBUF iob_64 (.I(cnt[4]), .T(cnt[20]), .O(io_64), .IO(SLOTB_IO11));
+    IOBUF iob_64 (.I(cnt[4]), .T(cnt[20]), .O(io_64), .IO(SDRAM_DQ9));
     wire io_65;
-    IOBUF iob_65 (.I(cnt[5]), .T(cnt[21]), .O(io_65), .IO(SLOTB_IO2));
+    IOBUF iob_65 (.I(cnt[5]), .T(cnt[21]), .O(io_65), .IO(SLOTA_IO0));
     wire io_66;
-    IOBUF iob_66 (.I(cnt[6]), .T(cnt[22]), .O(io_66), .IO(SLOTB_IO3));
+    IOBUF iob_66 (.I(cnt[6]), .T(cnt[22]), .O(io_66), .IO(SLOTA_IO1));
     wire io_67;
-    IOBUF iob_67 (.I(cnt[7]), .T(cnt[23]), .O(io_67), .IO(SLOTB_IO4));
+    IOBUF iob_67 (.I(cnt[7]), .T(cnt[23]), .O(io_67), .IO(SLOTA_IO10));
     wire io_68;
-    IOBUF iob_68 (.I(cnt[8]), .T(cnt[24]), .O(io_68), .IO(SLOTB_IO5));
+    IOBUF iob_68 (.I(cnt[8]), .T(cnt[24]), .O(io_68), .IO(SLOTA_IO11));
     wire io_69;
-    IOBUF iob_69 (.I(cnt[9]), .T(cnt[25]), .O(io_69), .IO(SLOTB_IO6));
+    IOBUF iob_69 (.I(cnt[9]), .T(cnt[25]), .O(io_69), .IO(SLOTA_IO2));
     wire io_70;
-    IOBUF iob_70 (.I(cnt[10]), .T(cnt[26]), .O(io_70), .IO(SLOTB_IO7));
+    IOBUF iob_70 (.I(cnt[10]), .T(cnt[26]), .O(io_70), .IO(SLOTA_IO3));
     wire io_71;
-    IOBUF iob_71 (.I(cnt[11]), .T(cnt[27]), .O(io_71), .IO(SLOTB_IO8));
+    IOBUF iob_71 (.I(cnt[11]), .T(cnt[27]), .O(io_71), .IO(SLOTA_IO4));
     wire io_72;
-    IOBUF iob_72 (.I(cnt[12]), .T(cnt[20]), .O(io_72), .IO(SLOTB_IO9));
+    IOBUF iob_72 (.I(cnt[12]), .T(cnt[20]), .O(io_72), .IO(SLOTA_IO5));
     wire io_73;
-    IOBUF iob_73 (.I(cnt[13]), .T(cnt[21]), .O(io_73), .IO(SLOTC_IO0));
+    IOBUF iob_73 (.I(cnt[13]), .T(cnt[21]), .O(io_73), .IO(SLOTA_IO6));
     wire io_74;
-    IOBUF iob_74 (.I(cnt[14]), .T(cnt[22]), .O(io_74), .IO(SLOTC_IO1));
+    IOBUF iob_74 (.I(cnt[14]), .T(cnt[22]), .O(io_74), .IO(SLOTA_IO7));
     wire io_75;
-    IOBUF iob_75 (.I(cnt[15]), .T(cnt[23]), .O(io_75), .IO(SLOTC_IO10));
+    IOBUF iob_75 (.I(cnt[15]), .T(cnt[23]), .O(io_75), .IO(SLOTA_IO8));
     wire io_76;
-    IOBUF iob_76 (.I(cnt[16]), .T(cnt[24]), .O(io_76), .IO(SLOTC_IO11));
+    IOBUF iob_76 (.I(cnt[16]), .T(cnt[24]), .O(io_76), .IO(SLOTA_IO9));
     wire io_77;
-    IOBUF iob_77 (.I(cnt[17]), .T(cnt[25]), .O(io_77), .IO(SLOTC_IO2));
+    IOBUF iob_77 (.I(cnt[17]), .T(cnt[25]), .O(io_77), .IO(SLOTB_IO0));
     wire io_78;
-    IOBUF iob_78 (.I(cnt[18]), .T(cnt[26]), .O(io_78), .IO(SLOTC_IO3));
+    IOBUF iob_78 (.I(cnt[18]), .T(cnt[26]), .O(io_78), .IO(SLOTB_IO1));
     wire io_79;
-    IOBUF iob_79 (.I(cnt[19]), .T(cnt[27]), .O(io_79), .IO(SLOTC_IO4));
+    IOBUF iob_79 (.I(cnt[19]), .T(cnt[27]), .O(io_79), .IO(SLOTB_IO10));
     wire io_80;
-    IOBUF iob_80 (.I(cnt[0]), .T(cnt[20]), .O(io_80), .IO(SLOTC_IO5));
+    IOBUF iob_80 (.I(cnt[0]), .T(cnt[20]), .O(io_80), .IO(SLOTB_IO11));
     wire io_81;
-    IOBUF iob_81 (.I(cnt[1]), .T(cnt[21]), .O(io_81), .IO(SLOTC_IO6));
+    IOBUF iob_81 (.I(cnt[1]), .T(cnt[21]), .O(io_81), .IO(SLOTB_IO2));
     wire io_82;
-    IOBUF iob_82 (.I(cnt[2]), .T(cnt[22]), .O(io_82), .IO(SLOTC_IO7));
+    IOBUF iob_82 (.I(cnt[2]), .T(cnt[22]), .O(io_82), .IO(SLOTB_IO3));
     wire io_83;
-    IOBUF iob_83 (.I(cnt[3]), .T(cnt[23]), .O(io_83), .IO(SLOTC_IO8));
+    IOBUF iob_83 (.I(cnt[3]), .T(cnt[23]), .O(io_83), .IO(SLOTB_IO4));
     wire io_84;
-    IOBUF iob_84 (.I(cnt[4]), .T(cnt[24]), .O(io_84), .IO(SLOTC_IO9));
+    IOBUF iob_84 (.I(cnt[4]), .T(cnt[24]), .O(io_84), .IO(SLOTB_IO5));
     wire io_85;
-    IOBUF iob_85 (.I(cnt[5]), .T(cnt[25]), .O(io_85), .IO(SLOTD_IO0));
+    IOBUF iob_85 (.I(cnt[5]), .T(cnt[25]), .O(io_85), .IO(SLOTB_IO6));
     wire io_86;
-    IOBUF iob_86 (.I(cnt[6]), .T(cnt[26]), .O(io_86), .IO(SLOTD_IO1));
+    IOBUF iob_86 (.I(cnt[6]), .T(cnt[26]), .O(io_86), .IO(SLOTB_IO7));
     wire io_87;
-    IOBUF iob_87 (.I(cnt[7]), .T(cnt[27]), .O(io_87), .IO(SLOTD_IO10));
+    IOBUF iob_87 (.I(cnt[7]), .T(cnt[27]), .O(io_87), .IO(SLOTB_IO8));
     wire io_88;
-    IOBUF iob_88 (.I(cnt[8]), .T(cnt[20]), .O(io_88), .IO(SLOTD_IO11));
+    IOBUF iob_88 (.I(cnt[8]), .T(cnt[20]), .O(io_88), .IO(SLOTB_IO9));
     wire io_89;
-    IOBUF iob_89 (.I(cnt[9]), .T(cnt[21]), .O(io_89), .IO(SLOTD_IO2));
+    IOBUF iob_89 (.I(cnt[9]), .T(cnt[21]), .O(io_89), .IO(SLOTC_IO0));
     wire io_90;
-    IOBUF iob_90 (.I(cnt[10]), .T(cnt[22]), .O(io_90), .IO(SLOTD_IO3));
+    IOBUF iob_90 (.I(cnt[10]), .T(cnt[22]), .O(io_90), .IO(SLOTC_IO1));
     wire io_91;
-    IOBUF iob_91 (.I(cnt[11]), .T(cnt[23]), .O(io_91), .IO(SLOTD_IO4));
+    IOBUF iob_91 (.I(cnt[11]), .T(cnt[23]), .O(io_91), .IO(SLOTC_IO10));
     wire io_92;
-    IOBUF iob_92 (.I(cnt[12]), .T(cnt[24]), .O(io_92), .IO(SLOTD_IO5));
+    IOBUF iob_92 (.I(cnt[12]), .T(cnt[24]), .O(io_92), .IO(SLOTC_IO11));
     wire io_93;
-    IOBUF iob_93 (.I(cnt[13]), .T(cnt[25]), .O(io_93), .IO(SLOTD_IO6));
+    IOBUF iob_93 (.I(cnt[13]), .T(cnt[25]), .O(io_93), .IO(SLOTC_IO2));
     wire io_94;
-    IOBUF iob_94 (.I(cnt[14]), .T(cnt[26]), .O(io_94), .IO(SLOTD_IO7));
+    IOBUF iob_94 (.I(cnt[14]), .T(cnt[26]), .O(io_94), .IO(SLOTC_IO3));
     wire io_95;
-    IOBUF iob_95 (.I(cnt[15]), .T(cnt[27]), .O(io_95), .IO(SLOTD_IO8));
+    IOBUF iob_95 (.I(cnt[15]), .T(cnt[27]), .O(io_95), .IO(SLOTC_IO4));
     wire io_96;
-    IOBUF iob_96 (.I(cnt[16]), .T(cnt[20]), .O(io_96), .IO(SLOTD_IO9));
+    IOBUF iob_96 (.I(cnt[16]), .T(cnt[20]), .O(io_96), .IO(SLOTC_IO5));
     wire io_97;
-    IOBUF iob_97 (.I(cnt[17]), .T(cnt[21]), .O(io_97), .IO(SLOTE_IO0));
+    IOBUF iob_97 (.I(cnt[17]), .T(cnt[21]), .O(io_97), .IO(SLOTC_IO6));
     wire io_98;
-    IOBUF iob_98 (.I(cnt[18]), .T(cnt[22]), .O(io_98), .IO(SLOTE_IO1));
+    IOBUF iob_98 (.I(cnt[18]), .T(cnt[22]), .O(io_98), .IO(SLOTC_IO7));
     wire io_99;
-    IOBUF iob_99 (.I(cnt[19]), .T(cnt[23]), .O(io_99), .IO(SLOTE_IO10));
+    IOBUF iob_99 (.I(cnt[19]), .T(cnt[23]), .O(io_99), .IO(SLOTC_IO8));
     wire io_100;
-    IOBUF iob_100 (.I(cnt[0]), .T(cnt[24]), .O(io_100), .IO(SLOTE_IO11));
+    IOBUF iob_100 (.I(cnt[0]), .T(cnt[24]), .O(io_100), .IO(SLOTC_IO9));
     wire io_101;
-    IOBUF iob_101 (.I(cnt[1]), .T(cnt[25]), .O(io_101), .IO(SLOTE_IO2));
+    IOBUF iob_101 (.I(cnt[1]), .T(cnt[25]), .O(io_101), .IO(SLOTD_IO0));
     wire io_102;
-    IOBUF iob_102 (.I(cnt[2]), .T(cnt[26]), .O(io_102), .IO(SLOTE_IO3));
+    IOBUF iob_102 (.I(cnt[2]), .T(cnt[26]), .O(io_102), .IO(SLOTD_IO1));
     wire io_103;
-    IOBUF iob_103 (.I(cnt[3]), .T(cnt[27]), .O(io_103), .IO(SLOTE_IO4));
+    IOBUF iob_103 (.I(cnt[3]), .T(cnt[27]), .O(io_103), .IO(SLOTD_IO10));
     wire io_104;
-    IOBUF iob_104 (.I(cnt[4]), .T(cnt[20]), .O(io_104), .IO(SLOTE_IO5));
+    IOBUF iob_104 (.I(cnt[4]), .T(cnt[20]), .O(io_104), .IO(SLOTD_IO11));
     wire io_105;
-    IOBUF iob_105 (.I(cnt[5]), .T(cnt[21]), .O(io_105), .IO(SLOTE_IO6));
+    IOBUF iob_105 (.I(cnt[5]), .T(cnt[21]), .O(io_105), .IO(SLOTD_IO2));
     wire io_106;
-    IOBUF iob_106 (.I(cnt[6]), .T(cnt[22]), .O(io_106), .IO(SLOTE_IO7));
+    IOBUF iob_106 (.I(cnt[6]), .T(cnt[22]), .O(io_106), .IO(SLOTD_IO3));
     wire io_107;
-    IOBUF iob_107 (.I(cnt[7]), .T(cnt[23]), .O(io_107), .IO(SLOTE_IO8));
+    IOBUF iob_107 (.I(cnt[7]), .T(cnt[23]), .O(io_107), .IO(SLOTD_IO4));
     wire io_108;
-    IOBUF iob_108 (.I(cnt[8]), .T(cnt[24]), .O(io_108), .IO(SLOTE_IO9));
+    IOBUF iob_108 (.I(cnt[8]), .T(cnt[24]), .O(io_108), .IO(SLOTD_IO5));
     wire io_109;
-    IOBUF iob_109 (.I(cnt[9]), .T(cnt[25]), .O(io_109), .IO(SLOTF_IO0));
+    IOBUF iob_109 (.I(cnt[9]), .T(cnt[25]), .O(io_109), .IO(SLOTD_IO6));
     wire io_110;
-    IOBUF iob_110 (.I(cnt[10]), .T(cnt[26]), .O(io_110), .IO(SLOTF_IO1));
+    IOBUF iob_110 (.I(cnt[10]), .T(cnt[26]), .O(io_110), .IO(SLOTD_IO7));
     wire io_111;
-    IOBUF iob_111 (.I(cnt[11]), .T(cnt[27]), .O(io_111), .IO(SLOTF_IO10));
+    IOBUF iob_111 (.I(cnt[11]), .T(cnt[27]), .O(io_111), .IO(SLOTD_IO8));
     wire io_112;
-    IOBUF iob_112 (.I(cnt[12]), .T(cnt[20]), .O(io_112), .IO(SLOTF_IO11));
+    IOBUF iob_112 (.I(cnt[12]), .T(cnt[20]), .O(io_112), .IO(SLOTD_IO9));
     wire io_113;
-    IOBUF iob_113 (.I(cnt[13]), .T(cnt[21]), .O(io_113), .IO(SLOTF_IO2));
+    IOBUF iob_113 (.I(cnt[13]), .T(cnt[21]), .O(io_113), .IO(SLOTE_IO0));
     wire io_114;
-    IOBUF iob_114 (.I(cnt[14]), .T(cnt[22]), .O(io_114), .IO(SLOTF_IO3));
+    IOBUF iob_114 (.I(cnt[14]), .T(cnt[22]), .O(io_114), .IO(SLOTE_IO1));
     wire io_115;
-    IOBUF iob_115 (.I(cnt[15]), .T(cnt[23]), .O(io_115), .IO(SLOTF_IO4));
+    IOBUF iob_115 (.I(cnt[15]), .T(cnt[23]), .O(io_115), .IO(SLOTE_IO10));
     wire io_116;
-    IOBUF iob_116 (.I(cnt[16]), .T(cnt[24]), .O(io_116), .IO(SLOTF_IO5));
+    IOBUF iob_116 (.I(cnt[16]), .T(cnt[24]), .O(io_116), .IO(SLOTE_IO11));
     wire io_117;
-    IOBUF iob_117 (.I(cnt[17]), .T(cnt[25]), .O(io_117), .IO(SLOTF_IO6));
+    IOBUF iob_117 (.I(cnt[17]), .T(cnt[25]), .O(io_117), .IO(SLOTE_IO2));
     wire io_118;
-    IOBUF iob_118 (.I(cnt[18]), .T(cnt[26]), .O(io_118), .IO(SLOTF_IO7));
+    IOBUF iob_118 (.I(cnt[18]), .T(cnt[26]), .O(io_118), .IO(SLOTE_IO3));
     wire io_119;
-    IOBUF iob_119 (.I(cnt[19]), .T(cnt[27]), .O(io_119), .IO(SLOTF_IO8));
+    IOBUF iob_119 (.I(cnt[19]), .T(cnt[27]), .O(io_119), .IO(SLOTE_IO4));
     wire io_120;
-    IOBUF iob_120 (.I(cnt[0]), .T(cnt[20]), .O(io_120), .IO(SLOTF_IO9));
+    IOBUF iob_120 (.I(cnt[0]), .T(cnt[20]), .O(io_120), .IO(SLOTE_IO5));
     wire io_121;
-    IOBUF iob_121 (.I(cnt[1]), .T(cnt[21]), .O(io_121), .IO(SLOTG_IO0));
+    IOBUF iob_121 (.I(cnt[1]), .T(cnt[21]), .O(io_121), .IO(SLOTE_IO6));
     wire io_122;
-    IOBUF iob_122 (.I(cnt[2]), .T(cnt[22]), .O(io_122), .IO(SLOTG_IO1));
+    IOBUF iob_122 (.I(cnt[2]), .T(cnt[22]), .O(io_122), .IO(SLOTE_IO7));
     wire io_123;
-    IOBUF iob_123 (.I(cnt[3]), .T(cnt[23]), .O(io_123), .IO(SLOTG_IO10));
+    IOBUF iob_123 (.I(cnt[3]), .T(cnt[23]), .O(io_123), .IO(SLOTE_IO8));
     wire io_124;
-    IOBUF iob_124 (.I(cnt[4]), .T(cnt[24]), .O(io_124), .IO(SLOTG_IO11));
+    IOBUF iob_124 (.I(cnt[4]), .T(cnt[24]), .O(io_124), .IO(SLOTE_IO9));
     wire io_125;
-    IOBUF iob_125 (.I(cnt[5]), .T(cnt[25]), .O(io_125), .IO(SLOTG_IO2));
+    IOBUF iob_125 (.I(cnt[5]), .T(cnt[25]), .O(io_125), .IO(SLOTF_IO0));
     wire io_126;
-    IOBUF iob_126 (.I(cnt[6]), .T(cnt[26]), .O(io_126), .IO(SLOTG_IO3));
+    IOBUF iob_126 (.I(cnt[6]), .T(cnt[26]), .O(io_126), .IO(SLOTF_IO1));
     wire io_127;
-    IOBUF iob_127 (.I(cnt[7]), .T(cnt[27]), .O(io_127), .IO(SLOTG_IO4));
+    IOBUF iob_127 (.I(cnt[7]), .T(cnt[27]), .O(io_127), .IO(SLOTF_IO10));
     wire io_128;
-    IOBUF iob_128 (.I(cnt[8]), .T(cnt[20]), .O(io_128), .IO(SLOTG_IO5));
+    IOBUF iob_128 (.I(cnt[8]), .T(cnt[20]), .O(io_128), .IO(SLOTF_IO11));
     wire io_129;
-    IOBUF iob_129 (.I(cnt[9]), .T(cnt[21]), .O(io_129), .IO(SLOTG_IO6));
+    IOBUF iob_129 (.I(cnt[9]), .T(cnt[21]), .O(io_129), .IO(SLOTF_IO2));
     wire io_130;
-    IOBUF iob_130 (.I(cnt[10]), .T(cnt[22]), .O(io_130), .IO(SLOTG_IO7));
+    IOBUF iob_130 (.I(cnt[10]), .T(cnt[22]), .O(io_130), .IO(SLOTF_IO3));
     wire io_131;
-    IOBUF iob_131 (.I(cnt[11]), .T(cnt[23]), .O(io_131), .IO(SLOTG_IO8));
+    IOBUF iob_131 (.I(cnt[11]), .T(cnt[23]), .O(io_131), .IO(SLOTF_IO4));
     wire io_132;
-    IOBUF iob_132 (.I(cnt[12]), .T(cnt[24]), .O(io_132), .IO(SLOTG_IO9));
+    IOBUF iob_132 (.I(cnt[12]), .T(cnt[24]), .O(io_132), .IO(SLOTF_IO5));
     wire io_133;
-    IOBUF iob_133 (.I(cnt[13]), .T(cnt[25]), .O(io_133), .IO(SLOTH_IO0));
+    IOBUF iob_133 (.I(cnt[13]), .T(cnt[25]), .O(io_133), .IO(SLOTF_IO6));
     wire io_134;
-    IOBUF iob_134 (.I(cnt[14]), .T(cnt[26]), .O(io_134), .IO(SLOTH_IO1));
+    IOBUF iob_134 (.I(cnt[14]), .T(cnt[26]), .O(io_134), .IO(SLOTF_IO7));
     wire io_135;
-    IOBUF iob_135 (.I(cnt[15]), .T(cnt[27]), .O(io_135), .IO(SLOTH_IO10));
+    IOBUF iob_135 (.I(cnt[15]), .T(cnt[27]), .O(io_135), .IO(SLOTF_IO8));
     wire io_136;
-    IOBUF iob_136 (.I(cnt[16]), .T(cnt[20]), .O(io_136), .IO(SLOTH_IO11));
+    IOBUF iob_136 (.I(cnt[16]), .T(cnt[20]), .O(io_136), .IO(SLOTF_IO9));
     wire io_137;
-    IOBUF iob_137 (.I(cnt[17]), .T(cnt[21]), .O(io_137), .IO(SLOTH_IO2));
+    IOBUF iob_137 (.I(cnt[17]), .T(cnt[21]), .O(io_137), .IO(SLOTG_IO0));
     wire io_138;
-    IOBUF iob_138 (.I(cnt[18]), .T(cnt[22]), .O(io_138), .IO(SLOTH_IO3));
+    IOBUF iob_138 (.I(cnt[18]), .T(cnt[22]), .O(io_138), .IO(SLOTG_IO1));
     wire io_139;
-    IOBUF iob_139 (.I(cnt[19]), .T(cnt[23]), .O(io_139), .IO(SLOTH_IO4));
+    IOBUF iob_139 (.I(cnt[19]), .T(cnt[23]), .O(io_139), .IO(SLOTG_IO10));
     wire io_140;
-    IOBUF iob_140 (.I(cnt[0]), .T(cnt[24]), .O(io_140), .IO(SLOTH_IO5));
+    IOBUF iob_140 (.I(cnt[0]), .T(cnt[24]), .O(io_140), .IO(SLOTG_IO11));
     wire io_141;
-    IOBUF iob_141 (.I(cnt[1]), .T(cnt[25]), .O(io_141), .IO(SLOTH_IO6));
+    IOBUF iob_141 (.I(cnt[1]), .T(cnt[25]), .O(io_141), .IO(SLOTG_IO2));
     wire io_142;
-    IOBUF iob_142 (.I(cnt[2]), .T(cnt[26]), .O(io_142), .IO(SLOTH_IO7));
+    IOBUF iob_142 (.I(cnt[2]), .T(cnt[26]), .O(io_142), .IO(SLOTG_IO3));
     wire io_143;
-    IOBUF iob_143 (.I(cnt[3]), .T(cnt[27]), .O(io_143), .IO(SLOTH_IO8));
+    IOBUF iob_143 (.I(cnt[3]), .T(cnt[27]), .O(io_143), .IO(SLOTG_IO4));
     wire io_144;
-    IOBUF iob_144 (.I(cnt[4]), .T(cnt[20]), .O(io_144), .IO(SLOTH_IO9));
+    IOBUF iob_144 (.I(cnt[4]), .T(cnt[20]), .O(io_144), .IO(SLOTG_IO5));
+    wire io_145;
+    IOBUF iob_145 (.I(cnt[5]), .T(cnt[21]), .O(io_145), .IO(SLOTG_IO6));
+    wire io_146;
+    IOBUF iob_146 (.I(cnt[6]), .T(cnt[22]), .O(io_146), .IO(SLOTG_IO7));
+    wire io_147;
+    IOBUF iob_147 (.I(cnt[7]), .T(cnt[23]), .O(io_147), .IO(SLOTG_IO8));
+    wire io_148;
+    IOBUF iob_148 (.I(cnt[8]), .T(cnt[24]), .O(io_148), .IO(SLOTG_IO9));
+    wire io_149;
+    IOBUF iob_149 (.I(cnt[9]), .T(cnt[25]), .O(io_149), .IO(SLOTH_IO0));
+    wire io_150;
+    IOBUF iob_150 (.I(cnt[10]), .T(cnt[26]), .O(io_150), .IO(SLOTH_IO1));
+    wire io_151;
+    IOBUF iob_151 (.I(cnt[11]), .T(cnt[27]), .O(io_151), .IO(SLOTH_IO10));
+    wire io_152;
+    IOBUF iob_152 (.I(cnt[12]), .T(cnt[20]), .O(io_152), .IO(SLOTH_IO11));
+    wire io_153;
+    IOBUF iob_153 (.I(cnt[13]), .T(cnt[21]), .O(io_153), .IO(SLOTH_IO2));
+    wire io_154;
+    IOBUF iob_154 (.I(cnt[14]), .T(cnt[22]), .O(io_154), .IO(SLOTH_IO3));
+    wire io_155;
+    IOBUF iob_155 (.I(cnt[15]), .T(cnt[23]), .O(io_155), .IO(SLOTH_IO4));
+    wire io_156;
+    IOBUF iob_156 (.I(cnt[16]), .T(cnt[24]), .O(io_156), .IO(SLOTH_IO5));
+    wire io_157;
+    IOBUF iob_157 (.I(cnt[17]), .T(cnt[25]), .O(io_157), .IO(SLOTH_IO6));
+    wire io_158;
+    IOBUF iob_158 (.I(cnt[18]), .T(cnt[26]), .O(io_158), .IO(SLOTH_IO7));
+    wire io_159;
+    IOBUF iob_159 (.I(cnt[19]), .T(cnt[27]), .O(io_159), .IO(SLOTH_IO8));
+    wire io_160;
+    IOBUF iob_160 (.I(cnt[0]), .T(cnt[20]), .O(io_160), .IO(SLOTH_IO9));
     reg iofold = 0;
-    always @(posedge clk) iofold <= io_0 ^ io_1 ^ io_2 ^ io_3 ^ io_4 ^ io_5 ^ io_6 ^ io_7 ^ io_8 ^ io_9 ^ io_10 ^ io_11 ^ io_12 ^ io_13 ^ io_14 ^ io_15 ^ io_16 ^ io_17 ^ io_18 ^ io_19 ^ io_20 ^ io_21 ^ io_22 ^ io_23 ^ io_24 ^ io_25 ^ io_26 ^ io_27 ^ io_28 ^ io_29 ^ io_30 ^ io_31 ^ io_32 ^ io_33 ^ io_34 ^ io_35 ^ io_36 ^ io_37 ^ io_38 ^ io_39 ^ io_40 ^ io_41 ^ io_42 ^ io_43 ^ io_44 ^ io_45 ^ io_46 ^ io_47 ^ io_48 ^ io_49 ^ io_50 ^ io_51 ^ io_52 ^ io_53 ^ io_54 ^ io_55 ^ io_56 ^ io_57 ^ io_58 ^ io_59 ^ io_60 ^ io_61 ^ io_62 ^ io_63 ^ io_64 ^ io_65 ^ io_66 ^ io_67 ^ io_68 ^ io_69 ^ io_70 ^ io_71 ^ io_72 ^ io_73 ^ io_74 ^ io_75 ^ io_76 ^ io_77 ^ io_78 ^ io_79 ^ io_80 ^ io_81 ^ io_82 ^ io_83 ^ io_84 ^ io_85 ^ io_86 ^ io_87 ^ io_88 ^ io_89 ^ io_90 ^ io_91 ^ io_92 ^ io_93 ^ io_94 ^ io_95 ^ io_96 ^ io_97 ^ io_98 ^ io_99 ^ io_100 ^ io_101 ^ io_102 ^ io_103 ^ io_104 ^ io_105 ^ io_106 ^ io_107 ^ io_108 ^ io_109 ^ io_110 ^ io_111 ^ io_112 ^ io_113 ^ io_114 ^ io_115 ^ io_116 ^ io_117 ^ io_118 ^ io_119 ^ io_120 ^ io_121 ^ io_122 ^ io_123 ^ io_124 ^ io_125 ^ io_126 ^ io_127 ^ io_128 ^ io_129 ^ io_130 ^ io_131 ^ io_132 ^ io_133 ^ io_134 ^ io_135 ^ io_136 ^ io_137 ^ io_138 ^ io_139 ^ io_140 ^ io_141 ^ io_142 ^ io_143 ^ io_144;
+    always @(posedge clk) iofold <= io_0 ^ io_1 ^ io_2 ^ io_3 ^ io_4 ^ io_5 ^ io_6 ^ io_7 ^ io_8 ^ io_9 ^ io_10 ^ io_11 ^ io_12 ^ io_13 ^ io_14 ^ io_15 ^ io_16 ^ io_17 ^ io_18 ^ io_19 ^ io_20 ^ io_21 ^ io_22 ^ io_23 ^ io_24 ^ io_25 ^ io_26 ^ io_27 ^ io_28 ^ io_29 ^ io_30 ^ io_31 ^ io_32 ^ io_33 ^ io_34 ^ io_35 ^ io_36 ^ io_37 ^ io_38 ^ io_39 ^ io_40 ^ io_41 ^ io_42 ^ io_43 ^ io_44 ^ io_45 ^ io_46 ^ io_47 ^ io_48 ^ io_49 ^ io_50 ^ io_51 ^ io_52 ^ io_53 ^ io_54 ^ io_55 ^ io_56 ^ io_57 ^ io_58 ^ io_59 ^ io_60 ^ io_61 ^ io_62 ^ io_63 ^ io_64 ^ io_65 ^ io_66 ^ io_67 ^ io_68 ^ io_69 ^ io_70 ^ io_71 ^ io_72 ^ io_73 ^ io_74 ^ io_75 ^ io_76 ^ io_77 ^ io_78 ^ io_79 ^ io_80 ^ io_81 ^ io_82 ^ io_83 ^ io_84 ^ io_85 ^ io_86 ^ io_87 ^ io_88 ^ io_89 ^ io_90 ^ io_91 ^ io_92 ^ io_93 ^ io_94 ^ io_95 ^ io_96 ^ io_97 ^ io_98 ^ io_99 ^ io_100 ^ io_101 ^ io_102 ^ io_103 ^ io_104 ^ io_105 ^ io_106 ^ io_107 ^ io_108 ^ io_109 ^ io_110 ^ io_111 ^ io_112 ^ io_113 ^ io_114 ^ io_115 ^ io_116 ^ io_117 ^ io_118 ^ io_119 ^ io_120 ^ io_121 ^ io_122 ^ io_123 ^ io_124 ^ io_125 ^ io_126 ^ io_127 ^ io_128 ^ io_129 ^ io_130 ^ io_131 ^ io_132 ^ io_133 ^ io_134 ^ io_135 ^ io_136 ^ io_137 ^ io_138 ^ io_139 ^ io_140 ^ io_141 ^ io_142 ^ io_143 ^ io_144 ^ io_145 ^ io_146 ^ io_147 ^ io_148 ^ io_149 ^ io_150 ^ io_151 ^ io_152 ^ io_153 ^ io_154 ^ io_155 ^ io_156 ^ io_157 ^ io_158 ^ io_159 ^ io_160;
     assign BUS5V0_DIR = cnt[0] ^ fold ^ lvfold ^ iofold;
     assign BUS5V0_OE_N = cnt[1] ^ fold ^ lvfold ^ iofold;
     assign BUS5V1_DIR = cnt[2] ^ fold ^ lvfold ^ iofold;
@@ -541,6 +612,29 @@ module top (
     assign PHY_TXD3 = cnt[13] ^ fold ^ lvfold ^ iofold;
     assign PHY_TX_CTL = cnt[14] ^ fold ^ lvfold ^ iofold;
     assign SB_UART_TX = cnt[15] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A0 = cnt[16] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A1 = cnt[17] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A10 = cnt[18] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A11 = cnt[19] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A12 = cnt[0] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A2 = cnt[1] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A3 = cnt[2] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A4 = cnt[3] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A5 = cnt[4] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A6 = cnt[5] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A7 = cnt[6] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A8 = cnt[7] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A9 = cnt[8] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_BA0 = cnt[9] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_BA1 = cnt[10] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_CAS_N = cnt[11] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_CKE = cnt[12] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_CS_N = cnt[13] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_LDQM = cnt[14] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_RAS_N = cnt[15] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_UDQM = cnt[16] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_WE_N = cnt[17] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_CLK = cnt[18] ^ fold ^ lvfold ^ iofold;
     OBUFDS #(.IOSTANDARD("TMDS_33")) ob_0 (.I(cnt[3] ^ fold), .O(HDMI_CLK_P), .OB(HDMI_CLK_N));
     OBUFDS #(.IOSTANDARD("TMDS_33")) ob_1 (.I(cnt[4] ^ fold), .O(HDMI_D0_P), .OB(HDMI_D0_N));
     OBUFDS #(.IOSTANDARD("TMDS_33")) ob_2 (.I(cnt[5] ^ fold), .O(HDMI_D1_P), .OB(HDMI_D1_N));

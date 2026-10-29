@@ -42,11 +42,21 @@ def direction(net):
                                   r'|SB_UART_RX$|DBG_T(CK|MS|DI)$|PUDC_B$|HDMI_HPD$', net):
         return 'in'
     if re.match(r'PHY_(TXC|TXD\d|TX_CTL|MDC|RESET_N)$|LINK_[PQ]_TX[CD]_[PN]$|SB_UART_TX$'
-                r'|DBG_TDO$|BUS5V\d_(DIR|OE_N)$|HDMI_(CLK|D\d)_[PN]$|HDMI_(CT_HPD|LS_OE)$', net):
+                r'|DBG_TDO$|BUS5V\d_(DIR|OE_N)$|HDMI_(CLK|D\d)_[PN]$|HDMI_(CT_HPD|LS_OE)$'
+                r'|SDRAM_(A\d+|BA\d|CLK|CKE|CS_N|RAS_N|CAS_N|WE_N|LDQM|UDQM)$', net):
         return 'out'
-    if re.match(r'SLOT[A-H]_IO\d+$|BUS5V\d_IO\d$|PHY_MDIO$|FLASH_|PSRAM\d_|HDMI_(SCL|SDA|CEC)$', net):
+    if re.match(r'SLOT[A-H]_IO\d+$|BUS5V\d_IO\d$|PHY_MDIO$|FLASH_|PSRAM\d_|HDMI_(SCL|SDA|CEC)$'
+                r'|SDRAM_DQ\d+$', net):
         return 'inout'
     raise ValueError(f'no direction rule for {net}')
+
+
+def group_of(net):
+    """Section a net belongs to in the XDC. SDRAM_CLK is a forwarded clock
+    and gets a section of its own, so a design can set its ODDR, slew and
+    drive without touching the bus."""
+    if net == 'SDRAM_CLK': return 'SDRAM_CLK'
+    return re.sub(r'\d+$|_[PN]$', '', net).split('_')[0]
 
 
 def bank_of(name):
@@ -57,7 +67,7 @@ def rows():
     net, _psram, _sb, _slots, io, _other = assign()
     names = {b: n for lst in io.values() for b, n in lst}
     out = []
-    for ball, n in sorted(net.items(), key=lambda t: t[1]):
+    for ball, n in sorted(net.items(), key=lambda t: (group_of(t[1]), t[1])):
         bank = bank_of(names[ball])
         if n.startswith('LINK_'):
             std = 'LVDS_25'
@@ -86,14 +96,19 @@ def xdc(rs):
          '']
     last = None
     for r in rs:
-        grp = re.sub(r'\d+$|_[PN]$', '', r['net']).split('_')[0]
+        grp = group_of(r['net'])
         if grp != last:
-            o.append(f'# ---- {grp}'); last = grp
+            if grp == 'SDRAM_CLK':
+                o.append('# ---- SDRAM_CLK: forwarded clock, 22 ohm series at the FPGA. Drive it')
+                o.append('# from an ODDR; set its slew and drive here, apart from the bus.')
+            else:
+                o.append(f'# ---- {grp}')
+            last = grp
         o.append(f"set_property -dict {{PACKAGE_PIN {r['ball']} IOSTANDARD {r['std']}}} "
                  f"[get_ports {{{r['net']}}}]   ;# bank {r['bank']} {r['pkg']}")
         if r['std'] == 'LVDS_25' and r['dir'] == 'in':
             o.append(f"set_property DIFF_TERM TRUE [get_ports {{{r['net']}}}]")
-        if re.match(r'PHY_(TXC|TXD\d|TX_CTL)$', r['net']):
+        if re.match(r'PHY_(TXC|TXD\d|TX_CTL)$|SDRAM_CLK$', r['net']):
             o.append(f"set_property SLEW FAST [get_ports {{{r['net']}}}]")
     o.append('')
     o.append('# ---- input clocks')

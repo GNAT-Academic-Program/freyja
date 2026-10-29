@@ -30,6 +30,7 @@ against the manufacturer datasheet.
 | 1 | `XC7A100T-2FGG676I` | programmable logic | `C1521803` — imported |
 | 4 | `APS6404L-SQN-SN` | work memory, 1.8 V | `C5360304` |
 | 1 | `W25Q256JVEIQ` | FPGA startup memory | `C97522` |
+| 1 | `W9825G6KH-6` | SDRAM, 32 MB, 3.3 V | `C62246` |
 | 1 | `RP2350B` | board controller | C42415655 |
 | 1 | `ABM8-272-T3` | controller 12 MHz crystal | C20625731 |
 | 1 | `W25Q32JVZPIQ` | controller memory | `C571260` — imported and linked |

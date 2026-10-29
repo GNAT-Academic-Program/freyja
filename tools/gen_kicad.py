@@ -358,6 +358,37 @@ def gen_hdmi():
                           'HDMI companion: 12-channel ESD, DDC/CEC level shifting, '
                           '55 mA current-limited 5 V load switch, TSSOP-24')
 
+def gen_sdram():
+    """W9825G6KH-6, 4M x 4 banks x 16 bit SDR SDRAM, TSOP II 54. KiCad ships
+    no W9825; pin numbers and names are the datasheet's PIN CONFIGURATION
+    (rev A03, section 4, page 4). Power and control left, data and address
+    right."""
+    pins = [('1', 'VDD', 'power_in', 'L'), ('14', 'VDD', 'power_in', 'L'),
+            ('27', 'VDD', 'power_in', 'L'),
+            ('3', 'VDDQ', 'power_in', 'L'), ('9', 'VDDQ', 'power_in', 'L'),
+            ('43', 'VDDQ', 'power_in', 'L'), ('49', 'VDDQ', 'power_in', 'L'),
+            ('28', 'VSS', 'power_in', 'L'), ('41', 'VSS', 'power_in', 'L'),
+            ('54', 'VSS', 'power_in', 'L'),
+            ('6', 'VSSQ', 'power_in', 'L'), ('12', 'VSSQ', 'power_in', 'L'),
+            ('46', 'VSSQ', 'power_in', 'L'), ('52', 'VSSQ', 'power_in', 'L'),
+            ('38', 'CLK', 'input', 'L'), ('37', 'CKE', 'input', 'L'),
+            ('19', '~{CS}', 'input', 'L'), ('18', '~{RAS}', 'input', 'L'),
+            ('17', '~{CAS}', 'input', 'L'), ('16', '~{WE}', 'input', 'L'),
+            ('15', 'LDQM', 'input', 'L'), ('39', 'UDQM', 'input', 'L'),
+            ('20', 'BS0', 'input', 'L'), ('21', 'BS1', 'input', 'L'),
+            ('40', 'NC', 'no_connect', 'L')]
+    dq = {0: '2', 1: '4', 2: '5', 3: '7', 4: '8', 5: '10', 6: '11', 7: '13',
+          8: '42', 9: '44', 10: '45', 11: '47', 12: '48', 13: '50', 14: '51', 15: '53'}
+    pins += [(num, f'DQ{i}', 'bidirectional', 'R') for i, num in dq.items()]
+    addr = {0: '23', 1: '24', 2: '25', 3: '26', 4: '29', 5: '30', 6: '31',
+            7: '32', 8: '33', 9: '34', 10: '22', 11: '35', 12: '36'}
+    pins += [(num, f'A{i}', 'input', 'R') for i, num in addr.items()]
+    return gen_box_symbol('W9825G6KH', pins,
+                          'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm',
+                          'https://www.lcsc.com/datasheet/C62246.pdf',
+                          '256 Mbit SDR SDRAM, 4M x 16 x 4 banks, 3.3 V, '
+                          '166 MHz (-6), TSOP II 54')
+
 LFP = 'L_Abracon_AOTA-B201610S_2.0x1.6mm'
 
 def gen_inductor_fp():
@@ -432,7 +463,8 @@ if __name__ == '__main__':
     units = gen_symbol(pins)
     t = open(SYM).read()
     open(SYM, 'w').write(t[:t.rindex(')')] + gen_flash() + gen_osc() + gen_rails() +
-                         gen_lxc() + gen_extension_protection() + gen_hdmi() + ')\n')
+                         gen_lxc() + gen_extension_protection() + gen_hdmi() +
+                         gen_sdram() + ')\n')
     npads = gen_footprint()
     nlp = gen_inductor_fp()
     nap = gen_aux_footprints()

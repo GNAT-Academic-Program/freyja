@@ -66,6 +66,13 @@ PARTS = {
     pinmap='generated from the standard 8-pin QSPI NOR pinout, '
            'tools/gen_kicad.py FLASH_PINS',
     src='Winbond W25Q256JV datasheet; LCSC C97522'),
+  'odin:W9825G6KH': dict(
+    mpn='W9825G6KH-6', pkg='TSOP II 54, 400 mil: 22.22 x 10.16 mm body, 0.80 mm pitch',
+    fp='Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm',
+    rating='VDD/VDDQ 3.0-3.6 V, 256 Mbit (4M x 16 x 4 banks), 166 MHz, 0-70 C',
+    pinmap='generated from the datasheet PIN CONFIGURATION (section 4, p. 4), '
+           'tools/gen_kicad.py gen_sdram',
+    src='ref/datasheets/w9825g6kh.pdf (rev A03: section 4 p. 4, section 12 p. 41); LCSC C62246'),
   'Memory_RAM:APS6404L-SQRx-SN': dict(
     mpn='APS6404L-SQN-SN', pkg='SOP-8L(150), 3.9x4.9 mm body, 1.27 mm pitch, 6.0 mm lead span',
     fp='EasyEDA:SOIC-8_L4.9-W3.9-P1.27-LS6.0-BL',

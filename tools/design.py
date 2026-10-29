@@ -1099,6 +1099,33 @@ def build():
            'UTILITY': 'HDMI_UTILITY'}, 'C428493')
     d.R('75', 'HDMI_UTILITY', GND)
 
+    # ------------------------------------------------ SDRAM
+    # W9825G6KH-6 (datasheet rev A03): 4M x 16 x 4 banks, VDD/VDDQ 3.0 to
+    # 3.6 V (section 9, p. 23), TSOP II 54 (section 12, p. 41: D 22.22,
+    # E1 10.16, e 0.80 BSC, matching the fitted KiCad footprint). Pin numbers
+    # from section 4, p. 4, as the generated odin:W9825G6KH symbol carries
+    # them. Balls: tools/alloc.py SDRAM_BANK35 / SDRAM_BANK14. Seven
+    # VDD/VDDQ pins (1, 14, 27, 3, 9, 43, 49) get one 100 nF each, plus one
+    # 10 uF bulk; the datasheet gives no capacitor values. CLK leaves the
+    # FPGA through 22 ohm. CS pulled up and CKE pulled down keep the chip
+    # deselected and in power-down until a design drives them.
+    d.sheet('Memory')
+    d.group('SDRAM')
+    sd = {'VDD': V33, 'VDDQ': V33, 'VSS': GND, 'VSSQ': GND, 'NC': '',
+          'CLK': 'SDRAM_CLK_MEM', 'CKE': 'SDRAM_CKE', '~{CS}': 'SDRAM_CS_N',
+          '~{RAS}': 'SDRAM_RAS_N', '~{CAS}': 'SDRAM_CAS_N', '~{WE}': 'SDRAM_WE_N',
+          'LDQM': 'SDRAM_LDQM', 'UDQM': 'SDRAM_UDQM',
+          'BS0': 'SDRAM_BA0', 'BS1': 'SDRAM_BA1'}
+    for i in range(16): sd[f'DQ{i}'] = f'SDRAM_DQ{i}'
+    for i in range(13): sd[f'A{i}'] = f'SDRAM_A{i}'
+    d.add('U32', 'odin:W9825G6KH', 'W9825G6KH-6',
+          'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', sd, 'C62246')
+    for _ in range(7): d.C('100nF', V33, GND)
+    d.C('10uF', V33, GND, C0805)
+    d.R('22', 'SDRAM_CLK', 'SDRAM_CLK_MEM')
+    d.R('10k', V33, 'SDRAM_CS_N', R0603)
+    d.R('10k', 'SDRAM_CKE', GND, R0603)
+
     # ------------------------------------------------ +1V8_IO and +1V8
     # U14's output node is +1V8_IO (L5, its 2 x 22 uF and the feedback divider
     # sit on it): the 1.8 V position of J19/J20 and the MON_1V8 series

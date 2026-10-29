@@ -60,6 +60,24 @@ LINK_PAIRS = ['TXC', 'TXD', 'RXD']           # plus RXC on the clock-capable pai
 # hand-chosen so the HDMI allocation below is untouched.
 PHY_CTL = OrderedDict([('PHY_RESET_N', 'G1'), ('PHY_INT_N', 'G2')])
 PHY_CTL_BANK = '35'
+# W9825G6KH-6 SDR SDRAM, 3.3 V. Data and control in bank 35 (hand-chosen:
+# DQ0-7 on pairs L1-L4, DQ8-15 on L5-L8, the masks on L9, CLK and CKE on
+# L10, the four strobes on L17 and L18; nothing clock-capable, CLK is an
+# output and goes through a 22 ohm series resistor). Address and bank
+# select in bank 14 on the balls the PSRAMs left, the block of columns
+# 23-26, rows M-T. CS and CKE are plain I/O (no configuration function).
+SDRAM_BANK35 = OrderedDict([
+    ('DQ0', 'E6'), ('DQ1', 'D6'), ('DQ2', 'H8'), ('DQ3', 'G8'),
+    ('DQ4', 'H7'), ('DQ5', 'G7'), ('DQ6', 'F8'), ('DQ7', 'F7'),
+    ('DQ8', 'H6'), ('DQ9', 'G6'), ('DQ10', 'H9'), ('DQ11', 'G9'),
+    ('DQ12', 'J6'), ('DQ13', 'J5'), ('DQ14', 'L8'), ('DQ15', 'K8'),
+    ('LDQM', 'J4'), ('UDQM', 'H4'), ('CLK', 'K7'), ('CKE', 'K6'),
+    ('CS_N', 'D3'), ('RAS_N', 'C3'), ('CAS_N', 'F3'), ('WE_N', 'E3')])
+SDRAM_BANK14 = OrderedDict([
+    ('A0', 'M26'), ('A1', 'N26'), ('A2', 'P26'), ('A3', 'R26'),
+    ('A4', 'M25'), ('A5', 'P25'), ('A6', 'R25'), ('A7', 'T25'),
+    ('A8', 'M24'), ('A9', 'N24'), ('A10', 'P24'), ('A11', 'T24'),
+    ('A12', 'N23'), ('BA0', 'P23'), ('BA1', 'R23')])
 # The four 1.8 V QSPI PSRAMs (APS6404L-SQN-SN) in bank 13, VCCO = +1V8_IO.
 # Hand-chosen: three whole pairs per chip in one patch of the ballmap, so the
 # four channels route with one pattern, and both MRCC pairs (U21/V21,
@@ -234,9 +252,20 @@ def assign():
             raise RuntimeError(f'{n}: {b} is not a free bank {PHY_CTL_BANK} user I/O ball')
         used.add(b); net[b] = n
 
+    # ---- SDRAM: bank 35 data and control, bank 14 address from pool14
+    for sig, b in SDRAM_BANK35.items():
+        if not names.get(b, '').endswith('_35') or b in used or re.search(r'[MS]RCC', names[b]):
+            raise RuntimeError(f'SDRAM_{sig}: {b} is not a free, plain bank 35 ball')
+        used.add(b); net[b] = f'SDRAM_{sig}'
+    for sig, b in SDRAM_BANK14.items():
+        if b not in pool14 or b in net:
+            raise RuntimeError(f'SDRAM_{sig}: {b} is not free in the bank 14 pool')
+        net[b] = f'SDRAM_{sig}'
+    pool14 = [b for b in pool14 if b not in net]
+
     assign.link = link                    # for ballmap.py
     assign.hdmi = hdmi
-    assign.pool14 = pool14                # bank 14 balls held for the SDRAM address bus
+    assign.pool14 = pool14                # bank 14 balls still free after the SDRAM address bus
     return net, psram, sb, slots, io, other
 
 def check(net, io):
@@ -263,6 +292,11 @@ def check(net, io):
     for n, b in PHY_CTL.items():
         if inv.get(n) != b or not names[b].endswith('_' + PHY_CTL_BANK):
             probs.append(f'{n} is not on {b} in bank {PHY_CTL_BANK}')
+    for n, b in inv.items():
+        if not n.startswith('SDRAM_'): continue
+        want = '14' if re.match(r'SDRAM_(A\d+|BA\d)$', n) else '35'
+        if not names[b].endswith('_' + want): probs.append(f'{n} on {b} is not in bank {want}')
+        if n == 'SDRAM_CLK' and re.search(r'[MS]RCC', names[b]): probs.append('SDRAM_CLK is on a clock-capable ball')
     return probs
 
 if __name__ == '__main__':

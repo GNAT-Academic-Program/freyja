@@ -140,6 +140,49 @@ set_property -dict {PACKAGE_PIN P15 IOSTANDARD LVCMOS33} [get_ports {PUDC_B}]   
 # ---- SB
 set_property -dict {PACKAGE_PIN P20 IOSTANDARD LVCMOS33} [get_ports {SB_UART_RX}]   ;# bank 14 IO_L14P_T2_SRCC_14
 set_property -dict {PACKAGE_PIN P21 IOSTANDARD LVCMOS33} [get_ports {SB_UART_TX}]   ;# bank 14 IO_L14N_T2_SRCC_14
+# ---- SDRAM
+set_property -dict {PACKAGE_PIN M26 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A0}]   ;# bank 14 IO_L20N_T3_A07_D23_14
+set_property -dict {PACKAGE_PIN N26 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A1}]   ;# bank 14 IO_L20P_T3_A08_D24_14
+set_property -dict {PACKAGE_PIN P24 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A10}]   ;# bank 14 IO_L17N_T2_A13_D29_14
+set_property -dict {PACKAGE_PIN T24 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A11}]   ;# bank 14 IO_L21P_T3_DQS_14
+set_property -dict {PACKAGE_PIN N23 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A12}]   ;# bank 14 IO_L15P_T2_DQS_RDWR_B_14
+set_property -dict {PACKAGE_PIN P26 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A2}]   ;# bank 14 IO_L22N_T3_A04_D20_14
+set_property -dict {PACKAGE_PIN R26 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A3}]   ;# bank 14 IO_L22P_T3_A05_D21_14
+set_property -dict {PACKAGE_PIN M25 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A4}]   ;# bank 14 IO_L10N_T1_D15_14
+set_property -dict {PACKAGE_PIN P25 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A5}]   ;# bank 14 IO_L19N_T3_A09_D25_VREF_14
+set_property -dict {PACKAGE_PIN R25 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A6}]   ;# bank 14 IO_L19P_T3_A10_D26_14
+set_property -dict {PACKAGE_PIN T25 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A7}]   ;# bank 14 IO_L21N_T3_DQS_A06_D22_14
+set_property -dict {PACKAGE_PIN M24 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A8}]   ;# bank 14 IO_L10P_T1_D14_14
+set_property -dict {PACKAGE_PIN N24 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A9}]   ;# bank 14 IO_L15N_T2_DQS_DOUT_CSO_B_14
+set_property -dict {PACKAGE_PIN P23 IOSTANDARD LVCMOS33} [get_ports {SDRAM_BA0}]   ;# bank 14 IO_L17P_T2_A14_D30_14
+set_property -dict {PACKAGE_PIN R23 IOSTANDARD LVCMOS33} [get_ports {SDRAM_BA1}]   ;# bank 14 IO_L24N_T3_A00_D16_14
+set_property -dict {PACKAGE_PIN F3 IOSTANDARD LVCMOS33} [get_ports {SDRAM_CAS_N}]   ;# bank 35 IO_L18P_T2_35
+set_property -dict {PACKAGE_PIN K6 IOSTANDARD LVCMOS33} [get_ports {SDRAM_CKE}]   ;# bank 35 IO_L10N_T1_AD15N_35
+set_property -dict {PACKAGE_PIN D3 IOSTANDARD LVCMOS33} [get_ports {SDRAM_CS_N}]   ;# bank 35 IO_L17P_T2_35
+set_property -dict {PACKAGE_PIN E6 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ0}]   ;# bank 35 IO_L1P_T0_AD4P_35
+set_property -dict {PACKAGE_PIN D6 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ1}]   ;# bank 35 IO_L1N_T0_AD4N_35
+set_property -dict {PACKAGE_PIN H9 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ10}]   ;# bank 35 IO_L6P_T0_35
+set_property -dict {PACKAGE_PIN G9 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ11}]   ;# bank 35 IO_L6N_T0_VREF_35
+set_property -dict {PACKAGE_PIN J6 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ12}]   ;# bank 35 IO_L7P_T1_AD6P_35
+set_property -dict {PACKAGE_PIN J5 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ13}]   ;# bank 35 IO_L7N_T1_AD6N_35
+set_property -dict {PACKAGE_PIN L8 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ14}]   ;# bank 35 IO_L8P_T1_AD14P_35
+set_property -dict {PACKAGE_PIN K8 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ15}]   ;# bank 35 IO_L8N_T1_AD14N_35
+set_property -dict {PACKAGE_PIN H8 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ2}]   ;# bank 35 IO_L2P_T0_AD12P_35
+set_property -dict {PACKAGE_PIN G8 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ3}]   ;# bank 35 IO_L2N_T0_AD12N_35
+set_property -dict {PACKAGE_PIN H7 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ4}]   ;# bank 35 IO_L3P_T0_DQS_AD5P_35
+set_property -dict {PACKAGE_PIN G7 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ5}]   ;# bank 35 IO_L3N_T0_DQS_AD5N_35
+set_property -dict {PACKAGE_PIN F8 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ6}]   ;# bank 35 IO_L4P_T0_35
+set_property -dict {PACKAGE_PIN F7 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ7}]   ;# bank 35 IO_L4N_T0_35
+set_property -dict {PACKAGE_PIN H6 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ8}]   ;# bank 35 IO_L5P_T0_AD13P_35
+set_property -dict {PACKAGE_PIN G6 IOSTANDARD LVCMOS33} [get_ports {SDRAM_DQ9}]   ;# bank 35 IO_L5N_T0_AD13N_35
+set_property -dict {PACKAGE_PIN J4 IOSTANDARD LVCMOS33} [get_ports {SDRAM_LDQM}]   ;# bank 35 IO_L9P_T1_DQS_AD7P_35
+set_property -dict {PACKAGE_PIN C3 IOSTANDARD LVCMOS33} [get_ports {SDRAM_RAS_N}]   ;# bank 35 IO_L17N_T2_35
+set_property -dict {PACKAGE_PIN H4 IOSTANDARD LVCMOS33} [get_ports {SDRAM_UDQM}]   ;# bank 35 IO_L9N_T1_DQS_AD7N_35
+set_property -dict {PACKAGE_PIN E3 IOSTANDARD LVCMOS33} [get_ports {SDRAM_WE_N}]   ;# bank 35 IO_L18N_T2_35
+# ---- SDRAM_CLK: forwarded clock, 22 ohm series at the FPGA. Drive it
+# from an ODDR; set its slew and drive here, apart from the bus.
+set_property -dict {PACKAGE_PIN K7 IOSTANDARD LVCMOS33} [get_ports {SDRAM_CLK}]   ;# bank 35 IO_L10P_T1_AD15P_35
+set_property SLEW FAST [get_ports {SDRAM_CLK}]
 # ---- SLOTA
 set_property -dict {PACKAGE_PIN K15 IOSTANDARD LVCMOS33} [get_ports {SLOTA_IO0}]   ;# bank 15 IO_L1P_T0_AD0P_15
 set_property -dict {PACKAGE_PIN J16 IOSTANDARD LVCMOS33} [get_ports {SLOTA_IO1}]   ;# bank 15 IO_L1N_T0_AD0N_15

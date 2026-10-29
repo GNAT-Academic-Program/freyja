@@ -71,6 +71,8 @@ LOADS = [
      'one third of the 1.0 W VCCO/IO line'),
     ('+3V3', 'config flash W25Q256, program', 0.03, 'datasheet',
      'W25Q256JV: 25 mA page-program peak'),
+    ('+3V3', 'W9825G6KH-6 SDRAM, burst read/write', 0.085, 'datasheet',
+     'W9825G6KH rev A03 p. 14, DC characteristics: IDD4 85 mA max at the -6 grade'),
     ('+3V3', 'RTL8211FD-CG, 1000Base-T link', 0.20, 'estimate',
      'datasheet rev 1.7 gives no active-mode consumption table; planning '
      'allowance for a 1 Gb PHY with internal LDO, verify on the prototype'),

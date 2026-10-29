@@ -10,7 +10,7 @@ you care about; within it, groups appear in schematic order.
 
 - [FPGA](#fpga) (110 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
 - [Power](#power) (111 parts): Inputs, the regulators that make every rail, extension power protection.
-- [Memory](#memory) (34 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
+- [Memory](#memory) (46 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
@@ -514,8 +514,8 @@ The split between +1V8_IO and +1V8. VCCAUX and VCCADC are the FPGA's internal su
 
 | Ref | Value | What it does |
 |---|---|---|
-| C250 | 10uF | 10uF bypass on +1V8_IO |
-| C251 | 100nF | 100nF bypass on +1V8_IO |
+| C258 | 10uF | 10uF bypass on +1V8_IO |
+| C259 | 100nF | 100nF bypass on +1V8_IO |
 | FB1 | 120R 2A BLM18PG121SN1D | 120R 2A BLM18PG121SN1D resettable fuse feeding +1V8_IO from +1V8 |
 
 ## Memory
@@ -618,6 +618,25 @@ One 33 ohm resistor per PSRAM3 line, next to the FPGA, to damp ringing.
 | R125 | 33 | 33 series resistor between PSRAM3_IO1 and PSRAM3_IO1_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md) |
 | R126 | 33 | 33 series resistor between PSRAM3_IO2 and PSRAM3_IO2_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md) |
 | R127 | 33 | 33 series resistor between PSRAM3_IO3 and PSRAM3_IO3_MEM, for U5 (PSRAM 3): damps ringing on the PSRAM line (ref/psram.md) |
+
+### SDRAM
+
+A 32 MB SDR SDRAM (Winbond W9825G6KH-6, 16 bits wide, up to 166 MHz) for designs that outgrow the PSRAMs: a framebuffer, a soft CPU's main memory, a capture buffer. Its data and control lines come from bank 35 and its address lines from bank 14, both at 3.3 V. One 100 nF per VDD/VDDQ pin pair (seven, datasheet pins 1, 14, 27 and 3, 9, 43, 49) and a 10 uF bulk; a 22 ohm series resistor at the FPGA damps the clock; CS is pulled up and CKE pulled down so the chip stays deselected and in power-down until a design drives them.
+
+| Ref | Value | What it does |
+|---|---|---|
+| U32 | W9825G6KH-6 | SDRAM: Winbond W9825G6KH-6, 256 Mbit (32 MB) 16-bit SDR SDRAM, 3.3 V, TSOP-54: bank 35 data and control, bank 14 address. |
+| C250 | 100nF | 100nF bypass on +3V3, for U32 (SDRAM) |
+| C251 | 100nF | 100nF bypass on +3V3, for U32 (SDRAM) |
+| C252 | 100nF | 100nF bypass on +3V3, for U32 (SDRAM) |
+| C253 | 100nF | 100nF bypass on +3V3, for U32 (SDRAM) |
+| C254 | 100nF | 100nF bypass on +3V3, for U32 (SDRAM) |
+| C255 | 100nF | 100nF bypass on +3V3, for U32 (SDRAM) |
+| C256 | 100nF | 100nF bypass on +3V3, for U32 (SDRAM) |
+| C257 | 10uF | 10uF bypass on +3V3, for U32 (SDRAM) |
+| R151 | 22 | 22 series resistor between SDRAM_CLK and SDRAM_CLK_MEM, for U32 (SDRAM): damps ringing on the SDRAM clock (22 ohm at the FPGA) |
+| R152 | 10k | 10k pull-up of SDRAM_CS_N to +3V3, for U32 (SDRAM): keeps the SDRAM deselected until a design drives CS |
+| R153 | 10k | 10k resistor from SDRAM_CKE to GND, for U32 (SDRAM): holds the SDRAM clock disabled (power-down) until a design drives CKE |
 
 ## Supervisor
 
