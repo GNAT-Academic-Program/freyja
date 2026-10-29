@@ -315,3 +315,39 @@ its 14.5 mm), U32 below U1 between banks 14 and 35, U33 west of U1.
 Known: the 12 new footprints and FB1 sit in the import band below the
 board, unplaced; sequential C numbers above C250 shifted between steps 1
 and 5 (nothing on the board depends on them yet).
+
+## Audit corrections, part 1: power path and board-controller pins 2026-10-29
+Parts: 516 (was 499); roles 516/516; ERC 0 errors, 2 allowlisted warnings;
+DRC 4 errors (the J1 hole clearances, part 3), 0 parity; nothing moved:
+`check_positions.py` 0 of 499 common footprints; 25 new footprints staged in
+the import band, 8 removed (Q2, R46-R49, C183, R90, R92).
+Findings items 34, 35, 36, 37, 38, 42 and 50 (findings.md Part III).
+What:
+- U11 and U14 have no enable any more: U11's EN floats (DS42002 p. 3,
+  automatic start-up, as U12), U14's EN is tied to +5V (SLVSDG1C: EN
+  -0.3..6 V absolute). +1V8, VCCAUX, is therefore up whenever +3V3 is, so
+  the 3.3 V banks never wait on firmware for their VCCAUX (DS181 Table 7).
+  GPIO23 and GPIO26 are spare.
+- The Q2/Q3 VBUS pass switch is replaced by U34, a TI TPS2121 power mux
+  (SLVSEA3F): IN1 VBUS, IN2 U11's output (+5V_BUCK), OUT +5V. Reverse
+  blocking on both inputs, 2.5 A limit (44.2k), 100 nF soft start, 5 us
+  switchover. PR1/CP2 dividers select VBUS only between 4.44 V and 5.63 V
+  (OV1), so a 9 V contract hands the rail to U11 in copper, not firmware.
+  ST on GPIO21 (VBUS5_ST). U11 runs all the time so the hand-over has no gap.
+- 27 ohm series resistors in USB D+/D- at the controller (RP2350 hardware
+  design guide 5.1): U7 on USB_DP_MCU/USB_DM_MCU, J1 and D6 on USB_DP/USB_DM.
+- CH224K: CFG1 10k pull-up to PD_VDD (5 V request before and without the
+  controller; WCH Table 5-2), Q3 pulls it low for 9 V (PD_REQ_9V, GPIO27,
+  100k gate pull-down), CFG2/CFG3 grounded so no pin state can request more
+  than 9 V. GPIO28/29 spare.
+- Local input capacitors: 10 uF 50 V 1210 across U11's VIN (DS42002 Figure
+  39), 4.7 uF at each TLV62569 VIN (SLVSDG1C 8.2.2.5).
+- Controller pins on native peripherals (RP2350 datasheet 9.4): flash bus on
+  SPI1 (SCK 10, TX 11, RX 12, CSn 9; FD2 13, FD3 7 for quad mode by PIO),
+  I2C1 SDA 14 / SCL 31, UART0 TX 32 / RX 33, EXT_FAULT GPIO34.
+- Monitors: MON_1V8 reads +1V8 (VCCAUX, after FB1); ADC6/ADC7 (GPIO46/47)
+  read VCCIO_1 and VCCIO_2. +1V2_MGT is the one unmeasured rail.
+Open for the owner: U34, the 27 ohm pair, Q3's new role, the input
+capacitors and the monitor parts sit in the import band; island them with
+islands.py (U34 has no datasheet layout example beyond "short wide traces,
+vias under IN/OUT", SLVSEA3F 12.1). Firmware: VBUS5_ST, PD_REQ_9V, new pins.

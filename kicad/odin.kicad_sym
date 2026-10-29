@@ -5924,6 +5924,131 @@
 		)
 		(embedded_fonts no)
 	)
+	(symbol "+5V_BUCK"
+		(power)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "#PWR"
+			(at 0 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V_BUCK"
+			(at 0 3.556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "+5V_BUCK_0_1"
+			(polyline
+				(pts
+					(xy -0.762 1.27) (xy 0 2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 2.54) (xy 0.762 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "+5V_BUCK_1_1"
+			(pin power_in line
+				(at 0 0 90)
+				(length 0)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
 	(symbol "SN74LXC8T245PW"
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6439,6 +6564,109 @@
 			)
 		)
 		(embedded_fonts no)
+	)
+	(symbol "TPS2121RUX"
+		(pin_names (offset 1.016))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 15.00 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "TPS2121RUX"
+			(at 0 12.46 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm"
+			(at 0 9.92 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps2121.pdf"
+			(at 0 7.38 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "2.8-22V 4.5A priority power mux, reverse blocking both inputs, current limit, fast switchover"
+			(at 0 4.84 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "TPS2121RUX_1_1"
+			(rectangle (start -12.70 8.89) (end 12.70 -8.89)
+				(stroke (width 0.254) (type default)) (fill (type background))
+			)
+			(pin power_in line
+				(at -17.78 6.35 0)
+				(length 5.08)
+				(name "IN1" (effects (font (size 1.27 1.27))))
+				(number "7" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at -17.78 3.81 0)
+				(length 5.08)
+				(name "IN2" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 1.27 0)
+				(length 5.08)
+				(name "PR1" (effects (font (size 1.27 1.27))))
+				(number "6" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 -1.27 0)
+				(length 5.08)
+				(name "CP2" (effects (font (size 1.27 1.27))))
+				(number "3" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 -3.81 0)
+				(length 5.08)
+				(name "OV1" (effects (font (size 1.27 1.27))))
+				(number "5" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 -6.35 0)
+				(length 5.08)
+				(name "OV2" (effects (font (size 1.27 1.27))))
+				(number "4" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 6.35 180)
+				(length 5.08)
+				(name "OUT" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 3.81 180)
+				(length 5.08)
+				(name "OUT" (effects (font (size 1.27 1.27))))
+				(number "8" (effects (font (size 1.27 1.27))))
+			)
+			(pin open_collector line
+				(at 17.78 1.27 180)
+				(length 5.08)
+				(name "ST" (effects (font (size 1.27 1.27))))
+				(number "9" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 -1.27 180)
+				(length 5.08)
+				(name "ILIM" (effects (font (size 1.27 1.27))))
+				(number "10" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 -3.81 180)
+				(length 5.08)
+				(name "SS" (effects (font (size 1.27 1.27))))
+				(number "11" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at 17.78 -6.35 180)
+				(length 5.08)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "12" (effects (font (size 1.27 1.27))))
+			)
+		)
 	)
 	(symbol "TPS22950CDDC"
 		(pin_names (offset 1.016))

@@ -249,7 +249,7 @@ def gen_osc():
 # filter -- a real local rail, not a signal, so it gets a real power symbol.
 CUSTOM_RAILS = ['VCCIO_1', 'VCCIO_2', '+1V0_MGT', '+1V2_MGT', '+1V8_IO', 'VSYS',
                 'PD_VDD', 'SUP_VREG_AVDD', '+5V_EXT', '+3V3_EXT',
-                'VCCIO_1_EXT', 'VCCIO_2_EXT', 'AUX_RAIL']
+                'VCCIO_1_EXT', 'VCCIO_2_EXT', 'AUX_RAIL', '+5V_BUCK']
 
 def gen_rails():
     """Clone KiCad's +3V3 power symbol for the rails it does not ship."""
@@ -323,7 +323,18 @@ def gen_extension_protection():
     ap63300 = [('1','FB','input','L'), ('2','EN','input','L'),
                ('3','VIN','power_in','L'), ('4','GND','power_in','R'),
                ('5','SW','power_out','R'), ('6','BST','passive','R')]
-    return (gen_box_symbol('TPS22950CDDC', low,
+    # TPS2121 RUX (SLVSEA3F Figure 6-2 / Pin Functions): the +5V source mux
+    mux = [('7','IN1','power_in','L'), ('2','IN2','power_in','L'),
+           ('6','PR1','input','L'), ('3','CP2','input','L'),
+           ('5','OV1','input','L'), ('4','OV2','input','L'),
+           ('1','OUT','passive','R'), ('8','OUT','passive','R'),
+           ('9','ST','open_collector','R'), ('10','ILIM','passive','R'),
+           ('11','SS','passive','R'), ('12','GND','power_in','R')]
+    return (gen_box_symbol('TPS2121RUX', mux,
+            'Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm',
+            'https://www.ti.com/lit/ds/symlink/tps2121.pdf',
+            '2.8-22V 4.5A priority power mux, reverse blocking both inputs, current limit, fast switchover') +
+            gen_box_symbol('TPS22950CDDC', low,
             'Package_TO_SOT_SMD:SOT-23-6',
             'https://www.ti.com/lit/ds/symlink/tps22950.pdf',
             '1.8-5.5V adjustable current-limited load switch with reverse blocking') +

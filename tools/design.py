@@ -40,6 +40,7 @@ TSSOP24_XLATE = 'EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL_1'
 VSSOP8_LVC2T45 = 'EasyEDA:VSSOP-8_L2.1-W2.4-P0.50-LS3.2-BL'
 QFN16_SY8047 = 'EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6'
 VQFN10RPU = 'Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm'
+VQFN12RUX = 'Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm'   # TI RUX0012A (MPQF508)
 MRAM_FP = 'DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA'   # tools/gen_kicad.py gen_mram_fp
 EXT2x8  = 'EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54'
 EXT2x32 = 'EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1'
@@ -201,8 +202,9 @@ def fb_divider(vout, vref, rtop=100e3):
 ADC_FS      = 3.3    # ADC_AVDD; also the full-scale reference
 ADC_CEIL    = 3.0    # design ceiling, leaving headroom below ADC_AVDD
 VSYS_ABSMAX = 21.0   # official J50 ceiling; D4 only subtracts from this
-V5_ABSMAX   = 9.0    # Q2 closed on a 9 V PD contract -- a firmware fault, but
-                     # a monitor that dies in that fault cannot report it
+V5_ABSMAX   = 9.0    # U34 drops VBUS above 5.63 V within 5 us; 9 V on the rail
+                     # would be a mux fault, and a monitor that dies in that
+                     # fault cannot report it, so the divider is sized for it
 
 # E24 for monitors, not E96: firmware calibrates a divider ratio, so precision
 # buys nothing here, while being a value people actually stock buys something.
@@ -243,12 +245,14 @@ def adc_divider(name, vnom, vabsmax, rtop=100e3):
 # ---------------------------------------------------------------- rails
 VSYS, V5, V33, V25, V18, V10, V12MGT = 'VSYS', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
 V10MGT, GND = '+1V0_MGT', 'GND'
+V5BUCK = '+5V_BUCK'     # U11's output node; U34 selects it or VBUS onto +5V
 # U14's output node. +1V8 proper is only VCCAUX and VCCADC, behind a bead, so
 # the FPGA's internal supplies do not share copper with 1.8 V I/O loads.
 V18IO = '+1V8_IO'
 VCCIO = {'13': V18IO, '14': V33, '15': 'VCCIO_1', '16': V25, '34': 'VCCIO_2', '35': V33}
 
 RAIL_CHECK = []
+MUX_CHECK = []      # U34 thresholds, printed by __main__
 
 def build():
     RAIL_CHECK.clear(); ADC_CHECK.clear()
@@ -375,22 +379,31 @@ def build():
            'VREG_LX': 'SUP_LX', 'VREG_FB': '+1V1',
            'XIN': 'SUP_XIN', 'XOUT': 'SUP_XOUT', 'RUN': 'SUP_RUN',
            'SWCLK': 'SUP_SWCLK', 'SWDIO': 'SUP_SWDIO',
-           'USB_DM': 'USB_DM', 'USB_DP': 'USB_DP',
+           'USB_DM': 'USB_DM_MCU', 'USB_DP': 'USB_DP_MCU',
            'QSPI_SCLK': 'SUPF_CLK', '~{QSPI_SS}': 'SUPF_CS',
            'QSPI_SD0': 'SUPF_D0', 'QSPI_SD1': 'SUPF_D1',
            'QSPI_SD2': 'SUPF_D2', 'QSPI_SD3': 'SUPF_D3'}
+    # Every shared peripheral sits on a native RP2350 pin pair (datasheet
+    # section 9.4, GPIO function table; findings item 42): the FPGA flash
+    # bus is SPI1 (SCK 10, TX 11, RX 12, CSn 9; FD2/FD3 are PIO lines for
+    # quad mode), the expander bus is I2C1 (SDA 14, SCL 31), the sideband
+    # UART is UART0 (TX 32, RX 33). The 9 V request is one open-drain line
+    # (item 37); U11 and U14 have no enable any more (item 34); GPIO21 reads
+    # which source feeds +5V (item 35). Spare: 19, 20, 23, 26, 28, 29, 35-39.
     gp = {0:'SUP_JTAG_TCK', 1:'SUP_JTAG_TMS', 2:'SUP_JTAG_TDI', 3:'SUP_JTAG_TDO',
-          4:'SUP_PROG_B', 5:'SUP_INIT_B', 6:'SUP_DONE', 7:'SUP_CCLK',
-          9:'SUP_FCS_B', 10:'SUP_FD0', 11:'SUP_FD1', 12:'SUP_FD2', 13:'SUP_FD3',
+          4:'SUP_PROG_B', 5:'SUP_INIT_B', 6:'SUP_DONE', 10:'SUP_CCLK',
+          9:'SUP_FCS_B', 11:'SUP_FD0', 12:'SUP_FD1', 13:'SUP_FD2', 7:'SUP_FD3',
           15:'SUP_DBG_TCK', 16:'SUP_DBG_TMS', 17:'SUP_DBG_TDI', 18:'SUP_DBG_TDO',
-          19:'SUP_UART_TX', 20:'SUP_UART_RX',
-          21:'EN_VBUS5', 22:'EN_2V5', 23:'EN_1V8', 24:'EN_1V0', 25:'EN_1V2', 26:'EN_5V',
-          27:'PD_CFG1', 28:'PD_CFG2', 29:'PD_CFG3', 30:'PD_PG',
-          8:'EXT_EN', 14:'SUP_SCL', 31:'SUP_SDA'}
-    # GPIO32-39 and GPIO46 were the SFP module controls; spare in rev A.
+          32:'SUP_UART_TX', 33:'SUP_UART_RX',
+          21:'VBUS5_ST', 22:'EN_2V5', 24:'EN_1V0', 25:'EN_1V2',
+          27:'PD_REQ_9V', 30:'PD_PG',
+          8:'EXT_EN', 14:'SUP_SDA', 31:'SUP_SCL', 34:'EXT_FAULT'}
     for g, n in gp.items(): sup[f'GPIO{g}'] = n
-    sup['GPIO47/ADC7'] = 'EXT_FAULT'
-    for a, n in enumerate(['MON_VSYS','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0']):
+    # ADC0-7 (GPIO40-47): MON_1V8 reads +1V8 itself, VCCAUX behind FB1, not
+    # the regulator side of the bead (item 50); the two jumpered domains are
+    # measured so firmware knows the J19/J20 setting. +1V2_MGT is not measured.
+    for a, n in enumerate(['MON_VSYS','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0',
+                           'MON_VCCIO_1','MON_VCCIO_2']):
         sup[f'GPIO{40+a}/ADC{a}'] = n
     d.group('U7  board controller')
     d.add('U7', f'MCU_RaspberryPi:{CONTROLLER_PART}', CONTROLLER_PART,
@@ -435,8 +448,14 @@ def build():
           {'VBUS': 'VBUS', 'GND': GND, 'SHIELD': GND, 'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
            'D+': 'USB_DP', 'D-': 'USB_DM'}, 'C2894897')
     # CH224K owns the CC lines and negotiates; no plain 5.1k pull-downs here.
-    # The supervisor drives CFG1..3, so the requested voltage is firmware, not
-    # a strap, and it reads PG to know whether the request succeeded.
+    # CFG1 is pulled up to the chip's own 3.3 V, so the board asks for 5 V
+    # before, without and in spite of the controller (WCH CH224 datasheet
+    # Table 5-2: CFG1 = 1 is 5 V whatever CFG2/3 are; a floating CFG1 would
+    # be 20 V). CFG2 and CFG3 are grounded, so the only other code the chip
+    # can ever see is 0/0/0 = 9 V: the 13 V TVS (D7) and U26's 10 V OVLO are
+    # consistent with that ceiling by construction, not by firmware. The
+    # controller asks for 9 V by turning Q3 on (PD_REQ_9V); its gate has a
+    # pull-down so an unpowered or reset controller leaves the request at 5 V.
     d.group('USB protection')
     # A student board gets its USB cable handled constantly. Protect the data
     # and CC lines, and clamp VBUS above the highest voltage PD will negotiate.
@@ -455,10 +474,13 @@ def build():
     d.add('U18', 'Interface_USB:CH224K', 'CH224K', SSOP10,
           {'VDD': 'PD_VDD', 'VBUS': 'VBUS', 'GND': GND,
            'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
-           'CFG1': 'PD_CFG1', 'CFG2': 'PD_CFG2', 'CFG3': 'PD_CFG3',
+           'CFG1': 'PD_CFG1', 'CFG2': GND, 'CFG3': GND,
            'PG': 'PD_PG', 'DP': '', 'DM': ''}, 'C970725')
     d.C('1uF', 'PD_VDD', GND)      # VDD is the chip's own LDO output, decouple only
     d.R('10k', V33, 'PD_PG')
+    d.add('Q3', 'Transistor_FET:Q_NMOS_GSD', 'BSS138LT1G',
+          'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
+          {'D': 'PD_CFG1', 'S': GND, 'G': 'PD_REQ_9V'}, 'C82045')
     d.group('BOOTSEL')
     # series resistor so pressing the button cannot fight the RP2350 actively
     # driving chip-select high; it only needs to win during the reset window
@@ -673,25 +695,12 @@ def build():
 
     d.sheet('Power')
     # ------------------------------------------------ power tree
-    d.group('VBUS pass switch to +5V')
-    # On a plain 5V source the buck cannot make 5V from 5V, so VBUS feeds the
-    # rail directly -- but ONLY then. Once PD negotiates 9V this must be open
-    # or 8.6V lands on regulators rated 5.5V. Hence a switch the supervisor
-    # commands, default OFF, not a diode that cannot be told to stop.
-    d.add('Q2', 'Transistor_FET:Q_PMOS_GSD', 'DMG2305UX-7',
-          'EasyEDA:SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR',
-          {'S': 'VBUS', 'D': V5, 'G': 'VBUS5_GATE'}, 'C5261054')
-    d.R('100k', 'VBUS', 'VBUS5_GATE', R0603)      # default open
-    d.add('Q3', 'Transistor_FET:Q_NMOS_GSD', 'BSS138LT1G',
-          'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
-          {'D': 'VBUS5_PULL', 'S': GND, 'G': 'EN_VBUS5_G'}, 'C82045')
-    d.R('10k', 'EN_VBUS5', 'EN_VBUS5_G'); d.R('100k', 'EN_VBUS5_G', GND)
-    # 100k to source and 47k through Q3 give VGS=-0.680*VBUS:
-    # -3.40V at 5V, -6.12V at 9V, below the +/-8V gate limit.
-    # With 100nF gate-source capacitance, (100k || 47k)*100nF
-    # is 3.20ms. This is a gate RC time constant, not a current limit.
-    d.R('47k', 'VBUS5_PULL', 'VBUS5_GATE', R0603)
-    d.C('100nF', 'VBUS5_GATE', 'VBUS')
+    # The Q2/Q3 VBUS-to-+5V pass switch is gone (findings item 35): its body
+    # diode fed +5V back into VBUS and the path had no current limit. The
+    # job is done by U34, a power mux appended at the end of this file. Q3
+    # now drives the PD request (above); the four resistors and the gate
+    # capacitor are consumed here so every later R/C keeps its designator.
+    d.reserve('R', 4); d.reserve('C', 1)
 
     d.group('input OR-ing')
     d.add('J50', 'EasyEDA:KF301-5.0-2P', '9-21V POWER IN',
@@ -726,15 +735,20 @@ def build():
     d.C('10uF', 'VBUS', GND, C0805)
     # VSYS -> 5V. AP63300's 32V operating / 40V 400ms transient limits cover
     # the 21V screw input and the SMBJ22A's 35.5V pulse clamp.
+    # U11 has no enable (EN floating: DS42002 p. 3, automatic start-up),
+    # like U12: +5V, and through U14 the FPGA's VCCAUX, is present whenever
+    # +3V3 is, so the 3.3 V I/O banks never sit on an unpowered VCCAUX for
+    # longer than the regulators' own start-up (DS181 Table 7, findings 34).
+    # Its output node is +5V_BUCK; U34 joins it to the +5V rail.
     d.group('U11  VSYS to +5V')
     d.add('U11', 'odin:AP63300WU', 'AP63300WU-7', SOT236_AP,
-          {'VIN': VSYS, 'GND': GND, 'EN': 'EN_5V', 'FB': 'FB_5V',
+          {'VIN': VSYS, 'GND': GND, 'FB': 'FB_5V',
            'SW': 'SW_5V', 'BST': 'BOOT_5V'}, 'C2158012')
-    d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('4.7uH', V5, 'SW_5V')
+    d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('4.7uH', V5BUCK, 'SW_5V')
     rt, rb, act = fb_divider(5.0, 0.8)            # AP63300 Vref = 0.8 V
-    d.R(rt, V5, 'FB_5V', R0603); d.R(rb, 'FB_5V', GND, R0603)
+    d.R(rt, V5BUCK, 'FB_5V', R0603); d.R(rb, 'FB_5V', GND, R0603)
     RAIL_CHECK.append(('+5V', 5.0, act, rt, rb))
-    for _ in range(3): d.C('22uF', V5, GND, C0805)
+    for _ in range(3): d.C('22uF', V5BUCK, GND, C0805)
     # 5V -> the low rails
     # +3V3 is ALWAYS ON and powers the supervisor. AP63300 works down to 3.8V,
     # below the 4.27V weak-port worst case, and its 3A rating covers both
@@ -752,8 +766,10 @@ def build():
     d.C('56pF', V33, 'FB_3V3')
     for _ in range(3): d.C('22uF', V33, GND, C0805)
 
+    # U14's EN is tied to its VIN (SLVSDG1C: EN -0.3..6 V absolute, VIH
+    # 1.2 V max): the 1.8 V rail is up whenever +5V is, see U11 above.
     for ref, rail, en, vtgt in (('U13', V25, 'EN_2V5', 2.5),
-                                ('U14', V18IO, 'EN_1V8', 1.8),
+                                ('U14', V18IO, V5, 1.8),
                                 ('U16', V12MGT, 'EN_1V2', 1.2)):
         top, bot, act = fb_divider(vtgt, 0.600)   # TLV62569 Vfb = 0.600 V
         RAIL_CHECK.append((rail, vtgt, act, top, bot))
@@ -838,7 +854,7 @@ def build():
     # The rails at or below +3V3 need no division, only a series resistor to
     # limit current into the pin's ESD structure if the rail overshoots.
     for rail, mon, vnom in ((V33,'MON_3V3',3.3), (V25,'MON_2V5',2.5),
-                            (V18IO,'MON_1V8',1.8), (V10,'MON_1V0',1.0)):
+                            (V18,'MON_1V8',1.8), (V10,'MON_1V0',1.0)):
         d.R('1k', rail, mon, R0603)
         ADC_CHECK.append((mon, vnom, vnom, ADC_FS, ADC_FS, '1k (series)', '-', 1e3))
     # One capacitor per monitor node. Two jobs: it supplies the charge the
@@ -858,8 +874,10 @@ def build():
     # regulator. Hold EN low while RP2350 GPIOs are high-Z (reset/BOOTSEL),
     # including EN_5V, whose TPS54202 has an internal enable pull-up.
     d.sheet('Power')
-    for ref, en in (('U11', 'EN_5V'), ('U13', 'EN_2V5'), ('U14', 'EN_1V8'),
+    for ref, en in (('U11', None), ('U13', 'EN_2V5'), ('U14', None),
                     ('U16', 'EN_1V2'), ('U15', 'EN_1V0')):
+        if en is None:          # U11 and U14 are always on (item 34)
+            d.reserve('R', 1); continue
         d.group(next(p['group'] for p in d.parts if p['ref'] == ref))
         d.R('100k', en, GND, R0603)
     d.reserve('R', 1)       # former R95, U19 enable pulldown
@@ -1193,6 +1211,81 @@ def build():
     d.FB(V18IO, V18)
     d.C('10uF', V18IO, GND, C0805); d.C('100nF', V18IO, GND)
 
+    # ================= 2026-10-29 audit corrections, appended so no earlier
+    # designator moves (findings items 34-38, 42, 50). New parts are staged
+    # by load_pcb.py and islanded by their anchor's group name below.
+
+    # ---- U34: which 5 V source feeds the +5V rail (item 35)
+    # TI TPS2121 priority power mux (SLVSEA3F): IN1 is VBUS, IN2 is U11's
+    # output. Both channels block reverse current (9.3.6), the output is
+    # current-limited on both (9.3.2) and soft-started (9.3.1), and the
+    # switchover is seamless (9.3.7). The selection is wired, not firmware:
+    #   PR1 = VBUS x 36.5/136.5, CP2 = +3V3 x 56.2/156.2 = 1.19 V, so VBUS
+    #   wins while it is above 4.44 V (PR1 > CP2, Table 9-3), which is a plain
+    #   5 V source;
+    #   OV1 = VBUS x 23.2/123.2 crosses the 1.06 V reference at 5.63 V, so a
+    #   9 V contract takes VBUS out of the choice within 5 us and U11 feeds
+    #   the rail; U11 runs all the time, so there is no gap to bridge;
+    #   OV2 to GND (U11 is regulated), CP2 above the reference whenever +3V3
+    #   is up enables the 5 us fast switchover (CP2 low: 100 us, no PD
+    #   transition can happen before +3V3 exists);
+    #   RILM 44.2k: 2.5 A typical (2.0-3.0 A, Table 7.5), above the 1.72 A
+    #   worst-case rail load, below the 5 A connector contacts;
+    #   CSS 100 nF: about 780 V/s at 5 V (Table 9-1), 80 mA into the rail's
+    #   ~100 uF.
+    # ST (open drain, 10k pull-up, 6-20k allowed) tells the controller which
+    # input feeds the rail: high = VBUS or none, low = U11.
+    d.sheet('Power')
+    d.group('U34  +5V source select')
+    d.add('U34', 'odin:TPS2121RUX', 'TPS2121RUXR', VQFN12RUX,
+          {'IN1': 'VBUS', 'IN2': V5BUCK, 'OUT': V5, 'GND': GND,
+           'PR1': 'VBUS5_PR1', 'CP2': 'VBUS5_CP2', 'OV1': 'VBUS5_OV1', 'OV2': GND,
+           'ILIM': 'VBUS5_ILIM', 'SS': 'VBUS5_SS', 'ST': 'VBUS5_ST'}, 'C485916')
+    d.R('100k', 'VBUS', 'VBUS5_PR1', R0603); d.R('36.5k', 'VBUS5_PR1', GND, R0603)
+    d.R('100k', 'VBUS', 'VBUS5_OV1', R0603); d.R('23.2k', 'VBUS5_OV1', GND, R0603)
+    d.R('100k', V33, 'VBUS5_CP2', R0603); d.R('56.2k', 'VBUS5_CP2', GND, R0603)
+    d.R('44.2k', 'VBUS5_ILIM', GND, R0603)
+    d.C('100nF', 'VBUS5_SS', GND)
+    d.R('10k', V33, 'VBUS5_ST', R0603)
+    d.C('100nF', 'VBUS', GND)          # IN1 bypass; the 10 uF attach allowance is at U26
+    for _ in range(2): d.C('22uF', V5, GND, C0805)   # OUT: the rail's bulk after the mux
+    MUX_CHECK.clear()
+    MUX_CHECK.extend([('VBUS selected above', 1.19 * 136.5 / 36.5),
+                      ('VBUS invalid above (OV1 rising)', 1.06 * 123.2 / 23.2),
+                      ('VBUS valid again below (OV1 falling)', 1.04 * 123.2 / 23.2),
+                      ('PR1 at 20 V', 20 * 36.5 / 136.5)])
+    if MUX_CHECK[3][1] > 5.5:
+        raise ValueError('TPS2121 PR1 pin would exceed 5.5 V at 20 V on VBUS')
+
+    # ---- local input energy storage per converter (item 38): TLV62569
+    # SLVSDG1C 8.2.2.5 (4.7 uF at VIN), AP63300 DS42002 Figure 39 (10 uF
+    # across VIN/GND). The 100 nF already on each TLV62569 is HF bypass only.
+    d.group('U11  VSYS to +5V')
+    d.C('10uF', VSYS, GND, C1210)
+    for ref, rail in (('U13', V25), ('U14', V18IO), ('U16', V12MGT)):
+        d.group(f'{ref}  5V to {rail}')
+        d.C('4.7uF', V5, GND, C0603)
+
+    # ---- USB D+/D- series resistors at the controller (item 36)
+    # Hardware design with RP2350, section 5.1: 27 ohm in each line, close
+    # to the chip. The connector side keeps the USB_DP/USB_DM names so D6
+    # stays at J1; the chip side is USB_DP_MCU/USB_DM_MCU.
+    d.sheet('Supervisor')
+    d.group('U7  USB series resistors')
+    d.R('27', 'USB_DP', 'USB_DP_MCU'); d.R('27', 'USB_DM', 'USB_DM_MCU')
+
+    # ---- USB-PD request default (item 37): see the U18 comment above
+    d.group('USB-PD sink')
+    d.R('10k', 'PD_VDD', 'PD_CFG1')        # CFG1 high = 5 V, before any controller
+    d.R('100k', 'PD_REQ_9V', GND)          # Q3 off while the controller is dead or in reset
+
+    # ---- the two jumpered I/O domains are measured (item 50)
+    d.group('rail monitors')
+    for rail, mon in (('VCCIO_1', 'MON_VCCIO_1'), ('VCCIO_2', 'MON_VCCIO_2')):
+        d.R('1k', rail, mon, R0603)
+        d.C('100nF', mon, GND)
+        ADC_CHECK.append((mon, 3.3, 3.3, ADC_FS, ADC_FS, '1k (series)', '-', 1e3))
+
     # Mandatory connector-accounting gate. A post is a ground probe/key, not
     # a mated contact; each section separately has four signal grounds plus
     # the three female power-row grounds.
@@ -1228,6 +1321,8 @@ if __name__ == '__main__':
     for rail, tgt, act, rt, rb in RAIL_CHECK:
         flag = 'OK' if abs(act-tgt)/tgt < 0.02 else 'FAIL'
         print(f"  {rail:9s} {tgt:5.2f}V {act:6.3f}V  {rt}/{rb}  {flag}")
+    print("\nU34 +5V source select (TPS2121)")
+    for what, v in MUX_CHECK: print(f"  {what:40s} {v:5.2f} V")
     print("\nmonitor        rail      reads   at max          divider   Zsrc")
     for name, vnom, vn, vmax, vm, rt, rb, z in ADC_CHECK:
         print(f"  {name:10s} {vnom:5.2f}V  {vn:5.3f}V  {vm:5.3f}V@{vmax:5.2f}V  "

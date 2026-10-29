@@ -274,18 +274,25 @@ GROUP.update({
         'gently so plugging in does not spark, cuts off above about 10 V or '
         'below 3.75 V, and limits current to about 2 A. D8 clamps voltage '
         'spikes on the screw input. VSYS then feeds the two main regulators.',
-    'VBUS pass switch to +5V':
-        'A shortcut for plain 5 V USB. A regulator cannot make 5 V out of 5 V, '
-        'so when the USB source is 5 V the board controller turns Q2 on and '
-        'USB power goes straight onto the +5V rail. It is off by default and '
-        'must stay off at 9 V, or 9 V would reach parts rated for 5.5 V; Q3 '
-        'is the small transistor the controller uses to switch it.',
+    'U34  +5V source select':
+        'Chooses what feeds the +5V rail: USB power straight from the '
+        'connector, or U11. A regulator cannot make 5 V out of 5 V, so on a '
+        'plain 5 V USB source the mux passes VBUS to the rail; the moment a '
+        'USB-PD charger raises VBUS above about 5.6 V, or VBUS is absent, it '
+        'switches to U11 within microseconds. The choice is set by three '
+        'resistor dividers, not by firmware, and the chip blocks current '
+        'flowing backwards into either source, limits the rail current to '
+        'about 2.5 A and ramps it up gently. ST tells the board controller '
+        'which source is in use.',
     'U11  VSYS to +5V':
-        'Switching regulator (buck converter) that makes +5V from VSYS. +5V '
-        'feeds the 5 V buses, the extension 5 V pins and the four small '
-        'regulators below. The board controller turns it on (EN_5V); the '
-        'pull-down keeps it off until then. The two feedback resistors set '
-        'the output voltage; the inductor and capacitors are its power stage.',
+        'Switching regulator (buck converter) that makes +5V from VSYS. It '
+        'runs whenever power is present (no enable), like U12, so the FPGA\'s '
+        '1.8 V auxiliary supply is never missing while its 3.3 V banks are '
+        'powered. Its output goes to the +5V rail through U34. +5V feeds the '
+        '5 V buses, the extension 5 V pins and the four small regulators '
+        'below. The two feedback resistors set the output voltage; the '
+        'inductor and capacitors are its power stage; the 10 uF across its '
+        'input is its own switching-current reservoir.',
     'U12  VSYS to +3V3  (always-on AP63300 reference circuit)':
         'Switching regulator that makes +3V3 from VSYS. It has no enable: it '
         'starts as soon as any power is present, because +3V3 runs the board '
@@ -300,8 +307,10 @@ GROUP.update({
         'Small switching regulator that makes 1.8 V from +5V. Its output '
         'node is +1V8_IO: FPGA bank 13 and the 1.8 V memory on it, the 1.8 V '
         'position of the J19/J20 jumpers, and, through the bead below, the '
-        'FPGA\'s auxiliary supply (VCCAUX) and its ADC as +1V8. Enabled by '
-        'the board controller (EN_1V8); the feedback resistors set 1.8 V.',
+        'FPGA\'s auxiliary supply (VCCAUX) and its ADC as +1V8. Its enable is '
+        'tied to +5V, so it runs whenever U11 does: the FPGA\'s 3.3 V banks '
+        'are never left on an unpowered VCCAUX (DS181 Table 7). The feedback '
+        'resistors set 1.8 V; the 4.7 uF at VIN is its own input reservoir.',
     'VCCAUX filter':
         'The split between +1V8_IO and +1V8. VCCAUX and VCCADC are the '
         'FPGA\'s internal supplies (clocking, I/O pre-drivers, the XADC) and '
@@ -348,10 +357,13 @@ GROUP.update({
         'chosen on J20), limited to about 0.5 A, with reverse blocking.',
     'rail monitors':
         'Lets the board controller measure every supply. Each rail goes to '
-        'one of its analog inputs (ADC), which read 0-3.3 V. Rails at or '
-        'below 3.3 V go through a 1 k resistor that protects the pin; VSYS '
+        'one of its eight analog inputs (ADC), which read 0-3.3 V. Rails at '
+        'or below 3.3 V go through a 1 k resistor that protects the pin; VSYS '
         'and +5V are higher, so two resistors divide them down first. A 100 '
-        'nF capacitor on each input steadies the reading. Firmware uses this '
+        'nF capacitor on each input steadies the reading. MON_1V8 reads +1V8 '
+        'itself, the FPGA\'s VCCAUX behind the bead, so an open bead shows; '
+        'the two jumpered domains are measured so firmware knows how J19/J20 '
+        'are set. +1V2_MGT is the one rail not measured. Firmware uses this '
         'to check each regulator came up before enabling the next.',
     'AUX IN':
         'Optional extra power for extensions that need more than 5 V (motors, '
@@ -405,6 +417,10 @@ GROUP.update({
     'PSRAM2 series termination': 'One 33 ohm resistor per PSRAM2 line, next to the FPGA, to damp ringing.',
     'PSRAM3 series termination': 'One 33 ohm resistor per PSRAM3 line, next to the FPGA, to damp ringing.',
     # ---- Board Controller (Supervisor) sheet
+    'U7  USB series resistors':
+        'Two 27 ohm resistors in the USB data lines, right at the board '
+        'controller, as Raspberry Pi\'s hardware design guide (section 5.1) '
+        'asks. The ESD clamp D6 stays at the connector.',
     'U7  board controller':
         'The board controller, a Raspberry Pi RP2350B microcontroller that is '
         'always on. It is what the USB cable talks to: it loads designs into '
@@ -435,9 +451,12 @@ GROUP.update({
         'Clamps for static discharge and voltage spikes on the USB connector: '
         'D6 on the data and CC lines, D7 on the power line (VBUS).',
     'USB-PD sink':
-        'Negotiates the supply voltage with a USB-PD charger. The board '
-        'controller tells it what to ask for (PD_CFG1-3: 5 V or 9 V, never '
-        'more) and reads PD_PG to know whether the charger agreed.',
+        'Negotiates the supply voltage with a USB-PD charger. Out of the box '
+        'it asks for 5 V: CFG1 is pulled up to the chip\'s own 3.3 V and '
+        'CFG2/CFG3 are grounded, so the only other request the pins can form '
+        'is 9 V, which the board controller selects by turning Q3 on '
+        '(PD_REQ_9V). A dead or resetting controller leaves it at 5 V. PD_PG '
+        'tells the controller whether the charger agreed.',
     'BOOTSEL':
         'Hold CTRL BOOT while plugging in USB to put the board controller in '
         'its built-in USB bootloader, for installing or recovering its '
@@ -518,12 +537,12 @@ PART.update({
     'D3': ('USB input diode', 'SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB.'),
     'D4': ('screw input diode', 'SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it.'),
     'D8': ('screw input surge clamp', 'SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V.'),
-    'Q2': ('5 V USB pass switch', 'P-MOSFET that connects USB power straight to +5V when the source is plain 5 V. Off by default; must stay off at 9 V.'),
-    'Q3': ('pass switch driver', 'Small N-MOSFET the board controller (EN_VBUS5) uses to turn Q2 on.'),
-    'U11': ('5 V regulator', 'Diodes AP63300, 3 A switching regulator: VSYS to +5V.'),
+    'U34': ('+5V source mux', 'TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail, hands over to U11 the moment VBUS goes above 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A.'),
+    'Q3': ('9 V request switch', 'Small N-MOSFET the board controller (PD_REQ_9V) uses to pull the CH224K\'s CFG1 low and ask the charger for 9 V. Off: 5 V.'),
+    'U11': ('5 V regulator, always on', 'Diodes AP63300, 3 A switching regulator: VSYS to +5V_BUCK, then U34 to +5V. Starts by itself.'),
     'U12': ('3.3 V regulator, always on', 'Diodes AP63300, 3 A switching regulator: VSYS to +3V3. Starts by itself.'),
     'U13': ('2.5 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +2V5.'),
-    'U14': ('1.8 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC).'),
+    'U14': ('1.8 V regulator, always on', 'TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). Enable tied to +5V.'),
     'U16': ('1.2 V transceiver regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT.'),
     'U15': ('FPGA core regulator', 'Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output.'),
     'U21': ('extension 5 V switch', 'TI TPS22950C load switch: +5V to every slot\'s 5 V pin, about 1 A limit, reverse blocking.'),
@@ -545,7 +564,7 @@ PART.update({
     'J1': ('USB-C connector', 'Power in and USB 2.0 data to the board controller.'),
     'D6': ('USB data ESD clamp', 'ST ESDA6V1BC6: clamps static discharge on D+, D-, CC1 and CC2.'),
     'D7': ('USB power surge clamp', 'SMBJ13A TVS diode: clamps spikes on VBUS above about 14 V.'),
-    'U18': ('USB-PD negotiator', 'WCH CH224K: asks a USB-PD charger for the voltage the board controller selects (5 or 9 V).'),
+    'U18': ('USB-PD negotiator', 'WCH CH224K: asks a USB-PD charger for 5 V by default, or 9 V when the board controller turns Q3 on. Its pins cannot form any higher request.'),
     'SW1': ('CTRL BOOT button', 'Hold while plugging in USB to enter the board controller\'s USB bootloader.'),
     'J51': ('CTRL SWD connector', '3-pin JST-SH debug port for the board controller\'s processor.'),
     'U20': ('JTAG switch', 'TI SN74CB3Q3384 bus switch: connects or isolates the board controller\'s JTAG from the FPGA, set by J52.'),
@@ -576,10 +595,16 @@ NET.update({
     'VBUS_OVLO': 'sets U26\'s cut-off voltage, about 10 V',
     'VBUS_ILM': 'sets U26\'s current limit, about 2 A',
     'VBUS_DVDT': 'sets how slowly U26 ramps VSYS up, about 0.9 V/ms',
-    'VBUS5_GATE': 'Q2\'s gate; held off unless Q3 pulls it',
-    'EN_VBUS5_G': 'Q3\'s gate; off unless the board controller drives EN_VBUS5',
-    'EN_VBUS5': 'from the board controller: connect 5 V USB straight to +5V',
-    'VBUS5_PULL': 'Q2 gate drive through Q3',
+    'VBUS5_PR1': 'U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2)',
+    'VBUS5_CP2': 'U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover',
+    'VBUS5_OV1': 'U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V',
+    'VBUS5_ILIM': 'sets U34\'s current limit, about 2.5 A',
+    'VBUS5_SS': 'sets how fast U34 ramps the +5V rail, about 780 V/s',
+    'VBUS5_ST': 'U34 status to the board controller: low when U11 feeds +5V',
+    'PD_CFG1': 'CH224K request: high (pull-up) = 5 V, pulled low by Q3 = 9 V',
+    'PD_REQ_9V': 'Q3\'s gate; off (5 V) unless the board controller drives it high',
+    'USB_DP_MCU': 'USB D+ at the controller, after its 27 ohm series resistor',
+    'USB_DM_MCU': 'USB D- at the controller, after its 27 ohm series resistor',
     'CORE_1V0_GOOD': 'U15 power-good, read by the status expander',
     'CORE_1V0_SS': 'U15 soft-start: slows the core supply\'s ramp',
     'CORE_1V0_SVIN': 'filtered supply for U15\'s control circuit',

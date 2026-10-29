@@ -9,9 +9,9 @@ the PCB (select a footprint, Description field). Start with the sheet
 you care about; within it, groups appear in schematic order.
 
 - [FPGA](#fpga) (110 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
-- [Power](#power) (111 parts): Inputs, the regulators that make every rail, extension power protection.
+- [Power](#power) (119 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (59 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
-- [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
+- [Supervisor](#supervisor) (83 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
 - [Video](#video) (8 parts): HDMI output straight from the FPGA, with its protection chip.
@@ -288,20 +288,6 @@ The FPGA's own clock. X4 runs at 50 MHz from power-on and enters bank 14 on a cl
 
 Inputs, the regulators that make every rail, extension power protection.
 
-### VBUS pass switch to +5V
-
-A shortcut for plain 5 V USB. A regulator cannot make 5 V out of 5 V, so when the USB source is 5 V the board controller turns Q2 on and USB power goes straight onto the +5V rail. It is off by default and must stay off at 9 V, or 9 V would reach parts rated for 5.5 V; Q3 is the small transistor the controller uses to switch it.
-
-| Ref | Value | What it does |
-|---|---|---|
-| Q2 | DMG2305UX-7 | 5 V USB pass switch: P-MOSFET that connects USB power straight to +5V when the source is plain 5 V. Off by default; must stay off at 9 V. |
-| Q3 | BSS138LT1G | pass switch driver: Small N-MOSFET the board controller (EN_VBUS5) uses to turn Q2 on. |
-| C183 | 100nF 25V | 100nF 25V capacitor between VBUS and VBUS5_GATE, for Q2 (5 V USB pass switch): Q2's gate; held off unless Q3 pulls it |
-| R46 | 100k | 100k resistor from VBUS5_GATE to VBUS, for Q2 (5 V USB pass switch): Q2's gate; held off unless Q3 pulls it |
-| R47 | 10k | 10k series resistor between EN_VBUS5 and EN_VBUS5_G, for U7 (board controller): from the board controller: connect 5 V USB straight to +5V; Q3's gate; off unless the board controller drives EN_VBUS5 |
-| R48 | 100k | 100k pull-down on EN_VBUS5_G, for Q3 (pass switch driver): Q3's gate; off unless the board controller drives EN_VBUS5 |
-| R49 | 47k | 47k series resistor between VBUS5_GATE and VBUS5_PULL, for Q3 (pass switch driver): Q2's gate; held off unless Q3 pulls it; Q2 gate drive through Q3 |
-
 ### input OR-ing
 
 Where power enters. Two inputs feed one internal supply, VSYS: USB-C (5 V, or 9 V when a USB-PD charger agrees) and the J50 screw terminal (9-21 V). A diode on each (D3, D4) lets whichever is higher supply the board and stops one input from back-feeding the other. On the USB side, U26 is an electronic fuse: it ramps the voltage up gently so plugging in does not spark, cuts off above about 10 V or below 3.75 V, and limits current to about 2 A. D8 clamps voltage spikes on the screw input. VSYS then feeds the two main regulators.
@@ -325,19 +311,19 @@ Where power enters. Two inputs feed one internal supply, VSYS: USB-C (5 V, or 9 
 
 ### U11  VSYS to +5V
 
-Switching regulator (buck converter) that makes +5V from VSYS. +5V feeds the 5 V buses, the extension 5 V pins and the four small regulators below. The board controller turns it on (EN_5V); the pull-down keeps it off until then. The two feedback resistors set the output voltage; the inductor and capacitors are its power stage.
+Switching regulator (buck converter) that makes +5V from VSYS. It runs whenever power is present (no enable), like U12, so the FPGA's 1.8 V auxiliary supply is never missing while its 3.3 V banks are powered. Its output goes to the +5V rail through U34. +5V feeds the 5 V buses, the extension 5 V pins and the four small regulators below. The two feedback resistors set the output voltage; the inductor and capacitors are its power stage; the 10 uF across its input is its own switching-current reservoir.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U11 | AP63300WU-7 | 5 V regulator: Diodes AP63300, 3 A switching regulator: VSYS to +5V. |
-| C188 | 100nF | 100nF capacitor between BOOT_5V and SW_5V, for U11 (5 V regulator): bootstrap capacitor for the regulator's high-side switch; regulator switching node |
-| C189 | 22uF | 22uF bypass on +5V, for U11 (5 V regulator) |
-| C190 | 22uF | 22uF bypass on +5V, for U11 (5 V regulator) |
-| C191 | 22uF | 22uF bypass on +5V, for U11 (5 V regulator) |
-| L2 | 4.7uH SRN6045TA-4R7M | 4.7uH SRN6045TA-4R7M inductor between +5V and SW_5V, for U11 (5 V regulator): regulator switching node |
-| R55 | 100k | 100k series resistor between +5V and FB_5V, for U11 (5 V regulator): feedback divider, sets the regulator's output voltage |
-| R56 | 19.1k | 19.1k resistor from FB_5V to GND, for U11 (5 V regulator): feedback divider, sets the regulator's output voltage |
-| R90 | 100k | 100k pull-down on EN_5V, for U11 (5 V regulator): keeps the regulator off until the board controller enables it |
+| U11 | AP63300WU-7 | 5 V regulator, always on: Diodes AP63300, 3 A switching regulator: VSYS to +5V_BUCK, then U34 to +5V. Starts by itself. |
+| C188 | 100nF | 100nF capacitor between BOOT_5V and SW_5V, for U11 (5 V regulator, always on): bootstrap capacitor for the regulator's high-side switch; regulator switching node |
+| C189 | 22uF | 22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on) |
+| C190 | 22uF | 22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on) |
+| C191 | 22uF | 22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on) |
+| C267 | 10uF 50V | 10uF 50V bypass on VSYS, for U11 (5 V regulator, always on) |
+| L2 | 4.7uH SRN6045TA-4R7M | 4.7uH SRN6045TA-4R7M inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node |
+| R55 | 100k | 100k series resistor between +5V_BUCK and FB_5V, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R56 | 19.1k | 19.1k resistor from FB_5V to GND, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
 ### U12  VSYS to +3V3  (always-on AP63300 reference circuit)
 
@@ -366,6 +352,7 @@ Small switching regulator that makes +2V5 from +5V for FPGA bank 16 (network) an
 | C198 | 22uF | 22uF bypass on +2V5, for U13 (2.5 V regulator) |
 | C199 | 22uF | 22uF bypass on +2V5, for U13 (2.5 V regulator) |
 | C200 | 100nF | 100nF bypass on +5V, for U13 (2.5 V regulator) |
+| C268 | 4.7uF | 4.7uF bypass on +5V, for U13 (2.5 V regulator) |
 | L4 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +2V5 and SW+2V5, for U13 (2.5 V regulator): regulator switching node |
 | R59 | 100k | 100k resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage |
 | R60 | 31.6k | 31.6k resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage |
@@ -373,18 +360,18 @@ Small switching regulator that makes +2V5 from +5V for FPGA bank 16 (network) an
 
 ### U14  5V to +1V8_IO
 
-Small switching regulator that makes 1.8 V from +5V. Its output node is +1V8_IO: FPGA bank 13 and the 1.8 V memory on it, the 1.8 V position of the J19/J20 jumpers, and, through the bead below, the FPGA's auxiliary supply (VCCAUX) and its ADC as +1V8. Enabled by the board controller (EN_1V8); the feedback resistors set 1.8 V.
+Small switching regulator that makes 1.8 V from +5V. Its output node is +1V8_IO: FPGA bank 13 and the 1.8 V memory on it, the 1.8 V position of the J19/J20 jumpers, and, through the bead below, the FPGA's auxiliary supply (VCCAUX) and its ADC as +1V8. Its enable is tied to +5V, so it runs whenever U11 does: the FPGA's 3.3 V banks are never left on an unpowered VCCAUX (DS181 Table 7). The feedback resistors set 1.8 V; the 4.7 uF at VIN is its own input reservoir.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U14 | TLV62569DRLR | 1.8 V regulator: TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). |
-| C201 | 22uF | 22uF bypass on +1V8_IO, for U14 (1.8 V regulator) |
-| C202 | 22uF | 22uF bypass on +1V8_IO, for U14 (1.8 V regulator) |
-| C203 | 100nF | 100nF bypass on +5V, for U14 (1.8 V regulator) |
-| L5 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V8_IO and SW+1V8_IO, for U14 (1.8 V regulator): regulator switching node |
-| R61 | 100k | 100k resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage |
-| R62 | 49.9k | 49.9k resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator): feedback divider, sets the regulator's output voltage |
-| R92 | 100k | 100k pull-down on EN_1V8, for U7 (board controller): keeps the regulator off until the board controller enables it |
+| U14 | TLV62569DRLR | 1.8 V regulator, always on: TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). Enable tied to +5V. |
+| C201 | 22uF | 22uF bypass on +1V8_IO, for U14 (1.8 V regulator, always on) |
+| C202 | 22uF | 22uF bypass on +1V8_IO, for U14 (1.8 V regulator, always on) |
+| C203 | 100nF | 100nF bypass on +5V, for U14 (1.8 V regulator, always on) |
+| C269 | 4.7uF | 4.7uF bypass on +5V, for U14 (1.8 V regulator, always on) |
+| L5 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V8_IO and SW+1V8_IO, for U14 (1.8 V regulator, always on): regulator switching node |
+| R61 | 100k | 100k resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R62 | 49.9k | 49.9k resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
 ### U16  5V to +1V2_MGT
 
@@ -396,6 +383,7 @@ Small switching regulator that makes +1V2_MGT from +5V for the FPGA transceivers
 | C204 | 22uF | 22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator) |
 | C205 | 22uF | 22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator) |
 | C206 | 100nF | 100nF bypass on +5V, for U16 (1.2 V transceiver regulator) |
+| C270 | 4.7uF | 4.7uF bypass on +5V, for U16 (1.2 V transceiver regulator) |
 | L6 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V2_MGT and SW+1V2_MGT, for U16 (1.2 V transceiver regulator): regulator switching node |
 | R63 | 100k | 100k resistor from FB+1V2_MGT to +1V2_MGT, for U16 (1.2 V transceiver regulator): feedback divider, sets the regulator's output voltage |
 | R64 | 100k | 100k resistor from FB+1V2_MGT to GND, for U16 (1.2 V transceiver regulator): feedback divider, sets the regulator's output voltage |
@@ -481,7 +469,7 @@ A small inductor and capacitor that make +1V0_MGT from +1V0: the same voltage, w
 
 ### rail monitors
 
-Lets the board controller measure every supply. Each rail goes to one of its analog inputs (ADC), which read 0-3.3 V. Rails at or below 3.3 V go through a 1 k resistor that protects the pin; VSYS and +5V are higher, so two resistors divide them down first. A 100 nF capacitor on each input steadies the reading. Firmware uses this to check each regulator came up before enabling the next.
+Lets the board controller measure every supply. Each rail goes to one of its eight analog inputs (ADC), which read 0-3.3 V. Rails at or below 3.3 V go through a 1 k resistor that protects the pin; VSYS and +5V are higher, so two resistors divide them down first. A 100 nF capacitor on each input steadies the reading. MON_1V8 reads +1V8 itself, the FPGA's VCCAUX behind the bead, so an open bead shows; the two jumpered domains are measured so firmware knows how J19/J20 are set. +1V2_MGT is the one rail not measured. Firmware uses this to check each regulator came up before enabling the next.
 
 | Ref | Value | What it does |
 |---|---|---|
@@ -497,7 +485,7 @@ Lets the board controller measure every supply. Each rail goes to one of its ana
 | R84 | 47k | 47k resistor from MON_5V to GND, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R85 | 1k | 1k resistor from MON_3V3 to +3V3, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R86 | 1k | 1k resistor from MON_2V5 to +2V5, for U7 (board controller): rail monitor input to the board controller's ADC |
-| R87 | 1k | 1k resistor from MON_1V8 to +1V8_IO, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R87 | 1k | 1k resistor from MON_1V8 to +1V8, for U7 (board controller): rail monitor input to the board controller's ADC |
 | R88 | 1k | 1k resistor from MON_1V0 to +1V0, for U7 (board controller): rail monitor input to the board controller's ADC |
 
 ### AUX IN
@@ -517,6 +505,26 @@ The split between +1V8_IO and +1V8. VCCAUX and VCCADC are the FPGA's internal su
 | C261 | 10uF | 10uF bypass on +1V8_IO |
 | C262 | 100nF | 100nF bypass on +1V8_IO |
 | FB1 | 120R 2A BLM18PG121SN1D | 120R 2A BLM18PG121SN1D resettable fuse feeding +1V8_IO from +1V8 |
+
+### U34  +5V source select
+
+Chooses what feeds the +5V rail: USB power straight from the connector, or U11. A regulator cannot make 5 V out of 5 V, so on a plain 5 V USB source the mux passes VBUS to the rail; the moment a USB-PD charger raises VBUS above about 5.6 V, or VBUS is absent, it switches to U11 within microseconds. The choice is set by three resistor dividers, not by firmware, and the chip blocks current flowing backwards into either source, limits the rail current to about 2.5 A and ramps it up gently. ST tells the board controller which source is in use.
+
+| Ref | Value | What it does |
+|---|---|---|
+| U34 | TPS2121RUXR | +5V source mux: TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail, hands over to U11 the moment VBUS goes above 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A. |
+| C263 | 100nF | 100nF capacitor from VBUS5_SS to GND, for U34 (+5V source mux): sets how fast U34 ramps the +5V rail, about 780 V/s |
+| C264 | 100nF 25V | 100nF 25V bypass on VBUS, for U34 (+5V source mux) |
+| C265 | 22uF | 22uF bypass on +5V, for U34 (+5V source mux) |
+| C266 | 22uF | 22uF bypass on +5V, for U34 (+5V source mux) |
+| R162 | 100k | 100k resistor from VBUS5_PR1 to VBUS, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) |
+| R163 | 36.5k | 36.5k resistor from VBUS5_PR1 to GND, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) |
+| R164 | 100k | 100k resistor from VBUS5_OV1 to VBUS, for U34 (+5V source mux): U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V |
+| R165 | 23.2k | 23.2k resistor from VBUS5_OV1 to GND, for U34 (+5V source mux): U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V |
+| R166 | 100k | 100k resistor from VBUS5_CP2 to +3V3, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover |
+| R167 | 56.2k | 56.2k resistor from VBUS5_CP2 to GND, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover |
+| R168 | 44.2k | 44.2k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 2.5 A |
+| R169 | 10k | 10k resistor from VBUS5_ST to +3V3, for U7 (board controller): U34 status to the board controller: low when U11 feeds +5V |
 
 ## Memory
 
@@ -751,13 +759,16 @@ Clamps for static discharge and voltage spikes on the USB connector: D6 on the d
 
 ### USB-PD sink
 
-Negotiates the supply voltage with a USB-PD charger. The board controller tells it what to ask for (PD_CFG1-3: 5 V or 9 V, never more) and reads PD_PG to know whether the charger agreed.
+Negotiates the supply voltage with a USB-PD charger. Out of the box it asks for 5 V: CFG1 is pulled up to the chip's own 3.3 V and CFG2/CFG3 are grounded, so the only other request the pins can form is 9 V, which the board controller selects by turning Q3 on (PD_REQ_9V). A dead or resetting controller leaves it at 5 V. PD_PG tells the controller whether the charger agreed.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U18 | CH224K | USB-PD negotiator: WCH CH224K: asks a USB-PD charger for the voltage the board controller selects (5 or 9 V). |
+| Q3 | BSS138LT1G | 9 V request switch: Small N-MOSFET the board controller (PD_REQ_9V) uses to pull the CH224K's CFG1 low and ask the charger for 9 V. Off: 5 V. |
+| U18 | CH224K | USB-PD negotiator: WCH CH224K: asks a USB-PD charger for 5 V by default, or 9 V when the board controller turns Q3 on. Its pins cannot form any higher request. |
 | C137 | 1uF | 1uF bypass on PD_VDD, for U18 (USB-PD negotiator): CH224K's internal regulator output |
 | R11 | 10k | 10k pull-up of PD_PG to +3V3, for U7 (board controller): CH224K: high when the charger accepted the request |
+| R172 | 10k | 10k resistor from PD_CFG1 to PD_VDD, for U18 (USB-PD negotiator): CH224K request: high (pull-up) = 5 V, pulled low by Q3 = 9 V; CH224K's internal regulator output |
+| R173 | 100k | 100k resistor from PD_REQ_9V to GND, for U7 (board controller): Q3's gate; off (5 V) unless the board controller drives it high |
 
 ### BOOTSEL
 
@@ -847,6 +858,26 @@ Three green LEDs driven by the status expander: CTRL HB blinks while the board c
 | R128 | 1k | 1k resistor from LED_HEARTBEAT_A to +3V3, for D9 (CTRL HB LED): LED current limit |
 | R129 | 1k | 1k resistor from LED_USER1_A to +3V3, for D10 (USER 1 LED): LED current limit |
 | R130 | 1k | 1k resistor from LED_USER2_A to +3V3, for D11 (USER 2 LED): LED current limit |
+
+### U7  USB series resistors
+
+Two 27 ohm resistors in the USB data lines, right at the board controller, as Raspberry Pi's hardware design guide (section 5.1) asks. The ESD clamp D6 stays at the connector.
+
+| Ref | Value | What it does |
+|---|---|---|
+| R170 | 27 | 27 series resistor between USB_DP and USB_DP_MCU, for J1 (USB-C connector): USB D+ at the controller, after its 27 ohm series resistor |
+| R171 | 27 | 27 series resistor between USB_DM and USB_DM_MCU, for J1 (USB-C connector): USB D- at the controller, after its 27 ohm series resistor |
+
+### rail monitors
+
+Lets the board controller measure every supply. Each rail goes to one of its eight analog inputs (ADC), which read 0-3.3 V. Rails at or below 3.3 V go through a 1 k resistor that protects the pin; VSYS and +5V are higher, so two resistors divide them down first. A 100 nF capacitor on each input steadies the reading. MON_1V8 reads +1V8 itself, the FPGA's VCCAUX behind the bead, so an open bead shows; the two jumpered domains are measured so firmware knows how J19/J20 are set. +1V2_MGT is the one rail not measured. Firmware uses this to check each regulator came up before enabling the next.
+
+| Ref | Value | What it does |
+|---|---|---|
+| C271 | 100nF | 100nF filter capacitor on MON_VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC |
+| C272 | 100nF | 100nF filter capacitor on MON_VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R174 | 1k | 1k resistor from MON_VCCIO_1 to VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC |
+| R175 | 1k | 1k resistor from MON_VCCIO_2 to VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC |
 
 ## Slots
 

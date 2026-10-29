@@ -184,16 +184,22 @@ PARTS = {
            'transient limit is the lowest downstream transient absolute maximum',
     pinmap='1 cathode to VIN_EXT; 2 anode to GND',
     src='BORN SMBJ22A datasheet; LCSC C151920'),
-  'Q2': dict(
-    mpn='DMG2305UX-7', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR',
-    rating='-20 V VDSS, +/-8 V VGSS, -4.2 A, PD 1.4 W. 100k/47k gate divider: '
-           'VGS -3.40 V at 5 V, -6.12 V at 9 V. Firmware must still forbid '
-           'passing 9 V onto +5V. See findings 21',
-    pinmap='G-S-D SOT-23, pins 1-2-3', src='Diodes Inc DMG2305UX datasheet'),
+  'odin:TPS2121RUX': dict(
+    mpn='TPS2121RUXR', pkg='VQFN-HR-12, 2 x 2.5 mm, 0.5 mm pitch (TI RUX, MPQF508)',
+    fp='Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm',
+    rating='2.8-22 V on IN1/IN2 (24 V absolute), 4.5 A, 56 mohm; reverse '
+           'current blocking on both channels; 44.2k ILIM = 2.5 A typical '
+           '(2.0-3.0 A); 100 nF SS = about 780 V/s; 5 us fast switchover with '
+           'CP2 above 1.06 V. IN1 = VBUS, selected between 4.44 V (PR1 > CP2) '
+           'and 5.63 V (OV1); IN2 = U11, always valid; OUT = +5V',
+    pinmap='SLVSEA3F Figure 6-2 and Pin Functions: 1 OUT, 2 IN2, 3 CP2, 4 OV2, '
+           '5 OV1, 6 PR1, 7 IN1, 8 OUT, 9 ST, 10 ILIM, 11 SS, 12 GND; symbol '
+           'generated in tools/gen_kicad.py',
+    src='TI TPS2120/TPS2121 datasheet SLVSEA3F (rev F, August 2020); LCSC C485916'),
   'Transistor_FET:Q_NMOS_GSD': dict(
     mpn='BSS138LT1G', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
     rating='50 V, 200 mA; RDS(on) max 10 ohm at VGS 2.75 V (-40..85 C). '
-           'Q3 pulls a gate through 47k; Q4 sinks the DONE LED',
+           'Q3 pulls the CH224K CFG1 low (9 V request) against a 10k; Q4 sinks the DONE LED',
     pinmap='G-S-D SOT-23, pins 1-2-3',
     src='onsemi BSS138LT1/D, https://www.onsemi.com/pdf/datasheet/bss138lt1-d.pdf'),
   # ------------------------------------------------------------------ logic
@@ -258,9 +264,11 @@ PARTS = {
   'Interface_USB:CH224K': dict(
     mpn='CH224K', pkg='SSOP-10 with exposed pad (3.9x4.9 mm)',
     fp='EasyEDA:ESSOP-10_L4.9-W3.9-P1.0-LS6.0-TL-EP',
-    rating='PD/QC sink controller, 3.3-22 V VBUS. CFG1..3 driven by the '
-           'supervisor; firmware must never request above 9 V (D7)',
-    pinmap='KiCad Interface_USB symbol', src='WCH CH224 datasheet'),
+    rating='PD/QC sink controller, 3.3-22 V VBUS. CFG1 pulled up to its own '
+           '3.3 V (5 V request, Table 5-2) and pulled low by Q3 for 9 V; CFG2 '
+           'and CFG3 grounded, so 9 V is the highest code the pins can form. '
+           'VDD is the internal LDO output (1 uF)',
+    pinmap='KiCad Interface_USB symbol', src='WCH CH224 datasheet (CH224Q/A/K/D edition, 2025, Table 5-2, section 6.2)'),
   'Power_Protection:ESDA6V1BC6': dict(
     mpn='ESDA6V1BC6', pkg='SOT-23-6', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR',
     rating='4-line bidirectional ESD array, 6.1 V standoff. On D+, D-, '
