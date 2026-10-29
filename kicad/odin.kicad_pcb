@@ -6149,7 +6149,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "129e5539-868e-484c-aac2-f123f45fd224")
-		(at 836.44 138.56 90)
+		(at 441.16 51.6 90)
 		(descr "100k resistor from VBUS5_PR1 to VBUS, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) unless Q6 (9 V request) or Q7 (screw input present) holds it at ground")
 		(tags "resistor")
 		(property "Reference" "R162"
@@ -6872,7 +6872,7 @@
 	(footprint "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm"
 		(layer "F.Cu")
 		(uuid "13ecfdc8-8b61-4334-810e-42b36423c172")
-		(at 835.72 134.83)
+		(at 440.44 47.87)
 		(descr "+5V source mux: TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail; hands the rail to U11 while the board controller asks for 9 V (Q6), while the screw input is powered (Q7), or if VBUS goes above about 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A.")
 		(tags "RUX0012A Texas VQFN-HR NoLead")
 		(property "Reference" "U34"
@@ -8845,7 +8845,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "18808443-2533-422d-9f53-e28884f18db6")
-		(at 832.03 134.48 180)
+		(at 436.74 47.52 180)
 		(descr "22uF bypass on +5V, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C266"
@@ -9794,7 +9794,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1aca21b5-7d8e-4b4f-9384-0ba20e24a880")
-		(at 835.47 131.67 90)
+		(at 440.19 44.71 90)
 		(descr "100nF capacitor from VBUS5_SS to GND, for U34 (+5V source mux): sets how fast U34 ramps the +5V rail, about 780 V/s")
 		(tags "capacitor")
 		(property "Reference" "C263"
@@ -14227,7 +14227,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "24959646-1c6e-4526-a8b3-dd75fda10463")
-		(at 836.87 131.1 90)
+		(at 441.59 44.14 90)
 		(descr "44.2k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 2.5 A")
 		(tags "resistor")
 		(property "Reference" "R168"
@@ -15163,7 +15163,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "2700677e-3f29-4dc4-be74-d9767a362100")
-		(at 834.04 131.1 -90)
+		(at 438.76 44.14 -90)
 		(descr "10k resistor from VBUS5_ST to +3V3, for U7 (board controller): U34 status to the board controller: low when U11 feeds +5V")
 		(tags "resistor")
 		(property "Reference" "R169"
@@ -15993,7 +15993,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "295d9c81-1697-4fcf-a433-eb2690991e77")
-		(at 836.44 142.07 -90)
+		(at 441.16 55.11 -90)
 		(descr "36.5k resistor from VBUS5_PR1 to GND, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) unless Q6 (9 V request) or Q7 (screw input present) holds it at ground")
 		(tags "resistor")
 		(property "Reference" "R163"
@@ -50366,7 +50366,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "840d7df2-00ce-4f2f-a36b-6edcc915a6ae")
-		(at 839.42 133.58)
+		(at 444.14 46.62)
 		(descr "22uF bypass on +5V, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C265"
@@ -57114,7 +57114,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "963a14c2-712a-4597-af16-da2dece7dc8c")
-		(at 833.2 142.07 -90)
+		(at 437.92 55.11 -90)
 		(descr "56.2k resistor from VBUS5_CP2 to GND, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover")
 		(tags "resistor")
 		(property "Reference" "R167"
@@ -65599,7 +65599,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "aa05c60d-190e-4c6f-9700-20619c323da8")
-		(at 834.77 138.56 90)
+		(at 439.49 51.6 90)
 		(descr "100k resistor from VBUS5_OV1 to VBUS, for U34 (+5V source mux): U34 VBUS overvoltage backstop: VBUS is dropped above 5.3-5.9 V (5.63 V typical) if a source raises it unasked")
 		(tags "resistor")
 		(property "Reference" "R164"
@@ -69387,7 +69387,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "b41f6eba-f5ee-4b08-a599-42a4b7f55e7b")
-		(at 834.77 142.07 -90)
+		(at 439.49 55.11 -90)
 		(descr "23.2k resistor from VBUS5_OV1 to GND, for U34 (+5V source mux): U34 VBUS overvoltage backstop: VBUS is dropped above 5.3-5.9 V (5.63 V typical) if a source raises it unasked")
 		(tags "resistor")
 		(property "Reference" "R165"
@@ -92309,7 +92309,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ca83a37c-a8a4-4131-a2d0-8cae3ce637fe")
-		(at 838.63 135.18)
+		(at 443.35 48.22)
 		(descr "100nF 25V bypass on VBUS, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C264"
@@ -101495,7 +101495,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ec784f77-1bae-4880-ad6c-2971dc1c967b")
-		(at 833.2 138.56 90)
+		(at 437.92 51.6 90)
 		(descr "100k resistor from VBUS5_CP2 to +3V3, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover")
 		(tags "resistor")
 		(property "Reference" "R166"
@@ -105959,11 +105959,11 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f8709ad8-ded8-4274-bbbf-2f5360151898")
-		(at 39.455 259.296231)
+		(at 433.01 48.22 180)
 		(descr "1uF bypass on +5V_BUCK, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C280"
-			(at 0 -1.43 0)
+			(at 0 -1.43 180)
 			(layer "F.Fab")
 			(uuid "15256cff-cd28-49a0-9770-691039332de7")
 			(effects
@@ -105974,7 +105974,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 0 1.43 0)
+			(at 0 1.43 180)
 			(layer "F.Fab")
 			(uuid "00f3b3c3-0fe6-4dd2-890f-c49783c5084e")
 			(effects
@@ -105985,7 +105985,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "69f81179-a0f7-4eb1-a2a9-50fe5a49b1a7")
@@ -105997,7 +105997,7 @@
 			)
 		)
 		(property "Description" "1uF bypass on +5V_BUCK, for U34 (+5V source mux)"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "48272086-d2c8-4379-b462-436d6d93718a")
@@ -106009,7 +106009,7 @@
 			)
 		)
 		(property "LCSC Part" "C29936"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "445c1a3e-35fc-47e5-938a-4c92e8839983")
@@ -106064,7 +106064,7 @@
 			(uuid "4d57535f-3a29-48fe-b9fa-74e93645f581")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "8cb49154-29f5-42da-be79-779fcf4c9c5a")
 			(effects
@@ -106075,7 +106075,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.775 0)
+			(at -0.775 0 180)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -106083,7 +106083,7 @@
 			(uuid "f4b02b48-503b-467d-93e1-98853708aeba")
 		)
 		(pad "2" smd roundrect
-			(at 0.775 0)
+			(at 0.775 0 180)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -109250,28 +109250,6 @@
 		(uuid "fa219a1b-cb91-4b07-9390-adee20b66edb")
 	)
 	(gr_rect
-		(start 828.805 122.955)
-		(end 842.645 128.095)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "193fa7af-0bea-4d12-b820-0e6b36612de6")
-	)
-	(gr_rect
-		(start 828.805 128.095)
-		(end 842.645 145.075)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "7f271b8c-c7be-4c58-b658-abb724ac0b66")
-	)
-	(gr_rect
 		(start 830.915 147.185)
 		(end 842.935 153.305)
 		(stroke
@@ -110084,18 +110062,6 @@
 			(justify left top)
 		)
 	)
-	(gr_text "+5V source mux\nTPS2121, 13 parts,\n2026-10-29"
-		(at 829.205 124.855 0)
-		(layer "Cmts.User")
-		(uuid "6ec2506c-4962-4beb-9354-48dd8fbd2ca1")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
 	(gr_text "slots E-H PIN V\nswitch\nTPS22953, 6 parts,\n2026-10-29"
 		(at 831.315 149.085 0)
 		(layer "Cmts.User")
@@ -110900,18 +110866,6 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island U34"
-		(at 829.205 124.555 0)
-		(layer "Cmts.User")
-		(uuid "ecc88d94-8cc6-417d-91da-ecd33751adfb")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
 	(gr_text "island U24"
 		(at 831.315 148.785 0)
 		(layer "Cmts.User")
@@ -111356,19 +111310,6 @@
 			"e17968bc-5f4c-474c-8f69-7e5f516176c7"
 		)
 	)
-	(group "island U34"
-		(uuid "b356aba6-2d89-4d1e-8e7f-f9e16d41a0ca")
-		(members "129e5539-868e-484c-aac2-f123f45fd224" "13ecfdc8-8b61-4334-810e-42b36423c172"
-			"18808443-2533-422d-9f53-e28884f18db6" "193fa7af-0bea-4d12-b820-0e6b36612de6"
-			"1aca21b5-7d8e-4b4f-9384-0ba20e24a880" "24959646-1c6e-4526-a8b3-dd75fda10463"
-			"2700677e-3f29-4dc4-be74-d9767a362100" "295d9c81-1697-4fcf-a433-eb2690991e77"
-			"6ec2506c-4962-4beb-9354-48dd8fbd2ca1" "7f271b8c-c7be-4c58-b658-abb724ac0b66"
-			"840d7df2-00ce-4f2f-a36b-6edcc915a6ae" "963a14c2-712a-4597-af16-da2dece7dc8c"
-			"aa05c60d-190e-4c6f-9700-20619c323da8" "b41f6eba-f5ee-4b08-a599-42a4b7f55e7b"
-			"ca83a37c-a8a4-4131-a2d0-8cae3ce637fe" "ec784f77-1bae-4880-ad6c-2971dc1c967b"
-			"ecc88d94-8cc6-417d-91da-ecd33751adfb"
-		)
-	)
 	(group "island J19"
 		(uuid "beb6ac44-9086-4d1d-ba35-0b53317033da")
 		(members "4d068040-ba21-42e4-b03f-9590b70190a1" "51e2cede-3862-4485-a9a1-6affe551c1b3"
@@ -111689,6 +111630,75 @@
 			"43b7676e-8bbf-4939-9347-47936db614a3"
 			"ca5f2df8-706f-45ff-91b1-4d037de39973"
 			"0495d7cd-18f9-49a5-907b-69c7160c7fda"
+		)
+	)
+	(gr_rect
+		(start 430.005 41.135)
+		(end 447.365 58.115)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "35deaf51-a170-4e1a-9ef6-d068fa9181ed")
+	)
+	(gr_rect
+		(start 430.005 35.995)
+		(end 447.365 41.135)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "8369e237-ea62-4907-a6a0-54b78e98bf71")
+	)
+	(gr_text "island U34"
+		(at 430.405 37.595 0)
+		(layer "Cmts.User")
+		(uuid "0596f1c4-8e6c-4502-afe7-404ebe20fb43")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "+5V source mux\nTPS2121, 14 parts,\n2026-10-29"
+		(at 430.405 37.895 0)
+		(layer "Cmts.User")
+		(uuid "c245fbf2-7c0c-4847-baaa-8121932f2aab")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U34"
+		(uuid "7ce0434d-6871-42a7-b9bd-f94dfea6bea4")
+		(members
+			"35deaf51-a170-4e1a-9ef6-d068fa9181ed"
+			"8369e237-ea62-4907-a6a0-54b78e98bf71"
+			"0596f1c4-8e6c-4502-afe7-404ebe20fb43"
+			"c245fbf2-7c0c-4847-baaa-8121932f2aab"
+			"13ecfdc8-8b61-4334-810e-42b36423c172"
+			"1aca21b5-7d8e-4b4f-9384-0ba20e24a880"
+			"ca83a37c-a8a4-4131-a2d0-8cae3ce637fe"
+			"840d7df2-00ce-4f2f-a36b-6edcc915a6ae"
+			"18808443-2533-422d-9f53-e28884f18db6"
+			"f8709ad8-ded8-4274-bbbf-2f5360151898"
+			"129e5539-868e-484c-aac2-f123f45fd224"
+			"295d9c81-1697-4fcf-a433-eb2690991e77"
+			"aa05c60d-190e-4c6f-9700-20619c323da8"
+			"b41f6eba-f5ee-4b08-a599-42a4b7f55e7b"
+			"ec784f77-1bae-4880-ad6c-2971dc1c967b"
+			"963a14c2-712a-4597-af16-da2dece7dc8c"
+			"24959646-1c6e-4526-a8b3-dd75fda10463"
+			"2700677e-3f29-4dc4-be74-d9767a362100"
 		)
 	)
 )
