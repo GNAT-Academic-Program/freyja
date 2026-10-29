@@ -6014,11 +6014,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "129e5539-868e-484c-aac2-f123f45fd224")
-		(at 81.585 254.296231)
+		(at 437.63 42.61 90)
 		(descr "100k resistor from VBUS5_PR1 to VBUS, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2)")
 		(tags "resistor")
 		(property "Reference" "R162"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "84d7e349-3141-4d6d-854d-b278a29e0d42")
 			(effects
@@ -6029,7 +6029,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "5b983ce7-a440-47ce-b014-a83a448febab")
 			(effects
@@ -6040,7 +6040,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "90aa7dc5-a73e-44b3-8f0d-4f1c6f69805d")
@@ -6052,7 +6052,7 @@
 			)
 		)
 		(property "Description" "100k resistor from VBUS5_PR1 to VBUS, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "46001b20-6bdc-4c00-925e-659052da9553")
@@ -6107,7 +6107,7 @@
 			(uuid "6232e82e-5d84-4ac5-a4d5-1cc13078f87f")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "75ab86a1-07df-417f-ab2a-03928dc22dfe")
 			(effects
@@ -6118,7 +6118,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -6126,7 +6126,7 @@
 			(uuid "74e7592d-67cd-4f45-a297-cba2b074e4ec")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -6737,7 +6737,7 @@
 	(footprint "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm"
 		(layer "F.Cu")
 		(uuid "13ecfdc8-8b61-4334-810e-42b36423c172")
-		(at 129.635 255.021231)
+		(at 436.91 38.88)
 		(descr "+5V source mux: TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail, hands over to U11 the moment VBUS goes above 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A.")
 		(tags "RUX0012A Texas VQFN-HR NoLead")
 		(property "Reference" "U34"
@@ -8710,11 +8710,11 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "18808443-2533-422d-9f53-e28884f18db6")
-		(at 49.675 254.301231)
+		(at 433.22 38.53 180)
 		(descr "22uF bypass on +5V, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C266"
-			(at 0 -1.68 0)
+			(at 0 -1.68 180)
 			(layer "F.Fab")
 			(uuid "eb6e4d1b-ae6e-441a-b09d-a9e40e9b1a79")
 			(effects
@@ -8725,7 +8725,7 @@
 			)
 		)
 		(property "Value" "22uF"
-			(at 0 1.68 0)
+			(at 0 1.68 180)
 			(layer "F.Fab")
 			(uuid "ec1993b9-aeeb-4b74-a4a8-7406db76baf3")
 			(effects
@@ -8736,7 +8736,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5ed0e443-2b71-49ea-a298-73536e82eecd")
@@ -8748,7 +8748,7 @@
 			)
 		)
 		(property "Description" "22uF bypass on +5V, for U34 (+5V source mux)"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "91f7ee87-05c0-47aa-889e-7af3c5b14a16")
@@ -8760,7 +8760,7 @@
 			)
 		)
 		(property "LCSC Part" "C86816"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "24e6f4eb-54d6-41a3-aadf-5bb7832c6a1c")
@@ -8815,7 +8815,7 @@
 			(uuid "5883f8f4-017e-4d8c-bdb6-f21151f5c2be")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "340f1253-1745-4d8f-9dc4-837b7e26201a")
 			(effects
@@ -8826,7 +8826,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.95 0)
+			(at -0.95 0 180)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -8834,7 +8834,7 @@
 			(uuid "71dbbe4e-8e52-4b2d-94cd-3277ea3cea3d")
 		)
 		(pad "2" smd roundrect
-			(at 0.95 0)
+			(at 0.95 0 180)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -9659,11 +9659,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1aca21b5-7d8e-4b4f-9384-0ba20e24a880")
-		(at 32.5 254.296231)
+		(at 436.66 35.72 90)
 		(descr "100nF capacitor from VBUS5_SS to GND, for U34 (+5V source mux): sets how fast U34 ramps the +5V rail, about 780 V/s")
 		(tags "capacitor")
 		(property "Reference" "C263"
-			(at 0 -1.16 0)
+			(at 0 -1.16 90)
 			(layer "F.Fab")
 			(uuid "45bedf52-b6c3-42f4-adf8-0a414c3efb98")
 			(effects
@@ -9674,7 +9674,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 90)
 			(layer "F.Fab")
 			(uuid "d416d00c-4984-4a1d-9181-8262d343c0de")
 			(effects
@@ -9685,7 +9685,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0591ef4d-a127-4adc-a442-3ba102e3444a")
@@ -9697,7 +9697,7 @@
 			)
 		)
 		(property "Description" "100nF capacitor from VBUS5_SS to GND, for U34 (+5V source mux): sets how fast U34 ramps the +5V rail, about 780 V/s"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9d2a3446-d5fe-4911-b561-c7ea67ecc74b")
@@ -9709,7 +9709,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "f7844e81-c49a-4e46-9ab6-22a82e1b4c36")
@@ -9764,7 +9764,7 @@
 			(uuid "bf30a286-b3d3-4dfe-8c13-c36aab2c2ba9")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "f2126b9c-7f5b-4a7a-ba17-32c7f08723e0")
 			(effects
@@ -9775,7 +9775,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -9783,7 +9783,7 @@
 			(uuid "5d6123cc-7776-4fe8-9d8f-ec5cbc606ee7")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -14092,11 +14092,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "24959646-1c6e-4526-a8b3-dd75fda10463")
-		(at 117.645 254.296231)
+		(at 438.06 35.15 90)
 		(descr "44.2k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 2.5 A")
 		(tags "resistor")
 		(property "Reference" "R168"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "1003f8e7-1ba3-4308-b787-aebfe125f131")
 			(effects
@@ -14107,7 +14107,7 @@
 			)
 		)
 		(property "Value" "44.2k"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "3b1eb6e4-14f9-43d5-9231-0bf0a83b410a")
 			(effects
@@ -14118,7 +14118,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "145d5b56-bd0b-4a5e-bef6-f08b09465b13")
@@ -14130,7 +14130,7 @@
 			)
 		)
 		(property "Description" "44.2k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 2.5 A"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "22def099-a53f-4ba2-90e1-bd6556441d64")
@@ -14185,7 +14185,7 @@
 			(uuid "553515b1-afed-4db9-bdad-9c9701935e15")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "8b1ebb3a-9a70-438d-85ad-187619f1b463")
 			(effects
@@ -14196,7 +14196,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -14204,7 +14204,7 @@
 			(uuid "a548b339-5bb0-407a-93c7-68ab37a9c1b8")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -15028,11 +15028,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "2700677e-3f29-4dc4-be74-d9767a362100")
-		(at 123.655 254.296231)
+		(at 435.23 35.15 -90)
 		(descr "10k resistor from VBUS5_ST to +3V3, for U7 (board controller): U34 status to the board controller: low when U11 feeds +5V")
 		(tags "resistor")
 		(property "Reference" "R169"
-			(at 0 -1.43 0)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "09be6cd1-94e2-4c29-ae9a-9dcb9972db27")
 			(effects
@@ -15043,7 +15043,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "febd595a-620e-490c-80ab-cef7094e88d8")
 			(effects
@@ -15054,7 +15054,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "cef202b7-8190-4fed-828b-d642449e4fac")
@@ -15066,7 +15066,7 @@
 			)
 		)
 		(property "Description" "10k resistor from VBUS5_ST to +3V3, for U7 (board controller): U34 status to the board controller: low when U11 feeds +5V"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "d52e9272-651d-4c93-b78c-721623cdafc9")
@@ -15121,7 +15121,7 @@
 			(uuid "71fd3cde-7f2b-43eb-b65b-3a0e20845ebc")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "463007d1-c831-4e5b-b441-bcf18679ea2e")
 			(effects
@@ -15132,7 +15132,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -15140,7 +15140,7 @@
 			(uuid "654b83ff-38d5-49ab-ba9b-47de4807d668")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -15858,11 +15858,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "295d9c81-1697-4fcf-a433-eb2690991e77")
-		(at 87.595 254.296231)
+		(at 437.63 46.12 -90)
 		(descr "36.5k resistor from VBUS5_PR1 to GND, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2)")
 		(tags "resistor")
 		(property "Reference" "R163"
-			(at 0 -1.43 0)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "b87717f7-2517-4076-b36a-94aeda75abe6")
 			(effects
@@ -15873,7 +15873,7 @@
 			)
 		)
 		(property "Value" "36.5k"
-			(at 0 1.43 0)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "37e5d6a3-67f4-46b3-80a6-f59837e9f40a")
 			(effects
@@ -15884,7 +15884,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0bbc9ce8-8754-42c7-ad18-23c523af953b")
@@ -15896,7 +15896,7 @@
 			)
 		)
 		(property "Description" "36.5k resistor from VBUS5_PR1 to GND, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2)"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9a5626e9-8273-48fe-8653-aa57c24593ac")
@@ -15951,7 +15951,7 @@
 			(uuid "8d3dd9d3-38bd-4135-b3eb-60cdbe489070")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "d5c9d14e-8fdd-455b-856d-010cfd425d48")
 			(effects
@@ -15962,7 +15962,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -15970,7 +15970,7 @@
 			(uuid "d7e91e19-e646-4c36-8052-1ec2ab1c8b1f")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -50010,7 +50010,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "840d7df2-00ce-4f2f-a36b-6edcc915a6ae")
-		(at 43.225 254.301231)
+		(at 440.61 37.63)
 		(descr "22uF bypass on +5V, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C265"
@@ -56611,11 +56611,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "963a14c2-712a-4597-af16-da2dece7dc8c")
-		(at 111.635 254.296231)
+		(at 434.39 46.12 -90)
 		(descr "56.2k resistor from VBUS5_CP2 to GND, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover")
 		(tags "resistor")
 		(property "Reference" "R167"
-			(at 0 -1.43 0)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "65c9e7e1-5c7e-4ebc-a5e2-7941a60e9b7d")
 			(effects
@@ -56626,7 +56626,7 @@
 			)
 		)
 		(property "Value" "56.2k"
-			(at 0 1.43 0)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "3be5dfd6-b8d8-4130-8c9b-a1ad1db3e131")
 			(effects
@@ -56637,7 +56637,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "cb91bf50-6cb0-4493-ad14-5cf3620b0290")
@@ -56649,7 +56649,7 @@
 			)
 		)
 		(property "Description" "56.2k resistor from VBUS5_CP2 to GND, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "55ba00d2-ec3b-4f25-9d79-9f073b711c16")
@@ -56704,7 +56704,7 @@
 			(uuid "7b0ba782-7135-4be1-afd3-54e498f4a92b")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "c1fa9086-67d8-4bf1-8ebc-b139f281c424")
 			(effects
@@ -56715,7 +56715,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -56723,7 +56723,7 @@
 			(uuid "b76aedc5-1c54-4819-9725-57d085c4753f")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -65096,11 +65096,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "aa05c60d-190e-4c6f-9700-20619c323da8")
-		(at 93.605 254.296231)
+		(at 435.96 42.61 90)
 		(descr "100k resistor from VBUS5_OV1 to VBUS, for U34 (+5V source mux): U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V")
 		(tags "resistor")
 		(property "Reference" "R164"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "9f8e1acd-6b28-47a6-82a0-fc2c73293008")
 			(effects
@@ -65111,7 +65111,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "56a10c8f-6f79-47ed-bfd6-1e6a13991b19")
 			(effects
@@ -65122,7 +65122,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0893864d-18aa-471d-83d0-80b39d776ac8")
@@ -65134,7 +65134,7 @@
 			)
 		)
 		(property "Description" "100k resistor from VBUS5_OV1 to VBUS, for U34 (+5V source mux): U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "cb7f7988-72ad-460e-b15b-96d0f0c10385")
@@ -65189,7 +65189,7 @@
 			(uuid "5ff7efa4-4431-4146-92df-00f6acbc170d")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "bb55f6ab-7192-4da7-8761-1d61f88fdc56")
 			(effects
@@ -65200,7 +65200,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -65208,7 +65208,7 @@
 			(uuid "38da0eb2-d951-48df-854e-e6478e00c4c0")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -68663,11 +68663,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "b41f6eba-f5ee-4b08-a599-42a4b7f55e7b")
-		(at 99.615 254.296231)
+		(at 435.96 46.12 -90)
 		(descr "23.2k resistor from VBUS5_OV1 to GND, for U34 (+5V source mux): U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V")
 		(tags "resistor")
 		(property "Reference" "R165"
-			(at 0 -1.43 0)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "41f53a24-952e-4d41-a616-5700734a68f6")
 			(effects
@@ -68678,7 +68678,7 @@
 			)
 		)
 		(property "Value" "23.2k"
-			(at 0 1.43 0)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "1506575d-11b5-4eea-b441-3afbc95a7d95")
 			(effects
@@ -68689,7 +68689,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "d4b9c62d-34d1-4f96-8198-5ea807e154d6")
@@ -68701,7 +68701,7 @@
 			)
 		)
 		(property "Description" "23.2k resistor from VBUS5_OV1 to GND, for U34 (+5V source mux): U34 VBUS overvoltage sense: VBUS is dropped above 5.63 V"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "376ffee6-3f07-4883-982b-7ec0936deb17")
@@ -68756,7 +68756,7 @@
 			(uuid "3a3c93ee-1e05-4253-b6a0-9e51731eaee7")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "a373a6a0-ea77-4ee2-819c-95f523168ce5")
 			(effects
@@ -68767,7 +68767,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -68775,7 +68775,7 @@
 			(uuid "e3906fea-4a33-4f08-8925-498eb3993d81")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 270)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -91450,7 +91450,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ca83a37c-a8a4-4131-a2d0-8cae3ce637fe")
-		(at 37.5 254.296231)
+		(at 439.82 39.23)
 		(descr "100nF 25V bypass on VBUS, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C264"
@@ -100501,11 +100501,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ec784f77-1bae-4880-ad6c-2971dc1c967b")
-		(at 105.625 254.296231)
+		(at 434.39 42.61 90)
 		(descr "100k resistor from VBUS5_CP2 to +3V3, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover")
 		(tags "resistor")
 		(property "Reference" "R166"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "f4d8c9d4-1902-43a7-b5bd-cc1a166b3aa0")
 			(effects
@@ -100516,7 +100516,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "d2b4c08c-68b6-4527-858f-c59b765184b8")
 			(effects
@@ -100527,7 +100527,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "97c7ecd1-65e0-4f0c-ad83-2702e02ee9a0")
@@ -100539,7 +100539,7 @@
 			)
 		)
 		(property "Description" "100k resistor from VBUS5_CP2 to +3V3, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "82a3dc7e-1bb2-4e5e-9df6-1440b00cd7f1")
@@ -100594,7 +100594,7 @@
 			(uuid "4de48991-1c37-4fe2-b455-96f0eec8b7fe")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "5c36d20a-e52d-4962-bb82-47c618b6158e")
 			(effects
@@ -100605,7 +100605,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -100613,7 +100613,7 @@
 			(uuid "e71a124a-9059-4abf-8112-9e97e1de6e80")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 90)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -110448,6 +110448,74 @@
 			"ad448fda-3d34-45e0-a718-e09641dcf0d4"
 			"cc8a2d6f-f275-41f5-9c08-b7313967aa4d"
 			"c8d7eaac-f24d-481a-91d8-0262658eb1e8"
+		)
+	)
+	(gr_rect
+		(start 429.995 32.145)
+		(end 443.835 49.125)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "2ec8b976-3297-4657-90f5-fef2b910ce60")
+	)
+	(gr_rect
+		(start 429.995 27.005)
+		(end 443.835 32.145)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "31e90e9f-3e66-4c6c-a155-c5bed198d8ec")
+	)
+	(gr_text "island U34"
+		(at 430.395 28.605 0)
+		(layer "Cmts.User")
+		(uuid "00633ef0-9aba-43db-925c-bf44184df590")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "+5V source mux\nTPS2121, 13 parts,\n2026-10-29"
+		(at 430.395 28.905 0)
+		(layer "Cmts.User")
+		(uuid "05602a11-97ab-4ae0-a3e2-e1b83641f757")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U34"
+		(uuid "6226bc6f-bb77-4f9f-8d60-64d6fd5b3fae")
+		(members
+			"2ec8b976-3297-4657-90f5-fef2b910ce60"
+			"31e90e9f-3e66-4c6c-a155-c5bed198d8ec"
+			"00633ef0-9aba-43db-925c-bf44184df590"
+			"05602a11-97ab-4ae0-a3e2-e1b83641f757"
+			"13ecfdc8-8b61-4334-810e-42b36423c172"
+			"1aca21b5-7d8e-4b4f-9384-0ba20e24a880"
+			"ca83a37c-a8a4-4131-a2d0-8cae3ce637fe"
+			"840d7df2-00ce-4f2f-a36b-6edcc915a6ae"
+			"18808443-2533-422d-9f53-e28884f18db6"
+			"129e5539-868e-484c-aac2-f123f45fd224"
+			"295d9c81-1697-4fcf-a433-eb2690991e77"
+			"aa05c60d-190e-4c6f-9700-20619c323da8"
+			"b41f6eba-f5ee-4b08-a599-42a4b7f55e7b"
+			"ec784f77-1bae-4880-ad6c-2971dc1c967b"
+			"963a14c2-712a-4597-af16-da2dece7dc8c"
+			"24959646-1c6e-4526-a8b3-dd75fda10463"
+			"2700677e-3f29-4dc4-be74-d9767a362100"
 		)
 	)
 )
