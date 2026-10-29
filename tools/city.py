@@ -113,6 +113,10 @@ SATELLITES = {
     'X4': ('U1', '50 MHz fabric clock at its MRCC ball M21, 33 ohm at the source (floorplan.md)', 'SYS_CLK'),
     'U31': ('J73', 'HDMI protection chip as close to the connector as possible, no vias '
                    'between them (TI SLLSE96F 10.1)'),
+    # PR1 is a 100k/36.5k node compared against CP2 inside the mux: the two
+    # transistors that pull it down sit at that pin, not across the board
+    'Q6': ('U34', 'pulls the mux PR1 node (9 V request hold); the divider node stays short', 'VBUS5_PR1'),
+    'Q7': ('U34', 'pulls the mux PR1 node (screw input present); the divider node stays short', 'VBUS5_PR1'),
 }
 # Links that matter more than their wire count: the pull between the two
 # blocks is multiplied by this factor.
@@ -142,12 +146,14 @@ CRITICAL = {
 # Per side: blocks in order left to right, the block aligned on the column,
 # and the net whose balls set the column (their mean x).
 DOORS = {
-    'top': (['U11', 'U34', 'U16', 'U15', 'U14'], 'U15', '+1V0',
+    'top': (['U16', 'U15', 'U14', 'U34'], 'U15', '+1V0',
             '1.0 V core (U15, 4 A) straight down the middle column on In3; 1.8 V (U14) '
-            'and 1.2 V (U16) beside it, fed on In5 through the same door; U11 and the '
-            '+5V mux U34 open the row at the DC-input end, so U11 -> U34 -> the three '
-            '5 V converters is one straight path along the door and U26 keeps its place '
-            'at the USB connector (re-audit 2026-10-29, item 57)'),
+            'and 1.2 V (U16) beside it, fed on In5 through the same door; the +5V mux '
+            'U34 closes the row on the USB side and U11, pulled to it by the CRITICAL '
+            'link, sits against it, so U11 -> U34 -> the three 5 V converters is one '
+            'path along the door. U11 in the row itself pushed U26 away from J1 (right '
+            'end) or PSRAM U2 off the bank-13 side (left end); U34 at the left end sent '
+            'U11 onto the PSRAM side too (re-audit 2026-10-29, item 57)'),
     'bottom': (['U13'], 'U13', '+1V0',
                '2.5 V up the middle column from below, then left on In3 under the bank 16 '
                'corner; the PHY beside it shares the rail'),
@@ -308,6 +314,20 @@ def main():
         if hl not in groups or sl not in groups:
             continue
         sat_info[sl] = attach(groups[hl], groups[sl], why, net=net) + (hl,)
+    # two satellites on the same side of one host stack outward in SATELLITES
+    # order (Q6 and Q7 both at U34's PR1 pin), instead of landing on each other
+    taken = {}
+    for sl, (dxy, side, why, hl) in list(sat_info.items()):
+        sb = I.bbox_of([p for r in groups[sl] for p in BOARD.fps[r].polygon()])
+        depth = (sb[3] - sb[1]) if side in 'NS' else (sb[2] - sb[0])
+        used = taken.get((hl, side), 0.0)
+        if used:
+            step = used + 0.8
+            dxy = {'N': (dxy[0], dxy[1] - step), 'S': (dxy[0], dxy[1] + step),
+                   'E': (dxy[0] + step, dxy[1]), 'W': (dxy[0] - step, dxy[1])}[side]
+            why = f'{why}; stacked outside the satellite before it'
+            sat_info[sl] = (dxy, side, why, hl)
+        taken[(hl, side)] = used + depth + (0.8 if used else 0.0)
     reseats = {}
     for a, (srefs, net, _why) in RESEAT.items():
         lab = f'island {a}'
