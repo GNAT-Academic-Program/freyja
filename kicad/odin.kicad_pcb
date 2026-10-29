@@ -18914,11 +18914,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "3b111501-83fd-4dc3-bb0a-a44301aafef3")
-		(at 38.95 279.061231)
+		(at 441.4 79.18 90)
 		(descr "100nF bypass on +3V3, for J74 (microSD socket)")
 		(tags "capacitor")
 		(property "Reference" "C259"
-			(at 0 -1.16 0)
+			(at 0 -1.16 90)
 			(layer "F.Fab")
 			(uuid "7d8c28b6-d171-4cf8-b14d-35f0a80fbacd")
 			(effects
@@ -18929,7 +18929,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 90)
 			(layer "F.Fab")
 			(uuid "c6d53850-6efa-4d04-9b32-6d47aae4289b")
 			(effects
@@ -18940,7 +18940,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6d12f665-a079-4fbb-a50d-b6d3cb0654c0")
@@ -18952,7 +18952,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +3V3, for J74 (microSD socket)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5d42c940-8268-4679-a0dc-31afe483cf6c")
@@ -18964,7 +18964,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "42089b1f-5c12-4046-b0c4-8db6d873f66f")
@@ -19019,7 +19019,7 @@
 			(uuid "a9124c7d-b5ba-4225-b717-55fd704506bd")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "5d6510d2-835e-4a2e-9729-b0efe4de52dd")
 			(effects
@@ -19030,7 +19030,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -19038,7 +19038,7 @@
 			(uuid "e13ee09d-1266-4e68-ac27-6d618f88722b")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -48741,11 +48741,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "8ddc6589-f317-4501-b420-b4442511feb5")
-		(at 76.765 368.901231)
+		(at 453.72 83.08 180)
 		(descr "10k resistor from SD_DAT2 to +3V3, for J74 (microSD socket): unused DAT2 held high, as the SD specification asks in SPI mode")
 		(tags "resistor")
 		(property "Reference" "R161"
-			(at 0 -1.43 0)
+			(at 0 -1.43 180)
 			(layer "F.Fab")
 			(uuid "19e425c8-a970-4608-ac9a-e7ac2b35de83")
 			(effects
@@ -48756,7 +48756,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 180)
 			(layer "F.Fab")
 			(uuid "9454561a-cf53-4a98-baf8-62e9992106b1")
 			(effects
@@ -48767,7 +48767,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "be34855f-c88b-4c2b-87a2-946d71ce5678")
@@ -48779,7 +48779,7 @@
 			)
 		)
 		(property "Description" "10k resistor from SD_DAT2 to +3V3, for J74 (microSD socket): unused DAT2 held high, as the SD specification asks in SPI mode"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3be2a53d-5360-42d7-9804-44216f9bd880")
@@ -48834,7 +48834,7 @@
 			(uuid "2a8b03c0-b258-48fd-aeb6-a0aefc3379c0")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "e8f013e1-f322-4144-83d6-995f08c581b7")
 			(effects
@@ -48845,7 +48845,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 180)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -48853,7 +48853,7 @@
 			(uuid "56fa9177-4142-4232-9b5d-e127110ec1f0")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 180)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -50001,11 +50001,11 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "9050e36e-d714-487e-a09d-a9d769c399d6")
-		(at 32.5 326.341231)
+		(at 443.2 78.39 90)
 		(descr "10uF bypass on +3V3, for J74 (microSD socket)")
 		(tags "capacitor")
 		(property "Reference" "C260"
-			(at 0 -1.68 0)
+			(at 0 -1.68 90)
 			(layer "F.Fab")
 			(uuid "bc7837a0-738e-42d3-b0d3-fdf0c18f05f4")
 			(effects
@@ -50016,7 +50016,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 0 1.68 0)
+			(at 0 1.68 90)
 			(layer "F.Fab")
 			(uuid "635c11a5-a6da-4bcc-9011-83679477570b")
 			(effects
@@ -50027,7 +50027,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8af87ee3-53f9-4529-a15d-11db0c9b0340")
@@ -50039,7 +50039,7 @@
 			)
 		)
 		(property "Description" "10uF bypass on +3V3, for J74 (microSD socket)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "470ef53c-73cd-4705-a044-63a06291ce08")
@@ -50051,7 +50051,7 @@
 			)
 		)
 		(property "LCSC Part" "C15850"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "89e4c782-919b-4a88-b94c-63f33d5a0f8b")
@@ -50106,7 +50106,7 @@
 			(uuid "28c7a94f-282f-4e05-a849-e8c6f6755891")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "9b5d252b-4f3b-4ec4-9a0c-d0cae5e1d911")
 			(effects
@@ -50117,7 +50117,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.95 0)
+			(at -0.95 0 90)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -50125,7 +50125,7 @@
 			(uuid "68fa8af2-722f-4f1b-b451-04286ce85aec")
 		)
 		(pad "2" smd roundrect
-			(at 0.95 0)
+			(at 0.95 0 90)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -55584,7 +55584,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9e1fb09b-c08f-45dd-b93d-11862f356b1f")
-		(at 70.755 368.901231)
+		(at 433 82.17)
 		(descr "10k resistor from SD_DAT1 to +3V3, for J74 (microSD socket): unused DAT1 held high, as the SD specification asks in SPI mode")
 		(tags "resistor")
 		(property "Reference" "R160"
@@ -80843,11 +80843,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "bf52a06d-b9ce-4cf5-aee4-f28b9472db7b")
-		(at 52.725 368.901231)
+		(at 453.72 79.46 180)
 		(descr "10k resistor from SD_CS to +3V3, for J74 (microSD socket): SPI mode: CS (DAT3) idles high so the card does not select")
 		(tags "resistor")
 		(property "Reference" "R157"
-			(at 0 -1.43 0)
+			(at 0 -1.43 180)
 			(layer "F.Fab")
 			(uuid "8263f2ba-5d01-4104-ab7f-6579911774c9")
 			(effects
@@ -80858,7 +80858,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 180)
 			(layer "F.Fab")
 			(uuid "c6c645ac-3dd8-483e-b26c-18984d940b17")
 			(effects
@@ -80869,7 +80869,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "590fa04f-7bf8-4946-926c-ee77a9f40230")
@@ -80881,7 +80881,7 @@
 			)
 		)
 		(property "Description" "10k resistor from SD_CS to +3V3, for J74 (microSD socket): SPI mode: CS (DAT3) idles high so the card does not select"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "13650af7-6e72-43a1-bde4-e214c51bcb17")
@@ -80936,7 +80936,7 @@
 			(uuid "e1b8269c-5f96-425f-b73b-19308d91b2ea")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "8d1bece5-53d3-41fd-aba4-65f26637901f")
 			(effects
@@ -80947,7 +80947,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 180)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -80955,7 +80955,7 @@
 			(uuid "352bcd16-b195-4322-9919-ce88c97dd0d9")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 180)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -86677,7 +86677,7 @@
 	(footprint "EasyEDA:TF-SMD_TF-01A"
 		(layer "F.Cu")
 		(uuid "cde06b3a-10d4-4944-87a4-6aef363d442b")
-		(at 39.86 375.718731)
+		(at 443.36 86.55)
 		(descr "microSD socket: Hroparts TF-01A push-push microSD socket, SPI mode to FPGA bank 14 at 3.3 V; card detect on the switch.")
 		(property "Reference" "J74"
 			(at 0 -9.276 0)
@@ -90791,7 +90791,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "db7494af-af44-455f-96ff-84f336540de2")
-		(at 64.744999 368.901231)
+		(at 433 80.36)
 		(descr "10k resistor from SD_MISO to +3V3, for J74 (microSD socket): SPI mode: DAT0 idles high")
 		(tags "resistor")
 		(property "Reference" "R159"
@@ -99353,11 +99353,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "fe555448-b90d-4bfe-ae20-1cbc78e8ca47")
-		(at 58.735 368.901231)
+		(at 453.72 81.27 180)
 		(descr "10k resistor from SD_MOSI to +3V3, for J74 (microSD socket): SPI mode: CMD line idles high")
 		(tags "resistor")
 		(property "Reference" "R158"
-			(at 0 -1.43 0)
+			(at 0 -1.43 180)
 			(layer "F.Fab")
 			(uuid "f9899ef1-7dbc-436c-b993-fcd25dd824a4")
 			(effects
@@ -99368,7 +99368,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 0)
+			(at 0 1.43 180)
 			(layer "F.Fab")
 			(uuid "acd451ec-02e7-410c-a12c-1d2b76d9f553")
 			(effects
@@ -99379,7 +99379,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3383885e-5729-49cd-be79-f5d5997e9287")
@@ -99391,7 +99391,7 @@
 			)
 		)
 		(property "Description" "10k resistor from SD_MOSI to +3V3, for J74 (microSD socket): SPI mode: CMD line idles high"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "90b9f36f-2fa3-4dd9-86e7-0325ddd464c1")
@@ -99446,7 +99446,7 @@
 			(uuid "2a3f6075-9aa0-4c32-86a1-218329cb5f02")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "3540bf4f-45e4-4b04-ad72-829269de7ab9")
 			(effects
@@ -99457,7 +99457,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0)
+			(at -0.825 0 180)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -99465,7 +99465,7 @@
 			(uuid "cc05b3c9-7cdb-4616-baa8-6fa9b2acaadc")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0)
+			(at 0.825 0 180)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -103381,6 +103381,69 @@
 			"c1ea4b6a-21aa-46eb-b6d5-334316906225"
 			"65d84138-10e9-4395-ba01-0c8ae17c6ed4"
 			"2d02c30c-d9c2-48e2-931e-a992fe9af5ae"
+		)
+	)
+	(gr_rect
+		(start 429.995 75.165)
+		(end 456.725 97.643731)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "1ddaae73-28a5-4704-ad4f-f318974a10b4")
+	)
+	(gr_rect
+		(start 429.995 71.005)
+		(end 456.725 75.165)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "ba643ad3-341e-4707-991e-9d47406f312b")
+	)
+	(gr_text "island J74"
+		(at 430.395 72.605 0)
+		(layer "Cmts.User")
+		(uuid "33fbeaf3-d85b-4286-ba35-be27f40bceca")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "microSD socket\ngeneric, 8 parts, 2026-10-29"
+		(at 430.395 72.905 0)
+		(layer "Cmts.User")
+		(uuid "4f8de246-1208-4aa0-869e-77ff980ff801")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island J74"
+		(uuid "79a24640-4cd5-44b4-9617-ce5c43885591")
+		(members
+			"1ddaae73-28a5-4704-ad4f-f318974a10b4"
+			"ba643ad3-341e-4707-991e-9d47406f312b"
+			"33fbeaf3-d85b-4286-ba35-be27f40bceca"
+			"4f8de246-1208-4aa0-869e-77ff980ff801"
+			"cde06b3a-10d4-4944-87a4-6aef363d442b"
+			"3b111501-83fd-4dc3-bb0a-a44301aafef3"
+			"9050e36e-d714-487e-a09d-a9d769c399d6"
+			"bf52a06d-b9ce-4cf5-aee4-f28b9472db7b"
+			"fe555448-b90d-4bfe-ae20-1cbc78e8ca47"
+			"db7494af-af44-455f-96ff-84f336540de2"
+			"9e1fb09b-c08f-45dd-b93d-11862f356b1f"
+			"8ddc6589-f317-4501-b420-b4442511feb5"
 		)
 	)
 )
