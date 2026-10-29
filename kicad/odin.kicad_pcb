@@ -20459,7 +20459,7 @@
 	(footprint "EasyEDA:HDR-TH_7P-P2.54-V-F"
 		(layer "F.Cu")
 		(uuid "39f26566-f6a8-4d4c-8153-3c027c047d21")
-		(at 732.06 44.31)
+		(at 440.67 69.79)
 		(descr "slot L power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.")
 		(property "Reference" "J57"
 			(at 0 -4 0)
@@ -21859,7 +21859,7 @@
 	(footprint "odin:Fuse_TECHFUSE_SMD2018"
 		(layer "F.Cu")
 		(uuid "3bcba273-b3d2-489b-8106-857d26a6e446")
-		(at 738.65 49.31 90)
+		(at 447.26 74.79 90)
 		(descr "1.1A 33V resettable fuse feeding SLOT_L_AUX from AUX_RAIL, for J57 (slot L power socket)")
 		(tags "PTC 2018 5045metric")
 		(property "Reference" "F4"
@@ -24779,7 +24779,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "44b8b4da-3d00-4912-afe2-adb9487becb4")
-		(at 738.14 42.02 180)
+		(at 443.84 67.5 180)
 		(descr "500mA resettable fuse feeding SLOT_L_5V from +5V_EXT, for J57 (slot L power socket)")
 		(property "Reference" "F2"
 			(at 0 -4 180)
@@ -59773,7 +59773,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "9c04bdd4-e0f1-4584-a31d-5dcc5e22e03f")
-		(at 733.75 42.02 180)
+		(at 439.45 67.5 180)
 		(descr "300mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for J57 (slot L power socket)")
 		(property "Reference" "F3"
 			(at 0 -4 180)
@@ -70555,11 +70555,11 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "b593930b-5d1d-4099-a8f5-28a19cffbeba")
-		(at 723.12 41.88)
+		(at 432.51 73.29 -90)
 		(descr "10uF bypass on SLOT_L_PIN_VOLTAGE, for J57 (slot L power socket)")
 		(tags "capacitor")
 		(property "Reference" "C143"
-			(at 0 -1.68 0)
+			(at 0 -1.68 270)
 			(layer "F.Fab")
 			(uuid "59c13d69-7f70-4b10-ba1e-5835eac75f9e")
 			(effects
@@ -70570,7 +70570,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 0 1.68 0)
+			(at 0 1.68 270)
 			(layer "F.Fab")
 			(uuid "b3c9168e-0f60-4df1-a9db-d9d37b20b6a6")
 			(effects
@@ -70581,7 +70581,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "77451846-9d72-47b2-901a-a1f4742f4974")
@@ -70593,7 +70593,7 @@
 			)
 		)
 		(property "Description" "10uF bypass on SLOT_L_PIN_VOLTAGE, for J57 (slot L power socket)"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a5e38e70-d50f-4eb6-8d33-c184398eb361")
@@ -70605,7 +70605,7 @@
 			)
 		)
 		(property "LCSC Part" "C15850"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a451c684-1bb1-4c7e-88a1-d8c099a3feb7")
@@ -70660,7 +70660,7 @@
 			(uuid "38b03f7f-6ec9-46f4-a054-af5a8e6a55b7")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "02595c7c-c767-40cf-900f-06c9acd10e72")
 			(effects
@@ -70671,7 +70671,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.95 0)
+			(at -0.95 0 270)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -70679,7 +70679,7 @@
 			(uuid "18001a4b-a617-4876-a463-e0f434d02a8b")
 		)
 		(pad "2" smd roundrect
-			(at 0.95 0)
+			(at 0.95 0 270)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -71872,10 +71872,10 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "b8509478-2847-4911-8a3f-4b9eda65c405")
-		(at 727.19 42.02 180)
+		(at 434.68 73.61 90)
 		(descr "500mA resettable fuse feeding SLOT_L_PIN_VOLTAGE from +3V3_EXT, for J57 (slot L power socket)")
 		(property "Reference" "F1"
-			(at 0 -4 180)
+			(at 0 -4 90)
 			(layer "F.Fab")
 			(uuid "91878a5e-eb5b-448a-a326-374c66c6a253")
 			(effects
@@ -71886,7 +71886,7 @@
 			)
 		)
 		(property "Value" "500mA"
-			(at 0 4 180)
+			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "bd2d5ea7-4d6d-4c43-a006-b3417b232af5")
 			(effects
@@ -71897,7 +71897,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 180)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3cff0e9a-25a4-4aa4-9307-12c363f65033")
@@ -71909,7 +71909,7 @@
 			)
 		)
 		(property "Description" "500mA resettable fuse feeding SLOT_L_PIN_VOLTAGE from +3V3_EXT, for J57 (slot L power socket)"
-			(at 0 0 180)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "08d1d359-ccbf-4ffa-8c0c-3a493258aaef")
@@ -71921,7 +71921,7 @@
 			)
 		)
 		(property "LCSC Part" "C269115"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "58fe4b94-7afd-42df-a7a3-d7faf0507a3f")
@@ -72057,7 +72057,7 @@
 			(uuid "49a92b3e-8463-443e-8b29-75926a956f25")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 180)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "d207f966-e0fd-4571-a0a3-c6b5b317ad01")
 			(effects
@@ -72068,14 +72068,14 @@
 			)
 		)
 		(pad "1" smd rect
-			(at -1.45 0 180)
+			(at -1.45 0 90)
 			(size 1.19 1.728)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net 9 "+3V3_EXT")
 			(uuid "976b0db4-3fb7-4df5-82d2-18d24aa64a52")
 		)
 		(pad "2" smd rect
-			(at 1.45 0 180)
+			(at 1.45 0 90)
 			(size 1.19 1.728)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net 114 "SLOT_L_PIN_VOLTAGE")
@@ -104976,7 +104976,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f479abd2-7b8c-48cb-80cd-49ca92ddee8d")
-		(at 730.47 42.4)
+		(at 436.17 67.88)
 		(descr "100nF bypass on SLOT_L_3V3, for J57 (slot L power socket)")
 		(tags "capacitor")
 		(property "Reference" "C144"
@@ -108568,28 +108568,6 @@
 		(uuid "27b67148-d8d5-487a-a63c-bddbddd6aab8")
 	)
 	(gr_rect
-		(start 718.855 34.235)
-		(end 742.725 39.375)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "3b958773-f2b2-4769-956a-30ba41cca38c")
-	)
-	(gr_rect
-		(start 718.855 39.375)
-		(end 742.725 54.035)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "e4e735e8-1ada-410a-81ec-c52243090903")
-	)
-	(gr_rect
 		(start 720.175 20.995)
 		(end 743.945 25.155)
 		(stroke
@@ -109690,18 +109668,6 @@
 			(justify left top)
 		)
 	)
-	(gr_text "slot L power socket\nXFCN PM254V-11-07, 7 parts, 2026-10-28\n+ MK76"
-		(at 719.255 36.135 0)
-		(layer "Cmts.User")
-		(uuid "446ff4e5-71a0-4bd5-8a83-5fe5be824c70")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
 	(gr_text "slot L signal socket\ngeneric, 1 parts, 2026-10-28"
 		(at 720.575 22.895 0)
 		(layer "Cmts.User")
@@ -110486,18 +110452,6 @@
 		(at 713.205 176.685 0)
 		(layer "Cmts.User")
 		(uuid "ce158a69-11be-4529-acaf-4cf5be91113f")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "island J57"
-		(at 719.255 35.835 0)
-		(layer "Cmts.User")
-		(uuid "641a270c-ae03-4bc7-adf6-dd1b1ab16ad4")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -111462,16 +111416,6 @@
 			"fa219a1b-cb91-4b07-9390-adee20b66edb" "fba9f39c-a843-4b2f-9842-6725baccf696"
 		)
 	)
-	(group "island J57"
-		(uuid "ec8e5c83-ec84-4a83-98d9-2fa41459b68d")
-		(members "39f26566-f6a8-4d4c-8153-3c027c047d21" "3b958773-f2b2-4769-956a-30ba41cca38c"
-			"3bcba273-b3d2-489b-8106-857d26a6e446" "446ff4e5-71a0-4bd5-8a83-5fe5be824c70"
-			"44b8b4da-3d00-4912-afe2-adb9487becb4" "641a270c-ae03-4bc7-adf6-dd1b1ab16ad4"
-			"9c04bdd4-e0f1-4584-a31d-5dcc5e22e03f" "b3a7c832-95d4-4a51-a6d2-8346b7025bcb"
-			"b593930b-5d1d-4099-a8f5-28a19cffbeba" "b8509478-2847-4911-8a3f-4b9eda65c405"
-			"e4e735e8-1ada-410a-81ec-c52243090903" "f479abd2-7b8c-48cb-80cd-49ca92ddee8d"
-		)
-	)
 	(group "island U13"
 		(uuid "f7c1f41c-fb79-416e-ac71-972692b6e520")
 		(members "08348b48-d6ef-47ea-b841-61e06e7f39f0" "0df03976-d041-4e34-a6e0-d9eea2be3f3e"
@@ -111699,6 +111643,68 @@
 			"963a14c2-712a-4597-af16-da2dece7dc8c"
 			"24959646-1c6e-4526-a8b3-dd75fda10463"
 			"2700677e-3f29-4dc4-be74-d9767a362100"
+		)
+	)
+	(gr_rect
+		(start 430.005 65.136)
+		(end 451.335 79.515)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "ba1f36c3-52d9-4b6c-a10e-4c081cf01d9b")
+	)
+	(gr_rect
+		(start 430.005 59.996)
+		(end 451.335 65.136)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "4011c184-c2ab-4fe7-b39f-1efd5085c810")
+	)
+	(gr_text "island J57"
+		(at 430.405 61.596 0)
+		(layer "Cmts.User")
+		(uuid "e2777917-bcb7-443b-a494-0bed06a3a704")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "slot L power socket\nXFCN PM254V-11-07, 7 parts,\n2026-10-29"
+		(at 430.405 61.896 0)
+		(layer "Cmts.User")
+		(uuid "c6fbe6dc-cb88-46fa-affb-89f2c61cd4cb")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island J57"
+		(uuid "825c87fb-06f8-41fe-b775-a275f1f1b4fe")
+		(members
+			"ba1f36c3-52d9-4b6c-a10e-4c081cf01d9b"
+			"4011c184-c2ab-4fe7-b39f-1efd5085c810"
+			"e2777917-bcb7-443b-a494-0bed06a3a704"
+			"c6fbe6dc-cb88-46fa-affb-89f2c61cd4cb"
+			"39f26566-f6a8-4d4c-8153-3c027c047d21"
+			"b593930b-5d1d-4099-a8f5-28a19cffbeba"
+			"f479abd2-7b8c-48cb-80cd-49ca92ddee8d"
+			"b8509478-2847-4911-8a3f-4b9eda65c405"
+			"44b8b4da-3d00-4912-afe2-adb9487becb4"
+			"9c04bdd4-e0f1-4584-a31d-5dcc5e22e03f"
+			"3bcba273-b3d2-489b-8106-857d26a6e446"
 		)
 	)
 )
