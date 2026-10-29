@@ -1,6 +1,8 @@
 # PSRAM — 4 chips, 4 independent ports
 
-`APS1604M-3SQR-SN` ×4 (LCSC C18214056), QSPI, 3.3V. The point of this part is
+`APS6404L-SQN-SN` ×4 (LCSC C5360304), QSPI, 64 Mbit (8 MB) each, 1.8V
+(VDD 1.62 to 1.98 V, datasheet rev 4.0 Table 9), up to 144 MHz in QPI mode,
+SOP-8. The point of this part is
 what BRAM and DDR3 both fail at: **enough capacity to be useful, with
 single-cycle-predictable random access down to one byte.** No burst-shaped
 thinking, no calibration, no memory controller IP you cannot read.
@@ -65,14 +67,18 @@ Both belong in the HDL controller, not in user code.
 
 ## Bank placement — this interacts with the extension design
 
-The PSRAM runs at 3.3V, so its FPGA bank `VCCO` must be **fixed at 3.3V**. It
+The PSRAM runs at 1.8V, so its FPGA bank `VCCO` must be **fixed at 1.8V**. It
 therefore cannot live in one of the extension slots' VCCIO-selectable banks.
 
-Bank 14 is pinned at 3.3V by the config flash, so it also carries PSRAM (24),
-the board-controller sideband (6), the flash pins (6), and 5V BUS 0 with its
-direction and active-low enable pins. 5V BUS 1 lives in fixed bank 13. Banks 15 and 34 are the two
-settable extension domains, four slots each. Banks 16 and 35 remain reserved
-for future base-board peripherals. See
+Bank 13 is that bank: its VCCO is `+1V8_IO`, U14's output node (VCCAUX and
+VCCADC hang off the same node as `+1V8` through a bead). It carries the
+four PSRAMs (24 balls, hand-chosen pairs, `tools/alloc.py` PSRAM_BALLS) and
+the A side of both 5V bus translators with their DIR and OE pins (20), and
+keeps its two MRCC pairs free. Bank 14 (3.3V, pinned by the config flash)
+carries the flash, the sideband, the fabric clock, the SDRAM address bus,
+the MRAM and the microSD socket. Banks 15 and 34 are the two settable
+extension domains, four slots each; bank 16 is the network at 2.5V; bank 35
+(3.3V) is HDMI, the SDRAM data bus and the PHY control lines. See
 `ref/ballmap.md`, which is generated from the package file.
 
 ## Layout note
@@ -116,7 +122,7 @@ Four is not arbitrary. It is the count where three separate things line up:
   PSRAM to avoid.
 - **Four ganged is a natural 16-bit wide bus** for streaming mode. Three would
   be an awkward 12-bit.
-- **Four × 2 MB = 8 MB** clears the threshold where whole classes of project
+- **Four × 8 MB = 32 MB** clears the threshold where whole classes of project
   stop being "does it fit" and start being "what shall I build".
 
 Two chips (12 pins) would free enough IO for one more extension slot, and
@@ -138,14 +144,14 @@ repays it in almost nothing — past four independent consumers is rare.
 | Dual Ethernet packet buffers | 4 | RX and TX rings that never stall each other |
 | SDR receiver | 3 | sample ring, FFT scratch, output |
 | CNN inference | 3 | weights streaming while activations ping-pong |
-| **Deep logic analyser** | 4 **ganged** | 8 MB capture at 200 MB/s — the streaming mode |
-| **no-MMU Linux on NEORV32** | 4 contiguous | 8 MB is roughly the floor for a useful userland |
+| **Deep logic analyser** | 4 **ganged** | 32 MB capture at 200 MB/s — the streaming mode |
+| **no-MMU Linux on NEORV32** | 4 contiguous | 32 MB is well past the floor for a useful userland |
 
 The two bolded rows are the ones that justify the decision. **Four private
 memories for four cores** turns "design a coherency protocol" — a PhD-shaped
 distraction — into "instantiate four of them", which is a semester project a
 student can actually finish. And **no-MMU Linux** is only on the table at all
-because 8 MB exists.
+because 32 MB exists (and a 32 MB SDRAM besides, `ref/ballmap.md`).
 
 Note the table uses both wiring modes: independent for nine rows, ganged x16
 for the logic analyser. That is the superset argument paying off — one board
@@ -172,10 +178,12 @@ which sets whether unconfigured IO float or pull up).
 
 ## To verify
 
-- Capacity per chip. `APS1604M` reads as 16 Mbit = **2 MB**, so ×4 = **8 MB**,
-  not 4. Confirm against the AP Memory datasheet and correct this file.
-- Max clock for the `-3` grade (expect 84–133 MHz) — the 50 MB/s per chip
-  figure above assumes 100 MHz.
+- Capacity per chip: `APS6404L` is 64 Mbit = **8 MB**, ×4 = **32 MB**
+  (datasheet rev 4.0, `ref/datasheets/aps6404l-sqn.pdf`).
+- Max clock: 144 MHz for QPI commands, 66 MHz for the QPI 0Bh read and 33 MHz
+  for SPI 03h read (rev 4.0 Table 10) — the 50 MB/s per chip figure above
+  assumes 100 MHz, which this grade clears.
+- tCEM is 8 us for the standard grade (Table 10), as before.
 - Four independent buses and all 24 series paths are verified in the
   generated netlist. Physical routing and signal integrity still need checking.
 - Whether the supervisor-preload path above is worth its one GPIO. Depends on

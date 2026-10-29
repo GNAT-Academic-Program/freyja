@@ -175,6 +175,8 @@ balls), so their 29 deep balls are inherent.
 | 34 | 48 | 2 | 8 | slots E to H, forced |
 | 35 | 0 | 50 | 0 | free |
 
+(Table as of A4; since 2026-10-29 bank 13 is the 1.8 V PSRAM bank and
+bank 14 holds the SDRAM address bus, see ref/ballmap.md.)
 Moving bus L with its DIR/OE into bank 13, and depth-sorting within each
 bank, takes allocator-chosen deep balls from **47 to 31**. 29 of those are in
 banks 15/34 and 2 in bank 14. The flash/PUDC_B balls stay deep regardless.
@@ -246,14 +248,14 @@ Expected parts: 520 − about 42 (Fast Links) − 110 + 68 (decaps) + about 35
   - Sheet renamed `Network`.
   - U17 renamed `status expander`, bus `SUP_SCL/SDA`, P7 spare.
   - RTL8211F straps and LEDs per §3.
-  - `PHY_RESET_N` and `PHY_INT_N` on bank 13.
+  - `PHY_RESET_N` and `PHY_INT_N` on bank 13 (moved to bank 35 on 2026-10-29, when bank 13 went to 1.8 V).
   - Link pinout table into `ref/link-ports.md`.
   - SFP docs deleted or marked history.
 - **A4. Allocation.**
   - VCCO_16 → +2V5.
   - Bank 16: RGMII (14 balls, RXC on a clock-capable P) and LINK (8 pairs, the
     two RX clocks on clock-capable pairs), columns 23 to 26 first.
-  - Bus L and its controls to bank 13.
+  - Bus L and its controls to bank 13 (still there; the bank runs at 1.8 V since 2026-10-29).
   - Depth sort inside each bank.
   - `alloc.py --check`.
   - Report the new histogram; expect about 31 deep plus 6 inherent flash balls.

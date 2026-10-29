@@ -44,12 +44,14 @@ GROUP = {
     'U1  FPGA':
         'The FPGA is the board: every user design (a NEORV32 RISC-V core, '
         'a video pipeline, a protocol bridge) runs here. Its six user I/O '
-        'banks are dedicated by job: bank 13 drives the two 5 V buses and '
-        'the PHY reset/interrupt, bank 14 the PSRAM, the configuration flash, '
-        'the board-controller sideband and the 50 MHz clock, banks 15 and 34 '
-        'the direct extension slots A-D and E-H at a jumper-selected voltage, '
-        'bank 16 the network at 2.5 V, bank 35 the HDMI output. Ball-by-ball list: '
-        'ref/ballmap.md; constraints: ref/freya.xdc.',
+        'banks are dedicated by job: bank 13 at 1.8 V carries the four PSRAMs '
+        'and the two 5 V bus translators, bank 14 the configuration flash, '
+        'the board-controller sideband, the 50 MHz clock, the SDRAM address '
+        'bus, the MRAM and the microSD socket, banks 15 and 34 the direct '
+        'extension slots A-D and E-H at a jumper-selected voltage, bank 16 '
+        'the network at 2.5 V, bank 35 the HDMI output, the SDRAM data bus '
+        'and the PHY reset/interrupt. Ball-by-ball list: ref/ballmap.md; '
+        'constraints: ref/freya.xdc.',
     'config straps (UG470)':
         'How the FPGA loads its design at power-on. M[2:0] = 001 selects '
         'master SPI: the FPGA clocks its bitstream out of the W25Q256 flash '

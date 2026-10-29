@@ -158,7 +158,7 @@ run, can +5V source 1 A beyond the board's own load, is the PSRAM reachable
 from fabric for a framebuffer, and where do the real bank boundaries fall.
 Report what the base board must add. Update that file with verified numbers.
 
-**7b. PSRAM.** Check the four `APS1604M-3SQR-SN` against `ref/psram.md`.
+**7b. PSRAM.** Check the four `APS6404L-SQN-SN` (1.8 V, bank 13) against `ref/psram.md`.
 Are they wired as four independent QSPI buses (24 pins) or sharing one bus
 with four chip selects (9 pins)? Shared is a should-fix — it costs the
 video-plus-CPU-without-arbitration property the reference design depends on.

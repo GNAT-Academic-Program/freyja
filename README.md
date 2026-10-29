@@ -27,7 +27,7 @@ of architecture.
 
 | Missing on normal boards | What it causes | Odin |
 |---|---|---|
-| **A middle rung of memory.** BRAM (KB) → cliff → DDR3 (nightmare) | Every project that outgrows BRAM becomes a memory-controller project | 4× PSRAM, 8 MB, four independent ports, predictable latency |
+| **A middle rung of memory.** BRAM (KB) → cliff → DDR3 (nightmare) | Every project that outgrows BRAM becomes a memory-controller project | 4× PSRAM, 32 MB, four independent ports, predictable latency; a 32 MB SDRAM beside them |
 | **Scriptable programming.** JTAG blaster + vendor GUI | Can't run 40 variants overnight, so nobody experiments | RP-class supervisor owns config; one USB-C, no helper bitstream |
 | **Self-observation.** No rail telemetry, no software power control | Superstition-driven debugging | Supervisor drives every enable, reads back every rail |
 | **A real expansion standard.** Pmod is 8 pins/3.3V; FMC is a $200 connector and a 400-page spec | Every extension is bespoke, nothing composes | Keyed 16-pin modules, 16/32/64, documented in one page |
@@ -40,7 +40,7 @@ delete a category of work that was never the point.
 
 ## The legibility principle
 
-50 MB/s per link, 2 MB per chip. That's modest. It is also **knowable** — you
+50 MB/s per link, 8 MB per chip. That's modest. It is also **knowable** — you
 can work out on paper, before writing a line of HDL, whether your design fits.
 
 DDR3 offers "up to 12.8 GB/s," qualified by access pattern, bank conflicts,

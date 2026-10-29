@@ -118,6 +118,7 @@ RTL8211FD-CG (D2, C2687133) on RGMII at 2.5 V with straps per datasheet rev
 1.7 Tables 10/11 (PHYAD 1, PLLOFF 0, TXDLY 1, RXDLY 1 to DVDD_RG; CFG_EXT 1
 and CFG_LDO 01 to 3.3 V/GND), 1.5 k MDIO pull-up (section 7.11.2), 1 k
 pull-down on PHYRSTB and 4.7 k pull-up on INTB with both pins on bank 13
+(bank 35 since 2026-10-29)
 (Table 58 note, Table 53 note 5 case II), LEDs in the jack wired per section
 7.9 Figure 5, HanRun HR911130A 1000Base-T magjack (C54408) with P1 centre
 tap to GND through 100 nF 50 V and P10 (internal Bob-Smith) to GND, YXC
@@ -132,7 +133,7 @@ What (A4): VCCO_16 = +2V5 (gen_sch.RAIL; the UG483 decoupling regrouped by
 itself: one more 47 uF). alloc.py allocates bank 16 shallowest-first with
 PHY_RXC on an MRCC P ball, LINK P RXC on the other MRCC pair, LINK Q RXC on
 an SRCC pair; both 5 V buses and their DIR/OE plus PHY_RESET_N/PHY_INT_N in
-bank 13; banks 13, 14 and 16 depth sorted (15 and 34 are full and keep
+bank 13 (the PHY pins moved to bank 35 on 2026-10-29); banks 13, 14 and 16 depth sorted (15 and 34 are full and keep
 their order). `alloc.py --check` verifies the clock placements and bank
 membership.
 Decisions taken without the owner: RSET 2.49 k and the centre-tap capacitor
@@ -168,7 +169,7 @@ power-on (ref/gameboy-extension.md already assumed a "board oscillator +
 MMCM"). Added X4, YXC OT322550MJBA4SL 50 MHz CMOS oscillator (C717684,
 imported with easyeda2kicad; 1.8-3.3 V, +/-20 ppm), tri-state pin tied to
 VDD, 100 nF bypass, 33 ohm source resistor, into bank 14 on an MRCC P ball
-(`SYS_CLK`), allocated before the PSRAM pairs; `alloc.py --check` verifies
+(`SYS_CLK`), allocated before the PSRAM pairs (now the SDRAM address pool); `alloc.py --check` verifies
 the MRCC placement. One more deep ball results (the shallow MRCC pair went
 to the clock). floorplan.md rewritten for the rev A board (jacks, network
 strip, decoupling placement rule).
@@ -189,7 +190,7 @@ Files changed: tools/gen_xdc.py (new), tools/gate.py, ref/freya.xdc (new),
 gateware/gate/top.v (new, generated), gateware/gate/gate.xdc (new),
 gateware/gate/run.tcl (new), kicad/README.md, .gitignore
 What: `tools/gen_xdc.py` renders `ref/freya.xdc` from `tools/alloc.py`:
-185 constrained balls (bank 13: 22 LVCMOS33, 14: 37 LVCMOS33, 15: 48 and
+185 constrained balls (then; bank 13: 22 LVCMOS33, 14: 37 LVCMOS33, 15: 48 and
 34: 48 LVCMOS33 at the 3.3 V jumper position, 16: 14 LVCMOS25 + 16 LVDS_25
 with DIFF_TERM on the eight receive pins), SLEW FAST on the RGMII
 transmit pins, four input clocks (SYS_CLK 50 MHz, PHY_RXC 125 MHz, the two
@@ -278,3 +279,29 @@ sheet is now enforced by the gate. Net notes can match a family by prefix
 connector of its group, not the key post; MON_ nets are measurements, not
 supplies; parts not fitted say so.
 Open questions for the owner: none
+
+## Memory pass 2026-10-29
+Parts: 499 (was 470); B.Cu footprints: 0; nothing placed inside the outline.
+ERC: 0 errors, 2 warnings (allowlisted FPGA_DXP/FPGA_DXN). alloc.py --check,
+audit_easyeda.py, qualified.py and roles.py pass. Constrained balls: 273.
+What, one commit per step:
+1. `+1V8_IO`: U14's output node (L5, its 22 uF pair, the feedback divider,
+   the J19/J20 1.8 V position, MON_1V8); VCCAUX and VCCADC stay `+1V8` behind
+   FB1 (BLM18PG121SN1D, C14709) with 10 uF + 100 nF at the regulator.
+   budget.py: U14 at 0.308 A of 2 A.
+2. Bank 13 VCCO = `+1V8_IO`; U2-U5 become APS6404L-SQN-SN (C5360304, 8 MB,
+   1.8 V) on hand-chosen bank 13 pairs, VDD and C111-C114 on `+1V8_IO`,
+   R104-R127 kept; U9/U10 VCCA, their bypass and the OE pull-ups on
+   `+1V8_IO` (SCES916A section 6.3: VCCA 1.08-5.5 V); bank 13 LVCMOS18.
+3. PHY_RESET_N -> G1, PHY_INT_N -> G2 (bank 35).
+4. U32 W9825G6KH-6 (C62246): DQ/control on 24 plain bank 35 balls, A0-A12
+   and BA0/BA1 on the bank 14 block the PSRAMs left; 7 x 100 nF + 10 uF,
+   22 ohm on CLK, 10k CS up, 10k CKE down; SDRAM_CLK in its own XDC section.
+5. U33 MR25H10CDF (C246234) on K25 K26 L24 L25, DNP populate option with
+   its 100 nF and three 10k; footprint with two ground vias in the pad.
+6. J74 TF-01A (C91145) microSD in SPI mode on L22 L23 T22 R22 T23, five 10k
+   pull-ups, 100 nF + 10 uF; SD_CD read with the FPGA pull-up.
+7. Documents regenerated and the hand-written text updated.
+Known: the 12 new footprints and FB1 sit in the import band below the
+board, unplaced; sequential C numbers above C250 shifted between steps 1
+and 5 (nothing on the board depends on them yet).

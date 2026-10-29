@@ -3,7 +3,8 @@
 Odin is an FPGA board for building the thing you meant to build.
 
 One USB-C cable powers it and programs it. Four PSRAM chips give the FPGA
-8 MB of working memory. Ten extension ports carry signals and useful power.
+32 MB of working memory on four private ports, and a 32 MB SDRAM sits beside
+them. Ten extension ports carry signals and useful power.
 A gigabit Ethernet jack and two raw link ports sit on the top edge.
 
 This manual is for using the board. If you are designing an extension, read
@@ -21,7 +22,9 @@ This manual is for using the board. If you are designing an extension, read
                     +----------------v----------------+
                     | XC7A100T FPGA                   |
                     |                                |
-       8 MB PSRAM <---> four separate memory links   |
+      32 MB PSRAM <---> four separate memory links   |
+      32 MB SDRAM <---> one 16-bit bus                |
+     microSD, MRAM <---> SPI                          |
                     |                                |
       slots A-D  <----> 48 direct pins, one voltage  |
       slots E-H  <----> 48 direct pins, one voltage  |
@@ -338,11 +341,11 @@ SEL PWR 12 V    backlight driver, if required
 ```
 
 The framebuffer belongs in PSRAM. A 320 x 240 RGB565 frame is about 150 KB;
-the board has 8 MB.
+the board has 32 MB of PSRAM and another 32 MB of SDRAM.
 
 ## Memory without ceremony
 
-Odin has four 2 MB PSRAM chips. Each has its own connection to the FPGA.
+Odin has four 8 MB PSRAM chips. Each has its own connection to the FPGA.
 
 ```text
 PSRAM 0  video or DMA
@@ -525,3 +528,15 @@ fault, while a steady lit LED alone does not establish health.
 The supervisor can also read the core regulator's **CORE_1V0_GOOD** through
 the same expander, alongside its existing MON_1V0 voltage measurement.
 See [status indicators and firmware rules](status-leds.md).
+
+## Memory
+
+| Part | LCSC | Capacity | Bus | Voltage | FPGA bank | Populated by default |
+|---|---|---|---|---|---|---|
+| APS6404L-SQN-SN PSRAM, x4 (U2-U5) | C5360304 | 4 x 8 MB | QSPI, one private 6-line port per chip | 1.8 V | 13 | yes |
+| W9825G6KH-6 SDRAM (U32) | C62246 | 32 MB | 16-bit SDR, 39 lines | 3.3 V | 35 (data, control), 14 (address) | yes |
+| MR25H10CDF MRAM (U33) | C246234 | 128 KB | SPI, 4 lines | 3.3 V | 14 | no (populate option) |
+| microSD socket TF-01A (J74) | C91145 | card | SPI mode, 5 lines incl. card detect | 3.3 V | 14 | yes |
+| W25Q256JVEIQ configuration flash (U6) | C97522 | 32 MB | QSPI, master SPI boot | 3.3 V | 14 and bank 0 | yes |
+
+Ball-by-ball list: `ref/ballmap.md`; constraints: `ref/freya.xdc`.

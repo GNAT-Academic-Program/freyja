@@ -12,10 +12,11 @@ python3 tools/ballmap.py > ref/ballmap.md
 ## I/O-bank architecture
 
 This package has **six HR I/O banks** — 13, 14, 15, 16, 34 and 35 — 300 user I/O total.
-`VCCO` is shared by every pin in a bank. Odin uses bank 14 at fixed 3.3V,
-bank 13 for both 5V buses and the PHY control pins, banks 15 and 34 as
-selectable extension domains, bank 16 at 2.5V for the network (RGMII and
-the two LVDS link ports), and leaves bank 35 powered but unused.
+`VCCO` is shared by every pin in a bank. Odin uses bank 13 at 1.8V (+1V8_IO)
+for the four PSRAMs and the A side of both 5V bus translators, bank 14 at
+fixed 3.3V, banks 15 and 34 as selectable extension domains, bank 16 at
+2.5V for the network (RGMII and the two LVDS link ports), and bank 35 at
+3.3V for HDMI, the SDRAM data bus and the PHY control pins.
 
 | Bank | HR I/O | Diff pairs | MRCC | SRCC |
 |---|---|---|---|---|
@@ -27,24 +28,27 @@ the two LVDS link ports), and leaves bank 35 powered but unused.
 | 35 | 50 | 24 | 4 | 4 |
 
 **Bank 14 is not free.** It carries the master-SPI config flash pins and the
-`PUDC_B` strap, so its `VCCO` is pinned at 3.3V by the flash. That makes it
-the home for everything else fixed at 3.3V — PSRAM and the supervisor
-sideband. Bank 13 carries both 5V buses and the two 3.3 V PHY pins
-(PHYRSTB, INTB). Banks 15 and 34 are the two settable extension domains,
-four slots each. Bank 16 runs at 2.5V: RGMII to the RTL8211FD-CG and the
-eight LVDS_25 link pairs. Bank 35 is powered at 3.3V and carries nothing.
-Inside each bank the allocator takes the shallowest balls first.
+`PUDC_B` strap, so its `VCCO` is pinned at 3.3V by the flash. It also carries
+the supervisor sideband, the fabric clock, the SDRAM address bus, the MRAM
+and the microSD socket. Bank 13 runs at 1.8V from +1V8_IO: the four
+APS6404L-SQN PSRAMs and both 5V bus translators (their A side and DIR/OE).
+Banks 15 and 34 are the two settable extension domains, four slots each.
+Bank 16 runs at 2.5V: RGMII to the RTL8211FD-CG and the eight LVDS_25 link
+pairs. Bank 35 is at 3.3V: HDMI, the SDRAM data and control lines, and the
+two PHY control pins (PHYRSTB, INTB). The PSRAM, SDRAM, MRAM, microSD and
+PHY control balls are hand-chosen tables in tools/alloc.py; inside each
+bank the allocator takes the shallowest balls first for the rest.
 
 ## Allocation
 
 | Bank | VCCO | Contents |
 |---|---|---|
-| 14 | **fixed 3.3V** | SYS_CLK (50 MHz oscillator), config flash, PSRAM x4, supervisor sideband |
-| 13 | fixed 3.3V | 5V BUS 0, 5V BUS 1, PHY_RESET_N, PHY_INT_N |
+| 14 | **fixed 3.3V** | SYS_CLK (50 MHz oscillator), config flash, supervisor sideband, SDRAM address, MRAM, microSD |
+| 13 | **fixed 1.8V** (+1V8_IO) | PSRAM x4, 5V BUS 0, 5V BUS 1 |
 | 15 | **settable** 3.3 / 2.5 / 1.8 | slots A B C D |
 | 34 | **settable** 3.3 / 2.5 / 1.8 | slots E F G H |
 | 16 | **fixed 2.5V** | RGMII + MDIO to the PHY, LINK P and LINK Q |
-| 35 | fixed 3.3V | HDMI out: four TMDS_33 pairs and the TPD12S016 lines |
+| 35 | fixed 3.3V | HDMI out: four TMDS_33 pairs and the TPD12S016 lines; SDRAM data and control; PHY_RESET_N, PHY_INT_N |
 
 ## Config flash and strap
 
@@ -69,7 +73,7 @@ dedicated pins — see the bank 0 table below.
 X4, 50 MHz CMOS, on an MRCC P ball so it reaches the bank's MMCMs; the
 pair's N ball is left free.
 
-## PSRAM — four independent QSPI buses
+## PSRAM — four independent QSPI buses, bank 13 at 1.8 V
 
 | Chip | SCK | CE# | IO0 | IO1 | IO2 | IO3 |
 |---|---|---|---|---|---|---|
@@ -79,7 +83,77 @@ pair's N ball is left free.
 | PSRAM3 | W20 | Y20 | W21 | Y21 | Y22 | Y23 |
 
 Each chip's six lines come from three adjacent differential pairs, so the
-group stays physically tight and length matching stays local.
+group stays physically tight and length matching stays local. Both MRCC
+pairs of the bank (U21/V21, U22/V22) are left free.
+
+## SDRAM — W9825G6KH-6, data in bank 35, address in bank 14
+
+| Ball | Net | Package name |
+|---|---|---|
+| C3 | `SDRAM_RAS_N` | IO_L17N_T2_35 |
+| D3 | `SDRAM_CS_N` | IO_L17P_T2_35 |
+| D6 | `SDRAM_DQ1` | IO_L1N_T0_AD4N_35 |
+| E3 | `SDRAM_WE_N` | IO_L18N_T2_35 |
+| E6 | `SDRAM_DQ0` | IO_L1P_T0_AD4P_35 |
+| F3 | `SDRAM_CAS_N` | IO_L18P_T2_35 |
+| F7 | `SDRAM_DQ7` | IO_L4N_T0_35 |
+| F8 | `SDRAM_DQ6` | IO_L4P_T0_35 |
+| G6 | `SDRAM_DQ9` | IO_L5N_T0_AD13N_35 |
+| G7 | `SDRAM_DQ5` | IO_L3N_T0_DQS_AD5N_35 |
+| G8 | `SDRAM_DQ3` | IO_L2N_T0_AD12N_35 |
+| G9 | `SDRAM_DQ11` | IO_L6N_T0_VREF_35 |
+| H4 | `SDRAM_UDQM` | IO_L9N_T1_DQS_AD7N_35 |
+| H6 | `SDRAM_DQ8` | IO_L5P_T0_AD13P_35 |
+| H7 | `SDRAM_DQ4` | IO_L3P_T0_DQS_AD5P_35 |
+| H8 | `SDRAM_DQ2` | IO_L2P_T0_AD12P_35 |
+| H9 | `SDRAM_DQ10` | IO_L6P_T0_35 |
+| J4 | `SDRAM_LDQM` | IO_L9P_T1_DQS_AD7P_35 |
+| J5 | `SDRAM_DQ13` | IO_L7N_T1_AD6N_35 |
+| J6 | `SDRAM_DQ12` | IO_L7P_T1_AD6P_35 |
+| K6 | `SDRAM_CKE` | IO_L10N_T1_AD15N_35 |
+| K7 | `SDRAM_CLK` | IO_L10P_T1_AD15P_35 |
+| K8 | `SDRAM_DQ15` | IO_L8N_T1_AD14N_35 |
+| L8 | `SDRAM_DQ14` | IO_L8P_T1_AD14P_35 |
+| M24 | `SDRAM_A8` | IO_L10P_T1_D14_14 |
+| M25 | `SDRAM_A4` | IO_L10N_T1_D15_14 |
+| M26 | `SDRAM_A0` | IO_L20N_T3_A07_D23_14 |
+| N23 | `SDRAM_A12` | IO_L15P_T2_DQS_RDWR_B_14 |
+| N24 | `SDRAM_A9` | IO_L15N_T2_DQS_DOUT_CSO_B_14 |
+| N26 | `SDRAM_A1` | IO_L20P_T3_A08_D24_14 |
+| P23 | `SDRAM_BA0` | IO_L17P_T2_A14_D30_14 |
+| P24 | `SDRAM_A10` | IO_L17N_T2_A13_D29_14 |
+| P25 | `SDRAM_A5` | IO_L19N_T3_A09_D25_VREF_14 |
+| P26 | `SDRAM_A2` | IO_L22N_T3_A04_D20_14 |
+| R23 | `SDRAM_BA1` | IO_L24N_T3_A00_D16_14 |
+| R25 | `SDRAM_A6` | IO_L19P_T3_A10_D26_14 |
+| R26 | `SDRAM_A3` | IO_L22P_T3_A05_D21_14 |
+| T24 | `SDRAM_A11` | IO_L21P_T3_DQS_14 |
+| T25 | `SDRAM_A7` | IO_L21N_T3_DQS_A06_D22_14 |
+
+CLK is an output on a plain ball (no MRCC/SRCC), through 22 ohm; CS and CKE
+are plain I/O with no configuration function. The address balls are the
+block of columns 23-26, rows M-T, that the PSRAMs left.
+
+## MRAM — MR25H10CDF, bank 14 (populate option)
+
+| Ball | Net | Package name |
+|---|---|---|
+| K25 | `MRAM_CS` | IO_L7P_T1_D09_14 |
+| K26 | `MRAM_SCK` | IO_L7N_T1_D10_14 |
+| L24 | `MRAM_SI` | IO_L9P_T1_DQS_14 |
+| L25 | `MRAM_SO` | IO_L9N_T1_DQS_D13_14 |
+
+## microSD — SPI mode, bank 14
+
+| Ball | Net | Package name |
+|---|---|---|
+| L22 | `SD_CS` | IO_L11P_T1_SRCC_14 |
+| L23 | `SD_SCK` | IO_L11N_T1_SRCC_14 |
+| R22 | `SD_MISO` | IO_L23N_T3_A02_D18_14 |
+| T22 | `SD_MOSI` | IO_L23P_T3_A03_D19_14 |
+| T23 | `SD_CD` | IO_L24P_T3_A01_D17_14 |
+
+SD_CD is the socket's detect switch, read with the FPGA's pull-up.
 
 ## Supervisor sideband
 

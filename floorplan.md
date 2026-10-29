@@ -52,8 +52,13 @@ placement, not a measured contract.
 - Bank 34 balls (E-H) are on package columns 1-8, banks 15/13/14 on 14-26,
   so E-H own the left edge and A-D the right; the 5V buses (bank 13) and the
   supervisor sideband (bank 14) exit the bottom. No slot escape crosses the
-  die. Bank 13 is the top-right quadrant of U1 as mounted; both 5 V buses,
-  their DIR/OE and the two 3.3 V PHY pins live there.
+  die. Bank 13 is the top-right quadrant of U1 as mounted; it runs at 1.8 V
+  (`+1V8_IO`) and holds both 5 V buses with their DIR/OE and the four PSRAMs,
+  so the PSRAM islands belong on that side of U1. The two PHY control pins
+  moved to bank 35 (bottom-right corner, with HDMI and the SDRAM data bus);
+  the SDRAM's address bus leaves bank 14 (columns 23-26, rows M-T), so U32
+  wants the corner between banks 14 and 35. The MRAM and the microSD socket
+  take bank 14 balls in columns 22-26; the socket is an edge connector.
 - The BGA sits below centre to leave the network strip; the GTP corner is
   unused in rev A (powered, RX grounded).
 - USB-C keeps the top-right corner: VBUS parts, PD sink and the regulator

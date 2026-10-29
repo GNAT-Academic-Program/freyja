@@ -91,7 +91,7 @@ gives it four times the single-module current budget.
 **Framebuffer.** 320×240 RGB565 is 150 KB; the `XC7A100T` has enough internal
 block RAM for the framebuffer, so
 it fits but eats most of it. 480×272 is 261 KB and does not leave room for a
-NEORV32 with any cache. The 4× `APS1604M` PSRAM on the base board (8 MB) is
+NEORV32 with any cache. The 4× `APS6404L` PSRAM on the base board (32 MB) is
 what makes a comfortable framebuffer possible — so the LCD path should be
 designed as PSRAM framebuffer + line buffer in BRAM, not BRAM framebuffer.
 
