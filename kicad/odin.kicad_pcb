@@ -2077,7 +2077,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "04cac9cd-ad07-4c37-9757-9202eccdacc7")
-		(at 745.3 138.08 180)
+		(at 442.54 140.69 180)
 		(descr "100 1% resistor from MGTRREF to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 216 (UG482 Figure 5-1)")
 		(tags "resistor")
 		(property "Reference" "R35"
@@ -3053,7 +3053,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "071acbd9-e1ef-4b04-8e58-2b227015f97f")
-		(at 741.35 120.3 180)
+		(at 438.59 122.91 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C333"
@@ -3629,7 +3629,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "09ae50a1-20b9-43f8-975e-9dc8ec19dc04")
-		(at 751.39 109.72 90)
+		(at 448.63 112.33 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C380"
@@ -4946,7 +4946,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0fe4e0ae-aa22-4964-9342-77688ac38dcb")
-		(at 761.01 147.54 -90)
+		(at 458.25 150.15 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C370"
@@ -6176,11 +6176,11 @@
 	(footprint "Inductor_SMD:L_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "15c82c06-5a9d-4edf-9cd9-c4a4bd2c60e8")
-		(at 44.455 254.296231)
+		(at 439.99 111.76 90)
 		(descr "120R 2A BLM18PG121SN1D resettable fuse feeding +1V8_IO from +1V8")
 		(tags "inductor")
 		(property "Reference" "FB1"
-			(at 0 -1.43 0)
+			(at 0 -1.43 90)
 			(layer "F.Fab")
 			(uuid "6f1520d8-3792-48e9-8c48-dd80f3417fa3")
 			(effects
@@ -6191,7 +6191,7 @@
 			)
 		)
 		(property "Value" "120R 2A BLM18PG121SN1D"
-			(at 0 1.43 0)
+			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "b030c9e2-31ec-4bc6-a3a1-378e7fec7071")
 			(effects
@@ -6202,7 +6202,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0bd5cb26-a460-405b-8024-8f5c658a59a8")
@@ -6214,7 +6214,7 @@
 			)
 		)
 		(property "Description" "120R 2A BLM18PG121SN1D resettable fuse feeding +1V8_IO from +1V8"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "cfc6d6ab-f111-478c-a976-d825fdde90dc")
@@ -6226,7 +6226,7 @@
 			)
 		)
 		(property "LCSC Part" "C14709"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "510fc99a-9c8b-4739-bd6f-6ea7169d6008")
@@ -6281,7 +6281,7 @@
 			(uuid "f23d6187-796e-47de-a057-6b950fba9372")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "1745aee4-884b-4def-b232-3b2d2096835e")
 			(effects
@@ -6292,7 +6292,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.7875 0)
+			(at -0.7875 0 90)
 			(size 0.875 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -6300,7 +6300,7 @@
 			(uuid "cec2baa5-41bd-464f-9e77-84075fb39545")
 		)
 		(pad "2" smd roundrect
-			(at 0.7875 0)
+			(at 0.7875 0 90)
 			(size 0.875 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -6323,7 +6323,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "15d84117-04c0-4965-b09d-726e878a4456")
-		(at 758.57 108.93 90)
+		(at 455.81 111.54 90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C306"
@@ -9433,7 +9433,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "1e2a25af-fa74-432e-a97d-d344b7676b61")
-		(at 780.53 124.61)
+		(at 477.77 127.22)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C355"
@@ -9568,7 +9568,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "1e3f5987-adcf-4cb6-ad8f-16224b8d930a")
-		(at 780.31 122.55)
+		(at 477.55 125.16)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C324"
@@ -9703,7 +9703,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "1e4a83a9-e229-40b3-bef5-9b3732772a47")
-		(at 760.56 104.38 90)
+		(at 457.8 106.99 90)
 		(descr "100uF 2.5V FPGA decoupling on VCCBRAM (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C316"
@@ -10651,7 +10651,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "205f80fb-b862-4040-90da-0d6b2b2ea198")
-		(at 745.3 126.49 180)
+		(at 442.54 129.1 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C340"
@@ -11015,7 +11015,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "2146f0e8-d94d-492d-a0bf-70b983c42b53")
-		(at 764.11 104.38 90)
+		(at 461.35 106.99 90)
 		(descr "47uF 6.3V FPGA decoupling on VCCO_0 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C329"
@@ -12037,7 +12037,7 @@
 	(footprint "EasyEDA:IND-SMD_L2.5-W2.0-1"
 		(layer "F.Cu")
 		(uuid "21efb7e3-0de6-4742-b849-67eb7229fe19")
-		(at 776.48 137.78 180)
+		(at 473.72 140.39 180)
 		(descr "1uH VLS252010HBX-1R0M-1 inductor between +1V0 and +1V0_MGT")
 		(property "Reference" "L9"
 			(at 0 -4 180)
@@ -12210,7 +12210,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "21f74fb9-85fc-4b72-9f5b-3e9928a23ba2")
-		(at 785.08 127.18)
+		(at 482.32 129.79)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group VCCIO_2 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C369"
@@ -12492,7 +12492,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "22f229b2-8e8d-4b21-a38f-0875f3e31192")
-		(at 741.35 128.04 180)
+		(at 438.59 130.65 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C341"
@@ -12906,7 +12906,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "24fccb0b-919e-409c-aec5-3bae2833f691")
-		(at 760.76 144.38 -90)
+		(at 458 146.99 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C302"
@@ -15064,7 +15064,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "2c27569e-a24b-4f87-9ed7-c076677a3d53")
-		(at 780.53 118.18)
+		(at 477.77 120.79)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C354"
@@ -15616,7 +15616,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "2d697e53-27cb-4d2c-aafc-70473d0b8883")
-		(at 766.9 148.11 -90)
+		(at 464.14 150.72 -90)
 		(descr "4.7uF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C393"
@@ -16057,7 +16057,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "2e221051-16e5-481a-97c7-feeae0779363")
-		(at 766.44 144.16 -90)
+		(at 463.68 146.77 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C313"
@@ -16192,11 +16192,11 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "2e998307-1085-4943-9eaa-747f2a24b278")
-		(at 33.225 357.896231)
+		(at 438.16 111.54 90)
 		(descr "10uF bypass on +1V8_IO")
 		(tags "capacitor")
 		(property "Reference" "C261"
-			(at 0 -1.68 0)
+			(at 0 -1.68 90)
 			(layer "F.Fab")
 			(uuid "a7142666-9618-4cee-80fa-6d5af40d673a")
 			(effects
@@ -16207,7 +16207,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 0 1.68 0)
+			(at 0 1.68 90)
 			(layer "F.Fab")
 			(uuid "b47f4cd1-4c01-4b96-aabd-fc62ac56c2fc")
 			(effects
@@ -16218,7 +16218,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6fc1bcdb-ed16-426b-8f27-67f7c163842e")
@@ -16230,7 +16230,7 @@
 			)
 		)
 		(property "Description" "10uF bypass on +1V8_IO"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4a610418-9856-45d8-b7a7-3f71469ad4e0")
@@ -16242,7 +16242,7 @@
 			)
 		)
 		(property "LCSC Part" "C15850"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "2061e7bd-1e4d-4d41-8ea8-bf2600c3bc39")
@@ -16297,7 +16297,7 @@
 			(uuid "0fcca86b-2f8a-49f2-992b-97ac9f4565a1")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "4a5e268d-95cd-43fb-802e-1ff4e899c98c")
 			(effects
@@ -16308,7 +16308,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.95 0)
+			(at -0.95 0 90)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -16316,7 +16316,7 @@
 			(uuid "b72da67d-074d-486e-812e-7e1e62d81503")
 		)
 		(pad "2" smd roundrect
-			(at 0.95 0)
+			(at 0.95 0 90)
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -16963,7 +16963,7 @@
 	(footprint "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D"
 		(layer "F.Cu")
 		(uuid "3356b334-d9c2-4b33-9b47-886a622dcc1d")
-		(at 763.31 154.99 -90)
+		(at 460.55 157.6 -90)
 		(descr "330uF 2.5V T520V337M2R5ATE025 FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor tantalum")
 		(property "Reference" "C301"
@@ -17147,7 +17147,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3412c846-bba5-4eca-90dd-0be8f70ac60e")
-		(at 762.82 144.16 -90)
+		(at 460.06 146.77 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C311"
@@ -17576,7 +17576,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "34b6adee-9074-44d7-8124-ce4c8d67a376")
-		(at 745.08 132.17 180)
+		(at 442.32 134.78 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C343"
@@ -19073,7 +19073,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "3b67ed1f-6c5f-4b73-a68c-61b6f33136e2")
-		(at 763.42 108.93 90)
+		(at 460.66 111.54 90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C305"
@@ -19333,7 +19333,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3c2aa4c2-412b-439d-a512-a0a21af8952d")
-		(at 769.98 148.11 -90)
+		(at 467.22 150.72 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C362"
@@ -19468,7 +19468,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3cee7071-9f83-43dc-b9c7-c72c02a78764")
-		(at 748.06 140.21 -90)
+		(at 445.3 142.82 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C350"
@@ -20140,7 +20140,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "3e1e47b6-7d8b-4538-9974-302218698eb7")
-		(at 780.53 120.49)
+		(at 477.77 123.1)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C307"
@@ -23928,7 +23928,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "481ff5fe-ec41-4a47-8498-a418604e3c44")
-		(at 747.33 109.7 90)
+		(at 444.57 112.31 90)
 		(descr "1k pull-down on PUDC_B, for U1 (FPGA): PUDC_B low: I/O pull-ups on during configuration (UG470)")
 		(tags "resistor")
 		(property "Reference" "R6"
@@ -24369,7 +24369,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "49d343ac-b534-462a-b0e5-aa1de72e0ffc")
-		(at 752.93 109.15 90)
+		(at 450.17 111.76 90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCBRAM (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C317"
@@ -24504,7 +24504,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "4ab1f4e6-0fba-44ea-b76e-6d1f1675c6a4")
-		(at 776.36 129.33)
+		(at 473.6 131.94)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C359"
@@ -24639,7 +24639,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "4abd44a1-675a-4938-bfea-9e49af652c3b")
-		(at 745.85 112.93)
+		(at 443.09 115.54)
 		(descr "33 series resistor between CFG_PROG_B and SUP_PROG_B, for U7 (board controller): keeps PROGRAM_B released; pulling it low restarts configuration; board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R18"
@@ -24786,7 +24786,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "4addca45-7279-4fa6-a663-2acfcfffaeb3")
-		(at 749.87 140.21 -90)
+		(at 447.11 142.82 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C353"
@@ -25068,7 +25068,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "4c2a9f80-a0fb-48f7-9f56-2dc64fc7a039")
-		(at 764.63 144.16 -90)
+		(at 461.87 146.77 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C315"
@@ -26018,7 +26018,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "4e9def6e-8be1-445c-8d87-4415183d0a2f")
-		(at 775.81 117.49)
+		(at 473.05 120.1)
 		(descr "1k pull-down on CFG_M1, for U1 (FPGA): mode pin M1 = 0: master SPI boot (UG470 Table 2-4)")
 		(tags "resistor")
 		(property "Reference" "R2"
@@ -26312,7 +26312,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "4f56d0f8-ee03-41ec-91b8-349da2d0d3a9")
-		(at 758.7 144.16 -90)
+		(at 455.94 146.77 -90)
 		(descr "4.7uF bypass on +1V0_MGT")
 		(tags "capacitor")
 		(property "Reference" "C224"
@@ -27907,7 +27907,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "520198a8-5889-4d71-8a75-5db4f2a53daa")
-		(at 751.93 140.43 -90)
+		(at 449.17 143.04 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C349"
@@ -29473,7 +29473,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "554e646c-056e-49f6-9c57-8ca663c2a813")
-		(at 755.89 143.59 -90)
+		(at 453.13 146.2 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C377"
@@ -30639,7 +30639,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "5c0d98b6-d13b-4485-b77b-5f30916effd8")
-		(at 763.82 148.11 -90)
+		(at 461.06 150.72 -90)
 		(descr "4.7uF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C392"
@@ -30786,7 +30786,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "5c96ac90-ca7f-4c4a-8327-0536fdc2ca51")
-		(at 757.86 140.43 -90)
+		(at 455.1 143.04 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C348"
@@ -31828,7 +31828,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "6029d3ad-5546-427e-9c06-2ea48cd00f22")
-		(at 741.35 118.49 180)
+		(at 438.59 121.1 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C334"
@@ -32299,7 +32299,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "624a8ce8-f8a1-44d8-8a37-c1306d5555c6")
-		(at 773.35 144.38 -90)
+		(at 470.59 146.99 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C321"
@@ -32581,7 +32581,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "62e165f2-0952-4075-a702-3bfc43d600cb")
-		(at 754.62 143.59 -90)
+		(at 451.86 146.2 -90)
 		(descr "100nF FPGA decoupling on VCCADC (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C328"
@@ -32728,7 +32728,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "62e846a5-822e-4d7f-a1a1-40b478df5d3b")
-		(at 745.3 111.38 180)
+		(at 442.54 113.99 180)
 		(descr "100 1% resistor from MGTRREF_213 to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 213 (UG482 Table 5-5)")
 		(tags "resistor")
 		(property "Reference" "R89"
@@ -32863,7 +32863,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "634b0ffa-fa55-456f-be14-a05dc6e29598")
-		(at 745.3 124.68 180)
+		(at 442.54 127.29 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C345"
@@ -33517,7 +33517,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "64a17bb0-3533-4add-ad43-32a33f0d60c2")
-		(at 759.47 148.11 -90)
+		(at 456.71 150.72 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C327"
@@ -33652,7 +33652,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "64ae0955-b993-4591-bb15-3913c94d696d")
-		(at 776.58 131.39)
+		(at 473.82 134)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C360"
@@ -34548,7 +34548,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "688f4c47-1e02-4d74-8308-c6110abbeab7")
-		(at 748.58 109.15 90)
+		(at 445.82 111.76 90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C335"
@@ -34830,7 +34830,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "695be20f-14d1-4f19-a1f5-7e8356daf3bb")
-		(at 769.25 143.59 -90)
+		(at 466.49 146.2 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C389"
@@ -34977,7 +34977,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6c078e09-b28c-46ac-984b-2a8a1613c67e")
-		(at 768.44 147.54 -90)
+		(at 465.68 150.15 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C391"
@@ -35484,7 +35484,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6dd43b0c-a4f3-4d31-88cf-ed97a299ca37")
-		(at 775.81 116.18 180)
+		(at 473.05 118.79 180)
 		(descr "1k pull-up of CFG_M0 to +3V3, for U1 (FPGA): mode pin M0 = 1: master SPI boot (UG470 Table 2-4, at most 1 k)")
 		(tags "resistor")
 		(property "Reference" "R1"
@@ -35766,7 +35766,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "6eb16b06-6c97-47b6-a837-acd4cfb79a7f")
-		(at 771.04 144.38 -90)
+		(at 468.28 146.99 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C320"
@@ -35901,7 +35901,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6f0434ad-7f41-48c0-a4bf-8433af68f354")
-		(at 768.79 109.72 90)
+		(at 466.03 112.33 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C376"
@@ -38163,7 +38163,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "73817ee9-9104-4f1e-8eb1-262d5a02ed7c")
-		(at 760.36 109.72 90)
+		(at 457.6 112.33 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C375"
@@ -38419,7 +38419,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "7569b1f3-b8bd-4523-8397-6dbd46003433")
-		(at 741.13 116.43 180)
+		(at 438.37 119.04 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C331"
@@ -38554,7 +38554,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "7581d6e4-fd6f-452c-8945-4ede81fdf7df")
-		(at 776.58 133.7)
+		(at 473.82 136.31)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C361"
@@ -38689,7 +38689,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "7657c90f-6e7c-4308-98fb-c706c2559de4")
-		(at 761.63 109.72 90)
+		(at 458.87 112.33 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C382"
@@ -39392,7 +39392,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "77533b8d-f478-41d3-b8be-0b06fcc25f1b")
-		(at 756.26 108.93 90)
+		(at 453.5 111.54 90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C303"
@@ -39527,7 +39527,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "77cf29ae-f7dd-41df-9a38-ccc29eda8c1b")
-		(at 745.85 114.22)
+		(at 443.09 116.83)
 		(descr "4.7k pull-up of CFG_PROG_B to +3V3, for U1 (FPGA): keeps PROGRAM_B released; pulling it low restarts configuration")
 		(tags "resistor")
 		(property "Reference" "R4"
@@ -40115,7 +40115,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "791528e4-a814-4eca-8399-efae37d0bb47")
-		(at 771.79 148.11 -90)
+		(at 469.03 150.72 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C363"
@@ -40676,7 +40676,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "79e9fb9f-3e57-47dc-8396-d27ec7fea495")
-		(at 767.98 143.59 -90)
+		(at 465.22 146.2 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C379"
@@ -41048,7 +41048,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "7aa19e08-8690-4ee6-be0f-1b6d9af9952a")
-		(at 780.31 130.29)
+		(at 477.55 132.9)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C325"
@@ -42561,7 +42561,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "7bd60f88-99d3-4132-8008-83936fc5dafc")
-		(at 776.36 127.52)
+		(at 473.6 130.13)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C326"
@@ -43473,7 +43473,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "7e85edc7-0b92-4b87-b94a-8dbcb15332d9")
-		(at 762.73 139.64 -90)
+		(at 459.97 142.25 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C387"
@@ -43755,7 +43755,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "804c5330-4992-41aa-836e-67f56fa3950a")
-		(at 767.89 140.21 -90)
+		(at 465.13 142.82 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCBRAM (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C318"
@@ -44390,7 +44390,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "80e80438-29f5-4d9a-b3d2-88dab1c9ddb1")
-		(at 759.65 139.64 -90)
+		(at 456.89 142.25 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C386"
@@ -45044,7 +45044,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "83aed680-6770-4923-bb62-2040fd74be69")
-		(at 773.87 109.72 90)
+		(at 471.11 112.33 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C385"
@@ -45646,7 +45646,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "84333754-86f2-4b7d-855e-ffd24e8f459b")
-		(at 776.36 122.09)
+		(at 473.6 124.7)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C357"
@@ -45781,7 +45781,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "849402fc-a13a-41d4-a0c2-7eb69b647725")
-		(at 785.08 121.18)
+		(at 482.32 123.79)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group +3V3 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C366"
@@ -50160,7 +50160,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "907e1e19-5e9f-47f3-a977-5cfbff6f1b46")
-		(at 770.06 109.72 90)
+		(at 467.3 112.33 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C383"
@@ -50307,7 +50307,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "91370c66-2f36-4493-9716-2c513c0d3192")
-		(at 741.35 123.92 180)
+		(at 438.59 126.53 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C339"
@@ -51683,7 +51683,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "9674f081-c703-451a-95c4-68288ab62924")
-		(at 765.21 109.72 90)
+		(at 462.45 112.33 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C373"
@@ -53099,7 +53099,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "991c7adc-785d-47dd-8a0b-1df32a30293d")
-		(at 776.36 125.71)
+		(at 473.6 128.32)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C358"
@@ -53459,7 +53459,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9980298c-9a95-4493-b7c5-94dd92fd6328")
-		(at 780.31 128.48)
+		(at 477.55 131.09)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_34 (VCCIO_2), UG483")
 		(tags "capacitor")
 		(property "Reference" "C356"
@@ -53819,7 +53819,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "99c4b614-5dbb-46fd-8732-2c64c3b512a0")
-		(at 766.08 140.21 -90)
+		(at 463.32 142.82 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C314"
@@ -54248,7 +54248,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9ae711f2-0c2a-47b8-aaed-f57a541f3a2f")
-		(at 745.3 128.3 180)
+		(at 442.54 130.91 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C338"
@@ -56953,7 +56953,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "a4756486-9bc1-4009-9fed-c5150ffcc27f")
-		(at 767 108.93 90)
+		(at 464.24 111.54 90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C304"
@@ -57640,7 +57640,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "a5fffa0d-6094-469d-8c91-04794007e6fc")
-		(at 745.08 122.62 180)
+		(at 442.32 125.23 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C336"
@@ -60564,11 +60564,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "abf68181-9e9b-4a8e-8c9b-bfaf59216d1f")
-		(at 38.95 357.891231)
+		(at 436.65 112.33 90)
 		(descr "100nF bypass on +1V8_IO")
 		(tags "capacitor")
 		(property "Reference" "C262"
-			(at 0 -1.16 0)
+			(at 0 -1.16 90)
 			(layer "F.Fab")
 			(uuid "50274260-5665-4ecf-b939-beac4ba14fc4")
 			(effects
@@ -60579,7 +60579,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 90)
 			(layer "F.Fab")
 			(uuid "004cd4b1-1ab1-44a5-801a-6dd04c794fdf")
 			(effects
@@ -60590,7 +60590,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9e6ec5b3-1a2d-4222-845b-09a2ad1132b8")
@@ -60602,7 +60602,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +1V8_IO"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "00f21f65-c1b4-48dd-a597-321bbe99e82f")
@@ -60614,7 +60614,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "1f5b6472-3e4e-4e64-990b-6040820ae9bb")
@@ -60669,7 +60669,7 @@
 			(uuid "02c7d48c-d540-4c94-bda8-fb71a8237ee1")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "64515a61-0d67-4e81-87a8-23eedaa12fe0")
 			(effects
@@ -60680,7 +60680,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -60688,7 +60688,7 @@
 			(uuid "e09be16a-ef55-442a-85e7-62292b058b6c")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 90)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -61255,7 +61255,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "afe908c3-5431-41c5-9ec0-dd558f8a135c")
-		(at 755.8 140.21 -90)
+		(at 453.04 142.82 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C346"
@@ -62056,7 +62056,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "b16891c8-33b5-4696-a61f-6e0422e779c8")
-		(at 758.95 152.88 -90)
+		(at 456.19 155.49 -90)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group VCCIO_1 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C367"
@@ -62610,7 +62610,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "b34be4e4-9c3d-4990-8c34-d3d91846d407")
-		(at 755.41 152.88 -90)
+		(at 452.65 155.49 -90)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group +2V5 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C368"
@@ -65022,7 +65022,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "b6eeab18-c4ff-49c8-bdce-25d122f1f32b")
-		(at 776.36 135.76)
+		(at 473.6 138.37)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C364"
@@ -66308,11 +66308,11 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "bb6d363f-0b1f-4ee1-be47-fe4bee605f8d")
-		(at 33.005 263.806231)
+		(at 433.82 124.79 180)
 		(descr "47uF 6.3V FPGA decoupling on VCCO group +1V8_IO (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C394"
-			(at 0 -2.3 0)
+			(at 0 -2.3 180)
 			(layer "F.Fab")
 			(uuid "0e015bde-b797-4176-97da-ff5df92e4cb9")
 			(effects
@@ -66323,7 +66323,7 @@
 			)
 		)
 		(property "Value" "47uF 6.3V"
-			(at 0 2.3 0)
+			(at 0 2.3 180)
 			(layer "F.Fab")
 			(uuid "c37a1410-bab9-46f4-846e-fda168695c01")
 			(effects
@@ -66334,7 +66334,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "583497a3-688a-4be8-a2b1-5d02ac24ef7d")
@@ -66346,7 +66346,7 @@
 			)
 		)
 		(property "Description" "47uF 6.3V FPGA decoupling on VCCO group +1V8_IO (+1V8_IO), UG483"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "65a0f1a8-efba-47de-b470-d1e7d3f91595")
@@ -66401,7 +66401,7 @@
 			(uuid "8ddc6589-e5cb-46c1-be15-1ba1f79fae91")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "522f2a4e-ffeb-4c1a-95cd-fbb6410658c0")
 			(effects
@@ -66412,7 +66412,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -1.475 0)
+			(at -1.475 0 180)
 			(size 1.15 2.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.217391)
@@ -66420,7 +66420,7 @@
 			(uuid "770b37b4-52c6-4556-a7ed-48b5a89510cd")
 		)
 		(pad "2" smd roundrect
-			(at 1.475 0)
+			(at 1.475 0 180)
 			(size 1.15 2.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.217391)
@@ -66443,7 +66443,7 @@
 	(footprint "EasyEDA:FBGA-676_L27.0-W27.0-R26-C26-P1.00-BL"
 		(layer "F.Cu")
 		(uuid "bb86f875-3b4d-467b-a60b-fe3d34a6d6bc")
-		(at 760.83 124.68 90)
+		(at 458.07 127.29 90)
 		(descr "FPGA: Xilinx/AMD Artix-7 XC7A100T-2FGG676I: 101k logic cells, 4.9 Mb block RAM, 240 DSP slices. Runs whatever design you load; configures itself from U6 at power-on or is loaded by the board controller over JTAG.")
 		(property "Reference" "U1"
 			(at 0 -16.5 90)
@@ -79391,7 +79391,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "bdee2b8b-cf58-48b1-a002-526f1a18602b")
-		(at 741.13 125.98 180)
+		(at 438.37 128.59 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_14 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C337"
@@ -80324,7 +80324,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "be86622c-d437-42e2-91c9-f2deb9fe2ddd")
-		(at 757.16 143.59 -90)
+		(at 454.4 146.2 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C388"
@@ -82037,7 +82037,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "c2a1532d-33e4-4928-8c60-80b4fc5d44f7")
-		(at 780.31 126.67)
+		(at 477.55 129.28)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C308"
@@ -83162,7 +83162,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c4de003a-447b-4eb2-acfb-5f0377d73e48")
-		(at 775.81 120.07 180)
+		(at 473.05 122.68 180)
 		(descr "33 series resistor between CFG_INIT_B and SUP_INIT_B, for U7 (board controller): keeps INIT_B released; it goes low on a configuration error; board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R19"
@@ -83309,7 +83309,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "c501b568-6cf0-4ece-ac42-5cab11a6ce0a")
-		(at 773.6 148.11 -90)
+		(at 470.84 150.72 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483")
 		(tags "capacitor")
 		(property "Reference" "C365"
@@ -83927,7 +83927,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c6a12406-7c9c-4eff-a705-1cd2dec95de7")
-		(at 754.47 109.72 90)
+		(at 451.71 112.33 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C372"
@@ -85177,7 +85177,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ca45699e-6867-441c-ba39-79a27fe2b670")
-		(at 775.81 118.78)
+		(at 473.05 121.39)
 		(descr "1k pull-down on CFG_M2, for U1 (FPGA): mode pin M2 = 0: master SPI boot (UG470 Table 2-4)")
 		(tags "resistor")
 		(property "Reference" "R3"
@@ -85765,7 +85765,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "cc1e4f7d-a90d-410e-b090-de8a2501adea")
-		(at 765.36 147.54 -90)
+		(at 462.6 150.15 -90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C390"
@@ -85912,7 +85912,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "cc1fead1-613b-4152-a821-04a19c08acb0")
-		(at 757.41 148.33 -90)
+		(at 454.65 150.94 -90)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C322"
@@ -86047,7 +86047,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "cc8932b5-340a-4873-8c2d-930ef7a7506d")
-		(at 764.27 140.21 -90)
+		(at 461.51 142.82 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C310"
@@ -89041,7 +89041,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "d8b7c990-93f4-45da-ba47-2dccfec99be5")
-		(at 772.6 109.72 90)
+		(at 469.84 112.33 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C384"
@@ -90239,7 +90239,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "da9a90aa-b393-419a-a8ec-451007ffa758")
-		(at 750.12 109.72 90)
+		(at 447.36 112.33 90)
 		(descr "100nF FPGA decoupling on +1V2_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C381"
@@ -90386,7 +90386,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "dac8e362-52d0-4307-b798-92e85ee73b7e")
-		(at 753.99 140.21 -90)
+		(at 451.23 142.82 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C352"
@@ -90521,7 +90521,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "dae139aa-c9c3-4d4b-91ed-7c62141f5095")
-		(at 776.36 123.9)
+		(at 473.6 126.51)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C309"
@@ -91151,7 +91151,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "de54f72a-d699-4a4e-8799-ff96a3071713")
-		(at 745.3 136.54 180)
+		(at 442.54 139.15 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_16 (+2V5), UG483")
 		(tags "capacitor")
 		(property "Reference" "C351"
@@ -91753,7 +91753,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "e04a5d33-aaa4-43d1-8300-b87695ebb013")
-		(at 741.13 114.12 180)
+		(at 438.37 116.73 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C330"
@@ -91888,7 +91888,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e1159389-f264-43fd-b35b-089dee693a15")
-		(at 745.3 130.11 180)
+		(at 442.54 132.72 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C344"
@@ -92023,7 +92023,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e12e8611-4a86-4033-b615-587cb2f14888")
-		(at 753.08 144.16 -90)
+		(at 450.32 146.77 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483")
 		(tags "capacitor")
 		(property "Reference" "C312"
@@ -93386,7 +93386,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "e843ff62-fea6-4044-b6e2-52c306f8c190")
-		(at 771.33 109.72 90)
+		(at 468.57 112.33 90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C374"
@@ -94962,7 +94962,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ed01c575-0482-4832-b11b-68decbaf2595")
-		(at 762.28 147.54 -90)
+		(at 459.52 150.15 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C371"
@@ -95526,7 +95526,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "eea6672f-da3a-4f75-81fd-3f42e0d76f1a")
-		(at 741.35 122.11 180)
+		(at 438.59 124.72 180)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_13 (+1V8_IO), UG483")
 		(tags "capacitor")
 		(property "Reference" "C332"
@@ -96237,7 +96237,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f0df188d-432f-43dc-bd94-18f50bf768f3")
-		(at 769.43 139.64 -90)
+		(at 466.67 142.25 -90)
 		(descr "100nF FPGA decoupling on +1V0_MGT, UG483")
 		(tags "capacitor")
 		(property "Reference" "C378"
@@ -96384,7 +96384,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f1500be5-2039-403f-8e03-7e57925e7208")
-		(at 761.19 140.21 -90)
+		(at 458.43 142.82 -90)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C347"
@@ -96519,7 +96519,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "f187d725-3940-43ab-949b-5877261c3cac")
-		(at 767.65 152.88 -90)
+		(at 464.89 155.49 -90)
 		(descr "47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C319"
@@ -96654,7 +96654,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "f235ea07-7821-4b12-9e11-fa2dee2e4d1e")
-		(at 745.08 134.48 180)
+		(at 442.32 137.09 180)
 		(descr "4.7uF 6.3V FPGA decoupling on VCCO_15 (VCCIO_1), UG483")
 		(tags "capacitor")
 		(property "Reference" "C342"
@@ -98924,7 +98924,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "fd6e262a-f1ee-4faf-9482-9e7a6008e3bd")
-		(at 780.31 116.12)
+		(at 477.55 118.73)
 		(descr "0.47uF 6.3V FPGA decoupling on VCCAUX (+1V8), UG483")
 		(tags "capacitor")
 		(property "Reference" "C323"
@@ -99808,7 +99808,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ffbc98af-6aea-4fb6-a1bf-3a6a335fc817")
-		(at 775.81 115.06 180)
+		(at 473.05 117.67 180)
 		(descr "4.7k pull-up of CFG_INIT_B to +3V3, for U1 (FPGA): keeps INIT_B released; it goes low on a configuration error")
 		(tags "resistor")
 		(property "Reference" "R5"
@@ -100501,28 +100501,6 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "e8c33988-8302-443d-95ff-5917a1f28a0e")
-	)
-	(gr_rect
-		(start 731.09 90.265)
-		(end 788.905 94.425)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "718c84f9-4118-45ce-85ef-776611a1979c")
-	)
-	(gr_rect
-		(start 731.09 94.425)
-		(end 788.905 160.925)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "62a470fc-3749-483a-8689-021949765cbb")
 	)
 	(gr_rect
 		(start 739.695 163.665)
@@ -101619,18 +101597,6 @@
 			(justify left top)
 		)
 	)
-	(gr_text "FPGA\ngeneric, 106 parts, 2026-10-28 + X4"
-		(at 731.49 92.165 0)
-		(layer "Cmts.User")
-		(uuid "f0197a1d-ed41-494c-975f-1be78ea9ee50")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
 	(gr_text "gigabit Ethernet PHY\ngeneric, 27 parts,\n2026-10-28 + X3"
 		(at 740.095 165.565 0)
 		(layer "Cmts.User")
@@ -102447,18 +102413,6 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island U1"
-		(at 731.49 91.865 0)
-		(layer "Cmts.User")
-		(uuid "b5caba8c-9917-4a7d-b712-782afa782c84")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
 	(gr_text "island U30"
 		(at 740.095 165.265 0)
 		(layer "Cmts.User")
@@ -103256,67 +103210,6 @@
 			"f1453ef2-d80d-478f-bb07-a4397c382e21"
 		)
 	)
-	(group "island U1"
-		(uuid "d04e40b6-621d-42d3-8ff5-f62ffb481baa")
-		(members "04cac9cd-ad07-4c37-9757-9202eccdacc7" "071acbd9-e1ef-4b04-8e58-2b227015f97f"
-			"09ae50a1-20b9-43f8-975e-9dc8ec19dc04" "0fe4e0ae-aa22-4964-9342-77688ac38dcb"
-			"15d84117-04c0-4965-b09d-726e878a4456" "1e2a25af-fa74-432e-a97d-d344b7676b61"
-			"1e3f5987-adcf-4cb6-ad8f-16224b8d930a" "1e4a83a9-e229-40b3-bef5-9b3732772a47"
-			"205f80fb-b862-4040-90da-0d6b2b2ea198" "2146f0e8-d94d-492d-a0bf-70b983c42b53"
-			"21efb7e3-0de6-4742-b849-67eb7229fe19" "21f74fb9-85fc-4b72-9f5b-3e9928a23ba2"
-			"22f229b2-8e8d-4b21-a38f-0875f3e31192" "24fccb0b-919e-409c-aec5-3bae2833f691"
-			"2c27569e-a24b-4f87-9ed7-c076677a3d53" "2d697e53-27cb-4d2c-aafc-70473d0b8883"
-			"2e221051-16e5-481a-97c7-feeae0779363" "3356b334-d9c2-4b33-9b47-886a622dcc1d"
-			"3412c846-bba5-4eca-90dd-0be8f70ac60e" "34b6adee-9074-44d7-8124-ce4c8d67a376"
-			"3b67ed1f-6c5f-4b73-a68c-61b6f33136e2" "3c2aa4c2-412b-439d-a512-a0a21af8952d"
-			"3cee7071-9f83-43dc-b9c7-c72c02a78764" "3e1e47b6-7d8b-4538-9974-302218698eb7"
-			"481ff5fe-ec41-4a47-8498-a418604e3c44" "49d343ac-b534-462a-b0e5-aa1de72e0ffc"
-			"4ab1f4e6-0fba-44ea-b76e-6d1f1675c6a4" "4abd44a1-675a-4938-bfea-9e49af652c3b"
-			"4addca45-7279-4fa6-a663-2acfcfffaeb3" "4c2a9f80-a0fb-48f7-9f56-2dc64fc7a039"
-			"4e9def6e-8be1-445c-8d87-4415183d0a2f" "4f56d0f8-ee03-41ec-91b8-349da2d0d3a9"
-			"520198a8-5889-4d71-8a75-5db4f2a53daa" "554e646c-056e-49f6-9c57-8ca663c2a813"
-			"5c0d98b6-d13b-4485-b77b-5f30916effd8" "5c96ac90-ca7f-4c4a-8327-0536fdc2ca51"
-			"6029d3ad-5546-427e-9c06-2ea48cd00f22" "624a8ce8-f8a1-44d8-8a37-c1306d5555c6"
-			"62a470fc-3749-483a-8689-021949765cbb" "62e165f2-0952-4075-a702-3bfc43d600cb"
-			"62e846a5-822e-4d7f-a1a1-40b478df5d3b" "634b0ffa-fa55-456f-be14-a05dc6e29598"
-			"64a17bb0-3533-4add-ad43-32a33f0d60c2" "64ae0955-b993-4591-bb15-3913c94d696d"
-			"688f4c47-1e02-4d74-8308-c6110abbeab7" "695be20f-14d1-4f19-a1f5-7e8356daf3bb"
-			"6c078e09-b28c-46ac-984b-2a8a1613c67e" "6dd43b0c-a4f3-4d31-88cf-ed97a299ca37"
-			"6eb16b06-6c97-47b6-a837-acd4cfb79a7f" "6f0434ad-7f41-48c0-a4bf-8433af68f354"
-			"718c84f9-4118-45ce-85ef-776611a1979c" "73817ee9-9104-4f1e-8eb1-262d5a02ed7c"
-			"7569b1f3-b8bd-4523-8397-6dbd46003433" "7581d6e4-fd6f-452c-8945-4ede81fdf7df"
-			"7657c90f-6e7c-4308-98fb-c706c2559de4" "77533b8d-f478-41d3-b8be-0b06fcc25f1b"
-			"77cf29ae-f7dd-41df-9a38-ccc29eda8c1b" "791528e4-a814-4eca-8399-efae37d0bb47"
-			"79e9fb9f-3e57-47dc-8396-d27ec7fea495" "7aa19e08-8690-4ee6-be0f-1b6d9af9952a"
-			"7bd60f88-99d3-4132-8008-83936fc5dafc" "7e85edc7-0b92-4b87-b94a-8dbcb15332d9"
-			"804c5330-4992-41aa-836e-67f56fa3950a" "80e80438-29f5-4d9a-b3d2-88dab1c9ddb1"
-			"83aed680-6770-4923-bb62-2040fd74be69" "84333754-86f2-4b7d-855e-ffd24e8f459b"
-			"849402fc-a13a-41d4-a0c2-7eb69b647725" "907e1e19-5e9f-47f3-a977-5cfbff6f1b46"
-			"91370c66-2f36-4493-9716-2c513c0d3192" "9674f081-c703-451a-95c4-68288ab62924"
-			"991c7adc-785d-47dd-8a0b-1df32a30293d" "9980298c-9a95-4493-b7c5-94dd92fd6328"
-			"99c4b614-5dbb-46fd-8732-2c64c3b512a0" "9ae711f2-0c2a-47b8-aaed-f57a541f3a2f"
-			"a4756486-9bc1-4009-9fed-c5150ffcc27f" "a5fffa0d-6094-469d-8c91-04794007e6fc"
-			"ad448fda-3d34-45e0-a718-e09641dcf0d4" "afe908c3-5431-41c5-9ec0-dd558f8a135c"
-			"b16891c8-33b5-4696-a61f-6e0422e779c8" "b34be4e4-9c3d-4990-8c34-d3d91846d407"
-			"b5caba8c-9917-4a7d-b712-782afa782c84" "b6eeab18-c4ff-49c8-bdce-25d122f1f32b"
-			"bb86f875-3b4d-467b-a60b-fe3d34a6d6bc" "bdee2b8b-cf58-48b1-a002-526f1a18602b"
-			"be86622c-d437-42e2-91c9-f2deb9fe2ddd" "c2a1532d-33e4-4928-8c60-80b4fc5d44f7"
-			"c4de003a-447b-4eb2-acfb-5f0377d73e48" "c501b568-6cf0-4ece-ac42-5cab11a6ce0a"
-			"c6a12406-7c9c-4eff-a705-1cd2dec95de7" "c8d7eaac-f24d-481a-91d8-0262658eb1e8"
-			"ca45699e-6867-441c-ba39-79a27fe2b670" "cc1e4f7d-a90d-410e-b090-de8a2501adea"
-			"cc1fead1-613b-4152-a821-04a19c08acb0" "cc8932b5-340a-4873-8c2d-930ef7a7506d"
-			"cc8a2d6f-f275-41f5-9c08-b7313967aa4d" "d8b7c990-93f4-45da-ba47-2dccfec99be5"
-			"da9a90aa-b393-419a-a8ec-451007ffa758" "dac8e362-52d0-4307-b798-92e85ee73b7e"
-			"dae139aa-c9c3-4d4b-91ed-7c62141f5095" "de54f72a-d699-4a4e-8799-ff96a3071713"
-			"e04a5d33-aaa4-43d1-8300-b87695ebb013" "e1159389-f264-43fd-b35b-089dee693a15"
-			"e12e8611-4a86-4033-b615-587cb2f14888" "e843ff62-fea6-4044-b6e2-52c306f8c190"
-			"ed01c575-0482-4832-b11b-68decbaf2595" "eea6672f-da3a-4f75-81fd-3f42e0d76f1a"
-			"f0197a1d-ed41-494c-975f-1be78ea9ee50" "f0df188d-432f-43dc-bd94-18f50bf768f3"
-			"f1500be5-2039-403f-8e03-7e57925e7208" "f187d725-3940-43ab-949b-5877261c3cac"
-			"f235ea07-7821-4b12-9e11-fa2dee2e4d1e" "fd6e262a-f1ee-4faf-9482-9e7a6008e3bd"
-			"ffbc98af-6aea-4fb6-a1bf-3a6a335fc817"
-		)
-	)
 	(group "island D1"
 		(uuid "d1bc70e7-2c29-4c91-a846-0d728aab0dbf")
 		(members "1498025a-5c57-40e2-b48d-d01fd7036b42" "1a14ca99-2c61-49ec-b33f-d269522cfe93"
@@ -103426,4 +103319,169 @@
 		)
 	)
 	(embedded_fonts no)
+	(gr_rect
+		(start 429.995 103.165)
+		(end 486.145 163.535)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "3c2ece28-bc65-4390-99c9-f813685c57bc")
+	)
+	(gr_rect
+		(start 429.995 99.005)
+		(end 486.145 103.165)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "2b4c283a-8fec-470b-919a-782a5e65087a")
+	)
+	(gr_text "island U1"
+		(at 430.395 100.605 0)
+		(layer "Cmts.User")
+		(uuid "7203f4e8-5c69-4c03-b65e-f7e97730a24f")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "FPGA\ngeneric, 110 parts, 2026-10-29"
+		(at 430.395 100.905 0)
+		(layer "Cmts.User")
+		(uuid "f74c293b-50f0-4090-b93d-1455ec8e232f")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U1"
+		(uuid "6bff1362-4c4b-441c-a5e1-841493657f86")
+		(members
+			"3c2ece28-bc65-4390-99c9-f813685c57bc"
+			"2b4c283a-8fec-470b-919a-782a5e65087a"
+			"7203f4e8-5c69-4c03-b65e-f7e97730a24f"
+			"f74c293b-50f0-4090-b93d-1455ec8e232f"
+			"bb86f875-3b4d-467b-a60b-fe3d34a6d6bc"
+			"4f56d0f8-ee03-41ec-91b8-349da2d0d3a9"
+			"2e998307-1085-4943-9eaa-747f2a24b278"
+			"abf68181-9e9b-4a8e-8c9b-bfaf59216d1f"
+			"3356b334-d9c2-4b33-9b47-886a622dcc1d"
+			"24fccb0b-919e-409c-aec5-3bae2833f691"
+			"77533b8d-f478-41d3-b8be-0b06fcc25f1b"
+			"a4756486-9bc1-4009-9fed-c5150ffcc27f"
+			"3b67ed1f-6c5f-4b73-a68c-61b6f33136e2"
+			"15d84117-04c0-4965-b09d-726e878a4456"
+			"3e1e47b6-7d8b-4538-9974-302218698eb7"
+			"c2a1532d-33e4-4928-8c60-80b4fc5d44f7"
+			"dae139aa-c9c3-4d4b-91ed-7c62141f5095"
+			"cc8932b5-340a-4873-8c2d-930ef7a7506d"
+			"3412c846-bba5-4eca-90dd-0be8f70ac60e"
+			"e12e8611-4a86-4033-b615-587cb2f14888"
+			"2e221051-16e5-481a-97c7-feeae0779363"
+			"99c4b614-5dbb-46fd-8732-2c64c3b512a0"
+			"4c2a9f80-a0fb-48f7-9f56-2dc64fc7a039"
+			"1e4a83a9-e229-40b3-bef5-9b3732772a47"
+			"49d343ac-b534-462a-b0e5-aa1de72e0ffc"
+			"804c5330-4992-41aa-836e-67f56fa3950a"
+			"f187d725-3940-43ab-949b-5877261c3cac"
+			"6eb16b06-6c97-47b6-a837-acd4cfb79a7f"
+			"624a8ce8-f8a1-44d8-8a37-c1306d5555c6"
+			"cc1fead1-613b-4152-a821-04a19c08acb0"
+			"fd6e262a-f1ee-4faf-9482-9e7a6008e3bd"
+			"1e3f5987-adcf-4cb6-ad8f-16224b8d930a"
+			"7aa19e08-8690-4ee6-be0f-1b6d9af9952a"
+			"7bd60f88-99d3-4132-8008-83936fc5dafc"
+			"64a17bb0-3533-4add-ad43-32a33f0d60c2"
+			"62e165f2-0952-4075-a702-3bfc43d600cb"
+			"2146f0e8-d94d-492d-a0bf-70b983c42b53"
+			"e04a5d33-aaa4-43d1-8300-b87695ebb013"
+			"7569b1f3-b8bd-4523-8397-6dbd46003433"
+			"eea6672f-da3a-4f75-81fd-3f42e0d76f1a"
+			"071acbd9-e1ef-4b04-8e58-2b227015f97f"
+			"6029d3ad-5546-427e-9c06-2ea48cd00f22"
+			"688f4c47-1e02-4d74-8308-c6110abbeab7"
+			"a5fffa0d-6094-469d-8c91-04794007e6fc"
+			"bdee2b8b-cf58-48b1-a002-526f1a18602b"
+			"9ae711f2-0c2a-47b8-aaed-f57a541f3a2f"
+			"91370c66-2f36-4493-9716-2c513c0d3192"
+			"205f80fb-b862-4040-90da-0d6b2b2ea198"
+			"22f229b2-8e8d-4b21-a38f-0875f3e31192"
+			"f235ea07-7821-4b12-9e11-fa2dee2e4d1e"
+			"34b6adee-9074-44d7-8124-ce4c8d67a376"
+			"e1159389-f264-43fd-b35b-089dee693a15"
+			"634b0ffa-fa55-456f-be14-a05dc6e29598"
+			"afe908c3-5431-41c5-9ec0-dd558f8a135c"
+			"f1500be5-2039-403f-8e03-7e57925e7208"
+			"5c96ac90-ca7f-4c4a-8327-0536fdc2ca51"
+			"520198a8-5889-4d71-8a75-5db4f2a53daa"
+			"3cee7071-9f83-43dc-b9c7-c72c02a78764"
+			"de54f72a-d699-4a4e-8799-ff96a3071713"
+			"dac8e362-52d0-4307-b798-92e85ee73b7e"
+			"4addca45-7279-4fa6-a663-2acfcfffaeb3"
+			"2c27569e-a24b-4f87-9ed7-c076677a3d53"
+			"1e2a25af-fa74-432e-a97d-d344b7676b61"
+			"9980298c-9a95-4493-b7c5-94dd92fd6328"
+			"84333754-86f2-4b7d-855e-ffd24e8f459b"
+			"991c7adc-785d-47dd-8a0b-1df32a30293d"
+			"4ab1f4e6-0fba-44ea-b76e-6d1f1675c6a4"
+			"64ae0955-b993-4591-bb15-3913c94d696d"
+			"7581d6e4-fd6f-452c-8945-4ede81fdf7df"
+			"3c2aa4c2-412b-439d-a512-a0a21af8952d"
+			"791528e4-a814-4eca-8399-efae37d0bb47"
+			"b6eeab18-c4ff-49c8-bdce-25d122f1f32b"
+			"c501b568-6cf0-4ece-ac42-5cab11a6ce0a"
+			"849402fc-a13a-41d4-a0c2-7eb69b647725"
+			"b16891c8-33b5-4696-a61f-6e0422e779c8"
+			"b34be4e4-9c3d-4990-8c34-d3d91846d407"
+			"21f74fb9-85fc-4b72-9f5b-3e9928a23ba2"
+			"0fe4e0ae-aa22-4964-9342-77688ac38dcb"
+			"ed01c575-0482-4832-b11b-68decbaf2595"
+			"c6a12406-7c9c-4eff-a705-1cd2dec95de7"
+			"9674f081-c703-451a-95c4-68288ab62924"
+			"e843ff62-fea6-4044-b6e2-52c306f8c190"
+			"73817ee9-9104-4f1e-8eb1-262d5a02ed7c"
+			"6f0434ad-7f41-48c0-a4bf-8433af68f354"
+			"554e646c-056e-49f6-9c57-8ca663c2a813"
+			"f0df188d-432f-43dc-bd94-18f50bf768f3"
+			"79e9fb9f-3e57-47dc-8396-d27ec7fea495"
+			"09ae50a1-20b9-43f8-975e-9dc8ec19dc04"
+			"da9a90aa-b393-419a-a8ec-451007ffa758"
+			"7657c90f-6e7c-4308-98fb-c706c2559de4"
+			"907e1e19-5e9f-47f3-a977-5cfbff6f1b46"
+			"d8b7c990-93f4-45da-ba47-2dccfec99be5"
+			"83aed680-6770-4923-bb62-2040fd74be69"
+			"80e80438-29f5-4d9a-b3d2-88dab1c9ddb1"
+			"7e85edc7-0b92-4b87-b94a-8dbcb15332d9"
+			"be86622c-d437-42e2-91c9-f2deb9fe2ddd"
+			"695be20f-14d1-4f19-a1f5-7e8356daf3bb"
+			"cc1e4f7d-a90d-410e-b090-de8a2501adea"
+			"6c078e09-b28c-46ac-984b-2a8a1613c67e"
+			"5c0d98b6-d13b-4485-b77b-5f30916effd8"
+			"2d697e53-27cb-4d2c-aafc-70473d0b8883"
+			"bb6d363f-0b1f-4ee1-be47-fe4bee605f8d"
+			"15c82c06-5a9d-4edf-9cd9-c4a4bd2c60e8"
+			"21efb7e3-0de6-4742-b849-67eb7229fe19"
+			"6dd43b0c-a4f3-4d31-88cf-ed97a299ca37"
+			"4e9def6e-8be1-445c-8d87-4415183d0a2f"
+			"ca45699e-6867-441c-ba39-79a27fe2b670"
+			"77cf29ae-f7dd-41df-9a38-ccc29eda8c1b"
+			"ffbc98af-6aea-4fb6-a1bf-3a6a335fc817"
+			"481ff5fe-ec41-4a47-8498-a418604e3c44"
+			"4abd44a1-675a-4938-bfea-9e49af652c3b"
+			"c4de003a-447b-4eb2-acfb-5f0377d73e48"
+			"04cac9cd-ad07-4c37-9757-9202eccdacc7"
+			"62e846a5-822e-4d7f-a1a1-40b478df5d3b"
+		)
+	)
 )

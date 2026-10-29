@@ -78,10 +78,13 @@ VARIANTS = {
         # from outside the case and move inboard, pulled by their wiring
         bottom=[('J71', 15.0), ('J72', 32.8), ('J2', 50.0), ('J70', 66.0), ('J73', 83.0),
                 ('J68', 97.0)],
-        # J74, the microSD socket (2026-10-29), has no edge slot yet: it is
-        # placed by its wiring (bank 14, columns 22-23) until the owner picks
-        # the edge it opens on; the SDRAM U32 and the MRAM U33 are plain
-        # blocks pulled by their bank 35 / bank 14 lines.
+        # J74, the microSD socket (2026-10-29): neither edge has the 14.5 mm
+        # it needs (bottom: six cabled connectors in 88 mm; top: 73 mm usable,
+        # 60 mm taken, J7/J8 fixed 25.4 mm apart), so it sits inboard, pulled
+        # by its bank 14 lines, card opening toward the bottom edge (its
+        # contacts are at the back of the footprint, rotation 0). The SDRAM
+        # U32 and the MRAM U33 are plain blocks pulled by their bank 35 /
+        # bank 14 lines.
         bottom_inboard={}),
     'contract': dict(
         turn={'J71': 180, 'J72': 180},
