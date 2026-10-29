@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="345" height="405" viewBox="0 0 345 405" font-family="monospace">
 <rect x="0" y="0" width="345" height="405" fill="#fbfaf6"/>
-<rect x="-8767.0" y="-4323.1" width="2200.0" height="2200.0" fill="none" stroke="#000" stroke-width="2"/>
-<polygon points="2426.5,-981.9 2426.5,-870.8 2266.0,-870.8 2266.0,-981.9" fill="none" stroke="#b8860b" stroke-width="1" stroke-dasharray="4,3"/>
+<rect x="-9471.0" y="-2169.8" width="2200.0" height="2200.0" fill="none" stroke="#000" stroke-width="2"/>
+<polygon points="7617.9,-597.3 7617.9,-486.2 7457.3,-486.2 7457.3,-597.3" fill="none" stroke="#b8860b" stroke-width="1" stroke-dasharray="4,3"/>
 <polygon points="226.5,118.1 226.5,229.2 66.0,229.2 66.0,118.1" fill="#fff1b8" stroke="#b8860b" stroke-width="1" />
 <polygon points="94.1,125.5 94.1,138.3 66.0,138.3 66.0,125.5" fill="#e67e22" stroke="none" stroke-width="1" />
 <text x="80.0" y="124.2" font-size="8" fill="#555" text-anchor="middle">1</text>
@@ -39,5 +39,5 @@
 <rect x="150" y="347" width="12" height="12" fill="none" stroke="#999" stroke-dasharray="4,3"/><text x="168" y="357" font-size="11">previous position</text>
 <rect x="150" y="362" width="12" height="12" fill="#f5b7b1" stroke="#c0392b" stroke-dasharray="3,2"/><text x="168" y="372" font-size="11">could not be placed (left where it is)</text>
 <text x="400" y="327" font-size="11">previous positions out of view: C136, R13</text>
-<text x="400" y="342" font-size="11">grid: 428.5..444.2 x 226.5..239.9 mm, 22 px/mm</text>
+<text x="400" y="342" font-size="11">grid: 460.5..476.2 x 128.6..142.0 mm, 22 px/mm</text>
 </svg>

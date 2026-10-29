@@ -22509,7 +22509,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "3dfc7117-cde1-49df-bb5e-54ff13311886")
-		(at 806.13 100.04 90)
+		(at 470.16 132.56 90)
 		(descr "100nF bypass on +3V3, for U8 (controller firmware flash)")
 		(tags "capacitor")
 		(property "Reference" "C136"
@@ -28436,7 +28436,7 @@
 	(footprint "EasyEDA:WSON-8_L6.0-W5.0-P1.27-BL-EP"
 		(layer "F.Cu")
 		(uuid "4df7bac5-5132-4b10-bd04-4ba88d92974f")
-		(at 803.12 104 -90)
+		(at 467.15 136.52 -90)
 		(descr "controller firmware flash: Winbond W25Q32JV, 32 Mbit (4 MB) quad-SPI flash holding the board controller's firmware.")
 		(property "Reference" "U8"
 			(at 0 -7.013 270)
@@ -39151,7 +39151,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6e17d493-8822-4ad1-85b9-9c7bbb7e5871")
-		(at 808.22 102.1)
+		(at 472.25 134.62)
 		(descr "NOT FITTED. 10k resistor from SUPF_CS to +3V3, for U7 (board controller): controller flash chip-select; pulled low by CTRL BOOT for the bootloader")
 		(tags "resistor")
 		(property "Reference" "R13"
@@ -110551,6 +110551,64 @@
 			"862040cd-ee75-4168-81e9-424223b4057d"
 			"983bf86a-7410-43a9-82b8-ade7983e5167"
 			"50133498-f236-45db-8aa5-96b5986f4843"
+		)
+	)
+	(gr_rect
+		(start 462.002 130.125)
+		(end 474.705 140.545)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "8665dc02-c4bb-4579-a828-81cacf1ff0bf")
+	)
+	(gr_rect
+		(start 462.002 124.005)
+		(end 474.705 130.125)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "fb224e3b-b61f-4676-a9cb-e65fc32250aa")
+	)
+	(gr_text "island U8"
+		(at 462.402 125.605 0)
+		(layer "Cmts.User")
+		(uuid "04bcdf27-38dd-4638-966e-19183b4d600f")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "controller firmware\nflash\ngeneric, 3 parts,\n2026-10-29"
+		(at 462.402 125.905 0)
+		(layer "Cmts.User")
+		(uuid "dcfdd79f-a2fe-410e-bb60-ea7728648e01")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U8"
+		(uuid "8d4b9e37-d836-4e4a-8a36-e4ff4d00584c")
+		(members
+			"8665dc02-c4bb-4579-a828-81cacf1ff0bf"
+			"fb224e3b-b61f-4676-a9cb-e65fc32250aa"
+			"04bcdf27-38dd-4638-966e-19183b4d600f"
+			"dcfdd79f-a2fe-410e-bb60-ea7728648e01"
+			"4df7bac5-5132-4b10-bd04-4ba88d92974f"
+			"3dfc7117-cde1-49df-bb5e-54ff13311886"
+			"6e17d493-8822-4ad1-85b9-9c7bbb7e5871"
 		)
 	)
 )
