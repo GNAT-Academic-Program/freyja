@@ -129,9 +129,15 @@ def main():
                 fld.SetText(c['lcsc'])
             fp.SetDNP(bool(c.get('dnp')))
             if replace:
+                # A package change swaps the footprint object; the island
+                # group it was reviewed in must follow it, or the part falls
+                # out of its island and the next islands.py run relays it.
+                grp = prior.GetParentGroup() if prior is not None else None
                 if prior is not None:
+                    if grp is not None: grp.RemoveItem(prior)
                     board.Remove(prior)
                 board.Add(fp)       # Flip() requires a board-owned footprint
+                if grp is not None: grp.AddItem(fp)
             bb = fp.GetBoundingBox()
             w = max(pcbnew.ToMM(bb.GetWidth()), 2.0) + 3.0
             h = max(pcbnew.ToMM(bb.GetHeight()), 2.0) + 3.0

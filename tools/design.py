@@ -307,9 +307,17 @@ def build():
         vcco_groups.setdefault(rail, []).append(bank)
         decaps(f'decap VCCO_{bank}', rail,
                [(2, '4.7uF 6.3V', C0805), (4, '0.47uF 6.3V', C0603)])
-    for rail, banks in vcco_groups.items():
-        for _ in range(-(-len(banks) // 4)):
-            decap(f'decap VCCO group {rail}', rail, '47uF 6.3V', C1210)
+    # One 47 uF per group of up to four banks on one voltage. The groups are
+    # emitted in the order the rails had when U1's island was laid out, so
+    # C366..C369 keep their parts; a rail that joins later (+1V8_IO, bank 13
+    # since 2026-10-29) takes its 47 uF after the MGT capacitors, so no
+    # placed decoupling capacitor is renumbered.
+    GROUP_ORDER = [V33, 'VCCIO_1', V25, 'VCCIO_2']
+    def group_caps(rails):
+        for rail in rails:
+            for _ in range(-(-len(vcco_groups[rail]) // 4)):
+                decap(f'decap VCCO group {rail}', rail, '47uF 6.3V', C1210)
+    group_caps([r for r in GROUP_ORDER if r in vcco_groups])
     # MGTAVCC / MGTAVTT, as fitted before (UG482 territory, not re-derived)
     mgt_balls = [(b, net_for(b, n, assigned)) for bank, lst in
                  list(io.items()) + list(other.items()) for b, n in lst
@@ -318,6 +326,7 @@ def build():
         decap(f'decap {rail}', rail, '100nF', C0402, lcsc='C1525')
     for rail in (V10MGT, V12MGT):
         decap(f'decap {rail}', rail, '4.7uF', C0603, lcsc='C277476')
+    group_caps([r for r in vcco_groups if r not in GROUP_ORDER])
     decap_refs = decap_n[0] - 300
 
     d.group('config straps (UG470)')

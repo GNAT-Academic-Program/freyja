@@ -170,21 +170,13 @@ Decoupling for FPGA I/O bank 35's supply (VCCO): 2 x 4.7 uF and 4 x 0.47 uF, UG4
 | C364 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483 |
 | C365 | 0.47uF 6.3V | 0.47uF 6.3V FPGA decoupling on VCCO_35 (+3V3), UG483 |
 
-### decap VCCO group +1V8_IO
-
-Bulk capacitor shared by every FPGA I/O bank powered from +1V8_IO: UG483 Table 2-2 note 3 asks one 47 uF per group of up to four banks on one voltage. See ref/decoupling.md.
-
-| Ref | Value | What it does |
-|---|---|---|
-| C366 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +1V8_IO (+1V8_IO), UG483 |
-
 ### decap VCCO group +3V3
 
 Bulk capacitor shared by every FPGA I/O bank powered from +3V3: UG483 Table 2-2 note 3 asks one 47 uF per group of up to four banks on one voltage. See ref/decoupling.md.
 
 | Ref | Value | What it does |
 |---|---|---|
-| C367 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +3V3 (+3V3), UG483 |
+| C366 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +3V3 (+3V3), UG483 |
 
 ### decap VCCO group VCCIO_1
 
@@ -192,7 +184,7 @@ Bulk capacitor shared by every FPGA I/O bank powered from VCCIO_1: UG483 Table 2
 
 | Ref | Value | What it does |
 |---|---|---|
-| C368 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group VCCIO_1 (VCCIO_1), UG483 |
+| C367 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group VCCIO_1 (VCCIO_1), UG483 |
 
 ### decap VCCO group +2V5
 
@@ -200,7 +192,7 @@ Bulk capacitor shared by every FPGA I/O bank powered from +2V5: UG483 Table 2-2 
 
 | Ref | Value | What it does |
 |---|---|---|
-| C369 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +2V5 (+2V5), UG483 |
+| C368 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +2V5 (+2V5), UG483 |
 
 ### decap VCCO group VCCIO_2
 
@@ -208,7 +200,7 @@ Bulk capacitor shared by every FPGA I/O bank powered from VCCIO_2: UG483 Table 2
 
 | Ref | Value | What it does |
 |---|---|---|
-| C370 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group VCCIO_2 (VCCIO_2), UG483 |
+| C369 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group VCCIO_2 (VCCIO_2), UG483 |
 
 ### decap +1V0_MGT
 
@@ -216,6 +208,7 @@ Decoupling for +1V0_MGT (+1V0_MGT), which powers the unused but powered transcei
 
 | Ref | Value | What it does |
 |---|---|---|
+| C370 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C371 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C372 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C373 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
@@ -225,8 +218,7 @@ Decoupling for +1V0_MGT (+1V0_MGT), which powers the unused but powered transcei
 | C377 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C378 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
 | C379 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C380 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C393 | 4.7uF | 4.7uF FPGA decoupling on +1V0_MGT, UG483 |
+| C392 | 4.7uF | 4.7uF FPGA decoupling on +1V0_MGT, UG483 |
 
 ### decap +1V2_MGT
 
@@ -234,6 +226,7 @@ Decoupling for +1V2_MGT (+1V2_MGT), which powers the unused but powered transcei
 
 | Ref | Value | What it does |
 |---|---|---|
+| C380 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C381 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C382 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C383 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
@@ -245,8 +238,15 @@ Decoupling for +1V2_MGT (+1V2_MGT), which powers the unused but powered transcei
 | C389 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C390 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
 | C391 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C392 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C394 | 4.7uF | 4.7uF FPGA decoupling on +1V2_MGT, UG483 |
+| C393 | 4.7uF | 4.7uF FPGA decoupling on +1V2_MGT, UG483 |
+
+### decap VCCO group +1V8_IO
+
+Bulk capacitor shared by every FPGA I/O bank powered from +1V8_IO: UG483 Table 2-2 note 3 asks one 47 uF per group of up to four banks on one voltage. See ref/decoupling.md.
+
+| Ref | Value | What it does |
+|---|---|---|
+| C394 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group +1V8_IO (+1V8_IO), UG483 |
 
 ### config straps (UG470)
 
