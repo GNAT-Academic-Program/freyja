@@ -31,7 +31,7 @@
 		(property "Sheetfile" "memory.kicad_sch" (at 270 96 0) (effects (font (size 2 2)) (justify left top)))
 		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef" (page "4"))))
 	)
-	(text "PSRAM x4 (independent buses, 1.8 V), SDRAM, MRAM option and configuration flash" (at 273 67 0) (effects (font (size 2 2)) (justify left)))
+	(text "PSRAM x4 (independent buses, 1.8 V), SDRAM, MRAM option, microSD and configuration flash" (at 273 67 0) (effects (font (size 2 2)) (justify left)))
 	(sheet (at 30 115) (size 95 40)
 		(stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0.0000))
 		(uuid "3e2df089-f023-0194-2f85-195f6ca76ec6")

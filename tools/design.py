@@ -1148,6 +1148,27 @@ def build():
     for net in ('MRAM_CS', 'MRAM_WP', 'MRAM_HOLD'):
         d.R('10k', V33, net, R0603, dnp=True)
 
+    # ------------------------------------------------ microSD socket
+    # Hroparts TF-01A (LCSC C91145, JLC extended), push-push, 1.85 mm: pins
+    # 1-8 are the microSD contacts in card order (DAT2, CD/DAT3, CMD, VDD,
+    # CLK, VSS, DAT0, DAT1), 9 the detect switch, 10-13 the shell, as the
+    # imported symbol names them; the drawing (ref/datasheets/tf-01a.pdf)
+    # is mechanical only. SPI mode: CS on DAT3, MOSI on CMD, MISO on DAT0.
+    # The SD specification wants CS, CMD, DAT0 and the unused DAT1/DAT2
+    # pulled up in SPI mode: 10k each. The detect switch closes to the
+    # shell; the FPGA reads it through its own pull-up (ref/freya.xdc).
+    # [verify] switch polarity on the prototype. Balls: tools/alloc.py
+    # SD_BALLS.
+    d.sheet('Memory')
+    d.group('microSD socket')
+    d.add('J74', 'EasyEDA:TF-01A_C91145', 'microSD', 'EasyEDA:TF-SMD_TF-01A',
+          {'DAT2(RSV)': 'SD_DAT2', 'CDDAT3(CS)': 'SD_CS', 'CMD(DI)': 'SD_MOSI',
+           'VDD': V33, 'CLK(SCLK)': 'SD_SCK', 'VSS': GND, 'DAT0(D0)': 'SD_MISO',
+           'DAT1(RSV)': 'SD_DAT1', 'CD': 'SD_CD', 'GND': GND}, 'C91145')
+    for net in ('SD_CS', 'SD_MOSI', 'SD_MISO', 'SD_DAT1', 'SD_DAT2'):
+        d.R('10k', V33, net, R0603)
+    d.C('100nF', V33, GND); d.C('10uF', V33, GND, C0805)
+
     # ------------------------------------------------ +1V8_IO and +1V8
     # U14's output node is +1V8_IO (L5, its 2 x 22 uF and the feedback divider
     # sit on it): the 1.8 V position of J19/J20 and the MON_1V8 series

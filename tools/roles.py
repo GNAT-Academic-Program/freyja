@@ -231,6 +231,11 @@ NET = {
     'MGTRREF_213': 'calibration resistor for GTP quad 213 (UG482 Table 5-5)',
     'SYS_CLK': 'damps ringing on the clock line',
     'SDRAM_CLK': 'damps ringing on the SDRAM clock (22 ohm at the FPGA)',
+    'SD_CS': 'SPI mode: CS (DAT3) idles high so the card does not select',
+    'SD_MOSI': 'SPI mode: CMD line idles high',
+    'SD_MISO': 'SPI mode: DAT0 idles high',
+    'SD_DAT1': 'unused DAT1 held high, as the SD specification asks in SPI mode',
+    'SD_DAT2': 'unused DAT2 held high, as the SD specification asks in SPI mode',
     'MRAM_CS': 'keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4)',
     'MRAM_WP': 'write protect released: writes to the status register allowed',
     'MRAM_HOLD': 'hold released: transfers never pause',
@@ -383,6 +388,15 @@ GROUP.update({
         '4); WP and HOLD are pulled up and not connected to the FPGA, so '
         'writes are allowed and transfers never pause. The exposed pad is '
         'ground only, with two vias under it. Four bank 14 lines at 3.3 V.',
+    'microSD socket':
+        'A push-push microSD socket (Hroparts TF-01A) wired for SPI mode: '
+        'chip select on DAT3, data in on CMD, data out on DAT0, clock on '
+        'CLK, five bank 14 lines at 3.3 V including the card-detect switch. '
+        'The 10k pull-ups hold CS, the two data lines and the two unused '
+        'DAT lines high, as the SD specification asks for SPI mode; the '
+        '100 nF and 10 uF feed the card\'s supply at the socket; the shell '
+        'is grounded. Cheap removable storage for a soft CPU: a filesystem, '
+        'images to load into the PSRAMs, logs.',
     'PSRAM0 series termination': 'One 33 ohm resistor per PSRAM0 line, placed next to the '
         'FPGA: they soften the fast signal edges so they do not ring along '
         'the trace. Values can be tuned after measurement (ref/psram.md).',
@@ -520,6 +534,7 @@ PART.update({
     'U3': ('PSRAM 1', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
     'U4': ('PSRAM 2', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
     'U5': ('PSRAM 3', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
+    'J74': ('microSD socket', 'Hroparts TF-01A push-push microSD socket, SPI mode to FPGA bank 14 at 3.3 V; card detect on the switch.'),
     'U33': ('SPI MRAM (option)', 'Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes. Populate option, DNP by default; bank 14.'),
     'U32': ('SDRAM', 'Winbond W9825G6KH-6, 256 Mbit (32 MB) 16-bit SDR SDRAM, 3.3 V, TSOP-54: bank 35 data and control, bank 14 address.'),
     'U6': ('FPGA configuration flash', 'Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it.'),

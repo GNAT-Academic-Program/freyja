@@ -10,7 +10,7 @@ you care about; within it, groups appear in schematic order.
 
 - [FPGA](#fpga) (110 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
 - [Power](#power) (111 parts): Inputs, the regulators that make every rail, extension power protection.
-- [Memory](#memory) (51 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
+- [Memory](#memory) (59 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
@@ -514,8 +514,8 @@ The split between +1V8_IO and +1V8. VCCAUX and VCCADC are the FPGA's internal su
 
 | Ref | Value | What it does |
 |---|---|---|
-| C259 | 10uF | 10uF bypass on +1V8_IO |
-| C260 | 100nF | 100nF bypass on +1V8_IO |
+| C261 | 10uF | 10uF bypass on +1V8_IO |
+| C262 | 100nF | 100nF bypass on +1V8_IO |
 | FB1 | 120R 2A BLM18PG121SN1D | 120R 2A BLM18PG121SN1D resettable fuse feeding +1V8_IO from +1V8 |
 
 ## Memory
@@ -649,6 +649,21 @@ A 128 KB non-volatile SPI memory (Everspin MR25H10CDF) that keeps its contents w
 | R154 | 10k | NOT FITTED. 10k resistor from MRAM_CS to +3V3, for U33 (SPI MRAM (option)): keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4) |
 | R155 | 10k | NOT FITTED. 10k resistor from MRAM_WP to +3V3, for U33 (SPI MRAM (option)): write protect released: writes to the status register allowed |
 | R156 | 10k | NOT FITTED. 10k resistor from MRAM_HOLD to +3V3, for U33 (SPI MRAM (option)): hold released: transfers never pause |
+
+### microSD socket
+
+A push-push microSD socket (Hroparts TF-01A) wired for SPI mode: chip select on DAT3, data in on CMD, data out on DAT0, clock on CLK, five bank 14 lines at 3.3 V including the card-detect switch. The 10k pull-ups hold CS, the two data lines and the two unused DAT lines high, as the SD specification asks for SPI mode; the 100 nF and 10 uF feed the card's supply at the socket; the shell is grounded. Cheap removable storage for a soft CPU: a filesystem, images to load into the PSRAMs, logs.
+
+| Ref | Value | What it does |
+|---|---|---|
+| J74 | microSD | microSD socket: Hroparts TF-01A push-push microSD socket, SPI mode to FPGA bank 14 at 3.3 V; card detect on the switch. |
+| C259 | 100nF | 100nF bypass on +3V3, for J74 (microSD socket) |
+| C260 | 10uF | 10uF bypass on +3V3, for J74 (microSD socket) |
+| R157 | 10k | 10k resistor from SD_CS to +3V3, for J74 (microSD socket): SPI mode: CS (DAT3) idles high so the card does not select |
+| R158 | 10k | 10k resistor from SD_MOSI to +3V3, for J74 (microSD socket): SPI mode: CMD line idles high |
+| R159 | 10k | 10k resistor from SD_MISO to +3V3, for J74 (microSD socket): SPI mode: DAT0 idles high |
+| R160 | 10k | 10k resistor from SD_DAT1 to +3V3, for J74 (microSD socket): unused DAT1 held high, as the SD specification asks in SPI mode |
+| R161 | 10k | 10k resistor from SD_DAT2 to +3V3, for J74 (microSD socket): unused DAT2 held high, as the SD specification asks in SPI mode |
 
 ## Supervisor
 

@@ -272,10 +272,11 @@ all RX pins to GND, TX and reference-clock pins floating, and one 100 ohm
 - PSRAM: **24**
 - SDRAM: **39**
 - MRAM: **4**
+- microSD: **5**
 - supervisor sideband: **6**
 - config flash + strap: **6**
 - 5V bus data: **16**
 - 5V bus direction: **2**
 - 5V bus enable: **2**
-- **assigned HR I/O: 242 of 300**
-- **free: 58** for base-board peripherals
+- **assigned HR I/O: 247 of 300**
+- **free: 53** for base-board peripherals

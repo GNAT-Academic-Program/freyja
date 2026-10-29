@@ -62,6 +62,7 @@ def main():
         elif n.startswith('PSRAM'): groups['PSRAM'].append((ball, n))
         elif n.startswith('SDRAM_'): groups['SDRAM'].append((ball, n))
         elif n.startswith('MRAM_'): groups['MRAM'].append((ball, n))
+        elif n.startswith('SD_'): groups['microSD'].append((ball, n))
         elif n in CONFIG_USE.values(): groups['config flash + strap'].append((ball, n))
         elif n in SIDEBAND: groups['supervisor sideband'].append((ball, n))
         elif n.startswith('PHY_') and n in ('PHY_RESET_N', 'PHY_INT_N'): groups['PHY control'].append((ball, n))
@@ -171,7 +172,7 @@ def main():
     W("")
 
     W("## Budget\n")
-    for k in ('slots', 'PSRAM', 'SDRAM', 'MRAM', 'supervisor sideband', 'config flash + strap',
+    for k in ('slots', 'PSRAM', 'SDRAM', 'MRAM', 'microSD', 'supervisor sideband', 'config flash + strap',
               '5V bus data', '5V bus direction', '5V bus enable'):
         W(f"- {k}: **{len(groups[k])}**")
     W(f"- **assigned HR I/O: {len(net)} of {tot}**")

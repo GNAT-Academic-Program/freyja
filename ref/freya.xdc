@@ -145,6 +145,13 @@ set_property -dict {PACKAGE_PIN P15 IOSTANDARD LVCMOS33} [get_ports {PUDC_B}]   
 # ---- SB
 set_property -dict {PACKAGE_PIN P20 IOSTANDARD LVCMOS33} [get_ports {SB_UART_RX}]   ;# bank 14 IO_L14P_T2_SRCC_14
 set_property -dict {PACKAGE_PIN P21 IOSTANDARD LVCMOS33} [get_ports {SB_UART_TX}]   ;# bank 14 IO_L14N_T2_SRCC_14
+# ---- SD
+set_property -dict {PACKAGE_PIN T23 IOSTANDARD LVCMOS33} [get_ports {SD_CD}]   ;# bank 14 IO_L24P_T3_A01_D17_14
+set_property PULLUP TRUE [get_ports {SD_CD}]   ;# detect switch to the shell, no board pull-up
+set_property -dict {PACKAGE_PIN L22 IOSTANDARD LVCMOS33} [get_ports {SD_CS}]   ;# bank 14 IO_L11P_T1_SRCC_14
+set_property -dict {PACKAGE_PIN R22 IOSTANDARD LVCMOS33} [get_ports {SD_MISO}]   ;# bank 14 IO_L23N_T3_A02_D18_14
+set_property -dict {PACKAGE_PIN T22 IOSTANDARD LVCMOS33} [get_ports {SD_MOSI}]   ;# bank 14 IO_L23P_T3_A03_D19_14
+set_property -dict {PACKAGE_PIN L23 IOSTANDARD LVCMOS33} [get_ports {SD_SCK}]   ;# bank 14 IO_L11N_T1_SRCC_14
 # ---- SDRAM
 set_property -dict {PACKAGE_PIN M26 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A0}]   ;# bank 14 IO_L20N_T3_A07_D23_14
 set_property -dict {PACKAGE_PIN N26 IOSTANDARD LVCMOS33} [get_ports {SDRAM_A1}]   ;# bank 14 IO_L20P_T3_A08_D24_14

@@ -35,6 +35,7 @@ def normalize_imported_pin_types():
         'PMEG060V100EPDZ',
         # network: the two jacks, the PHY crystal and the link TVS arrays
         'HR911130A', 'KH-RJ45-58-8P8C', 'X322525MOB4SI', 'TPD4E1U06DBVR',
+        'TF-01A_C91145',   # microSD socket
     }
     overrides = {
         'BM03B-SRSS-TB': {'1': 'bidirectional', '2': 'passive',

@@ -71,6 +71,9 @@ LOADS = [
      'one third of the 1.0 W VCCO/IO line'),
     ('+3V3', 'config flash W25Q256, program', 0.03, 'datasheet',
      'W25Q256JV: 25 mA page-program peak'),
+    ('+3V3', 'microSD card in J74, writing', 0.10, 'estimate',
+     'SD specification: up to 100 mA average for a 3.3 V card; peaks are '
+     'carried by the 10 uF at the socket'),
     ('+3V3', 'W9825G6KH-6 SDRAM, burst read/write', 0.085, 'datasheet',
      'W9825G6KH rev A03 p. 14, DC characteristics: IDD4 85 mA max at the -6 grade'),
     ('+3V3', 'RTL8211FD-CG, 1000Base-T link', 0.20, 'estimate',

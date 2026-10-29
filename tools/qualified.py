@@ -66,6 +66,13 @@ PARTS = {
     pinmap='generated from the standard 8-pin QSPI NOR pinout, '
            'tools/gen_kicad.py FLASH_PINS',
     src='Winbond W25Q256JV datasheet; LCSC C97522'),
+  'EasyEDA:TF-01A_C91145': dict(
+    mpn='TF-01A', pkg='SMD push-push microSD socket, 1.85 mm, two 1.0 mm locating pegs',
+    fp='EasyEDA:TF-SMD_TF-01A',
+    rating='1 A, 30 V contact rating; card supply 3.3 V; SPI mode wiring',
+    pinmap='imported C91145 symbol: pins 1-8 the microSD contacts in card order, '
+           '9 the detect switch, 10-13 the shell; drawing is mechanical only',
+    src='ref/datasheets/tf-01a.pdf (Hroparts drawing, 2014); LCSC C91145, JLC extended'),
   'EasyEDA:MR25H10CDF': dict(
     mpn='MR25H10CDF', pkg='DFN-8 Small Flag, 5 x 6 mm, 1.27 mm pitch, 2.0 x 2.0 mm exposed pad',
     fp='odin:DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA',
