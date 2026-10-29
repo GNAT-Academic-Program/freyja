@@ -23061,7 +23061,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "3f33f2f7-ef79-4625-a311-c678d7d3d470")
-		(at 840.5 162.37)
+		(at 436.25 132.27)
 		(descr "100nF bypass on +3V3, for U24 (slots E-H PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C274"
@@ -48114,7 +48114,7 @@
 	(footprint "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm"
 		(layer "F.Cu")
 		(uuid "7fb7d766-c9dd-4d0b-beb2-e7f69d8e713c")
-		(at 834.07 162.37 180)
+		(at 433.16 132.27 180)
 		(descr "slots E-H PIN V switch: TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_2 to the PIN V pin of slots E-H. Blocks reverse current while off; the slot fuses limit the current.")
 		(tags "Texas WSON NoLead")
 		(property "Reference" "U24"
@@ -62369,7 +62369,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a4356e60-ddf3-4bf6-92a0-43f8e8d04e4b")
-		(at 833.06 155.74 90)
+		(at 432.15 129.56 90)
 		(descr "1nF 50V filter capacitor on U24_CT, for U24 (slots E-H PIN V switch): sets how fast U24 ramps its output, about 1.5 ms (TPS22953 CT)")
 		(tags "capacitor")
 		(property "Reference" "C275"
@@ -86757,7 +86757,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "be3be9ce-ac88-433f-a459-38e610ef1cd2")
-		(at 833.17 165.65 -90)
+		(at 432.26 135.55 -90)
 		(descr "1uF bypass on VCCIO_2_EXT, for U24 (slots E-H PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C276"
@@ -102298,11 +102298,11 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ee05c57d-c8f9-4b8f-b710-f3e493c66c80")
-		(at 837.56 163.3 180)
+		(at 436.82 133.77 0)
 		(descr "10k pull-up of EXT_FAULT to +3V3, for U7 (board controller): shared fault line, low when a protected supply trips")
 		(tags "resistor")
 		(property "Reference" "R73"
-			(at 0 -1.43 180)
+			(at 0 -1.43 0)
 			(layer "F.Fab")
 			(uuid "59c6e6d9-4e79-41f5-9a5d-33973040d618")
 			(effects
@@ -102313,7 +102313,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 0 1.43 180)
+			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "fafae9a8-2400-42c3-9f27-12e22088a4b4")
 			(effects
@@ -102324,7 +102324,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 180)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "89664fef-3653-431a-9ce1-6febfff884fe")
@@ -102336,7 +102336,7 @@
 			)
 		)
 		(property "Description" "10k pull-up of EXT_FAULT to +3V3, for U7 (board controller): shared fault line, low when a protected supply trips"
-			(at 0 0 180)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "d8c8f6e0-6655-47f9-a655-2cdaf32d5c04")
@@ -102391,7 +102391,7 @@
 			(uuid "7a2411c7-2fc8-41ee-b5f2-a2776d9df808")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 180)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "3ac62d04-44b2-45e3-840b-0024c86cf444")
 			(effects
@@ -102402,7 +102402,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.825 0 180)
+			(at -0.825 0 0)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -102410,7 +102410,7 @@
 			(uuid "72d113cd-4970-4282-9bae-c56a43a313ce")
 		)
 		(pad "2" smd roundrect
-			(at 0.825 0 180)
+			(at 0.825 0 0)
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -103125,11 +103125,11 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "efd3a221-0645-4cae-b03c-a55a86529f82")
-		(at 834.07 158.68 90)
+		(at 434.06 135.55 -90)
 		(descr "1uF bypass on VCCIO_2, for U24 (slots E-H PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C221"
-			(at 0 -1.43 90)
+			(at 0 -1.43 270)
 			(layer "F.Fab")
 			(uuid "9cbbdca2-dce7-4763-9574-3fae10287ba0")
 			(effects
@@ -103140,7 +103140,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 0 1.43 90)
+			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "3964c58b-d3a3-457c-8425-33f0f09beb6d")
 			(effects
@@ -103151,7 +103151,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ecb73826-9167-441a-ad95-d92ac84dff3a")
@@ -103163,7 +103163,7 @@
 			)
 		)
 		(property "Description" "1uF bypass on VCCIO_2, for U24 (slots E-H PIN V switch)"
-			(at 0 0 90)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "dd873664-0c4e-4123-b917-9f96d3796484")
@@ -103175,7 +103175,7 @@
 			)
 		)
 		(property "LCSC Part" "C29936"
-			(at 0 0 0)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "9685948e-092e-4334-9c5c-7a3f5c276be3")
@@ -103230,7 +103230,7 @@
 			(uuid "012e6a9f-81b1-4053-a652-174dbd07fa9f")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "9c2eeded-3092-497d-b33b-9aefed86ca9c")
 			(effects
@@ -103241,7 +103241,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.775 0 90)
+			(at -0.775 0 270)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -103249,7 +103249,7 @@
 			(uuid "4a7525ad-fc7e-4d47-8005-a04826a9dffa")
 		)
 		(pad "2" smd roundrect
-			(at 0.775 0 90)
+			(at 0.775 0 270)
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -109184,28 +109184,6 @@
 		(uuid "fa219a1b-cb91-4b07-9390-adee20b66edb")
 	)
 	(gr_rect
-		(start 830.915 147.185)
-		(end 842.935 153.305)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "bce4a65b-ff39-462a-b7d4-6e9ae928da2b")
-	)
-	(gr_rect
-		(start 830.915 153.305)
-		(end 842.935 168.655)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "750593ad-c8be-4b37-b113-773e11423523")
-	)
-	(gr_rect
 		(start 834.215 53.455)
 		(end 845.585 59.575)
 		(stroke
@@ -109952,18 +109930,6 @@
 		(at 822.225 205.915 0)
 		(layer "Cmts.User")
 		(uuid "376b7488-64db-4d80-ab26-9d91b9fff915")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(gr_text "slots E-H PIN V\nswitch\nTPS22953, 6 parts,\n2026-10-29"
-		(at 831.315 149.085 0)
-		(layer "Cmts.User")
-		(uuid "aa6babe0-6273-427b-ab14-f8b4ce283eaf")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -110728,18 +110694,6 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island U24"
-		(at 831.315 148.785 0)
-		(layer "Cmts.User")
-		(uuid "b5e4b124-c215-458c-af18-6b8bace7cee9")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
 	(gr_text "island Q3"
 		(at 834.615 55.055 0)
 		(layer "Cmts.User")
@@ -110857,15 +110811,6 @@
 			"f1572418-6be7-44f8-9dcc-1aa905164ff3" "f30776b4-040a-4660-a733-15c55dd22f3e"
 			"f63acb4c-88fa-4cfd-9338-7c9aa50b14c0" "f8cf8c31-0734-4926-8cfe-8c5df7a98eb2"
 			"fdaa2446-3e39-4236-a1b6-fd91282f5af9"
-		)
-	)
-	(group "island U24"
-		(uuid "08119ae6-2cd7-4674-94f9-73d2796e5954")
-		(members "3f33f2f7-ef79-4625-a311-c678d7d3d470" "750593ad-c8be-4b37-b113-773e11423523"
-			"7fb7d766-c9dd-4d0b-beb2-e7f69d8e713c" "a4356e60-ddf3-4bf6-92a0-43f8e8d04e4b"
-			"aa6babe0-6273-427b-ab14-f8b4ce283eaf" "b5e4b124-c215-458c-af18-6b8bace7cee9"
-			"bce4a65b-ff39-462a-b7d4-6e9ae928da2b" "be3be9ce-ac88-433f-a459-38e610ef1cd2"
-			"ee05c57d-c8f9-4b8f-b710-f3e493c66c80" "efd3a221-0645-4cae-b03c-a55a86529f82"
 		)
 	)
 	(group "island J51"
@@ -111717,6 +111662,67 @@
 			"362a86d8-645b-4b44-9b83-9f81d91f7ddf"
 			"932acc0c-fef3-4f4c-840a-fb3a374999bd"
 			"948fad0b-066d-45de-843b-20b2ee57c26d"
+		)
+	)
+	(gr_rect
+		(start 430.005 127.125)
+		(end 441.005 138.555)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "55d0e5c3-0d68-4cac-9854-dc9799eac630")
+	)
+	(gr_rect
+		(start 430.005 121.005)
+		(end 441.005 127.125)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "cd81fb21-8c1d-4a11-bdae-2030be72be0f")
+	)
+	(gr_text "island U24"
+		(at 430.405 122.605 0)
+		(layer "Cmts.User")
+		(uuid "266c74bc-82e3-43a2-9884-dc874257e98a")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "slots E-H PIN V\nswitch\nTPS22953, 6\nparts, 2026-10-29"
+		(at 430.405 122.905 0)
+		(layer "Cmts.User")
+		(uuid "358e3acb-bf06-4e67-bcf4-ecd8f1143bf4")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U24"
+		(uuid "b3d7c062-dfb8-4c06-a398-58b5b9ffd6fb")
+		(members
+			"55d0e5c3-0d68-4cac-9854-dc9799eac630"
+			"cd81fb21-8c1d-4a11-bdae-2030be72be0f"
+			"266c74bc-82e3-43a2-9884-dc874257e98a"
+			"358e3acb-bf06-4e67-bcf4-ecd8f1143bf4"
+			"7fb7d766-c9dd-4d0b-beb2-e7f69d8e713c"
+			"efd3a221-0645-4cae-b03c-a55a86529f82"
+			"3f33f2f7-ef79-4625-a311-c678d7d3d470"
+			"a4356e60-ddf3-4bf6-92a0-43f8e8d04e4b"
+			"be3be9ce-ac88-433f-a459-38e610ef1cd2"
+			"ee05c57d-c8f9-4b8f-b710-f3e493c66c80"
 		)
 	)
 )
