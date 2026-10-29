@@ -1,6 +1,6 @@
 # City plan written by tools/city.py; applied by tools/islands.py --city.
 # Per island group: the marker centre moves to (x, y) and the group turns by turn.
-variant: best
+variant: districts
 scale: 2.2
 origin: [650.0, 20.0]
 outline: [30.0, 30.0, 130.0, 130.0]
@@ -24,57 +24,65 @@ ghosts:
   MK71: [846.58, 111.51, 853.38, 118.31]
   MK72: [846.80, 155.95, 853.60, 162.75]
 islands:
-  D1: {from: [835.62, 170.46], to: [839.57, 169.85], turn: 0.0, why: wired}
-  D9: {from: [766.44, 192.62], to: [812.82, 182.36], turn: 0.0, why: wired}
-  D10: {from: [769.75, 59.33], to: [800.08, 181.46], turn: 0.0, why: wired}
-  D11: {from: [822.85, 167.64], to: [770.32, 188.78], turn: 0.0, why: wired}
-  J1: {from: [828.20, 33.27], to: [828.20, 33.27], turn: 0.0, why: edge}
-  J2: {from: [760.00, 231.00], to: [760.00, 231.00], turn: 0.0, why: edge}
-  J7: {from: [732.06, 27.11], to: [732.06, 27.10], turn: 0.0, why: edge}
-  J8: {from: [787.94, 27.11], to: [787.94, 27.10], turn: 0.0, why: edge}
-  J19: {from: [681.50, 134.57], to: [705.15, 165.08], turn: 0.0, why: wired}
-  J20: {from: [701.65, 162.34], to: [786.89, 194.45], turn: 0.0, why: wired}
-  J50: {from: [687.88, 28.40], to: [687.88, 28.40], turn: 0.0, why: edge}
-  J51: {from: [833.29, 131.67], to: [807.44, 33.92], turn: 0.0, why: wired}
-  J52: {from: [714.84, 156.45], to: [718.23, 153.77], turn: 0.0, why: wired}
-  J57: {from: [730.79, 45.66], to: [730.79, 45.66], turn: 0.0, why: edge}
-  J58: {from: [786.67, 45.66], to: [786.67, 45.66], turn: 0.0, why: edge}
-  J68: {from: [862.48, 230.62], to: [862.48, 230.62], turn: 0.0, why: edge}
-  J70: {from: [795.20, 222.99], to: [795.20, 222.99], turn: 0.0, why: edge}
-  J71: {from: [683.00, 224.00], to: [683.00, 224.00], turn: 0.0, why: edge}
-  J72: {from: [722.16, 224.00], to: [722.16, 224.00], turn: 0.0, why: edge}
-  J73: {from: [832.60, 221.51], to: [832.60, 221.51], turn: 0.0, why: edge}
-  J74: {from: [722.83, 177.63], to: [726.59, 174.87], turn: 0.0, why: wired}
-  Q3: {from: [783.48, 66.55], to: [784.87, 63.60], turn: 0.0, why: wired}
-  SW1: {from: [760.18, 38.33], to: [695.03, 78.86], turn: 0.0, why: wired}
-  U1: {from: [756.60, 128.68], to: [760.00, 125.60], turn: 0.0, why: centre, reseat: {X4: [0.000, -0.002], R147: [0.000, -0.002], C246: [0.000, -0.002]}}
-  U2: {from: [753.51, 56.83], to: [715.01, 85.70], turn: 0.0, why: wired}
-  U3: {from: [711.89, 111.97], to: [715.30, 110.05], turn: 0.0, why: wired}
-  U4: {from: [711.50, 136.32], to: [715.28, 134.27], turn: 0.0, why: wired}
-  U5: {from: [692.38, 111.66], to: [695.92, 117.75], turn: 0.0, why: wired}
-  U6: {from: [800.26, 135.43], to: [735.45, 78.05], turn: 0.0, why: wired}
-  U7: {from: [814.55, 101.37], to: [818.10, 113.21], turn: 0.0, why: wired}
-  U9: {from: [712.52, 62.86], to: [709.35, 62.77], turn: 0.0, why: wired}
-  U10: {from: [798.11, 69.06], to: [761.40, 35.41], turn: 0.0, why: wired}
-  U11: {from: [711.03, 84.00], to: [762.06, 56.15], turn: 0.0, why: wired}
-  U12: {from: [696.58, 183.66], to: [751.50, 201.54], turn: 0.0, why: wired}
-  U13: {from: [763.74, 173.71], to: [767.15, 170.64], turn: 0.0, why: door}
-  U14: {from: [782.67, 84.09], to: [786.07, 81.03], turn: 0.0, why: door}
-  U15: {from: [765.46, 81.97], to: [768.86, 78.89], turn: 0.0, why: door}
-  U16: {from: [748.25, 83.38], to: [751.65, 80.30], turn: 0.0, why: door}
-  U17: {from: [817.66, 135.51], to: [828.33, 146.90], turn: 0.0, why: wired}
-  U18: {from: [811.48, 37.46], to: [809.37, 51.42], turn: 0.0, why: wired}
-  U20: {from: [780.48, 175.10], to: [784.58, 172.18], turn: 0.0, why: wired}
-  U21: {from: [697.84, 64.11], to: [684.49, 96.35], turn: 0.0, why: wired}
-  U22: {from: [835.80, 57.88], to: [695.39, 62.87], turn: 0.0, why: wired}
-  U23: {from: [692.83, 89.31], to: [698.21, 95.57], turn: 0.0, why: wired}
-  U24: {from: [835.00, 150.30], to: [826.59, 168.97], turn: 0.0, why: wired}
-  U26: {from: [818.08, 62.59], to: [827.25, 62.92], turn: 0.0, why: wired}
-  U30: {from: [746.86, 179.46], to: [750.16, 176.12], turn: 0.0, why: wired}
-  U32: {from: [804.27, 167.95], to: [807.52, 154.24], turn: 0.0, why: wired}
-  U33: {from: [694.99, 139.44], to: [698.71, 143.49], turn: 0.0, why: wired}
-  U34: {from: [731.43, 82.14], to: [806.53, 71.53], turn: 0.0, why: door}
-  Q6: {from: [732.90, 63.24], to: [804.70, 81.29], turn: 0.0, why: "satellite of U34, S side: pulls the mux PR1 node (9 V request hold); the divider node stays short", merge_into: U34}
-  Q7: {from: [710.99, 45.10], to: [806.39, 84.08], turn: 0.0, why: "satellite of U34, S side: pulls the mux PR1 node (screw input present); the divider node stays short; stacked outside the satellite before it", merge_into: U34}
+  D1: {from: [833.21, 208.72], to: [849.43, 211.24], turn: 0.0, why: "LED dashboard above the AUX terminal, bottom-right corner"}
+  D9: {from: [845.50, 215.15], to: [855.42, 211.62], turn: 0.0, why: "satellite of D1, E side: LED dashboard: CTRL HB, USER 1, USER 2 at 5 mm pitch right of FPGA DONE", merge_into: D1}
+  D10: {from: [836.50, 229.64], to: [860.93, 212.11], turn: 0.0, why: "satellite of D1, E side: LED dashboard: CTRL HB, USER 1, USER 2 at 5 mm pitch right of FPGA DONE", merge_into: D1}
+  D11: {from: [849.61, 229.64], to: [865.93, 212.11], turn: 0.0, why: "satellite of D1, E side: LED dashboard: CTRL HB, USER 1, USER 2 at 5 mm pitch right of FPGA DONE", merge_into: D1}
+  J1: {from: [828.50, 33.63], to: [828.20, 33.27], turn: 0.0, why: "edge"}
+  J2: {from: [660.77, 224.80], to: [690.90, 195.32], turn: 0.0, why: "service corner: JTAG header standing at the far bottom-left, one row in"}
+  J7: {from: [732.06, 27.10], to: [732.06, 27.11], turn: 0.0, why: "edge"}
+  J8: {from: [787.94, 27.10], to: [787.94, 27.11], turn: 0.0, why: "edge"}
+  J19: {from: [701.90, 194.74], to: [717.35, 197.94], turn: 0.0, why: "service corner: A-D PIN V jumper"}
+  J20: {from: [822.40, 227.74], to: [819.17, 192.95], turn: 0.0, why: "E-H PIN V jumper above HDMI, mirror of J19"}
+  J50: {from: [687.88, 28.40], to: [687.88, 28.40], turn: 0.0, why: "edge"}
+  J51: {from: [807.44, 33.92], to: [802.44, 150.89], turn: 0.0, why: "wired"}
+  J52: {from: [689.24, 197.93], to: [702.25, 177.78], turn: 0.0, why: "service corner: EXT JTAG jumper on its switch"}
+  J57: {from: [730.79, 45.66], to: [730.79, 45.66], turn: 0.0, why: "edge"}
+  J58: {from: [786.67, 45.66], to: [786.67, 45.66], turn: 0.0, why: "edge"}
+  J68: {from: [862.48, 230.62], to: [857.90, 230.62], turn: 0.0, why: "edge"}
+  J70: {from: [775.30, 222.92], to: [772.10, 222.99], turn: 0.0, why: "edge"}
+  J71: {from: [690.40, 223.82], to: [692.90, 224.00], turn: 0.0, why: "edge"}
+  J72: {from: [713.90, 223.92], to: [732.50, 224.00], turn: 0.0, why: "edge"}
+  J73: {from: [802.98, 221.42], to: [813.90, 221.51], turn: 0.0, why: "edge"}
+  J74: {from: [740.80, 225.32], to: [710.57, 153.92], turn: 0.0, why: "wired"}
+  Q3: {from: [784.87, 63.60], to: [806.92, 53.08], turn: 0.0, why: "wired"}
+  SW1: {from: [695.03, 78.86], to: [784.75, 64.43], turn: 0.0, why: "wired"}
+  U1: {from: [760.00, 125.59], to: [760.00, 125.60], turn: 0.0, why: "centre", reseat: {X4: [0.000, -0.003], R147: [0.000, -0.003], C246: [0.000, -0.003]}}
+  U2: {from: [715.01, 85.70], to: [696.10, 103.21], turn: 0.0, why: "PSRAM block: cell 0, top row"}
+  U3: {from: [715.31, 110.05], to: [715.44, 103.22], turn: 0.0, why: "PSRAM block: cell 1 against the FPGA, top row"}
+  U4: {from: [715.29, 134.27], to: [715.44, 127.38], turn: 0.0, why: "PSRAM block: cell 2 against the FPGA, bottom row"}
+  U5: {from: [715.21, 159.03], to: [696.10, 127.38], turn: 0.0, why: "PSRAM block: cell 3, bottom row"}
+  U6: {from: [735.45, 78.04], to: [735.71, 78.45], turn: 0.0, why: "serial memory shelf: config flash at the door row left end"}
+  U7: {from: [818.10, 113.21], to: [817.52, 121.12], turn: 0.0, why: "wired"}
+  U9: {from: [709.36, 62.77], to: [751.78, 58.28], turn: 0.0, why: "wired"}
+  U10: {from: [761.39, 35.41], to: [766.33, 50.22], turn: 0.0, why: "wired"}
+  U11: {from: [762.06, 56.16], to: [826.94, 88.77], turn: 0.0, why: "VSYS converters: 5 V cell beside the mux, straight under the eFuse"}
+  U12: {from: [725.36, 184.44], to: [850.09, 88.77], turn: 0.0, why: "VSYS converters: 3.3 V cell beside the 5 V cell, identical"}
+  U13: {from: [744.80, 184.38], to: [755.41, 170.64], turn: 0.0, why: "2.5 V regulator beside the PHY, under the FPGA"}
+  U14: {from: [786.07, 81.03], to: [786.07, 81.03], turn: 0.0, why: "door"}
+  U15: {from: [768.86, 78.88], to: [768.86, 78.89], turn: 0.0, why: "door"}
+  U16: {from: [751.65, 80.30], to: [751.65, 80.30], turn: 0.0, why: "door"}
+  U17: {from: [828.34, 146.90], to: [835.54, 155.24], turn: 0.0, why: "wired"}
+  U18: {from: [809.37, 51.42], to: [842.55, 55.36], turn: 0.0, why: "USB story: PD negotiator beside the eFuse, CC lines short"}
+  U20: {from: [670.60, 222.23], to: [703.30, 196.06], turn: 0.0, why: "service corner: JTAG switch beside its header"}
+  U21: {from: [684.49, 96.35], to: [816.24, 152.05], turn: 0.0, why: "wired"}
+  U22: {from: [695.39, 62.87], to: [740.95, 170.33], turn: 0.0, why: "wired"}
+  U23: {from: [698.21, 95.57], to: [717.35, 178.10], turn: 0.0, why: "service corner: A-D PIN V switch on its jumper"}
+  U24: {from: [820.54, 208.43], to: [819.17, 173.12], turn: 0.0, why: "E-H PIN V switch on its jumper, mirror of U23"}
+  U26: {from: [827.25, 62.92], to: [825.09, 62.56], turn: 0.0, why: "USB story: eFuse straight under USB-C"}
+  U30: {from: [773.98, 191.13], to: [772.10, 190.83], turn: 0.0, why: "PHY above the Ethernet jack, MDI pairs straight down"}
+  U32: {from: [807.52, 154.24], to: [793.07, 179.97], turn: 0.0, why: "wired"}
+  U33: {from: [693.05, 138.58], to: [721.00, 79.67], turn: 0.0, why: "serial memory shelf: MRAM beside the flash"}
+  U34: {from: [804.71, 75.30], to: [804.70, 75.31], turn: 0.0, why: "door"}
   MK76: {from: [721.90, 45.70], to: [721.90, 45.70], turn: 0.0, why: key at position 1 of J57 with the row, merge_into: J57}
   MK77: {from: [777.78, 45.70], to: [777.78, 45.70], turn: 0.0, why: key at position 1 of J58 with the row, merge_into: J58}
+districts:
+  "SERVICE CORNER (JTAG, A-D PIN V)": [681.90, 168.32, 723.85, 208.00]
+  "E-H PIN V": [812.67, 163.34, 825.67, 203.01]
+  "LED DASHBOARD": [843.44, 203.20, 865.42, 221.23]
+  "USB POWER IN": [794.07, 20.00, 849.05, 91.13]
+  "VSYS CONVERTERS": [815.33, 78.58, 861.63, 98.96]
+  "FPGA POWER DOOR": [743.65, 66.65, 794.07, 91.13]
+  "PSRAM": [686.43, 91.13, 725.11, 139.46]
+  "SERIAL MEMORY": [714.22, 65.77, 743.65, 91.13]
+  "NETWORK": [747.64, 160.07, 785.83, 240.00]

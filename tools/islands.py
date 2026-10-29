@@ -2063,6 +2063,11 @@ def city_edits(board, plan):
     for r, g in (plan.get('ghosts') or {}).items():
         body += rect(g[0], g[1], g[2], g[3], 'dot')
         body += text(r, g[0] + 0.3, g[3] - 0.3, 1.0)
+    # districts (city.py 'districts' variant): a dashed box round each
+    # finished neighbourhood, its name above the box
+    for name, d in (plan.get('districts') or {}).items():
+        body += rect(d[0], d[1], d[2], d[3], 'dash', 0.25)
+        body += text(str(name), d[0] + 0.3, d[1] - 0.4, 1.2)
     body += (f'\t(group "city frame"\n\t\t(uuid "{uuid.uuid4()}")\n\t\t(members\n'
              + ''.join(f'\t\t\t"{u}"\n' for u in ids) + '\t\t)\n\t)\n')
     edits.append((board.top.end - 1, board.top.end - 1, body))

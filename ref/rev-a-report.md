@@ -559,3 +559,72 @@ What, one commit per island, each dry run reviewed:
   U11 -> U34 45 mm (was 111), U34 -> U15 40 (was 94), U34 -> U14 23,
   U34 -> U26 18, staged at 2.2x.
 Open: see the Part IV status table in findings.md.
+
+## City re-planned: districts, the owner's seven points 2026-10-29
+Parts: 553; ERC 0; DRC 8 courtyard errors (unchanged: the six post-to-
+header zero-gap pairs and the owner's C159/C161 beside MK71/MK72), 0
+parity; mechanical 9 findings (unchanged). Gate electrical PASS. 450
+footprints moved as rigid island groups, all in the staging city (2.2x
+frame beside the sheet), nothing inside the outline.
+The owner moved the islands by hand in the city (JTAG far bottom-left,
+every cable jack on the bottom edge, USB-C alone on top, the PSRAMs in
+one column, the LEDs and the PIN V jumpers at the bottom-right) and asked
+for seven things. tools/city.py variant `districts` (now the default)
+encodes that arrangement as rules instead of coordinates, so a re-plan
+reproduces it: each district block is set against a neighbour already
+placed (x: right_of/left_of/left/right/centre REF; y: above/below/top/
+bottom/centre REF), after the edge rows and the door; `rows` merges cells
+into a host island at a fixed pitch; `boxes` draws a dashed, named box
+round each finished district in the city frame.
+1. LED dashboard: D9, D10, D11 merged into island D1 as cells at 5 mm
+   pitch, LED centres on one line, the block right-aligned above the AUX
+   terminal in the bottom-right corner. tools/stencil.py writes the
+   silkscreen labels (DONE, CTRL HB, USER 1, USER 2 from
+   status-leds.md) as user texts inside the LED footprints, 0.8 mm /
+   0.15 mm stroke, one baseline 0.9 mm under the parts; it moves no
+   footprint (check_positions 0 moved) and reruns idempotently.
+2. PSRAM: four identical cells in a 2 x 2 block against the FPGA's left,
+   top-aligned with its island: PSRAM0/1 series resistors sit on the north
+   flank of U1, PSRAM2/3 on the west flank, so the block's top row serves
+   the first pair and the bottom row the second; the longest chip-to-
+   resistor run is shorter than in the 62 mm column.
+3. Jumpers as a control corner: J19 with U23 on top in the service corner
+   (bottom-left, with J2, U20, J52), J20 with U24 on top as its mirror
+   above the HDMI jack (bottom-right). The two PIN V jumpers are not
+   side by side: each selects a bank supply (VCCIO_1 at the FPGA's
+   bottom-left, VCCIO_2 at its right) and feeds a fused rail up its own
+   slot column; one centre would drag a 2 A rail across the board.
+4. USB story in one place: J1 on the top edge, U26 straight under it, U18
+   beside the eFuse, U34 closing the door row, U11 and U12 (the two
+   identical VSYS converters) side by side under U26 against the mux.
+   They stay separate islands because each IC's passives follow its own
+   datasheet figure; the district box "USB POWER IN" shows them as one.
+5. Serial memory shelf: U6 and U33 continue the door row leftwards (both
+   SPI, 4-6 lines, both leaving the FPGA's left half). The SDRAM U32
+   stays under the FPGA where its 38 lines leave (its balls are in the
+   package's lower half): it is the widest, fastest bus on the board and
+   does not travel to the flash.
+6. Regulators in rows: the door row U16, U15, U14, U34 against the FPGA's
+   top edge, then U11 and U12 one step below its right end. U13 (2.5 V)
+   sits beside the PHY, its load, under the FPGA (district entry, no
+   longer a bottom door; the two overlapped when both were rules).
+7. JTAG together: J2 standing at the far bottom-left one row in, above
+   the LINK P jack, U20 beside it, J52 on top. Not on the edge: at real
+   size the bottom edge is 89.6 mm (the slot rows end at y 82-85 at both
+   corners, a jack 18-21 mm deep starts at x 10.4) and the five cable
+   jacks take 80.1 mm (J71 17.0, J72 17.0, J70 17.6, J73 18.5, J68 10.0);
+   the 8.8 mm header fits only with the AUX terminal turned onto the
+   right edge at 0.5 mm gaps. The microSD (16.7 mm) does not fit on the
+   edge either (finding unchanged) and stays inboard, pulled by its bank
+   lines (it landed above the service corner, left of the PSRAM block).
+Wiring solver left in charge of: J51, J74, Q3, SW1, U7, U9, U10, U17,
+U21, U22, U32. Plan refusals met on the way (each printed with both
+boxes, now part of the message): U34/U11, U26/U11, U30/U13, J73/D1 (the
+LED islands' title bars made four boxes too wide for a row: hence
+`rows`). The pre-existing L1/R8 0.18 mm clearance pair inside island U7
+is in the committed board too (kicad-cli --severity-error lists it; the
+gate's DRC summary counts courtyards only).
+Open: SW1 (BOOT button) landed by the solver at the door's top, 35 mm
+staged from U7's flash; the bottom-edge budget above is the first thing
+to settle when compacting to 1:1; check "CTRL HB" against its 5 mm cell
+in KiCad (about 4.5 mm at 0.8 mm).
