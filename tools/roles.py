@@ -231,6 +231,9 @@ NET = {
     'MGTRREF_213': 'calibration resistor for GTP quad 213 (UG482 Table 5-5)',
     'SYS_CLK': 'damps ringing on the clock line',
     'SDRAM_CLK': 'damps ringing on the SDRAM clock (22 ohm at the FPGA)',
+    'MRAM_CS': 'keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4)',
+    'MRAM_WP': 'write protect released: writes to the status register allowed',
+    'MRAM_HOLD': 'hold released: transfers never pause',
     'SDRAM_CS_N': 'keeps the SDRAM deselected until a design drives CS',
     'SDRAM_CKE': 'holds the SDRAM clock disabled (power-down) until a design drives CKE',
     'PHY_RSET': 'sets U30\'s transmit bias current (2.49 k 1 %, [verify] ref/network.md)',
@@ -371,6 +374,15 @@ GROUP.update({
         'the FPGA damps the clock; CS is pulled up and CKE pulled down so '
         'the chip stays deselected and in power-down until a design drives '
         'them.',
+    'MRAM (populate option)':
+        'A 128 KB non-volatile SPI memory (Everspin MR25H10CDF) that keeps '
+        'its contents without power and has no write wear: settings, logs, '
+        'a boot menu, a save file. Not fitted by default; a build that wants '
+        'it fits U33 and these four passives together. CS is pulled up so '
+        'the chip stays deselected while power comes up (datasheet section '
+        '4); WP and HOLD are pulled up and not connected to the FPGA, so '
+        'writes are allowed and transfers never pause. The exposed pad is '
+        'ground only, with two vias under it. Four bank 14 lines at 3.3 V.',
     'PSRAM0 series termination': 'One 33 ohm resistor per PSRAM0 line, placed next to the '
         'FPGA: they soften the fast signal edges so they do not ring along '
         'the trace. Values can be tuned after measurement (ref/psram.md).',
@@ -508,6 +520,7 @@ PART.update({
     'U3': ('PSRAM 1', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
     'U4': ('PSRAM 2', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
     'U5': ('PSRAM 3', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
+    'U33': ('SPI MRAM (option)', 'Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes. Populate option, DNP by default; bank 14.'),
     'U32': ('SDRAM', 'Winbond W9825G6KH-6, 256 Mbit (32 MB) 16-bit SDR SDRAM, 3.3 V, TSOP-54: bank 35 data and control, bank 14 address.'),
     'U6': ('FPGA configuration flash', 'Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it.'),
     'U7': ('board controller', 'Raspberry Pi RP2350B microcontroller (two Cortex-M33 cores, 150 MHz): USB, FPGA programming, power sequencing and monitoring.'),

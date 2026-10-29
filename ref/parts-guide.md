@@ -10,7 +10,7 @@ you care about; within it, groups appear in schematic order.
 
 - [FPGA](#fpga) (110 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
 - [Power](#power) (111 parts): Inputs, the regulators that make every rail, extension power protection.
-- [Memory](#memory) (46 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
+- [Memory](#memory) (51 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
@@ -514,8 +514,8 @@ The split between +1V8_IO and +1V8. VCCAUX and VCCADC are the FPGA's internal su
 
 | Ref | Value | What it does |
 |---|---|---|
-| C258 | 10uF | 10uF bypass on +1V8_IO |
-| C259 | 100nF | 100nF bypass on +1V8_IO |
+| C259 | 10uF | 10uF bypass on +1V8_IO |
+| C260 | 100nF | 100nF bypass on +1V8_IO |
 | FB1 | 120R 2A BLM18PG121SN1D | 120R 2A BLM18PG121SN1D resettable fuse feeding +1V8_IO from +1V8 |
 
 ## Memory
@@ -637,6 +637,18 @@ A 32 MB SDR SDRAM (Winbond W9825G6KH-6, 16 bits wide, up to 166 MHz) for designs
 | R151 | 22 | 22 series resistor between SDRAM_CLK and SDRAM_CLK_MEM, for U32 (SDRAM): damps ringing on the SDRAM clock (22 ohm at the FPGA) |
 | R152 | 10k | 10k pull-up of SDRAM_CS_N to +3V3, for U32 (SDRAM): keeps the SDRAM deselected until a design drives CS |
 | R153 | 10k | 10k resistor from SDRAM_CKE to GND, for U32 (SDRAM): holds the SDRAM clock disabled (power-down) until a design drives CKE |
+
+### MRAM (populate option)
+
+A 128 KB non-volatile SPI memory (Everspin MR25H10CDF) that keeps its contents without power and has no write wear: settings, logs, a boot menu, a save file. Not fitted by default; a build that wants it fits U33 and these four passives together. CS is pulled up so the chip stays deselected while power comes up (datasheet section 4); WP and HOLD are pulled up and not connected to the FPGA, so writes are allowed and transfers never pause. The exposed pad is ground only, with two vias under it. Four bank 14 lines at 3.3 V.
+
+| Ref | Value | What it does |
+|---|---|---|
+| U33 | MR25H10CDF | NOT FITTED. SPI MRAM (option): Everspin MR25H10CDF, 1 Mbit (128 KB) SPI MRAM, 3.3 V, DFN-8: non-volatile, unlimited writes. Populate option, DNP by default; bank 14. |
+| C258 | 100nF | NOT FITTED. 100nF bypass on +3V3, for U33 (SPI MRAM (option)) |
+| R154 | 10k | NOT FITTED. 10k resistor from MRAM_CS to +3V3, for U33 (SPI MRAM (option)): keeps the MRAM deselected and tracking VDD during power-up (datasheet section 4) |
+| R155 | 10k | NOT FITTED. 10k resistor from MRAM_WP to +3V3, for U33 (SPI MRAM (option)): write protect released: writes to the status register allowed |
+| R156 | 10k | NOT FITTED. 10k resistor from MRAM_HOLD to +3V3, for U33 (SPI MRAM (option)): hold released: transfers never pause |
 
 ## Supervisor
 

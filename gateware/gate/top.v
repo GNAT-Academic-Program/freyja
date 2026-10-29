@@ -62,6 +62,10 @@ module top (
     output LINK_Q_TXC_P,
     output LINK_Q_TXD_N,
     output LINK_Q_TXD_P,
+    output MRAM_CS,
+    output MRAM_SCK,
+    output MRAM_SI,
+    input  MRAM_SO,
     input  PHY_INT_N,
     output PHY_MDC,
     inout  PHY_MDIO,
@@ -253,7 +257,7 @@ module top (
     reg [7:0] rxcnt = 0;
     always @(posedge rxc) rxcnt <= rxcnt + 1;
     reg fold = 0;
-    always @(posedge clk) fold <= DBG_TCK ^ DBG_TDI ^ DBG_TMS ^ HDMI_HPD ^ PHY_INT_N ^ PHY_RXD0 ^ PHY_RXD1 ^ PHY_RXD2 ^ PHY_RXD3 ^ PHY_RX_CTL ^ PUDC_B ^ SB_UART_RX ^ rxcnt[7];
+    always @(posedge clk) fold <= DBG_TCK ^ DBG_TDI ^ DBG_TMS ^ HDMI_HPD ^ MRAM_SO ^ PHY_INT_N ^ PHY_RXD0 ^ PHY_RXD1 ^ PHY_RXD2 ^ PHY_RXD3 ^ PHY_RX_CTL ^ PUDC_B ^ SB_UART_RX ^ rxcnt[7];
     wire link_p_rxc;
     IBUFDS #(.DIFF_TERM("TRUE"), .IOSTANDARD("LVDS_25")) ib_0 (.I(LINK_P_RXC_P), .IB(LINK_P_RXC_N), .O(link_p_rxc));
     wire link_p_rxd;
@@ -603,38 +607,41 @@ module top (
     assign DBG_TDO = cnt[4] ^ fold ^ lvfold ^ iofold;
     assign HDMI_CT_HPD = cnt[5] ^ fold ^ lvfold ^ iofold;
     assign HDMI_LS_OE = cnt[6] ^ fold ^ lvfold ^ iofold;
-    assign PHY_MDC = cnt[7] ^ fold ^ lvfold ^ iofold;
-    assign PHY_RESET_N = cnt[8] ^ fold ^ lvfold ^ iofold;
-    assign PHY_TXC = cnt[9] ^ fold ^ lvfold ^ iofold;
-    assign PHY_TXD0 = cnt[10] ^ fold ^ lvfold ^ iofold;
-    assign PHY_TXD1 = cnt[11] ^ fold ^ lvfold ^ iofold;
-    assign PHY_TXD2 = cnt[12] ^ fold ^ lvfold ^ iofold;
-    assign PHY_TXD3 = cnt[13] ^ fold ^ lvfold ^ iofold;
-    assign PHY_TX_CTL = cnt[14] ^ fold ^ lvfold ^ iofold;
-    assign SB_UART_TX = cnt[15] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A0 = cnt[16] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A1 = cnt[17] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A10 = cnt[18] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A11 = cnt[19] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A12 = cnt[0] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A2 = cnt[1] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A3 = cnt[2] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A4 = cnt[3] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A5 = cnt[4] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A6 = cnt[5] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A7 = cnt[6] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A8 = cnt[7] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_A9 = cnt[8] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_BA0 = cnt[9] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_BA1 = cnt[10] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_CAS_N = cnt[11] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_CKE = cnt[12] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_CS_N = cnt[13] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_LDQM = cnt[14] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_RAS_N = cnt[15] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_UDQM = cnt[16] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_WE_N = cnt[17] ^ fold ^ lvfold ^ iofold;
-    assign SDRAM_CLK = cnt[18] ^ fold ^ lvfold ^ iofold;
+    assign MRAM_CS = cnt[7] ^ fold ^ lvfold ^ iofold;
+    assign MRAM_SCK = cnt[8] ^ fold ^ lvfold ^ iofold;
+    assign MRAM_SI = cnt[9] ^ fold ^ lvfold ^ iofold;
+    assign PHY_MDC = cnt[10] ^ fold ^ lvfold ^ iofold;
+    assign PHY_RESET_N = cnt[11] ^ fold ^ lvfold ^ iofold;
+    assign PHY_TXC = cnt[12] ^ fold ^ lvfold ^ iofold;
+    assign PHY_TXD0 = cnt[13] ^ fold ^ lvfold ^ iofold;
+    assign PHY_TXD1 = cnt[14] ^ fold ^ lvfold ^ iofold;
+    assign PHY_TXD2 = cnt[15] ^ fold ^ lvfold ^ iofold;
+    assign PHY_TXD3 = cnt[16] ^ fold ^ lvfold ^ iofold;
+    assign PHY_TX_CTL = cnt[17] ^ fold ^ lvfold ^ iofold;
+    assign SB_UART_TX = cnt[18] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A0 = cnt[19] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A1 = cnt[0] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A10 = cnt[1] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A11 = cnt[2] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A12 = cnt[3] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A2 = cnt[4] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A3 = cnt[5] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A4 = cnt[6] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A5 = cnt[7] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A6 = cnt[8] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A7 = cnt[9] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A8 = cnt[10] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_A9 = cnt[11] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_BA0 = cnt[12] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_BA1 = cnt[13] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_CAS_N = cnt[14] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_CKE = cnt[15] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_CS_N = cnt[16] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_LDQM = cnt[17] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_RAS_N = cnt[18] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_UDQM = cnt[19] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_WE_N = cnt[0] ^ fold ^ lvfold ^ iofold;
+    assign SDRAM_CLK = cnt[1] ^ fold ^ lvfold ^ iofold;
     OBUFDS #(.IOSTANDARD("TMDS_33")) ob_0 (.I(cnt[3] ^ fold), .O(HDMI_CLK_P), .OB(HDMI_CLK_N));
     OBUFDS #(.IOSTANDARD("TMDS_33")) ob_1 (.I(cnt[4] ^ fold), .O(HDMI_D0_P), .OB(HDMI_D0_N));
     OBUFDS #(.IOSTANDARD("TMDS_33")) ob_2 (.I(cnt[5] ^ fold), .O(HDMI_D1_P), .OB(HDMI_D1_N));

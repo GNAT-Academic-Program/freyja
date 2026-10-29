@@ -78,6 +78,10 @@ SDRAM_BANK14 = OrderedDict([
     ('A4', 'M25'), ('A5', 'P25'), ('A6', 'R25'), ('A7', 'T25'),
     ('A8', 'M24'), ('A9', 'N24'), ('A10', 'P24'), ('A11', 'T24'),
     ('A12', 'N23'), ('BA0', 'P23'), ('BA1', 'R23')])
+# MR25H10CDF SPI MRAM (populate option), 3.3 V, bank 14: the L7 and L9
+# pairs left in the pool, rows K-L, columns 24-26. WP and HOLD are pulled
+# up on the board and do not reach the FPGA.
+MRAM_BALLS = OrderedDict([('CS', 'K25'), ('SCK', 'K26'), ('SI', 'L24'), ('SO', 'L25')])
 # The four 1.8 V QSPI PSRAMs (APS6404L-SQN-SN) in bank 13, VCCO = +1V8_IO.
 # Hand-chosen: three whole pairs per chip in one patch of the ballmap, so the
 # four channels route with one pattern, and both MRCC pairs (U21/V21,
@@ -261,6 +265,10 @@ def assign():
         if b not in pool14 or b in net:
             raise RuntimeError(f'SDRAM_{sig}: {b} is not free in the bank 14 pool')
         net[b] = f'SDRAM_{sig}'
+    for sig, b in MRAM_BALLS.items():
+        if b not in pool14 or b in net:
+            raise RuntimeError(f'MRAM_{sig}: {b} is not free in the bank 14 pool')
+        net[b] = f'MRAM_{sig}'
     pool14 = [b for b in pool14 if b not in net]
 
     assign.link = link                    # for ballmap.py
@@ -297,6 +305,8 @@ def check(net, io):
         want = '14' if re.match(r'SDRAM_(A\d+|BA\d)$', n) else '35'
         if not names[b].endswith('_' + want): probs.append(f'{n} on {b} is not in bank {want}')
         if n == 'SDRAM_CLK' and re.search(r'[MS]RCC', names[b]): probs.append('SDRAM_CLK is on a clock-capable ball')
+    for n, b in inv.items():
+        if n.startswith('MRAM_') and not names[b].endswith('_14'): probs.append(f'{n} on {b} is not in bank 14')
     return probs
 
 if __name__ == '__main__':

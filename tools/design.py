@@ -40,6 +40,7 @@ TSSOP24_XLATE = 'EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL_1'
 VSSOP8_LVC2T45 = 'EasyEDA:VSSOP-8_L2.1-W2.4-P0.50-LS3.2-BL'
 QFN16_SY8047 = 'EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6'
 VQFN10RPU = 'Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm'
+MRAM_FP = 'DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA'   # tools/gen_kicad.py gen_mram_fp
 EXT2x8  = 'EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54'
 EXT2x32 = 'EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1'
 EXT_PWR = 'EasyEDA:HDR-TH_7P-P2.54-V-F'
@@ -117,7 +118,7 @@ class Design:
     # ref/qualified-parts.md.
     HV = {'VSYS': '50V', 'VBUS': '25V', 'AUX_RAIL': '50V'}
 
-    def C(self, val, a, b, fp=C0402):
+    def C(self, val, a, b, fp=C0402, dnp=False):
         hv = [self.HV[n] for n in (a, b) if n in self.HV]
         if hv: val = f'{val} {hv[0]}'
         # Exact JLC/LCSC choices already approved for robot assembly.  Keep
@@ -132,7 +133,7 @@ class Design:
             (C0805, '22uF'):  'C86816',
             (C1210, '10uF'):  'C77102',
         }.get((fp, base), '')
-        return self.add(self.seq('C'), 'Device:C', val, fp, {'1': a, '2': b}, lcsc)
+        return self.add(self.seq('C'), 'Device:C', val, fp, {'1': a, '2': b}, lcsc, dnp=dnp)
     def R(self, val, a, b, fp=R0402, dnp=False):
         lcsc = {
             (R0402, '1k'):   'C11702',
@@ -1125,6 +1126,27 @@ def build():
     d.R('22', 'SDRAM_CLK', 'SDRAM_CLK_MEM')
     d.R('10k', V33, 'SDRAM_CS_N', R0603)
     d.R('10k', 'SDRAM_CKE', GND, R0603)
+
+    # ------------------------------------------------ MRAM, populate option
+    # Everspin MR25H10CDF (datasheet rev 9.5): 1 Mbit SPI MRAM, VDD 2.7 to
+    # 3.6 V (Table 4.1, p. 10), DFN-8 Small Flag 5 x 6 mm, 1.27 mm pitch,
+    # 2.0 x 2.0 mm exposed pad that connects to nothing but VSS (Figure 6.2,
+    # p. 18). Pin names and numbers as the imported C246234 symbol and Table
+    # 1.1 (p. 3). "The CS signal should be pulled up to VDD so that the
+    # signal tracks the power supply during power-up" (section 4, p. 13):
+    # 10k to +3V3. WP and HOLD are not driven by the FPGA: 10k to +3V3
+    # each, so writes are allowed and the interface never pauses. Balls:
+    # tools/alloc.py MRAM_BALLS. The whole group is DNP: a build that wants
+    # the MRAM fits U33 and these four passives.
+    d.sheet('Memory')
+    d.group('MRAM (populate option)')
+    d.add('U33', 'EasyEDA:MR25H10CDF', 'MR25H10CDF', f'odin:{MRAM_FP}',
+          {'~{CS}': 'MRAM_CS', 'SO': 'MRAM_SO', '~{WP}': 'MRAM_WP', 'VSS': GND,
+           'SI': 'MRAM_SI', 'SCK': 'MRAM_SCK', '~{HOLD}': 'MRAM_HOLD',
+           'VDD': V33, 'EP': GND}, 'C246234', dnp=True)
+    d.C('100nF', V33, GND, dnp=True)
+    for net in ('MRAM_CS', 'MRAM_WP', 'MRAM_HOLD'):
+        d.R('10k', V33, net, R0603, dnp=True)
 
     # ------------------------------------------------ +1V8_IO and +1V8
     # U14's output node is +1V8_IO (L5, its 2 x 22 uF and the feedback divider

@@ -55,6 +55,11 @@ def normalize_imported_pin_types():
             '30': 'power_out', '31': 'open_collector', '39': 'passive'},
         # YXC OT3225 CMOS oscillator: 1 tri-state in, 2 GND, 3 out, 4 VDD
         'OT322550MJBA4SL': {'1': 'input', '2': 'power_in', '3': 'output', '4': 'power_in'},
+        # Everspin MR25H10CDF, datasheet rev 9.5 Table 1.1: CS, WP, SI, SCK,
+        # HOLD inputs; SO output; VDD, VSS supplies; the exposed pad is VSS.
+        'MR25H10CDF': {'1': 'input', '2': 'output', '3': 'input', '4': 'power_in',
+                       '5': 'input', '6': 'input', '7': 'input', '8': 'power_in',
+                       '9': 'passive'},
     }
     text = open(PKG).read()
     for name in sorted(passive | overrides.keys()):
@@ -430,6 +435,25 @@ def gen_inductor_fp():
     open(f'{PRET}/{LFP}.kicad_mod', 'w').write(o)
     return 2
 
+MRAM_FP = 'DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA'
+
+def gen_mram_fp():
+    """MR25H10CDF land pattern: the imported EasyEDA DFN-8 (C246234) with two
+    0.3 mm ground vias through the 2.0 x 2.0 mm exposed pad. The pad keeps
+    its paste; the via pads carry none. Everspin MR25H10 rev 9.5 Figure 6.2
+    (p. 18): body 5 x 6 mm, pitch 1.27, pad I/J 1.90-2.10, nothing but VSS
+    on the exposed pad."""
+    os.makedirs(PRET, exist_ok=True)
+    t = open('easyeda/EasyEDA.pretty/DFN-8_L5.0-W6.0-P1.27-BL-EP.kicad_mod').read()
+    t = t.replace('(module easyeda2kicad:DFN-8_L5.0-W6.0-P1.27-BL-EP', f'(module {MRAM_FP}', 1)
+    t = t.replace('(fp_text value DFN-8_L5.0-W6.0-P1.27-BL-EP', f'(fp_text value {MRAM_FP}', 1)
+    vias = ''.join(f'\t(pad 9 thru_hole circle (at {x:.2f} 0.00) (size 0.600 0.600) '
+                   '(drill 0.300) (layers *.Cu *.Mask))\n' for x in (-0.6, 0.6))
+    anchor = '\t(fp_circle'
+    t = t.replace(anchor, vias + anchor, 1)
+    open(f'{PRET}/{MRAM_FP}.kicad_mod', 'w').write(t)
+    return t.count('(pad ')
+
 def gen_aux_footprints():
     """Datasheet land pattern for the AUX branch PTC."""
     os.makedirs(PRET, exist_ok=True)
@@ -468,6 +492,7 @@ if __name__ == '__main__':
     npads = gen_footprint()
     nlp = gen_inductor_fp()
     nap = gen_aux_footprints()
+    print(f'footprint {PRET}/{MRAM_FP}.kicad_mod: {gen_mram_fp()} pads')
     print(f"symbol  {SYM}: {len(pins)} pins in {len(units)} units")
     for k, v in units.items(): print(f"   unit {k:18s} {len(v):3d} pins")
     print(f"footprint easyeda/EasyEDA.pretty/{FPNAME}.kicad_mod: {npads} pads")

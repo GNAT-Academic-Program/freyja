@@ -66,6 +66,15 @@ PARTS = {
     pinmap='generated from the standard 8-pin QSPI NOR pinout, '
            'tools/gen_kicad.py FLASH_PINS',
     src='Winbond W25Q256JV datasheet; LCSC C97522'),
+  'EasyEDA:MR25H10CDF': dict(
+    mpn='MR25H10CDF', pkg='DFN-8 Small Flag, 5 x 6 mm, 1.27 mm pitch, 2.0 x 2.0 mm exposed pad',
+    fp='odin:DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA',
+    rating='VDD 2.7-3.6 V, 1 Mbit SPI MRAM, 40 MHz, CS pulled up during power-up; '
+           'populate option (DNP by default)',
+    pinmap='imported C246234 symbol checked against Table 1.1 (p. 3); the '
+           'footprint is the imported land pattern plus two 0.3 mm ground '
+           'vias in the exposed pad (tools/gen_kicad.py gen_mram_fp)',
+    src='ref/datasheets/mr25h10cdf.pdf (rev 9.5: Table 1.1 p. 3, section 4 p. 13, Figure 6.2 p. 18); LCSC C246234'),
   'odin:W9825G6KH': dict(
     mpn='W9825G6KH-6', pkg='TSOP II 54, 400 mil: 22.22 x 10.16 mm body, 0.80 mm pitch',
     fp='Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm',

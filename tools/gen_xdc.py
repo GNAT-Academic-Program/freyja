@@ -39,11 +39,12 @@ CLOCKS = {SYS_CLK: (20.0, 'X4, 50 MHz CMOS oscillator'),
 def direction(net):
     """in / out / inout as the board sees the FPGA pin."""
     if net == SYS_CLK or re.match(r'PHY_(RXC|RXD\d|RX_CTL|INT_N)$|LINK_[PQ]_RX[CD]_[PN]$'
-                                  r'|SB_UART_RX$|DBG_T(CK|MS|DI)$|PUDC_B$|HDMI_HPD$', net):
+                                  r'|SB_UART_RX$|DBG_T(CK|MS|DI)$|PUDC_B$|HDMI_HPD$|MRAM_SO$', net):
         return 'in'
     if re.match(r'PHY_(TXC|TXD\d|TX_CTL|MDC|RESET_N)$|LINK_[PQ]_TX[CD]_[PN]$|SB_UART_TX$'
                 r'|DBG_TDO$|BUS5V\d_(DIR|OE_N)$|HDMI_(CLK|D\d)_[PN]$|HDMI_(CT_HPD|LS_OE)$'
-                r'|SDRAM_(A\d+|BA\d|CLK|CKE|CS_N|RAS_N|CAS_N|WE_N|LDQM|UDQM)$', net):
+                r'|SDRAM_(A\d+|BA\d|CLK|CKE|CS_N|RAS_N|CAS_N|WE_N|LDQM|UDQM)$'
+                r'|MRAM_(CS|SCK|SI)$', net):
         return 'out'
     if re.match(r'SLOT[A-H]_IO\d+$|BUS5V\d_IO\d$|PHY_MDIO$|FLASH_|PSRAM\d_|HDMI_(SCL|SDA|CEC)$'
                 r'|SDRAM_DQ\d+$', net):
