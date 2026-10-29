@@ -68922,7 +68922,7 @@
 	(footprint "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "b39d0a36-a1f0-416f-9de7-8040ef8e85ae")
-		(at 53.5675 259.911231)
+		(at 433.28 17.14)
 		(descr "mux: 9 V request hold: Small N-MOSFET that pulls U34's PR1 to ground while the board controller asks for 9 V and for 2-7 s after it stops (D24, R, C hold), so the +5V rail is on U11 before VBUS moves and until it is back at 5 V.")
 		(property "Reference" "Q6"
 			(at 0 -4.95 0)
@@ -99888,7 +99888,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e5ee0c86-b200-4953-a148-ead6b6d00103")
-		(at 66.51 259.296231)
+		(at 446.26 17.87)
 		(descr "470k resistor from SEL_IN2 to GND, for Q6 (mux: 9 V request hold): Q6's gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s")
 		(tags "resistor")
 		(property "Reference" "R200"
@@ -102838,7 +102838,7 @@
 	(footprint "Diode_SMD:D_SOD-123"
 		(layer "F.Cu")
 		(uuid "ef43770b-edc6-466f-96d9-5fc5e1f4624e")
-		(at 46.3575 260.307856)
+		(at 441.88 17.45)
 		(descr "mux hold diode: 1N4148W: charges the Q6 hold capacitor from PD_REQ_9V at once and lets it drain slowly through its own resistor.")
 		(tags "SOD-123")
 		(property "Reference" "D24"
@@ -104535,7 +104535,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "f3762cb9-3d11-4f36-978f-f82d396e5074")
-		(at 33.225 259.301231)
+		(at 437.28 17.62)
 		(descr "10uF capacitor from SEL_IN2 to GND, for Q6 (mux: 9 V request hold): Q6's gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s")
 		(tags "capacitor")
 		(property "Reference" "C279"
@@ -111574,4 +111574,63 @@
 		)
 	)
 	(embedded_fonts no)
+	(gr_rect
+		(start 430.0025 14.156231)
+		(end 449.265 20.126231)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "6adc36bc-8f1b-4597-9ef3-3faed5d11433")
+	)
+	(gr_rect
+		(start 430.0025 9.996231)
+		(end 449.265 14.156231)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "cf77d17e-6669-4a8f-a7f9-c522a68c76dd")
+	)
+	(gr_text "island Q6"
+		(at 430.4025 11.596231 0)
+		(layer "Cmts.User")
+		(uuid "5e8b5994-9db2-4a9f-8b5f-0755e051bdae")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "mux: 9 V request hold\ngeneric, 4 parts, 2026-10-29"
+		(at 430.4025 11.896231 0)
+		(layer "Cmts.User")
+		(uuid "90db85d2-e7d2-417e-8c1d-1305310d1299")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island Q6"
+		(uuid "6e3ec987-ed4e-440e-b3a8-86c02f8bcf6b")
+		(members
+			"6adc36bc-8f1b-4597-9ef3-3faed5d11433"
+			"cf77d17e-6669-4a8f-a7f9-c522a68c76dd"
+			"5e8b5994-9db2-4a9f-8b5f-0755e051bdae"
+			"90db85d2-e7d2-417e-8c1d-1305310d1299"
+			"b39d0a36-a1f0-416f-9de7-8040ef8e85ae"
+			"f3762cb9-3d11-4f36-978f-f82d396e5074"
+			"ef43770b-edc6-466f-96d9-5fc5e1f4624e"
+			"e5ee0c86-b200-4953-a148-ead6b6d00103"
+		)
+	)
 )
