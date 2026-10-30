@@ -727,3 +727,16 @@ except footprints whose outline changed.
    1.72 / 2.45 A inside Irms. Land is the C78804 import (2.47 x 5.02 mm
    pads on 5.2 mm centres, Sunlord Fig. 2); L2/L3 swapped in place, 0
    moved, islands U11/U12 kept. Gate electrical PASS.
+5. J1 HC-TYPE-C-16P-01A (mid-mount) -> Korean Hroparts TYPE-C-31-M-12
+   (C165948), top mount with four through-hole shell legs. Footprint:
+   KiCad's own USB_C_Receptacle_HRO_TYPE-C-31-M-12, checked against the
+   HRO drawing (slots 0.6 x 1.7 / 0.6 x 1.2 on 8.65 x 4.18 mm, locating
+   holes 0.65 mm 5.78 apart, contacts 0.3 mm at 0.5 mm pitch, far edge
+   1.64 mm past the front slot line = 5.79 - 4.18); the EasyEDA import
+   merges the outer contacts into custom pads (A1B12...) that cannot
+   carry the symbol's pad names, so it was not used. gen_usbc_fp and the
+   odin HCTL copy (shortened pads, findings 49) are gone; there was no
+   board cutout to remove. placement.py now also searches KiCad's
+   Connector_USB/Connector_Video libraries (the checker had stopped at
+   "footprint not found"). J1 swapped in place, 0 moved, DRC 15
+   courtyards unchanged, gate electrical PASS.

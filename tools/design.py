@@ -51,9 +51,16 @@ HDR2x3  = 'EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1'
 HDR2x5  = 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical'
 HDR1x2  = 'Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical'
 XTAL    = 'EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL'
-# KiCad's HCTL footprint with the four outer ground pads shortened on the
-# locating-hole side (tools/gen_kicad.py gen_usbc_fp, findings item 49).
-USBC    = 'odin:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A_Odin'
+# Korean Hroparts TYPE-C-31-M-12 (LCSC C165948), top-mount with four
+# through-hole shell legs, since 2026-10-30 (the HCTL mid-mount part is
+# not in the JLCPCB library). KiCad's own footprint for this exact part,
+# drawn from the HRO drawing (slots 0.6 x 1.7 / 0.6 x 1.2 on 8.65 x 4.18
+# mm centres, 0.65 mm locating holes 5.78 mm apart, contacts 0.3 x 1.45 mm
+# at 0.5 mm pitch ending 1.64 mm past the front slot line as the drawing's
+# 5.79 - 4.18). The EasyEDA import of C165948 merges the outer contacts
+# into custom pads named A1B12 etc., which cannot carry the symbol's pad
+# names, so it is not used. No board cutout: the mid-mount's is gone with it.
+USBC    = 'Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12'
 LED0603 = 'LED_SMD:LED_0603_1608Metric'
 
 LCSC = {'APS6404L-SQN-SN':'C5360304',
@@ -464,7 +471,7 @@ def build():
     d.group('USB-C')
     d.add('J1', 'Connector:USB_C_Receptacle_USB2.0_16P', 'USB-C', USBC,
           {'VBUS': 'VBUS', 'GND': GND, 'SHIELD': GND, 'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
-           'D+': 'USB_DP', 'D-': 'USB_DM'}, 'C2894897')
+           'D+': 'USB_DP', 'D-': 'USB_DM'}, 'C165948')
     # CH224K owns the CC lines and negotiates; no plain 5.1k pull-downs here.
     # CFG1 is pulled up to the chip's own 3.3 V, so the board asks for 5 V
     # before, without and in spite of the controller (WCH CH224 datasheet

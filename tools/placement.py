@@ -133,7 +133,7 @@ def contract():
         out.append(P(ref, JACK_X[ref], JACK_Y[ref], JACK_ROT[ref], why=what))
 
     # --- input corners ---------------------------------------------------
-    out.append(P('J1', 79.0, 2.6, 0, why='USB-C, mid-mount on top edge'))
+    out.append(P('J1', 79.0, 2.6, 0, why='USB-C, top mount on top edge'))
     out.append(P('J50', 9.5, 4.2, 0, why='9-21V screw terminal, top-left corner'))
 
     # --- service row (bottom left) ---------------------------------------
@@ -202,7 +202,11 @@ ANCHORS['5V BUS 0 converter'] = (56.0, 74.0, 'right')
 ANCHORS['5V BUS 1 converter'] = (82.0, 74.0, 'right')
 
 # ---------------------------------------------------------------- checks
-FP_DIRS = ('easyeda/EasyEDA.pretty', 'kicad/odin.pretty')
+FP_DIRS = ('easyeda/EasyEDA.pretty', 'kicad/odin.pretty',
+           # KiCad's own libraries, for the connectors fitted from them
+           # (J1 since 2026-10-30, J73)
+           '/usr/share/kicad/footprints/Connector_USB.pretty',
+           '/usr/share/kicad/footprints/Connector_Video.pretty')
 
 def _fp_bbox(fpname):
     for d in FP_DIRS:
@@ -232,7 +236,7 @@ CONTRACT_FP = {         # ref prefix -> footprint file stem, for the checker
     'J70': 'RJ45-TH_HR911130A', 'J71': 'RJ45-TH_KH-RJ45-58-8P8C',
     'J72': 'RJ45-TH_KH-RJ45-58-8P8C',
     'U1': 'FBGA-676_L27.0-W27.0-R26-C26-P1.00-BL',
-    'J1': 'USB-C-SMD_HC-TYPE-C-16P-01A', 'J50': 'CONN-TH_P5.00_KF301-5.0-2P',
+    'J1': 'USB_C_Receptacle_HRO_TYPE-C-31-M-12', 'J50': 'CONN-TH_P5.00_KF301-5.0-2P',
     'J2': 'IDC-TH_10P-P2.54_C5665',
     **{f'MK{ord(s)}': 'HDR-TH_1P-P2.54-V-M-21MM-C51353' for s in 'ABCDEFGHLM'},
 }

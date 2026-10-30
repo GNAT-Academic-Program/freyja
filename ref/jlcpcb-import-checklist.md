@@ -36,7 +36,7 @@ against the manufacturer datasheet.
 | 1 | `RP2350B` | board controller | C42415655 |
 | 1 | `ABM8-272-T3` | controller 12 MHz crystal | C20625731 |
 | 1 | `W25Q32JVZPIQ` | controller memory | `C571260` — imported and linked |
-| 1 | `HC-TYPE-C-16P-01A` | USB-C connector | C2894897 |
+| 1 | `TYPE-C-31-M-12` (Korean Hroparts) | USB-C connector, top mount | `C165948` — KiCad's HRO footprint, checked against the HRO drawing 2026-10-30 |
 | 1 | `ESDA6V1BC6` | USB data/CC protection | C495220 |
 | 1 | `SMBJ13A` from a named manufacturer | USB power surge protection | C133675 |
 | 1 | `CH224K` | USB power request | C970725 |

@@ -277,15 +277,18 @@ PARTS = {
     pinmap='1 3V3, 2 external-JTAG select', src='XFCN drawing; LCSC C492401'),
   # -------------------------------------------------------- USB and the PD
   'Connector:USB_C_Receptacle_USB2.0_16P': dict(
-    mpn='HC-TYPE-C-16P-01A', pkg='USB-C receptacle, 16 position, mid-mount',
-    fp='odin:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A_Odin',
-    rating='5 A contacts, 20 V. Board never negotiates above 9 V. Footprint: '
-           'KiCad\'s HCTL land pattern with the four outer ground pads (A1, A12, '
-           'B1, B12) shortened from 1.30 to 1.15 mm on the locating-hole side, '
-           'giving 0.31 mm hole-to-copper (board rule 0.25, JLC NPTH-to-track '
-           '0.20). [verify] against the HCTL drawing at order time',
-    pinmap='KiCad Connector symbol for this exact part number',
-    src='HCTL datasheet as shipped with the KiCad footprint; tools/gen_kicad.py gen_usbc_fp'),
+    mpn='TYPE-C-31-M-12', pkg='USB-C receptacle, 16 position, top mount, four through-hole shell legs',
+    fp='Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12',
+    rating='5 A contacts, 20 V (HRO drawing). Board never negotiates above 9 V. '
+           'KiCad\'s footprint for this exact part: slot legs 0.6 x 1.7 and '
+           '0.6 x 1.2 mm on 8.65 x 4.18 mm centres, two 0.65 mm locating holes '
+           '5.78 mm apart, contact pads 0.3 x 1.45 mm at 0.5 mm pitch whose far '
+           'edge sits 1.64 mm past the front slot line (drawing: 5.79 - 4.18); '
+           'the drawing pads are longer toward the edge, where nothing is',
+    pinmap='KiCad Connector symbol; footprint pads A1..B12 and S1 as the HRO '
+           'drawing\'s pin table (A1/B12 GND, A4/B9 VBUS, A5 CC1, B5 CC2, '
+           'A6/B6 D+, A7/B7 D-, A8/B8 SBU)',
+    src='Korean Hroparts TYPE-C-31-M-12 drawing (2020-12-08, LCSC attachment); LCSC C165948'),
   'Interface_USB:CH224K': dict(
     mpn='CH224K', pkg='SSOP-10 with exposed pad (3.9x4.9 mm)',
     fp='EasyEDA:ESSOP-10_L4.9-W3.9-P1.0-LS6.0-TL-EP',
