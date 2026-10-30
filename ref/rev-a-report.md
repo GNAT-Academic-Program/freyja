@@ -628,3 +628,30 @@ Open: SW1 (BOOT button) landed by the solver at the door's top, 35 mm
 staged from U7's flash; the bottom-edge budget above is the first thing
 to settle when compacting to 1:1; check "CTRL HB" against its 5 mm cell
 in KiCad (about 4.5 mm at 0.8 mm).
+
+## Slot strips turned inside out: power parts between the edge and the rail header 2026-10-30
+Parts: 553; ERC 0; DRC 8 courtyard errors (unchanged pairs), 0 parity;
+mechanical 9 findings (unchanged set, new numbers). Gate electrical PASS.
+The owner wants the slot power parts (the XFCN power headers, the fuses,
+the 10 uF/100 nF pairs and the posts) on the other side of each 2x32 IO
+rail header: between the board edge and the header, the header inboard.
+KiCad cannot mirror a footprint (Flip changes side, Mirror skips
+footprints), so tools/islands.py gained `--mirror REF,...`: the listed
+hand-placed parts have their positions mirrored across the strip's own
+vertical centre line, the strip keeps its box and edge margin (0.52 mm),
+rotations are kept. Pads symmetric about the part's own vertical axis
+(one-row headers, posts, two-pad parts along y) mirror exactly; a two-pad
+row along x (the 1.1 A fuses) is given a half turn, which is its exact
+mirror, pad numbers included; the 2x32 header only moves (pin 1 stays on
+its own corner) and the report says so. Dry run, render, --apply with
+write verification and DRC, one strip per commit, like any island.
+A-D strip (J3 island, 33 parts, line x 40.275): J3 from x 33.00 to 47.55,
+the power headers from 39.10 to 41.45, posts from 41.90 to 38.65, the
+1.1 A fuses from 46.80 to 33.75 turned 180. check_positions: 33 moved,
+nothing else. Render ref/islands/J3-mirror.svg.
+E-H strip (J5 island, 33 parts, line x 119.475): applied in the next
+commit, same rule.
+place.py --check still fails its 9 lattice findings (the rows were off
+the lattice before the move; the strips' x values changed, the set did
+not): the shield lattice contract is to be settled when the strips are
+compacted to 1:1.

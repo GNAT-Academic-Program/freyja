@@ -4,6 +4,7 @@
     python3 tools/islands.py --anchor U13 --island-net +2V5          # dry run
     python3 tools/islands.py --anchor U13 --island-net +2V5 --apply  # write
     python3 tools/islands.py --list-anchors                          # overview
+    python3 tools/islands.py --mirror J3,J53,F9,...                  # edge strip, other side of the rail
 
 Dry run is the default. It prints the lock table, the island membership
 table, the move report and the parts left in place, renders the island
@@ -63,6 +64,21 @@ Placement
     normal in --part-gap steps; against another moved part it is shifted
     along the edge. A part that cannot be placed stays where it is and is
     reported with the reason. Nothing locked ever moves to make room.
+
+Edge strips (--mirror REF,...; owner's request of 2026-10-30)
+  - The listed hand-placed parts (the IO rail header first, then its slot
+    power headers, fuses, caps and posts) swap sides: every position is
+    mirrored across the strip's vertical centre line (or --axis X), so the
+    power parts end up between the board edge and the rail header. The
+    strip keeps its footprint on the board: same box, same edge margin.
+  - KiCad cannot mirror a pad pattern, so rotations are kept. A part whose
+    pads are symmetric about its own vertical axis (two-pad fuses and caps,
+    one-row headers, posts) is mirrored exactly (a two-pad row along x by a
+    half turn, pad numbers included); for the others (a two-row header) only
+    the body moves and the report says so: pin 1 stays on its own corner.
+  - Dry run by default, with the move report and a render; --apply writes
+    only the `(at ...)` lines, verifies the file and runs DRC. One strip per
+    run, one run per commit, like any island.
 """
 import argparse
 import math
@@ -2074,6 +2090,71 @@ def city_edits(board, plan):
     return edits, members
 
 
+def mirror_strip(board, refs, axis=None, edge_margin=1.0):
+    """Edge strip: mirror the positions of the listed parts across a vertical
+    line (default the centre of their common box) and keep every rotation.
+    Returns (rail header footprint, members, info)."""
+    missing = [r for r in refs if r not in board.fps]
+    if missing:
+        sys.exit(f'--mirror: no such footprint: {", ".join(missing)}')
+    if len(set(refs)) != len(refs):
+        sys.exit('--mirror: a reference is listed twice')
+    fps = [board.fps[r] for r in refs]
+    back = [fp.ref for fp in fps if fp.layer != 'F.Cu']
+    if back:
+        sys.exit(f'--mirror: not on F.Cu: {", ".join(back)}')
+    box = bbox_of([p for fp in fps for p in fp.polygon()])
+    if axis is None:
+        axis = (box[0] + box[2]) / 2
+    anchor = fps[0]
+    members, exact, inexact = [], [], []
+    for fp in fps:
+        m = Member(fp)
+        m.anchor, m.role = anchor.ref, 'anchor' if fp is anchor else 'strip'
+        cx, cy = fp.centre()
+        dx = (2 * axis - cx) - cx
+        m.new = (fp.x + dx, fp.y, fp.rot)
+        # is the pad pattern (position and number) symmetric about the part's own vertical axis?
+        pads = {(p.number, round(fp.pad_pos(p)[0] - cx, 4), round(fp.pad_pos(p)[1] - cy, 4)) for p in fp.pads}
+        mirrored = {(n, round(-x, 4), y) for n, x, y in pads}
+        turned = {(n, round(-x, 4), round(-y, 4)) for n, x, y in pads}
+        if pads == mirrored:
+            exact.append(fp.ref)
+            m.reason = 'mirrored across the strip line'
+        elif turned == mirrored:
+            # two pads in a row along x: a half turn is the exact mirror, pad numbers included
+            m.new = (fp.x + dx, fp.y, fp.rot + 180.0)
+            exact.append(fp.ref)
+            m.reason = 'mirrored across the strip line (half turn: the exact mirror of a two-pad row)'
+        else:
+            inexact.append(fp.ref)
+            m.reason = 'body mirrored across the strip line, pad pattern kept (rotation unchanged)'
+        if abs(dx) < 1e-6:
+            m.status, m.reason = 'keep', 'sits on the mirror line'
+        else:
+            m.status = 'move'
+        members.append(m)
+    new_box = bbox_of([p for m in members for p in m.fp.polygon(m.new)])
+    strip = set(refs)
+    overlaps = []
+    for ref, other in board.fps.items():
+        if ref in strip:
+            continue
+        for m in members:
+            if m.status == 'move' and polys_overlap(m.fp.polygon(m.new), other.polygon()):
+                overlaps.append(f'{m.ref}/{ref}')
+    ac = anchor.centre()
+    o = board.outline
+    margin = min(box[0] - o[0], o[2] - box[2]) if o else float('nan')
+    info = {'box': box, 'new_box': new_box, 'axis': axis, 'exact': exact, 'inexact': inexact,
+            'overlaps': overlaps, 'edge_margin': margin,
+            'rail_was': 'left' if ac[0] < axis else 'right',
+            'rail_now': 'right' if ac[0] < axis else 'left'}
+    if margin < edge_margin:
+        info['note'] = f'strip is {margin:.2f} mm from the board edge, under --edge-margin {edge_margin}'
+    return anchor, members, info
+
+
 def apply_edits(text, edits):
     out = text
     for start, end, new in sorted(edits, key=lambda t: t[0], reverse=True):
@@ -2375,6 +2456,12 @@ def main():
                     help='staged islands: put the island (anchor included) back where a check_positions.py snapshot has it; the undo of an apply')
     ap.add_argument('--no-park', action='store_true',
                     help='staged islands: leave the chunk at the nearest free spot instead of the parking lot right of the sheet')
+    ap.add_argument('--mirror', type=lambda v: v.split(','), metavar='REF,...',
+                    help='edge strip: mirror the positions of these hand-placed parts across the strip\'s vertical '
+                         'centre line (first ref is the IO rail header, named in the render); rotations are kept, '
+                         'a pad pattern cannot be mirrored (dry run unless --apply)')
+    ap.add_argument('--axis', type=float, metavar='X',
+                    help='--mirror: x of the mirror line in mm (default: the centre of the strip\'s own box)')
     ap.add_argument('--list-anchors', action='store_true', help='list every anchor with its island size and exit')
     ap.add_argument('--check-geometry', action='store_true', help='cross-check pad and courtyard geometry against pcbnew and exit')
     args = ap.parse_args()
@@ -2382,6 +2469,39 @@ def main():
     board = Board(args.board)
     if args.check_geometry:
         sys.exit(check_geometry(board))
+
+    if args.mirror:
+        anchor, members, info = mirror_strip(board, args.mirror, args.axis, args.edge_margin)
+        print(f'EDGE STRIP {anchor.ref}: {len(members)} parts, box x {info["box"][0]:.2f}..{info["box"][2]:.2f} '
+              f'y {info["box"][1]:.2f}..{info["box"][3]:.2f}, mirror line x = {info["axis"]:.3f}')
+        print(f'  rail header {anchor.ref} goes from the {info["rail_was"]} side of the strip to the {info["rail_now"]} side; '
+              f'edge margin {info["edge_margin"]:.2f} mm (unchanged)')
+        if info['inexact']:
+            print(f'  body moved, pad pattern not mirrored (KiCad cannot; rotation kept): {" ".join(info["inexact"])}')
+        print(f'  mirrored exactly (pads symmetric about the part\'s own vertical axis): {" ".join(info["exact"])}')
+        if info['overlaps']:
+            print(f'  OVERLAPS footprints outside the strip: {", ".join(info["overlaps"])}')
+        print_moves(members)
+        render_path = args.render or os.path.join(RENDER_DIR, f'{anchor.ref}-mirror.svg')
+        title = f'islands.py --mirror {anchor.ref} strip' + (' --apply' if args.apply else ' (dry run)')
+        locks = {ref: (True, 'hand placement') for ref in board.fps}
+        render(render_path, board, anchor, members, None, title, locks)
+        print(f'\nrender: {os.path.relpath(render_path, ROOT)}')
+        moves = {m.ref: m for m in members if m.status == 'move'}
+        if not args.apply:
+            print('dry run: nothing written. Add --apply to write the pcb.')
+            return
+        if info['overlaps']:
+            sys.exit('REFUSED: the mirrored strip would overlap footprints outside it')
+        open(args.board, 'w', encoding='utf-8').write(apply_edits(board.text, plan_edits(board, members)))
+        errs = verify_written(args.board, moves, board)
+        if errs:
+            open(args.board, 'w', encoding='utf-8').write(board.text)
+            print('\n'.join('  ' + e for e in errs[:20]))
+            sys.exit('WRITE VERIFICATION FAILED; the original file was restored')
+        print(f'wrote {os.path.relpath(args.board, ROOT)}: {len(moves)} footprint(s) moved')
+        run_drc(args.board)
+        return
 
     if args.city:
         import yaml
