@@ -41,7 +41,7 @@ a default-disable pull-up. A-H are raw FPGA pins, not 5 V tolerant.
 
 ## Keyed power row and shield obligations
 
-Each zone uses C2832270 (XFCN PM254V-11-07-H85), a 1x7 female at positions
+Each zone uses C41426870 (Boom B254N02-0B7P51-H85C32, 3 A), a 1x7 female at positions
 2..8. A-H retain MK65..MK72; L/M retain MK76/MK77 for the GND post at position 1.
 Female references are A:J53, B:J62, C:J54, D:J63, E:J55, F:J64,
 G:J56, H:J65, L:J57, M:J58.

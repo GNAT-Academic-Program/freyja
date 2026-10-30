@@ -671,9 +671,13 @@ def build():
                 not (power[i+1] == GND if i+1 < len(power) else False)
                 for i, n in enumerate(power) if n != GND):
             raise ValueError(f'SLOT {s}: every power rail needs a GND neighbor')
-        d.add(power_ref[s], 'EasyEDA:PM254V-11-07-H85',
-              'XFCN PM254V-11-07-H85', EXT_PWR,
-              {str(i+1): n for i, n in enumerate(power)}, 'C2832270')
+        # Boom B254N02-0B7P51-H85C32 (C41426870) since 2026-10-30: 1x7
+        # female, 8.5 mm, 3 A per contact (the slot's fused rails need
+        # the 3 A class; the XFCN PM254V-11-07-H85 it replaces is not in
+        # the JLCPCB library). Same 1x7 land, kept under the new number.
+        d.add(power_ref[s], 'EasyEDA:B254N02-0B7P51-H85C32',
+              'B254N02-0B7P51-H85C32', EXT_PWR,
+              {str(i+1): n for i, n in enumerate(power)}, 'C41426870')
         # per-module resettable fuse on every exported rail
         # Per-slot fuses are FAULT protection, not a current allocation. The
         # shared source budgets are far smaller than 9 x these ratings; see

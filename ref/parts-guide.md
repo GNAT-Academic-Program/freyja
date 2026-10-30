@@ -1017,7 +1017,7 @@ Power for whatever is plugged into slot L. The 1x7 power socket carries PIN V (3
 
 | Ref | Value | What it does |
 |---|---|---|
-| J57 | XFCN PM254V-11-07-H85 | slot L power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J57 | B254N02-0B7P51-H85C32 | slot L power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK76 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot L key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C143 | 10uF | 10uF bypass on SLOT_L_PIN_VOLTAGE, for J57 (slot L power socket) |
 | C144 | 100nF | 100nF bypass on SLOT_L_3V3, for J57 (slot L power socket) |
@@ -1032,7 +1032,7 @@ Power for whatever is plugged into slot M. The 1x7 power socket carries PIN V (3
 
 | Ref | Value | What it does |
 |---|---|---|
-| J58 | XFCN PM254V-11-07-H85 | slot M power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J58 | B254N02-0B7P51-H85C32 | slot M power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK77 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot M key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C145 | 10uF | 10uF bypass on SLOT_M_PIN_VOLTAGE, for J58 (slot M power socket) |
 | C146 | 100nF | 100nF bypass on SLOT_M_3V3, for J58 (slot M power socket) |
@@ -1047,7 +1047,7 @@ Power for whatever is plugged into slot A. The 1x7 power socket carries PIN V (t
 
 | Ref | Value | What it does |
 |---|---|---|
-| J53 | XFCN PM254V-11-07-H85 | slot A power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J53 | B254N02-0B7P51-H85C32 | slot A power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK65 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot A key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C147 | 10uF | 10uF bypass on SLOT_A_PIN_VOLTAGE, for J53 (slot A power socket) |
 | C148 | 100nF | 100nF bypass on SLOT_A_3V3, for J53 (slot A power socket) |
@@ -1062,7 +1062,7 @@ Power for whatever is plugged into slot B. The 1x7 power socket carries PIN V (t
 
 | Ref | Value | What it does |
 |---|---|---|
-| J62 | XFCN PM254V-11-07-H85 | slot B power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J62 | B254N02-0B7P51-H85C32 | slot B power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK66 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot B key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C149 | 10uF | 10uF bypass on SLOT_B_PIN_VOLTAGE, for J62 (slot B power socket) |
 | C150 | 100nF | 100nF bypass on SLOT_B_3V3, for J62 (slot B power socket) |
@@ -1077,7 +1077,7 @@ Power for whatever is plugged into slot C. The 1x7 power socket carries PIN V (t
 
 | Ref | Value | What it does |
 |---|---|---|
-| J54 | XFCN PM254V-11-07-H85 | slot C power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J54 | B254N02-0B7P51-H85C32 | slot C power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK67 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot C key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C151 | 10uF | 10uF bypass on SLOT_C_PIN_VOLTAGE, for J54 (slot C power socket) |
 | C152 | 100nF | 100nF bypass on SLOT_C_3V3, for J54 (slot C power socket) |
@@ -1092,7 +1092,7 @@ Power for whatever is plugged into slot D. The 1x7 power socket carries PIN V (t
 
 | Ref | Value | What it does |
 |---|---|---|
-| J63 | XFCN PM254V-11-07-H85 | slot D power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J63 | B254N02-0B7P51-H85C32 | slot D power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK68 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot D key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C153 | 10uF | 10uF bypass on SLOT_D_PIN_VOLTAGE, for J63 (slot D power socket) |
 | C154 | 100nF | 100nF bypass on SLOT_D_3V3, for J63 (slot D power socket) |
@@ -1107,7 +1107,7 @@ Power for whatever is plugged into slot E. The 1x7 power socket carries PIN V (t
 
 | Ref | Value | What it does |
 |---|---|---|
-| J55 | XFCN PM254V-11-07-H85 | slot E power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J55 | B254N02-0B7P51-H85C32 | slot E power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK69 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot E key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C155 | 10uF | 10uF bypass on SLOT_E_PIN_VOLTAGE, for J55 (slot E power socket) |
 | C156 | 100nF | 100nF bypass on SLOT_E_3V3, for J55 (slot E power socket) |
@@ -1122,7 +1122,7 @@ Power for whatever is plugged into slot F. The 1x7 power socket carries PIN V (t
 
 | Ref | Value | What it does |
 |---|---|---|
-| J64 | XFCN PM254V-11-07-H85 | slot F power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J64 | B254N02-0B7P51-H85C32 | slot F power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK70 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot F key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C157 | 10uF | 10uF bypass on SLOT_F_PIN_VOLTAGE, for J64 (slot F power socket) |
 | C158 | 100nF | 100nF bypass on SLOT_F_3V3, for J64 (slot F power socket) |
@@ -1137,7 +1137,7 @@ Power for whatever is plugged into slot G. The 1x7 power socket carries PIN V (t
 
 | Ref | Value | What it does |
 |---|---|---|
-| J56 | XFCN PM254V-11-07-H85 | slot G power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J56 | B254N02-0B7P51-H85C32 | slot G power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK71 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot G key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C159 | 10uF | 10uF bypass on SLOT_G_PIN_VOLTAGE, for J56 (slot G power socket) |
 | C160 | 100nF | 100nF bypass on SLOT_G_3V3, for J56 (slot G power socket) |
@@ -1152,7 +1152,7 @@ Power for whatever is plugged into slot H. The 1x7 power socket carries PIN V (t
 
 | Ref | Value | What it does |
 |---|---|---|
-| J65 | XFCN PM254V-11-07-H85 | slot H power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
+| J65 | B254N02-0B7P51-H85C32 | slot H power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground. |
 | MK72 | BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered | slot H key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point. |
 | C161 | 10uF | 10uF bypass on SLOT_H_PIN_VOLTAGE, for J65 (slot H power socket) |
 | C162 | 100nF | 100nF bypass on SLOT_H_3V3, for J65 (slot H power socket) |

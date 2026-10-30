@@ -262,10 +262,15 @@ PARTS = {
            'land this part takes over (the C30734 import has identical pads); '
            'XKB drawing: 1 and 2 share the first column',
     src='LCSC C30734 listing and its attached XKB X6521FV drawing (2.54 mm pitch, 1.02 mm holes, 8.5 mm body)'),
-  'EasyEDA:PM254V-11-07-H85': dict(
-    mpn='PM254V-11-07-H85', pkg='1x7 female socket, 2.54 mm, THT, 8.5 mm',
-    fp='EasyEDA:HDR-TH_7P-P2.54-V-F', rating='3 A per contact',
-    pinmap='pins 1..7 in physical order', src='XFCN drawing; LCSC C2832270'),
+  'EasyEDA:B254N02-0B7P51-H85C32': dict(
+    mpn='B254N02-0B7P51-H85C32', pkg='1x7 female socket, 2.54 mm, THT, 8.5 mm, gold',
+    fp='EasyEDA:HDR-TH_7P-P2.54-V-F',
+    rating='3 A per contact (LCSC listing and the attached XKB X6511 drawing: '
+           '3 A AC/DC, 250 V, 1000 V withstand); these are the slot power '
+           'rows, so the 3 A class matters',
+    pinmap='pins 1..7 in physical order; the C41426870 import has the same '
+           '7 pads as the XFCN land it takes over (1.1 mm holes on 2.54 mm)',
+    src='LCSC C41426870 listing and attached XKB X6511FV drawing'),
   'EasyEDA:2.54mmlength21mm': dict(
     mpn='2.54-1x40P-21mm, cut to 1P', pkg='1x1 male long post, 2.54 mm, THT',
     fp='EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353',

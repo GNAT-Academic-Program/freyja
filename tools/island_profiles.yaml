@@ -248,8 +248,8 @@ SY8047:
       match: {prefix: R, pin: EN}
       place: {side: EN}
 
-XFCN PM254V-11-07:
-  source: no datasheet layout (a 7-pin power header); owner's own hand placement of slot rows J53, J62, J54, J63, J55 on the morning of 2026-10-28 (check_positions snapshot before the first island apply), pins 1 PIN_VOLTAGE, 2 GND, 3 3V3, 4 GND, 5 5V, 6 GND, 7 AUX
+B254N02-0B7P51:
+  source: no datasheet layout (a 7-pin power header, the Boom B254N02 since 2026-10-30, the XFCN PM254V-11-07 before); owner's own hand placement of slot rows J53, J62, J54, J63, J55 on the morning of 2026-10-28 (check_positions snapshot before the first island apply), pins 1 PIN_VOLTAGE, 2 GND, 3 3V3, 4 GND, 5 5V, 6 GND, 7 AUX
   pins: {PINV: 1, V3: 3, V5: 5, AUX: 7}
   rules:
     # The owner's rows: one line 2.3 to 2.5 mm off the pins on the side facing

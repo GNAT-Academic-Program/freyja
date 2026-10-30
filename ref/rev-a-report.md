@@ -757,3 +757,9 @@ except footprints whose outline changed.
    Same 2x8 odd/even column pads (the C30734 import is pad for pad the
    HCTL land); land kept under the new number, symbol imported. 0 moved,
    gate electrical PASS.
+8. J53-J58, J62-J65 XFCN PM254V-11-07-H85 -> Boom B254N02-0B7P51-H85C32
+   (C41426870), 1x7 female 8.5 mm, 3 A per contact (the slot power rows
+   need the 3 A class; the other agent's 1 A pick is not taken). Same 1x7
+   land kept under the new number, symbol imported; the slot-row layout
+   profile is keyed on the new value (islands.py --anchor J53 dry run
+   matches it). 0 moved, gate electrical PASS.
