@@ -71,8 +71,8 @@ TPS22950:
       match: {prefix: R, pin: ILIM}
       place: {side: ILIM}
 
-SN74LXC8T245:
-  source: SN74LXC8T245 datasheet SCES916A, 11.1 Layout Guidelines and Figure 11-1 (two 0.1 uF bypass caps at the VCC end of the package, GND pads meeting at one shared GND via)
+SN74LVC8T245:
+  source: SN74LVC8T245 datasheet SCES584D, 8.3 Power Supply Recommendations and 8.4.1 Layout Guidelines (0.1 uF bypass capacitor at each VCC pin, as close as possible; same pin order and the same placement as the LXC figure it replaces)
   pins: {VCCA: 1, DIR: 2, GND: 12, OE: 22, VCCB: 24}
   rules:
     - name: VCCA bypass at pin 1, GND toward the shared via

@@ -97,7 +97,7 @@ LOADS = [
      'APS6404L-SQN datasheet rev 4.0 Table 9 (p. 26): ICC read/write 7 mA '
      'max per chip, output load not included; standby ISBSTD 200 uA each'),
     ('+1V8_IO', 'U9/U10 VCCA, quiescent', 0.0001, 0.0001, 'datasheet',
-     'SN74LXC8T245 SCES916A section 6.5: ICCA 4 uA max per device; '
+     'SN74LVC8T245 SCES584D 5.5: ICCA 8 uA max per device at 5 V; '
      'switching current is counted in the bank 13 line'),
     # ---- +1V2_MGT
     ('+1V2_MGT', 'MGTAVTT, 2 lanes', 0.15, 0.0, 'estimate',

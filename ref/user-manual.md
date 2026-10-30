@@ -323,7 +323,7 @@ when ready. Raise it before changing direction and allow the translator's
 disable/enable timing when handing the bus over. Initialize both enables
 high in the bitstream's reset logic. BUS 1 has independent DIR and OE_N
 controls and follows the same sequence. See the
-[SN74LXC8T245 datasheet](https://www.ti.com/lit/ds/symlink/sn74lxc8t245.pdf).
+[SN74LVC8T245 datasheet](https://www.ti.com/lit/ds/symlink/sn74lvc8t245.pdf).
 
 Do not connect a 5 V signal to A-H just because its power comes from their
 5 V pin. Power voltage and signal voltage are separate things.

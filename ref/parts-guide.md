@@ -963,7 +963,7 @@ Lets the FPGA (3.3 V) talk to 5 V extensions on slot L. U9 shifts eight lines be
 
 | Ref | Value | What it does |
 |---|---|---|
-| U9 | SN74LXC8T245PWR | 5V BUS 0 translator: TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot L. |
+| U9 | SN74LVC8T245PWR | 5V BUS 0 translator: TI SN74LVC8T245: 8-bit 1.8 V (bank 13) to 5 V level shifter with direction control, for slot L. |
 | C139 | 100nF | 100nF bypass on +1V8_IO, for U9 (5V BUS 0 translator) |
 | C140 | 100nF | 100nF bypass on +5V, for U9 (5V BUS 0 translator) |
 | R96 | 10k | 10k pull-up of BUS5V0_OE_N to +1V8_IO, for U9 (5V BUS 0 translator): keeps the 5 V bus translator disabled until the FPGA enables it |
@@ -974,7 +974,7 @@ Same as 5V BUS 0, for slot M: U10 shifts eight lines between the FPGA's 3.3 V an
 
 | Ref | Value | What it does |
 |---|---|---|
-| U10 | SN74LXC8T245PWR | 5V BUS 1 translator: TI SN74LXC8T245: 8-bit 3.3 V to 5 V level shifter with direction control, for slot M. |
+| U10 | SN74LVC8T245PWR | 5V BUS 1 translator: TI SN74LVC8T245: 8-bit 1.8 V (bank 13) to 5 V level shifter with direction control, for slot M. |
 | C141 | 100nF | 100nF bypass on +1V8_IO, for U10 (5V BUS 1 translator) |
 | C142 | 100nF | 100nF bypass on +5V, for U10 (5V BUS 1 translator) |
 | R97 | 10k | 10k pull-up of BUS5V1_OE_N to +1V8_IO, for U10 (5V BUS 1 translator): keeps the 5 V bus translator disabled until the FPGA enables it |

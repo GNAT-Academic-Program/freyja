@@ -42,7 +42,7 @@ against the manufacturer datasheet.
 | 1 | `CH224K` | USB power request | C970725 |
 | 1 | `B3U-1000P` | controller boot button | C231329 |
 | 1 | `SN74CB3Q3384APWR` | JTAG owner switch | C469874 |
-| 2 | `SN74LXC8T245PWR` | Two complete 8-bit 5 V buses | C4363995 |
+| 2 | `SN74LVC8T245PWR` | Two complete 8-bit 5 V buses | `C27643` — imported 2026-10-30, pins checked against SCES584D Table 4-1 |
 | 2 | `DMG2305UX` | switched power | C5261054 |
 | 2 | `BSS138LT1G` (onsemi) | Q3 power-switch drive; Q4 DONE LED buffer | C82045 |
 | 1 | `TPS259470ARPWR` | USB input protection | C3662799 |

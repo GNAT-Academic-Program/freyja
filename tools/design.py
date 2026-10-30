@@ -566,16 +566,20 @@ def build():
     d.sheet('Slots')
     # ------------------------------------------------ two complete 5V bus converters
     # The A side faces FPGA bank 13 at +1V8_IO; DIR and OE are referenced to
-    # VCCA. SN74LXC8T245 SCES916A section 6.3: VCCA 1.08 to 5.5 V.
+    # VCCA. SN74LVC8T245 SCES584D Table 4-1 and 5.3: VCCA and VCCB 1.65 to
+    # 5.5 V (the bank's 1.71 V minimum is inside), OE referenced to VCCA
+    # and to be pulled high (the 10k to +1V8_IO below). Same TSSOP-24
+    # pinout as the LXC it replaces (1 VCCA, 2 DIR, 3-10 A, 11-13 GND,
+    # 14-21 B8..B1, 22 OE, 23-24 VCCB); the KiCad symbol carries it.
     for bus, ref in enumerate(('U9', 'U10')):
         d.group(f'5V BUS {bus} converter')
-        conn = {'VCCA': V18IO, 'VCCB': V5, 'GND': GND,
+        conn = {'V_{CCA}': V18IO, 'V_{CCB}': V5, 'GND': GND,
                 'DIR': f'BUS5V{bus}_DIR', '~{OE}': f'BUS5V{bus}_OE_N'}
         for i in range(8):
             conn[f'A{i+1}'] = f'BUS5V{bus}_IO{i}'
             conn[f'B{i+1}'] = f'BUS5V{bus}_PIN{i}'
-        d.add(ref, 'odin:SN74LXC8T245PW', 'SN74LXC8T245PWR',
-              TSSOP24_XLATE, conn, 'C4363995')
+        d.add(ref, 'Logic_LevelTranslator:SN74LVC8T245', 'SN74LVC8T245PWR',
+              TSSOP24_XLATE, conn, 'C27643')
         d.C('100nF', V18IO, GND); d.C('100nF', V5, GND)
 
     d.sheet('Slots')

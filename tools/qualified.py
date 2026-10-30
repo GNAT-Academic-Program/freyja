@@ -222,12 +222,15 @@ PARTS = {
     pinmap='G-S-D SOT-23, pins 1-2-3',
     src='onsemi BSS138LT1/D, https://www.onsemi.com/pdf/datasheet/bss138lt1-d.pdf'),
   # ------------------------------------------------------------------ logic
-  'odin:SN74LXC8T245PW': dict(
-    mpn='SN74LXC8T245PWR', pkg='TSSOP-24 (PW)', fp='EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL_1',
-    rating='1.1-5.5 V on both VCCA and VCCB; VCCA=3V3, VCCB=5V here',
-    pinmap='CONFIRMED against TI TSSOP-24 pinout: 1 VCCA, 2 DIR, 3-10 A1..A8, '
-           '11-13 GND, 14-21 B8..B1, 22 OE, 23-24 VCCB. findings item 11',
-    src='TI SCES864; symbol is AVC8T245 renamed, tools/gen_kicad.py'),
+  'Logic_LevelTranslator:SN74LVC8T245': dict(
+    mpn='SN74LVC8T245PWR', pkg='TSSOP-24 (PW)', fp='EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL_1',
+    rating='1.65-5.5 V on both VCCA and VCCB; VCCA = +1V8_IO (1.71 V minimum), '
+           'VCCB = +5V here; OE referenced to VCCA with its 10k pull-up; '
+           'ICCA + ICCB 12 uA max',
+    pinmap='KiCad Logic_LevelTranslator symbol checked against SCES584D Table 4-1 '
+           '(PW): 1 VCCA, 2 DIR, 3-10 A1..A8, 11-13 GND, 14-21 B8..B1, 22 OE, '
+           '23-24 VCCB; imported C27643 footprint has the same 24 pads',
+    src='TI SN74LVC8T245 datasheet SCES584D (rev D, May 2026), ref/datasheets/sn74lvc8t245.pdf; LCSC C27643'),
   '74xx:SN74CB3Q3384APW': dict(
     mpn='SN74CB3Q3384APWR', pkg='TSSOP-24 (PW)', fp='EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL',
     rating='2.3-3.6 V VCC, 5 ohm typical channel on-resistance, 10 bits in '

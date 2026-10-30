@@ -65,7 +65,7 @@ are not in these numbers.
 | +1V8_IO | XC7A100T VCCAUX and VCCADC (+1V8, through FB1) | 0.180 A | 0.0500 A | estimate | pre-bitstream planning allowance; replace with an AMD XPE result. Recovery: unconfigured quiescent ICCAUXQ, planning figure [verify DS181] |
 | +1V8_IO | FPGA bank 13 VCCO and its I/O | 0.100 A | 0.0050 A | estimate | one third of the 1.0 W VCCO/IO line, as for bank 14; recovery: VCCO quiescent |
 | +1V8_IO | PSRAM x4 APS6404L-SQN-SN, all reading | 0.028 A | 0.0008 A | datasheet | APS6404L-SQN datasheet rev 4.0 Table 9 (p. 26): ICC read/write 7 mA max per chip, output load not included; standby ISBSTD 200 uA each |
-| +1V8_IO | U9/U10 VCCA, quiescent | 0.000 A | 0.0001 A | datasheet | SN74LXC8T245 SCES916A section 6.5: ICCA 4 uA max per device; switching current is counted in the bank 13 line |
+| +1V8_IO | U9/U10 VCCA, quiescent | 0.000 A | 0.0001 A | datasheet | SN74LVC8T245 SCES584D 5.5: ICCA 8 uA max per device at 5 V; switching current is counted in the bank 13 line |
 | +1V2_MGT | MGTAVTT, 2 lanes | 0.150 A | off | estimate | share of the 0.4 W transceiver line |
 | +3V3 | RP2350B supervisor + boot flash | 0.070 A | 0.0700 A | estimate | ref/power-input.md: 0.2 W; the controller runs in recovery |
 | +3V3 | FPGA bank 14 VCCO and its I/O | 0.100 A | 0.0050 A | estimate | one third of the 1.0 W VCCO/IO line; recovery: VCCO quiescent, core off |

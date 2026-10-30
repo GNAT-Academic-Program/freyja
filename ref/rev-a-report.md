@@ -689,3 +689,22 @@ section's): courtyard-only, the known post-to-header pair.
 E-H (next commit): J5 kept at x 111.95, moved to y 78.86 so its 32
 columns are J3's (a shield must bridge them); header line 118.30, posts
 120.84, AUX fuses 123.10, stack 115.72, edge margin 3.68 mm.
+
+## JLCPCB library pass 2026-10-30
+The BOM is made orderable from JLCPCB's assembly library without a
+pre-order (brief in the owner's part-availability audit of 2026-10-30:
+15 part numbers not in the library, 13 with in-library replacements, U1
+and the PSRAMs left as decisions). One commit per numbered step; after
+each: regenerate, alloc.py --check, ERC, gate.py. Footprints for new LCSC
+parts come from the EasyEDA/LCSC import (plain API fetch, converted with
+easyeda2kicad 1.0.1 offline), pin 1 and pad numbering checked against the
+vendor drawing, recorded in tools/qualified.py. Nothing on the board moves
+except footprints whose outline changed.
+1. U9/U10 SN74LXC8T245PWR -> SN74LVC8T245PWR (C27643). Same TSSOP-24
+   pinout (SCES584D Table 4-1), VCCA/VCCB 1.65-5.5 V; the existing 10k
+   OE pull-up to +1V8_IO is what the LVC asks for. KiCad's own
+   Logic_LevelTranslator symbol replaces the renamed AVC8T245 copy
+   (gen_lxc removed). The reviewed land (the C4363995 import, same
+   package) is kept so islands U9/U10 do not change; its LCSC property
+   is now C27643. Parts 548, ERC 0, DRC 15 courtyards (unchanged), 0
+   moved, gate electrical PASS.
