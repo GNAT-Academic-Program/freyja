@@ -4844,7 +4844,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0decc34a-9706-4603-aab1-de213567c6cf")
-		(at 236.7925 189.5 90)
+		(at 236.34 189.56 90)
 		(descr "1.5k pull-up of PHY_MDIO to +2V5, for U30 (gigabit Ethernet PHY): MDIO idle-high pull-up, 1.5 k (section 7.11.2)")
 		(tags "resistor")
 		(property "Reference" "R134"
@@ -5273,7 +5273,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0fd4e678-a04a-4880-b3e3-2f46c5042a26")
-		(at 231.305 189.5 -90)
+		(at 230.4 189.56 -90)
 		(descr "2.49k 1% resistor from PHY_RSET to GND, for U30 (gigabit Ethernet PHY): sets U30's transmit bias current (2.49 k 1 %, [verify] ref/network.md)")
 		(tags "resistor")
 		(property "Reference" "R131"
@@ -10304,7 +10304,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1ca9f8ec-1907-4ac0-9fc5-9b5a122188b0")
-		(at 229.3 181.4)
+		(at 229.14 182.06)
 		(descr "4.7k pull-down on PHY_RXC, for U30 (gigabit Ethernet PHY): strap PHYAD1 = 0 (Table 10)")
 		(tags "resistor")
 		(property "Reference" "R136"
@@ -10598,7 +10598,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1d89e29a-91f2-41de-9f25-6fb39c841ffe")
-		(at 237.85 182.06 180)
+		(at 237.86 182.05 180)
 		(descr "4.7k pull-down on PHY_RXD2, for U30 (gigabit Ethernet PHY): strap PLLOFF = 0: PLL keeps running in power saving (Table 11)")
 		(tags "resistor")
 		(property "Reference" "R138"
@@ -11522,7 +11522,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1f7d0b3d-61d3-4e8e-92eb-7eb31c66d04a")
-		(at 234.64 180.85 -90)
+		(at 234.64 180.84 -90)
 		(descr "4.7k pull-up of PHY_LED1 to +3V3, for U30 (gigabit Ethernet PHY): strap CFG_LDO0 = 1, with CFG_LDO1 = 0: 2.5 V pads (Table 11)")
 		(tags "resistor")
 		(property "Reference" "R142"
@@ -18464,7 +18464,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "32ed84a0-bf79-42d7-a192-9707c3853bd4")
-		(at 235.695 189.5 -90)
+		(at 231.46 189.56 -90)
 		(descr "1k pull-down on PHY_RESET_N, for U30 (gigabit Ethernet PHY): holds U30 in reset until the FPGA drives it (Table 53 note 5)")
 		(tags "resistor")
 		(property "Reference" "R132"
@@ -19468,7 +19468,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "35951943-747c-446e-8479-ed6a28095fc1")
-		(at 230.2075 189.48 -90)
+		(at 229.42 189.54 -90)
 		(descr "18 pF load capacitor on the crystal's input side (X3, CL 12 pF with about 3 pF stray: 2 x (12 - 3))")
 		(tags "capacitor")
 		(property "Reference" "C244"
@@ -30621,7 +30621,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "51e4bce8-10fe-4510-a821-980fd5dab244")
-		(at 227.56 180.85 -90)
+		(at 227.56 180.84 -90)
 		(descr "4.7k pull-up of PHY_INT_N to +3V3, for U30 (gigabit Ethernet PHY): U30's open-drain interrupt (Table 4)")
 		(tags "resistor")
 		(property "Reference" "R133"
@@ -31521,7 +31521,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "54890c58-f7dd-433d-ad65-83882b64b2a2")
-		(at 232.35 180.87 90)
+		(at 232.36 180.86 90)
 		(descr "100nF bypass on +3V3, for U30 (gigabit Ethernet PHY)")
 		(tags "capacitor")
 		(property "Reference" "C234"
@@ -35276,7 +35276,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "625f73dd-15e2-421e-b606-fc93eaa216cd")
-		(at 237.85 180.77 180)
+		(at 237.86 180.76 180)
 		(descr "4.7k pull-up of PHY_RXD3 to +2V5, for U30 (gigabit Ethernet PHY): strap PHYAD0 = 1: PHY address 1 (Table 10)")
 		(tags "resistor")
 		(property "Reference" "R135"
@@ -40125,7 +40125,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "71b7590f-7876-46bb-a831-4249cda3944d")
-		(at 235.63 180.85 90)
+		(at 235.64 180.84 90)
 		(descr "4.7k pull-down on PHY_LED2, for U30 (gigabit Ethernet PHY): strap CFG_LDO1 = 0 (Table 11)")
 		(tags "resistor")
 		(property "Reference" "R143"
@@ -53956,7 +53956,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8fd94845-c003-4aa6-b613-0313f0e217fa")
-		(at 232.4025 189.48 -90)
+		(at 232.5 189.54 -90)
 		(descr "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins")
 		(tags "capacitor")
 		(property "Reference" "C240"
@@ -56643,7 +56643,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "969578c0-ddd0-4c23-ac2f-dd6f7329e3c4")
-		(at 231.08 180.87 90)
+		(at 231.08 180.86 90)
 		(descr "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins")
 		(tags "capacitor")
 		(property "Reference" "C241"
@@ -58591,7 +58591,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9a03f924-0061-40e0-befe-719f07777edf")
-		(at 228.7 182.8 180)
+		(at 225.6 185.83 180)
 		(descr "4.7uF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins")
 		(tags "capacitor")
 		(property "Reference" "C242"
@@ -59939,7 +59939,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "9defa13e-85b6-4fd1-bfcb-ad3a4eff6c90")
-		(at 229.3 180.3)
+		(at 229.14 183.34)
 		(descr "4.7k pull-down on PHY_RX_CTL, for U30 (gigabit Ethernet PHY): strap PHYAD2 = 0 (Table 10)")
 		(tags "resistor")
 		(property "Reference" "R137"
@@ -60611,7 +60611,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a07c50c5-5734-4016-9d13-e3abc2dca64b")
-		(at 233.62 180.87 90)
+		(at 233.62 180.86 90)
 		(descr "100nF bypass on +2V5, for U30 (gigabit Ethernet PHY)")
 		(tags "capacitor")
 		(property "Reference" "C236"
@@ -62547,7 +62547,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a6303332-8fc8-42e3-938a-f01312703a21")
-		(at 235.3 178.5 90)
+		(at 235.3 178.49 90)
 		(descr "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins")
 		(tags "capacitor")
 		(property "Reference" "C238"
@@ -65324,11 +65324,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "aa4b3153-43b8-4afe-91f2-555ccbec1e2c")
-		(at 229.11 189.48 -90)
+		(at 226.16 187.37 180)
 		(descr "100nF bypass on +3V3, for U30 (gigabit Ethernet PHY)")
 		(tags "capacitor")
 		(property "Reference" "C232"
-			(at 0 -1.16 90)
+			(at 0 -1.16 0)
 			(layer "F.Fab")
 			(uuid "f1ef9e59-d150-41c7-b1be-0d8a7bb27b8b")
 			(effects
@@ -65339,7 +65339,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 90)
+			(at 0 1.16 0)
 			(layer "F.Fab")
 			(uuid "04cedc83-1217-409f-a519-5146fa417500")
 			(effects
@@ -65350,7 +65350,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9cd33f2b-e540-4509-92c7-8f5a3a2909cc")
@@ -65362,7 +65362,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +3V3, for U30 (gigabit Ethernet PHY)"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ebee1d76-8c07-4bae-bda8-afffa80dbc81")
@@ -65374,7 +65374,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "12981355-e1c7-4ca5-bbdf-affcd16c876a")
@@ -65429,7 +65429,7 @@
 			(uuid "ba0408d3-5efb-4023-8934-e743c1fda30c")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "de6e75f0-8f16-4100-b151-558c6816c291")
 			(effects
@@ -65440,7 +65440,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0 270)
+			(at -0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -65448,7 +65448,7 @@
 			(uuid "d6f47552-d700-4d92-a38b-854b7eb8d50e")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0 270)
+			(at 0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -67380,7 +67380,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "b1c75c7d-cfc5-426b-9bb7-787913474596")
-		(at 237.85 183.35 180)
+		(at 237.86 183.34 180)
 		(descr "4.7k pull-up of PHY_RXD1 to +2V5, for U30 (gigabit Ethernet PHY): strap TXDLY = 1: 2 ns transmit clock delay inside U30 (Table 11)")
 		(tags "resistor")
 		(property "Reference" "R139"
@@ -70848,7 +70848,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "b6fbe7f0-a657-43ff-a2e8-a018f93f05b7")
-		(at 233.5 189.5 -90)
+		(at 233.49 189.56 -90)
 		(descr "0 ohm in series with U30's crystal drive pin: a spot to fit a resistor if the measured drive level exceeds 0.5 mW (Table 56)")
 		(tags "resistor")
 		(property "Reference" "R146"
@@ -89123,7 +89123,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c4cfc0e8-694c-4681-91aa-ded912020dcb")
-		(at 234.5975 189.48 -90)
+		(at 234.5 189.54 -90)
 		(descr "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins")
 		(tags "capacitor")
 		(property "Reference" "C239"
@@ -93643,7 +93643,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "d54cdea5-b247-40bb-888b-d99b61446d4b")
-		(at 226.45 180.85 -90)
+		(at 226.46 180.84 -90)
 		(descr "4.7k pull-up of PHY_LED0 to +3V3, for U30 (gigabit Ethernet PHY): strap CFG_EXT = 1: external RGMII pad supply (Table 11)")
 		(tags "resistor")
 		(property "Reference" "R141"
@@ -100215,7 +100215,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "ec05a2d3-8f7e-4e29-baa5-7ced1880a75a")
-		(at 238.4 186.9)
+		(at 238.62 187.1)
 		(descr "10uF bypass on +3V3, for U30 (gigabit Ethernet PHY)")
 		(tags "capacitor")
 		(property "Reference" "C235"
@@ -102383,11 +102383,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f01cea63-acaa-4135-af88-7a0d680199e7")
-		(at 237.89 189.48 -90)
+		(at 237.84 185.3 0)
 		(descr "100nF bypass on +3V3, for U30 (gigabit Ethernet PHY)")
 		(tags "capacitor")
 		(property "Reference" "C233"
-			(at 0 -1.16 90)
+			(at 0 -1.16 180)
 			(layer "F.Fab")
 			(uuid "bd717c5d-90a5-4e89-99a3-ef0f359c78f5")
 			(effects
@@ -102398,7 +102398,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 90)
+			(at 0 1.16 180)
 			(layer "F.Fab")
 			(uuid "cd7b7cd1-dfb6-4598-87e8-3c814f502cc8")
 			(effects
@@ -102409,7 +102409,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a9fe5f28-fd3a-479d-a2de-293e91380e56")
@@ -102421,7 +102421,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +3V3, for U30 (gigabit Ethernet PHY)"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "418cb217-e8ef-4863-a87a-a524d417ce44")
@@ -102433,7 +102433,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "8fd1715c-41fa-45d5-a8bb-a73fb7398b07")
@@ -102488,7 +102488,7 @@
 			(uuid "f286ab1d-77d4-4329-be32-7c69c62314bc")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "43a79748-40bc-4d29-ae4c-35e200a7252d")
 			(effects
@@ -102499,7 +102499,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0 270)
+			(at -0.48 0 0)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -102507,7 +102507,7 @@
 			(uuid "a92d75df-35e3-486b-98de-92465c6f2b0c")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0 270)
+			(at 0.48 0 0)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -105622,7 +105622,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f9cccf6a-3b0c-46b9-a322-eef16c5cadd5")
-		(at 232.5 177.93 90)
+		(at 232.5 177.92 90)
 		(descr "1uF bypass on +2V5, for U30 (gigabit Ethernet PHY)")
 		(tags "capacitor")
 		(property "Reference" "C237"
@@ -106774,7 +106774,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "fec57bf2-7a90-4547-be40-d25ac63347c9")
-		(at 237.85 184.64 180)
+		(at 237.86 188.84 180)
 		(descr "4.7k pull-up of PHY_RXD0 to +2V5, for U30 (gigabit Ethernet PHY): strap RXDLY = 1: 2 ns receive clock delay inside U30 (Table 11)")
 		(tags "resistor")
 		(property "Reference" "R140"
@@ -107811,28 +107811,6 @@
 		(uuid "cddc3acd-4605-4bd9-822e-c347e1bfa677")
 	)
 	(gr_rect
-		(start 224.455 169.785)
-		(end 240.305 174.925)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "bf891413-cfb4-440c-bca5-b01eb27528de")
-	)
-	(gr_rect
-		(start 224.455 174.925)
-		(end 240.305 198.08)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "6d78ec38-11c1-4d5a-ada4-a350b3ddeb99")
-	)
-	(gr_rect
 		(start 225.395 87.16)
 		(end 245.305 113.045)
 		(stroke
@@ -108822,18 +108800,6 @@
 			(justify left top)
 		)
 	)
-	(gr_text "gigabit Ethernet PHY\ngeneric, 27 parts,\n2026-10-28 + X3"
-		(at 224.855 171.685 0)
-		(layer "Cmts.User")
-		(uuid "848d8431-2f96-4e13-bc8f-2a7428f863e7")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
 	(gr_text "slot M power socket\nXFCN PM254V-11-07, 7 parts, 2026-10-29\n+ MK77"
 		(at 237.995 178.706 0)
 		(layer "Cmts.User")
@@ -109582,18 +109548,6 @@
 		(at 224.055 69.86075 0)
 		(layer "Cmts.User")
 		(uuid "0d090fcd-a06b-4baa-8424-20e6df7425b0")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "island U30"
-		(at 224.855 171.385 0)
-		(layer "Cmts.User")
-		(uuid "f3d0fbe0-9dab-4f41-a5b4-b308e89c74f1")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -110462,27 +110416,6 @@
 			"c60eaec9-f4c6-4c42-abf8-9227a32f7cdf"
 		)
 	)
-	(group "island U30"
-		(uuid "7e36e73d-bc27-4805-a5b2-89824a89a17b")
-		(members "0decc34a-9706-4603-aab1-de213567c6cf" "0fd4e678-a04a-4880-b3e3-2f46c5042a26"
-			"1a802ade-bb60-4cc7-97cd-7671e091da54" "1ca9f8ec-1907-4ac0-9fc5-9b5a122188b0"
-			"1d89e29a-91f2-41de-9f25-6fb39c841ffe" "1f7d0b3d-61d3-4e8e-92eb-7eb31c66d04a"
-			"32ed84a0-bf79-42d7-a192-9707c3853bd4" "35951943-747c-446e-8479-ed6a28095fc1"
-			"480cb2de-3759-47d0-9606-4d918816e7d3" "51e4bce8-10fe-4510-a821-980fd5dab244"
-			"54890c58-f7dd-433d-ad65-83882b64b2a2" "625f73dd-15e2-421e-b606-fc93eaa216cd"
-			"6d78ec38-11c1-4d5a-ada4-a350b3ddeb99" "71b7590f-7876-46bb-a831-4249cda3944d"
-			"848d8431-2f96-4e13-bc8f-2a7428f863e7" "8fd94845-c003-4aa6-b613-0313f0e217fa"
-			"969578c0-ddd0-4c23-ac2f-dd6f7329e3c4" "9891d84c-9a81-4d9a-874f-5510c862b132"
-			"9a03f924-0061-40e0-befe-719f07777edf" "9defa13e-85b6-4fd1-bfcb-ad3a4eff6c90"
-			"a07c50c5-5734-4016-9d13-e3abc2dca64b" "a6303332-8fc8-42e3-938a-f01312703a21"
-			"aa4b3153-43b8-4afe-91f2-555ccbec1e2c" "b1c75c7d-cfc5-426b-9bb7-787913474596"
-			"b6fbe7f0-a657-43ff-a2e8-a018f93f05b7" "bf891413-cfb4-440c-bca5-b01eb27528de"
-			"c4cfc0e8-694c-4681-91aa-ded912020dcb" "d54cdea5-b247-40bb-888b-d99b61446d4b"
-			"ec05a2d3-8f7e-4e29-baa5-7ced1880a75a" "f01cea63-acaa-4135-af88-7a0d680199e7"
-			"f3d0fbe0-9dab-4f41-a5b4-b308e89c74f1" "f9cccf6a-3b0c-46b9-a322-eef16c5cadd5"
-			"fec57bf2-7a90-4547-be40-d25ac63347c9"
-		)
-	)
 	(group "island U15"
 		(uuid "867890c6-b577-463d-8cd8-429179f4788a")
 		(members "0a4f8f05-b4c1-4622-afdb-93deb1a4e07a" "1ac8c400-4013-424c-906a-91b5e241a62a"
@@ -110693,4 +110626,86 @@
 		)
 	)
 	(embedded_fonts no)
+	(gr_rect
+		(start 222.595 174.915)
+		(end 241.845 192.015)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "bcab4f89-23d7-4159-8e9b-50a0da13bee1")
+	)
+	(gr_rect
+		(start 222.595 170.755)
+		(end 241.845 174.915)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "044ed3ec-3f97-4698-9d2d-4a26d80daa75")
+	)
+	(gr_text "island U30"
+		(at 222.995 172.355 0)
+		(layer "Cmts.User")
+		(uuid "24398b16-fc16-43fe-886c-5345fcc83eaf")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "gigabit Ethernet PHY\ngeneric, 27 parts, 2026-10-30"
+		(at 222.995 172.655 0)
+		(layer "Cmts.User")
+		(uuid "3d95bb8e-7d39-4a84-895e-a4c5a17ee0f5")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(group "island U30"
+		(uuid "30a2381d-28db-4987-96d3-b0daa66a48d1")
+		(members
+			"bcab4f89-23d7-4159-8e9b-50a0da13bee1"
+			"044ed3ec-3f97-4698-9d2d-4a26d80daa75"
+			"24398b16-fc16-43fe-886c-5345fcc83eaf"
+			"3d95bb8e-7d39-4a84-895e-a4c5a17ee0f5"
+			"480cb2de-3759-47d0-9606-4d918816e7d3"
+			"aa4b3153-43b8-4afe-91f2-555ccbec1e2c"
+			"f01cea63-acaa-4135-af88-7a0d680199e7"
+			"54890c58-f7dd-433d-ad65-83882b64b2a2"
+			"ec05a2d3-8f7e-4e29-baa5-7ced1880a75a"
+			"a07c50c5-5734-4016-9d13-e3abc2dca64b"
+			"f9cccf6a-3b0c-46b9-a322-eef16c5cadd5"
+			"a6303332-8fc8-42e3-938a-f01312703a21"
+			"c4cfc0e8-694c-4681-91aa-ded912020dcb"
+			"8fd94845-c003-4aa6-b613-0313f0e217fa"
+			"969578c0-ddd0-4c23-ac2f-dd6f7329e3c4"
+			"9a03f924-0061-40e0-befe-719f07777edf"
+			"35951943-747c-446e-8479-ed6a28095fc1"
+			"0fd4e678-a04a-4880-b3e3-2f46c5042a26"
+			"32ed84a0-bf79-42d7-a192-9707c3853bd4"
+			"51e4bce8-10fe-4510-a821-980fd5dab244"
+			"0decc34a-9706-4603-aab1-de213567c6cf"
+			"625f73dd-15e2-421e-b606-fc93eaa216cd"
+			"1ca9f8ec-1907-4ac0-9fc5-9b5a122188b0"
+			"9defa13e-85b6-4fd1-bfcb-ad3a4eff6c90"
+			"1d89e29a-91f2-41de-9f25-6fb39c841ffe"
+			"b1c75c7d-cfc5-426b-9bb7-787913474596"
+			"fec57bf2-7a90-4547-be40-d25ac63347c9"
+			"d54cdea5-b247-40bb-888b-d99b61446d4b"
+			"1f7d0b3d-61d3-4e8e-92eb-7eb31c66d04a"
+			"71b7590f-7876-46bb-a831-4249cda3944d"
+			"b6fbe7f0-a657-43ff-a2e8-a018f93f05b7"
+		)
+	)
 )

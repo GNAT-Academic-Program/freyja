@@ -2183,6 +2183,33 @@ def mirror_strip(board, refs, axis=None, edge_margin=1.0):
     return anchor, members, info
 
 
+def shift_parts(board, refs, by):
+    """Rigid shift (owner, 2026-10-30): move the listed hand-placed parts by
+    one vector, rotations kept, nothing else touched. For snapping one edge
+    strip onto the other's lattice without re-laying what the owner placed
+    by hand. Returns (first footprint, members, info)."""
+    missing = [r for r in refs if r not in board.fps]
+    if missing:
+        sys.exit(f'--shift: no such footprint: {", ".join(missing)}')
+    if len(set(refs)) != len(refs):
+        sys.exit('--shift: a reference is listed twice')
+    dx, dy = by
+    fps = [board.fps[r] for r in refs]
+    anchor = fps[0]
+    members = []
+    for fp in fps:
+        m = Member(fp)
+        m.anchor, m.role = anchor.ref, 'anchor' if fp is anchor else 'strip'
+        m.new = (fp.x + dx, fp.y + dy, fp.rot)
+        m.status = 'move' if (abs(dx) > 1e-6 or abs(dy) > 1e-6) else 'keep'
+        m.reason = f'shifted by ({dx:+.3f}, {dy:+.3f}) mm with the strip, rotation kept'
+        members.append(m)
+    moving = set(refs)
+    overlaps = [f'{m.ref}/{ref}' for ref, other in board.fps.items() if ref not in moving
+                for m in members if m.status == 'move' and polys_overlap(m.fp.polygon(m.new), other.polygon())]
+    return anchor, members, {'overlaps': overlaps, 'by': (dx, dy)}
+
+
 STRIP_GAP = 0.3     # courtyard to courtyard on the strip, like --part-gap
 PITCH = 2.54
 
@@ -2647,6 +2674,11 @@ def main():
                     help='edge strip: mirror the positions of these hand-placed parts across the strip\'s vertical '
                          'centre line (first ref is the IO rail header, named in the render); rotations are kept, '
                          'a pad pattern cannot be mirrored (dry run unless --apply)')
+    ap.add_argument('--shift', type=lambda v: v.split(','), metavar='REF,...',
+                    help='rigid shift of these hand-placed parts by --by DX,DY mm, rotations kept, nothing relaid '
+                         '(one edge strip snapped onto the other\'s lattice; dry run unless --apply)')
+    ap.add_argument('--by', type=lambda v: tuple(float(x) for x in v.split(',')), metavar='DX,DY',
+                    help='--shift: the vector in mm')
     ap.add_argument('--axis', type=float, metavar='X',
                     help='--mirror: x of the mirror line in mm (default: the centre of the strip\'s own box)')
     ap.add_argument('--strip', metavar='RAIL',
@@ -2689,6 +2721,35 @@ def main():
             return
         if info['overlaps']:
             sys.exit('REFUSED: the strip layout would overlap')
+        open(args.board, 'w', encoding='utf-8').write(apply_edits(board.text, plan_edits(board, members)))
+        errs = verify_written(args.board, moves, board)
+        if errs:
+            open(args.board, 'w', encoding='utf-8').write(board.text)
+            print('\n'.join('  ' + e for e in errs[:20]))
+            sys.exit('WRITE VERIFICATION FAILED; the original file was restored')
+        print(f'wrote {os.path.relpath(args.board, ROOT)}: {len(moves)} footprint(s) moved')
+        run_drc(args.board)
+        return
+
+    if args.shift:
+        if not args.by:
+            sys.exit('--shift needs --by DX,DY')
+        anchor, members, info = shift_parts(board, args.shift, args.by)
+        print(f'RIGID SHIFT of {len(members)} parts by ({info["by"][0]:+.3f}, {info["by"][1]:+.3f}) mm, led by {anchor.ref}')
+        if info['overlaps']:
+            print(f'  OVERLAPS footprints outside the set: {", ".join(info["overlaps"])}')
+        print_moves(members)
+        render_path = args.render or os.path.join(RENDER_DIR, f'{anchor.ref}-shift.svg')
+        title = f'islands.py --shift {anchor.ref} strip' + (' --apply' if args.apply else ' (dry run)')
+        locks = {ref: (True, 'hand placement') for ref in board.fps}
+        render(render_path, board, anchor, members, None, title, locks)
+        print(f'\nrender: {os.path.relpath(render_path, ROOT)}')
+        moves = {m.ref: m for m in members if m.status == 'move'}
+        if not args.apply:
+            print('dry run: nothing written. Add --apply to write the pcb.')
+            return
+        if info['overlaps']:
+            sys.exit('REFUSED: the shifted parts would overlap footprints outside the set')
         open(args.board, 'w', encoding='utf-8').write(apply_edits(board.text, plan_edits(board, members)))
         errs = verify_written(args.board, moves, board)
         if errs:
