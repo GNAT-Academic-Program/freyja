@@ -21,7 +21,10 @@ carries voltage (Q7: J50 connected means the whole board runs from J50,
 USB cable or not), and if VBUS goes above 5.3-5.9 V unasked (OV1, a fault
 backstop inside the 6 V absolute maximum) or away. During a 5 V -> 9 V
 negotiation the rail is U11 in low-dropout mode, about 4.5 V, which every
-+5V consumer accepts; firmware asks for 9 V before it enables EXT_EN.
++5V consumer accepts except the core regulator U15 (TPS564201, 4.5 V
+minimum input since 2026-10-30): firmware asks for 9 V before it enables
+EXT_EN, and enables EN_1V0 only once the source is settled (9 V granted,
+or a 5 V source confirmed: 4.75 V less U34's drop is 4.69 V).
 Both of U34's inputs block reverse current and the rail is limited to
 2.5 A typical.
 
@@ -39,7 +42,7 @@ LM5157 SW pin is gone with the converter.
 | `U12` | `LMR33630ADDAR` | VSYS | +3V3 | 3.8–36 V | 3 A |
 | `U13` | `TLV62569PDRLR` | +5V | +2V5 | 2.5–5.5 V | 2 A |
 | `U14` | `TLV62569PDRLR` | +5V | +1V8_IO | 2.5–5.5 V | 2 A |
-| `U15` | `SY8047QDC` | +5V | +1V0 | 2.5–5.5 V | 4 A |
+| `U15` | `TPS564201DDCR` | +5V | +1V0 | 4.5–17 V | 4 A |
 | `U16` | `TLV62569PDRLR` | +5V | +1V2_MGT | 2.5–5.5 V | 2 A |
 
 ## Board loads per regulator
@@ -103,11 +106,11 @@ bead or inductor are frequency-dependent and listed beside, not added.
 
 | Ref | Node | Direct COUT | Validated | Behind a filter | Status | Datasheet |
 |---|---|---:|---:|---|---|---|
-| `U11` | +5V_BUCK | 67.0 uF | 880 uF | 81.7 uF on +5V behind U34 | inside | SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF |
+| `U11` | +5V_BUCK | 67.0 uF | 880 uF | 81.8 uF on +5V behind U34 | inside | SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF |
 | `U12` | +3V3 | 221.3 uF | 880 uF | - | inside | SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF |
 | `U13` | +2V5 | 103.4 uF | 47 uF | - | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
 | `U14` | +1V8_IO | 113.0 uF | 47 uF | 63.5 uF on +1V8 behind FB1 | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
-| `U15` | +1V0 | 506.9 uF | 44 uF | 10.4 uF on +1V0_MGT behind L9 | **beyond: bench qualification** | Silergy SY8047 rev 0.9 reference circuit: 2 x 22 uF |
+| `U15` | +1V0 | 506.9 uF | 68 uF | 10.4 uF on +1V0_MGT behind L9 | **beyond: bench qualification** | TPS564201 SLVSDJ7B Table 2: 20-68 uF, L 1.5-4.7 uH at 1 V |
 | `U16` | +1V2_MGT | 49.9 uF | 47 uF | - | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
 
 "Beyond" means the datasheet has not validated this much output
@@ -132,7 +135,7 @@ that is the figure checked against saturation.
 | `U12` | `SWPA6045S4R7MT` | 2.45 A | 1.11 A | 3.00 A | 3.37 A at 21 V | 4.97 A | PASS |
 | `U13` | `SRN4018-2R2M` | 0.14 A | 0.38 A | 0.33 A | 0.40 A at 5.5 V | 3 A | PASS |
 | `U14` | `SRN4018-2R2M` | 0.31 A | 0.35 A | 0.48 A | 0.54 A at 5.5 V | 3 A | PASS |
-| `U15` | `FTC201610S1R0MBCA` | 1.65 A | 0.64 A | 1.97 A | 2.06 A at 5.5 V | 4.6 A | PASS |
+| `U15` | `SWPA6045S4R7MT` | 1.65 A | 0.30 A | 1.80 A | 1.84 A at 5.5 V | 4.97 A | PASS |
 | `U16` | `SRN4018-2R2M` | 0.15 A | 0.28 A | 0.29 A | 0.33 A at 5.5 V | 3 A | PASS |
 
 ## Input source envelope (findings 46)

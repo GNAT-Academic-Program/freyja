@@ -9,7 +9,7 @@ the PCB (select a footprint, Description field). Start with the sheet
 you care about; within it, groups appear in schematic order.
 
 - [FPGA](#fpga) (111 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
-- [Power](#power) (138 parts): Inputs, the regulators that make every rail, extension power protection.
+- [Power](#power) (135 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (75 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (100 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
@@ -402,22 +402,19 @@ Small switching regulator that makes +1V2_MGT from +5V for the FPGA transceivers
 
 ### U15  5V to +1V0  (4A FPGA core supply)
 
-The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail on the board. Enabled by the board controller (EN_1V0); its power-good output (CORE_1V0_GOOD) goes to the board controller (GPIO38) so firmware knows the core is up. The soft-start capacitor makes it ramp slowly; the feedback resistors set 1.0 V.
+The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail on the board. Enabled by the board controller (EN_1V0) once +5V is settled above its 4.5 V minimum; firmware watches the rail through MON_1V0 (the part has no power-good pin). The feedback resistors set 1.0 V; the bootstrap capacitor feeds its high-side driver.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U15 | SY8047QDC | FPGA core regulator: Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output. |
+| U15 | TPS564201DDCR | FPGA core regulator: TI TPS564201, 4 A switching regulator: +5V to +1V0 for the FPGA core. Needs +5V at 4.5 V or more. |
 | C207 | 22uF | 22uF bypass on +5V, for U15 (FPGA core regulator) |
-| C208 | 1uF | 1uF capacitor from CORE_1V0_SVIN to GND, for U15 (FPGA core regulator): filtered supply for U15's control circuit |
-| C209 | 1nF | 1nF capacitor from CORE_1V0_SS to GND, for U15 (FPGA core regulator): U15 soft-start: slows the core supply's ramp |
-| C210 | 22pF | 22pF capacitor between +1V0 and FB+1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
 | C211 | 22uF | 22uF bypass on +1V0, for U15 (FPGA core regulator) |
 | C212 | 22uF | 22uF bypass on +1V0, for U15 (FPGA core regulator) |
-| L7 | 1uH_core FTC201610S1R0MBCA | 1uH_core FTC201610S1R0MBCA inductor between +1V0 and SW+1V0, for U15 (FPGA core regulator): regulator switching node |
-| R65 | 10 | 10 resistor from CORE_1V0_SVIN to +5V, for U15 (FPGA core regulator): filtered supply for U15's control circuit |
-| R66 | 100k | 100k resistor from CORE_1V0_GOOD to +3V3, for U7 (board controller): U15 power-good, read by the board controller (GPIO38) |
-| R67 | 100k | 100k resistor from FB+1V0 to +1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
-| R68 | 150k | 150k resistor from FB+1V0 to GND, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
+| C285 | 100nF | 100nF capacitor between BST+1V0 and SW+1V0, for U15 (FPGA core regulator): U15 bootstrap: 100 nF to SW feeds its high-side gate driver; regulator switching node |
+| C286 | 100nF | 100nF bypass on +5V, for U15 (FPGA core regulator) |
+| L7 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +1V0 and SW+1V0, for U15 (FPGA core regulator): regulator switching node |
+| R67 | 3.09k | 3.09k resistor from FB+1V0 to +1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
+| R68 | 10k | 10k resistor from FB+1V0 to GND, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
 | R94 | 100k | 100k pull-down on EN_1V0, for U7 (board controller): keeps the regulator off until the board controller enables it |
 
 ### extension power protection control

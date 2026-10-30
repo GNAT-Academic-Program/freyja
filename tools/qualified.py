@@ -125,14 +125,19 @@ PARTS = {
            '5 EN, 6 PG; symbol generated in tools/gen_kicad.py; land pattern '
            'the C163217 import (same package), LCSC property now C398364',
     src='TI SLVSDG1C (ref/datasheets/tlv62569.pdf); LCSC C398364'),
-  'EasyEDA:SY8047QDC': dict(
-    mpn='SY8047QDC', pkg='QFN-16-EP, 3x3 mm, 0.5 mm pitch',
-    fp='EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6',
-    rating='2.5-5.5 V in, 4 A out, 1.25 MHz, 0.6 V feedback, '
-           '5 A minimum peak-current limit',
-    pinmap='Imported C3018651 symbol and footprint checked against the '
-           'Silergy SY8047 Rev 0.9 top-view pinout',
-    src='Silergy SY8047 Rev 0.9; LCSC C3018651'),
+  'odin:TPS564201DDC': dict(
+    mpn='TPS564201DDCR', pkg='SOT-23-6 (TI DDC), 2.9 x 1.6 mm, 0.95 mm pitch',
+    fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL',
+    rating='4.5-17 V in (19 V absolute), 4 A, 560 kHz D-CAP2, VFB 0.760 V '
+           '(0.745-0.775), EN VIH 1.6 V. Fitted: 3.09k / 10k = 0.995 V (Table 2, '
+           '1 V row), 4.7 uH (Table 2 range 1.5-4.7 uH), 2 x 22 uF out (20-68 '
+           'uF), 22 uF + 100 nF in, 100 nF VBST. No PG, SS or SVIN. The 4.5 V '
+           'minimum input binds: the core may be enabled only once +5V is settled',
+    pinmap='SLVSDJ7B section 5 top view: 1 GND, 2 SW, 3 VIN, 4 VFB, 5 EN, 6 VBST; '
+           'symbol generated in tools/gen_kicad.py; the land is the library\'s '
+           'SOT-23-6 (the C464812 import is pad for pad the same), LCSC property '
+           'now C464812',
+    src='TI TPS564201 datasheet SLVSDJ7B (rev B, August 2017), ref/datasheets/tps564201.pdf; LCSC C464812'),
   'Regulator_Switching:TPS61085PW': dict(
     mpn='TPS61085PWR', pkg='TSSOP-8 (PW), 3.0x4.4 mm body, 6.4 mm lead span',
     fp=FP['TSSOP8'],

@@ -339,10 +339,10 @@ GROUP.update({
         'but must stay powered. Enabled by the board controller (EN_1V2).',
     'U15  5V to +1V0  (4A FPGA core supply)':
         'The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail '
-        'on the board. Enabled by the board controller (EN_1V0); its '
-        'power-good output (CORE_1V0_GOOD) goes to the board controller '
-        '(GPIO38) so firmware knows the core is up. The soft-start capacitor '
-        'makes it ramp slowly; the feedback resistors set 1.0 V.',
+        'on the board. Enabled by the board controller (EN_1V0) once +5V is '
+        'settled above its 4.5 V minimum; firmware watches the rail through '
+        'MON_1V0 (the part has no power-good pin). The feedback resistors '
+        'set 1.0 V; the bootstrap capacitor feeds its high-side driver.',
     'MGTAVCC filter':
         'A small inductor and capacitor that make +1V0_MGT from +1V0: the '
         'same voltage, with the core\'s switching noise filtered out, for the '
@@ -582,7 +582,7 @@ PART.update({
     'U13': ('2.5 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +2V5.'),
     'U14': ('1.8 V regulator, always on', 'TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). Enable tied to +5V.'),
     'U16': ('1.2 V transceiver regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT.'),
-    'U15': ('FPGA core regulator', 'Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output.'),
+    'U15': ('FPGA core regulator', 'TI TPS564201, 4 A switching regulator: +5V to +1V0 for the FPGA core. Needs +5V at 4.5 V or more.'),
     'U21': ('extension 5 V switch', 'TI TPS22950C load switch: +5V to every slot\'s 5 V pin, about 1 A limit, reverse blocking.'),
     'U22': ('extension 3.3 V switch', 'TI TPS22950C load switch: +3V3 to every slot\'s 3.3 V pin, about 0.5 A limit.'),
     'U23': ('slots A-D PIN V switch', 'TI TPS22975 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_1 to the PIN V pin of slots A-D. Discharges the output while off; the slot fuses limit the current; no reverse blocking.'),
@@ -652,9 +652,7 @@ NET.update({
     'PD_ISET': 'U18 current strap: 4.53k = 1.5 A (HUSB238 Table 6)',
     'USB_DP_MCU': 'USB D+ at the controller, after its 27 ohm series resistor',
     'USB_DM_MCU': 'USB D- at the controller, after its 27 ohm series resistor',
-    'CORE_1V0_GOOD': 'U15 power-good, read by the board controller (GPIO38)',
-    'CORE_1V0_SS': 'U15 soft-start: slows the core supply\'s ramp',
-    'CORE_1V0_SVIN': 'filtered supply for U15\'s control circuit',
+    'BST+1V0': 'U15 bootstrap: 100 nF to SW feeds its high-side gate driver',
     'EXT_EN': 'from the board controller: turns extension power on; off by default',
     'EXT_FAULT': 'shared fault line, low when a protected supply trips',
     'SUP_RUN': 'board controller reset',

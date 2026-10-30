@@ -866,3 +866,26 @@ except footprints whose outline changed.
     R56/R58 courtyard or clearance): both islands want their re-run with
     the new profile before anything else happens on the board (owner's
     flow, one island per commit). Gate electrical PASS.
+15. U15 SY8047QDC -> TI TPS564201DDCR (C464812), SOT-23-6 (the library's
+    land, pad for pad the import). Per SLVSDJ7B: VFB 0.760 V, divider
+    3.09k / 10k from Table 2 (0.995 V, inside the 0.95-1.05 V VCCINT
+    window), inductor 4.7 uH (Table 2 allows 1.5-4.7 uH at 1 V; L7 is now
+    the SWPA6045S4R7MT L2/L3 use, Isat 4.97 A guaranteed for the 4 A
+    class, 0.31 A ripple at 5.5 V in, 1.84 A envelope peak at the 1.65 A
+    budget load; the FTC2016 family has no 2.2 uH anywhere near 5 A, and
+    no other 2.2 uH part has a verified library number from here), COUT
+    2 x 22 uF (20-68 uF; the FPGA decoupling beyond it stays the bench
+    item), 22 uF + 100 nF at VIN (C286), 100 nF VBST (C285). No PG, SS or
+    SVIN: CORE_1V0_GOOD, the 10 R / 1 uF filter, the 1 nF and the 22 pF
+    feed-forward are gone (C208-C210, R65, R66 consumed), GPIO38 is
+    spare, MON_1V0 is the evidence that the core is up (status-leds.md,
+    user-manual.md). The 4.5 V minimum input is new and binding: a
+    4.75 V USB port less U34's drop is 4.69 V, U11 in dropout during a
+    9 V negotiation is about 4.5 V, so firmware enables EN_1V0 only once
+    the source is settled (budget.py, design.py). budget.py: 560 kHz,
+    COUT allowance 68 uF, U15 input 4.5-17 V. Layout profile TPS564201
+    (10.1, 10.2). 0 moved; DRC 80: the previous 55 plus 25 from L7's
+    6 x 6 mm body over U15, U26 and C211 (shorting items, mask bridges,
+    courtyards): island U15 wants its re-run, and L7's size may send the
+    owner to the smaller SWPA5045S2R2MT (Isat 6.4 A, 5 x 5 x 4.5 mm) once
+    its library number is confirmed. Gate electrical PASS.

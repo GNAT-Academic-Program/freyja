@@ -14,7 +14,6 @@ own forward drop, so no current flows.
 | GPIO35 | `LED_HEARTBEAT_N` | D9 supervisor heartbeat | CTRL HB |
 | GPIO36 | `LED_USER1_N` | D10 software-controlled user indicator | USER 1 |
 | GPIO37 | `LED_USER2_N` | D11 software-controlled user indicator | USER 2 |
-| GPIO38 | `CORE_1V0_GOOD` | U15 power-good, open drain with a 100k pull-up (R66) | input |
 
 The I2C expander that carried these lines in earlier revisions (U17,
 PCF8574, with its bus pull-ups, bypass and interrupt pull-up) is gone:
@@ -33,8 +32,10 @@ JLCPCB part plus five passives for four signals.
   not proof of a healthy supervisor; a frozen one is proof of lost progress.
 - USER 1 and USER 2 are for supervisor software or for fabric applications
   through supervisor commands; they are not wired to the FPGA.
-- A high CORE_1V0_GOOD is meaningful only after EN_1V0 is asserted and the
-  SY8047's start-up interval has elapsed; combine it with MON_1V0 for a
+- The core regulator (TPS564201 since 2026-10-30) has no power-good pin:
+  MON_1V0 is the only evidence that the core is up, read after EN_1V0 and
+  the regulator's start-up; the former CORE_1V0_GOOD line (GPIO38) is spare.
+  Use MON_1V0 for a
   voltage check. No automatic firmware interpretation exists yet.
 
 Place the three labelled LEDs where they stay visible: they form the LED

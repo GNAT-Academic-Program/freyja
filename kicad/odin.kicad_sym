@@ -5924,6 +5924,73 @@
 		)
 		(embedded_fonts no)
 	)
+	(symbol "TPS564201DDC"
+		(pin_names (offset 1.016))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 15.00 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "TPS564201DDC"
+			(at 0 12.46 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL"
+			(at 0 9.92 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps564201.pdf"
+			(at 0 7.38 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "4.5-17V input, 4A D-CAP2 synchronous buck converter, 560 kHz, SOT-23-6"
+			(at 0 4.84 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "TPS564201DDC_1_1"
+			(rectangle (start -12.70 5.08) (end 12.70 -5.08)
+				(stroke (width 0.254) (type default)) (fill (type background))
+			)
+			(pin power_in line
+				(at -17.78 2.54 0)
+				(length 5.08)
+				(name "VIN" (effects (font (size 1.27 1.27))))
+				(number "3" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 0.00 0)
+				(length 5.08)
+				(name "EN" (effects (font (size 1.27 1.27))))
+				(number "5" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at -17.78 -2.54 0)
+				(length 5.08)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_out line
+				(at 17.78 2.54 180)
+				(length 5.08)
+				(name "SW" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 0.00 180)
+				(length 5.08)
+				(name "VBST" (effects (font (size 1.27 1.27))))
+				(number "6" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at 17.78 -2.54 180)
+				(length 5.08)
+				(name "VFB" (effects (font (size 1.27 1.27))))
+				(number "4" (effects (font (size 1.27 1.27))))
+			)
+		)
+	)
 	(symbol "TPS22975DSG"
 		(pin_names (offset 1.016))
 		(exclude_from_sim no)

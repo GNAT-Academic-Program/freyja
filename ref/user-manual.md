@@ -546,8 +546,8 @@ to be implemented. A frozen heartbeat indicates lost progress, while a
 steady lit LED alone does not establish health. The three LEDs hang
 directly off supervisor GPIO35-37 (low lights them).
 
-The supervisor also reads the core regulator's **CORE_1V0_GOOD** on GPIO38,
-alongside its existing MON_1V0 voltage measurement.
+The supervisor watches the core rail through its MON_1V0 voltage
+measurement (the core regulator has no power-good pin).
 See [status indicators and firmware rules](status-leds.md).
 
 ## Memory

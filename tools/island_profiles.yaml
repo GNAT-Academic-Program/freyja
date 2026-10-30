@@ -201,43 +201,36 @@ TPS25942:
       match: {prefix: R, pin: OVP}
       place: {side: OVP, outside: UVLO string resistors at pin 14 along the N edge, overhang: 0.3}
 
-SY8047:
-  source: no datasheet reachable (LCSC bot gate, 2026-10-28); pin roles read from the board nets (TQFN-16 3x3, SW 1 2, PG 4, FB 5, GND 6 14 15 17, SS 9, SVIN 10, VIN 11 12, EN 13), layout from common synchronous buck practice as in the TLV62569 and AP63300 figures [verify against the SY8047 datasheet layout page when it is in ref/datasheets/]
-  pins: {SW: 1, PG: 4, FB: 5, GND: 14, SS: 9, SVIN: 10, VIN: 11, EN: 13}
-  # Footprint frame at rotation 0: SW pins on the W side, FB and a GND pin on
-  # the S side, SS, SVIN, VIN on the E side, EN and two GND pins on the N
-  # side. Input cap lies along the E edge across VIN and the N-corner GND
-  # pin; L stands W of SW; output caps lie along the N edge with GND pads
-  # over pins 14/15 and the output pads toward L; the SVIN filter cap and its
-  # 10 R stacked outside the input cap at pin 10; SS cap on the S flank at its
-  # corner; the FB network in one row at pin 5 with the low resistor lying
-  # across FB and GND pin 6; PG pull-up at pin 4 beside L; EN pull at 13.
+TPS564201:
+  source: TPS564201 datasheet SLVSDJ7B, 10.1 Layout Guidelines (1 to 10) and 10.2 Layout Example; pin table section 5 (DDC SOT-23-6: 1 GND, 2 SW, 3 VIN, 4 VFB, 5 EN, 6 VBST)
+  pins: {GND: 1, SW: 2, VIN: 3, VFB: 4, EN: 5, VBST: 6}
+  # SOT-23-6: GND, SW, VIN down one side, VFB, EN, VBST down the other.
+  # 10.1: input and output capacitors as close as possible (2), the input
+  # capacitor across VIN and GND on their own side; SW trace short and wide
+  # (4), the inductor at SW; the bootstrap capacitor across VBST and SW (the
+  # example puts it at the VBST corner); the feedback divider at VFB with a
+  # Kelvin return to the GND pin (6, 7, 9), away from SW (8); no switching
+  # current under the device (5).
   rules:
+    - name: input cap across VIN and GND
+      match: {cap_between: [VIN, GND]}
+      place: {side: VIN, face: {GND: N}}
     - name: inductor at SW
       match: {prefix: L, pin: SW}
       place: {side: SW}
-    - name: input cap along the E edge across VIN and the GND corner
-      match: {cap_between: [VIN, GND]}
-      place: {side: VIN, face: {GND: N}}
-    - name: output caps along the N edge over the GND pins
+    - name: bootstrap cap at the VBST corner, SW pad toward SW
+      match: {cap_between: [VBST, SW]}
+      place: {flank: VBST, face: {SW: N}}
+    - name: output caps beyond the inductor
       match: {cap_between: [OUT, GND]}
-      place: {side: GND, face: {GND: E}}
-    - name: SVIN filter cap at pin 10 beside the input cap
-      match: {cap_between: [SVIN, GND]}
-      place: {side: SVIN, overhang: 0.5}
-    - name: SVIN filter resistor outside its cap
-      match: {between: [VIN, SVIN]}
-      place: {side: SVIN, outside: SVIN filter cap at pin 10 beside the input cap}
-    - name: soft-start cap on the S flank at the SS corner
-      match: {cap_between: [SS, GND]}
-      place: {flank: SS, at: pin}
-    - name: FB network in one row at pin 5 with the low resistor across FB and GND pin 6
-      match: {pin: FB}
-      place: {side: FB, face: {GND: E}, overhang: 0.5}
-    - name: power-good pull-up at pin 4
-      match: {prefix: R, pin: PG}
-      place: {side: PG}
-    - name: enable pull at pin 13
+      place: {side: SW, outside: inductor at SW}
+    - name: upper divider at VFB
+      match: {prefix: R, between: [OUT, VFB]}
+      place: {side: VFB, face: {VFB: N}}
+    - name: lower divider outside the upper one, GND toward the GND pin
+      match: {between: [VFB, GND]}
+      place: {side: VFB, face: {VFB: N}, outside: upper divider at VFB}
+    - name: enable pull-down at EN
       match: {prefix: R, pin: EN}
       place: {side: EN}
 

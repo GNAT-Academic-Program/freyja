@@ -336,7 +336,16 @@ def gen_extension_protection():
             ('5','GND','power_in','L'), ('9','EP','passive','L'),
             ('7','VOUT','passive','R'), ('8','VOUT','passive','R'),
             ('6','CT','passive','R')]
-    return (gen_box_symbol('TPS22975DSG', sw75,
+    # TPS564201 DDC (SLVSDJ7B section 5, SOT-23-6 top view): 1 GND, 2 SW,
+    # 3 VIN, 4 VFB, 5 EN, 6 VBST.
+    core = [('3','VIN','power_in','L'), ('5','EN','input','L'),
+            ('1','GND','power_in','L'), ('2','SW','power_out','R'),
+            ('6','VBST','passive','R'), ('4','VFB','input','R')]
+    return (gen_box_symbol('TPS564201DDC', core,
+            'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL',
+            'https://www.ti.com/lit/ds/symlink/tps564201.pdf',
+            '4.5-17V input, 4A D-CAP2 synchronous buck converter, 560 kHz, SOT-23-6') +
+            gen_box_symbol('TPS22975DSG', sw75,
             'EasyEDA:WSON-8_L2.0-W2.0-P0.50-TL-EP',
             'https://www.ti.com/lit/ds/symlink/tps22975.pdf',
             '0.6V-to-VBIAS 6A load switch, separate 2.5-5.7V bias, adjustable rise time, quick output discharge') +

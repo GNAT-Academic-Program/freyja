@@ -38,7 +38,6 @@ QFN80   = 'EasyEDA:QFN-80_L10.0-W10.0-P0.40-TL-EP3.4'
 TSSOP24_SWITCH = 'EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL'
 TSSOP24_XLATE = 'EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL_1'
 VSSOP8_LVC2T45 = 'EasyEDA:VSSOP-8_L2.1-W2.4-P0.50-LS3.2-BL'
-QFN16_SY8047 = 'EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6'
 QFN20_RVC = 'EasyEDA:QFN-20_L4.0-W3.0-P0.5-BL-EP'   # TI RVC WQFN-20 3x4, the C181295 import
 VQFN12RUX = 'Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm'   # TI RUX0012A (MPQF508)
 WSON8_DSG = 'EasyEDA:WSON-8_L2.0-W2.0-P0.50-TL-EP'   # TI DSG, the C524777 import
@@ -411,10 +410,11 @@ def build():
     # request is still one line, PD_REQ_9V (item 37): firmware raises it
     # (it drives the U34 hold, Q6) while it asks U18 for 9 V over I2C. U11
     # and U14 have no enable any more (item 34); GPIO21 reads which source
-    # feeds +5V (item 35). The three status LEDs and U15's power-good are
-    # plain GPIOs (35-38); the I2C expander that used to carry them is gone
-    # (owner, 2026-10-30: an extended part plus passives for four lines the
-    # RP2350 has spare). Spare: 19, 20, 23, 26, 28, 29, 30, 39.
+    # feeds +5V (item 35). The three status LEDs are plain GPIOs (35-37);
+    # the I2C expander that used to carry them is gone (owner, 2026-10-30:
+    # an extended part plus passives for four lines the RP2350 has spare).
+    # U15's power-good left with the SY8047 (the TPS564201 has none; MON_1V0
+    # reads the rail). Spare: 19, 20, 23, 26, 28, 29, 30, 38, 39.
     gp = {0:'SUP_JTAG_TCK', 1:'SUP_JTAG_TMS', 2:'SUP_JTAG_TDI', 3:'SUP_JTAG_TDO',
           4:'SUP_PROG_B', 5:'SUP_INIT_B', 6:'SUP_DONE', 10:'SUP_CCLK',
           9:'SUP_FCS_B', 11:'SUP_FD0', 12:'SUP_FD1', 13:'SUP_FD2', 7:'SUP_FD3',
@@ -423,8 +423,7 @@ def build():
           21:'VBUS5_ST', 22:'EN_2V5', 24:'EN_1V0', 25:'EN_1V2',
           27:'PD_REQ_9V', 14:'PD_SDA', 31:'PD_SCL',
           8:'EXT_EN', 34:'EXT_FAULT',
-          35:'LED_HEARTBEAT_N', 36:'LED_USER1_N', 37:'LED_USER2_N',
-          38:'CORE_1V0_GOOD'}
+          35:'LED_HEARTBEAT_N', 36:'LED_USER1_N', 37:'LED_USER2_N'}
     for g, n in gp.items(): sup[f'GPIO{g}'] = n
     # ADC0-7 (GPIO40-47): MON_1V8 reads +1V8 itself, VCCAUX behind FB1, not
     # the regulator side of the bead (item 50); the two jumpered domains are
@@ -862,23 +861,37 @@ def build():
         d.R(top, rail, fb, R0603); d.R(bot, fb, GND, R0603)
         for _ in range(2): d.C('22uF', rail, GND, C0805)
         d.C('100nF', V5, GND)
-    # FPGA core supply. The SY8047 is not pin-compatible with the three
-    # TLV62569 rails above; implement its reference circuit explicitly.
-    top, bot, act = fb_divider(1.0, 0.600)
-    RAIL_CHECK.append((V10, 1.0, act, top, bot))
+    # FPGA core supply: TI TPS564201 (SLVSDJ7B) since 2026-10-30, the
+    # 4 A D-CAP2 buck the JLCPCB library has (the SY8047 is not in it).
+    # SOT-23-6 (DDC): 1 GND, 2 SW, 3 VIN, 4 VFB, 5 EN, 6 VBST. 4.5-17 V in
+    # (so +5V must be at or above 4.5 V before EN_1V0: a 4.75 V USB port
+    # less U34's drop is 4.69 V, and U11 in dropout during a 9 V
+    # negotiation sits near 4.5 V, hence firmware enables the core only
+    # once the source is settled), 560 kHz, VFB 0.760 V (0.745-0.775). No
+    # PG, no SS, no SVIN: CORE_1V0_GOOD, the 10 R / 1 uF filter and the
+    # 1 nF are gone (MON_1V0 reads the rail), EN "must be pulled up to
+    # enable" (VENH 1.6 V, EN_1V0 from the controller with its 100k
+    # pull-down). Table 2, 1 V row: R1 3.09k / R2 10k (0.995 V), L 1.5 to
+    # 4.7 uH (4.7 uH taken: L7 is the 6045 part L2/L3 use, Isat 4.97 A
+    # guaranteed for the 4 A class, ripple 0.31 A at 5.5 V in), COUT 20 to
+    # 68 uF (2 x 22 uF here, the FPGA decoupling beyond it is the known
+    # bench item). 8.2.2.4: 10 uF or more at VIN (the 22 uF) and an
+    # optional 100 nF at pin 3; 8.2.2.5: 100 nF VBST to SW (both appended
+    # below). The SY8047's SVIN resistor and capacitor, SS capacitor, PG
+    # pull-up and the 22 pF feed-forward are consumed as designators.
+    rt1, rb1 = '3.09k', '10k'
+    act1 = 0.760 * (1 + 3.09 / 10.0)              # SLVSDJ7B Equation 2, Table 2
+    RAIL_CHECK.append((V10, 1.0, act1, rt1, rb1))
     d.group('U15  5V to +1V0  (4A FPGA core supply)')
-    d.add('U15', 'EasyEDA:SY8047QDC', 'SY8047QDC', QFN16_SY8047,
-          {'LX': 'SW+1V0', 'PG': 'CORE_1V0_GOOD', 'FB': 'FB+1V0',
-           'AGND': GND, 'SS': 'CORE_1V0_SS', 'SVIN': 'CORE_1V0_SVIN',
-           'PVIN': V5, 'EN': 'EN_1V0', 'PGND': GND, 'EP': GND}, 'C3018651')
+    d.add('U15', 'odin:TPS564201DDC', 'TPS564201DDCR', SOT236_BUCK,
+          {'VIN': V5, 'GND': GND, 'SW': 'SW+1V0', 'VFB': 'FB+1V0',
+           'EN': 'EN_1V0', 'VBST': 'BST+1V0'}, 'C464812')
     d.C('22uF', V5, GND, C0805)
-    d.R('10', V5, 'CORE_1V0_SVIN', R0603)
-    d.C('1uF', 'CORE_1V0_SVIN', GND, C0603)
-    d.C('1nF', 'CORE_1V0_SS', GND)
-    d.R('100k', V33, 'CORE_1V0_GOOD')
-    d.L('1uH_core', V10, 'SW+1V0')
-    d.R(top, V10, 'FB+1V0', R0603); d.R(bot, 'FB+1V0', GND, R0603)
-    d.C('22pF', V10, 'FB+1V0')
+    d.reserve('R', 1); d.reserve('C', 1)          # SVIN 10 R and 1 uF
+    d.reserve('C', 1); d.reserve('R', 1)          # SS 1 nF, PG 100k
+    d.L('4.7uH', V10, 'SW+1V0')
+    d.R(rt1, V10, 'FB+1V0', R0603); d.R(rb1, 'FB+1V0', GND, R0603)
+    d.reserve('C', 1)                             # 22 pF feed-forward
     for _ in range(2): d.C('22uF', V10, GND, C0805)
     # U19's +12V output fed only U25 and the ten per-zone AUX selectors. Those
     # consumers are gone: AUX is now the raw J68 input straight into the ten
@@ -1540,6 +1553,14 @@ def build():
         d.group(grp)
         d.C('1uF', f'{ref}_VCC', GND, C0603)
         d.C('220nF', VSYS, GND, C0603)
+
+    # ---- TPS564201 support parts for U15 (2026-10-30), appended so no
+    # earlier designator moves: 8.2.2.5 the 100 nF bootstrap capacitor,
+    # 8.2.2.4 the optional 100 nF at VIN.
+    d.sheet('Power')
+    d.group('U15  5V to +1V0  (4A FPGA core supply)')
+    d.C('100nF', 'BST+1V0', 'SW+1V0')
+    d.C('100nF', V5, GND)
 
     # ---- U26 current monitor resistor (TPS25942A since 2026-10-30, 9.3.7):
     # appended so no earlier designator moves; island U26 by group name.

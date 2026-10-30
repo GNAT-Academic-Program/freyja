@@ -53,10 +53,6 @@ VSYS_MAX = 21.0
 # design.py consumes this exact table, so arithmetic and fitted parts cannot
 # silently diverge.
 INDUCTOR = {
-    '1uH_core': dict(mpn='FTC201610S1R0MBCA', l=1.0e-6, isat=4.60,
-                     dcr=0.035, size='2.0 x 1.6 mm',
-                     fp='EasyEDA:IND-SMD_L2.0-W1.6-B', lcsc='C5832342',
-                     cite='cjiang FTC201610S1R0MBCA: Irms 4.50 A, Isat 4.60 A'),
     # Sunlord SWPA6045S catalog (rev 2025/5/8, SWPA6045S table): 4R7MT
     # Isat 4.97 A guaranteed / 5.50 A typical, Irms 3.30 / 3.60 A, DCR
     # 34 mohm max / 26 typ; the Bourns SRN6045TA-4R7M it replaces is not in
@@ -168,7 +164,7 @@ REGULATORS = [
     ('U12', 'LMR33630ADDAR', 'VSYS', '+3V3', 3.8, 36.0, 3.0),
     ('U13', 'TLV62569PDRLR', '+5V', '+2V5', 2.5, 5.5, 2.0),
     ('U14', 'TLV62569PDRLR', '+5V', '+1V8_IO', 2.5, 5.5, 2.0),
-    ('U15', 'SY8047QDC', '+5V', '+1V0', 2.5, 5.5, 4.0),
+    ('U15', 'TPS564201DDCR', '+5V', '+1V0', 4.5, 17.0, 4.0),
     ('U16', 'TLV62569PDRLR', '+5V', '+1V2_MGT', 2.5, 5.5, 2.0),
 ]
 # Per regulator: the net its capacitors sit on, inductor key, switching
@@ -185,8 +181,8 @@ REG_DETAIL = {
                 cout_ok=47e-6, cite='SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF'),
     'U14': dict(vin_max=5.5, node='+1V8_IO', ind='2.2uH', fsw=1.5e6, vin=5.0,
                 cout_ok=47e-6, cite='SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF'),
-    'U15': dict(vin_max=5.5, node='+1V0', ind='1uH_core', fsw=1.25e6, vin=5.0,
-                cout_ok=44e-6, cite='Silergy SY8047 rev 0.9 reference circuit: 2 x 22 uF'),
+    'U15': dict(vin_max=5.5, node='+1V0', ind='4.7uH', fsw=560e3, vin=5.0,
+                cout_ok=68e-6, cite='TPS564201 SLVSDJ7B Table 2: 20-68 uF, L 1.5-4.7 uH at 1 V'),
     'U16': dict(vin_max=5.5, node='+1V2_MGT', ind='2.2uH', fsw=1.5e6, vin=5.0,
                 cout_ok=47e-6, cite='SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF'),
 }
@@ -395,7 +391,10 @@ carries voltage (Q7: J50 connected means the whole board runs from J50,
 USB cable or not), and if VBUS goes above 5.3-5.9 V unasked (OV1, a fault
 backstop inside the 6 V absolute maximum) or away. During a 5 V -> 9 V
 negotiation the rail is U11 in low-dropout mode, about 4.5 V, which every
-+5V consumer accepts; firmware asks for 9 V before it enables EXT_EN.
++5V consumer accepts except the core regulator U15 (TPS564201, 4.5 V
+minimum input since 2026-10-30): firmware asks for 9 V before it enables
+EXT_EN, and enables EN_1V0 only once the source is settled (9 V granted,
+or a 5 V source confirmed: 4.75 V less U34's drop is 4.69 V).
 Both of U34's inputs block reverse current and the rail is limited to
 {I_U34_TYP:g} A typical.
 
