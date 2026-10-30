@@ -79,6 +79,29 @@ Edge strips (--mirror REF,...; owner's request of 2026-10-30)
   - Dry run by default, with the move report and a render; --apply writes
     only the `(at ...)` lines, verifies the file and runs DRC. One strip per
     run, one run per commit, like any island.
+
+Slot strip lattice (--strip J3 | J5; owner's brief of 2026-10-30)
+  The owner's hand placement of the A-D strip, snapped to the lattice. The
+  rail header stays where the owner put it (--rail-at X,Y moves it first,
+  for the second edge, whose 32 columns must share the first edge's y values
+  for a shield to bridge).
+  - The 2x32 rail header's 32 columns (pad y values) make four eight-column
+    sections; the section's slot letter comes from its pad nets (SLOTA_...).
+  - Power header line: x = the rail's inner row (the row toward the power
+    side) plus two pitches toward the edge. The 1x7 female's pins sit on
+    columns 1..7 of its section, pin 1 (PIN V) at column 1.
+  - Key post MK<ord(letter)>: column 8 of the section, one more pitch toward
+    the edge than the header line. Off the header's line on purpose: a plain
+    1x8 strip cannot mate it, so the shield needs the bare hole exactly
+    there. Posts of the other edge found on this side trade places with the
+    incoming posts (identical GND posts; refs follow design.py).
+  - AUX fuse (SMD2018): on the edge side of the header body, 0.3 mm clear of
+    it, tucked above the post with 0.3 mm to its courtyard, slot pad toward
+    the header.
+  - Stack: the slot's caps and 1206 fuses stand in one column midway between
+    the header body and the rail body, 0.3 mm apart, in pin order from the
+    top (10 uF, PIN V fuse, 100 nF, 3V3 fuse, 5V fuse), the stack centred on
+    the header body. Rotations are kept (the caps' GND pads point down).
 """
 import argparse
 import math
@@ -2155,6 +2178,162 @@ def mirror_strip(board, refs, axis=None, edge_margin=1.0):
     return anchor, members, info
 
 
+STRIP_GAP = 0.3     # courtyard to courtyard on the strip, like --part-gap
+PITCH = 2.54
+
+
+def _half(fp, at):
+    b = fp.bbox(at)
+    return (b[2] - b[0]) / 2, (b[3] - b[1]) / 2
+
+
+def strip_layout(board, rail_ref, rail_at=None):
+    """Slot strip lattice; see the docstring section 'Slot strip lattice'.
+    Returns (rail footprint, members, info)."""
+    import placement as pl
+    if rail_ref not in board.fps:
+        sys.exit(f'--strip {rail_ref}: no such footprint')
+    rail = board.fps[rail_ref]
+    rpos = (rail_at[0], rail_at[1], rail.rot) if rail_at else (rail.x, rail.y, rail.rot)
+    rows = sorted({round(rail.pad_pos(p, rpos)[0], 3) for p in rail.pads})
+    cols = sorted({round(rail.pad_pos(p, rpos)[1], 3) for p in rail.pads})
+    if len(rows) != 2 or len(cols) != 32:
+        sys.exit(f'--strip {rail_ref}: expected a vertical 2x32 header, found {len(rows)} rows x {len(cols)} columns')
+    if any(abs((c - cols[0]) - i * PITCH) > 0.01 for i, c in enumerate(cols)):
+        sys.exit(f'--strip {rail_ref}: columns are not on a 2.54 mm pitch')
+    slots = []
+    for i in range(4):
+        sec = set(cols[8 * i:8 * i + 8])
+        letters = {m.group(1) for p in rail.pads if round(rail.pad_pos(p, rpos)[1], 3) in sec
+                   for m in [re.match(r'SLOT([A-H])_', p.net)] if m}
+        if len(letters) != 1:
+            sys.exit(f'--strip {rail_ref}: section {i} carries slots {sorted(letters)}, expected exactly one')
+        slots.append(letters.pop())
+    headers = {s: board.fps[pl.POWER_REFS[s]] for s in slots}
+    posts = {s: board.fps[f'MK{ord(s)}'] for s in slots}
+    sign = 1 if sum(h.x for h in headers.values()) / 4 > rail.x else -1
+    inner = rows[1] if sign > 0 else rows[0]
+    x_h = inner + sign * 2 * PITCH          # header line
+    x_k = x_h + sign * PITCH                # key post column
+    members, notes, used = [], [], set()
+
+    def add(fp, new, role, reason):
+        m = Member(fp)
+        m.anchor, m.role, m.new, m.reason = rail.ref, role, new, reason
+        moved = abs(new[0] - fp.x) > 1e-6 or abs(new[1] - fp.y) > 1e-6 or abs(norm_fp_angle(new[2] - fp.rot)) > 1e-6
+        m.status = 'move' if moved else 'keep'
+        if not moved:
+            m.reason = 'already there; ' + reason
+        members.append(m)
+        used.add(fp.ref)
+        return m
+
+    def upright(fp):
+        rot = fp.rot
+        if _half(fp, (0, 0, rot))[0] > _half(fp, (0, 0, rot))[1]:
+            rot = norm_fp_angle(rot + 90)
+        return rot
+
+    add(rail, rpos, 'anchor', "rail header, the owner's position" + (' moved by --rail-at' if rail_at else ''))
+    h0, p0 = headers[slots[0]], posts[slots[0]]
+    hdr_hw = _half(h0, (0, 0, h0.rot))[0]
+    post_hw, post_hh = _half(p0, (0, 0, p0.rot))
+    rail_edge = rail.bbox(rpos)[0] if sign < 0 else rail.bbox(rpos)[2]
+    x_c = ((x_h - sign * hdr_hw) + rail_edge) / 2
+    x_aux = None
+    sections = []
+    for i, s in enumerate(slots):
+        y0 = cols[8 * i]
+        hdr, post = headers[s], posts[s]
+        y_h = cols[8 * i + 3]
+        rot_h = hdr.rot
+        pins = {p.number: p for p in hdr.pads}
+        if hdr.pad_pos(pins['1'], (x_h, y_h, rot_h))[1] > hdr.pad_pos(pins['7'], (x_h, y_h, rot_h))[1]:
+            rot_h = norm_fp_angle(rot_h + 180)
+        hpos = (x_h, y_h, rot_h)
+        for p in hdr.pads:
+            k = round((hdr.pad_pos(p, hpos)[1] - y0) / PITCH)
+            if not (0 <= k <= 6) or abs(hdr.pad_pos(p, hpos)[1] - cols[8 * i + k]) > 0.01 or abs(hdr.pad_pos(p, hpos)[0] - x_h) > 0.01:
+                sys.exit(f'{hdr.ref}: pin {p.number} would not land on columns 1..7')
+        add(hdr, hpos, 'header', f'slot {s} power header, pins on columns 1..7, pin 1 (PIN V) at column 1')
+        add(post, (x_k, cols[8 * i + 7], post.rot), 'post',
+            f'slot {s} key post at column 8, one pitch outside the header line')
+        rail_nets = [p.net for p in sorted(hdr.pads, key=lambda p: hdr.pad_pos(p, hpos)[1]) if p.net != GND]
+        parts = [fp for fp in board.fps.values() if fp.prefix() in ('F', 'C')
+                 and any(p.net.startswith(f'SLOT_{s}_') for p in fp.pads)]
+        net_of = {fp.ref: next(p.net for p in fp.pads if p.net.startswith(f'SLOT_{s}_')) for fp in parts}
+        missing = [fp.ref for fp in parts if net_of[fp.ref] not in rail_nets]
+        if missing:
+            sys.exit(f'slot {s}: {", ".join(missing)} are on a net with no pin on {hdr.ref}')
+        # AUX fuse: edge side of the header body, above the post
+        aux = [fp for fp in parts if fp.prefix() == 'F' and net_of[fp.ref].endswith('_AUX')]
+        for fp in aux:
+            rot = fp.rot
+            if _half(fp, (0, 0, rot))[0] < _half(fp, (0, 0, rot))[1]:
+                rot = norm_fp_angle(rot + 90)
+            slot_pad = next(p for p in fp.pads if p.net == net_of[fp.ref])
+            if sign * fp.pad_pos(slot_pad, (0, 0, rot))[0] > 0:
+                rot = norm_fp_angle(rot + 180)
+            hw, hh = _half(fp, (0, 0, rot))
+            x_aux = x_h + sign * (hdr_hw + STRIP_GAP + hw)
+            y_aux = cols[8 * i + 7] - post_hh - STRIP_GAP - hh
+            add(fp, (x_aux, y_aux, rot), 'fuse', f'slot {s} AUX fuse beside the header body, above the post, slot pad toward the header')
+        # the stack: caps then fuse per rail pin, top to bottom, centred on the header body
+        stack = []
+        for net in rail_nets:
+            if net.endswith('_AUX'):
+                continue
+            stack += sorted((fp for fp in parts if fp.prefix() == 'C' and net_of[fp.ref] == net), key=lambda f: natural(f.ref))
+            stack += sorted((fp for fp in parts if fp.prefix() == 'F' and net_of[fp.ref] == net), key=lambda f: natural(f.ref))
+        rots = {fp.ref: upright(fp) for fp in stack}
+        hhs = [_half(fp, (0, 0, rots[fp.ref]))[1] for fp in stack]
+        length = sum(2 * h for h in hhs) + STRIP_GAP * (len(stack) - 1)
+        y = y_h - length / 2
+        for fp, hh in zip(stack, hhs):
+            add(fp, (x_c, y + hh, rots[fp.ref]), 'stack',
+                f'slot {s} {fp.value} in the stack between header and rail ({net_of[fp.ref].split("_", 2)[2]})')
+            y += 2 * hh + STRIP_GAP
+        sections.append({'slot': s, 'y0': y0, 'y7': cols[8 * i + 7], 'post': post.ref, 'header': hdr.ref,
+                         'pins': ' '.join(f'{p.number}:{hdr.pad_pos(p, hpos)[1]:.2f}' for p in sorted(hdr.pads, key=lambda p: int(p.number))),
+                         'aux': ' '.join(f.ref for f in aux), 'stack': ' '.join(f.ref for f in stack),
+                         'stack_len': length, 'hdr_len': 2 * _half(hdr, (0, 0, rot_h))[1]})
+    # posts of the other edge standing on this side trade places with ours
+    region_x = (min(x_k, rail.x) - 20, max(x_k, rail.x) + 20)
+    on_side = lambda fp: sign * (fp.x - rail.x) > 0 and region_x[0] <= fp.x <= region_x[1]
+    strays = [fp for ref, fp in board.fps.items() if ref.startswith('MK') and ref not in used and len(fp.pads) == 1
+              and on_side(fp) and board.outline and board.outline[1] <= fp.y <= board.outline[3]]
+    incoming = [m for m in members if m.role == 'post' and not on_side(m.fp)]
+    for stray, inc in zip(sorted(strays, key=lambda f: natural(f.ref)), sorted(incoming, key=lambda m: natural(m.ref))):
+        add(stray, (inc.fp.x, inc.fp.y, stray.rot), 'post', f"other edge's post, takes {inc.ref}'s old place ({inc.ref} comes to this strip)")
+        notes.append(f'{stray.ref} and {inc.ref} trade places: identical GND posts, refs follow design.py MK<ord(slot)>')
+    for stray in strays[len(incoming):]:
+        notes.append(f'NOTE {stray.ref} stands on this side but belongs to the other edge and has no incoming post to swap with')
+    overlaps = []
+    planned = [(m.ref, m.fp.polygon(m.new)) for m in members]
+    keyed = {frozenset((a['post'], b['header'])) for a in sections for b in sections}   # own header and the next section's
+    for a in range(len(planned)):
+        for b in range(a + 1, len(planned)):
+            if polys_overlap(planned[a][1], planned[b][1]):
+                if frozenset((planned[a][0], planned[b][0])) in keyed:
+                    notes.append(f'{planned[a][0]}/{planned[b][0]}: post and header courtyards touch at the corner '
+                                 f'(diagonal neighbours one pitch apart; the known post-to-header DRC pair)')
+                    continue
+                overlaps.append(f'{planned[a][0]}/{planned[b][0]}')
+    for ref, other in board.fps.items():
+        if ref in used:
+            continue
+        for mref, poly in planned:
+            if polys_overlap(poly, other.polygon()):
+                overlaps.append(f'{mref}/{ref}')
+    box = bbox_of([pt for _, poly in planned for pt in poly])
+    o = board.outline
+    margin = min(box[0] - o[0], o[2] - box[2], box[1] - o[1], o[3] - box[3]) if o else float('nan')
+    gap_h = (x_c - sign * _half(stack[0], (0, 0, rots[stack[0].ref]))[0]) * sign - (x_h - sign * hdr_hw) * sign if stack else None
+    info = {'rows': rows, 'cols': cols, 'sign': sign, 'inner': inner, 'x_h': x_h, 'x_k': x_k, 'x_aux': x_aux,
+            'x_c': x_c, 'sections': sections, 'notes': notes, 'overlaps': overlaps, 'edge_margin': margin, 'box': box}
+    return rail, members, info
+
+
 def apply_edits(text, edits):
     out = text
     for start, end, new in sorted(edits, key=lambda t: t[0], reverse=True):
@@ -2462,6 +2641,11 @@ def main():
                          'a pad pattern cannot be mirrored (dry run unless --apply)')
     ap.add_argument('--axis', type=float, metavar='X',
                     help='--mirror: x of the mirror line in mm (default: the centre of the strip\'s own box)')
+    ap.add_argument('--strip', metavar='RAIL',
+                    help='slot strip: lay the four keyed power rows, their fuses and caps on the 2.54 mm lattice of '
+                         'this 2x32 rail header (J3 or J5), see the docstring (dry run unless --apply)')
+    ap.add_argument('--rail-at', metavar='X,Y', type=lambda v: tuple(float(t) for t in v.split(',')),
+                    help='--strip: move the rail header itself to this origin first (rotation kept)')
     ap.add_argument('--list-anchors', action='store_true', help='list every anchor with its island size and exit')
     ap.add_argument('--check-geometry', action='store_true', help='cross-check pad and courtyard geometry against pcbnew and exit')
     args = ap.parse_args()
@@ -2469,6 +2653,43 @@ def main():
     board = Board(args.board)
     if args.check_geometry:
         sys.exit(check_geometry(board))
+
+    if args.strip:
+        anchor, members, info = strip_layout(board, args.strip, args.rail_at)
+        print(f'SLOT STRIP {anchor.ref}: rows x {info["rows"][0]:.2f} / {info["rows"][1]:.2f}, columns y '
+              f'{info["cols"][0]:.2f} .. {info["cols"][-1]:.2f} step 2.54; power side {"+x" if info["sign"] > 0 else "-x"}')
+        print(f'  header line x = {info["x_h"]:.2f} (inner row {info["inner"]:.2f} {"+" if info["sign"] > 0 else "-"} 2 x 2.54), '
+              f'key posts x = {info["x_k"]:.2f} (one more pitch), AUX fuses x = {info["x_aux"]:.2f}, stack x = {info["x_c"]:.2f}; '
+              f'edge margin {info["edge_margin"]:.2f} mm')
+        for sec in info['sections']:
+            print(f'  slot {sec["slot"]}: columns y {sec["y0"]:.2f}..{sec["y7"]:.2f}; header {sec["header"]} pins {sec["pins"]}; '
+                  f'post {sec["post"]} at column 8; AUX {sec["aux"]}; stack {sec["stack"]} '
+                  f'({sec["stack_len"]:.2f} mm on a {sec["hdr_len"]:.2f} mm header body)')
+        for line in info['notes']:
+            print(f'  {line}')
+        if info['overlaps']:
+            print(f'  OVERLAPS: {", ".join(info["overlaps"])}')
+        print_moves(members)
+        render_path = args.render or os.path.join(RENDER_DIR, f'{anchor.ref}-strip.svg')
+        title = f'islands.py --strip {anchor.ref}' + (' --apply' if args.apply else ' (dry run)')
+        locks = {ref: (True, 'hand placement') for ref in board.fps}
+        render(render_path, board, anchor, members, None, title, locks)
+        print(f'\nrender: {os.path.relpath(render_path, ROOT)}')
+        moves = {m.ref: m for m in members if m.status == 'move'}
+        if not args.apply:
+            print('dry run: nothing written. Add --apply to write the pcb.')
+            return
+        if info['overlaps']:
+            sys.exit('REFUSED: the strip layout would overlap')
+        open(args.board, 'w', encoding='utf-8').write(apply_edits(board.text, plan_edits(board, members)))
+        errs = verify_written(args.board, moves, board)
+        if errs:
+            open(args.board, 'w', encoding='utf-8').write(board.text)
+            print('\n'.join('  ' + e for e in errs[:20]))
+            sys.exit('WRITE VERIFICATION FAILED; the original file was restored')
+        print(f'wrote {os.path.relpath(args.board, ROOT)}: {len(moves)} footprint(s) moved')
+        run_drc(args.board)
+        return
 
     if args.mirror:
         anchor, members, info = mirror_strip(board, args.mirror, args.axis, args.edge_margin)

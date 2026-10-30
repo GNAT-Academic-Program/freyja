@@ -649,9 +649,43 @@ A-D strip (J3 island, 33 parts, line x 40.275): J3 from x 33.00 to 47.55,
 the power headers from 39.10 to 41.45, posts from 41.90 to 38.65, the
 1.1 A fuses from 46.80 to 33.75 turned 180. check_positions: 33 moved,
 nothing else. Render ref/islands/J3-mirror.svg.
-E-H strip (J5 island, 33 parts, line x 119.475): applied in the next
-commit, same rule.
+E-H strip (J5 island, 33 parts, line x 119.475, next commit): J5 from
+x 127.00 to 111.95, the power headers from 120.9/121.0 to 118.05/117.95,
+posts from 118.0/117.7/120.9/121.0 to 120.95/121.25/118.05/117.95, the
+1.1 A fuses from 113.2/112.7 to 125.75/126.25 turned 180. check_positions
+against the snapshot taken before both strips: 66 moved, nothing else;
+DRC pairs identical to the committed board. Render
+ref/islands/J5-mirror.svg.
 place.py --check still fails its 9 lattice findings (the rows were off
 the lattice before the move; the strips' x values changed, the set did
 not): the shield lattice contract is to be settled when the strips are
 compacted to 1:1.
+
+## Slot strips on the keyed lattice 2026-10-30
+Parts: 553; ERC 0; 0 parity; DRC courtyard errors are the post-to-header
+corner touches only (see below). Gate electrical PASS.
+The owner's hand placement of the A-D strip, snapped to the 2.54 mm
+lattice of the rail header and written as a rule, `islands.py --strip`
+(tool, dry run, render, --apply, one strip per commit):
+- power header line two pitches inside the rail's inner row, its seven
+  pins on columns 1..7 of the slot's eight-column section (pin 1, PIN V,
+  on the IO0 column);
+- key post MK<ord(slot)> on column 8, one more pitch toward the edge, so
+  it is off the header's line: a plain 1x8 strip cannot mate it, the
+  shield needs the bare hole exactly there (the owner's keying; the
+  in-line position-1 scheme written in tools/placement.py, place.py
+  --check and ref/extension-ux.md is superseded and still to be rewritten,
+  so the mechanical gate keeps reporting it);
+- AUX fuse on the edge side of the header body, tucked above the post;
+- the slot's caps and 1206 fuses in one stack midway between header body
+  and rail body, 0.3 mm apart, pin order from the top, centred on the
+  header body (18.79 mm on an 18.33 mm body), nothing in a header
+  courtyard.
+A-D (J3 at the owner's 54.47, 78.86): header line x 48.12, posts 45.58,
+AUX fuses 43.32, stack 50.70; 32 footprints moved. MK66 (slot B) and MK69
+(slot E) traded places, refs follow design.py. The post courtyard touches
+the header courtyards at a corner (0.27 x 0.55 mm, own header and the next
+section's): courtyard-only, the known post-to-header pair.
+E-H (next commit): J5 kept at x 111.95, moved to y 78.86 so its 32
+columns are J3's (a shield must bridge them); header line 118.30, posts
+120.84, AUX fuses 123.10, stack 115.72, edge margin 3.68 mm.
