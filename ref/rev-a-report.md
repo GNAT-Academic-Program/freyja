@@ -740,3 +740,16 @@ except footprints whose outline changed.
    Connector_USB/Connector_Video libraries (the checker had stopped at
    "footprint not found"). J1 swapped in place, 0 moved, DRC 15
    courtyards unchanged, gate electrical PASS.
+6. J71/J72 Kinghelm KH-RJ45-58-8P8C -> Ckmtw R-RJ45R08P-B000 (C386756).
+   Land from the import, checked against the Ckmtw drawing (contacts in
+   two rows 1.78 mm apart at 1.02 mm stagger, 1.8 mm shell tabs 16.26 mm
+   apart, 3.25 mm posts 12.7 mm apart); the import had the posts as
+   plated holes with no ring (4 annular-width errors), made plain holes.
+   Pair order unchanged (contacts 1-8 are the 8P8C numbers; LINK_P/Q nets
+   checked on the pads). The drawing shows the latch keyway at the top
+   of the opening: a tab-up jack where the Kinghelm was tab-down; the
+   mouth still faces +y so the rotations stand. The body is 15.7 mm deep
+   against 18.5: at the kept origin the face sits 2.1 mm further inboard
+   than the Kinghelm's (the city plan sets the overhang by rule when it is
+   next applied; nothing moved here). DRC 15 courtyards unchanged, gate
+   electrical PASS.

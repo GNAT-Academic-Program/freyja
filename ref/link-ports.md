@@ -3,7 +3,7 @@
 Two RJ45 jacks on the top edge carry eight LVDS_25 pairs straight from FPGA
 bank 16 (VCCO = 2.5 V) over ordinary twisted-pair cable. There is no PHY, no
 protocol and no isolation: these are FPGA pins on a cable. The jacks are
-plain shielded 8P8C (Kinghelm KH-RJ45-58-8P8C, C2683360), **not** Ethernet
+plain shielded 8P8C (Ckmtw R-RJ45R08P-B000, C386756, tab up), **not** Ethernet
 jacks, and nothing on this port talks Ethernet.
 
 ## Pinout

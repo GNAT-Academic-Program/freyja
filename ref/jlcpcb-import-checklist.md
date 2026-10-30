@@ -70,7 +70,7 @@ against the manufacturer datasheet.
 | 13 | `F254D-02-PT-B` | removable 2.54 mm selector shunts | `C501335` — imported; loose accessory |
 | 1 | `RTL8211FDI-CG` | gigabit Ethernet PHY (LDO model, industrial grade) | `C692886` — imported 2026-10-30 with easyeda2kicad, pin names identical to the C2687133 import checked against datasheet rev 1.7 |
 | 1 | `HR911130A` | ETH 1000Base-T magjack with LEDs | `C54408` — imported 2026-10-23, pin names checked against the HanRun drawing |
-| 2 | `KH-RJ45-58-8P8C` | LINK P / LINK Q plain shielded jacks | `C2683360` — imported 2026-10-23 |
+| 2 | `R-RJ45R08P-B000` (Ckmtw) | LINK P / LINK Q plain shielded jacks, tab up | `C386756` — imported 2026-10-30, land checked against the Ckmtw drawing |
 | 1 | `X322525MOB4SI` | PHY 25 MHz crystal | `C9006` (Basic) — imported 2026-10-23 |
 | 4 | `TPD4E1U06DBVR` | link-port ESD arrays | `C124691` — imported 2026-10-23 |
 

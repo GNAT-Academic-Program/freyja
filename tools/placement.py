@@ -43,7 +43,7 @@ class P:
 # ------------------------------------------------------ the numbers that rule
 # 2x32 signal socket body (courtyard): 81.90 x 4.90, pads centred on origin.
 # Per-zone keyed power row: one post plus a 1x7 female body.
-# RJ45 jacks on the top edge: HR911130A 16.04 x 21.30, KH-RJ45-58 15.70 x 18.20.
+# RJ45 jacks on the top edge: HR911130A 16.04 x 21.30, Ckmtw R-RJ45R08P 16.26 x 15.70.
 # FBGA-676:                            27.4 x 27.7 courtyard.
 SIG_LEN   = 81.90       # 2x32 body length
 SIG_W     = 4.90
@@ -73,7 +73,7 @@ FPGA = (50.0, 62.0)
 # Three RJ45 jacks along the top edge, 17.8 mm pitch, mouths overhanging the
 # edge by about 3 mm like any tab-down jack. The imported footprints put the
 # mouth at -y for the HanRun magjack (its LED pins sit at the front) and at
-# +y for the Kinghelm plain jack (shield tabs at the front), hence the two
+# +y for the Ckmtw plain jack (posts at the front, tab up), hence the two
 # rotations. Verify both in the 3D view before ordering; the STEP models are
 # imported. Left to right: LINK P, LINK Q, ETH; the PHY goes between ETH and
 # the FPGA. J50 moves to the top-left corner to make room.
@@ -233,8 +233,8 @@ CONTRACT_FP = {         # ref prefix -> footprint file stem, for the checker
     'J5': 'HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1',
     'J7': 'HDR-TH_16P-P2.54-V-F-R2-C8-S2.54', 'J8': 'HDR-TH_16P-P2.54-V-F-R2-C8-S2.54',
     **{r: 'HDR-TH_7P-P2.54-V-F' for r in POWER_REFS.values()},
-    'J70': 'RJ45-TH_HR911130A', 'J71': 'RJ45-TH_KH-RJ45-58-8P8C',
-    'J72': 'RJ45-TH_KH-RJ45-58-8P8C',
+    'J70': 'RJ45-TH_HR911130A', 'J71': 'RJ45-TH_R-RJ45R08P-B000',
+    'J72': 'RJ45-TH_R-RJ45R08P-B000',
     'U1': 'FBGA-676_L27.0-W27.0-R26-C26-P1.00-BL',
     'J1': 'USB_C_Receptacle_HRO_TYPE-C-31-M-12', 'J50': 'CONN-TH_P5.00_KF301-5.0-2P',
     'J2': 'IDC-TH_10P-P2.54_C5665',

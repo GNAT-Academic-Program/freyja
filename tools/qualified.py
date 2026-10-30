@@ -326,14 +326,16 @@ PARTS = {
            'P8/P9 MDI3, P1 CT, P10 termination, 11(+)/12(-) green, 14(+)/13(-) '
            'yellow, SHIELD0/1; imported footprint pad names match',
     src='HanRun HR911130A drawing rev A; LCSC C54408'),
-  'EasyEDA:KH-RJ45-58-8P8C': dict(
-    mpn='KH-RJ45-58-8P8C', pkg='tab-down shielded 8P8C jack, no magnetics, THT, 15.70 x 18.20 mm',
-    fp='EasyEDA:RJ45-TH_KH-RJ45-58-8P8C',
-    rating='plain jack: 1.5 A, 125 VAC contacts, gold over nickel; carries the '
-           'DC-coupled LVDS_25 link pairs, nothing more',
-    pinmap='Kinghelm drawing A2 (2022-08-15): contacts 1-8 in two 1.27 mm '
-           'rows, 9/10 shell tabs; imported footprint pad numbers match',
-    src='Kinghelm KH-RJ45-58-8P8C drawing; LCSC C2683360'),
+  'EasyEDA:R-RJ45R08P-B000': dict(
+    mpn='R-RJ45R08P-B000', pkg='shielded 8P8C jack, no magnetics, THT, 16.26 x 15.75 mm, 13.1 mm tall; latch keyway at the top of the opening (tab up)',
+    fp='EasyEDA:RJ45-TH_R-RJ45R08P-B000',
+    rating='plain jack: 1.5 A, 125 VAC, 30 mohm contacts, gold over nickel, '
+           '750 cycles; carries the DC-coupled LVDS_25 link pairs, nothing more',
+    pinmap='Ckmtw drawing (2016-03-23) PC board layout: contacts 1-8 in two '
+           'rows 1.78 mm apart at 1.02 mm stagger, shell tabs 9/10 (1.8 mm) '
+           '16.26 mm apart, two 3.25 mm plastic posts 12.7 mm apart; the '
+           'imported footprint has the same pads and the posts as plain holes',
+    src='Ckmtw R-RJ45R08P-B000 drawing (LCSC attachment); LCSC C386756'),
   'EasyEDA:X322525MOB4SI': dict(
     mpn='X322525MOB4SI', pkg='SMD 3225, 4 pad', fp='EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL_X3225',
     rating='25 MHz, +/-10 ppm, CL 12 pF, ESR 50 ohm max; RTL8211F Table 56 '

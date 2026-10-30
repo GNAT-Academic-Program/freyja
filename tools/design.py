@@ -1113,8 +1113,15 @@ def build():
         for (p, n), name in pairs.items():
             conn[str(p)] = f'LINK_{port}_{name}_P'
             conn[str(n)] = f'LINK_{port}_{name}_N'
-        d.add(ref, 'EasyEDA:KH-RJ45-58-8P8C', f'LINK {port}',
-              'EasyEDA:RJ45-TH_KH-RJ45-58-8P8C', conn, 'C2683360')
+        # Ckmtw R-RJ45R08P-B000 (C386756) since 2026-10-30, the plain
+        # shielded 8P8C the JLCPCB library has: contacts 1-8 on the same
+        # 8P8C numbering, 9/10 the shell tabs. Its drawing (2016-03-23)
+        # shows the latch keyway at the top of the opening, so it is a
+        # tab-up jack where the Kinghelm was tab-down; the imported land
+        # (1.02 mm staggered rows, tabs 16.26 mm apart, 3.25 mm posts 12.7
+        # mm apart) matches the drawing's PC board layout.
+        d.add(ref, 'EasyEDA:R-RJ45R08P-B000', f'LINK {port}',
+              'EasyEDA:RJ45-TH_R-RJ45R08P-B000', conn, 'C386756')
         # ESD at the jack: one TPD4E1U06 per two pairs, 0.8 pF per line.
         # The pairs sit between 0 V and 2.5 V, so a to-ground array suffices.
         for (a, b), (c, e) in (((1, 2), (3, 6)), ((4, 5), (7, 8))):
