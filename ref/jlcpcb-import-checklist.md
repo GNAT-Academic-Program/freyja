@@ -73,6 +73,7 @@ against the manufacturer datasheet.
 | 2 | `R-RJ45R08P-B000` (Ckmtw) | LINK P / LINK Q plain shielded jacks, tab up | `C386756` — imported 2026-10-30, land checked against the Ckmtw drawing |
 | 1 | `X322525MOB4SI` | PHY 25 MHz crystal | `C9006` (Basic) — imported 2026-10-23 |
 | 4 | `TPD4E1U06DBVR` | link-port ESD arrays | `C124691` — imported 2026-10-23 |
+| 1 | `10029449-111RLF` (Amphenol) | HDMI out jack | `C427307` — KiCad's Amphenol 10029449 footprint, sheet 4 of the drawing checked 2026-10-30 |
 
 Import the exact orderable suffix shown. A nearby family member in the same
 search result is not interchangeable.

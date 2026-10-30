@@ -1186,7 +1186,11 @@ def build():
     # The two enables default on, so DDC (EDID) and hot plug work under any
     # bitstream; a design may drive them low to save about 170 uA (8.2.2).
     d.R('100k', V33, 'HDMI_CT_HPD'); d.R('100k', V33, 'HDMI_LS_OE')
-    # Amphenol 10029449-001RLF, right-angle HDMI type A. Pin 14 (utility,
+    # Amphenol 10029449-111RLF, right-angle HDMI type A (the -111 since
+    # 2026-10-30: the -001 is nearly out of the JLCPCB library; sheet 4 of
+    # the Amphenol 10029449 drawing gives it the same contact pattern and
+    # the same 1.30 mm shell holes as the -x01x sheet KiCad's footprint is
+    # drawn from, gold-flash contacts, brass shell). Pin 14 (utility,
     # HDMI 1.4 HEAC) is not used: SLLSE96F Figure 19 note, "if unused, tie
     # Reserve Pin to Ground with 75 ohm resistor". The pair shields, DDC/CEC
     # ground and the shell go to ground.
@@ -1198,7 +1202,7 @@ def build():
            'CK+': 'HDMI_CLK_P', 'CK-': 'HDMI_CLK_N', 'CKS': GND,
            'CEC': 'HDMI_CEC_B', 'SCL': 'HDMI_SCL_B', 'SDA': 'HDMI_SDA_B',
            'GND': GND, '+5V': 'HDMI_5V', 'HPD': 'HDMI_HPD_B', 'SH': GND,
-           'UTILITY': 'HDMI_UTILITY'}, 'C428493')
+           'UTILITY': 'HDMI_UTILITY'}, 'C427307')
     d.R('75', 'HDMI_UTILITY', GND)
 
     # ------------------------------------------------ SDRAM

@@ -385,17 +385,20 @@ PARTS = {
            '24 VCCA; symbol generated in tools/gen_kicad.py gen_hdmi()',
     src='TI TPD12S016 datasheet SLLSE96F (rev F, October 2015); LCSC C201665'),
   'Connector:HDMI_A': dict(
-    mpn='10029449-001RLF', pkg='HDMI type A receptacle, right angle, SMT contacts '
-        'with four through-hole shell legs',
+    mpn='10029449-111RLF', pkg='HDMI type A receptacle, right angle, SMT contacts '
+        'with four through-hole shell legs; gold flash 3u" contacts, brass shell, tape and reel',
     fp='Connector_Video:HDMI_A_Amphenol_10029449-x01xLF_Horizontal',
     rating='19 contacts, HDMI 1.4; 0.5 A contacts, 40 V; carries four TMDS_33 '
            'pairs, DDC, CEC, hot plug and the 55 mA 5 V',
     pinmap='KiCad Connector:HDMI_A pin numbers are the HDMI standard contacts '
-           '1-19; the KiCad footprint is drawn for this Amphenol family and '
-           'names 10029449-001RLF in its description; SH = shell',
-    src='Amphenol ICC 10029449 drawing (linked from the KiCad footprint); LCSC '
-        'C428493. [verify] stock at order time: C427307 (-111RLF) is the '
-        'same family, confirm its land pattern before substituting'),
+           '1-19; SH = shell. The KiCad footprint is drawn for the -x01x '
+           'sheets of the Amphenol 10029449 drawing; sheet 4 (rev Y, 2023), '
+           'the -111RLF, has the same pattern: 19 contacts 0.5 mm pitch split '
+           '4.75/4.25, 0.30 pads, shell holes 1.30 mm on 15.70 and 14.50 mm '
+           'spans, 1.95 (A) from the contact row and 4.95 between hole rows '
+           'against 1.90 / 4.90 on the -001 sheet, inside the 1.00 mm leg in '
+           'a 1.30 mm hole. The C427307 EasyEDA land has the same pads',
+    src='Amphenol ICC 10029449 drawing rev Y (sheet 4, 10029449-111RLF); LCSC C427307'),
   # ------------------------------------------------------- FPGA decoupling
   # UG483 v1.14 Table 2-5 names the parts; the ceramic 1210/0805/0603 values
   # are ordinary passives matched at BOM time (C > nominal, X7R or X5R, ESR

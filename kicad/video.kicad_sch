@@ -1413,7 +1413,7 @@
 		(property "Reference" "J73" (at 198.12 82.55 0) (effects (font (size 1.27 1.27))))
 		(property "Value" "HDMI OUT" (at 198.12 146.05 0) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "Connector_Video:HDMI_A_Amphenol_10029449-x01xLF_Horizontal" (at 198.12 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "LCSC" "C428493" (at 198.12 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "LCSC" "C427307" (at 198.12 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "HDMI OUT jack: Amphenol 10029449 HDMI type A socket: video out from FPGA bank 35, DVI-compatible, 720p60 and below." (at 198.12 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(instances (project "odin" (path "/c44fb7fe-6133-ad34-68fd-fb66126197ef/7796611e-e9da-f6a6-e759-e95cdfaecfe5" (reference "J73") (unit 1))))
 	)

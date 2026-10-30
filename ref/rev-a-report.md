@@ -783,3 +783,11 @@ except footprints whose outline changed.
    Gate electrical PASS; mechanical the 11 findings as before.
    check_connector_rework.py (not in the gate) trips on FB1 already and
    was not revived.
+10. J73 10029449-001RLF (2 pieces left) -> 10029449-111RLF (C427307).
+    Sheet 4 of the Amphenol 10029449 drawing (rev Y): same 19-contact
+    pattern (0.5 mm pitch, 4.75/4.25 split, 0.30 pads) and the same 1.30
+    mm shell holes on 15.70 / 14.50 mm spans as the -x01x sheets KiCad's
+    footprint is drawn from; 1.95 / 4.95 mm against 1.90 / 4.90 on the
+    -001 sheet, inside a 1.00 mm leg in a 1.30 mm hole. The C427307
+    EasyEDA land has the same pads. KiCad footprint kept, nothing moved,
+    gate electrical PASS. The HC-HDMI0019T-4 fallback was not needed.
