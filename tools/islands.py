@@ -1095,9 +1095,14 @@ class Planner:
         # Nothing in the pile is an obstacle (its neighbours are accidents of
         # the import order); overlaps with them are only noted.
         self.chunk = not self.anchor_inside
-        self.park = self.chunk and not getattr(args, 'no_park', False)
+        # --stay (owner, 2026-10-30): the anchor is where the owner blocked
+        # it; the island is relaid around it and never shifted, overlaps
+        # with pile neighbours are reported, not avoided.
+        self.stay = self.chunk and getattr(args, 'stay', False)
+        self.park = self.chunk and not self.stay and not getattr(args, 'no_park', False)
         self.lot = tuple(getattr(args, 'lot', None) or PARK)
-        self.static = [(anchor_ref, self.anchor.polygon(), 'locked')] if self.chunk else [
+        # --stay: the blocked neighbours are real obstacles, as on the board.
+        self.static = [(anchor_ref, self.anchor.polygon(), 'locked')] if self.chunk and not self.stay else [
             (ref, fp.polygon(), 'locked' if locked[ref][0] else 'stationary')
             for ref, fp in board.fps.items() if ref not in moving]
         # the anchor is not an obstacle to its own chunk: a rerun of a parked
@@ -1839,7 +1844,7 @@ class Planner:
                 x += PARK_COL
             if best is None:
                 info['park_full'] = True
-        if best is None and not free(0.0, 0.0):
+        if best is None and not self.stay and not free(0.0, 0.0):
             r = step
             while r <= reach and best is None:
                 k = max(1, int(round(2 * math.pi * r / step)))
@@ -2635,6 +2640,9 @@ def main():
                     help='staged islands: put the island (anchor included) back where a check_positions.py snapshot has it; the undo of an apply')
     ap.add_argument('--no-park', action='store_true',
                     help='staged islands: leave the chunk at the nearest free spot instead of the parking lot right of the sheet')
+    ap.add_argument('--stay', action='store_true',
+                    help='staged islands: the anchor stays where the owner blocked it; the island is relaid around it '
+                         'and never shifted, overlaps with pile neighbours are reported (hand blocking is authoritative)')
     ap.add_argument('--mirror', type=lambda v: v.split(','), metavar='REF,...',
                     help='edge strip: mirror the positions of these hand-placed parts across the strip\'s vertical '
                          'centre line (first ref is the IO rail header, named in the render); rotations are kept, '
@@ -2831,6 +2839,8 @@ def main():
               f'self-contained piece around it: pile neighbours are not obstacles, chains run '
               f'straight out, signal parts sit on their own pad\'s side. Box-select the chunk in KiCad '
               f'and drag it onto the board.')
+        if planner.stay:
+            print(f'  STAY: {anchor.ref} keeps its blocked position; the island is relaid around it and not shifted')
     if args.repark or args.revert:
         if not planner.chunk:
             sys.exit(f'--repark/--revert act on a chunk in the pile; {anchor.ref} is inside the board outline')

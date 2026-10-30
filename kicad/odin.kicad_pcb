@@ -784,139 +784,135 @@
 	(net 597 "PHY_XI")
 	(net 598 "PHY_XO")
 	(net 599 "PHY_XO_X")
-	(net 600 "SUP_SCL")
-	(net 601 "SUP_SDA")
-	(net 602 "unconnected-(D20-NC-Pad5)")
-	(net 603 "unconnected-(D21-NC-Pad5)")
-	(net 604 "unconnected-(D22-NC-Pad5)")
-	(net 605 "unconnected-(D23-NC-Pad5)")
-	(net 606 "unconnected-(U1C-IO_0_14-PadM19)")
-	(net 607 "unconnected-(U1C-IO_L3N_T0_DQS_EMCCLK_14-PadP16)")
-	(net 608 "unconnected-(U1C-IO_L4N_T0_D05_14-PadN17)")
-	(net 609 "unconnected-(U1C-IO_L4P_T0_D04_14-PadN16)")
-	(net 610 "unconnected-(U1C-IO_L5N_T0_D07_14-PadR17)")
-	(net 611 "unconnected-(U1C-IO_L5P_T0_D06_14-PadR16)")
-	(net 612 "unconnected-(U1C-IO_L16N_T2_A15_D31_14-PadN19)")
-	(net 613 "unconnected-(U1C-IO_L16P_T2_CSI_B_14-PadP19)")
-	(net 614 "unconnected-(U1C-IO_L18N_T2_A11_D27_14-PadR21)")
-	(net 615 "unconnected-(U1C-IO_L18P_T2_A12_D28_14-PadR20)")
-	(net 616 "unconnected-(U1I-MGTPTXN0_216-PadA7)")
-	(net 617 "unconnected-(U1I-MGTPTXN1_216-PadC8)")
-	(net 618 "unconnected-(U1I-MGTPTXP0_216-PadB7)")
-	(net 619 "unconnected-(U1I-MGTPTXP1_216-PadD8)")
-	(net 620 "unconnected-(U1I-MGTREFCLK0N_216-PadE11)")
-	(net 621 "unconnected-(U1I-MGTREFCLK0P_216-PadF11)")
-	(net 622 "unconnected-(U7-GPIO35-Pad44)")
-	(net 623 "unconnected-(U7-GPIO36-Pad45)")
-	(net 624 "unconnected-(U7-GPIO37-Pad46)")
-	(net 625 "unconnected-(U7-GPIO38-Pad47)")
-	(net 626 "unconnected-(U7-GPIO39-Pad48)")
-	(net 627 "unconnected-(U30-CLKOUT-Pad35)")
-	(net 628 "SYS_CLK")
-	(net 629 "SYS_CLK_OSC")
-	(net 630 "unconnected-(U1C-IO_L12N_T1_MRCC_14-PadM22)")
-	(net 631 "HDMI_5V")
-	(net 632 "HDMI_CEC")
-	(net 633 "HDMI_CEC_B")
-	(net 634 "HDMI_CLK_N")
-	(net 635 "HDMI_CLK_P")
-	(net 636 "HDMI_CT_HPD")
-	(net 637 "HDMI_D0_N")
-	(net 638 "HDMI_D0_P")
-	(net 639 "HDMI_D1_N")
-	(net 640 "HDMI_D1_P")
-	(net 641 "HDMI_D2_N")
-	(net 642 "HDMI_D2_P")
-	(net 643 "HDMI_HPD")
-	(net 644 "HDMI_HPD_B")
-	(net 645 "HDMI_LS_OE")
-	(net 646 "HDMI_SCL")
-	(net 647 "HDMI_SCL_B")
-	(net 648 "HDMI_SDA")
-	(net 649 "HDMI_SDA_B")
-	(net 650 "HDMI_UTILITY")
-	(net 651 "+1V8_IO")
-	(net 652 "FB+1V8_IO")
-	(net 653 "SW+1V8_IO")
-	(net 654 "unconnected-(U1B-IO_L8N_T1_13-PadAA23)")
-	(net 655 "unconnected-(U1B-IO_L8P_T1_13-PadAA22)")
-	(net 656 "SDRAM_A0")
-	(net 657 "SDRAM_A1")
-	(net 658 "SDRAM_A2")
-	(net 659 "SDRAM_A3")
-	(net 660 "SDRAM_A4")
-	(net 661 "SDRAM_A5")
-	(net 662 "SDRAM_A6")
-	(net 663 "SDRAM_A7")
-	(net 664 "SDRAM_A8")
-	(net 665 "SDRAM_A9")
-	(net 666 "SDRAM_A10")
-	(net 667 "SDRAM_A11")
-	(net 668 "SDRAM_A12")
-	(net 669 "SDRAM_BA0")
-	(net 670 "SDRAM_BA1")
-	(net 671 "SDRAM_CAS_N")
-	(net 672 "SDRAM_CKE")
-	(net 673 "SDRAM_CLK")
-	(net 674 "SDRAM_CLK_MEM")
-	(net 675 "SDRAM_CS_N")
-	(net 676 "SDRAM_DQ0")
-	(net 677 "SDRAM_DQ1")
-	(net 678 "SDRAM_DQ2")
-	(net 679 "SDRAM_DQ3")
-	(net 680 "SDRAM_DQ4")
-	(net 681 "SDRAM_DQ5")
-	(net 682 "SDRAM_DQ6")
-	(net 683 "SDRAM_DQ7")
-	(net 684 "SDRAM_DQ8")
-	(net 685 "SDRAM_DQ9")
-	(net 686 "SDRAM_DQ10")
-	(net 687 "SDRAM_DQ11")
-	(net 688 "SDRAM_DQ12")
-	(net 689 "SDRAM_DQ13")
-	(net 690 "SDRAM_DQ14")
-	(net 691 "SDRAM_DQ15")
-	(net 692 "SDRAM_LDQM")
-	(net 693 "SDRAM_RAS_N")
-	(net 694 "SDRAM_UDQM")
-	(net 695 "SDRAM_WE_N")
-	(net 696 "unconnected-(U32-NC-Pad40)")
-	(net 697 "MRAM_CS")
-	(net 698 "MRAM_HOLD")
-	(net 699 "MRAM_SCK")
-	(net 700 "MRAM_SI")
-	(net 701 "MRAM_SO")
-	(net 702 "MRAM_WP")
-	(net 703 "SD_CD")
-	(net 704 "SD_CS")
-	(net 705 "SD_DAT1")
-	(net 706 "SD_DAT2")
-	(net 707 "SD_MISO")
-	(net 708 "SD_MOSI")
-	(net 709 "SD_SCK")
-	(net 710 "+5V_BUCK")
-	(net 711 "MON_VCCIO_1")
-	(net 712 "MON_VCCIO_2")
-	(net 713 "PD_REQ_9V")
-	(net 714 "USB_DM_MCU")
-	(net 715 "USB_DP_MCU")
-	(net 716 "VBUS5_CP2")
-	(net 717 "VBUS5_ILIM")
-	(net 718 "VBUS5_OV1")
-	(net 719 "VBUS5_PR1")
-	(net 720 "VBUS5_SS")
-	(net 721 "VBUS5_ST")
-	(net 722 "unconnected-(U7-GPIO19-Pad19)")
-	(net 723 "unconnected-(U7-GPIO20-Pad20)")
-	(net 724 "unconnected-(U7-GPIO23-Pad23)")
-	(net 725 "unconnected-(U7-GPIO26-Pad27)")
-	(net 726 "unconnected-(U7-GPIO28-Pad36)")
-	(net 727 "unconnected-(U7-GPIO29-Pad37)")
-	(net 728 "unconnected-(U11-EN-Pad2)")
-	(net 729 "U23_CT")
-	(net 730 "U24_CT")
-	(net 731 "EXT_PRESENT")
-	(net 732 "SEL_IN2")
+	(net 600 "unconnected-(D20-NC-Pad5)")
+	(net 601 "unconnected-(D21-NC-Pad5)")
+	(net 602 "unconnected-(D22-NC-Pad5)")
+	(net 603 "unconnected-(D23-NC-Pad5)")
+	(net 604 "unconnected-(U1C-IO_0_14-PadM19)")
+	(net 605 "unconnected-(U1C-IO_L3N_T0_DQS_EMCCLK_14-PadP16)")
+	(net 606 "unconnected-(U1C-IO_L4N_T0_D05_14-PadN17)")
+	(net 607 "unconnected-(U1C-IO_L4P_T0_D04_14-PadN16)")
+	(net 608 "unconnected-(U1C-IO_L5N_T0_D07_14-PadR17)")
+	(net 609 "unconnected-(U1C-IO_L5P_T0_D06_14-PadR16)")
+	(net 610 "unconnected-(U1C-IO_L16N_T2_A15_D31_14-PadN19)")
+	(net 611 "unconnected-(U1C-IO_L16P_T2_CSI_B_14-PadP19)")
+	(net 612 "unconnected-(U1C-IO_L18N_T2_A11_D27_14-PadR21)")
+	(net 613 "unconnected-(U1C-IO_L18P_T2_A12_D28_14-PadR20)")
+	(net 614 "unconnected-(U1I-MGTPTXN0_216-PadA7)")
+	(net 615 "unconnected-(U1I-MGTPTXN1_216-PadC8)")
+	(net 616 "unconnected-(U1I-MGTPTXP0_216-PadB7)")
+	(net 617 "unconnected-(U1I-MGTPTXP1_216-PadD8)")
+	(net 618 "unconnected-(U1I-MGTREFCLK0N_216-PadE11)")
+	(net 619 "unconnected-(U1I-MGTREFCLK0P_216-PadF11)")
+	(net 620 "unconnected-(U7-GPIO39-Pad48)")
+	(net 621 "unconnected-(U30-CLKOUT-Pad35)")
+	(net 622 "SYS_CLK")
+	(net 623 "SYS_CLK_OSC")
+	(net 624 "unconnected-(U1C-IO_L12N_T1_MRCC_14-PadM22)")
+	(net 625 "HDMI_5V")
+	(net 626 "HDMI_CEC")
+	(net 627 "HDMI_CEC_B")
+	(net 628 "HDMI_CLK_N")
+	(net 629 "HDMI_CLK_P")
+	(net 630 "HDMI_CT_HPD")
+	(net 631 "HDMI_D0_N")
+	(net 632 "HDMI_D0_P")
+	(net 633 "HDMI_D1_N")
+	(net 634 "HDMI_D1_P")
+	(net 635 "HDMI_D2_N")
+	(net 636 "HDMI_D2_P")
+	(net 637 "HDMI_HPD")
+	(net 638 "HDMI_HPD_B")
+	(net 639 "HDMI_LS_OE")
+	(net 640 "HDMI_SCL")
+	(net 641 "HDMI_SCL_B")
+	(net 642 "HDMI_SDA")
+	(net 643 "HDMI_SDA_B")
+	(net 644 "HDMI_UTILITY")
+	(net 645 "+1V8_IO")
+	(net 646 "FB+1V8_IO")
+	(net 647 "SW+1V8_IO")
+	(net 648 "unconnected-(U1B-IO_L8N_T1_13-PadAA23)")
+	(net 649 "unconnected-(U1B-IO_L8P_T1_13-PadAA22)")
+	(net 650 "SDRAM_A0")
+	(net 651 "SDRAM_A1")
+	(net 652 "SDRAM_A2")
+	(net 653 "SDRAM_A3")
+	(net 654 "SDRAM_A4")
+	(net 655 "SDRAM_A5")
+	(net 656 "SDRAM_A6")
+	(net 657 "SDRAM_A7")
+	(net 658 "SDRAM_A8")
+	(net 659 "SDRAM_A9")
+	(net 660 "SDRAM_A10")
+	(net 661 "SDRAM_A11")
+	(net 662 "SDRAM_A12")
+	(net 663 "SDRAM_BA0")
+	(net 664 "SDRAM_BA1")
+	(net 665 "SDRAM_CAS_N")
+	(net 666 "SDRAM_CKE")
+	(net 667 "SDRAM_CLK")
+	(net 668 "SDRAM_CLK_MEM")
+	(net 669 "SDRAM_CS_N")
+	(net 670 "SDRAM_DQ0")
+	(net 671 "SDRAM_DQ1")
+	(net 672 "SDRAM_DQ2")
+	(net 673 "SDRAM_DQ3")
+	(net 674 "SDRAM_DQ4")
+	(net 675 "SDRAM_DQ5")
+	(net 676 "SDRAM_DQ6")
+	(net 677 "SDRAM_DQ7")
+	(net 678 "SDRAM_DQ8")
+	(net 679 "SDRAM_DQ9")
+	(net 680 "SDRAM_DQ10")
+	(net 681 "SDRAM_DQ11")
+	(net 682 "SDRAM_DQ12")
+	(net 683 "SDRAM_DQ13")
+	(net 684 "SDRAM_DQ14")
+	(net 685 "SDRAM_DQ15")
+	(net 686 "SDRAM_LDQM")
+	(net 687 "SDRAM_RAS_N")
+	(net 688 "SDRAM_UDQM")
+	(net 689 "SDRAM_WE_N")
+	(net 690 "unconnected-(U32-NC-Pad40)")
+	(net 691 "MRAM_CS")
+	(net 692 "MRAM_HOLD")
+	(net 693 "MRAM_SCK")
+	(net 694 "MRAM_SI")
+	(net 695 "MRAM_SO")
+	(net 696 "MRAM_WP")
+	(net 697 "SD_CD")
+	(net 698 "SD_CS")
+	(net 699 "SD_DAT1")
+	(net 700 "SD_DAT2")
+	(net 701 "SD_MISO")
+	(net 702 "SD_MOSI")
+	(net 703 "SD_SCK")
+	(net 704 "+5V_BUCK")
+	(net 705 "MON_VCCIO_1")
+	(net 706 "MON_VCCIO_2")
+	(net 707 "PD_REQ_9V")
+	(net 708 "USB_DM_MCU")
+	(net 709 "USB_DP_MCU")
+	(net 710 "VBUS5_CP2")
+	(net 711 "VBUS5_ILIM")
+	(net 712 "VBUS5_OV1")
+	(net 713 "VBUS5_PR1")
+	(net 714 "VBUS5_SS")
+	(net 715 "VBUS5_ST")
+	(net 716 "unconnected-(U7-GPIO19-Pad19)")
+	(net 717 "unconnected-(U7-GPIO20-Pad20)")
+	(net 718 "unconnected-(U7-GPIO23-Pad23)")
+	(net 719 "unconnected-(U7-GPIO26-Pad27)")
+	(net 720 "unconnected-(U7-GPIO28-Pad36)")
+	(net 721 "unconnected-(U7-GPIO29-Pad37)")
+	(net 722 "unconnected-(U11-EN-Pad2)")
+	(net 723 "U23_CT")
+	(net 724 "U24_CT")
+	(net 725 "EXT_PRESENT")
+	(net 726 "SEL_IN2")
+	(net 727 "unconnected-(U7-GPIO14-Pad13)")
+	(net 728 "unconnected-(U7-GPIO31-Pad39)")
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "0002ce0d-96fd-438b-8ca9-f219be8fea79")
@@ -1292,7 +1288,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "00b28f40-9f90-4590-8c38-49c94646a371")
-		(at 221.34125 99.3 180)
+		(at 222.14125 105.9 180)
 		(descr "1k resistor from MON_2V5 to +2V5, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R86"
@@ -1427,7 +1423,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "0112a8a4-fd08-4832-8b05-3eebc81b60ca")
-		(at 224.81125 93.16 180)
+		(at 225.61125 99.76 180)
 		(descr "1k resistor from MON_VCCIO_2 to VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R199"
@@ -1543,7 +1539,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 712 "MON_VCCIO_2")
+			(net 706 "MON_VCCIO_2")
 			(uuid "93bcefd9-fb4e-4045-8226-0ce5908a9dc1")
 		)
 		(embedded_fonts no)
@@ -1562,7 +1558,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0246a872-65f7-4cb0-9d97-086a974eb8de")
-		(at 209.475 111.6)
+		(at 209.575 115.1)
 		(descr "33 series resistor between FLASH_D3_HOLD and SUP_FD3, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R26"
@@ -1709,7 +1705,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "02bbd1f3-4d29-486c-a661-67ebe91248fc")
-		(at 209.095 124.735)
+		(at 209.1 124.49)
 		(descr "10k pull-down on PSRAM3_IO2_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R196"
@@ -1844,7 +1840,7 @@
 	(footprint "EasyEDA:IND-SMD_L6.0-W6.0"
 		(layer "F.Cu")
 		(uuid "02bd4d60-d15b-4cd8-916c-e68a7a5f13c9")
-		(at 248.1 110.4 180)
+		(at 261.7 114 180)
 		(descr "4.7uH SRN6045TA-4R7M inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node")
 		(property "Reference" "L2"
 			(at 0 -4 0)
@@ -2031,7 +2027,7 @@
 			(at -2.5 0 180)
 			(size 2.2 5.72)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 710 "+5V_BUCK")
+			(net 704 "+5V_BUCK")
 			(uuid "88c71b04-2ebc-4069-84e8-92f72f3ff83e")
 		)
 		(pad "2" smd rect
@@ -2057,7 +2053,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "02fc953a-0c54-43d2-899c-fd583e19a710")
-		(at 244.6 100.1 -90)
+		(at 238.34 98.84 -90)
 		(descr "10uF 50V bypass on VSYS, for U26 (USB input eFuse)")
 		(tags "capacitor")
 		(property "Reference" "C186"
@@ -2204,7 +2200,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0300b92e-2901-4150-9c23-b5a4c67f4b40")
-		(at 242.4 107.94)
+		(at 256 111.54)
 		(descr "100nF capacitor between BOOT_5V and SW_5V, for U11 (5 V regulator, always on): bootstrap capacitor for the regulator's high-side switch; regulator switching node")
 		(tags "capacitor")
 		(property "Reference" "C188"
@@ -2351,7 +2347,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "0495d7cd-18f9-49a5-907b-69c7160c7fda")
-		(at 261.03 110.91 90)
+		(at 261.665 107.62 90)
 		(descr "33k pull-down on EXT_PRESENT, for Q7 (mux: screw input present): Q7's gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT")
 		(tags "resistor")
 		(property "Reference" "R202"
@@ -2459,7 +2455,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 731 "EXT_PRESENT")
+			(net 725 "EXT_PRESENT")
 			(uuid "9cba6f36-1351-411b-a8b7-b8d47bf2f234")
 		)
 		(pad "2" smd roundrect
@@ -2768,7 +2764,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "05b17e8a-29f5-4e08-9b88-ae17f8903461")
-		(at 218.38 95.93)
+		(at 219.18 102.53)
 		(descr "100nF bypass on +1V1, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C128"
@@ -2979,7 +2975,7 @@
 		(property "UI_LABEL" "G POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e37ffff8-af06-40eb-a86e-f8892c92c174")
+			(uuid "5d27eb67-bddf-4083-ba56-d09b27246a7b")
 			(effects
 				(font
 					(size 1 1)
@@ -3180,7 +3176,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "06677c63-6067-4f33-8c12-7f2b2df42b47")
-		(at 225.1 86.9 -90)
+		(at 217.6 92.5 -90)
 		(descr "10k resistor from PD_CFG1 to PD_VDD, for U18 (USB-PD negotiator): CH224K request: high (pull-up) = 5 V, pulled low by Q3 = 9 V; CH224K's internal regulator output")
 		(tags "resistor")
 		(property "Reference" "R172"
@@ -3315,7 +3311,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "06fe7a4b-1ad5-4533-8558-ade359051ae4")
-		(at 218.38 101.49)
+		(at 219.18 108.09)
 		(descr "100nF capacitor from SUP_RUN to GND, for U7 (board controller): board controller reset")
 		(tags "capacitor")
 		(property "Reference" "C135"
@@ -3570,7 +3566,7 @@
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "c2849b35-637b-4db8-ae02-87f089bbcd84")
 		)
 		(pad "2" smd roundrect
@@ -3717,7 +3713,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "449ccc4c-e248-498e-b62d-7528cb9930f1")
 		)
 		(pad "2" smd roundrect
@@ -3864,7 +3860,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "df2a80f6-5c30-4f91-8124-d0d0f76be3b0")
 		)
 		(pad "2" smd roundrect
@@ -4320,7 +4316,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "0a4f8f05-b4c1-4622-afdb-93deb1a4e07a")
-		(at 228.48 111.815)
+		(at 242.59 113.9)
 		(descr "22uF bypass on +5V, for U15 (FPGA core regulator)")
 		(tags "capacitor")
 		(property "Reference" "C207"
@@ -4530,7 +4526,7 @@
 		(property "UI_LABEL" "KEY F"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "2308f8a8-541e-46b6-965d-108ac9703501")
+			(uuid "6ec23ec4-5627-492c-b187-b5f6aecbd04e")
 			(effects
 				(font
 					(size 1 1)
@@ -6009,7 +6005,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "12631d89-7c84-4070-b4e2-fb55d6ed97f6")
-		(at 240.1 104.4 -90)
+		(at 233.84 103.14 -90)
 		(descr "10k resistor from VBUS_OVLO to GND, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V")
 		(tags "resistor")
 		(property "Reference" "R53"
@@ -6144,7 +6140,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "129e5539-868e-484c-aac2-f123f45fd224")
-		(at 260.87 104.2 90)
+		(at 261.505 100.91 90)
 		(descr "100k resistor from VBUS5_PR1 to VBUS, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) unless Q6 (9 V request) or Q7 (screw input present) holds it at ground")
 		(tags "resistor")
 		(property "Reference" "R162"
@@ -6260,7 +6256,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 719 "VBUS5_PR1")
+			(net 713 "VBUS5_PR1")
 			(uuid "62b22f2d-b937-4e9e-8c5b-8a3a17342688")
 		)
 		(embedded_fonts no)
@@ -6693,7 +6689,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 631 "HDMI_5V")
+			(net 625 "HDMI_5V")
 			(uuid "ef86d537-b722-427d-a2f8-7d65f9996b42")
 		)
 		(pad "2" smd roundrect
@@ -6720,7 +6716,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "13c6d2ed-a960-4dcc-b183-c2de88b1c84a")
-		(at 198.2 88.9 90)
+		(at 199 95.5 90)
 		(descr "33 series resistor between CFG_DONE and SUP_DONE, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R20"
@@ -6867,7 +6863,7 @@
 	(footprint "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm"
 		(layer "F.Cu")
 		(uuid "13ecfdc8-8b61-4334-810e-42b36423c172")
-		(at 259.32 100.47)
+		(at 259.955 97.18)
 		(descr "+5V source mux: TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail; hands the rail to U11 while the board controller asks for 9 V (Q6), while the screw input is powered (Q7), or if VBUS goes above about 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A.")
 		(tags "RUX0012A Texas VQFN-HR NoLead")
 		(property "Reference" "U34"
@@ -7087,7 +7083,7 @@
 			(size 1.05 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 710 "+5V_BUCK")
+			(net 704 "+5V_BUCK")
 			(uuid "f83dfe5e-4cde-40dd-ba06-8c52234c42f9")
 		)
 		(pad "3" smd roundrect
@@ -7095,7 +7091,7 @@
 			(size 0.2 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 716 "VBUS5_CP2")
+			(net 710 "VBUS5_CP2")
 			(uuid "961de008-e4a4-4517-9658-13fa5c71ac8c")
 		)
 		(pad "4" smd roundrect
@@ -7111,7 +7107,7 @@
 			(size 0.2 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 718 "VBUS5_OV1")
+			(net 712 "VBUS5_OV1")
 			(uuid "3bdfe8f6-008f-492a-92a8-490c80597df5")
 		)
 		(pad "6" smd roundrect
@@ -7119,7 +7115,7 @@
 			(size 0.2 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 719 "VBUS5_PR1")
+			(net 713 "VBUS5_PR1")
 			(uuid "81eea135-13b0-4e58-bb06-962e90e20998")
 		)
 		(pad "7" smd roundrect
@@ -7143,7 +7139,7 @@
 			(size 0.2 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 721 "VBUS5_ST")
+			(net 715 "VBUS5_ST")
 			(uuid "0c889f07-95e0-4010-927d-dd9c9c8f21d9")
 		)
 		(pad "10" smd roundrect
@@ -7151,7 +7147,7 @@
 			(size 0.2 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 717 "VBUS5_ILIM")
+			(net 711 "VBUS5_ILIM")
 			(uuid "f840d6bc-ba19-4342-bb9b-0d6b3891c220")
 		)
 		(pad "11" smd roundrect
@@ -7159,7 +7155,7 @@
 			(size 0.2 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 720 "VBUS5_SS")
+			(net 714 "VBUS5_SS")
 			(uuid "4b17fe4f-cec3-4d88-a18c-42a95efc91e7")
 		)
 		(pad "12" smd roundrect
@@ -7441,7 +7437,7 @@
 			(size 0.875 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "cec2baa5-41bd-464f-9e77-84075fb39545")
 		)
 		(pad "2" smd roundrect
@@ -7800,7 +7796,7 @@
 			(at -1.35 0 270)
 			(size 1.1 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 603 "unconnected-(D21-NC-Pad5)")
+			(net 601 "unconnected-(D21-NC-Pad5)")
 			(uuid "c9d462a3-dee6-419b-be0e-c8f0708b3540")
 		)
 		(pad "6" smd rect
@@ -7890,7 +7886,7 @@
 		(property "UI_LABEL" "F POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5e96df17-7f4f-444d-add4-a9e96b1f68e5")
+			(uuid "b47c3c8b-6174-447e-9063-83810b161ebc")
 			(effects
 				(font
 					(size 1 1)
@@ -8091,7 +8087,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "171a6cc4-8cc3-467a-bb6c-fec80149283c")
-		(at 247.05 115.35)
+		(at 260.65 118.95)
 		(descr "10uF 50V bypass on VSYS, for U11 (5 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C267"
@@ -8813,7 +8809,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "887e841d-7bd9-4842-a683-0dae2c7deea4")
 		)
 		(pad "2" smd roundrect
@@ -8840,7 +8836,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "18808443-2533-422d-9f53-e28884f18db6")
-		(at 255.62 98.92 180)
+		(at 256.255 95.63 180)
 		(descr "22uF bypass on +5V, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C266"
@@ -9134,7 +9130,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "1a3224bd-8f7a-447e-b453-275f97bb3b7f")
-		(at 224.83 99.75 180)
+		(at 225.63 106.35 180)
 		(descr "100k resistor from MON_5V to +5V, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R83"
@@ -9654,7 +9650,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1ac8c400-4013-424c-906a-91b5e241a62a")
-		(at 224.97 106.895)
+		(at 239.08 108.98)
 		(descr "22pF capacitor between +1V0 and FB+1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage")
 		(tags "capacitor")
 		(property "Reference" "C210"
@@ -9789,7 +9785,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1aca21b5-7d8e-4b4f-9384-0ba20e24a880")
-		(at 259.07 97.31 90)
+		(at 259.705 94.02 90)
 		(descr "100nF capacitor from VBUS5_SS to GND, for U34 (+5V source mux): sets how fast U34 ramps the +5V rail, about 780 V/s")
 		(tags "capacitor")
 		(property "Reference" "C263"
@@ -9909,7 +9905,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 720 "VBUS5_SS")
+			(net 714 "VBUS5_SS")
 			(uuid "5d6123cc-7776-4fe8-9d8f-ec5cbc606ee7")
 		)
 		(pad "2" smd roundrect
@@ -10455,7 +10451,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1d139c55-b6c3-46ad-a647-dd7716945d58")
-		(at 261.735 91.35)
+		(at 264.235 89.1)
 		(descr "100nF bypass on +3V3, for U20 (JTAG switch)")
 		(tags "capacitor")
 		(property "Reference" "C138"
@@ -11154,7 +11150,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1f3c4fdf-6baf-47b4-b615-656339f6fe6b")
-		(at 205 101.48 180)
+		(at 205.8 108.08 180)
 		(descr "33 series resistor between DBG_TMS and SUP_DBG_TMS, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R28"
@@ -12691,7 +12687,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "219befb5-28c7-4155-b27c-34799ce3f664")
-		(at 216.52 103.31 -90)
+		(at 217.32 109.91 -90)
 		(descr "33 series resistor between SB_UART_RX and SUP_UART_TX, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R31"
@@ -13661,7 +13657,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "21fe8db6-5c1f-4d41-823e-3db9f024c55d")
-		(at 205.72 103.31 -90)
+		(at 206.52 109.91 -90)
 		(descr "33 series resistor between DBG_TDI and SUP_DBG_TDI, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R29"
@@ -14005,15 +14001,15 @@
 			)
 		)
 		(property "UI_LABEL" "FPGA DONE"
-			(at 0 4.003 90)
+			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "f7c5fd7c-4515-4777-8f9d-39d3ec00f99b")
+			(uuid "2a04537b-092f-4589-84de-7e3f380791eb")
 			(effects
 				(font
 					(size 1 1)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -14233,7 +14229,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "24959646-1c6e-4526-a8b3-dd75fda10463")
-		(at 260.47 96.74 90)
+		(at 261.105 93.45 90)
 		(descr "44.2k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 2.5 A")
 		(tags "resistor")
 		(property "Reference" "R168"
@@ -14341,7 +14337,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 717 "VBUS5_ILIM")
+			(net 711 "VBUS5_ILIM")
 			(uuid "a548b339-5bb0-407a-93c7-68ab37a9c1b8")
 		)
 		(pad "2" smd roundrect
@@ -14727,155 +14723,8 @@
 	)
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
-		(uuid "25433d70-8369-4908-aaa2-5a18fdbac6eb")
-		(at 215.42 103.31 90)
-		(descr "4.7k pull-up of SUP_SDA to +3V3, for U7 (board controller): I2C data pull-up")
-		(tags "resistor")
-		(property "Reference" "R38"
-			(at 0 -1.17 90)
-			(layer "F.Fab")
-			(uuid "df93fb94-7757-4d5f-8a38-42c8abff5834")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Value" "4.7k"
-			(at 0 1.17 90)
-			(layer "F.Fab")
-			(uuid "2278bc29-3b63-4155-8ae4-292182ccb338")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b4fdf71a-cc89-4206-9764-de38e85724c1")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Description" "4.7k pull-up of SUP_SDA to +3V3, for U7 (board controller): I2C data pull-up"
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5dfa5b20-f973-4d1c-a5c3-0d3c83f8cb52")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC Part" "C25900"
-			(at 0 0 90)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "72606912-2fdb-4aeb-9cd6-7e751089965d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(attr smd)
-		(fp_line
-			(start -0.153641 -0.38)
-			(end 0.153641 -0.38)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "9d28724a-6c4b-4965-965b-931c2dc1b80c")
-		)
-		(fp_line
-			(start -0.153641 0.38)
-			(end 0.153641 0.38)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "462e21dd-1c64-496e-a7d3-e4a867b5d290")
-		)
-		(fp_rect
-			(start -0.93 -0.47)
-			(end 0.93 0.47)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "64bda5e7-4625-4bc4-a9b0-fd2aebfd96bb")
-		)
-		(fp_rect
-			(start -0.525 -0.27)
-			(end 0.525 0.27)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "87ff020c-0bf6-48a4-bc4b-8e41a8282ce0")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
-			(layer "F.Fab")
-			(uuid "812126db-ef1b-4ed9-9ca6-73006d91f281")
-			(effects
-				(font
-					(size 0.26 0.26)
-					(thickness 0.04)
-				)
-			)
-		)
-		(pad "1" smd roundrect
-			(at -0.51 0 90)
-			(size 0.54 0.64)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net 8 "+3V3")
-			(uuid "ad81ac6f-5700-401f-81cc-f79f7f18b94a")
-		)
-		(pad "2" smd roundrect
-			(at 0.51 0 90)
-			(size 0.54 0.64)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net 601 "SUP_SDA")
-			(uuid "08e2b558-439f-4a02-9478-b136e48820a6")
-		)
-		(embedded_fonts no)
-		(model "${KICAD9_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0402_1005Metric.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
-	(footprint "Resistor_SMD:R_0402_1005Metric"
-		(layer "F.Cu")
 		(uuid "2574d7bc-6dbb-4674-a7b7-61f92778d3fa")
-		(at 197.21 114.47)
+		(at 197.31 117.97)
 		(descr "33 series resistor between FLASH_D1_MISO and SUP_FD1, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R24"
@@ -15169,7 +15018,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "2700677e-3f29-4dc4-be74-d9767a362100")
-		(at 263 96.7 -90)
+		(at 263.635 93.41 -90)
 		(descr "10k resistor from VBUS5_ST to +3V3, for U7 (board controller): U34 status to the board controller: low when U11 feeds +5V")
 		(tags "resistor")
 		(property "Reference" "R169"
@@ -15285,7 +15134,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 721 "VBUS5_ST")
+			(net 715 "VBUS5_ST")
 			(uuid "d7cc67a1-a062-4808-ac12-51be18802ff0")
 		)
 		(embedded_fonts no)
@@ -15367,7 +15216,7 @@
 		(property "UI_LABEL" "KEY D"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "8f1b7451-abd4-4de8-877d-c4881b3631f6")
+			(uuid "76e4388f-bc6a-4ec7-b100-44d35045633a")
 			(effects
 				(font
 					(size 1 1)
@@ -15702,7 +15551,7 @@
 		(property "UI_ROLE" "A-D PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3b0fb484-edc1-4a33-bd27-731f26c940e9")
+			(uuid "70c56aae-f1d9-4ee1-89ad-8345a8b2d6e6")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -15939,7 +15788,7 @@
 			(size 0.725 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 729 "U23_CT")
+			(net 723 "U23_CT")
 			(uuid "8c77e846-a0ff-47b1-90bc-a7316185d455")
 		)
 		(pad "7" smd roundrect
@@ -15999,7 +15848,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "295d9c81-1697-4fcf-a433-eb2690991e77")
-		(at 260.97 107.7 -90)
+		(at 261.605 104.41 -90)
 		(descr "36.5k resistor from VBUS5_PR1 to GND, for U34 (+5V source mux): U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) unless Q6 (9 V request) or Q7 (screw input present) holds it at ground")
 		(tags "resistor")
 		(property "Reference" "R163"
@@ -16107,7 +15956,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 719 "VBUS5_PR1")
+			(net 713 "VBUS5_PR1")
 			(uuid "d7e91e19-e646-4c36-8052-1ec2ab1c8b1f")
 		)
 		(pad "2" smd roundrect
@@ -16134,7 +15983,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "296fec39-3c89-431d-94f0-f91450df3aef")
-		(at 232.21 111.265)
+		(at 246.32 113.35)
 		(descr "100k pull-down on EN_1V0, for U7 (board controller): keeps the regulator off until the board controller enables it")
 		(tags "resistor")
 		(property "Reference" "R94"
@@ -16333,7 +16182,7 @@
 		(property "UI_LABEL" "E-H PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "94be3755-520b-4132-8fb8-c3ad71aadec0")
+			(uuid "1c08f9c7-73f6-4584-8e40-4fc98b19b8b7")
 			(effects
 				(font
 					(size 1 1)
@@ -16345,7 +16194,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "bbfe5067-44dd-4bab-81c9-34d7292aa661")
+			(uuid "54d24b5c-8b91-4113-9be5-3ff3aff1059e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -16357,7 +16206,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "2542e23b-b734-431d-9682-d4e28100cba1")
+			(uuid "0ed6036b-709d-4fd8-84e1-e832eabc64b0")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -16541,7 +16390,7 @@
 			(drill 1.049986)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "545138c2-84ec-425f-a0f2-fbe9660b3525")
 		)
 		(pad "6" thru_hole circle
@@ -17261,7 +17110,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 698 "MRAM_HOLD")
+			(net 692 "MRAM_HOLD")
 			(uuid "30c7a9a8-c977-4969-9324-4b4f26b25e39")
 		)
 		(embedded_fonts no)
@@ -17709,7 +17558,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "2e21e9fb-6172-4846-b6a9-39188842fdc2")
-		(at 234.22 108.585 -90)
+		(at 248.33 110.67 -90)
 		(descr "22uF bypass on +1V0, for U15 (FPGA core regulator)")
 		(tags "capacitor")
 		(property "Reference" "C212"
@@ -18111,7 +17960,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "b72da67d-074d-486e-812e-7e1e62d81503")
 		)
 		(pad "2" smd roundrect
@@ -18138,7 +17987,7 @@
 	(footprint "EasyEDA:IND-SMD_L2.0-W1.6_AOTA-B201610S3R3-101-T"
 		(layer "F.Cu")
 		(uuid "2fcea96b-bc4e-4444-a402-79c073eb7e15")
-		(at 204.34125 85.5)
+		(at 205.14125 92.1)
 		(descr "3.3uH AOTA-B201610S3R3-101-T inductor between +1V1 and SUP_LX, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(property "Reference" "L1"
 			(at 0 -4 0)
@@ -18480,7 +18329,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "32be935a-1ba9-4b57-a628-36d375ec38b4")
-		(at 224.83 97.94 180)
+		(at 225.63 104.54 180)
 		(descr "1k resistor from MON_3V3 to +3V3, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R85"
@@ -19228,7 +19077,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "34a9aa8b-b3c3-40c3-b40c-657c92e4a3e5")
-		(at 209.475 113.2)
+		(at 209.575 116.7)
 		(descr "100nF bypass on +3V3, for U6 (FPGA configuration flash)")
 		(tags "capacitor")
 		(property "Reference" "C115"
@@ -19573,7 +19422,7 @@
 		(property "UI_LABEL" "KEY B"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "075bd88d-5224-4c91-9568-2b9e65e50d48")
+			(uuid "785c075d-6dc1-4bbe-b242-193289b33dcc")
 			(effects
 				(font
 					(size 1 1)
@@ -19874,7 +19723,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 729 "U23_CT")
+			(net 723 "U23_CT")
 			(uuid "dfe87e13-6914-4419-9ff0-107520b45239")
 		)
 		(pad "2" smd roundrect
@@ -20144,7 +19993,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "3b3cd178-0e8a-4eb9-93b3-3c09a2dea517")
 		)
 		(pad "2" smd roundrect
@@ -20235,7 +20084,7 @@
 		(property "UI_LABEL" "L POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "ea02322d-5b7c-4952-8708-bbb5bcb67403")
+			(uuid "c1768f9d-bd5a-45ea-9f88-f7ed890bf1d8")
 			(effects
 				(font
 					(size 1 1)
@@ -20941,7 +20790,7 @@
 		(property "UI_LABEL" "H POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "df5f4297-2726-44da-8686-49f1e36dfc27")
+			(uuid "cd071327-bd67-41cb-bda3-e801b2a3ac12")
 			(effects
 				(font
 					(size 1 1)
@@ -22027,9 +21876,9 @@
 			)
 		)
 		(property "UI_ROLE" "WORK MEMORY 2"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "27242b5d-2c69-4096-aab8-a135c3b911be")
+			(uuid "0cc2af59-1b5f-4b77-9f1a-fcfb8fcfb4a8")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -22337,7 +22186,7 @@
 			(at -1.9 -2.6 90)
 			(size 0.588 1.8)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "3f652eba-c14d-47ec-8299-be0240958835")
 		)
 		(embedded_fonts no)
@@ -22356,7 +22205,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "3dfc7117-cde1-49df-bb5e-54ff13311886")
-		(at 205.1 91.8)
+		(at 205.9 98.4)
 		(descr "100nF bypass on +3V3, for U8 (controller firmware flash)")
 		(tags "capacitor")
 		(property "Reference" "C136"
@@ -22920,7 +22769,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3f8b040a-ea22-40ac-9577-14614a301081")
-		(at 241.8 104.4 90)
+		(at 235.54 103.14 90)
 		(descr "73.2k resistor from VBUS_OVLO to VBUS, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V")
 		(tags "resistor")
 		(property "Reference" "R52"
@@ -23117,15 +22966,15 @@
 			)
 		)
 		(property "UI_LABEL" "USER 2"
-			(at 0 4.003 90)
+			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "3802504c-8840-4427-a955-7268cdf2f47f")
+			(uuid "a37659ac-ca01-4a2d-846f-ab3578ccfe4e")
 			(effects
 				(font
 					(size 1 1)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -23345,7 +23194,7 @@
 	(footprint "EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6"
 		(layer "F.Cu")
 		(uuid "41deb8be-6dca-4ec2-855d-6132110cf95b")
-		(at 228.3 108.415 -90)
+		(at 242.41 110.5 -90)
 		(descr "FPGA core regulator: Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output.")
 		(property "Reference" "U15"
 			(at 0 -5.5 90)
@@ -23406,15 +23255,15 @@
 			)
 		)
 		(property "UI_ROLE" "1V0 SUPPLY\nFPGA CORE"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "f6daafda-6de4-4eb1-95cf-39c5774945f6")
+			(uuid "31089a08-e043-4b57-9825-8328285e9ed1")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -23717,7 +23566,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "42463134-c031-49a2-94e5-ec3549284743")
-		(at 219.99 103.59 -90)
+		(at 220.79 110.19 -90)
 		(descr "16k resistor from MON_VSYS to GND, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R82"
@@ -23999,7 +23848,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "42a830f5-af13-4a45-bab2-b3c481c145d3")
-		(at 224.81125 96.24 180)
+		(at 225.61125 102.84 180)
 		(descr "1k resistor from MON_VCCIO_1 to VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R198"
@@ -24115,7 +23964,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 711 "MON_VCCIO_1")
+			(net 705 "MON_VCCIO_1")
 			(uuid "c53aff37-0208-428a-aa27-d58b4f1e4060")
 		)
 		(embedded_fonts no)
@@ -24134,7 +23983,7 @@
 	(footprint "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "43b7676e-8bbf-4939-9347-47936db614a3")
-		(at 254.4 111.3)
+		(at 255.035 108.01)
 		(descr "mux: screw input present: Small N-MOSFET that pulls U34's PR1 to ground while the screw input (J50) carries voltage, so the whole board runs from J50 through U11 even with a 5 V USB cable plugged in.")
 		(property "Reference" "Q7"
 			(at 0 -4.95 0)
@@ -24322,7 +24171,7 @@
 			(at 1.24 0.95)
 			(size 1.07 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 731 "EXT_PRESENT")
+			(net 725 "EXT_PRESENT")
 			(uuid "a9521e80-89cb-49fb-bd3f-5d9c54c55094")
 		)
 		(pad "2" smd rect
@@ -24336,7 +24185,7 @@
 			(at -1.24 0)
 			(size 1.07 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 719 "VBUS5_PR1")
+			(net 713 "VBUS5_PR1")
 			(uuid "d5dd2751-951d-49fe-82ae-ffff0b218c69")
 		)
 		(embedded_fonts no)
@@ -24788,9 +24637,9 @@
 			)
 		)
 		(property "UI_ROLE" "WORK MEMORY 1"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "ae164a7f-ba56-40a1-aece-8369963e3cc1")
+			(uuid "5ebf2d8e-d50a-4fdb-a8cc-d946eeab6014")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -25098,7 +24947,7 @@
 			(at -1.9 -2.6 90)
 			(size 0.588 1.8)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "9c1210db-bea7-4032-bcdf-63c59ee1c664")
 		)
 		(embedded_fonts no)
@@ -25237,7 +25086,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "5f1d03f5-47b9-4e66-8e0a-4d9fc6812062")
 		)
 		(pad "2" smd roundrect
@@ -25264,7 +25113,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "4699b2bc-38e1-4219-b329-7c12635111bf")
-		(at 266.99 84.29)
+		(at 269.49 82.04)
 		(descr "0 series resistor between JTAG_TDO and JTAG_TDO_SW, for U20 (JTAG switch): probe point between the FPGA's TDO and U20")
 		(tags "resistor")
 		(property "Reference" "R33"
@@ -25624,7 +25473,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "475572f8-fb6c-47ee-8356-4ff6dc5bec52")
-		(at 220.75 97.9)
+		(at 221.55 104.5)
 		(descr "100nF filter capacitor on MON_2V5, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C228"
@@ -26058,9 +25907,9 @@
 			)
 		)
 		(property "UI_LABEL" "CTRL BOOT"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e7b1fdcc-d925-4a6b-b55a-496682ffeef9")
+			(uuid "5dce8528-d4df-4eb6-909b-443854e67469")
 			(effects
 				(font
 					(size 1 1)
@@ -26253,7 +26102,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "47b24bf6-6244-40e9-9091-9b278e9327c8")
-		(at 242.55 113.38 180)
+		(at 256.15 116.98 180)
 		(descr "22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C189"
@@ -26373,7 +26222,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 710 "+5V_BUCK")
+			(net 704 "+5V_BUCK")
 			(uuid "ea8947e8-4ac0-4c71-94fa-432dc4b60e3d")
 		)
 		(pad "2" smd roundrect
@@ -26463,7 +26312,7 @@
 		(property "UI_ROLE" "ETHERNET PHY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "4606456a-029d-4693-9b94-9f6b4ef32052")
+			(uuid "f929f568-096c-4a96-8483-5a1d58deadb9")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -26879,7 +26728,7 @@
 			(at -2.5 -0.2)
 			(size 0.8 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 627 "unconnected-(U30-CLKOUT-Pad35)")
+			(net 621 "unconnected-(U30-CLKOUT-Pad35)")
 			(uuid "39e3a838-1cc9-4f97-bdf9-2bf204707204")
 		)
 		(pad "36" smd rect
@@ -27087,7 +26936,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "48354244-df47-4b0b-890d-74de41aa3bb1")
-		(at 220.75 94.82)
+		(at 221.55 101.42)
 		(descr "100nF filter capacitor on MON_1V8, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C229"
@@ -27234,7 +27083,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "499c07fe-3571-4f09-b2b1-253f7f47716c")
-		(at 218.38 94.66)
+		(at 219.18 101.26)
 		(descr "100nF filter capacitor on MON_5V, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C226"
@@ -27933,7 +27782,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "4baeac51-e819-49ca-aba5-2af74f68d153")
-		(at 205.02 94.3 180)
+		(at 205.82 100.9 180)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C116"
@@ -28279,7 +28128,7 @@
 		(property "UI_LABEL" "A-D PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "4785d518-98ae-4a4d-9298-117a350b5e4a")
+			(uuid "192469ad-359f-4805-a9fd-873235876a32")
 			(effects
 				(font
 					(size 1 1)
@@ -28291,7 +28140,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "2c5eb38d-6715-4555-8b46-85219e927c21")
+			(uuid "3e23b400-97dc-4c88-91bf-2da0bab04560")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28303,7 +28152,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "f5cb24d0-f9a3-4ee5-ac16-adfdb7bd3232")
+			(uuid "2d06c2d1-8ba8-4fb7-81c0-8509a9fb2f9d")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -28487,7 +28336,7 @@
 			(drill 1.049986)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "2c9b7937-17d7-4778-8511-e97744058449")
 		)
 		(pad "6" thru_hole circle
@@ -28515,7 +28364,7 @@
 	(footprint "EasyEDA:WSON-8_L6.0-W5.0-P1.27-BL-EP"
 		(layer "F.Cu")
 		(uuid "4df7bac5-5132-4b10-bd04-4ba88d92974f")
-		(at 199.8 94.59 -90)
+		(at 200.6 101.19 -90)
 		(descr "controller firmware flash: Winbond W25Q32JV, 32 Mbit (4 MB) quad-SPI flash holding the board controller's firmware.")
 		(property "Reference" "U8"
 			(at 0 -7.013 270)
@@ -28578,7 +28427,7 @@
 		(property "UI_ROLE" "CONTROLLER MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "c5b5cfdf-8e8b-4af2-b1b3-465af9f4a77a")
+			(uuid "c7763f28-9925-49d1-93ea-340df8cf5d35")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28833,9 +28682,9 @@
 			)
 		)
 		(property "UI_LABEL" "CTRL SWD"
-			(at 0 5.263 90)
+			(at 0 5.263 0)
 			(layer "F.SilkS")
-			(uuid "a5b2c530-b583-4a05-998b-c33f2bc04b0d")
+			(uuid "2e60da42-7b1a-4b4e-b044-437b8322c5a2")
 			(effects
 				(font
 					(size 1 1)
@@ -29177,7 +29026,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "4eff0259-4921-4eff-95bf-54967082bd34")
-		(at 218.38 97.2)
+		(at 219.18 103.8)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C122"
@@ -29535,7 +29384,7 @@
 		(property "UI_LABEL" "M POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "dc11072a-ee8a-4482-a365-710089c02f24")
+			(uuid "c126e0d8-4d16-416e-966a-e24a6ea5abd4")
 			(effects
 				(font
 					(size 1 1)
@@ -29984,7 +29833,7 @@
 			(at -5.75 -9.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 676 "SDRAM_DQ0")
+			(net 670 "SDRAM_DQ0")
 			(uuid "2e3de982-7cd3-4a84-9a40-330049b7c43a")
 		)
 		(pad "3" smd rect
@@ -29998,14 +29847,14 @@
 			(at -5.75 -8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 677 "SDRAM_DQ1")
+			(net 671 "SDRAM_DQ1")
 			(uuid "3cc51048-6dbf-4ab0-899f-b105af3c4b42")
 		)
 		(pad "5" smd rect
 			(at -5.75 -7.2)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 678 "SDRAM_DQ2")
+			(net 672 "SDRAM_DQ2")
 			(uuid "b9a91fc0-3038-473d-a4e6-882e5b38c504")
 		)
 		(pad "6" smd rect
@@ -30019,14 +29868,14 @@
 			(at -5.75 -5.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 679 "SDRAM_DQ3")
+			(net 673 "SDRAM_DQ3")
 			(uuid "dca05529-fd3c-40e0-8bcf-a6de95d03340")
 		)
 		(pad "8" smd rect
 			(at -5.75 -4.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 680 "SDRAM_DQ4")
+			(net 674 "SDRAM_DQ4")
 			(uuid "53b06f10-1079-4bf8-a304-287a9014ef9e")
 		)
 		(pad "9" smd rect
@@ -30040,14 +29889,14 @@
 			(at -5.75 -3.2)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 681 "SDRAM_DQ5")
+			(net 675 "SDRAM_DQ5")
 			(uuid "3ea6d4fd-2182-4061-9feb-316d57a77566")
 		)
 		(pad "11" smd rect
 			(at -5.75 -2.4)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 682 "SDRAM_DQ6")
+			(net 676 "SDRAM_DQ6")
 			(uuid "b8d9aa65-6a7e-432f-901c-b5c40629d000")
 		)
 		(pad "12" smd rect
@@ -30061,7 +29910,7 @@
 			(at -5.75 -0.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 683 "SDRAM_DQ7")
+			(net 677 "SDRAM_DQ7")
 			(uuid "2cce77bd-8e4e-466f-ad13-644c36ec7e1c")
 		)
 		(pad "14" smd rect
@@ -30075,84 +29924,84 @@
 			(at -5.75 0.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 692 "SDRAM_LDQM")
+			(net 686 "SDRAM_LDQM")
 			(uuid "36eb54f1-afb6-41c5-b9c9-5ccc5f9efab3")
 		)
 		(pad "16" smd rect
 			(at -5.75 1.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 695 "SDRAM_WE_N")
+			(net 689 "SDRAM_WE_N")
 			(uuid "a1f025f1-0125-470d-abf7-bc81ad36d038")
 		)
 		(pad "17" smd rect
 			(at -5.75 2.4)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 671 "SDRAM_CAS_N")
+			(net 665 "SDRAM_CAS_N")
 			(uuid "e7241b01-3f48-4557-bd13-7ddb358bf175")
 		)
 		(pad "18" smd rect
 			(at -5.75 3.2)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 693 "SDRAM_RAS_N")
+			(net 687 "SDRAM_RAS_N")
 			(uuid "9373c7ef-a5d6-4506-9be1-ff7841254e75")
 		)
 		(pad "19" smd rect
 			(at -5.75 4)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 675 "SDRAM_CS_N")
+			(net 669 "SDRAM_CS_N")
 			(uuid "7b33b1ae-9605-42e5-a0fe-86a21f24812e")
 		)
 		(pad "20" smd rect
 			(at -5.75 4.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 669 "SDRAM_BA0")
+			(net 663 "SDRAM_BA0")
 			(uuid "044fa967-e9be-4fc3-baa4-a28e4b9c9d7f")
 		)
 		(pad "21" smd rect
 			(at -5.75 5.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 670 "SDRAM_BA1")
+			(net 664 "SDRAM_BA1")
 			(uuid "1072519b-7f05-452b-a182-1b9ea10bbc3e")
 		)
 		(pad "22" smd rect
 			(at -5.75 6.4)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 666 "SDRAM_A10")
+			(net 660 "SDRAM_A10")
 			(uuid "91c13b72-8184-41de-b958-38a642e6b55b")
 		)
 		(pad "23" smd rect
 			(at -5.75 7.2)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 656 "SDRAM_A0")
+			(net 650 "SDRAM_A0")
 			(uuid "6b73a97d-b4f9-45cf-8c3b-4be3613b488d")
 		)
 		(pad "24" smd rect
 			(at -5.75 8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 657 "SDRAM_A1")
+			(net 651 "SDRAM_A1")
 			(uuid "8e6b05e3-3333-4782-a620-ef276196b3b3")
 		)
 		(pad "25" smd rect
 			(at -5.75 8.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 658 "SDRAM_A2")
+			(net 652 "SDRAM_A2")
 			(uuid "d2889686-1ea3-4f53-8d8b-05322a1674ef")
 		)
 		(pad "26" smd rect
 			(at -5.75 9.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 659 "SDRAM_A3")
+			(net 653 "SDRAM_A3")
 			(uuid "9345f305-d4c3-49dd-9e32-0c4745894cfe")
 		)
 		(pad "27" smd rect
@@ -30173,84 +30022,84 @@
 			(at 5.75 9.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 660 "SDRAM_A4")
+			(net 654 "SDRAM_A4")
 			(uuid "a6116b32-5c97-4544-a7c5-bbf7e1c0e560")
 		)
 		(pad "30" smd rect
 			(at 5.75 8.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 661 "SDRAM_A5")
+			(net 655 "SDRAM_A5")
 			(uuid "313fd55d-d0f0-498b-acf8-88f4874a8df3")
 		)
 		(pad "31" smd rect
 			(at 5.75 8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 662 "SDRAM_A6")
+			(net 656 "SDRAM_A6")
 			(uuid "67f1f84c-2c95-4221-ba22-070361722839")
 		)
 		(pad "32" smd rect
 			(at 5.75 7.2)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 663 "SDRAM_A7")
+			(net 657 "SDRAM_A7")
 			(uuid "1dad93d7-eef9-4028-aca7-c3dbd4b5dd91")
 		)
 		(pad "33" smd rect
 			(at 5.75 6.4)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 664 "SDRAM_A8")
+			(net 658 "SDRAM_A8")
 			(uuid "8b317dab-a8bb-4e0a-9c21-30be3bd3cc3a")
 		)
 		(pad "34" smd rect
 			(at 5.75 5.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 665 "SDRAM_A9")
+			(net 659 "SDRAM_A9")
 			(uuid "7b4ea4e1-e12f-4efd-a1b5-10912708c1ee")
 		)
 		(pad "35" smd rect
 			(at 5.75 4.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 667 "SDRAM_A11")
+			(net 661 "SDRAM_A11")
 			(uuid "35a1ba55-74e1-46b9-83ad-0dc9ac6bef9f")
 		)
 		(pad "36" smd rect
 			(at 5.75 4)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 668 "SDRAM_A12")
+			(net 662 "SDRAM_A12")
 			(uuid "e9e653c7-661e-4175-891e-4e0a24ad1557")
 		)
 		(pad "37" smd rect
 			(at 5.75 3.2)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 672 "SDRAM_CKE")
+			(net 666 "SDRAM_CKE")
 			(uuid "342c6df8-2f9a-4e3e-88db-0f291e62ca46")
 		)
 		(pad "38" smd rect
 			(at 5.75 2.4)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 674 "SDRAM_CLK_MEM")
+			(net 668 "SDRAM_CLK_MEM")
 			(uuid "0dc7395e-f548-457b-b504-a329c55a61ac")
 		)
 		(pad "39" smd rect
 			(at 5.75 1.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 694 "SDRAM_UDQM")
+			(net 688 "SDRAM_UDQM")
 			(uuid "b06929fb-6f21-4298-9159-07dcfd844717")
 		)
 		(pad "40" smd rect
 			(at 5.75 0.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 696 "unconnected-(U32-NC-Pad40)")
+			(net 690 "unconnected-(U32-NC-Pad40)")
 			(uuid "833adadc-a934-49c2-918f-5f5de9ca01dc")
 		)
 		(pad "41" smd rect
@@ -30264,7 +30113,7 @@
 			(at 5.75 -0.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 684 "SDRAM_DQ8")
+			(net 678 "SDRAM_DQ8")
 			(uuid "c120114a-cc15-4bb4-93c2-89bf84a8c5a1")
 		)
 		(pad "43" smd rect
@@ -30278,14 +30127,14 @@
 			(at 5.75 -2.4)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 685 "SDRAM_DQ9")
+			(net 679 "SDRAM_DQ9")
 			(uuid "f951a740-1510-4c0e-909c-fa9d60dc5782")
 		)
 		(pad "45" smd rect
 			(at 5.75 -3.2)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 686 "SDRAM_DQ10")
+			(net 680 "SDRAM_DQ10")
 			(uuid "28b84323-885d-4ce4-b512-a8ea719a979c")
 		)
 		(pad "46" smd rect
@@ -30299,14 +30148,14 @@
 			(at 5.75 -4.8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 687 "SDRAM_DQ11")
+			(net 681 "SDRAM_DQ11")
 			(uuid "8e1ef176-836b-422c-a9ed-798e88a4287e")
 		)
 		(pad "48" smd rect
 			(at 5.75 -5.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 688 "SDRAM_DQ12")
+			(net 682 "SDRAM_DQ12")
 			(uuid "05564ca8-7fe9-43be-b186-73779d0e280a")
 		)
 		(pad "49" smd rect
@@ -30320,14 +30169,14 @@
 			(at 5.75 -7.2)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 689 "SDRAM_DQ13")
+			(net 683 "SDRAM_DQ13")
 			(uuid "b8a7c86c-8d62-4045-b90a-99a53cfd49c5")
 		)
 		(pad "51" smd rect
 			(at 5.75 -8)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 690 "SDRAM_DQ14")
+			(net 684 "SDRAM_DQ14")
 			(uuid "ef6b4a49-9f94-4727-90e8-813f0f8ad2f7")
 		)
 		(pad "52" smd rect
@@ -30341,7 +30190,7 @@
 			(at 5.75 -9.6)
 			(size 1.51 0.458)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 691 "SDRAM_DQ15")
+			(net 685 "SDRAM_DQ15")
 			(uuid "037e13f0-9b37-4d40-9e1f-66985688836e")
 		)
 		(pad "54" smd rect
@@ -30475,7 +30324,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 673 "SDRAM_CLK")
+			(net 667 "SDRAM_CLK")
 			(uuid "a73047f4-16f4-47c9-83bf-a54f6f7c7eaf")
 		)
 		(pad "2" smd roundrect
@@ -30483,7 +30332,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 674 "SDRAM_CLK_MEM")
+			(net 668 "SDRAM_CLK_MEM")
 			(uuid "1c271364-58fc-4a5c-9c1b-110f977b9347")
 		)
 		(embedded_fonts no)
@@ -30745,7 +30594,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 650 "HDMI_UTILITY")
+			(net 644 "HDMI_UTILITY")
 			(uuid "7e8d0ef6-711e-4c04-8de3-abaeff7ea93c")
 		)
 		(pad "2" smd roundrect
@@ -31054,7 +30903,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "53794213-cdd9-4d3e-a910-185295e12227")
-		(at 218.18 103.59 90)
+		(at 218.98 110.19 90)
 		(descr "100k resistor from MON_VSYS to VSYS, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R81"
@@ -31386,7 +31235,7 @@
 			(at -1.35 0 270)
 			(size 1.1 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 602 "unconnected-(D20-NC-Pad5)")
+			(net 600 "unconnected-(D20-NC-Pad5)")
 			(uuid "8dde2749-89f2-4e1f-b04f-25896e13db6a")
 		)
 		(pad "6" smd rect
@@ -31520,7 +31369,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 652 "FB+1V8_IO")
+			(net 646 "FB+1V8_IO")
 			(uuid "2a7ba32b-1adb-4f8d-94ea-e02574aa1693")
 		)
 		(pad "2" smd roundrect
@@ -31927,7 +31776,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "ebedba72-c2cb-4f8d-a2a4-a2c51aab5503")
 		)
 		(pad "2" smd roundrect
@@ -31954,8 +31803,8 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "54e65660-6ad3-41d1-918c-8235bcda3c27")
-		(at 227.55 105.055 -90)
-		(descr "100k resistor from CORE_1V0_GOOD to +3V3, for U17 (status expander): U15 power-good, read by the status expander")
+		(at 241.66 107.14 -90)
+		(descr "100k resistor from CORE_1V0_GOOD to +3V3, for U7 (board controller): U15 power-good, read by the board controller (GPIO38)")
 		(tags "resistor")
 		(property "Reference" "R66"
 			(at 0 -1.17 90)
@@ -31991,7 +31840,7 @@
 				)
 			)
 		)
-		(property "Description" "100k resistor from CORE_1V0_GOOD to +3V3, for U17 (status expander): U15 power-good, read by the status expander"
+		(property "Description" "100k resistor from CORE_1V0_GOOD to +3V3, for U7 (board controller): U15 power-good, read by the board controller (GPIO38)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -33049,7 +32898,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "580977ee-ad5a-4075-aaf6-0cdcf40cc6e7")
-		(at 209.7 106.1 180)
+		(at 210.5 112.7 180)
 		(descr "1k series resistor between SUP_XOUT and SUP_XTAL_OUT, for U7 (board controller): limits the crystal drive level (RP-008280); crystal output, after the drive-limit resistor")
 		(tags "resistor")
 		(property "Reference" "R9"
@@ -33528,7 +33377,7 @@
 			(at -1.35 0 270)
 			(size 1.1 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 605 "unconnected-(D23-NC-Pad5)")
+			(net 603 "unconnected-(D23-NC-Pad5)")
 			(uuid "38483e2e-23c2-4191-ad59-a1275c90b178")
 		)
 		(pad "6" smd rect
@@ -33618,7 +33467,7 @@
 		(property "UI_LABEL" "EXT JTAG"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "8351a51f-2862-4f27-89b9-1fc79bb14519")
+			(uuid "6c381eed-196c-4fab-aec3-368dca30dd77")
 			(effects
 				(font
 					(size 1 1)
@@ -33630,7 +33479,7 @@
 		(property "UI_STATES" "OPEN: CTRL\nFIT: EXT"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "fa45d6bf-56f8-4127-abf2-784fc3aaf808")
+			(uuid "88724fa9-8f53-42cb-a7e5-da6ce5e1cc46")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -33921,7 +33770,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "5aa90a53-7c65-4e89-943c-767a9b268714")
-		(at 209.045 128.235 180)
+		(at 209.05 127.99 180)
 		(descr "10k pull-up of PSRAM3_CE_B_MEM to +1V8_IO, for U5 (PSRAM 3): CE# high and tracking VDD from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R192"
@@ -34029,7 +33878,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "305aed1b-ff90-4632-a909-3a1d45acaf08")
 		)
 		(pad "2" smd roundrect
@@ -34338,7 +34187,7 @@
 	(footprint "EasyEDA:SOIC-8_L4.9-W3.9-P1.27-LS6.0-BL"
 		(layer "F.Cu")
 		(uuid "5cfe6412-6f61-49e9-b524-839ea70cdf54")
-		(at 203.595 126.445 90)
+		(at 203.6 126.2 90)
 		(descr "PSRAM 3: AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.")
 		(property "Reference" "U5"
 			(at 0 -6.6 90)
@@ -34399,9 +34248,9 @@
 			)
 		)
 		(property "UI_ROLE" "WORK MEMORY 3"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b9a5371b-9f56-4211-aa7d-b55f41bbc708")
+			(uuid "b07c9988-6b06-4b06-8fb4-db19e34b1ef3")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -34709,7 +34558,7 @@
 			(at -1.9 -2.6 90)
 			(size 0.588 1.8)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "b45c1cd6-7f26-4c87-9e20-5f04e1bfcba1")
 		)
 		(embedded_fonts no)
@@ -34875,7 +34724,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "5de9fbd3-3105-4a08-98bc-d0a65c904981")
-		(at 239.26 102.06 180)
+		(at 233 100.8 180)
 		(descr "1.65k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A")
 		(tags "resistor")
 		(property "Reference" "R54"
@@ -35118,7 +34967,7 @@
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "a819127f-0e44-4a91-ab0a-de7948093b51")
 		)
 		(pad "2" smd roundrect
@@ -35145,7 +34994,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6136e177-75f8-4417-847e-e47c8371a982")
-		(at 224.24125 94.7)
+		(at 225.04125 101.3)
 		(descr "100nF filter capacitor on MON_VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C277"
@@ -35265,7 +35114,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 711 "MON_VCCIO_1")
+			(net 705 "MON_VCCIO_1")
 			(uuid "ae6dc4cb-71c6-46aa-a4db-73bf23649c79")
 		)
 		(pad "2" smd roundrect
@@ -35856,7 +35705,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "6307c238-c29f-46f1-aeca-c5015976db58")
-		(at 198.095 127.355 180)
+		(at 198.1 127.11 180)
 		(descr "10k pull-down on PSRAM3_IO3_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R197"
@@ -36498,7 +36347,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "64297538-8a3f-4e37-aeea-92cb9e42ef49")
-		(at 206.7 85.4 -90)
+		(at 207.5 92 -90)
 		(descr "33 series resistor between +3V3 and SUP_VREG_AVDD: filtered analog supply for the RP2350's regulator")
 		(tags "resistor")
 		(property "Reference" "R8"
@@ -37197,7 +37046,7 @@
 	(footprint "EasyEDA:CONN-TH_P5.00_KF301-5.0-2P"
 		(layer "F.Cu")
 		(uuid "65341c8a-5f0f-4a21-a54f-caaf68c14474")
-		(at 216.725 79)
+		(at 216.625 78.75)
 		(descr "POWER IN screw terminal: Main power input, 9-21 V DC. Polarity marked on the board.")
 		(property "Reference" "J50"
 			(at 0 -4 0)
@@ -37261,7 +37110,7 @@
 		(property "UI_LABEL" "9-21V POWER IN"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e0b8cea4-52c3-435b-b3bf-5bc3dcb8f550")
+			(uuid "7dce98b0-4a04-477d-b373-eba5ef31d0bd")
 			(effects
 				(font
 					(size 1 1)
@@ -37273,7 +37122,7 @@
 		(property "UI_PINS" "9-21V +\nGND"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "e0f99f8f-e1f2-4a0b-b473-877882533df7")
+			(uuid "7db9eab2-b976-4d13-8bb5-1418b6d3cba7")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -37657,7 +37506,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 702 "MRAM_WP")
+			(net 696 "MRAM_WP")
 			(uuid "91c8e68b-bc3d-47cd-96ea-9f83384dc308")
 		)
 		(embedded_fonts no)
@@ -37676,7 +37525,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "66695749-220e-4279-8142-128ea414f8bd")
-		(at 224.83 101.56)
+		(at 225.63 108.16)
 		(descr "47k resistor from MON_5V to GND, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R84"
@@ -37919,7 +37768,7 @@
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "eb206835-2afe-4039-bb4e-657be424d2c5")
 		)
 		(pad "2" smd roundrect
@@ -38894,7 +38743,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6e17d493-8822-4ad1-85b9-9c7bbb7e5871")
-		(at 199.8 91.4 180)
+		(at 200.6 98 180)
 		(descr "NOT FITTED. 10k resistor from SUPF_CS to +3V3, for U7 (board controller): controller flash chip-select; pulled low by CTRL BOOT for the bootloader")
 		(tags "resistor")
 		(property "Reference" "R13"
@@ -39311,7 +39160,7 @@
 	(footprint "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "6f54abb6-7223-446e-82ec-789b94915d7d")
-		(at 223.6 88.4 180)
+		(at 216.1 94 180)
 		(descr "9 V request switch: Small N-MOSFET the board controller (PD_REQ_9V) uses to pull the CH224K's CFG1 low and ask the charger for 9 V. Off: 5 V.")
 		(property "Reference" "Q3"
 			(at 0 -4.95 180)
@@ -39499,7 +39348,7 @@
 			(at 1.24 0.95 180)
 			(size 1.07 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 713 "PD_REQ_9V")
+			(net 707 "PD_REQ_9V")
 			(uuid "4641e7ed-7e8c-43a6-aebf-c3f794ef4cba")
 		)
 		(pad "2" smd rect
@@ -39979,10 +39828,157 @@
 			)
 		)
 	)
+	(footprint "Resistor_SMD:R_0402_1005Metric"
+		(layer "F.Cu")
+		(uuid "7028102d-77f9-421d-8f34-10b0d83752ba")
+		(at 32.5 225.556231)
+		(descr "4.7k pull-up of CFG_DONE to +3V3, for Q4 (DONE LED driver)")
+		(tags "resistor")
+		(property "Reference" "R98"
+			(at 0 -1.17 0)
+			(layer "F.Fab")
+			(uuid "dbb0b581-f694-4fbe-a074-2381b9951d50")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 0 1.17 0)
+			(layer "F.Fab")
+			(uuid "61c9c672-15b8-4366-84ad-178bb10f6693")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7f9d0df7-1e02-4178-adce-b1986de907be")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" "4.7k pull-up of CFG_DONE to +3V3, for Q4 (DONE LED driver)"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8f78217b-253c-4314-8796-8703637a7036")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C25900"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d1cb388a-483d-4978-b10f-946dfee60797")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(attr smd)
+		(fp_line
+			(start -0.153641 -0.38)
+			(end 0.153641 -0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "446aa1bc-0af0-4373-b1f5-796fcbe09004")
+		)
+		(fp_line
+			(start -0.153641 0.38)
+			(end 0.153641 0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "e279b4f6-9e89-48d0-8128-78341a25f0dc")
+		)
+		(fp_rect
+			(start -0.93 -0.47)
+			(end 0.93 0.47)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "39594750-efa3-4a61-975c-24b5c9519a95")
+		)
+		(fp_rect
+			(start -0.525 -0.27)
+			(end 0.525 0.27)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "dc26943d-93a1-4db6-9f85-74b7b256c9a0")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(uuid "970a72fb-afdc-4161-8aaa-b7c35103b1eb")
+			(effects
+				(font
+					(size 0.26 0.26)
+					(thickness 0.04)
+				)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net 8 "+3V3")
+			(uuid "a6c211f3-9e36-4598-b480-8441fea4d83f")
+		)
+		(pad "2" smd roundrect
+			(at 0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net 16 "CFG_DONE")
+			(uuid "8c14f9ef-298c-483a-a5b4-812e3989904f")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0402_1005Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "70c07d5a-154f-4551-b1f3-61afe993600b")
-		(at 218.38 93.4)
+		(at 219.18 100)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C121"
@@ -40694,7 +40690,7 @@
 		(property "UI_LABEL" "USB-C"
 			(at 0 5 0)
 			(layer "F.SilkS")
-			(uuid "c7478703-5b7f-4d4a-b102-9d24218c403c")
+			(uuid "54cd92b9-1570-4d84-bb63-af12a88cf3d5")
 			(effects
 				(font
 					(size 1 1)
@@ -41327,21 +41323,21 @@
 			(at 2.24 -5.28 180)
 			(size 0.6 1.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 706 "SD_DAT2")
+			(net 700 "SD_DAT2")
 			(uuid "97b6477e-f326-48cc-8709-59a7ac7c16ef")
 		)
 		(pad "2" smd rect
 			(at 1.14 -5.28 180)
 			(size 0.6 1.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 704 "SD_CS")
+			(net 698 "SD_CS")
 			(uuid "c58766e9-5023-4e48-93b1-efe0f3cd4cce")
 		)
 		(pad "3" smd rect
 			(at 0.04 -5.28 180)
 			(size 0.6 1.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 708 "SD_MOSI")
+			(net 702 "SD_MOSI")
 			(uuid "cd699fe6-7fb1-4618-8ba5-be716900b56a")
 		)
 		(pad "4" smd rect
@@ -41355,7 +41351,7 @@
 			(at -2.16 -5.28 180)
 			(size 0.6 1.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 709 "SD_SCK")
+			(net 703 "SD_SCK")
 			(uuid "59d9331b-cea2-4533-9a54-5f298df694f5")
 		)
 		(pad "6" smd rect
@@ -41369,21 +41365,21 @@
 			(at -4.36 -5.28 180)
 			(size 0.6 1.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 707 "SD_MISO")
+			(net 701 "SD_MISO")
 			(uuid "c5a8d95f-fd41-4a3d-8340-d19d1ae999c7")
 		)
 		(pad "8" smd rect
 			(at -5.46 -5.28 180)
 			(size 0.6 1.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 705 "SD_DAT1")
+			(net 699 "SD_DAT1")
 			(uuid "dd3fca5e-105b-45ed-a492-f61d87a7cdd4")
 		)
 		(pad "9" smd rect
 			(at -6.56 -5.28 180)
 			(size 0.6 1.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 703 "SD_CD")
+			(net 697 "SD_CD")
 			(uuid "a344b4dc-65db-40b6-bf24-dfc03333acc8")
 		)
 		(pad "10" smd rect
@@ -41491,15 +41487,15 @@
 			)
 		)
 		(property "UI_ROLE" "SLOT 3V3 PROTECTION"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "045ac17e-1c7e-4fca-93b8-e241944e7b93")
+			(uuid "1e6a37cb-10dc-4f10-b7b8-9771e87d4ae6")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr through_hole)
@@ -41728,7 +41724,7 @@
 		(property "UI_LABEL" "KEY G"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "c8780a65-f585-4acb-b7a5-2531f06f5cfb")
+			(uuid "c77567dd-5b04-4e05-9714-88f47490d81d")
 			(effects
 				(font
 					(size 1 1)
@@ -41984,7 +41980,7 @@
 		(property "UI_LABEL" "KEY C"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "940bee6e-9654-48e3-bc73-29b838e0c412")
+			(uuid "db1fc6c7-6d61-4e18-a74f-7d50ac908b60")
 			(effects
 				(font
 					(size 1 1)
@@ -42138,7 +42134,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "65cf7422-cb40-44f9-bc8f-cc3b43d7beb2")
 		)
 		(pad "2" smd roundrect
@@ -42616,21 +42612,21 @@
 			(at -1.9 2.9 90)
 			(size 0.7 1.1)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 697 "MRAM_CS")
+			(net 691 "MRAM_CS")
 			(uuid "ed8ae28a-c7d3-435c-a841-a200c9de4443")
 		)
 		(pad "2" smd rect
 			(at -0.63 2.9 90)
 			(size 0.7 1.1)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 701 "MRAM_SO")
+			(net 695 "MRAM_SO")
 			(uuid "ae8b8011-294d-4817-b94b-446c241ab3e2")
 		)
 		(pad "3" smd rect
 			(at 0.64 2.9 90)
 			(size 0.7 1.1)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 702 "MRAM_WP")
+			(net 696 "MRAM_WP")
 			(uuid "b85ffcdd-5a82-441d-ad99-b63f59330dc0")
 		)
 		(pad "4" smd rect
@@ -42644,21 +42640,21 @@
 			(at 1.91 -2.9 90)
 			(size 0.7 1.1)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 700 "MRAM_SI")
+			(net 694 "MRAM_SI")
 			(uuid "554727ea-151f-4248-b845-892d6cef3e63")
 		)
 		(pad "6" smd rect
 			(at 0.64 -2.9 90)
 			(size 0.7 1.1)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 699 "MRAM_SCK")
+			(net 693 "MRAM_SCK")
 			(uuid "13f859bb-d627-4ae0-a290-292b64bc6220")
 		)
 		(pad "7" smd rect
 			(at -0.63 -2.9 90)
 			(size 0.7 1.1)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 698 "MRAM_HOLD")
+			(net 692 "MRAM_HOLD")
 			(uuid "6220cc13-eb3d-4c9d-bf46-02108852528b")
 		)
 		(pad "8" smd rect
@@ -42856,7 +42852,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "773da3fe-c460-410f-a871-ff6baa719e6f")
-		(at 266.99 88.16 180)
+		(at 269.49 85.91 180)
 		(descr "33 series resistor between SUP_JTAG_TMS and SWJ_TMS, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R15"
@@ -43285,7 +43281,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "7839cb45-0d13-405c-a442-93ecfdf0e79b")
-		(at 198.645 128.735 180)
+		(at 198.65 128.49 180)
 		(descr "100nF bypass on +1V8_IO, for U5 (PSRAM 3)")
 		(tags "capacitor")
 		(property "Reference" "C114"
@@ -43405,7 +43401,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "42a157ad-1d95-4653-84cf-df7dfb1f03d6")
 		)
 		(pad "2" smd roundrect
@@ -43432,7 +43428,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "7885f608-06ea-4390-8689-a0531f92ded9")
-		(at 218.38 98.29)
+		(at 219.18 104.89)
 		(descr "100nF filter capacitor on MON_VSYS, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C225"
@@ -43923,15 +43919,15 @@
 			)
 		)
 		(property "UI_LABEL" "CTRL HB"
-			(at 0 4.003 90)
+			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "b198fcc5-3e01-4fb2-93de-cd92c38d23c2")
+			(uuid "ee27c3e0-ab98-4f80-ae6f-4e7d716dd9fc")
 			(effects
 				(font
 					(size 1 1)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -44151,7 +44147,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "799ecd1f-bcce-45cd-a813-67b869665cd8")
-		(at 197.21 113.18)
+		(at 197.31 116.68)
 		(descr "33 series resistor between FLASH_CS_B and SUP_FCS_B, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R22"
@@ -45004,7 +45000,7 @@
 		(property "UI_LABEL" "A | B | C | D"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "d491020b-85ab-4011-b698-c610f786671f")
+			(uuid "238761b5-7f57-43e0-b01d-a6a4cb395034")
 			(effects
 				(font
 					(size 1 1)
@@ -45980,7 +45976,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 632 "HDMI_CEC")
+			(net 626 "HDMI_CEC")
 			(uuid "4996f2c3-5a06-49b5-968a-bb71728aa4da")
 		)
 		(pad "2" smd roundrect
@@ -45988,7 +45984,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 646 "HDMI_SCL")
+			(net 640 "HDMI_SCL")
 			(uuid "ebeb17a8-3b8f-4270-a708-954b4e66443f")
 		)
 		(pad "3" smd roundrect
@@ -45996,7 +45992,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 648 "HDMI_SDA")
+			(net 642 "HDMI_SDA")
 			(uuid "beaf6705-18b2-410d-8579-9f38b8945be4")
 		)
 		(pad "4" smd roundrect
@@ -46004,7 +46000,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 643 "HDMI_HPD")
+			(net 637 "HDMI_HPD")
 			(uuid "b189bd77-0781-4437-b2f8-f4918308175a")
 		)
 		(pad "5" smd roundrect
@@ -46012,7 +46008,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 645 "HDMI_LS_OE")
+			(net 639 "HDMI_LS_OE")
 			(uuid "46acf4b7-44bd-47dc-abba-1ff35308e35d")
 		)
 		(pad "6" smd roundrect
@@ -46028,7 +46024,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 633 "HDMI_CEC_B")
+			(net 627 "HDMI_CEC_B")
 			(uuid "cb6fda6b-9eb8-4ddb-b9b2-6ba2f20ce477")
 		)
 		(pad "8" smd roundrect
@@ -46036,7 +46032,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 647 "HDMI_SCL_B")
+			(net 641 "HDMI_SCL_B")
 			(uuid "9fe087c1-ea55-41bb-8086-e5d68732bc1a")
 		)
 		(pad "9" smd roundrect
@@ -46044,7 +46040,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 649 "HDMI_SDA_B")
+			(net 643 "HDMI_SDA_B")
 			(uuid "f36ca914-7ee8-41d3-b242-81482a6c7ebf")
 		)
 		(pad "10" smd roundrect
@@ -46052,7 +46048,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 644 "HDMI_HPD_B")
+			(net 638 "HDMI_HPD_B")
 			(uuid "4db43eac-7310-47ad-9bae-6a68b48764ac")
 		)
 		(pad "11" smd roundrect
@@ -46068,7 +46064,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 636 "HDMI_CT_HPD")
+			(net 630 "HDMI_CT_HPD")
 			(uuid "561b0154-9165-45ac-bcd7-b46d5c5b169b")
 		)
 		(pad "13" smd roundrect
@@ -46076,7 +46072,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 631 "HDMI_5V")
+			(net 625 "HDMI_5V")
 			(uuid "8a4b5f2f-4868-40db-86cb-4d2f0c7a86a2")
 		)
 		(pad "14" smd roundrect
@@ -46092,7 +46088,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 634 "HDMI_CLK_N")
+			(net 628 "HDMI_CLK_N")
 			(uuid "9fdd506e-eb4c-47a4-b532-e368dcbd3dc9")
 		)
 		(pad "16" smd roundrect
@@ -46100,7 +46096,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 635 "HDMI_CLK_P")
+			(net 629 "HDMI_CLK_P")
 			(uuid "ca74fd1e-a5f7-4d1e-804e-0903bf37858a")
 		)
 		(pad "17" smd roundrect
@@ -46108,7 +46104,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 637 "HDMI_D0_N")
+			(net 631 "HDMI_D0_N")
 			(uuid "eb84e820-f8de-48c8-90f9-bbd24e29c176")
 		)
 		(pad "18" smd roundrect
@@ -46116,7 +46112,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 638 "HDMI_D0_P")
+			(net 632 "HDMI_D0_P")
 			(uuid "a6bfa56a-6a3e-4fb3-a680-588a266db316")
 		)
 		(pad "19" smd roundrect
@@ -46132,7 +46128,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 639 "HDMI_D1_N")
+			(net 633 "HDMI_D1_N")
 			(uuid "c557682c-f4c9-4181-b84f-4986b613616f")
 		)
 		(pad "21" smd roundrect
@@ -46140,7 +46136,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 640 "HDMI_D1_P")
+			(net 634 "HDMI_D1_P")
 			(uuid "3561d2f2-e1eb-431c-9e6b-350821cfb4b3")
 		)
 		(pad "22" smd roundrect
@@ -46148,7 +46144,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 641 "HDMI_D2_N")
+			(net 635 "HDMI_D2_N")
 			(uuid "9c5090df-b01c-4e30-b31d-95e41b866a14")
 		)
 		(pad "23" smd roundrect
@@ -46156,7 +46152,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 642 "HDMI_D2_P")
+			(net 636 "HDMI_D2_P")
 			(uuid "f26f4b8f-be16-44ab-9cf7-a13be5d0f9b1")
 		)
 		(pad "24" smd roundrect
@@ -46183,7 +46179,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "7b2bd875-bcb9-4860-bf65-f30b9017fac9")
-		(at 238.4 104.4 -90)
+		(at 232.14 103.14 -90)
 		(descr "47k resistor from VBUS_UVLO to GND, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V")
 		(tags "resistor")
 		(property "Reference" "R51"
@@ -46453,7 +46449,7 @@
 	(footprint "EasyEDA:TSOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "7d81e816-b447-4041-957a-fc84308de6e4")
-		(at 242.4 110.4 180)
+		(at 256 114 180)
 		(descr "5 V regulator, always on: Diodes AP63300, 3 A switching regulator: VSYS to +5V_BUCK, then U34 to +5V. Starts by itself.")
 		(property "Reference" "U11"
 			(at 0 -4.95 0)
@@ -46516,13 +46512,13 @@
 		(property "UI_ROLE" "5V SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "09ae7481-f791-4783-b23f-b9959d8ca4c7")
+			(uuid "bd193d79-f039-4fed-9b3e-c8e498d8dcea")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -46641,7 +46637,7 @@
 			(at 1.2 0 180)
 			(size 0.8 0.532)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 728 "unconnected-(U11-EN-Pad2)")
+			(net 722 "unconnected-(U11-EN-Pad2)")
 			(uuid "ea27524a-522c-42e1-87a0-e12ca817d62a")
 		)
 		(pad "3" smd rect
@@ -46688,7 +46684,7 @@
 	(footprint "Diode_SMD:D_SMB"
 		(layer "F.Cu")
 		(uuid "7d8d2fc7-721d-4ad2-89e9-eb25395463b1")
-		(at 216.9 86.7 -90)
+		(at 216.8 86.45 -90)
 		(descr "screw input surge clamp: SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V.")
 		(tags "Diode SMB (DO-214AA)")
 		(property "Reference" "D8"
@@ -47029,7 +47025,7 @@
 		(property "UI_LABEL" "D POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "269ff0f6-189f-4827-8056-7dc9367ec463")
+			(uuid "76fdb874-1da7-4711-ba55-b25e183aee29")
 			(effects
 				(font
 					(size 1 1)
@@ -47485,7 +47481,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "ab1513c3-cae8-491e-b9cf-d10087b66c52")
 		)
 		(pad "2" smd roundrect
@@ -47576,13 +47572,13 @@
 		(property "UI_ROLE" "E-H PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "521af065-9509-4772-8baf-b1a18cd422be")
+			(uuid "48c4aeff-265b-4a66-be7a-5d31b9a19217")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -47813,7 +47809,7 @@
 			(size 0.725 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 730 "U24_CT")
+			(net 724 "U24_CT")
 			(uuid "9ac7c739-2a5f-4463-b883-bf9a6055530a")
 		)
 		(pad "7" smd roundrect
@@ -48072,7 +48068,7 @@
 		(property "UI_LABEL" "C POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "a03f48c8-3357-42ca-84f1-7a9d5ad67c4a")
+			(uuid "e906c021-50bd-47d1-a6fa-5ce52bd89142")
 			(effects
 				(font
 					(size 1 1)
@@ -48336,7 +48332,7 @@
 		(property "UI_ROLE" "3V3 SUPPLY\nALWAYS ON"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b8f80126-ad3d-45e2-939c-35e3c8153d7b")
+			(uuid "a75325ad-18f8-4589-97b1-476eecd8d0db")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -49583,7 +49579,7 @@
 			(at 4.75 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 642 "HDMI_D2_P")
+			(net 636 "HDMI_D2_P")
 			(uuid "929d8ce7-40f8-40d1-8e95-825a8bb05897")
 		)
 		(pad "2" smd rect
@@ -49597,14 +49593,14 @@
 			(at 3.75 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 641 "HDMI_D2_N")
+			(net 635 "HDMI_D2_N")
 			(uuid "7ddc2ff3-a44a-4215-ada4-074f9edc8b76")
 		)
 		(pad "4" smd rect
 			(at 3.25 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 640 "HDMI_D1_P")
+			(net 634 "HDMI_D1_P")
 			(uuid "53e35feb-d2c9-4023-85d4-9a406530535f")
 		)
 		(pad "5" smd rect
@@ -49618,14 +49614,14 @@
 			(at 2.25 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 639 "HDMI_D1_N")
+			(net 633 "HDMI_D1_N")
 			(uuid "7ab6c8c5-5ed2-4c5a-a7eb-7e367ff481c4")
 		)
 		(pad "7" smd rect
 			(at 1.75 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 638 "HDMI_D0_P")
+			(net 632 "HDMI_D0_P")
 			(uuid "39bb7ca5-ddee-4d04-b200-929c1084b566")
 		)
 		(pad "8" smd rect
@@ -49639,14 +49635,14 @@
 			(at 0.75 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 637 "HDMI_D0_N")
+			(net 631 "HDMI_D0_N")
 			(uuid "9ec51483-cc26-4f11-b44f-697d9a691f9d")
 		)
 		(pad "10" smd rect
 			(at 0.25 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 635 "HDMI_CLK_P")
+			(net 629 "HDMI_CLK_P")
 			(uuid "a0bfa3c9-4016-4d4a-8655-b40f7a1e0661")
 		)
 		(pad "11" smd rect
@@ -49660,35 +49656,35 @@
 			(at -0.75 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 634 "HDMI_CLK_N")
+			(net 628 "HDMI_CLK_N")
 			(uuid "9f669043-048a-4c97-97c7-18205d9d5a59")
 		)
 		(pad "13" smd rect
 			(at -1.25 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 633 "HDMI_CEC_B")
+			(net 627 "HDMI_CEC_B")
 			(uuid "7958eb0b-3a0e-44ba-bd4b-e950b85716c7")
 		)
 		(pad "14" smd rect
 			(at -1.75 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 650 "HDMI_UTILITY")
+			(net 644 "HDMI_UTILITY")
 			(uuid "0d8fc94b-bc68-4a70-84e7-19a47f2e2fd6")
 		)
 		(pad "15" smd rect
 			(at -2.25 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 647 "HDMI_SCL_B")
+			(net 641 "HDMI_SCL_B")
 			(uuid "84eeb349-c8a3-4906-bf73-4eca2f546768")
 		)
 		(pad "16" smd rect
 			(at -2.75 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 649 "HDMI_SDA_B")
+			(net 643 "HDMI_SDA_B")
 			(uuid "d3c2aed5-6c02-496c-a9fc-1ba5b700efe2")
 		)
 		(pad "17" smd rect
@@ -49702,14 +49698,14 @@
 			(at -3.75 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 631 "HDMI_5V")
+			(net 625 "HDMI_5V")
 			(uuid "445457c4-5183-4a3e-b5bf-11c72f5f8394")
 		)
 		(pad "19" smd rect
 			(at -4.25 -5)
 			(size 0.3 1.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 644 "HDMI_HPD_B")
+			(net 638 "HDMI_HPD_B")
 			(uuid "ea5477b7-098f-46b9-bc8c-a6c94459497d")
 		)
 		(pad "SH" thru_hole circle
@@ -49764,7 +49760,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "840d7df2-00ce-4f2f-a36b-6edcc915a6ae")
-		(at 263.02 99.8)
+		(at 263.655 96.51)
 		(descr "22uF bypass on +5V, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C265"
@@ -50181,7 +50177,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "851ab769-d860-4a1a-95fb-6df8f3b3df2e")
-		(at 213.1 103.3 -90)
+		(at 213.9 109.9 -90)
 		(descr "15 pF load capacitor on the 12 MHz crystal's input (RP-008280 section 4)")
 		(tags "capacitor")
 		(property "Reference" "C133"
@@ -50463,14 +50459,14 @@
 			(at -1.4 0 180)
 			(size 3.6 1.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "1d772ecf-7d56-4417-b0e4-0def5c4a3aff")
 		)
 		(pad "2" smd rect
 			(at 1.4 0 180)
 			(size 3.6 1.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 653 "SW+1V8_IO")
+			(net 647 "SW+1V8_IO")
 			(uuid "74ddafd6-4bdd-4039-8369-f48721bc7233")
 		)
 		(embedded_fonts no)
@@ -50489,7 +50485,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "85faee0d-4182-4649-90a8-9bc81bb4c118")
-		(at 198.095 125.545 180)
+		(at 198.1 125.3 180)
 		(descr "10k pull-down on PSRAM3_SCK_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R193"
@@ -50834,13 +50830,13 @@
 		(property "UI_ROLE" "5V BUS 0 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5c007c24-c047-4892-a375-4d978230801d")
+			(uuid "1d16a309-2297-4c37-8cbc-a28109da0abd")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -50983,7 +50979,7 @@
 			(at -3.58 2.78 180)
 			(size 0.364 1.71)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "6dc8e4ac-4f2e-418b-bca5-aee23ef51a22")
 		)
 		(pad "2" smd oval
@@ -51163,7 +51159,7 @@
 	(footprint "EasyEDA:WSON-8_L8.0-W6.10-P1.27-BL-EP"
 		(layer "F.Cu")
 		(uuid "87f361f8-7f55-42ab-b953-a92a055cff15")
-		(at 203.4 115.1 -90)
+		(at 203.5 118.6 -90)
 		(descr "FPGA configuration flash: Winbond W25Q256JV, 256 Mbit (32 MB) quad-SPI flash: the FPGA boots from it.")
 		(property "Reference" "U6"
 			(at 0 -8.027 90)
@@ -51224,9 +51220,9 @@
 			)
 		)
 		(property "UI_ROLE" "FPGA STARTUP MEMORY"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "05810b94-5362-4e39-974b-025200c03593")
+			(uuid "bcfe52e1-e532-4d36-816b-890c3a1c2c9f")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -51535,7 +51531,7 @@
 	(footprint "EasyEDA:SMA_L4.3-W2.6-LS5.2-RD"
 		(layer "F.Cu")
 		(uuid "894838eb-45ae-4fa2-bacb-335b4bb9536e")
-		(at 213.05 86.8 90)
+		(at 212.95 86.55 90)
 		(descr "screw input diode: SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it.")
 		(property "Reference" "D4"
 			(at 0 -4 90)
@@ -52136,7 +52132,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8aad131d-b35d-4709-9151-6e3242cd94d2")
-		(at 200.7 85.6 -90)
+		(at 201.5 92.2 -90)
 		(descr "27 series resistor between USB_DP and USB_DP_MCU, for J1 (USB-C connector): USB D+ at the controller, after its 27 ohm series resistor")
 		(tags "resistor")
 		(property "Reference" "R170"
@@ -52252,7 +52248,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 715 "USB_DP_MCU")
+			(net 709 "USB_DP_MCU")
 			(uuid "a7b7e6ae-4a70-4d10-ae82-213721ed67d4")
 		)
 		(embedded_fonts no)
@@ -52553,7 +52549,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "8b8a52e4-8d2c-4afb-aa9b-2b5d38a76054")
-		(at 238.65 113.38 180)
+		(at 252.25 116.98 180)
 		(descr "22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C191"
@@ -52673,7 +52669,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 710 "+5V_BUCK")
+			(net 704 "+5V_BUCK")
 			(uuid "bab149ae-fd32-4969-bec4-45ae6d2e694b")
 		)
 		(pad "2" smd roundrect
@@ -52700,7 +52696,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8bf06eeb-af26-451e-b766-28918f892239")
-		(at 266.99 86.87 180)
+		(at 269.49 84.62 180)
 		(descr "33 series resistor between SUP_JTAG_TDI and SWJ_TDI, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R16"
@@ -53257,7 +53253,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 706 "SD_DAT2")
+			(net 700 "SD_DAT2")
 			(uuid "907f27e6-1c6d-4c0e-a64c-9e69937246b0")
 		)
 		(embedded_fonts no)
@@ -53484,9 +53480,9 @@
 			)
 		)
 		(property "UI_ROLE" "WORK MEMORY 0"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5aa23efd-ca20-4fbf-bf42-7a8c9f6b5aa3")
+			(uuid "6656d580-909a-40f3-9b63-dc6621b71726")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -53794,7 +53790,7 @@
 			(at -1.9 -2.6 90)
 			(size 0.588 1.8)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "b51f6630-dd03-4059-96c4-de48ce611d3d")
 		)
 		(embedded_fonts no)
@@ -53813,7 +53809,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8f5b319b-1853-4fff-91ba-a9fadd83d296")
-		(at 205 100.46 180)
+		(at 205.8 107.06 180)
 		(descr "33 series resistor between DBG_TDO and SUP_DBG_TDO, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R30"
@@ -54235,7 +54231,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 636 "HDMI_CT_HPD")
+			(net 630 "HDMI_CT_HPD")
 			(uuid "5daaa0c8-22aa-4484-a054-6e003a643092")
 		)
 		(embedded_fonts no)
@@ -54254,7 +54250,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "90273842-8ed2-4901-8a60-e4b5ad1d7e23")
-		(at 209.475 117 180)
+		(at 209.575 120.5 180)
 		(descr "33 series resistor between FLASH_D0_MOSI and SUP_FD0, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R23"
@@ -54548,7 +54544,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "9071594a-c62c-481c-8e23-26de4843d09a")
-		(at 240.1 99.4 180)
+		(at 233.84 98.14 180)
 		(descr "10uF 50V bypass on VSYS, for U26 (USB input eFuse)")
 		(tags "capacitor")
 		(property "Reference" "C185"
@@ -55522,7 +55518,7 @@
 	(footprint "Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm"
 		(layer "F.Cu")
 		(uuid "9331f1a6-9378-4ef8-84f7-d7076fdaec19")
-		(at 248.44 104.31 90)
+		(at 242.18 103.05 90)
 		(descr "USB input eFuse: TI TPS259470A: ramps USB power in gently, cuts off outside 3.75-10 V, limits current to about 2 A, blocks reverse current. Reports faults on EXT_FAULT.")
 		(tags "VQFN-HR NO LEAD")
 		(property "Reference" "U26"
@@ -55590,13 +55586,13 @@
 		(property "UI_ROLE" "USB INPUT PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3bcacfcf-a0a9-452c-bb4e-382dcc5f0940")
+			(uuid "6aafb397-7efe-41b9-aebc-b84f96986dba")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -55811,7 +55807,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "93a2fa6c-82ba-4353-93a3-5c8566da1a20")
-		(at 218.39 99.39)
+		(at 219.19 105.99)
 		(descr "33 series resistor between SB_UART_TX and SUP_UART_RX, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R32"
@@ -55958,7 +55954,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "94017f12-ce76-467c-b152-bbb51252df0e")
-		(at 197.225 111.8)
+		(at 197.325 115.3)
 		(descr "4.7k pull-up of FLASH_CS_B to +3V3, for U6 (FPGA configuration flash)")
 		(tags "resistor")
 		(property "Reference" "R203"
@@ -56365,7 +56361,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "963a14c2-712a-4597-af16-da2dece7dc8c")
-		(at 257.73 107.7 -90)
+		(at 258.365 104.41 -90)
 		(descr "56.2k resistor from VBUS5_CP2 to GND, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover")
 		(tags "resistor")
 		(property "Reference" "R167"
@@ -56473,7 +56469,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 716 "VBUS5_CP2")
+			(net 710 "VBUS5_CP2")
 			(uuid "b76aedc5-1c54-4819-9725-57d085c4753f")
 		)
 		(pad "2" smd roundrect
@@ -57004,7 +57000,7 @@
 		(property "UI_ROLE" "SLOT 5V PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5cddeddf-0165-4f1b-9a77-8a2053eae111")
+			(uuid "f756db82-303b-4c86-9a6a-0b7dc1461fc8")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -57176,7 +57172,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "97c89a65-0a9f-4de6-9bb4-ec0c850b1bf4")
-		(at 221.1 88.4 -90)
+		(at 213.6 94 -90)
 		(descr "100k resistor from PD_REQ_9V to GND, for U7 (board controller): Q3's gate; off (5 V) unless the board controller drives it high")
 		(tags "resistor")
 		(property "Reference" "R173"
@@ -57296,7 +57292,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 713 "PD_REQ_9V")
+			(net 707 "PD_REQ_9V")
 			(uuid "bc2f3573-50eb-447d-a008-2bfe5db35693")
 		)
 		(pad "2" smd roundrect
@@ -59249,7 +59245,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9c0a313c-e9ea-4bd9-af9e-60ac6eac4c63")
-		(at 221.32 93.28 180)
+		(at 222.12 99.88 180)
 		(descr "1k resistor from MON_1V0 to +1V0, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R88"
@@ -59448,7 +59444,7 @@
 		(property "UI_LABEL" "E POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "74058fcc-1965-4f93-b353-b1a7316928d6")
+			(uuid "d3803ade-4e51-4861-9408-b535d6221a23")
 			(effects
 				(font
 					(size 1 1)
@@ -59649,7 +59645,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "9c4e3fc5-76a5-4838-be66-9af89090af2d")
-		(at 224.24125 91.62)
+		(at 225.04125 98.22)
 		(descr "100nF filter capacitor on MON_VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C278"
@@ -59769,7 +59765,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 712 "MON_VCCIO_2")
+			(net 706 "MON_VCCIO_2")
 			(uuid "3e446d38-57b6-420d-b7bf-b6d85970f044")
 		)
 		(pad "2" smd roundrect
@@ -59796,7 +59792,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9d4f4c96-b6cd-44ad-a700-9bdf8195c540")
-		(at 204.24125 87.4)
+		(at 205.04125 94)
 		(descr "4.7uF bypass on +1V1")
 		(tags "capacitor")
 		(property "Reference" "C131"
@@ -60206,7 +60202,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 705 "SD_DAT1")
+			(net 699 "SD_DAT1")
 			(uuid "f990b492-cc73-46ed-a4a6-46be54b52ddb")
 		)
 		(embedded_fonts no)
@@ -60414,7 +60410,7 @@
 		(property "UI_LABEL" "B POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "720bf43e-c45b-4167-b8f9-f77458805648")
+			(uuid "13a1b30d-8504-49a8-93f7-9e3101410556")
 			(effects
 				(font
 					(size 1 1)
@@ -60762,7 +60758,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "a11d9daf-9ea9-4b4f-a7a7-e4dbc07d32b0")
-		(at 198.145 123.835 180)
+		(at 198.15 123.59 180)
 		(descr "10k pull-down on PSRAM3_IO0_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R194"
@@ -60897,7 +60893,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "a1a29794-efe8-4e5f-8076-204b75631d6f")
-		(at 204.25125 89.11)
+		(at 205.05125 95.71)
 		(descr "4.7uF bypass on +3V3")
 		(tags "capacitor")
 		(property "Reference" "C130"
@@ -61728,7 +61724,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 730 "U24_CT")
+			(net 724 "U24_CT")
 			(uuid "0dd49fcf-5db7-408a-a569-ca6900096eda")
 		)
 		(pad "2" smd roundrect
@@ -61818,7 +61814,7 @@
 		(property "UI_LABEL" "KEY E"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "e31d9709-5b3c-479a-a405-f24c524319cb")
+			(uuid "e87f60d7-4946-47b4-a9e9-92599bd7562f")
 			(effects
 				(font
 					(size 1 1)
@@ -62281,7 +62277,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "a55841a7-158b-4a38-8072-f2b0d9d9aa6e")
-		(at 266.435 91.45)
+		(at 268.935 89.2)
 		(descr "10k resistor from EXTERNAL_JTAG_SELECTED to GND, for U20 (JTAG switch): high when J52 is fitted: U20 disconnects the board controller")
 		(tags "resistor")
 		(property "Reference" "R34"
@@ -62698,7 +62694,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a63da201-9268-4e17-bdd9-57316cc11b56")
-		(at 197.21 115.76)
+		(at 197.31 119.26)
 		(descr "33 series resistor between FLASH_D2_WP and SUP_FD2, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R25"
@@ -62992,7 +62988,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "a683adfd-5974-4cd1-b47c-6da53214b68e")
-		(at 242.55 115.65 180)
+		(at 256.15 119.25 180)
 		(descr "22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C190"
@@ -63112,7 +63108,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 710 "+5V_BUCK")
+			(net 704 "+5V_BUCK")
 			(uuid "aaac30ef-ede0-40a2-aae6-1befb2af07ad")
 		)
 		(pad "2" smd roundrect
@@ -63499,7 +63495,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "a80a1317-e167-47f2-8f90-270c6b7985e1")
-		(at 225.95 112.315 -90)
+		(at 240.06 114.4 -90)
 		(descr "1uF capacitor from CORE_1V0_SVIN to GND, for U15 (FPGA core regulator): filtered supply for U15's control circuit")
 		(tags "capacitor")
 		(property "Reference" "C208"
@@ -63646,7 +63642,7 @@
 	(footprint "EasyEDA:QFN-80_L10.0-W10.0-P0.40-TL-EP3.4"
 		(layer "F.Cu")
 		(uuid "a817c0e5-85d5-4df7-bfb6-c0afd4f90106")
-		(at 211.7 96.5)
+		(at 212.5 103.1)
 		(descr "board controller: Raspberry Pi RP2350B microcontroller (two Cortex-M33 cores, 150 MHz): USB, FPGA programming, power sequencing and monitoring.")
 		(property "Reference" "U7"
 			(at 0 -8.908 0)
@@ -63709,7 +63705,7 @@
 		(property "UI_ROLE" "BOARD CONTROLLER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "a305db58-2957-4fa7-afda-070088c7dda5")
+			(uuid "b932deda-3910-4d6b-ac67-1e487214f31a")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -63721,7 +63717,7 @@
 		(property "PART_ID" "RP2350B"
 			(at 0 7 0)
 			(layer "F.SilkS")
-			(uuid "d0d965cf-769a-4bfe-b43c-39a9ab54d657")
+			(uuid "ee16cb03-dd9a-4351-94c0-67fa19e5faad")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -63983,7 +63979,7 @@
 			(at -4.91 1)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 601 "SUP_SDA")
+			(net 727 "unconnected-(U7-GPIO14-Pad13)")
 			(uuid "5bd1101b-9208-42d2-8918-2a6f6d984e67")
 		)
 		(pad "14" smd rect
@@ -64025,21 +64021,21 @@
 			(at -4.91 3.4)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 722 "unconnected-(U7-GPIO19-Pad19)")
+			(net 716 "unconnected-(U7-GPIO19-Pad19)")
 			(uuid "304f34ef-57bf-40f6-b734-2641423cefca")
 		)
 		(pad "20" smd rect
 			(at -4.91 3.8)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 723 "unconnected-(U7-GPIO20-Pad20)")
+			(net 717 "unconnected-(U7-GPIO20-Pad20)")
 			(uuid "4f162e3e-b465-4e3d-8c1c-8d2eda6a552e")
 		)
 		(pad "21" smd rect
 			(at -3.8 4.91)
 			(size 0.2 0.665)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 721 "VBUS5_ST")
+			(net 715 "VBUS5_ST")
 			(uuid "e992d765-59ed-442b-ac09-45aac0620857")
 		)
 		(pad "22" smd rect
@@ -64053,7 +64049,7 @@
 			(at -3 4.91)
 			(size 0.2 0.665)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 724 "unconnected-(U7-GPIO23-Pad23)")
+			(net 718 "unconnected-(U7-GPIO23-Pad23)")
 			(uuid "b777a265-702c-4596-9939-b66163771039")
 		)
 		(pad "24" smd rect
@@ -64081,14 +64077,14 @@
 			(at -1.4 4.91)
 			(size 0.2 0.665)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 725 "unconnected-(U7-GPIO26-Pad27)")
+			(net 719 "unconnected-(U7-GPIO26-Pad27)")
 			(uuid "e845d181-cd06-4cee-a918-e77ba54662b5")
 		)
 		(pad "28" smd rect
 			(at -1 4.91)
 			(size 0.2 0.665)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 713 "PD_REQ_9V")
+			(net 707 "PD_REQ_9V")
 			(uuid "8bb71bce-bb99-47b0-b96a-5cafbe134b46")
 		)
 		(pad "29" smd rect
@@ -64144,14 +64140,14 @@
 			(at 2.2 4.91)
 			(size 0.2 0.665)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 726 "unconnected-(U7-GPIO28-Pad36)")
+			(net 720 "unconnected-(U7-GPIO28-Pad36)")
 			(uuid "fdcc9eeb-4c31-4941-b1c7-d2051760c71b")
 		)
 		(pad "37" smd rect
 			(at 2.6 4.91)
 			(size 0.2 0.665)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 727 "unconnected-(U7-GPIO29-Pad37)")
+			(net 721 "unconnected-(U7-GPIO29-Pad37)")
 			(uuid "033c0305-79bf-45fe-bed1-ea1cfed70231")
 		)
 		(pad "38" smd rect
@@ -64165,7 +64161,7 @@
 			(at 3.4 4.91)
 			(size 0.2 0.665)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 600 "SUP_SCL")
+			(net 728 "unconnected-(U7-GPIO31-Pad39)")
 			(uuid "e01acbe7-4ef6-4ed4-83c1-c3b2a4ab9741")
 		)
 		(pad "40" smd rect
@@ -64200,35 +64196,35 @@
 			(at 4.91 2.6)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 622 "unconnected-(U7-GPIO35-Pad44)")
+			(net 525 "LED_HEARTBEAT_N")
 			(uuid "038d7242-2441-4f0d-a362-25f1decf1abf")
 		)
 		(pad "45" smd rect
 			(at 4.91 2.2)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 623 "unconnected-(U7-GPIO36-Pad45)")
+			(net 527 "LED_USER1_N")
 			(uuid "bf35a0eb-c9c6-4aba-92dd-006346823692")
 		)
 		(pad "46" smd rect
 			(at 4.91 1.8)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 624 "unconnected-(U7-GPIO37-Pad46)")
+			(net 529 "LED_USER2_N")
 			(uuid "0269a914-ea33-47f7-a34c-85c1ef222ac6")
 		)
 		(pad "47" smd rect
 			(at 4.91 1.4)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 625 "unconnected-(U7-GPIO38-Pad47)")
+			(net 344 "CORE_1V0_GOOD")
 			(uuid "af386e04-b74b-48c3-9313-db265f64083d")
 		)
 		(pad "48" smd rect
 			(at 4.91 1)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 626 "unconnected-(U7-GPIO39-Pad48)")
+			(net 620 "unconnected-(U7-GPIO39-Pad48)")
 			(uuid "1fe6a23c-55aa-4192-bfc5-1372360be014")
 		)
 		(pad "49" smd rect
@@ -64291,14 +64287,14 @@
 			(at 4.91 -2.6)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 711 "MON_VCCIO_1")
+			(net 705 "MON_VCCIO_1")
 			(uuid "7393e3ae-566c-49e7-b00b-bbd98f629063")
 		)
 		(pad "58" smd rect
 			(at 4.91 -3)
 			(size 0.665 0.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 712 "MON_VCCIO_2")
+			(net 706 "MON_VCCIO_2")
 			(uuid "31404a69-966f-4985-877d-b74025f9d19b")
 		)
 		(pad "59" smd rect
@@ -64354,14 +64350,14 @@
 			(at 1.8 -4.91)
 			(size 0.2 0.665)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 714 "USB_DM_MCU")
+			(net 708 "USB_DM_MCU")
 			(uuid "15b087bb-4569-440e-b623-e2fb0ef66765")
 		)
 		(pad "67" smd rect
 			(at 1.4 -4.91)
 			(size 0.2 0.665)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 715 "USB_DP_MCU")
+			(net 709 "USB_DP_MCU")
 			(uuid "cfd80247-8400-4995-ae27-da1c0ba71b3a")
 		)
 		(pad "68" smd rect
@@ -64850,7 +64846,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "aa05c60d-190e-4c6f-9700-20619c323da8")
-		(at 259.2 104.2 90)
+		(at 259.835 100.91 90)
 		(descr "100k resistor from VBUS5_OV1 to VBUS, for U34 (+5V source mux): U34 VBUS overvoltage backstop: VBUS is dropped above 5.3-5.9 V (5.63 V typical) if a source raises it unasked")
 		(tags "resistor")
 		(property "Reference" "R164"
@@ -64966,7 +64962,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 718 "VBUS5_OV1")
+			(net 712 "VBUS5_OV1")
 			(uuid "b9548fe1-7050-4808-b7c5-0e80f34610d5")
 		)
 		(embedded_fonts no)
@@ -65047,15 +65043,15 @@
 			)
 		)
 		(property "UI_LABEL" "FPGA JTAG"
-			(at 0 5.27 90)
+			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "aeb3feff-cd77-47a0-b443-3c73330c19db")
+			(uuid "13d4d21f-a963-48a4-8304-b2829a855a64")
 			(effects
 				(font
 					(size 1 1)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr through_hole)
@@ -65583,7 +65579,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 672 "SDRAM_CKE")
+			(net 666 "SDRAM_CKE")
 			(uuid "15e9a849-3488-4e34-93b8-28a6956ab56c")
 		)
 		(pad "2" smd roundrect
@@ -65610,7 +65606,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ab490d7a-24e5-4ea1-9dd7-be927d654f74")
-		(at 200.68125 88.93 90)
+		(at 201.48125 95.53 90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C118"
@@ -65877,7 +65873,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "e09be16a-ef55-442a-85e7-62292b058b6c")
 		)
 		(pad "2" smd roundrect
@@ -66051,7 +66047,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ad24e325-c052-44ea-b0cd-afa6b131a3ba")
-		(at 208 103.3 -90)
+		(at 208.8 109.9 -90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C125"
@@ -66261,7 +66257,7 @@
 		(property "UI_ROLE" "FPGA CLOCK\n50MHz"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "af855423-3a7b-4a1a-9f49-d4060ac44c44")
+			(uuid "e26247e6-873f-45c6-a0ee-3f90136dea86")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -66422,7 +66418,7 @@
 			(at 1.1 -0.88)
 			(size 1.4 1.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 629 "SYS_CLK_OSC")
+			(net 623 "SYS_CLK_OSC")
 			(uuid "c32ee184-3fd3-43c0-8757-0dc46de2da8c")
 		)
 		(pad "4" smd rect
@@ -66730,7 +66726,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "b05e5add-39a5-4d47-9ce7-73781e602258")
-		(at 205.02 96.3 180)
+		(at 205.82 102.9 180)
 		(descr "100nF bypass on +1V1, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C129"
@@ -66941,7 +66937,7 @@
 		(property "UI_LABEL" "LINK P"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "341bfe31-a470-4bd9-ba4b-a09131d4ac99")
+			(uuid "82f36c4e-9536-4884-ab53-2b5a602c01d0")
 			(effects
 				(font
 					(size 1 1)
@@ -66953,7 +66949,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "54a7cfc1-85ff-41df-9ecd-eadc3376e6b2")
+			(uuid "f5982f27-638a-4908-ba1a-e6c28d7e0bd4")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -67656,7 +67652,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "b279970c-254e-40c8-a84e-bca240dc7118")
-		(at 206.92 103.3 -90)
+		(at 207.72 109.9 -90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C123"
@@ -68001,13 +67997,13 @@
 		(property "UI_ROLE" "2V5 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3900dfac-871c-440a-a2ed-18a59faf8c51")
+			(uuid "c3632d58-67e0-4210-b47b-a033735de244")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -68173,7 +68169,7 @@
 	(footprint "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "b39d0a36-a1f0-416f-9de7-8040ef8e85ae")
-		(at 254.5 108)
+		(at 255.135 104.71)
 		(descr "mux: 9 V request hold: Small N-MOSFET that pulls U34's PR1 to ground while the board controller asks for 9 V and for 2-7 s after it stops (D24, R, C hold), so the +5V rail is on U11 before VBUS moves and until it is back at 5 V.")
 		(property "Reference" "Q6"
 			(at 0 -4.95 0)
@@ -68361,7 +68357,7 @@
 			(at 1.24 0.95)
 			(size 1.07 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 732 "SEL_IN2")
+			(net 726 "SEL_IN2")
 			(uuid "58527896-ee23-442a-b8fb-b5303ea4dbc9")
 		)
 		(pad "2" smd rect
@@ -68375,7 +68371,7 @@
 			(at -1.24 0)
 			(size 1.07 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 719 "VBUS5_PR1")
+			(net 713 "VBUS5_PR1")
 			(uuid "4dee19e2-e223-46d4-8496-f2b7852ab36a")
 		)
 		(embedded_fonts no)
@@ -68394,7 +68390,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "b3a1d216-4def-4412-88a9-0eb52b570ebb")
-		(at 230.17 94.77 -90)
+		(at 221.07 88.27 -90)
 		(descr "10k pull-up of PD_PG to +3V3, for U7 (board controller): CH224K: high when the charger accepted the request")
 		(tags "resistor")
 		(property "Reference" "R11"
@@ -68592,7 +68588,7 @@
 		(property "UI_LABEL" "KEY L"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "62bf19e0-888a-4506-b45e-e5b21edbe96b")
+			(uuid "23b7b305-51ff-46c7-a8c9-aa1dd352f4c2")
 			(effects
 				(font
 					(size 1 1)
@@ -68638,7 +68634,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "b41f6eba-f5ee-4b08-a599-42a4b7f55e7b")
-		(at 259.3 107.7 -90)
+		(at 259.935 104.41 -90)
 		(descr "23.2k resistor from VBUS5_OV1 to GND, for U34 (+5V source mux): U34 VBUS overvoltage backstop: VBUS is dropped above 5.3-5.9 V (5.63 V typical) if a source raises it unasked")
 		(tags "resistor")
 		(property "Reference" "R165"
@@ -68746,7 +68742,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 718 "VBUS5_OV1")
+			(net 712 "VBUS5_OV1")
 			(uuid "e3906fea-4a33-4f08-8925-498eb3993d81")
 		)
 		(pad "2" smd roundrect
@@ -68982,15 +68978,15 @@
 			)
 		)
 		(property "UI_LABEL" "USER 1"
-			(at 0 4.003 90)
+			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "f51f7e2c-afca-4c1c-b651-86db9a45577d")
+			(uuid "64525a4a-976d-4c3e-963c-e5c177d47dca")
 			(effects
 				(font
 					(size 1 1)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -69274,7 +69270,7 @@
 		(property "UI_LABEL" "ETH"
 			(at 0 10.895 0)
 			(layer "F.SilkS")
-			(uuid "34be1a2a-b72d-47f9-b154-b8c1b4da2c6f")
+			(uuid "74be3bd3-c68d-4169-bfd5-df1d2b79858c")
 			(effects
 				(font
 					(size 1 1)
@@ -69798,7 +69794,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 675 "SDRAM_CS_N")
+			(net 669 "SDRAM_CS_N")
 			(uuid "da7c4239-ca7d-4921-8602-faa6906bd067")
 		)
 		(embedded_fonts no)
@@ -70099,7 +70095,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "b5eb74f6-5b37-43f4-a2b2-4afbe3f46c61")
-		(at 221.64 107.665 -90)
+		(at 235.91 111.285 -90)
 		(descr "150k resistor from FB+1V0 to GND, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R68"
@@ -70445,7 +70441,7 @@
 		(property "UI_LABEL" "5V BUS 0"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "c1dd339e-427c-4979-b2f4-c87e0364285e")
+			(uuid "3b7ef61e-4a78-4485-8cf8-b46238f375bd")
 			(effects
 				(font
 					(size 1 1)
@@ -72111,7 +72107,7 @@
 			(size 1.15 2.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.217391)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "770b37b4-52c6-4556-a7ed-48b5a89510cd")
 		)
 		(pad "2" smd roundrect
@@ -72201,7 +72197,7 @@
 		(property "UI_ROLE" "PROGRAMMABLE LOGIC"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "2e047bc0-285c-46ca-8e7e-770405645a1d")
+			(uuid "86b14c24-216a-4157-a604-8ca050cc4fab")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -72213,7 +72209,7 @@
 		(property "PART_ID" "XC7A100T-2FGG676I"
 			(at 0 16 0)
 			(layer "F.SilkS")
-			(uuid "caed1c7d-79ec-40c9-b0f6-2f6e2d2d959d")
+			(uuid "c90a6718-dbca-447b-8c78-08c520cfefcb")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -79826,28 +79822,28 @@
 			(at -12.5 11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 634 "HDMI_CLK_N")
+			(net 628 "HDMI_CLK_N")
 			(uuid "c32c5d39-0f2f-4a63-ac35-69c028b983e8")
 		)
 		(pad "A3" smd circle
 			(at -12.5 10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 635 "HDMI_CLK_P")
+			(net 629 "HDMI_CLK_P")
 			(uuid "7b9fa0a0-40a6-4765-ba33-9b225ed28d2b")
 		)
 		(pad "A4" smd circle
 			(at -12.5 9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 646 "HDMI_SCL")
+			(net 640 "HDMI_SCL")
 			(uuid "2740e61a-dcf2-479a-abe8-ace366168c4f")
 		)
 		(pad "A5" smd circle
 			(at -12.5 8.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 641 "HDMI_D2_N")
+			(net 635 "HDMI_D2_N")
 			(uuid "688512ec-e497-44c1-999b-93ffe5aac180")
 		)
 		(pad "A6" smd circle
@@ -79861,7 +79857,7 @@
 			(at -12.5 6.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 616 "unconnected-(U1I-MGTPTXN0_216-PadA7)")
+			(net 614 "unconnected-(U1I-MGTPTXN0_216-PadA7)")
 			(uuid "6ea7928e-ffc4-439d-b1c4-8086b8fafa38")
 		)
 		(pad "A8" smd circle
@@ -80148,14 +80144,14 @@
 			(at 7.5 -8.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 655 "unconnected-(U1B-IO_L8P_T1_13-PadAA22)")
+			(net 649 "unconnected-(U1B-IO_L8P_T1_13-PadAA22)")
 			(uuid "956a6729-3213-479c-8f59-419efc897014")
 		)
 		(pad "AA23" smd circle
 			(at 7.5 -9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 654 "unconnected-(U1B-IO_L8N_T1_13-PadAA23)")
+			(net 648 "unconnected-(U1B-IO_L8N_T1_13-PadAA23)")
 			(uuid "a4f8788e-a88c-4cf8-a0c7-fb8b5a79d87d")
 		)
 		(pad "AA24" smd circle
@@ -80533,7 +80529,7 @@
 			(at 9.5 -11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "2a062e6c-1bf9-4331-950f-57c78ccf044a")
 		)
 		(pad "AC26" smd circle
@@ -81093,14 +81089,14 @@
 			(at -11.5 12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 637 "HDMI_D0_N")
+			(net 631 "HDMI_D0_N")
 			(uuid "73e680d5-72c7-41fd-9a4f-a96c62fc1a5d")
 		)
 		(pad "B2" smd circle
 			(at -11.5 11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 632 "HDMI_CEC")
+			(net 626 "HDMI_CEC")
 			(uuid "4619e415-c726-4333-98d7-95e0a256670b")
 		)
 		(pad "B3" smd circle
@@ -81114,14 +81110,14 @@
 			(at -11.5 9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 643 "HDMI_HPD")
+			(net 637 "HDMI_HPD")
 			(uuid "81c73f2b-5a76-4283-b0a4-19cba56af219")
 		)
 		(pad "B5" smd circle
 			(at -11.5 8.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 642 "HDMI_D2_P")
+			(net 636 "HDMI_D2_P")
 			(uuid "f2080451-cc95-4f75-95be-a1cdea728a5b")
 		)
 		(pad "B6" smd circle
@@ -81135,7 +81131,7 @@
 			(at -11.5 6.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 618 "unconnected-(U1I-MGTPTXP0_216-PadB7)")
+			(net 616 "unconnected-(U1I-MGTPTXP0_216-PadB7)")
 			(uuid "f13fa5cc-d232-4b03-8828-12f3eb48b54b")
 		)
 		(pad "B8" smd circle
@@ -81275,21 +81271,21 @@
 			(at -10.5 12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 638 "HDMI_D0_P")
+			(net 632 "HDMI_D0_P")
 			(uuid "61b36420-8a64-425b-ba23-f9420178f838")
 		)
 		(pad "C2" smd circle
 			(at -10.5 11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 648 "HDMI_SDA")
+			(net 642 "HDMI_SDA")
 			(uuid "4d8c8ad0-8b24-463b-a7b8-39134f4e8a67")
 		)
 		(pad "C3" smd circle
 			(at -10.5 10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 693 "SDRAM_RAS_N")
+			(net 687 "SDRAM_RAS_N")
 			(uuid "41b5f370-0f57-4bb9-bd07-c60c0ee6d12e")
 		)
 		(pad "C4" smd circle
@@ -81324,7 +81320,7 @@
 			(at -10.5 5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 617 "unconnected-(U1I-MGTPTXN1_216-PadC8)")
+			(net 615 "unconnected-(U1I-MGTPTXN1_216-PadC8)")
 			(uuid "d26f4c8b-7adc-4223-a26e-2945050ef631")
 		)
 		(pad "C9" smd circle
@@ -81457,7 +81453,7 @@
 			(at -9.5 12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 639 "HDMI_D1_N")
+			(net 633 "HDMI_D1_N")
 			(uuid "9af324be-594e-4b8d-9162-68ad9e59a1fb")
 		)
 		(pad "D2" smd circle
@@ -81471,7 +81467,7 @@
 			(at -9.5 10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 675 "SDRAM_CS_N")
+			(net 669 "SDRAM_CS_N")
 			(uuid "2229f44c-795f-48fc-bfdc-e4362e15e9fc")
 		)
 		(pad "D4" smd circle
@@ -81492,7 +81488,7 @@
 			(at -9.5 7.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 677 "SDRAM_DQ1")
+			(net 671 "SDRAM_DQ1")
 			(uuid "f6f0f50c-7998-49e9-8490-72170ae7af1a")
 		)
 		(pad "D7" smd circle
@@ -81506,7 +81502,7 @@
 			(at -9.5 5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 619 "unconnected-(U1I-MGTPTXP1_216-PadD8)")
+			(net 617 "unconnected-(U1I-MGTPTXP1_216-PadD8)")
 			(uuid "81987cde-058e-4531-89ec-ed9bd24652cd")
 		)
 		(pad "D9" smd circle
@@ -81639,21 +81635,21 @@
 			(at -8.5 12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 640 "HDMI_D1_P")
+			(net 634 "HDMI_D1_P")
 			(uuid "c81686e8-6d4c-4bd7-a777-b3c9fb117528")
 		)
 		(pad "E2" smd circle
 			(at -8.5 11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 645 "HDMI_LS_OE")
+			(net 639 "HDMI_LS_OE")
 			(uuid "b2a73064-f2a5-472a-8ddd-e903019a1059")
 		)
 		(pad "E3" smd circle
 			(at -8.5 10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 695 "SDRAM_WE_N")
+			(net 689 "SDRAM_WE_N")
 			(uuid "091c77f2-d071-4f09-accc-ab5171c5efc1")
 		)
 		(pad "E4" smd circle
@@ -81674,7 +81670,7 @@
 			(at -8.5 7.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 676 "SDRAM_DQ0")
+			(net 670 "SDRAM_DQ0")
 			(uuid "cec1f3f8-8563-490d-bef3-0707068397a1")
 		)
 		(pad "E7" smd circle
@@ -81709,7 +81705,7 @@
 			(at -8.5 2.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 620 "unconnected-(U1I-MGTREFCLK0N_216-PadE11)")
+			(net 618 "unconnected-(U1I-MGTREFCLK0N_216-PadE11)")
 			(uuid "40d892b3-fe34-4204-bb4b-275193b4385a")
 		)
 		(pad "E12" smd circle
@@ -81828,14 +81824,14 @@
 			(at -7.5 11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 636 "HDMI_CT_HPD")
+			(net 630 "HDMI_CT_HPD")
 			(uuid "fc1ddb0b-2c7c-436b-a606-038c511aecd1")
 		)
 		(pad "F3" smd circle
 			(at -7.5 10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 671 "SDRAM_CAS_N")
+			(net 665 "SDRAM_CAS_N")
 			(uuid "4663f874-bee1-4083-98ff-581250f4cd7c")
 		)
 		(pad "F4" smd circle
@@ -81863,14 +81859,14 @@
 			(at -7.5 6.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 683 "SDRAM_DQ7")
+			(net 677 "SDRAM_DQ7")
 			(uuid "d76a3e0f-386d-4320-949d-60d030d57d5c")
 		)
 		(pad "F8" smd circle
 			(at -7.5 5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 682 "SDRAM_DQ6")
+			(net 676 "SDRAM_DQ6")
 			(uuid "90b26ab6-acc6-40d9-baf9-4bd953f3b719")
 		)
 		(pad "F9" smd circle
@@ -81891,7 +81887,7 @@
 			(at -7.5 2.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 621 "unconnected-(U1I-MGTREFCLK0P_216-PadF11)")
+			(net 619 "unconnected-(U1I-MGTREFCLK0P_216-PadF11)")
 			(uuid "a29faeba-4ac4-4b30-8ec8-908bd0126c41")
 		)
 		(pad "F12" smd circle
@@ -82038,28 +82034,28 @@
 			(at -6.5 7.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 685 "SDRAM_DQ9")
+			(net 679 "SDRAM_DQ9")
 			(uuid "4b5b4af1-0141-47d0-ba80-f37d1d183e04")
 		)
 		(pad "G7" smd circle
 			(at -6.5 6.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 681 "SDRAM_DQ5")
+			(net 675 "SDRAM_DQ5")
 			(uuid "fa08cb4e-503c-4ac8-adf1-ac990978716b")
 		)
 		(pad "G8" smd circle
 			(at -6.5 5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 679 "SDRAM_DQ3")
+			(net 673 "SDRAM_DQ3")
 			(uuid "2f095e45-a38b-4237-af3d-4fb8a66bc244")
 		)
 		(pad "G9" smd circle
 			(at -6.5 4.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 687 "SDRAM_DQ11")
+			(net 681 "SDRAM_DQ11")
 			(uuid "f28657b2-e586-43d9-ad87-717dc6332fc3")
 		)
 		(pad "G10" smd circle
@@ -82206,7 +82202,7 @@
 			(at -5.5 9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 694 "SDRAM_UDQM")
+			(net 688 "SDRAM_UDQM")
 			(uuid "66d66b15-8775-4a2d-bf67-b7518a8ae2fe")
 		)
 		(pad "H5" smd circle
@@ -82220,28 +82216,28 @@
 			(at -5.5 7.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 684 "SDRAM_DQ8")
+			(net 678 "SDRAM_DQ8")
 			(uuid "9a31e7cc-164d-4132-bc75-a91dc990bff6")
 		)
 		(pad "H7" smd circle
 			(at -5.5 6.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 680 "SDRAM_DQ4")
+			(net 674 "SDRAM_DQ4")
 			(uuid "e6f37a20-a203-4bb6-9c41-f258f0f4dc3f")
 		)
 		(pad "H8" smd circle
 			(at -5.5 5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 678 "SDRAM_DQ2")
+			(net 672 "SDRAM_DQ2")
 			(uuid "f01feed5-871e-4be1-b887-2ff3fa3bb9d5")
 		)
 		(pad "H9" smd circle
 			(at -5.5 4.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 686 "SDRAM_DQ10")
+			(net 680 "SDRAM_DQ10")
 			(uuid "291c41bd-07c3-4a31-8771-1e5f3eba842d")
 		)
 		(pad "H10" smd circle
@@ -82388,21 +82384,21 @@
 			(at -4.5 9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 692 "SDRAM_LDQM")
+			(net 686 "SDRAM_LDQM")
 			(uuid "4d879fba-eb71-4909-b50f-46f18b2244cb")
 		)
 		(pad "J5" smd circle
 			(at -4.5 8.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 689 "SDRAM_DQ13")
+			(net 683 "SDRAM_DQ13")
 			(uuid "dbe37352-433b-46ce-977c-15c9754c7505")
 		)
 		(pad "J6" smd circle
 			(at -4.5 7.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 688 "SDRAM_DQ12")
+			(net 682 "SDRAM_DQ12")
 			(uuid "827d6acb-e004-4400-a3bf-f7b9c7008984")
 		)
 		(pad "J7" smd circle
@@ -82584,21 +82580,21 @@
 			(at -3.5 7.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 672 "SDRAM_CKE")
+			(net 666 "SDRAM_CKE")
 			(uuid "4e1be762-c16f-47af-95ed-26f895a3f7fa")
 		)
 		(pad "K7" smd circle
 			(at -3.5 6.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 673 "SDRAM_CLK")
+			(net 667 "SDRAM_CLK")
 			(uuid "2f4f2e59-dfcd-4493-b012-c67d736977b4")
 		)
 		(pad "K8" smd circle
 			(at -3.5 5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 691 "SDRAM_DQ15")
+			(net 685 "SDRAM_DQ15")
 			(uuid "2b0f21d8-afd4-4fc5-8e68-2336b3dfd88e")
 		)
 		(pad "K9" smd circle
@@ -82717,14 +82713,14 @@
 			(at -3.5 -11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 697 "MRAM_CS")
+			(net 691 "MRAM_CS")
 			(uuid "752e1415-ca00-44e0-84a1-f87d1fa02b57")
 		)
 		(pad "K26" smd circle
 			(at -3.5 -12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 699 "MRAM_SCK")
+			(net 693 "MRAM_SCK")
 			(uuid "70ef89fe-9139-45a1-84d5-9ea0b1e42d3c")
 		)
 		(pad "L1" smd circle
@@ -82780,7 +82776,7 @@
 			(at -2.5 5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 690 "SDRAM_DQ14")
+			(net 684 "SDRAM_DQ14")
 			(uuid "72ad3c4c-0cc5-453f-bbe0-0917d52ff8f7")
 		)
 		(pad "L9" smd circle
@@ -82878,28 +82874,28 @@
 			(at -2.5 -8.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 704 "SD_CS")
+			(net 698 "SD_CS")
 			(uuid "f506edbe-0ff9-4eaa-a9c8-d7aa62df18d9")
 		)
 		(pad "L23" smd circle
 			(at -2.5 -9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 709 "SD_SCK")
+			(net 703 "SD_SCK")
 			(uuid "9edcbba9-1927-408e-8ed5-81d670bd092a")
 		)
 		(pad "L24" smd circle
 			(at -2.5 -10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 700 "MRAM_SI")
+			(net 694 "MRAM_SI")
 			(uuid "c5e22da1-d120-4ac5-a19b-6011f07095f9")
 		)
 		(pad "L25" smd circle
 			(at -2.5 -11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 701 "MRAM_SO")
+			(net 695 "MRAM_SO")
 			(uuid "a3aa007f-dd68-45b1-a45c-d5004da0a8c3")
 		)
 		(pad "L26" smd circle
@@ -83039,7 +83035,7 @@
 			(at -1.5 -5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 606 "unconnected-(U1C-IO_0_14-PadM19)")
+			(net 604 "unconnected-(U1C-IO_0_14-PadM19)")
 			(uuid "eae877f8-1431-47b5-94eb-05c8df020ebb")
 		)
 		(pad "M20" smd circle
@@ -83053,14 +83049,14 @@
 			(at -1.5 -7.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 628 "SYS_CLK")
+			(net 622 "SYS_CLK")
 			(uuid "262194d6-fe8b-4ec2-9c69-cac567547ab3")
 		)
 		(pad "M22" smd circle
 			(at -1.5 -8.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 630 "unconnected-(U1C-IO_L12N_T1_MRCC_14-PadM22)")
+			(net 624 "unconnected-(U1C-IO_L12N_T1_MRCC_14-PadM22)")
 			(uuid "0cb1f589-f3d0-4ad3-af55-2b9807136c34")
 		)
 		(pad "M23" smd circle
@@ -83074,21 +83070,21 @@
 			(at -1.5 -10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 664 "SDRAM_A8")
+			(net 658 "SDRAM_A8")
 			(uuid "1e36c025-00a6-48af-8b25-c5b0c5b516e6")
 		)
 		(pad "M25" smd circle
 			(at -1.5 -11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 660 "SDRAM_A4")
+			(net 654 "SDRAM_A4")
 			(uuid "675fe4b1-c76f-48b8-923b-11b34b617e3e")
 		)
 		(pad "M26" smd circle
 			(at -1.5 -12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 656 "SDRAM_A0")
+			(net 650 "SDRAM_A0")
 			(uuid "5f2d904e-8814-4556-ba3e-cee3f519acf6")
 		)
 		(pad "N1" smd circle
@@ -83200,14 +83196,14 @@
 			(at -0.5 -2.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 609 "unconnected-(U1C-IO_L4P_T0_D04_14-PadN16)")
+			(net 607 "unconnected-(U1C-IO_L4P_T0_D04_14-PadN16)")
 			(uuid "2e4d9b4a-480e-441c-b8db-9fb002948bbf")
 		)
 		(pad "N17" smd circle
 			(at -0.5 -3.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 608 "unconnected-(U1C-IO_L4N_T0_D05_14-PadN17)")
+			(net 606 "unconnected-(U1C-IO_L4N_T0_D05_14-PadN17)")
 			(uuid "9eccf5d0-d3de-4758-9c4a-16344b41cfaf")
 		)
 		(pad "N18" smd circle
@@ -83221,7 +83217,7 @@
 			(at -0.5 -5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 612 "unconnected-(U1C-IO_L16N_T2_A15_D31_14-PadN19)")
+			(net 610 "unconnected-(U1C-IO_L16N_T2_A15_D31_14-PadN19)")
 			(uuid "ee8a42eb-d4b5-4bd0-ba0d-674e21616f3e")
 		)
 		(pad "N20" smd circle
@@ -83249,14 +83245,14 @@
 			(at -0.5 -9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 668 "SDRAM_A12")
+			(net 662 "SDRAM_A12")
 			(uuid "4bd9bda3-842b-4e22-8251-f8c622fdf5f9")
 		)
 		(pad "N24" smd circle
 			(at -0.5 -10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 665 "SDRAM_A9")
+			(net 659 "SDRAM_A9")
 			(uuid "2454b11b-e057-47ef-a4db-d71556e85b20")
 		)
 		(pad "N25" smd circle
@@ -83270,7 +83266,7 @@
 			(at -0.5 -12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 657 "SDRAM_A1")
+			(net 651 "SDRAM_A1")
 			(uuid "580184c0-d8c7-4b45-93cf-604b28635503")
 		)
 		(pad "P1" smd circle
@@ -83382,7 +83378,7 @@
 			(at 0.5 -2.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 607 "unconnected-(U1C-IO_L3N_T0_DQS_EMCCLK_14-PadP16)")
+			(net 605 "unconnected-(U1C-IO_L3N_T0_DQS_EMCCLK_14-PadP16)")
 			(uuid "c5d50201-e60a-4cff-8f07-7e1747e2cc93")
 		)
 		(pad "P17" smd circle
@@ -83403,7 +83399,7 @@
 			(at 0.5 -5.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 613 "unconnected-(U1C-IO_L16P_T2_CSI_B_14-PadP19)")
+			(net 611 "unconnected-(U1C-IO_L16P_T2_CSI_B_14-PadP19)")
 			(uuid "0b34ae84-571b-4ebd-b527-4809a4dd180e")
 		)
 		(pad "P20" smd circle
@@ -83431,28 +83427,28 @@
 			(at 0.5 -9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 669 "SDRAM_BA0")
+			(net 663 "SDRAM_BA0")
 			(uuid "a494c3b3-5e23-4089-8001-a4fe552611a4")
 		)
 		(pad "P24" smd circle
 			(at 0.5 -10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 666 "SDRAM_A10")
+			(net 660 "SDRAM_A10")
 			(uuid "c441d099-3ec7-4d8c-8d4a-755135347d3e")
 		)
 		(pad "P25" smd circle
 			(at 0.5 -11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 661 "SDRAM_A5")
+			(net 655 "SDRAM_A5")
 			(uuid "30b95e99-e5a5-43a7-a129-fad709c2e9ef")
 		)
 		(pad "P26" smd circle
 			(at 0.5 -12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 658 "SDRAM_A2")
+			(net 652 "SDRAM_A2")
 			(uuid "ecfdad6f-f920-4eb4-9f00-ca6ae143c622")
 		)
 		(pad "R1" smd circle
@@ -83564,14 +83560,14 @@
 			(at 1.5 -2.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 611 "unconnected-(U1C-IO_L5P_T0_D06_14-PadR16)")
+			(net 609 "unconnected-(U1C-IO_L5P_T0_D06_14-PadR16)")
 			(uuid "37f7b026-dbbc-4cd5-9a94-ed206cb6c481")
 		)
 		(pad "R17" smd circle
 			(at 1.5 -3.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 610 "unconnected-(U1C-IO_L5N_T0_D07_14-PadR17)")
+			(net 608 "unconnected-(U1C-IO_L5N_T0_D07_14-PadR17)")
 			(uuid "b01baadb-363f-4f4f-bf03-62a264a0ebd3")
 		)
 		(pad "R18" smd circle
@@ -83592,28 +83588,28 @@
 			(at 1.5 -6.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 615 "unconnected-(U1C-IO_L18P_T2_A12_D28_14-PadR20)")
+			(net 613 "unconnected-(U1C-IO_L18P_T2_A12_D28_14-PadR20)")
 			(uuid "5511d1ce-296d-4d73-8b21-f8b858a77dec")
 		)
 		(pad "R21" smd circle
 			(at 1.5 -7.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 614 "unconnected-(U1C-IO_L18N_T2_A11_D27_14-PadR21)")
+			(net 612 "unconnected-(U1C-IO_L18N_T2_A11_D27_14-PadR21)")
 			(uuid "4cdaceda-1dfb-41ae-8d99-161186c37def")
 		)
 		(pad "R22" smd circle
 			(at 1.5 -8.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 707 "SD_MISO")
+			(net 701 "SD_MISO")
 			(uuid "61fab89f-7260-47e5-a808-62369499807f")
 		)
 		(pad "R23" smd circle
 			(at 1.5 -9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 670 "SDRAM_BA1")
+			(net 664 "SDRAM_BA1")
 			(uuid "1b72ca9d-da48-4fc2-aa70-b4a0b1a71368")
 		)
 		(pad "R24" smd circle
@@ -83627,14 +83623,14 @@
 			(at 1.5 -11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 662 "SDRAM_A6")
+			(net 656 "SDRAM_A6")
 			(uuid "3d58394e-7dcc-4857-a621-36a52afc4b6b")
 		)
 		(pad "R26" smd circle
 			(at 1.5 -12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 659 "SDRAM_A3")
+			(net 653 "SDRAM_A3")
 			(uuid "f8479962-05d3-49fd-96a7-6e075eb4298a")
 		)
 		(pad "T1" smd circle
@@ -83746,7 +83742,7 @@
 			(at 2.5 -2.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "36548511-9111-4e19-9464-45b5f4c4ff5a")
 		)
 		(pad "T17" smd circle
@@ -83788,35 +83784,35 @@
 			(at 2.5 -8.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 708 "SD_MOSI")
+			(net 702 "SD_MOSI")
 			(uuid "6a186952-9557-4e79-904c-d6ffacdd4a59")
 		)
 		(pad "T23" smd circle
 			(at 2.5 -9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 703 "SD_CD")
+			(net 697 "SD_CD")
 			(uuid "5c8f4e48-6366-40c5-a41b-aa71a1eb7542")
 		)
 		(pad "T24" smd circle
 			(at 2.5 -10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 667 "SDRAM_A11")
+			(net 661 "SDRAM_A11")
 			(uuid "65b49ced-488d-4e0a-8687-4c13d558aa35")
 		)
 		(pad "T25" smd circle
 			(at 2.5 -11.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 663 "SDRAM_A7")
+			(net 657 "SDRAM_A7")
 			(uuid "97f8606e-3b38-497b-9271-65e1748564b8")
 		)
 		(pad "T26" smd circle
 			(at 2.5 -12.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "337318e6-2ecf-496b-a273-999f2c37b99e")
 		)
 		(pad "U1" smd circle
@@ -83977,7 +83973,7 @@
 			(at 3.5 -9.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "2d90b508-4cd8-4cb4-9956-37d91d73759f")
 		)
 		(pad "U24" smd circle
@@ -84138,7 +84134,7 @@
 			(at 4.5 -6.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "4e63c6ed-f55d-499b-b9fe-f19ebf51a72d")
 		)
 		(pad "V21" smd circle
@@ -84530,7 +84526,7 @@
 			(at 6.5 -10.5 90)
 			(size 0.45 0.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "1eb0cee5-1bec-4677-8f80-e7fb449205a5")
 		)
 		(pad "Y25" smd circle
@@ -84563,7 +84559,7 @@
 	(footprint "EasyEDA:SMA_L4.3-W2.6-LS5.2-RD"
 		(layer "F.Cu")
 		(uuid "bc156b82-021f-4c39-a5a8-30f3436d045f")
-		(at 242.9 96.1 180)
+		(at 236.64 94.84 180)
 		(descr "USB input diode: SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB.")
 		(property "Reference" "D3"
 			(at 0 -4 0)
@@ -84792,7 +84788,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "bcf22427-c559-4e1c-9399-690af52f94df")
-		(at 209.475 115.7 180)
+		(at 209.575 119.2 180)
 		(descr "33 series resistor between CFG_CCLK and SUP_CCLK, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R21"
@@ -84939,7 +84935,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "bd83d0e4-4d0c-4f0d-b65e-8d2e66ddb04f")
-		(at 206.95125 88.36 -90)
+		(at 207.75125 94.96 -90)
 		(descr "4.7uF bypass on SUP_VREG_AVDD: filtered analog supply for the RP2350's regulator")
 		(tags "capacitor")
 		(property "Reference" "C132"
@@ -85285,7 +85281,7 @@
 		(property "UI_LABEL" "E | F | G | H"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "fc85a396-3266-47ec-bab4-517eb976aae3")
+			(uuid "48467b21-314b-4964-8e9d-ea3fb1f146b4")
 			(effects
 				(font
 					(size 1 1)
@@ -86377,7 +86373,7 @@
 		(property "UI_LABEL" "LINK Q"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "401cba0e-6385-4ef2-b79e-52562a7dc5d5")
+			(uuid "1ab7adb8-2803-48a9-965f-43042da3b1b0")
 			(effects
 				(font
 					(size 1 1)
@@ -86389,7 +86385,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "c9e03a45-286c-4dda-9c32-ddb55f26d84d")
+			(uuid "82faf1aa-e2a6-477a-945c-55d96ce699cb")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -86801,7 +86797,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 704 "SD_CS")
+			(net 698 "SD_CS")
 			(uuid "f9c6e222-9bcc-40f4-9671-a2bfc1ef2b1e")
 		)
 		(embedded_fonts no)
@@ -86940,7 +86936,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "35e576ea-6229-4d90-83e0-4975a3da017d")
 		)
 		(pad "2" smd roundrect
@@ -87075,7 +87071,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "f0793a4b-875a-42c2-9bc1-d86d2c7d0d7d")
 		)
 		(pad "2" smd roundrect
@@ -87313,7 +87309,7 @@
 		(property "UI_LABEL" "5V BUS 1"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "e8f00ae2-93e5-481e-a1e9-7f3e1b6d2401")
+			(uuid "52adb4fe-8035-42fd-96ef-9f625297cd91")
 			(effects
 				(font
 					(size 1 1)
@@ -87848,7 +87844,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 697 "MRAM_CS")
+			(net 691 "MRAM_CS")
 			(uuid "f0880c2e-c8f2-4aa3-98a8-f898e177e366")
 		)
 		(embedded_fonts no)
@@ -87867,7 +87863,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c29104c1-49b1-4a4b-b738-8ca40e89b0d7")
-		(at 205.02 97.6 180)
+		(at 205.82 104.2 180)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C120"
@@ -88211,9 +88207,9 @@
 			)
 		)
 		(property "UI_LABEL" "AUX IN 9-28V UNREGULATED\nYOUR RAIL, YOUR PROBLEM"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "28b5612a-620c-4a3c-8c37-31453e2603c2")
+			(uuid "5b1b6b27-333f-46d5-ba1b-724beadbee41")
 			(effects
 				(font
 					(size 1 1)
@@ -88223,9 +88219,9 @@
 			)
 		)
 		(property "UI_PINS" "AUX +\nGND"
-			(at -4 0 90)
+			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "20cac5ee-6423-430e-8552-6f4d65a9319c")
+			(uuid "b849c5a7-e129-46cd-ad6f-b2d131a426d8")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -88493,7 +88489,7 @@
 	(footprint "EasyEDA:ESSOP-10_L4.9-W3.9-P1.0-LS6.0-TL-EP"
 		(layer "F.Cu")
 		(uuid "c3d36afc-75cf-489b-a9c1-b72c6ebdbf65")
-		(at 233.4 97.9)
+		(at 224.3 91.4)
 		(descr "USB-PD negotiator: WCH CH224K: asks a USB-PD charger for 5 V by default, or 9 V when the board controller turns Q3 on. Its pins cannot form any higher request.")
 		(property "Reference" "U18"
 			(at 0 -7 0)
@@ -88556,7 +88552,7 @@
 		(property "UI_ROLE" "USB POWER REQUEST"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "ba4fa8fb-bf7f-4b6b-a6a3-43149f18dc0d")
+			(uuid "7c062b55-1d44-495f-abe2-409c5f82fa0e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -89753,7 +89749,7 @@
 			(at -1.35 0 270)
 			(size 1.1 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 604 "unconnected-(D22-NC-Pad5)")
+			(net 602 "unconnected-(D22-NC-Pad5)")
 			(uuid "5859ecb6-a11f-4b37-b4bb-ee2c8ee13616")
 		)
 		(pad "6" smd rect
@@ -89779,7 +89775,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "c5d479d0-48a3-44a0-8781-c7f234e514c3")
-		(at 224.15 112.3 90)
+		(at 238.26 114.385 90)
 		(descr "10 resistor from CORE_1V0_SVIN to +5V, for U15 (FPGA core regulator): filtered supply for U15's control circuit")
 		(tags "resistor")
 		(property "Reference" "R65"
@@ -90186,7 +90182,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c6f68c43-49f0-4e5f-b585-6d7fed68ae86")
-		(at 201.82125 88.93 90)
+		(at 202.62125 95.53 90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C117"
@@ -90333,7 +90329,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c761ffb6-cea3-4fd9-a704-31cff3f1f858")
-		(at 220.75 91.74)
+		(at 221.55 98.34)
 		(descr "100nF filter capacitor on MON_1V0, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C230"
@@ -90615,7 +90611,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c811cdfa-9259-4d6f-ab77-0cc477ab58c3")
-		(at 224.97 109.915 180)
+		(at 239.08 112 180)
 		(descr "1nF capacitor from CORE_1V0_SS to GND, for U15 (FPGA core regulator): U15 soft-start: slows the core supply's ramp")
 		(tags "capacitor")
 		(property "Reference" "C209"
@@ -90813,13 +90809,13 @@
 		(property "UI_ROLE" "5V BUS 1 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "d5a8b3f4-908d-440d-ad40-5f909b618bde")
+			(uuid "30f7d0ce-2f81-478f-9c2c-59607ed10317")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -90962,7 +90958,7 @@
 			(at -3.58 2.78 180)
 			(size 0.364 1.71)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "3b41a68a-b941-4cf4-858c-e36f637e2edc")
 		)
 		(pad "2" smd oval
@@ -91262,7 +91258,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 629 "SYS_CLK_OSC")
+			(net 623 "SYS_CLK_OSC")
 			(uuid "81d53c30-05b7-4a8e-bbb5-98de2e199a86")
 		)
 		(pad "2" smd roundrect
@@ -91270,7 +91266,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 628 "SYS_CLK")
+			(net 622 "SYS_CLK")
 			(uuid "3dae898e-03d9-4c18-b9cb-49ded41c34b3")
 		)
 		(embedded_fonts no)
@@ -91436,7 +91432,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ca5f2df8-706f-45ff-91b1-4d037de39973")
-		(at 259.33 110.89 -90)
+		(at 259.965 107.6 -90)
 		(descr "100k series resistor between EXT_PRESENT and VIN_EXT, for J50 (POWER IN screw terminal): Q7's gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT")
 		(tags "resistor")
 		(property "Reference" "R201"
@@ -91552,7 +91548,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 731 "EXT_PRESENT")
+			(net 725 "EXT_PRESENT")
 			(uuid "7847a665-3c90-4839-bcfe-7f0ef2ddc755")
 		)
 		(embedded_fonts no)
@@ -91571,7 +91567,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ca83a37c-a8a4-4131-a2d0-8cae3ce637fe")
-		(at 262.23 101.6)
+		(at 262.865 98.31)
 		(descr "100nF 25V bypass on VBUS, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C264"
@@ -93794,7 +93790,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "d56ad9ab-6ba9-4a53-be8f-81eebe03df70")
-		(at 220.74125 100.8)
+		(at 221.54125 107.4)
 		(descr "100nF filter capacitor on MON_3V3, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C227"
@@ -94088,7 +94084,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "d5f03581-a080-4d7f-86ab-45567d1e65b4")
-		(at 218.38 100.39)
+		(at 219.18 106.99)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C126"
@@ -94235,7 +94231,7 @@
 	(footprint "EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL"
 		(layer "F.Cu")
 		(uuid "d6e62cfe-e2e6-496e-92e2-ffb3b8dbd759")
-		(at 261.68 86.68 90)
+		(at 264.18 84.43 90)
 		(descr "JTAG switch: TI SN74CB3Q3384 bus switch: connects or isolates the board controller's JTAG from the FPGA, set by J52.")
 		(property "Reference" "U20"
 			(at 0 -7.023 90)
@@ -94298,7 +94294,7 @@
 		(property "UI_ROLE" "JTAG OWNER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "57009ab8-74ec-40e4-b068-c609c15334ad")
+			(uuid "d08ac635-a8c4-4adf-b0c7-b6f9dba50e2c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -94658,7 +94654,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "d6edac5b-e0c1-4c5d-9536-9146de7be84c")
-		(at 239.7 107.67)
+		(at 253.3 111.27)
 		(descr "19.1k resistor from FB_5V to GND, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R56"
@@ -95165,7 +95161,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "d92810ad-05d6-4a15-9240-65609f8a0788")
-		(at 218.38 92.12)
+		(at 219.18 98.72)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C119"
@@ -95312,7 +95308,7 @@
 	(footprint "EasyEDA:CRYSTAL-SMD_4P-L3.2-W2.5-BL"
 		(layer "F.Cu")
 		(uuid "d978d681-386e-46dc-842b-f4bab4fd426f")
-		(at 210.585 103.915 180)
+		(at 211.385 110.515 180)
 		(descr "controller 12 MHz crystal: Abracon ABM8-272-T3, the crystal Raspberry Pi specifies for the RP2350.")
 		(property "Reference" "Y1"
 			(at 0 -4.85 0)
@@ -95697,7 +95693,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "da38d0c3-9b76-4a1d-a156-db7b92532883")
-		(at 231.71 108.585 -90)
+		(at 245.82 110.67 -90)
 		(descr "22uF bypass on +1V0, for U15 (FPGA core regulator)")
 		(tags "capacitor")
 		(property "Reference" "C211"
@@ -95844,7 +95840,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "da3e4f37-3476-4837-a4c8-428643e3b420")
-		(at 266.99 85.58 180)
+		(at 269.49 83.33 180)
 		(descr "33 series resistor between SUP_JTAG_TDO and SWJ_TDO, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R17"
@@ -96659,7 +96655,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 707 "SD_MISO")
+			(net 701 "SD_MISO")
 			(uuid "672be89b-a9d6-48c9-8396-f5dbee51e2f5")
 		)
 		(embedded_fonts no)
@@ -97324,7 +97320,7 @@
 		(property "UI_LABEL" "KEY H"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "cee0fd1f-9bb0-4ddb-8dad-a68262389b1a")
+			(uuid "1f4d1029-58c4-4617-b37a-82db06853b7e")
 			(effects
 				(font
 					(size 1 1)
@@ -97478,7 +97474,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "024983c5-49fd-432e-88ba-85af193ca8d5")
 		)
 		(pad "2" smd roundrect
@@ -97971,15 +97967,15 @@
 			)
 		)
 		(property "UI_ROLE" "1V2 SUPPLY\nTRANSCEIVERS"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "969632e3-e175-4632-9e68-f2dd5fcfc059")
+			(uuid "94a6922b-25a5-4bdb-b986-5e8e4377fa95")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -98280,7 +98276,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "e2f3377b-c33c-4672-af82-157f272b2988")
-		(at 266.99 89.45 180)
+		(at 269.49 87.2 180)
 		(descr "33 series resistor between SUP_JTAG_TCK and SWJ_TCK, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R14"
@@ -98574,7 +98570,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e461af2b-ffde-43c6-b423-14a0fc5b8281")
-		(at 224.4 108.435)
+		(at 238.51 110.52)
 		(descr "100k resistor from FB+1V0 to +1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R67"
@@ -98829,7 +98825,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "6bd2df46-629e-4f70-8cd1-f0873bbc9deb")
 		)
 		(pad "2" smd roundrect
@@ -98856,7 +98852,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "e511d979-513c-41f8-9614-788a38f62bb8")
-		(at 205 99.3 180)
+		(at 205.8 105.9 180)
 		(descr "33 series resistor between DBG_TCK and SUP_DBG_TCK, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R27"
@@ -99003,7 +98999,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e5ee0c86-b200-4953-a148-ead6b6d00103")
-		(at 257.63 110.91 90)
+		(at 258.265 107.62 90)
 		(descr "470k resistor from SEL_IN2 to GND, for Q6 (mux: 9 V request hold): Q6's gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s")
 		(tags "resistor")
 		(property "Reference" "R200"
@@ -99111,7 +99107,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 732 "SEL_IN2")
+			(net 726 "SEL_IN2")
 			(uuid "46438e7c-04c9-4589-9871-fdf6f754ab6d")
 		)
 		(pad "2" smd roundrect
@@ -99138,7 +99134,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e60e3c57-1730-4b09-9b07-bb8d55b6eeb8")
-		(at 239.54 110.4 90)
+		(at 253.14 114 90)
 		(descr "100k series resistor between +5V_BUCK and FB_5V, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R55"
@@ -99246,7 +99242,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 710 "+5V_BUCK")
+			(net 704 "+5V_BUCK")
 			(uuid "b37f8059-8f19-40aa-9cd5-013622e012fd")
 		)
 		(pad "2" smd roundrect
@@ -99702,7 +99698,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "e8dd446a-c42e-4b28-82ab-bf7ceb437d34")
-		(at 208 105.3 90)
+		(at 208.8 111.9 90)
 		(descr "15 pF load capacitor on the 12 MHz crystal's output (RP-008280 section 4)")
 		(tags "capacitor")
 		(property "Reference" "C134"
@@ -99898,15 +99894,15 @@
 			)
 		)
 		(property "UI_ROLE" "1V8 SUPPLY"
-			(at 0 4 90)
+			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b0cfb166-a2e4-4e30-b246-8ca62f186fbc")
+			(uuid "6dc12cf3-2771-4b55-be9b-edb772f028b0")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -100018,7 +100014,7 @@
 			(at -0.5 0.72 180)
 			(size 0.28 0.545)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 652 "FB+1V8_IO")
+			(net 646 "FB+1V8_IO")
 			(uuid "ff52f527-9625-4fc7-a43d-33dac66bbf7b")
 		)
 		(pad "2" smd rect
@@ -100039,7 +100035,7 @@
 			(at 0.5 -0.72 180)
 			(size 0.28 0.545)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 653 "SW+1V8_IO")
+			(net 647 "SW+1V8_IO")
 			(uuid "e7698d6d-eabc-451b-a97b-9e78348047a2")
 		)
 		(pad "5" smd rect
@@ -100072,7 +100068,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ebb72c02-915c-4542-ac8d-1f670e790d99")
-		(at 199.45125 88.93 90)
+		(at 200.25125 95.53 90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C124"
@@ -100366,7 +100362,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ec2bbc34-26ed-4056-a78a-261a13a4bd6f")
-		(at 243.53 104.39 90)
+		(at 237.27 103.13 90)
 		(descr "100k resistor from VBUS_UVLO to VBUS, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V")
 		(tags "resistor")
 		(property "Reference" "R50"
@@ -100564,7 +100560,7 @@
 		(property "UI_LABEL" "KEY A"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "d6fdfd47-7286-489f-b53e-1ad32d0deef2")
+			(uuid "387d4b3d-c1de-4def-9747-584ede935c81")
 			(effects
 				(font
 					(size 1 1)
@@ -100610,7 +100606,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ec784f77-1bae-4880-ad6c-2971dc1c967b")
-		(at 257.63 104.2 90)
+		(at 258.265 100.91 90)
 		(descr "100k resistor from VBUS5_CP2 to +3V3, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover")
 		(tags "resistor")
 		(property "Reference" "R166"
@@ -100726,7 +100722,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 716 "VBUS5_CP2")
+			(net 710 "VBUS5_CP2")
 			(uuid "c9bef136-3bb4-40f1-9543-38d6ff0a50b1")
 		)
 		(embedded_fonts no)
@@ -100808,7 +100804,7 @@
 		(property "UI_LABEL" "KEY M"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "7a7731bf-811e-4597-9146-9625804de551")
+			(uuid "3ddf1717-5cc7-4b24-aee9-8285ae6a1180")
 			(effects
 				(font
 					(size 1 1)
@@ -100918,7 +100914,7 @@
 		(property "UI_LABEL" "A POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "0c73e947-d954-419d-a592-1abf93504b44")
+			(uuid "6aa9950f-c4f8-4ad6-b07b-f281410b1cfd")
 			(effects
 				(font
 					(size 1 1)
@@ -101656,7 +101652,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "b4f47bde-3c8c-4db1-a9ef-68aa169e22a1")
 		)
 		(pad "2" smd roundrect
@@ -101664,7 +101660,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 652 "FB+1V8_IO")
+			(net 646 "FB+1V8_IO")
 			(uuid "48ac6f96-414b-4300-8844-417369a985a1")
 		)
 		(embedded_fonts no)
@@ -101791,7 +101787,7 @@
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "2332229e-36c9-4833-adf0-3cb69c134e33")
 		)
 		(pad "2" smd roundrect
@@ -101818,7 +101814,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ef0cffa1-2640-40b2-8cef-229fd716529f")
-		(at 230.27 100.97 -90)
+		(at 221.17 94.47 -90)
 		(descr "1uF bypass on PD_VDD, for U18 (USB-PD negotiator): CH224K's internal regulator output")
 		(tags "capacitor")
 		(property "Reference" "C137"
@@ -101953,7 +101949,7 @@
 	(footprint "Diode_SMD:D_SOD-123"
 		(layer "F.Cu")
 		(uuid "ef43770b-edc6-466f-96d9-5fc5e1f4624e")
-		(at 263.3 105.1 90)
+		(at 263.935 101.81 90)
 		(descr "mux hold diode: 1N4148W: charges the Q6 hold capacitor from PD_REQ_9V at once and lets it drain slowly through its own resistor.")
 		(tags "SOD-123")
 		(property "Reference" "D24"
@@ -102213,7 +102209,7 @@
 			(size 0.9 1.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 732 "SEL_IN2")
+			(net 726 "SEL_IN2")
 			(uuid "f99833dd-37f9-4d1b-9659-5b83c121d12e")
 		)
 		(pad "2" smd roundrect
@@ -102221,7 +102217,7 @@
 			(size 0.9 1.2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 713 "PD_REQ_9V")
+			(net 707 "PD_REQ_9V")
 			(uuid "cc6ac23c-7cc8-474a-b8fc-72ed4b6a666e")
 		)
 		(embedded_fonts no)
@@ -102789,7 +102785,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "8e952647-1360-4c3f-b377-684be6dd61cd")
 		)
 		(pad "2" smd roundrect
@@ -103098,7 +103094,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f1572418-6be7-44f8-9dcc-1aa905164ff3")
-		(at 201.9 85.6 -90)
+		(at 202.7 92.2 -90)
 		(descr "27 series resistor between USB_DM and USB_DM_MCU, for J1 (USB-C connector): USB D- at the controller, after its 27 ohm series resistor")
 		(tags "resistor")
 		(property "Reference" "R171"
@@ -103214,7 +103210,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 714 "USB_DM_MCU")
+			(net 708 "USB_DM_MCU")
 			(uuid "850efaac-8e88-4493-b320-dd60c483cb59")
 		)
 		(embedded_fonts no)
@@ -103650,7 +103646,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "f3762cb9-3d11-4f36-978f-f82d396e5074")
-		(at 255.23 104.3 90)
+		(at 255.865 101.01 90)
 		(descr "10uF capacitor from SEL_IN2 to GND, for Q6 (mux: 9 V request hold): Q6's gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s")
 		(tags "capacitor")
 		(property "Reference" "C279"
@@ -103770,7 +103766,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 732 "SEL_IN2")
+			(net 726 "SEL_IN2")
 			(uuid "bfc41ec9-ac29-4d51-83a3-53889ad3d5ce")
 		)
 		(pad "2" smd roundrect
@@ -103917,7 +103913,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 651 "+1V8_IO")
+			(net 645 "+1V8_IO")
 			(uuid "75123964-a9d2-43a0-825f-fc025ed13fb3")
 		)
 		(pad "2" smd roundrect
@@ -103944,7 +103940,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "f44e2ec3-8b68-4c6f-9d86-c0869d5f8f73")
-		(at 248.34 101.33 180)
+		(at 242.08 100.07 180)
 		(descr "10uF 25V bypass on VBUS, for U26 (USB input eFuse)")
 		(tags "capacitor")
 		(property "Reference" "C187"
@@ -104792,7 +104788,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f63acb4c-88fa-4cfd-9338-7c9aa50b14c0")
-		(at 213.6 104.9)
+		(at 214.4 111.5)
 		(descr "100nF bypass on +1V1, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C127"
@@ -104939,7 +104935,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f81d49f5-2324-434d-ae16-c59976d65945")
-		(at 245.5 104 180)
+		(at 239.24 102.74 180)
 		(descr "2.2nF 25V capacitor from VBUS_DVDT to GND, for U26 (USB input eFuse): sets how slowly U26 ramps VSYS up, about 0.9 V/ms")
 		(tags "capacitor")
 		(property "Reference" "C184"
@@ -105074,7 +105070,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f8709ad8-ded8-4274-bbbf-2f5360151898")
-		(at 255.84 100.82 180)
+		(at 256.475 97.53 180)
 		(descr "1uF bypass on +5V_BUCK, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C280"
@@ -105194,7 +105190,7 @@
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 710 "+5V_BUCK")
+			(net 704 "+5V_BUCK")
 			(uuid "f4b02b48-503b-467d-93e1-98853708aeba")
 		)
 		(pad "2" smd roundrect
@@ -105221,7 +105217,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f883e76b-115e-4199-9276-027a12a11221")
-		(at 209.095 126.545)
+		(at 209.1 126.3)
 		(descr "10k pull-down on PSRAM3_IO1_MEM, for U5 (PSRAM 3): holds the line low from power-up until the FPGA drives it (APS6404L section 8)")
 		(tags "resistor")
 		(property "Reference" "R195"
@@ -105356,7 +105352,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f8cf8c31-0734-4926-8cfe-8c5df7a98eb2")
-		(at 221.32 96.36 180)
+		(at 222.12 102.96 180)
 		(descr "1k resistor from MON_1V8 to +1V8, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R87"
@@ -105901,7 +105897,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 645 "HDMI_LS_OE")
+			(net 639 "HDMI_LS_OE")
 			(uuid "910d7e14-2cf6-41f0-8b6e-e51720d37235")
 		)
 		(embedded_fonts no)
@@ -106349,7 +106345,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "fdaa2446-3e39-4236-a1b6-fd91282f5af9")
-		(at 214.31 103.31 90)
+		(at 215.11 109.91 90)
 		(descr "1k pull-up of SUP_RUN to +3V3, for U7 (board controller): board controller reset")
 		(tags "resistor")
 		(property "Reference" "R10"
@@ -106759,7 +106755,7 @@
 			(size 0.8 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 708 "SD_MOSI")
+			(net 702 "SD_MOSI")
 			(uuid "23c00ec6-31ea-4287-a2a9-9fc6f3c970e1")
 		)
 		(embedded_fonts no)
@@ -106925,7 +106921,7 @@
 	(footprint "EasyEDA:IND-SMD_L2.0-W1.6-B"
 		(layer "F.Cu")
 		(uuid "ff064c13-d688-4ce3-83d3-b41c15f9e1e3")
-		(at 229.05 104.965 -90)
+		(at 243.16 107.05 -90)
 		(descr "1uH_core FTC201610S1R0MBCA inductor between +1V0 and SW+1V0, for U15 (FPGA core regulator): regulator switching node")
 		(property "Reference" "L7"
 			(at 0 -4 90)
@@ -107243,8 +107239,19 @@
 		)
 	)
 	(gr_rect
-		(start 173.255 86.525)
-		(end 179.375 73.475)
+		(start 172.4275 138.595)
+		(end 185.9675 152.6)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "7ce26d10-3a5b-4727-86e8-27512f9511f8")
+	)
+	(gr_rect
+		(start 173.255 73.475)
+		(end 179.375 86.525)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107252,6 +107259,28 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "8f5847c2-fb40-4f4b-9ba2-0613c6a91533")
+	)
+	(gr_rect
+		(start 175.535 96.745)
+		(end 189.075 110.75)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "d09d7181-f345-4e85-812f-2c1aa06250a9")
+	)
+	(gr_rect
+		(start 175.535 110.75)
+		(end 189.075 115.89)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "6998862a-717e-48f6-a677-1652a9d6dac3")
 	)
 	(gr_rect
 		(start 179.26 186.26)
@@ -107276,8 +107305,8 @@
 		(uuid "824ccd96-333c-47bf-b8ea-6742ce03eec7")
 	)
 	(gr_rect
-		(start 179.375 86.525)
-		(end 190.025 73.475)
+		(start 179.375 73.475)
+		(end 190.025 86.525)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107310,18 +107339,18 @@
 	)
 	(gr_rect
 		(start 185.9675 138.595)
-		(end 172.4275 152.6)
+		(end 192.0875 152.6)
 		(stroke
 			(width 0.15)
-			(type dash)
+			(type solid)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "7ce26d10-3a5b-4727-86e8-27512f9511f8")
+		(uuid "bf3625df-dc5f-4621-a1ea-c193c93084c6")
 	)
 	(gr_rect
-		(start 188.635 122.035)
-		(end 194.755 108.165)
+		(start 188.735 111.665)
+		(end 194.855 125.535)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107329,28 +107358,6 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "af60ed91-272f-4d96-8d8c-ed537574bec9")
-	)
-	(gr_rect
-		(start 188.672 77.015)
-		(end 231.345 81.175)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "75a97e71-0fc3-45df-88c4-2afc30941825")
-	)
-	(gr_rect
-		(start 188.672 81.175)
-		(end 231.345 117.595)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "634796ac-b290-493f-b52f-5ee238d93fe5")
 	)
 	(gr_rect
 		(start 188.9 171.675)
@@ -107375,41 +107382,30 @@
 		(uuid "8139719a-25f9-4969-83c8-5e5dde9e9486")
 	)
 	(gr_rect
-		(start 189.075 110.75)
-		(end 175.535 96.745)
+		(start 189.472 83.615)
+		(end 232.145 87.775)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "75a97e71-0fc3-45df-88c4-2afc30941825")
+	)
+	(gr_rect
+		(start 189.472 87.775)
+		(end 232.145 124.195)
 		(stroke
 			(width 0.15)
 			(type dash)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "d09d7181-f345-4e85-812f-2c1aa06250a9")
+		(uuid "634796ac-b290-493f-b52f-5ee238d93fe5")
 	)
 	(gr_rect
-		(start 189.075 115.89)
-		(end 175.535 110.75)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "6998862a-717e-48f6-a677-1652a9d6dac3")
-	)
-	(gr_rect
-		(start 189.95 136.3)
-		(end 195.09 118.96)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "811415d6-4f4f-4c1c-8250-67de90f91521")
-	)
-	(gr_rect
-		(start 189.95 142.87)
-		(end 195.09 125.53)
+		(start 189.95 125.53)
+		(end 195.09 142.87)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107419,8 +107415,19 @@
 		(uuid "055caf8e-84f4-45ad-9cdf-b13728197b2f")
 	)
 	(gr_rect
-		(start 190.03 156.61)
-		(end 195.17 139.27)
+		(start 189.955 118.715)
+		(end 195.095 136.055)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "811415d6-4f4f-4c1c-8250-67de90f91521")
+	)
+	(gr_rect
+		(start 190.03 139.27)
+		(end 195.17 156.61)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107430,8 +107437,8 @@
 		(uuid "f697b8b1-5cd2-438d-9e04-ac0095499dd1")
 	)
 	(gr_rect
-		(start 190.04 149.515)
-		(end 195.18 132.175)
+		(start 190.04 132.175)
+		(end 195.18 149.515)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107441,8 +107448,8 @@
 		(uuid "644c8bb2-458e-46cd-a141-6364961f3785")
 	)
 	(gr_rect
-		(start 191.07 165.38)
-		(end 196.21 153.82)
+		(start 191.07 153.82)
+		(end 196.21 165.38)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107474,19 +107481,8 @@
 		(uuid "f7fe2f06-a8cc-494f-bf7a-029de11fade0")
 	)
 	(gr_rect
-		(start 192.0875 138.595)
-		(end 185.9675 152.6)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "bf3625df-dc5f-4621-a1ea-c193c93084c6")
-	)
-	(gr_rect
-		(start 194.755 122.035)
-		(end 211.995 108.165)
+		(start 194.855 111.665)
+		(end 212.095 125.535)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107496,19 +107492,8 @@
 		(uuid "830fd163-9ea3-4e92-8eab-670a6e982a9d")
 	)
 	(gr_rect
-		(start 195.09 136.3)
-		(end 212.1 118.96)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "4cadd20e-89f1-49d9-b359-ab009c8d45f2")
-	)
-	(gr_rect
-		(start 195.09 142.87)
-		(end 212.11 125.53)
+		(start 195.09 125.53)
+		(end 212.11 142.87)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107518,8 +107503,19 @@
 		(uuid "eefc2f6d-b69e-457e-bd1f-e9c841ba3b5f")
 	)
 	(gr_rect
-		(start 195.17 156.61)
-		(end 212.18 139.27)
+		(start 195.095 118.715)
+		(end 212.105 136.055)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "4cadd20e-89f1-49d9-b359-ab009c8d45f2")
+	)
+	(gr_rect
+		(start 195.17 139.27)
+		(end 212.18 156.61)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107529,8 +107525,8 @@
 		(uuid "e8dab2c7-3b7c-45cf-8dd6-e3e78c22f145")
 	)
 	(gr_rect
-		(start 195.18 82.3)
-		(end 201.3 71.3)
+		(start 195.18 71.3)
+		(end 201.3 82.3)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107540,8 +107536,8 @@
 		(uuid "89051c27-5a1d-43b8-8324-98007c360e87")
 	)
 	(gr_rect
-		(start 195.18 149.515)
-		(end 212.21 132.175)
+		(start 195.18 132.175)
+		(end 212.21 149.515)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107551,8 +107547,8 @@
 		(uuid "e0576d49-08cd-408b-b64b-7a0932ec7bc6")
 	)
 	(gr_rect
-		(start 196.21 165.38)
-		(end 211.99 153.82)
+		(start 196.21 153.82)
+		(end 211.99 165.38)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107560,6 +107556,17 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "ac2150e4-dd06-4c6e-95aa-7ea6a5e790d4")
+	)
+	(gr_rect
+		(start 199.014 168.5275)
+		(end 208.895 179.5275)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "314c9574-4899-4445-9f5e-95d13f8d334f")
 	)
 	(gr_rect
 		(start 199.11 105.605)
@@ -107584,8 +107591,8 @@
 		(uuid "a2bfe9e7-77f9-410d-8993-eb01b4b82dd0")
 	)
 	(gr_rect
-		(start 201.3 82.3)
-		(end 210.1 71.3)
+		(start 201.3 71.3)
+		(end 210.1 82.3)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107661,8 +107668,8 @@
 		(uuid "d780910f-bee4-4b73-81d9-2ccd2ac7da6b")
 	)
 	(gr_rect
-		(start 202.35 69.315)
-		(end 223.25 73.475)
+		(start 202.25 69.065)
+		(end 223.15 73.225)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107672,8 +107679,8 @@
 		(uuid "40b63f25-2dca-4035-9dbe-a42ec852ebd5")
 	)
 	(gr_rect
-		(start 202.35 73.475)
-		(end 223.25 84.125)
+		(start 202.25 73.225)
+		(end 223.15 83.875)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107684,18 +107691,7 @@
 	)
 	(gr_rect
 		(start 208.895 168.5275)
-		(end 199.014 179.5275)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "314c9574-4899-4445-9f5e-95d13f8d334f")
-	)
-	(gr_rect
-		(start 215.015 168.5275)
-		(end 208.895 179.5275)
+		(end 215.015 179.5275)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107705,8 +107701,8 @@
 		(uuid "40fc598f-1f2f-4e4f-9c0c-85836ff6fdc9")
 	)
 	(gr_rect
-		(start 217.915 79.295)
-		(end 229.285 85.415)
+		(start 210.415 84.895)
+		(end 221.785 91.015)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107716,8 +107712,8 @@
 		(uuid "42876f5c-9752-4bb1-9987-7ae1a060f418")
 	)
 	(gr_rect
-		(start 217.915 85.415)
-		(end 229.285 91.385)
+		(start 210.415 91.015)
+		(end 221.785 96.985)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107725,6 +107721,50 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "40cbaf77-7dce-4453-8c70-196faddd3bf8")
+	)
+	(gr_rect
+		(start 213.4 165.91)
+		(end 225.72 179.69)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "11f4a874-fe71-4ffb-879d-e4b64870924e")
+	)
+	(gr_rect
+		(start 213.4 179.69)
+		(end 225.72 184.83)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "68c25770-875d-4d2f-9bc8-7b5d8266e30a")
+	)
+	(gr_rect
+		(start 217.915 81.01)
+		(end 228.915 86.15)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "4e473002-64e0-446f-9062-8d81ba2836fb")
+	)
+	(gr_rect
+		(start 217.915 86.15)
+		(end 228.915 96.65)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "8aa1d6b0-a7cf-4d14-a41b-8cdb23380154")
 	)
 	(gr_rect
 		(start 221.2 184.405)
@@ -107793,52 +107833,52 @@
 		(uuid "6d78ec38-11c1-4d5a-ada4-a350b3ddeb99")
 	)
 	(gr_rect
-		(start 225.72 179.69)
-		(end 213.4 165.91)
+		(start 225.395 87.16)
+		(end 245.305 113.045)
 		(stroke
 			(width 0.15)
 			(type dash)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "11f4a874-fe71-4ffb-879d-e4b64870924e")
+		(uuid "2848442a-cf7b-4f06-90d1-9b2f05f33fbf")
 	)
 	(gr_rect
-		(start 225.72 184.83)
-		(end 213.4 179.69)
+		(start 225.395 113.045)
+		(end 245.305 117.205)
 		(stroke
 			(width 0.15)
 			(type solid)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "68c25770-875d-4d2f-9bc8-7b5d8266e30a")
+		(uuid "94a80da3-40e5-400e-a364-f6d052849aa5")
 	)
 	(gr_rect
-		(start 227.015 87.51)
-		(end 238.015 92.65)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "4e473002-64e0-446f-9062-8d81ba2836fb")
-	)
-	(gr_rect
-		(start 227.015 92.65)
-		(end 238.015 103.15)
+		(start 233.135 73.46)
+		(end 259.865 95.94)
 		(stroke
 			(width 0.15)
 			(type dash)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "8aa1d6b0-a7cf-4d14-a41b-8cdb23380154")
+		(uuid "b332c0a2-e6cc-4442-bd60-aeaef33689fb")
 	)
 	(gr_rect
-		(start 236.725 102.415)
-		(end 219.385 118.83)
+		(start 233.135 95.94)
+		(end 259.865 100.1)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "98fcbd81-eecf-41f3-a407-2536602e8aa5")
+	)
+	(gr_rect
+		(start 233.495 104.5)
+		(end 250.835 120.915)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107846,6 +107886,28 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "70199f47-b627-4fd2-aef2-0f06ae59d170")
+	)
+	(gr_rect
+		(start 233.94 165.91)
+		(end 246.26 179.69)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "d95baa01-0142-4fa1-9da9-239ae1f75e78")
+	)
+	(gr_rect
+		(start 233.94 179.69)
+		(end 246.26 184.83)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "9c8dad1d-3407-48de-9a3e-d902249c4c38")
 	)
 	(gr_rect
 		(start 237.595 176.806)
@@ -107892,37 +107954,26 @@
 		(uuid "5582bf64-a7aa-4822-8d90-524bb5205833")
 	)
 	(gr_rect
-		(start 241.865 102.415)
-		(end 236.725 118.83)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "3ec918b7-f11c-4647-a108-c1c8e1e058a6")
-	)
-	(gr_rect
-		(start 246.26 179.69)
-		(end 233.94 165.91)
+		(start 245.575 109.015)
+		(end 266.8 123.235)
 		(stroke
 			(width 0.15)
 			(type dash)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "d95baa01-0142-4fa1-9da9-239ae1f75e78")
+		(uuid "5dccd64b-ff7e-4952-907a-968e1b85f36f")
 	)
 	(gr_rect
-		(start 246.26 184.83)
-		(end 233.94 179.69)
+		(start 245.575 123.235)
+		(end 266.8 127.395)
 		(stroke
 			(width 0.15)
 			(type solid)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "9c8dad1d-3407-48de-9a3e-d902249c4c38")
+		(uuid "e520bad8-ed8f-44e8-82ef-bb7bc6d00bb6")
 	)
 	(gr_rect
 		(start 246.295 141.105)
@@ -107947,8 +107998,8 @@
 		(uuid "ee9f8ef0-561f-46aa-b2a2-adf70645108a")
 	)
 	(gr_rect
-		(start 248.735 88.595)
-		(end 267.995 93.735)
+		(start 249.37 85.305)
+		(end 268.63 90.445)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107958,8 +108009,8 @@
 		(uuid "f6e31b8c-7b4b-4929-ad95-2a3719fa32cc")
 	)
 	(gr_rect
-		(start 248.735 93.735)
-		(end 267.995 118.245)
+		(start 249.37 90.445)
+		(end 268.63 114.955)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107991,70 +108042,15 @@
 		(uuid "14db34d6-7b7f-4972-9db9-e8231153e5b7")
 	)
 	(gr_rect
-		(start 251.565 114.305)
-		(end 231.655 88.42)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "2848442a-cf7b-4f06-90d1-9b2f05f33fbf")
-	)
-	(gr_rect
-		(start 251.565 118.465)
-		(end 231.655 114.305)
+		(start 250.835 104.5)
+		(end 255.975 120.915)
 		(stroke
 			(width 0.15)
 			(type solid)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "94a80da3-40e5-400e-a364-f6d052849aa5")
-	)
-	(gr_rect
-		(start 253.2 119.635)
-		(end 231.975 105.415)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "5dccd64b-ff7e-4952-907a-968e1b85f36f")
-	)
-	(gr_rect
-		(start 253.2 123.795)
-		(end 231.975 119.635)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "e520bad8-ed8f-44e8-82ef-bb7bc6d00bb6")
-	)
-	(gr_rect
-		(start 256.335 73.745)
-		(end 269.445 78.885)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "edb6920d-5839-44bb-87fe-4790eb9e2319")
-	)
-	(gr_rect
-		(start 256.335 78.885)
-		(end 269.445 95.615)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "9690d8dd-9408-4767-8213-423810ac471a")
+		(uuid "3ec918b7-f11c-4647-a108-c1c8e1e058a6")
 	)
 	(gr_rect
 		(start 257.8 68.61)
@@ -108079,26 +108075,26 @@
 		(uuid "4862be4c-4170-47bc-a378-7576da84be61")
 	)
 	(gr_rect
-		(start 259.865 95.94)
-		(end 233.135 73.46)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "b332c0a2-e6cc-4442-bd60-aeaef33689fb")
-	)
-	(gr_rect
-		(start 259.865 100.1)
-		(end 233.135 95.94)
+		(start 258.835 71.495)
+		(end 271.945 76.635)
 		(stroke
 			(width 0.15)
 			(type solid)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "98fcbd81-eecf-41f3-a407-2536602e8aa5")
+		(uuid "edb6920d-5839-44bb-87fe-4790eb9e2319")
+	)
+	(gr_rect
+		(start 258.835 76.635)
+		(end 271.945 93.365)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "9690d8dd-9408-4767-8213-423810ac471a")
 	)
 	(gr_rect
 		(start 264.3 182.4395)
@@ -108145,8 +108141,8 @@
 		(uuid "95cb3213-be13-4d15-b5c3-8f98f3a4663c")
 	)
 	(gr_rect
-		(start 268.485 213.215)
-		(end 273.625 202.215)
+		(start 268.485 202.215)
+		(end 273.625 213.215)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108178,8 +108174,19 @@
 		(uuid "dc425335-cfff-4aca-a07c-013936be93d7")
 	)
 	(gr_rect
-		(start 273.625 213.215)
-		(end 279.175 202.215)
+		(start 272.235 188.2475)
+		(end 284.105 208.2275)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "b48fc49c-cd03-4dd7-acc0-3c77b698d017")
+	)
+	(gr_rect
+		(start 273.625 202.215)
+		(end 279.175 213.215)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108187,6 +108194,17 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "88ae9474-9564-44fb-bb65-5e2d1b8ac9a3")
+	)
+	(gr_rect
+		(start 274.1 95.995)
+		(end 286.18 110)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "be177d5f-fe87-411c-b2ad-b0abfccc33ea")
 	)
 	(gr_rect
 		(start 280.55 171.685)
@@ -108212,29 +108230,7 @@
 	)
 	(gr_rect
 		(start 284.105 188.2475)
-		(end 272.235 208.2275)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "b48fc49c-cd03-4dd7-acc0-3c77b698d017")
-	)
-	(gr_rect
-		(start 286.18 95.995)
-		(end 274.1 110)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "be177d5f-fe87-411c-b2ad-b0abfccc33ea")
-	)
-	(gr_rect
-		(start 289.245 188.2475)
-		(end 284.105 208.2275)
+		(end 289.245 208.2275)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108244,8 +108240,8 @@
 		(uuid "a06fbb2a-466f-464a-bd26-e0b89bb2a255")
 	)
 	(gr_rect
-		(start 292.3 95.995)
-		(end 286.18 110)
+		(start 286.18 95.995)
+		(end 292.3 110)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108682,10 +108678,10 @@
 			(justify left top)
 		)
 	)
-	(gr_text "board controller\nRP2350, 50 parts, 2026-10-29 + Y1, U8"
-		(at 189.072 78.915 0)
+	(gr_text "A-D PIN VOLTAGE\njumper\ngeneric, 3 parts,\n2026-10-28"
+		(at 189.3 173.575 0)
 		(layer "Cmts.User")
-		(uuid "030f9c7f-4324-4f2f-ad57-d68ef8bf0dff")
+		(uuid "ebb69865-3ab7-45f1-8fda-2d9a7aca25e5")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108694,10 +108690,10 @@
 			(justify left top)
 		)
 	)
-	(gr_text "A-D PIN VOLTAGE\njumper\ngeneric, 3 parts,\n2026-10-28"
-		(at 189.3 173.575 0)
+	(gr_text "board controller\nRP2350, 50 parts, 2026-10-29 + Y1, U8"
+		(at 189.872 85.515 0)
 		(layer "Cmts.User")
-		(uuid "ebb69865-3ab7-45f1-8fda-2d9a7aca25e5")
+		(uuid "030f9c7f-4324-4f2f-ad57-d68ef8bf0dff")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108767,7 +108763,7 @@
 		)
 	)
 	(gr_text "POWER IN screw terminal\ngeneric, 3 parts, 2026-10-28"
-		(at 202.75 71.215 0)
+		(at 202.65 70.965 0)
 		(layer "Cmts.User")
 		(uuid "60fb7356-fd92-47a0-8813-09021106b85d")
 		(effects
@@ -108779,9 +108775,21 @@
 		)
 	)
 	(gr_text "9 V request\nswitch\ngeneric, 3 parts,\n2026-10-29"
-		(at 218.315 81.195 0)
+		(at 210.815 86.795 0)
 		(layer "Cmts.User")
 		(uuid "9bb90f9e-54e2-4b47-b200-f3014ef8c157")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(gr_text "USB-PD negotiator\ngeneric, 3 parts,\n2026-10-28"
+		(at 218.315 82.91 0)
+		(layer "Cmts.User")
+		(uuid "cab4b64e-5691-4bc6-8316-cdec1ff7ab86")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108818,18 +108826,6 @@
 		(at 224.855 171.685 0)
 		(layer "Cmts.User")
 		(uuid "848d8431-2f96-4e13-bc8f-2a7428f863e7")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(gr_text "USB-PD negotiator\ngeneric, 3 parts,\n2026-10-28"
-		(at 227.415 89.41 0)
-		(layer "Cmts.User")
-		(uuid "cab4b64e-5691-4bc6-8316-cdec1ff7ab86")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108875,7 +108871,7 @@
 		)
 	)
 	(gr_text "+5V source mux\nTPS2121, 14 parts, 2026-10-29 +\nQ6, Q7"
-		(at 249.135 90.495 0)
+		(at 249.77 87.205 0)
 		(layer "Cmts.User")
 		(uuid "4bebab98-09d0-4e94-887b-76f921271e47")
 		(effects
@@ -108898,10 +108894,10 @@
 			(justify left top)
 		)
 	)
-	(gr_text "JTAG switch\ngeneric, 8 parts,\n2026-10-28"
-		(at 256.735 75.645 0)
+	(gr_text "EXT JTAG jumper\ngeneric, 1 parts,\n2026-10-28"
+		(at 258.2 70.51 0)
 		(layer "Cmts.User")
-		(uuid "f23b64ed-ac6e-4e92-a037-b4dd55131304")
+		(uuid "df32929b-ee89-43b0-81c2-746d12e1d28c")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108910,10 +108906,10 @@
 			(justify left top)
 		)
 	)
-	(gr_text "EXT JTAG jumper\ngeneric, 1 parts,\n2026-10-28"
-		(at 258.2 70.51 0)
+	(gr_text "JTAG switch\ngeneric, 8 parts,\n2026-10-28"
+		(at 259.235 73.395 0)
 		(layer "Cmts.User")
-		(uuid "df32929b-ee89-43b0-81c2-746d12e1d28c")
+		(uuid "f23b64ed-ac6e-4e92-a037-b4dd55131304")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108983,21 +108979,9 @@
 		)
 	)
 	(gr_text "FPGA configuration\nflash\ngeneric, 8 parts,\n2026-10-28"
-		(at 190.535 121.635 90)
+		(at 190.635 125.135 90)
 		(layer "Cmts.User")
 		(uuid "debc45c8-de8f-45c0-9c5d-02dcbf2ce95f")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(gr_text "PSRAM 3\ngeneric, 8 parts,\n2026-10-29"
-		(at 191.85 135.9 90)
-		(layer "Cmts.User")
-		(uuid "a3858c04-49b4-42bd-ac32-9f8f50f43e9b")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -109010,6 +108994,18 @@
 		(at 191.85 142.47 90)
 		(layer "Cmts.User")
 		(uuid "8d18c45c-d335-4023-b8a9-320b7ae32b57")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(gr_text "PSRAM 3\ngeneric, 8 parts,\n2026-10-29"
+		(at 191.855 135.655 90)
+		(layer "Cmts.User")
+		(uuid "a3858c04-49b4-42bd-ac32-9f8f50f43e9b")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -109102,6 +109098,18 @@
 			(justify left top)
 		)
 	)
+	(gr_text "USB input eFuse\nTPS259470, 13 parts, 2026-10-28"
+		(at 244.905 115.305 180)
+		(layer "Cmts.User")
+		(uuid "69cc0129-d483-4311-ada5-99f24263ed29")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
 	(gr_text "5V BUS 1 translator\nSN74LXC8T245, 4\nparts, 2026-10-28"
 		(at 245.86 182.93 180)
 		(layer "Cmts.User")
@@ -109114,10 +109122,10 @@
 			(justify left top)
 		)
 	)
-	(gr_text "USB input eFuse\nTPS259470, 13 parts, 2026-10-28"
-		(at 251.165 116.565 180)
+	(gr_text "microSD socket\ngeneric, 8 parts, 2026-10-29"
+		(at 259.465 98.2 180)
 		(layer "Cmts.User")
-		(uuid "69cc0129-d483-4311-ada5-99f24263ed29")
+		(uuid "19b619d6-91d6-440b-9bcd-e7d9b5df0203")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -109127,21 +109135,9 @@
 		)
 	)
 	(gr_text "5 V regulator, always on\nAP63300, 9 parts, 2026-10-29"
-		(at 252.8 121.895 180)
+		(at 266.4 125.495 180)
 		(layer "Cmts.User")
 		(uuid "7b69b182-9bb2-495c-88aa-94b5e5da14c7")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(gr_text "microSD socket\ngeneric, 8 parts, 2026-10-29"
-		(at 259.465 98.2 180)
-		(layer "Cmts.User")
-		(uuid "19b619d6-91d6-440b-9bcd-e7d9b5df0203")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -109175,7 +109171,7 @@
 		)
 	)
 	(gr_text "FPGA core regulator\nSY8047, 13 parts,\n2026-10-28"
-		(at 239.965 102.815 270)
+		(at 254.075 104.9 270)
 		(layer "Cmts.User")
 		(uuid "ca6ae134-76bb-46f6-bc79-4fcca231ebb4")
 		(effects
@@ -109450,10 +109446,10 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island U7"
-		(at 189.072 78.615 0)
+	(gr_text "island J19"
+		(at 189.3 173.275 0)
 		(layer "Cmts.User")
-		(uuid "cbc26ccc-82b2-4243-8a28-43d2fc189e5a")
+		(uuid "504491c6-a47b-44d2-9382-339b0e858379")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109462,10 +109458,10 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island J19"
-		(at 189.3 173.275 0)
+	(gr_text "island U7"
+		(at 189.872 85.215 0)
 		(layer "Cmts.User")
-		(uuid "504491c6-a47b-44d2-9382-339b0e858379")
+		(uuid "cbc26ccc-82b2-4243-8a28-43d2fc189e5a")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109535,7 +109531,7 @@
 		)
 	)
 	(gr_text "island J50"
-		(at 202.75 70.915 0)
+		(at 202.65 70.665 0)
 		(layer "Cmts.User")
 		(uuid "c7d2aaef-8a9a-440c-8556-2006c449e986")
 		(effects
@@ -109547,9 +109543,21 @@
 		)
 	)
 	(gr_text "island Q3"
-		(at 218.315 80.895 0)
+		(at 210.815 86.495 0)
 		(layer "Cmts.User")
 		(uuid "a445c8fb-e534-4650-96a3-e16c1a33de72")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "island U18"
+		(at 218.315 82.61 0)
+		(layer "Cmts.User")
+		(uuid "ed17a3f3-22de-45fb-8c68-ff89b3a095a9")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109586,18 +109594,6 @@
 		(at 224.855 171.385 0)
 		(layer "Cmts.User")
 		(uuid "f3d0fbe0-9dab-4f41-a5b4-b308e89c74f1")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "island U18"
-		(at 227.415 89.11 0)
-		(layer "Cmts.User")
-		(uuid "ed17a3f3-22de-45fb-8c68-ff89b3a095a9")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109643,7 +109639,7 @@
 		)
 	)
 	(gr_text "island U34"
-		(at 249.135 90.195 0)
+		(at 249.77 86.905 0)
 		(layer "Cmts.User")
 		(uuid "925e0817-0bed-4c74-8fcb-9d3e1303ecd9")
 		(effects
@@ -109666,10 +109662,10 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island U20"
-		(at 256.735 75.345 0)
+	(gr_text "island J52"
+		(at 258.2 70.21 0)
 		(layer "Cmts.User")
-		(uuid "7a8152f4-dd8f-4b89-92ab-686f2bb43bf6")
+		(uuid "66bbb7c1-0606-49f0-b173-30e1d83408c2")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109678,10 +109674,10 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island J52"
-		(at 258.2 70.21 0)
+	(gr_text "island U20"
+		(at 259.235 73.095 0)
 		(layer "Cmts.User")
-		(uuid "66bbb7c1-0606-49f0-b173-30e1d83408c2")
+		(uuid "7a8152f4-dd8f-4b89-92ab-686f2bb43bf6")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109859,21 +109855,9 @@
 		)
 	)
 	(gr_text "island U6"
-		(at 190.235 121.635 90)
+		(at 190.335 125.135 90)
 		(layer "Cmts.User")
 		(uuid "e7a4cdf2-f053-4ba8-9bfe-53b0f1baf0cb")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "island U5"
-		(at 191.55 135.9 90)
-		(layer "Cmts.User")
-		(uuid "386a78e3-830a-45e3-9816-dd9353847d88")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109886,6 +109870,18 @@
 		(at 191.55 142.47 90)
 		(layer "Cmts.User")
 		(uuid "ca4bda0b-313f-4961-a378-a3a6381ce05a")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "island U5"
+		(at 191.555 135.655 90)
+		(layer "Cmts.User")
+		(uuid "386a78e3-830a-45e3-9816-dd9353847d88")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109978,6 +109974,18 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "island U26"
+		(at 244.905 115.605 180)
+		(layer "Cmts.User")
+		(uuid "82e1ff99-f1b9-4c0d-adef-56206c00f12c")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
 	(gr_text "island U10"
 		(at 245.86 183.23 180)
 		(layer "Cmts.User")
@@ -109990,10 +109998,10 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island U26"
-		(at 251.165 116.865 180)
+	(gr_text "island J74"
+		(at 259.465 98.5 180)
 		(layer "Cmts.User")
-		(uuid "82e1ff99-f1b9-4c0d-adef-56206c00f12c")
+		(uuid "e5366edc-33d0-4ebe-aab1-a66b592c92e0")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -110003,21 +110011,9 @@
 		)
 	)
 	(gr_text "island U11"
-		(at 252.8 122.195 180)
+		(at 266.4 125.795 180)
 		(layer "Cmts.User")
 		(uuid "b49d8d33-a84c-4b39-9074-a743e9a6ea84")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "island J74"
-		(at 259.465 98.5 180)
-		(layer "Cmts.User")
-		(uuid "e5366edc-33d0-4ebe-aab1-a66b592c92e0")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -110051,7 +110047,7 @@
 		)
 	)
 	(gr_text "island U15"
-		(at 240.265 102.815 270)
+		(at 254.375 104.9 270)
 		(layer "Cmts.User")
 		(uuid "ad160809-0811-49e7-a9ab-77ddcb6b0134")
 		(effects
@@ -110297,32 +110293,31 @@
 			"06fe7a4b-1ad5-4533-8558-ade359051ae4" "13c6d2ed-a960-4dcc-b183-c2de88b1c84a"
 			"1a3224bd-8f7a-447e-b453-275f97bb3b7f" "1f3c4fdf-6baf-47b4-b615-656339f6fe6b"
 			"219befb5-28c7-4155-b27c-34799ce3f664" "21fe8db6-5c1f-4d41-823e-3db9f024c55d"
-			"25433d70-8369-4908-aaa2-5a18fdbac6eb" "2fcea96b-bc4e-4444-a402-79c073eb7e15"
-			"32be935a-1ba9-4b57-a628-36d375ec38b4" "3dfc7117-cde1-49df-bb5e-54ff13311886"
-			"42463134-c031-49a2-94e5-ec3549284743" "42a830f5-af13-4a45-bab2-b3c481c145d3"
-			"475572f8-fb6c-47ee-8356-4ff6dc5bec52" "48354244-df47-4b0b-890d-74de41aa3bb1"
-			"499c07fe-3571-4f09-b2b1-253f7f47716c" "4baeac51-e819-49ca-aba5-2af74f68d153"
-			"4df7bac5-5132-4b10-bd04-4ba88d92974f" "4eff0259-4921-4eff-95bf-54967082bd34"
-			"53794213-cdd9-4d3e-a910-185295e12227" "580977ee-ad5a-4075-aaf6-0cdcf40cc6e7"
-			"6136e177-75f8-4417-847e-e47c8371a982" "634796ac-b290-493f-b52f-5ee238d93fe5"
-			"64297538-8a3f-4e37-aeea-92cb9e42ef49" "66695749-220e-4279-8142-128ea414f8bd"
-			"6e17d493-8822-4ad1-85b9-9c7bbb7e5871" "70c07d5a-154f-4551-b1f3-61afe993600b"
-			"75a97e71-0fc3-45df-88c4-2afc30941825" "7885f608-06ea-4390-8689-a0531f92ded9"
-			"851ab769-d860-4a1a-95fb-6df8f3b3df2e" "8aad131d-b35d-4709-9151-6e3242cd94d2"
-			"8f5b319b-1853-4fff-91ba-a9fadd83d296" "93a2fa6c-82ba-4353-93a3-5c8566da1a20"
-			"9c0a313c-e9ea-4bd9-af9e-60ac6eac4c63" "9c4e3fc5-76a5-4838-be66-9af89090af2d"
-			"9d4f4c96-b6cd-44ad-a700-9bdf8195c540" "a1a29794-efe8-4e5f-8076-204b75631d6f"
-			"a817c0e5-85d5-4df7-bfb6-c0afd4f90106" "ab490d7a-24e5-4ea1-9dd7-be927d654f74"
-			"ad24e325-c052-44ea-b0cd-afa6b131a3ba" "b05e5add-39a5-4d47-9ce7-73781e602258"
-			"b279970c-254e-40c8-a84e-bca240dc7118" "bd83d0e4-4d0c-4f0d-b65e-8d2e66ddb04f"
-			"c29104c1-49b1-4a4b-b738-8ca40e89b0d7" "c6f68c43-49f0-4e5f-b585-6d7fed68ae86"
-			"c761ffb6-cea3-4fd9-a704-31cff3f1f858" "cbc26ccc-82b2-4243-8a28-43d2fc189e5a"
-			"d56ad9ab-6ba9-4a53-be8f-81eebe03df70" "d5f03581-a080-4d7f-86ab-45567d1e65b4"
-			"d92810ad-05d6-4a15-9240-65609f8a0788" "d978d681-386e-46dc-842b-f4bab4fd426f"
-			"e511d979-513c-41f8-9614-788a38f62bb8" "e8dd446a-c42e-4b28-82ab-bf7ceb437d34"
-			"ebb72c02-915c-4542-ac8d-1f670e790d99" "f1572418-6be7-44f8-9dcc-1aa905164ff3"
-			"f63acb4c-88fa-4cfd-9338-7c9aa50b14c0" "f8cf8c31-0734-4926-8cfe-8c5df7a98eb2"
-			"fdaa2446-3e39-4236-a1b6-fd91282f5af9"
+			"2fcea96b-bc4e-4444-a402-79c073eb7e15" "32be935a-1ba9-4b57-a628-36d375ec38b4"
+			"3dfc7117-cde1-49df-bb5e-54ff13311886" "42463134-c031-49a2-94e5-ec3549284743"
+			"42a830f5-af13-4a45-bab2-b3c481c145d3" "475572f8-fb6c-47ee-8356-4ff6dc5bec52"
+			"48354244-df47-4b0b-890d-74de41aa3bb1" "499c07fe-3571-4f09-b2b1-253f7f47716c"
+			"4baeac51-e819-49ca-aba5-2af74f68d153" "4df7bac5-5132-4b10-bd04-4ba88d92974f"
+			"4eff0259-4921-4eff-95bf-54967082bd34" "53794213-cdd9-4d3e-a910-185295e12227"
+			"580977ee-ad5a-4075-aaf6-0cdcf40cc6e7" "6136e177-75f8-4417-847e-e47c8371a982"
+			"634796ac-b290-493f-b52f-5ee238d93fe5" "64297538-8a3f-4e37-aeea-92cb9e42ef49"
+			"66695749-220e-4279-8142-128ea414f8bd" "6e17d493-8822-4ad1-85b9-9c7bbb7e5871"
+			"70c07d5a-154f-4551-b1f3-61afe993600b" "75a97e71-0fc3-45df-88c4-2afc30941825"
+			"7885f608-06ea-4390-8689-a0531f92ded9" "851ab769-d860-4a1a-95fb-6df8f3b3df2e"
+			"8aad131d-b35d-4709-9151-6e3242cd94d2" "8f5b319b-1853-4fff-91ba-a9fadd83d296"
+			"93a2fa6c-82ba-4353-93a3-5c8566da1a20" "9c0a313c-e9ea-4bd9-af9e-60ac6eac4c63"
+			"9c4e3fc5-76a5-4838-be66-9af89090af2d" "9d4f4c96-b6cd-44ad-a700-9bdf8195c540"
+			"a1a29794-efe8-4e5f-8076-204b75631d6f" "a817c0e5-85d5-4df7-bfb6-c0afd4f90106"
+			"ab490d7a-24e5-4ea1-9dd7-be927d654f74" "ad24e325-c052-44ea-b0cd-afa6b131a3ba"
+			"b05e5add-39a5-4d47-9ce7-73781e602258" "b279970c-254e-40c8-a84e-bca240dc7118"
+			"bd83d0e4-4d0c-4f0d-b65e-8d2e66ddb04f" "c29104c1-49b1-4a4b-b738-8ca40e89b0d7"
+			"c6f68c43-49f0-4e5f-b585-6d7fed68ae86" "c761ffb6-cea3-4fd9-a704-31cff3f1f858"
+			"cbc26ccc-82b2-4243-8a28-43d2fc189e5a" "d56ad9ab-6ba9-4a53-be8f-81eebe03df70"
+			"d5f03581-a080-4d7f-86ab-45567d1e65b4" "d92810ad-05d6-4a15-9240-65609f8a0788"
+			"d978d681-386e-46dc-842b-f4bab4fd426f" "e511d979-513c-41f8-9614-788a38f62bb8"
+			"e8dd446a-c42e-4b28-82ab-bf7ceb437d34" "ebb72c02-915c-4542-ac8d-1f670e790d99"
+			"f1572418-6be7-44f8-9dcc-1aa905164ff3" "f63acb4c-88fa-4cfd-9338-7c9aa50b14c0"
+			"f8cf8c31-0734-4926-8cfe-8c5df7a98eb2" "fdaa2446-3e39-4236-a1b6-fd91282f5af9"
 		)
 	)
 	(group "island J51"
