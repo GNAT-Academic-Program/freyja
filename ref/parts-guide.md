@@ -11,7 +11,7 @@ you care about; within it, groups appear in schematic order.
 - [FPGA](#fpga) (111 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
 - [Power](#power) (135 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
-- [Supervisor](#supervisor) (79 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
+- [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
 - [Video](#video) (8 parts): HDMI output straight from the FPGA, with its protection chip.
@@ -399,7 +399,7 @@ Small switching regulator that makes +1V2_MGT from +5V for the FPGA transceivers
 
 ### U15  5V to +1V0  (4A FPGA core supply)
 
-The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail on the board. Enabled by the board controller (EN_1V0); its power-good output (CORE_1V0_GOOD) is read through the status expander so firmware knows the core is up. The soft-start capacitor makes it ramp slowly; the feedback resistors set 1.0 V.
+The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail on the board. Enabled by the board controller (EN_1V0); its power-good output (CORE_1V0_GOOD) goes to the board controller (GPIO38) so firmware knows the core is up. The soft-start capacitor makes it ramp slowly; the feedback resistors set 1.0 V.
 
 | Ref | Value | What it does |
 |---|---|---|
@@ -412,7 +412,7 @@ The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail on the boar
 | C212 | 22uF | 22uF bypass on +1V0, for U15 (FPGA core regulator) |
 | L7 | 1uH_core FTC201610S1R0MBCA | 1uH_core FTC201610S1R0MBCA inductor between +1V0 and SW+1V0, for U15 (FPGA core regulator): regulator switching node |
 | R65 | 10 | 10 resistor from CORE_1V0_SVIN to +5V, for U15 (FPGA core regulator): filtered supply for U15's control circuit |
-| R66 | 100k | 100k resistor from CORE_1V0_GOOD to +3V3, for U17 (status expander): U15 power-good, read by the status expander |
+| R66 | 100k | 100k resistor from CORE_1V0_GOOD to +3V3, for U7 (board controller): U15 power-good, read by the board controller (GPIO38) |
 | R67 | 100k | 100k resistor from FB+1V0 to +1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
 | R68 | 150k | 150k resistor from FB+1V0 to GND, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
 | R94 | 100k | 100k pull-down on EN_1V0, for U7 (board controller): keeps the regulator off until the board controller enables it |
@@ -931,21 +931,9 @@ Standard 2x5 JTAG header for an external FPGA programmer (Xilinx/AMD cable or si
 |---|---|---|
 | J2 | FPGA JTAG | FPGA JTAG header: 2x5 keyed header for an external FPGA programmer. |
 
-### status expander
-
-A small I2C chip on the board controller that drives the three status LEDs and reads the FPGA core supply's power-good signal, saving controller pins. Address 0x24. Rules for writing it: ref/status-leds.md.
-
-| Ref | Value | What it does |
-|---|---|---|
-| U17 | PCF8574T_3,518 | status expander: NXP PCF8574 I2C port expander: drives the three status LEDs, reads core power-good. |
-| C182 | 100nF | 100nF bypass on +3V3, for U17 (status expander) |
-| R37 | 4.7k | 4.7k pull-up of SUP_SCL to +3V3, for U7 (board controller): I2C clock pull-up |
-| R38 | 4.7k | 4.7k pull-up of SUP_SDA to +3V3, for U7 (board controller): I2C data pull-up |
-| R45 | 4.7k | 4.7k resistor from SUP_EXP_INT to +3V3, for U17 (status expander): status expander interrupt (open drain) |
-
 ### board status LEDs
 
-Three green LEDs driven by the status expander: CTRL HB blinks while the board controller firmware is alive; USER 1 and USER 2 are for software. Each has a 1 k current-limiting resistor.
+Three green LEDs on board controller GPIO35-37, lit by driving the pin low: CTRL HB blinks while the board controller firmware is alive; USER 1 and USER 2 are for software. Each has a 1 k current-limiting resistor from +3V3. Rules: ref/status-leds.md.
 
 | Ref | Value | What it does |
 |---|---|---|

@@ -399,10 +399,13 @@ def build():
     # Every shared peripheral sits on a native RP2350 pin pair (datasheet
     # section 9.4, GPIO function table; findings item 42): the FPGA flash
     # bus is SPI1 (SCK 10, TX 11, RX 12, CSn 9; FD2/FD3 are PIO lines for
-    # quad mode), the expander bus is I2C1 (SDA 14, SCL 31), the sideband
-    # UART is UART0 (TX 32, RX 33). The 9 V request is one open-drain line
-    # (item 37); U11 and U14 have no enable any more (item 34); GPIO21 reads
-    # which source feeds +5V (item 35). Spare: 19, 20, 23, 26, 28, 29, 35-39.
+    # quad mode), the sideband UART is UART0 (TX 32, RX 33). The 9 V
+    # request is one open-drain line (item 37); U11 and U14 have no enable
+    # any more (item 34); GPIO21 reads which source feeds +5V (item 35).
+    # The three status LEDs and U15's power-good are plain GPIOs (35-38);
+    # the I2C expander that used to carry them is gone (owner, 2026-10-30:
+    # an extended part plus passives for four lines the RP2350 has spare).
+    # Spare: 14, 19, 20, 23, 26, 28, 29, 31, 39.
     gp = {0:'SUP_JTAG_TCK', 1:'SUP_JTAG_TMS', 2:'SUP_JTAG_TDI', 3:'SUP_JTAG_TDO',
           4:'SUP_PROG_B', 5:'SUP_INIT_B', 6:'SUP_DONE', 10:'SUP_CCLK',
           9:'SUP_FCS_B', 11:'SUP_FD0', 12:'SUP_FD1', 13:'SUP_FD2', 7:'SUP_FD3',
@@ -410,7 +413,9 @@ def build():
           32:'SUP_UART_TX', 33:'SUP_UART_RX',
           21:'VBUS5_ST', 22:'EN_2V5', 24:'EN_1V0', 25:'EN_1V2',
           27:'PD_REQ_9V', 30:'PD_PG',
-          8:'EXT_EN', 14:'SUP_SDA', 31:'SUP_SCL', 34:'EXT_FAULT'}
+          8:'EXT_EN', 34:'EXT_FAULT',
+          35:'LED_HEARTBEAT_N', 36:'LED_USER1_N', 37:'LED_USER2_N',
+          38:'CORE_1V0_GOOD'}
     for g, n in gp.items(): sup[f'GPIO{g}'] = n
     # ADC0-7 (GPIO40-47): MON_1V8 reads +1V8 itself, VCCAUX behind FB1, not
     # the regulator side of the bead (item 50); the two jumpered domains are
@@ -690,21 +695,14 @@ def build():
     d.reserve('C', 4)                 # X2 decoupling and refclk AC coupling
     d.R('100 1%', 'MGTRREF', '+1V2_MGT', R0603)
     d.reserve('R', 1); d.reserve('C', 1)        # SFP power gate
-    # U17 on the supervisor's I2C: three status LEDs and core power-good.
-    # P4-P7 are spare (P7 used to gate SFP power). Active-low LEDs are dark
-    # at power-on because every output latch wakes up high.
+    # The status expander (U17, PCF8574 on I2C1) and its passives are gone:
+    # two bus pull-ups, two SFP ports' worth of parts, its 100 nF and the
+    # INT pull-up. Their sequential refs (R37, R38, R45, C182 among them)
+    # are consumed so every later part keeps its designator.
     d.sheet('Supervisor')
-    d.group('status expander')
-    for n in ('SUP_SCL', 'SUP_SDA'): d.R('4.7k', V33, n)
+    d.reserve('R', 2)                           # SUP_SCL / SUP_SDA pull-ups
     d.reserve('C', 10); d.reserve('R', 6)       # two SFP ports
-    d.add('U17', 'EasyEDA:PCF8574T_3,518', 'PCF8574T_3,518',
-          'EasyEDA:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL',
-          {'VDD': V33, 'VSS': GND, 'SCL': 'SUP_SCL', 'SDA': 'SUP_SDA',
-           'A0': GND, 'A1': GND, 'A2': V33, '~{INT}': 'SUP_EXP_INT',
-           'P0': 'LED_HEARTBEAT_N', 'P1': 'LED_USER1_N', 'P2': 'LED_USER2_N',
-           'P3': 'CORE_1V0_GOOD'}, 'C7605')
-    d.C('100nF', V33, GND)
-    d.R('4.7k', V33, 'SUP_EXP_INT')
+    d.reserve('C', 1); d.reserve('R', 1)        # U17 bypass and INT pull-up
 
     d.sheet('Power')
     # ------------------------------------------------ power tree
@@ -967,8 +965,10 @@ def build():
           'EasyEDA:CONN-TH_P5.00_KF301-5.0-2P',
           {'1': 'AUX_RAIL', '2': GND}, 'C474881')
 
-    # PCF8574 is a strong sink, weak source. Active-low LEDs are dark at
-    # power-on (all output latches high) and need no supervisor GPIOs.
+    # Cathodes on RP2350 GPIO35-37, anodes through 1k from +3V3: a GPIO
+    # driven low lights the LED, about 1.2 mA each. Dark at power-on and in
+    # reset, when the pads are high-impedance with a weak pull-down and the
+    # anode resistor alone sets the current (none through a dark LED).
     d.sheet('Supervisor')
     d.group('board status LEDs')
     for ref, name in (('D9', 'HEARTBEAT'), ('D10', 'USER1'), ('D11', 'USER2')):

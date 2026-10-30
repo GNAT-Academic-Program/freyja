@@ -339,8 +339,8 @@ GROUP.update({
     'U15  5V to +1V0  (4A FPGA core supply)':
         'The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail '
         'on the board. Enabled by the board controller (EN_1V0); its '
-        'power-good output (CORE_1V0_GOOD) is read through the status '
-        'expander so firmware knows the core is up. The soft-start capacitor '
+        'power-good output (CORE_1V0_GOOD) goes to the board controller '
+        '(GPIO38) so firmware knows the core is up. The soft-start capacitor '
         'makes it ramp slowly; the feedback resistors set 1.0 V.',
     'MGTAVCC filter':
         'A small inductor and capacitor that make +1V0_MGT from +1V0: the '
@@ -509,15 +509,11 @@ GROUP.update({
     'manual JTAG header':
         'Standard 2x5 JTAG header for an external FPGA programmer (Xilinx/AMD '
         'cable or similar). Fit J52 first.',
-    'status expander':
-        'A small I2C chip on the board controller that drives the three '
-        'status LEDs and reads the FPGA core supply\'s power-good signal, '
-        'saving controller pins. Address 0x24. Rules for writing it: '
-        'ref/status-leds.md.',
     'board status LEDs':
-        'Three green LEDs driven by the status expander: CTRL HB blinks while '
-        'the board controller firmware is alive; USER 1 and USER 2 are for '
-        'software. Each has a 1 k current-limiting resistor.',
+        'Three green LEDs on board controller GPIO35-37, lit by driving the '
+        'pin low: CTRL HB blinks while the board controller firmware is '
+        'alive; USER 1 and USER 2 are for software. Each has a 1 k '
+        'current-limiting resistor from +3V3. Rules: ref/status-leds.md.',
     # ---- Slots sheet
     'SHIELD HEADER ABCD':
         'One long 2x32 socket on the right edge carrying the signals of slots '
@@ -603,7 +599,6 @@ PART.update({
     'U20': ('JTAG switch', 'TI SN74CB3Q3384 bus switch: connects or isolates the board controller\'s JTAG from the FPGA, set by J52.'),
     'J52': ('EXT JTAG jumper', 'Fit a shunt to hand the FPGA\'s JTAG to an external programmer on J2.'),
     'J2': ('FPGA JTAG header', '2x5 keyed header for an external FPGA programmer.'),
-    'U17': ('status expander', 'NXP PCF8574 I2C port expander: drives the three status LEDs, reads core power-good.'),
     'D9': ('CTRL HB LED', 'Green LED: blinks while the board controller firmware runs.'),
     'D10': ('USER 1 LED', 'Green LED for software use.'),
     'D11': ('USER 2 LED', 'Green LED for software use.'),
@@ -640,7 +635,7 @@ NET.update({
     'PD_REQ_9V': 'Q3\'s gate; off (5 V) unless the board controller drives it high',
     'USB_DP_MCU': 'USB D+ at the controller, after its 27 ohm series resistor',
     'USB_DM_MCU': 'USB D- at the controller, after its 27 ohm series resistor',
-    'CORE_1V0_GOOD': 'U15 power-good, read by the status expander',
+    'CORE_1V0_GOOD': 'U15 power-good, read by the board controller (GPIO38)',
     'CORE_1V0_SS': 'U15 soft-start: slows the core supply\'s ramp',
     'CORE_1V0_SVIN': 'filtered supply for U15\'s control circuit',
     'EXT_EN': 'from the board controller: turns extension power on; off by default',
@@ -656,7 +651,6 @@ NET.update({
     'SUPF_CS': 'controller flash chip-select; pulled low by CTRL BOOT for the bootloader',
     'EXTERNAL_JTAG_SELECTED': 'high when J52 is fitted: U20 disconnects the board controller',
     'JTAG_TDO_SW': 'probe point between the FPGA\'s TDO and U20',
-    'SUP_EXP_INT': 'status expander interrupt (open drain)',
 })
 NET_PREFIX = {
     'FB_': 'feedback divider, sets the regulator\'s output voltage',
@@ -668,8 +662,6 @@ NET_PREFIX = {
     'MON_': 'rail monitor input to the board controller\'s ADC',
     'PSRAM': 'damps ringing on the PSRAM line (ref/psram.md)',
     'BUS5V': 'keeps the 5 V bus translator disabled until the FPGA enables it',
-    'SUP_SCL': 'I2C clock pull-up',
-    'SUP_SDA': 'I2C data pull-up',
     'LED_': 'LED current limit',
     'U2': 'sets the switch\'s current limit (TI equation in design.py)',
     'U23_CT': 'sets how fast U23 ramps its output, about 1.5 ms (TPS22953 CT)',
@@ -702,7 +694,7 @@ def _is_pull(net):
     """A resistor on this net is a pull (default level), not a load or a
     reference: active-low lines, straps, and any net without its own note."""
     return (_net_note(net) is None or net.endswith(('_N', '_B', '_MDIO')) or
-            net.startswith(('EN_', 'SUP_SCL', 'SUP_SDA', 'BUS5V', 'EXT_', 'PD_PG', 'SUP_RUN')) or
+            net.startswith(('EN_', 'BUS5V', 'EXT_', 'PD_PG', 'SUP_RUN')) or
             net.startswith(('PHY_RX', 'PHY_LED', 'CFG_', 'PUDC')))
 
 

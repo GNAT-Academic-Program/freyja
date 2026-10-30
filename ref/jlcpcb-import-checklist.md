@@ -68,7 +68,6 @@ against the manufacturer datasheet.
 | 1 | `KF301-5.0-2P` | 9–21 V external power terminal | `C474881` — imported and linked |
 | 4 | `F.0603.00025/P2-0603G1TS2-06T-002` | green DONE, heartbeat and two user LEDs | `C7496818` — imported and linked |
 | 13 | `F254D-02-PT-B` | removable 2.54 mm selector shunts | `C501335` — imported; loose accessory |
-| 1 | `PCF8574T_3,518` | status LED expander | `C7605` — imported and linked |
 | 1 | `RTL8211FD-CG` | gigabit Ethernet PHY (LDO model) | `C2687133` — imported 2026-10-23 with easyeda2kicad, pins checked against datasheet rev 1.7 |
 | 1 | `HR911130A` | ETH 1000Base-T magjack with LEDs | `C54408` — imported 2026-10-23, pin names checked against the HanRun drawing |
 | 2 | `KH-RJ45-58-8P8C` | LINK P / LINK Q plain shielded jacks | `C2683360` — imported 2026-10-23 |

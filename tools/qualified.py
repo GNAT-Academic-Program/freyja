@@ -241,10 +241,6 @@ PARTS = {
     pinmap='NXP Table 3: 1 A0, 2 A1, 3 RESET, 4 INT0, 5 SD0, 6 SC0, 7 VSS, '
            '8 INT1, 9 SD1, 10 SC1, 11 INT, 12 SCL, 13 SDA, 14 VDD',
     src='NXP PCA9543A_43B rev 8; LCSC C2652904'),
-  'EasyEDA:PCF8574T_3,518': dict(
-    mpn='PCF8574T_3,518', pkg='SOIC-16W (7.5x10.3 mm)', fp='EasyEDA:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL',
-    rating='2.5-6 V, quasi-bidirectional I/O; P0-P2 sink LEDs at about 1 mA each; P3 reads core PG; P4-P7 spare',
-    pinmap='Imported EasyEDA symbol/footprint; LCSC C7605', src='NXP PCF8574 datasheet; LCSC C7605'),
   'EasyEDA:2044-2X32G00SA': dict(
     mpn='2044-2X32G00SA', pkg='2x32 female socket, 2.54 mm, THT, 8.5 mm, gold',
     fp='EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1', rating='3 A per contact',

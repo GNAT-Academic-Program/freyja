@@ -168,7 +168,6 @@ ANCHORS = {
     'USB protection':              (85.0, 8.0, 'down'),
     'USB-PD sink':                 (93.0, 16.0, 'down'),
     'board status LEDs':          (24.0, 82.0, 'right'),
-    'status expander':             (56.0, 36.0, 'right'),
     'U30  gigabit PHY':            (60.0, 26.0, 'down'),
     'PHY clock':                   (66.0, 30.0, 'down'),
     'PHY straps and LEDs':         (52.0, 30.0, 'down'),

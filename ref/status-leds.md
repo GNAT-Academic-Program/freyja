@@ -1,50 +1,41 @@
 # Board status LEDs and core power-good
 
-U17 sits on the supervisor's I2C at 7-bit address **0x24**. No RP2350 or FPGA
-GPIO assignments change. Three green LEDs reuse the qualified 0603 part
-C7496818, each fed from always-on +3V3 through 1k (R128–R130, C11702).
-U17 sinks their cathode current: **0 lights an LED, 1 turns it off**.
-Expected current is approximately 0.7–1.3mA per LED before output-voltage
-loss; under 4mA total. All LEDs default off at expander power-on.
+Three green LEDs (the qualified 0603 part C7496818) sit on the board
+controller's own GPIOs. Each anode is fed from always-on +3V3 through 1k
+(R128–R130, C11702); the cathode goes to the GPIO. **Driving the pin low
+lights the LED, high or high-impedance turns it off.** About 1.2 mA each,
+inside the RP2350's 12 mA pad setting. All three are dark at power-on and
+while the controller is in reset: the pads are then inputs with a weak
+pull-down, which pulls the cathode toward ground only through the LED's
+own forward drop, so no current flows.
 
-| U17 bit (physical pin) | Function | Board label |
-|---|---|---|
-| P0 (4) | D9 supervisor heartbeat | CTRL HB |
-| P1 (5) | D10 software-controlled user indicator | USER 1 |
-| P2 (6) | D11 software-controlled user indicator | USER 2 |
-| P3 (7) | CORE_1V0_GOOD from U15 PG | input; retain existing 100k pull-up |
-| P4–P6 | spare | keep output latches high |
-| P7 (12) | spare | keep output latch high |
+| RP2350 GPIO | Net | Function | Board label |
+|---|---|---|---|
+| GPIO35 | `LED_HEARTBEAT_N` | D9 supervisor heartbeat | CTRL HB |
+| GPIO36 | `LED_USER1_N` | D10 software-controlled user indicator | USER 1 |
+| GPIO37 | `LED_USER2_N` | D11 software-controlled user indicator | USER 2 |
+| GPIO38 | `CORE_1V0_GOOD` | U15 power-good, open drain with a 100k pull-up (R66) | input |
 
-The PCF8574 has quasi-bidirectional pins. **Always write P3=1** to release
-that pin for input; writing zero would pull down the regulator's PG signal.
-Read bit 3 to sample power-good. A high reading is meaningful only after
-core power is enabled and its startup interval has elapsed; combine it with
-MON_1V0 for a voltage check. No automatic firmware interpretation exists yet.
+The I2C expander that carried these lines in earlier revisions (U17,
+PCF8574, with its bus pull-ups, bypass and interrupt pull-up) is gone:
+the controller has the GPIOs to spare, and the expander was an extended
+JLCPCB part plus five passives for four signals.
 
-## Firmware write contract
+## Firmware contract
 
-Maintain a software shadow of U17's **output latch**, initialized to 0xFF.
-Serialize all U17 writes behind one bus lock; U17 is the only device on
-`SUP_SCL`/`SUP_SDA` (RP2350 GPIO31/GPIO14, I2C1 SCL/SDA) in rev A.
-Never use a port read as the writeback value: a low PG input must not become
-a latched-low output, and LED pin readback need not equal its output latch.
+- Configure GPIO35–37 as outputs, initial value high (LED off), before
+  anything else on those pins; reconfiguring a pin while the LED is lit is
+  harmless but visible.
+- Configure GPIO38 as an input with no pull: R66 already pulls it up, and
+  an internal pull-down would fight it.
+- Toggle CTRL HB at a visible cadence (for example once every 500 ms) from
+  the main service loop after successful status polling. A stuck-on light is
+  not proof of a healthy supervisor; a frozen one is proof of lost progress.
+- USER 1 and USER 2 are for supervisor software or for fabric applications
+  through supervisor commands; they are not wired to the FPGA.
+- A high CORE_1V0_GOOD is meaningful only after EN_1V0 is asserted and the
+  SY8047's start-up interval has elapsed; combine it with MON_1V0 for a
+  voltage check. No automatic firmware interpretation exists yet.
 
-- To change LEDs, modify only bits 0–2.
-- Before every write, OR the shadow with **0xF8**, keeping P3–P7 high.
-- Read `port & 0x08` for core PG; do not merge that read into the shadow.
-- `0xFF` is the startup state: all LEDs off, every input released.
-
-For the reference firmware, toggle heartbeat at a visible cadence (for
-example, once every 500ms) from the main service loop after successful status
-polling. A stuck-on light is not proof of a healthy supervisor. USER 1/2
-are available to supervisor software or fabric applications via supervisor
-commands; they are not directly wired FPGA LEDs. The firmware is not yet
-implemented, so these behaviors remain a firmware contract.
-
-If the bus is held low, LED updates and PG reads stop too; the heartbeat
-stopping exposes that failure. Place the three labeled LEDs where they remain
-visible, using the board-status group in the placement tools.
-
-The sinking connection and input-latch rule follow the
-[NXP PCF8574 datasheet](https://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf).
+Place the three labelled LEDs where they stay visible: they form the LED
+dashboard with the FPGA's DONE LED (tools/city.py, tools/stencil.py).

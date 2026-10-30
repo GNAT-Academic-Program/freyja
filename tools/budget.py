@@ -482,7 +482,7 @@ and MON_VSYS (J50 present). So:
 1. Any 5 V source is planned as a USB 2.0 port, 500 mA: recovery mode only.
    Recovery draws about {mode_rows()[0][4]*1000:.0f} mA at 4.75 V. That fits
    the configured 500 mA but not the 100 mA USB 2.0 allows an unconfigured
-   device: the PHY, SDRAM, oscillator and expander sit on the always-on
+   device: the PHY, SDRAM and oscillator sit on the always-on
    +3V3 with no switch. Open item: accept it (ports rarely police the
    100 mA step) or give those loads a switch in rev B; this table does not
    claim the pre-enumeration allowance is met.

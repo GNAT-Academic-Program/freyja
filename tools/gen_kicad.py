@@ -20,8 +20,7 @@ def normalize_imported_pin_types():
     """Replace importer 'unspecified' types with reviewed electrical roles.
 
     Connectors/LEDs are passive; J51 models the attached SWD debugger at
-    pins 1 and 3. Mechanical shield pins remain passive. PCF8574 ports are
-    quasi-bidirectional, with open-drain INT and supply/input pins typed.
+    pins 1 and 3. Mechanical shield pins remain passive.
     This edits the source library, so embedded symbols and library ERC agree.
     """
     import symlib
@@ -40,10 +39,6 @@ def normalize_imported_pin_types():
     overrides = {
         'BM03B-SRSS-TB': {'1': 'bidirectional', '2': 'passive',
                           '3': 'bidirectional', '4': 'passive', '5': 'passive'},
-        'PCF8574T_3,518': {
-            **{str(n): 'input' for n in (1, 2, 3, 14)},
-            **{str(n): 'bidirectional' for n in (4, 5, 6, 7, 9, 10, 11, 12, 15)},
-            '8': 'power_in', '16': 'power_in', '13': 'open_collector'},
         # RTL8211F(D) datasheet rev 1.7, Tables 1-9. RXD/RXC/RXCTL and the
         # LED pins are outputs that double as strap inputs during reset; a
         # pull resistor on an output is fine for ERC. Pin 30 is the LDO

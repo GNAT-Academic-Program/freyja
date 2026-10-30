@@ -15,7 +15,7 @@ footprints), nothing else: no footprint moves (check_positions.py --compare
 reports 0 moved refs across a run).
 
 Label texts: the "Board label" column of ref/status-leds.md for the three
-expander LEDs; the DONE LED is "DONE" (the 5 mm cell pitch of the dashboard
+controller LEDs; the DONE LED is "DONE" (the 5 mm cell pitch of the dashboard
 holds about six characters at 0.8 mm).
 """
 import os

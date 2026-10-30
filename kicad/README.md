@@ -105,10 +105,9 @@ outside the exact list above, is a regression and makes `check_erc.py` fail.
 A change to the expected labels also requires updating this table and the
 checker together.
 
-`tools/gen_kicad.py` normalizes imported connector/LED pin types to passive,
-models J51 SWCLK/SWDIO (pins 1/3) as bidirectional debugger connections, and
-assigns the PCF8574's actual supply, input, bidirectional and open-drain pin
-types. J51 ground and mechanical pins remain passive. No project-level
+`tools/gen_kicad.py` normalizes imported connector/LED pin types to passive
+and models J51 SWCLK/SWDIO (pins 1/3) as bidirectional debugger connections.
+J51 ground and mechanical pins remain passive. No project-level
 ERC rule is disabled and no ERC exclusion is added.
 
 The per-phase numbers (footprints, DRC, parity, escape depth) are in

@@ -541,11 +541,12 @@ is running correctly. Ignore the indicator while supplies are ramping.
 Three additional green indicators are fitted: **CTRL HB**, **USER 1** and
 **USER 2**. They default off. Supervisor firmware can blink CTRL HB from its
 main service loop and expose USER 1/2 to applications; that firmware remains
-to be implemented. A frozen heartbeat indicates lost progress or an I2C-bus
-fault, while a steady lit LED alone does not establish health.
+to be implemented. A frozen heartbeat indicates lost progress, while a
+steady lit LED alone does not establish health. The three LEDs hang
+directly off supervisor GPIO35-37 (low lights them).
 
-The supervisor can also read the core regulator's **CORE_1V0_GOOD** through
-the same expander, alongside its existing MON_1V0 voltage measurement.
+The supervisor also reads the core regulator's **CORE_1V0_GOOD** on GPIO38,
+alongside its existing MON_1V0 voltage measurement.
 See [status indicators and firmware rules](status-leds.md).
 
 ## Memory

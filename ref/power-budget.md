@@ -104,7 +104,7 @@ bead or inductor are frequency-dependent and listed beside, not added.
 | Ref | Node | Direct COUT | Validated | Behind a filter | Status | Datasheet |
 |---|---|---:|---:|---|---|---|
 | `U11` | +5V_BUCK | 67.0 uF | 68 uF | 81.7 uF on +5V behind U34 | inside | DS42002 p. 19: 22-68 uF ceramic for most applications |
-| `U12` | +3V3 | 221.4 uF | 68 uF | - | **beyond: bench qualification** | DS42002 p. 19: 22-68 uF ceramic for most applications |
+| `U12` | +3V3 | 221.3 uF | 68 uF | - | **beyond: bench qualification** | DS42002 p. 19: 22-68 uF ceramic for most applications |
 | `U13` | +2V5 | 103.4 uF | 47 uF | - | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
 | `U14` | +1V8_IO | 113.0 uF | 47 uF | 63.5 uF on +1V8 behind FB1 | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
 | `U15` | +1V0 | 506.9 uF | 44 uF | 10.4 uF on +1V0_MGT behind L9 | **beyond: bench qualification** | Silergy SY8047 rev 0.9 reference circuit: 2 x 22 uF |
@@ -180,7 +180,7 @@ and MON_VSYS (J50 present). So:
 1. Any 5 V source is planned as a USB 2.0 port, 500 mA: recovery mode only.
    Recovery draws about 211 mA at 4.75 V. That fits
    the configured 500 mA but not the 100 mA USB 2.0 allows an unconfigured
-   device: the PHY, SDRAM, oscillator and expander sit on the always-on
+   device: the PHY, SDRAM and oscillator sit on the always-on
    +3V3 with no switch. Open item: accept it (ports rarely police the
    100 mA step) or give those loads a switch in rev B; this table does not
    claim the pre-enumeration allowance is met.
