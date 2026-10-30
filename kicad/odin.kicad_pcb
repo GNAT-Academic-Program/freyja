@@ -920,7 +920,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "0002ce0d-96fd-438b-8ca9-f219be8fea79")
-		(at 276.06204 97.357065 -90)
+		(at 273.66704 97.307065 -90)
 		(descr "10uF bypass on SLOT_E_PIN_VOLTAGE, for J55 (slot E power socket)")
 		(tags "capacitor")
 		(property "Reference" "C155"
@@ -2351,7 +2351,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "0495d7cd-18f9-49a5-907b-69c7160c7fda")
-		(at 265.03 116.59)
+		(at 261.5 118.1)
 		(descr "33k pull-down on EXT_PRESENT, for Q7 (mux: screw input present): Q7's gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT")
 		(tags "resistor")
 		(property "Reference" "R202"
@@ -2621,7 +2621,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "051a8e7a-0992-4b38-883b-50a3833bcb4c")
-		(at 276.06204 104.707065 -90)
+		(at 273.66704 104.657065 -90)
 		(descr "100nF bypass on SLOT_E_3V3, for J55 (slot E power socket)")
 		(tags "capacitor")
 		(property "Reference" "C156"
@@ -2915,7 +2915,7 @@
 	(footprint "EasyEDA:HDR-TH_7P-P2.54-V-F"
 		(layer "F.Cu")
 		(uuid "060093b6-3631-4d85-a0b1-880c62be02c0")
-		(at 278.63704 145.667065 -90)
+		(at 276.24204 145.617065 -90)
 		(descr "slot G power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.")
 		(property "Reference" "J56"
 			(at 0 -4 270)
@@ -4467,7 +4467,7 @@
 	(footprint "EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353"
 		(layer "F.Cu")
 		(uuid "0b8cfedd-8b7b-4ec0-8c60-e08159074ff8")
-		(at 281.17704 135.507065)
+		(at 278.78204 135.457065)
 		(descr "slot F key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.")
 		(property "Reference" "MK70"
 			(at 0 -2.5 0)
@@ -4576,7 +4576,7 @@
 	(footprint "odin:Fuse_TECHFUSE_SMD2018"
 		(layer "F.Cu")
 		(uuid "0be3d426-ca47-47dc-9e98-ff216971c1e1")
-		(at 282.7 160.9 90)
+		(at 280.305 160.85 90)
 		(descr "1.1A 33V resettable fuse feeding SLOT_G_AUX from AUX_RAIL, for J56 (slot G power socket)")
 		(tags "PTC 2018 5045metric")
 		(property "Reference" "F36"
@@ -4701,7 +4701,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0bf44726-fe9c-428f-b233-8bb130dc2667")
-		(at 248.425 213.145 90)
+		(at 248 213.36 90)
 		(descr "1k series resistor between BOOTSEL_SW and SUPF_CS, for U7 (board controller): button side of the BOOTSEL resistor; controller flash chip-select; pulled low by CTRL BOOT for the bootloader")
 		(tags "resistor")
 		(property "Reference" "R12"
@@ -4983,7 +4983,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "0f71c881-1d17-4c5b-8bfc-633c4a7c0ed4")
-		(at 282.36119 97.62619)
+		(at 279.96619 97.57619)
 		(descr "4.7uF bypass on +5V, for U14 (1.8 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C269"
@@ -5412,7 +5412,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "0fdb76ea-901a-4ce8-84fc-8a604cb23662")
-		(at 276.06204 148.627065 90)
+		(at 273.66704 148.577065 90)
 		(descr "300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket)")
 		(property "Reference" "F35"
 			(at 0 -4 90)
@@ -6573,7 +6573,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1384e814-ff70-4a5c-a65c-d2ee118c2bc2")
-		(at 269.8 201.4025 90)
+		(at 267.925 202.0375 90)
 		(descr "100nF bypass on HDMI_5V, for U31 (HDMI protection and level shifter)")
 		(tags "capacitor")
 		(property "Reference" "C249"
@@ -7186,7 +7186,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1498025a-5c57-40e2-b48d-d01fd7036b42")
-		(at 260.2925 213.365 90)
+		(at 259.9675 213.38 90)
 		(descr "330 resistor from DONE_LED_A to +3V3, for D1 (FPGA DONE LED): sets D1's current")
 		(tags "resistor")
 		(property "Reference" "R7"
@@ -7826,7 +7826,7 @@
 	(footprint "EasyEDA:HDR-TH_7P-P2.54-V-F"
 		(layer "F.Cu")
 		(uuid "1718e066-c6c3-473c-9376-95cb02a4d4ea")
-		(at 278.63704 125.347065 -90)
+		(at 276.24204 125.297065 -90)
 		(descr "slot F power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.")
 		(property "Reference" "J64"
 			(at 0 -4 270)
@@ -10455,7 +10455,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1d139c55-b6c3-46ad-a647-dd7716945d58")
-		(at 262.255 93.07)
+		(at 260.545 93.07)
 		(descr "100nF bypass on +3V3, for U20 (JTAG switch)")
 		(tags "capacitor")
 		(property "Reference" "C138"
@@ -11673,7 +11673,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "20354f8c-11f8-41d4-8605-146cc1d6e15f")
-		(at 254.825 208.055 -90)
+		(at 254.5 208.07 -90)
 		(descr "1k resistor from LED_USER1_A to +3V3, for D10 (USER 1 LED): LED current limit")
 		(tags "resistor")
 		(property "Reference" "R129"
@@ -12985,7 +12985,7 @@
 	(footprint "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "21ae1c0b-10af-4d77-b76e-2e2b5597172d")
-		(at 260.2925 207.225 90)
+		(at 259.9675 207.24 90)
 		(descr "DONE LED driver: Small N-MOSFET that sinks D1's current when DONE goes high, so the LED never loads the FPGA's open-drain DONE pin.")
 		(property "Reference" "Q4"
 			(at 0 -4.95 90)
@@ -13943,7 +13943,7 @@
 	(footprint "EasyEDA:LED0603-RD_GREEN"
 		(layer "F.Cu")
 		(uuid "247318e4-0471-4a5a-831a-cdd4efeba2ec")
-		(at 260.2925 210.705 -90)
+		(at 259.9675 210.72 -90)
 		(descr "FPGA DONE LED: Green LED, lit once the FPGA has finished loading a design.")
 		(property "Reference" "D1"
 			(at 0 -4.003 90)
@@ -14503,7 +14503,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "25323dea-43ea-446e-9a68-6ba2f0d56cde")
-		(at 276.06204 132.697065 90)
+		(at 273.66704 132.647065 90)
 		(descr "500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket)")
 		(property "Reference" "F30"
 			(at 0 -4 90)
@@ -15022,7 +15022,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "25cbfc74-0742-4d84-a603-34c5a1bbacec")
-		(at 276.06204 125.027065 -90)
+		(at 273.66704 124.977065 -90)
 		(descr "100nF bypass on SLOT_F_3V3, for J64 (slot F power socket)")
 		(tags "capacitor")
 		(property "Reference" "C158"
@@ -15169,7 +15169,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "2700677e-3f29-4dc4-be74-d9767a362100")
-		(at 266.94 97.34 -90)
+		(at 264.2 97.3 -90)
 		(descr "10k resistor from VBUS5_ST to +3V3, for U7 (board controller): U34 status to the board controller: low when U11 feeds +5V")
 		(tags "resistor")
 		(property "Reference" "R169"
@@ -15413,7 +15413,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "27a5ed8a-11d2-4df7-bb8a-622abea0b8c1")
-		(at 276.06204 153.017065 90)
+		(at 273.66704 152.967065 90)
 		(descr "500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket)")
 		(property "Reference" "F34"
 			(at 0 -4 90)
@@ -16269,7 +16269,7 @@
 	(footprint "EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1"
 		(layer "F.Cu")
 		(uuid "2a176332-b62f-4729-8eea-a54ab5d53bf4")
-		(at 273.6 184.9)
+		(at 271.205 184.85)
 		(descr "E-H PIN VOLTAGE jumper: 2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots E-H.")
 		(property "Reference" "J20"
 			(at 0 -5.27 0)
@@ -20877,7 +20877,7 @@
 	(footprint "EasyEDA:HDR-TH_7P-P2.54-V-F"
 		(layer "F.Cu")
 		(uuid "3a91b776-f7ee-4232-b058-b0a5a07fca64")
-		(at 278.63704 165.987065 -90)
+		(at 276.24204 165.937065 -90)
 		(descr "slot H power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.")
 		(property "Reference" "J65"
 			(at 0 -4 270)
@@ -22773,7 +22773,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "3f33f2f7-ef79-4625-a311-c678d7d3d470")
-		(at 278.4 181.5 180)
+		(at 276.005 181.45 180)
 		(descr "100nF bypass on +3V3, for U24 (slots E-H PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C274"
@@ -23055,7 +23055,7 @@
 	(footprint "EasyEDA:LED0603-RD_GREEN"
 		(layer "F.Cu")
 		(uuid "416531b4-be55-48f4-a5f7-bbee8d59a778")
-		(at 252.125 210.685 90)
+		(at 251.8 210.7 90)
 		(descr "USER 2 LED: Green LED for software use.")
 		(property "Reference" "D11"
 			(at 0 -4.003 90)
@@ -24355,7 +24355,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "43eedc8e-b767-4148-a012-9cd8507be51b")
-		(at 265 193.7835 90)
+		(at 263.9 193.7835 90)
 		(descr "1uF bypass on +5V, for U21 (extension 5 V switch)")
 		(tags "capacitor")
 		(property "Reference" "C218"
@@ -25264,7 +25264,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "4699b2bc-38e1-4219-b329-7c12635111bf")
-		(at 267.51 86.01)
+		(at 265.8 86.01)
 		(descr "0 series resistor between JTAG_TDO and JTAG_TDO_SW, for U20 (JTAG switch): probe point between the FPGA's TDO and U20")
 		(tags "resistor")
 		(property "Reference" "R33"
@@ -25399,7 +25399,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "4722ec2c-073a-4d28-93f5-cbd85e91f9b6")
-		(at 276.06204 107.987065 90)
+		(at 273.66704 107.937065 90)
 		(descr "300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket)")
 		(property "Reference" "F27"
 			(at 0 -4 90)
@@ -25771,7 +25771,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "47756ff3-9e71-4293-8cc8-3d7f90d9f018")
-		(at 276.06204 142.067065 90)
+		(at 273.66704 142.017065 90)
 		(descr "500mA resettable fuse feeding SLOT_G_PIN_VOLTAGE from VCCIO_2_EXT, for J56 (slot G power socket)")
 		(property "Reference" "F33"
 			(at 0 -4 90)
@@ -25996,7 +25996,7 @@
 	(footprint "EasyEDA:KEY-SMD_B3U-1000PM"
 		(layer "F.Cu")
 		(uuid "477aeae8-33f2-44cf-b43b-42e2ab678224")
-		(at 248.425 209.585 90)
+		(at 248 209.8 90)
 		(descr "CTRL BOOT button: Hold while plugging in USB to enter the board controller's USB bootloader.")
 		(property "Reference" "SW1"
 			(at 0 -4 90)
@@ -30637,7 +30637,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "50fd6ddc-3ebc-4f2a-926a-80e512d3a999")
-		(at 269.7 197.1025 90)
+		(at 267.825 197.7375 90)
 		(descr "75 pull-down on HDMI_UTILITY, for J73 (HDMI OUT jack)")
 		(tags "resistor")
 		(property "Reference" "R150"
@@ -31412,7 +31412,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "540c6eb6-cc5a-4827-8ff4-278616277863")
-		(at 282.36119 100.82619)
+		(at 279.96619 100.77619)
 		(descr "49.9k resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R62"
@@ -31547,7 +31547,7 @@
 	(footprint "odin:Fuse_TECHFUSE_SMD2018"
 		(layer "F.Cu")
 		(uuid "5485980a-f935-4fff-8f2b-131c82b00c7c")
-		(at 282.6 171.1 -90)
+		(at 280.205 171.05 -90)
 		(descr "1.1A 33V resettable fuse feeding SLOT_H_AUX from AUX_RAIL, for J65 (slot H power socket)")
 		(tags "PTC 2018 5045metric")
 		(property "Reference" "F40"
@@ -32773,7 +32773,7 @@
 		(property "Reference" "C243"
 			(at 0 -1.43 0)
 			(layer "F.Fab")
-			(uuid "05ffd2cc-0c47-49bf-943b-aac8672d16ac")
+			(uuid "94d41bd7-969a-496c-b0a7-271097afaa5b")
 			(effects
 				(font
 					(size 1 1)
@@ -32784,7 +32784,7 @@
 		(property "Value" "100nF 50V"
 			(at 0 1.43 0)
 			(layer "F.Fab")
-			(uuid "0c3f13a3-8f05-419b-9a18-d783be14ba5d")
+			(uuid "4144eb34-a59a-4d9a-b136-9431ba20779d")
 			(effects
 				(font
 					(size 1 1)
@@ -32796,7 +32796,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "512798b0-75be-4c17-a5c6-e7e3b45aa784")
+			(uuid "888287ec-3ff1-4b84-95b7-23315a5a9d1b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32808,7 +32808,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "03b5fa60-68cc-480f-b622-8c34973b6fab")
+			(uuid "959606ed-642f-4e94-a9f4-c1b035394ed2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34728,7 +34728,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "5de2f7d2-4f6e-4a37-bdd3-4c680c1c12db")
-		(at 281.06119 102.72619 90)
+		(at 278.66619 102.67619 90)
 		(descr "100nF bypass on +5V, for U14 (1.8 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C203"
@@ -36126,7 +36126,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "637fba1e-a1f9-4ffc-be4a-7845cdbe2177")
-		(at 257.525 208.055 -90)
+		(at 257.2 208.07 -90)
 		(descr "1k resistor from LED_HEARTBEAT_A to +3V3, for D9 (CTRL HB LED): LED current limit")
 		(tags "resistor")
 		(property "Reference" "R128"
@@ -36273,7 +36273,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "639f33ec-709f-469e-b407-68fc472c75cd")
-		(at 276.06204 173.337065 90)
+		(at 273.66704 173.287065 90)
 		(descr "500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket)")
 		(property "Reference" "F38"
 			(at 0 -4 90)
@@ -39757,7 +39757,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "7002bb74-387d-40dc-a235-7c5ebe2b1a8b")
-		(at 276.06204 168.947065 90)
+		(at 273.66704 168.897065 90)
 		(descr "300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket)")
 		(property "Reference" "F39"
 			(at 0 -4 90)
@@ -40401,7 +40401,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "71f878eb-0dfd-4122-83bf-afeceaf1d0f2")
-		(at 276.06204 101.427065 90)
+		(at 273.66704 101.377065 90)
 		(descr "500mA resettable fuse feeding SLOT_E_PIN_VOLTAGE from VCCIO_2_EXT, for J55 (slot E power socket)")
 		(property "Reference" "F25"
 			(at 0 -4 90)
@@ -41665,7 +41665,7 @@
 	(footprint "EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353"
 		(layer "F.Cu")
 		(uuid "730138d9-7b22-4bf6-a7de-3f9de6335cb2")
-		(at 281.17704 155.827065)
+		(at 278.78204 155.777065)
 		(descr "slot G key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.")
 		(property "Reference" "MK71"
 			(at 0 -2.5 0)
@@ -42856,7 +42856,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "773da3fe-c460-410f-a871-ff6baa719e6f")
-		(at 267.51 89.88 180)
+		(at 265.8 89.88 180)
 		(descr "33 series resistor between SUP_JTAG_TMS and SWJ_TMS, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R15"
@@ -43579,7 +43579,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "78eecbc6-b091-4174-99fe-14a00ae03af3")
-		(at 276.06204 165.667065 -90)
+		(at 273.66704 165.617065 -90)
 		(descr "100nF bypass on SLOT_H_3V3, for J65 (slot H power socket)")
 		(tags "capacitor")
 		(property "Reference" "C162"
@@ -43861,7 +43861,7 @@
 	(footprint "EasyEDA:LED0603-RD_GREEN"
 		(layer "F.Cu")
 		(uuid "7952d4f8-c30d-460d-bae2-0e3a691b05af")
-		(at 257.525 210.715 90)
+		(at 257.2 210.73 90)
 		(descr "CTRL HB LED: Green LED: blinks while the board controller firmware runs.")
 		(property "Reference" "D9"
 			(at 0 -4.003 90)
@@ -44580,7 +44580,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "7a3109c3-1c19-4344-981a-076ed70e9a17")
-		(at 276.06204 128.307065 90)
+		(at 273.66704 128.257065 90)
 		(descr "300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket)")
 		(property "Reference" "F31"
 			(at 0 -4 90)
@@ -45738,7 +45738,7 @@
 	(footprint "Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm"
 		(layer "F.Cu")
 		(uuid "7b0d0175-e14a-45f8-ae91-f9f53b941737")
-		(at 274.7 198.5025 -90)
+		(at 272.825 199.1375 -90)
 		(descr "HDMI protection and level shifter: TI TPD12S016: ESD clamps on the four HDMI pairs, DDC and CEC level shifting from 3.3 V to 5 V, hot plug buffer and a 55 mA current-limited 5 V for the cable.")
 		(tags "TSSOP SO")
 		(property "Reference" "U31"
@@ -47512,7 +47512,7 @@
 	(footprint "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm"
 		(layer "F.Cu")
 		(uuid "7fb7d766-c9dd-4d0b-beb2-e7f69d8e713c")
-		(at 281.1 180.6)
+		(at 278.705 180.55)
 		(descr "slots E-H PIN V switch: TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_2 to the PIN V pin of slots E-H. Blocks reverse current while off; the slot fuses limit the current.")
 		(tags "Texas WSON NoLead")
 		(property "Reference" "U24"
@@ -49309,7 +49309,7 @@
 	(footprint "Connector_Video:HDMI_A_Amphenol_10029449-x01xLF_Horizontal"
 		(layer "F.Cu")
 		(uuid "8404ca5a-9aa1-4ad9-80d0-2eaa8059c927")
-		(at 274.5 209.79)
+		(at 272.625 210.425)
 		(descr "HDMI OUT jack: Amphenol 10029449 HDMI type A socket: video out from FPGA bank 35, DVI-compatible, 720p60 and below.")
 		(tags "hdmi right angle")
 		(property "Reference" "J73"
@@ -49764,7 +49764,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "840d7df2-00ce-4f2f-a36b-6edcc915a6ae")
-		(at 264.22 99.82)
+		(at 264.22 100.4)
 		(descr "22uF bypass on +5V, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C265"
@@ -50316,7 +50316,7 @@
 	(footprint "EasyEDA:IND-SMD_L4.0-W4.0_SNR4018"
 		(layer "F.Cu")
 		(uuid "85cc78a3-424e-4237-b733-a5215797f1be")
-		(at 282.3 106.3 90)
+		(at 279.905 106.25 90)
 		(descr "2.2uH SRN4018-2R2M inductor between +1V8_IO and SW+1V8_IO, for U14 (1.8 V regulator, always on): regulator switching node")
 		(property "Reference" "L5"
 			(at 0 -4 90)
@@ -52700,7 +52700,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8bf06eeb-af26-451e-b766-28918f892239")
-		(at 267.51 88.59 180)
+		(at 265.8 88.59 180)
 		(descr "33 series resistor between SUP_JTAG_TDI and SWJ_TDI, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R16"
@@ -53276,7 +53276,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "8e4c639b-1e14-4afa-aea3-e0d72173044c")
-		(at 276.06204 117.677065 -90)
+		(at 273.66704 117.627065 -90)
 		(descr "10uF bypass on SLOT_F_PIN_VOLTAGE, for J64 (slot F power socket)")
 		(tags "capacitor")
 		(property "Reference" "C157"
@@ -54107,7 +54107,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "901010b6-11f3-44a2-b801-c714d6fc2dad")
-		(at 269.7 195.0025 90)
+		(at 267.825 195.6375 90)
 		(descr "100k pull-up of HDMI_CT_HPD to +3V3, for U31 (HDMI protection and level shifter)")
 		(tags "resistor")
 		(property "Reference" "R148"
@@ -56794,7 +56794,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "97404325-26ac-41f5-920a-bd5c967c5316")
-		(at 271.06 180.15 90)
+		(at 268.665 180.1 90)
 		(descr "22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper)")
 		(tags "capacitor")
 		(property "Reference" "C166"
@@ -56941,7 +56941,7 @@
 	(footprint "EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL_3"
 		(layer "F.Cu")
 		(uuid "97933861-954e-4ffc-9c6e-d88cd8002e2d")
-		(at 265 197.2 180)
+		(at 263.9 197.2 180)
 		(descr "extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 1 A limit, reverse blocking.")
 		(property "Reference" "U21"
 			(at 0 -5.149 180)
@@ -57875,7 +57875,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "99501974-d988-4a11-9c45-9247e097ffc6")
-		(at 276.06204 121.747065 90)
+		(at 273.66704 121.697065 90)
 		(descr "500mA resettable fuse feeding SLOT_F_PIN_VOLTAGE from VCCIO_2_EXT, for J64 (slot F power socket)")
 		(property "Reference" "F29"
 			(at 0 -4 90)
@@ -58235,7 +58235,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "999edf1a-fb6d-4c85-9e4c-dbf3da3ac522")
-		(at 276.06204 112.377065 90)
+		(at 273.66704 112.327065 90)
 		(descr "500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket)")
 		(property "Reference" "F26"
 			(at 0 -4 90)
@@ -59384,7 +59384,7 @@
 	(footprint "EasyEDA:HDR-TH_7P-P2.54-V-F"
 		(layer "F.Cu")
 		(uuid "9c4381c5-ec9a-45f9-895c-95e45e4dfaa4")
-		(at 278.63704 105.027065 -90)
+		(at 276.24204 104.977065 -90)
 		(descr "slot E power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.")
 		(property "Reference" "J55"
 			(at 0 -4 90)
@@ -61620,7 +61620,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a4356e60-ddf3-4bf6-92a0-43f8e8d04e4b")
-		(at 281.7 178.6)
+		(at 279.305 178.55)
 		(descr "1nF 50V filter capacitor on U24_CT, for U24 (slots E-H PIN V switch): sets how fast U24 ramps its output, about 1.5 ms (TPS22953 CT)")
 		(tags "capacitor")
 		(property "Reference" "C275"
@@ -61755,7 +61755,7 @@
 	(footprint "EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353"
 		(layer "F.Cu")
 		(uuid "a4552d3e-a65e-4ce4-9056-61220d8bd710")
-		(at 281.17704 115.187065)
+		(at 278.78204 115.137065)
 		(descr "slot E key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.")
 		(property "Reference" "MK69"
 			(at 0 -2.5 0)
@@ -61999,7 +61999,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a4ffc5e4-bc7c-493d-b43c-955da7678ffc")
-		(at 252.125 208.025 -90)
+		(at 251.8 208.04 -90)
 		(descr "1k resistor from LED_USER2_A to +3V3, for D11 (USER 2 LED): LED current limit")
 		(tags "resistor")
 		(property "Reference" "R130"
@@ -62281,7 +62281,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "a55841a7-158b-4a38-8072-f2b0d9d9aa6e")
-		(at 266.955 93.17)
+		(at 265.245 93.17)
 		(descr "10k resistor from EXTERNAL_JTAG_SELECTED to GND, for U20 (JTAG switch): high when J52 is fitted: U20 disconnects the board controller")
 		(tags "resistor")
 		(property "Reference" "R34"
@@ -64985,7 +64985,7 @@
 	(footprint "EasyEDA:IDC-TH_10P-P2.54_C5665"
 		(layer "F.Cu")
 		(uuid "aa2db847-8f4e-45fd-9b56-a789ead13b9c")
-		(at 277.7 84.2 90)
+		(at 275.305 84.15 90)
 		(descr "FPGA JTAG header: 2x5 keyed header for an external FPGA programmer.")
 		(property "Reference" "J2"
 			(at 0 -5.27 90)
@@ -68920,7 +68920,7 @@
 	(footprint "EasyEDA:LED0603-RD_GREEN"
 		(layer "F.Cu")
 		(uuid "b4696af9-e13a-445a-92b7-f024bd8b7dd1")
-		(at 254.825 210.715 90)
+		(at 254.5 210.73 90)
 		(descr "USER 1 LED: Green LED for software use.")
 		(property "Reference" "D10"
 			(at 0 -4.003 90)
@@ -69215,7 +69215,7 @@
 		(property "Reference" "J70"
 			(at 0 -10.895 180)
 			(layer "F.Fab")
-			(uuid "2f38d44f-92b9-4b51-a8bc-1a4a38c57ed4")
+			(uuid "5786913a-d156-4c12-ad72-6f7855da4e47")
 			(effects
 				(font
 					(size 1 1)
@@ -69227,7 +69227,7 @@
 			(at 0 10.895 180)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "814704b1-8df0-4366-a5e3-d85592717553")
+			(uuid "1996e5f6-a53b-45f3-bdd4-9b8fda23947a")
 			(effects
 				(font
 					(size 1 1)
@@ -69239,7 +69239,7 @@
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "db5efa3f-ef97-4df6-bf02-8747eeb14db2")
+			(uuid "5f958772-428f-4627-a88b-842f3ce43275")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -69251,7 +69251,7 @@
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "44a2ae97-05ab-4f9e-9503-81030789b25f")
+			(uuid "bb736fff-f491-4a89-b4ff-e3b434fd4bab")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -70987,7 +70987,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "b740f19d-e5d7-42c8-b3cd-3c28d035e0b3")
-		(at 276.06204 137.997065 -90)
+		(at 273.66704 137.947065 -90)
 		(descr "10uF bypass on SLOT_G_PIN_VOLTAGE, for J56 (slot G power socket)")
 		(tags "capacitor")
 		(property "Reference" "C159"
@@ -71359,7 +71359,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "b9837d2b-7ec6-4848-bda6-bd030a78630a")
-		(at 276.06204 162.387065 90)
+		(at 273.66704 162.337065 90)
 		(descr "500mA resettable fuse feeding SLOT_H_PIN_VOLTAGE from VCCIO_2_EXT, for J65 (slot H power socket)")
 		(property "Reference" "F37"
 			(at 0 -4 90)
@@ -71584,7 +71584,7 @@
 	(footprint "odin:Fuse_TECHFUSE_SMD2018"
 		(layer "F.Cu")
 		(uuid "ba1adba7-62c5-494c-8db2-2846c24da56e")
-		(at 282.6 130.4 -90)
+		(at 280.205 130.35 -90)
 		(descr "1.1A 33V resettable fuse feeding SLOT_F_AUX from AUX_RAIL, for J64 (slot F power socket)")
 		(tags "PTC 2018 5045metric")
 		(property "Reference" "F32"
@@ -71709,7 +71709,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "badca7ec-b76e-4c3e-8c0d-ea716e4ed242")
-		(at 279.6 201.3025 90)
+		(at 277.725 201.9375 90)
 		(descr "100nF bypass on +3V3, for U31 (HDMI protection and level shifter)")
 		(tags "capacitor")
 		(property "Reference" "C247"
@@ -71856,7 +71856,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "bb48b072-7773-4c7b-8ac0-1db307480872")
-		(at 276.06204 158.317065 -90)
+		(at 273.66704 158.267065 -90)
 		(descr "10uF bypass on SLOT_H_PIN_VOLTAGE, for J65 (slot H power socket)")
 		(tags "capacitor")
 		(property "Reference" "C161"
@@ -85221,7 +85221,7 @@
 	(footprint "EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1"
 		(layer "F.Cu")
 		(uuid "be0afb9e-d610-4f39-8b08-10d50f51eb9c")
-		(at 272.28704 136.777065 90)
+		(at 269.89204 136.727065 90)
 		(descr "slots E-H signal socket: 2x32 female socket, left edge: signals of slots E, F, G, H.")
 		(property "Reference" "J5"
 			(at 0 -5.27 90)
@@ -86019,7 +86019,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "be3be9ce-ac88-433f-a459-38e610ef1cd2")
-		(at 280.2 183.88 -90)
+		(at 277.805 183.83 -90)
 		(descr "1uF bypass on VCCIO_2_EXT, for U24 (slots E-H PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C276"
@@ -86820,7 +86820,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "bff78157-9261-4cda-8ab5-c3c58185e64b")
-		(at 282.36119 111.82619)
+		(at 279.96619 111.77619)
 		(descr "22uF bypass on +1V8_IO, for U14 (1.8 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C202"
@@ -89914,7 +89914,7 @@
 	(footprint "odin:Fuse_TECHFUSE_SMD2018"
 		(layer "F.Cu")
 		(uuid "c667c837-d098-4253-823d-e69f36f03e66")
-		(at 282.7 120.2 90)
+		(at 280.305 120.15 90)
 		(descr "1.1A 33V resettable fuse feeding SLOT_E_AUX from AUX_RAIL, for J55 (slot E power socket)")
 		(tags "PTC 2018 5045metric")
 		(property "Reference" "F28"
@@ -90486,7 +90486,7 @@
 		(property "Reference" "R144"
 			(at 0 -1.17 0)
 			(layer "F.Fab")
-			(uuid "bf01de3b-6b12-4c73-90b8-12a41441c387")
+			(uuid "22b87317-144c-4049-8ed2-ea44cb4d8e72")
 			(effects
 				(font
 					(size 1 1)
@@ -90497,7 +90497,7 @@
 		(property "Value" "510"
 			(at 0 1.17 0)
 			(layer "F.Fab")
-			(uuid "cb5e4d00-ddde-488a-b8d6-dfd9cec6fbda")
+			(uuid "7105dad5-1a07-4b1f-8781-e183bb4fa415")
 			(effects
 				(font
 					(size 1 1)
@@ -90509,7 +90509,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "15a627b9-e918-4084-9a56-ee2ad23e84ea")
+			(uuid "b40ef3ec-2d33-4053-bcad-887b1aba1230")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -90521,7 +90521,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a5e7495a-706c-41b9-9b6b-205225a1d6ac")
+			(uuid "0329e890-3229-4582-8cde-ae8f820e52c6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -91436,7 +91436,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ca5f2df8-706f-45ff-91b1-4d037de39973")
-		(at 261.52 116.59 180)
+		(at 261.52 116.4 180)
 		(descr "100k series resistor between EXT_PRESENT and VIN_EXT, for J50 (POWER IN screw terminal): Q7's gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT")
 		(tags "resistor")
 		(property "Reference" "R201"
@@ -91571,7 +91571,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ca83a37c-a8a4-4131-a2d0-8cae3ce637fe")
-		(at 263.43 101.42)
+		(at 263.43 102.2)
 		(descr "100nF 25V bypass on VBUS, for U34 (+5V source mux)")
 		(tags "capacitor")
 		(property "Reference" "C264"
@@ -91865,7 +91865,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "cc00db21-6816-4384-80fb-955d1a2a090c")
-		(at 269.7 199.2025 -90)
+		(at 267.825 199.8375 -90)
 		(descr "100nF bypass on +5V, for U31 (HDMI protection and level shifter)")
 		(tags "capacitor")
 		(property "Reference" "C248"
@@ -93941,7 +93941,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "d5cd0655-9a94-497e-8729-9c573f955d6e")
-		(at 273.6 180.15 90)
+		(at 271.205 180.1 90)
 		(descr "22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper)")
 		(tags "capacitor")
 		(property "Reference" "C165"
@@ -94235,7 +94235,7 @@
 	(footprint "EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL"
 		(layer "F.Cu")
 		(uuid "d6e62cfe-e2e6-496e-92e2-ffb3b8dbd759")
-		(at 262.2 88.4 90)
+		(at 260.49 88.4 90)
 		(descr "JTAG switch: TI SN74CB3Q3384 bus switch: connects or isolates the board controller's JTAG from the FPGA, set by J52.")
 		(property "Reference" "U20"
 			(at 0 -7.023 90)
@@ -95844,7 +95844,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "da3e4f37-3476-4837-a4c8-428643e3b420")
-		(at 267.51 87.3 180)
+		(at 265.8 87.3 180)
 		(descr "33 series resistor between SUP_JTAG_TDO and SWJ_TDO, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R17"
@@ -96408,13 +96408,13 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "dafc7adc-988e-4a85-9b37-27520e37b843")
-		(at 244.195 208.9)
+		(at 243.3 209.3 -90)
 		(descr "510 resistor from ETH_LED_YELLOW_K to GND, for J70 (ETH jack): current limit for the jack's yellow LED (LED2, active high)")
 		(tags "resistor")
 		(property "Reference" "R145"
-			(at 0 -1.17 0)
+			(at 0 -1.17 90)
 			(layer "F.Fab")
-			(uuid "10dcc083-a37e-47c8-b805-d8665d8f0bce")
+			(uuid "217d0792-b93a-4c27-9c22-061ea2932269")
 			(effects
 				(font
 					(size 1 1)
@@ -96423,9 +96423,9 @@
 			)
 		)
 		(property "Value" "510"
-			(at 0 1.17 0)
+			(at 0 1.17 90)
 			(layer "F.Fab")
-			(uuid "8d0963b7-487f-40e1-aee9-698542cb68dd")
+			(uuid "6b0bf0bf-747a-4c74-bd2b-d938158ccc5e")
 			(effects
 				(font
 					(size 1 1)
@@ -96434,10 +96434,10 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "1b202efd-0515-45ce-9901-d64cb7cf7a7a")
+			(uuid "81d64cf1-07de-4f45-9af2-2e48ec98684d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -96446,10 +96446,10 @@
 			)
 		)
 		(property "Description" "510 resistor from ETH_LED_YELLOW_K to GND, for J70 (ETH jack): current limit for the jack's yellow LED (LED2, active high)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "b6835327-eaa4-4cca-b743-1dc62c384bc6")
+			(uuid "92b67b2e-e63a-453f-bc46-1c87b78b32dd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -96459,16 +96459,6 @@
 		)
 		(attr smd)
 		(fp_line
-			(start -0.153641 -0.38)
-			(end 0.153641 -0.38)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "2907708c-f6b2-4f21-bfc3-98ab3287b86b")
-		)
-		(fp_line
 			(start -0.153641 0.38)
 			(end 0.153641 0.38)
 			(stroke
@@ -96477,6 +96467,16 @@
 			)
 			(layer "F.SilkS")
 			(uuid "73b33a70-1089-493e-807b-65416a9ce4fb")
+		)
+		(fp_line
+			(start -0.153641 -0.38)
+			(end 0.153641 -0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "2907708c-f6b2-4f21-bfc3-98ab3287b86b")
 		)
 		(fp_rect
 			(start -0.93 -0.47)
@@ -96501,7 +96501,7 @@
 			(uuid "2dd743ca-afcd-425c-b497-b6608ff323f8")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "68b75216-be60-4e9f-bf0d-ca4fab4717b3")
 			(effects
@@ -96512,7 +96512,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0)
+			(at -0.51 0 270)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -96520,7 +96520,7 @@
 			(uuid "07261b99-4a8a-41b3-97d9-afd51e919c09")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0)
+			(at 0.51 0 270)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -97261,7 +97261,7 @@
 	(footprint "EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353"
 		(layer "F.Cu")
 		(uuid "e03fe4d3-a6ce-4cc8-ba11-249506936134")
-		(at 281.17704 176.147065)
+		(at 278.78204 176.097065)
 		(descr "slot H key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.")
 		(property "Reference" "MK72"
 			(at 0 -2.5 0)
@@ -98280,7 +98280,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "e2f3377b-c33c-4672-af82-157f272b2988")
-		(at 267.51 91.17 180)
+		(at 265.8 91.17 180)
 		(descr "33 series resistor between SUP_JTAG_TCK and SWJ_TCK, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R14"
@@ -99003,7 +99003,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e5ee0c86-b200-4953-a148-ead6b6d00103")
-		(at 266.19 112.82)
+		(at 261.5 114.7)
 		(descr "470k resistor from SEL_IN2 to GND, for Q6 (mux: 9 V request hold): Q6's gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s")
 		(tags "resistor")
 		(property "Reference" "R200"
@@ -99273,7 +99273,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e826bb1f-52bd-45ab-a4e2-d5db10ce970e")
-		(at 264.505 200.5835 -90)
+		(at 263.405 200.5835 -90)
 		(descr "1.15k resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py)")
 		(tags "resistor")
 		(property "Reference" "R74"
@@ -99837,7 +99837,7 @@
 	(footprint "EasyEDA:SOT-563_L1.6-W1.2-P0.50-LS1.6-BL"
 		(layer "F.Cu")
 		(uuid "e9abddf8-9a6a-4882-b3d0-9a85aad20cdd")
-		(at 283.16119 102.72619 180)
+		(at 280.76619 102.67619 180)
 		(descr "1.8 V regulator, always on: TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). Enable tied to +5V.")
 		(property "Reference" "U14"
 			(at 0 -4.723 0)
@@ -101413,7 +101413,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ee05c57d-c8f9-4b8f-b710-f3e493c66c80")
-		(at 277.8 180.2 180)
+		(at 275.405 180.15 180)
 		(descr "10k pull-up of EXT_FAULT to +3V3, for U7 (board controller): shared fault line, low when a protected supply trips")
 		(tags "resistor")
 		(property "Reference" "R73"
@@ -101548,7 +101548,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ee7acb1d-c22a-47cf-98ae-d0dae494d640")
-		(at 282.36119 99.22619 180)
+		(at 279.96619 99.17619 180)
 		(descr "100k resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R61"
@@ -102240,7 +102240,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "efd3a221-0645-4cae-b03c-a55a86529f82")
-		(at 282 183.88 -90)
+		(at 279.605 183.83 -90)
 		(descr "1uF bypass on VCCIO_2, for U24 (slots E-H PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C221"
@@ -102669,7 +102669,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "f058002e-a3b0-44e8-a322-d0452b14f0ad")
-		(at 282.36119 109.72619)
+		(at 279.96619 109.67619)
 		(descr "22uF bypass on +1V8_IO, for U14 (1.8 V regulator, always on)")
 		(tags "capacitor")
 		(property "Reference" "C201"
@@ -104385,7 +104385,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f51ccb5b-33e3-4caa-be02-444f3be0af22")
-		(at 276.06204 145.347065 -90)
+		(at 273.66704 145.297065 -90)
 		(descr "100nF bypass on SLOT_G_3V3, for J56 (slot G power socket)")
 		(tags "capacitor")
 		(property "Reference" "C160"
@@ -105773,7 +105773,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "fba9f39c-a843-4b2f-9842-6725baccf696")
-		(at 275.67 193.5025 -90)
+		(at 273.795 194.1375 -90)
 		(descr "100k pull-up of HDMI_LS_OE to +3V3, for U31 (HDMI protection and level shifter)")
 		(tags "resistor")
 		(property "Reference" "R149"
@@ -107903,6 +107903,17 @@
 		(uuid "f5b4865e-b6bb-495a-aaa7-a4287869bec0")
 	)
 	(gr_rect
+		(start 240.085 215.815)
+		(end 245.225 204.815)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "dd978eeb-a44b-49c0-a17a-de37a576c55f")
+	)
+	(gr_rect
 		(start 240.4 172.515)
 		(end 264.17 176.675)
 		(stroke
@@ -107925,15 +107936,15 @@
 		(uuid "5582bf64-a7aa-4822-8d90-524bb5205833")
 	)
 	(gr_rect
-		(start 240.51 215.6)
-		(end 245.65 204.6)
+		(start 245.225 215.815)
+		(end 250.775 204.815)
 		(stroke
 			(width 0.15)
-			(type solid)
+			(type dash)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "dd978eeb-a44b-49c0-a17a-de37a576c55f")
+		(uuid "88ae9474-9564-44fb-bb65-5e2d1b8ac9a3")
 	)
 	(gr_rect
 		(start 245.265 141.205)
@@ -107956,17 +107967,6 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "ee9f8ef0-561f-46aa-b2a2-adf70645108a")
-	)
-	(gr_rect
-		(start 245.65 215.6)
-		(end 251.2 204.6)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "88ae9474-9564-44fb-bb65-5e2d1b8ac9a3")
 	)
 	(gr_rect
 		(start 249.935 89.195)
@@ -108013,8 +108013,8 @@
 		(uuid "94a80da3-40e5-400e-a364-f6d052849aa5")
 	)
 	(gr_rect
-		(start 256.855 75.465)
-		(end 269.965 80.605)
+		(start 255.145 75.465)
+		(end 268.255 80.605)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108024,8 +108024,8 @@
 		(uuid "edb6920d-5839-44bb-87fe-4790eb9e2319")
 	)
 	(gr_rect
-		(start 256.855 80.605)
-		(end 269.965 97.335)
+		(start 255.145 80.605)
+		(end 268.255 97.335)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108033,6 +108033,28 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "9690d8dd-9408-4767-8213-423810ac471a")
+	)
+	(gr_rect
+		(start 257.405 184.385)
+		(end 268.405 190.505)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "f662ca89-6666-48dc-b917-586bebc8090c")
+	)
+	(gr_rect
+		(start 257.405 190.505)
+		(end 268.405 200.386)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "95ff8818-dab5-4f5d-9532-b6ad895b2e1b")
 	)
 	(gr_rect
 		(start 257.8 68.61)
@@ -108055,28 +108077,6 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "4862be4c-4170-47bc-a378-7576da84be61")
-	)
-	(gr_rect
-		(start 258.505 184.385)
-		(end 269.505 190.505)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "f662ca89-6666-48dc-b917-586bebc8090c")
-	)
-	(gr_rect
-		(start 258.505 190.505)
-		(end 269.505 200.386)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "95ff8818-dab5-4f5d-9532-b6ad895b2e1b")
 	)
 	(gr_rect
 		(start 259.865 95.94)
@@ -108123,30 +108123,8 @@
 		(uuid "e520bad8-ed8f-44e8-82ef-bb7bc6d00bb6")
 	)
 	(gr_rect
-		(start 263.2775 215.82)
-		(end 243.2975 203.95)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "b48fc49c-cd03-4dd7-acc0-3c77b698d017")
-	)
-	(gr_rect
-		(start 263.2775 220.96)
-		(end 243.2975 215.82)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "a06fbb2a-466f-464a-bd26-e0b89bb2a255")
-	)
-	(gr_rect
-		(start 263.725 181.325)
-		(end 285.275 185.485)
+		(start 261.85 181.96)
+		(end 283.4 186.12)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108156,8 +108134,8 @@
 		(uuid "94ba54e9-ce77-4fa9-80d0-2ef02f177b56")
 	)
 	(gr_rect
-		(start 263.725 185.485)
-		(end 285.275 216.315)
+		(start 261.85 186.12)
+		(end 283.4 216.95)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108167,8 +108145,30 @@
 		(uuid "14db34d6-7b7f-4972-9db9-e8231153e5b7")
 	)
 	(gr_rect
-		(start 268.265 170.805)
-		(end 279.265 176.925)
+		(start 262.9525 215.835)
+		(end 242.9725 203.965)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "b48fc49c-cd03-4dd7-acc0-3c77b698d017")
+	)
+	(gr_rect
+		(start 262.9525 220.975)
+		(end 242.9725 215.835)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "a06fbb2a-466f-464a-bd26-e0b89bb2a255")
+	)
+	(gr_rect
+		(start 265.87 170.755)
+		(end 276.87 176.875)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108178,8 +108178,8 @@
 		(uuid "3c5c6e20-aad0-4155-9edc-2261e308e896")
 	)
 	(gr_rect
-		(start 268.265 176.925)
-		(end 279.265 188.925)
+		(start 265.87 176.875)
+		(end 276.87 188.875)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108189,8 +108189,8 @@
 		(uuid "95cb3213-be13-4d15-b5c3-8f98f3a4663c")
 	)
 	(gr_rect
-		(start 271.775 67.385)
-		(end 283.625 72.525)
+		(start 269.38 67.335)
+		(end 281.23 72.475)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108200,8 +108200,8 @@
 		(uuid "bb8eaf3d-5585-4a28-9804-0df5306d56fa")
 	)
 	(gr_rect
-		(start 271.775 72.525)
-		(end 283.625 95.875)
+		(start 269.38 72.475)
+		(end 281.23 95.825)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108211,8 +108211,8 @@
 		(uuid "dc425335-cfff-4aca-a07c-013936be93d7")
 	)
 	(gr_rect
-		(start 282.945 171.735)
-		(end 293.945 177.855)
+		(start 280.55 171.685)
+		(end 291.55 177.805)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108222,8 +108222,8 @@
 		(uuid "8d1506a9-97b8-4cd6-a856-917598e500e2")
 	)
 	(gr_rect
-		(start 282.945 177.855)
-		(end 293.945 189.285)
+		(start 280.55 177.805)
+		(end 291.55 189.235)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108233,8 +108233,8 @@
 		(uuid "847169ad-02fe-46ce-abd4-f24a0b4cfd8c")
 	)
 	(gr_rect
-		(start 288.575 96.045)
-		(end 276.495 110.05)
+		(start 286.18 95.995)
+		(end 274.1 110)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108244,8 +108244,8 @@
 		(uuid "be177d5f-fe87-411c-b2ad-b0abfccc33ea")
 	)
 	(gr_rect
-		(start 294.695 96.045)
-		(end 288.575 110.05)
+		(start 292.3 95.995)
+		(end 286.18 110)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108899,9 +108899,21 @@
 		)
 	)
 	(gr_text "JTAG switch\ngeneric, 8 parts,\n2026-10-28"
-		(at 257.255 77.365 0)
+		(at 255.545 77.365 0)
 		(layer "Cmts.User")
 		(uuid "f23b64ed-ac6e-4e92-a037-b4dd55131304")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(gr_text "extension 5 V\nswitch\nTPS22950, 3\nparts, 2026-10-28"
+		(at 257.805 186.285 0)
+		(layer "Cmts.User")
+		(uuid "90c19c9d-53d4-4a30-88b7-f770138a712b")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108922,20 +108934,8 @@
 			(justify left top)
 		)
 	)
-	(gr_text "extension 5 V\nswitch\nTPS22950, 3\nparts, 2026-10-28"
-		(at 258.905 186.285 0)
-		(layer "Cmts.User")
-		(uuid "90c19c9d-53d4-4a30-88b7-f770138a712b")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
 	(gr_text "HDMI OUT jack\ngeneric, 2 parts, 2026-10-28 + U31"
-		(at 264.125 183.225 0)
+		(at 262.25 183.86 0)
 		(layer "Cmts.User")
 		(uuid "7ad8582d-88b8-4edd-bfc0-535f40986b50")
 		(effects
@@ -108947,7 +108947,7 @@
 		)
 	)
 	(gr_text "E-H PIN VOLTAGE\njumper\ngeneric, 3 parts,\n2026-10-28"
-		(at 268.665 172.705 0)
+		(at 266.27 172.655 0)
 		(layer "Cmts.User")
 		(uuid "d1d3925e-afdb-4e26-b90a-c93c28a155c9")
 		(effects
@@ -108959,7 +108959,7 @@
 		)
 	)
 	(gr_text "FPGA JTAG header\ngeneric, 1 parts,\n2026-10-28"
-		(at 272.175 69.285 0)
+		(at 269.78 69.235 0)
 		(layer "Cmts.User")
 		(uuid "8cd77c70-d6cd-4975-b065-bd0c105271e2")
 		(effects
@@ -108971,7 +108971,7 @@
 		)
 	)
 	(gr_text "slots E-H PIN V\nswitch\nTPS22953, 6\nparts, 2026-10-29"
-		(at 283.345 173.635 0)
+		(at 280.95 173.585 0)
 		(layer "Cmts.User")
 		(uuid "c29126ef-115c-4bcc-8578-5ce836144a9f")
 		(effects
@@ -109091,7 +109091,7 @@
 		)
 	)
 	(gr_text "CTRL BOOT button\ngeneric, 2 parts,\n2026-10-28"
-		(at 242.41 215.2 90)
+		(at 241.985 215.415 90)
 		(layer "Cmts.User")
 		(uuid "527d6e67-0214-433f-a353-67117da08ab1")
 		(effects
@@ -109151,7 +109151,7 @@
 		)
 	)
 	(gr_text "FPGA DONE LED\ngeneric, 3 parts, 2026-10-28 +\nD9, D10, D11"
-		(at 262.8775 219.06 180)
+		(at 262.5525 219.075 180)
 		(layer "Cmts.User")
 		(uuid "7b72a6c0-8dda-40c6-ac33-6fb992f4f58d")
 		(effects
@@ -109199,7 +109199,7 @@
 		)
 	)
 	(gr_text "1.8 V regulator,\nalways on\nTLV62569, 8 parts,\n2026-10-29"
-		(at 292.795 96.445 270)
+		(at 290.4 96.395 270)
 		(layer "Cmts.User")
 		(uuid "b2f1b009-d1ca-46b5-b1d4-628fb922b678")
 		(effects
@@ -109667,9 +109667,21 @@
 		)
 	)
 	(gr_text "island U20"
-		(at 257.255 77.065 0)
+		(at 255.545 77.065 0)
 		(layer "Cmts.User")
 		(uuid "7a8152f4-dd8f-4b89-92ab-686f2bb43bf6")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "island U21"
+		(at 257.805 185.985 0)
+		(layer "Cmts.User")
+		(uuid "13f75506-4587-4a6d-adc1-63808b8aefb6")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109690,20 +109702,8 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island U21"
-		(at 258.905 185.985 0)
-		(layer "Cmts.User")
-		(uuid "13f75506-4587-4a6d-adc1-63808b8aefb6")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
 	(gr_text "island J73"
-		(at 264.125 182.925 0)
+		(at 262.25 183.56 0)
 		(layer "Cmts.User")
 		(uuid "d8fb7e69-bb03-4d6f-b9d9-8965765e3ca7")
 		(effects
@@ -109715,7 +109715,7 @@
 		)
 	)
 	(gr_text "island J20"
-		(at 268.665 172.405 0)
+		(at 266.27 172.355 0)
 		(layer "Cmts.User")
 		(uuid "3efe0aa8-d401-4823-b9e2-3d119d41fca6")
 		(effects
@@ -109727,7 +109727,7 @@
 		)
 	)
 	(gr_text "island J2"
-		(at 272.175 68.985 0)
+		(at 269.78 68.935 0)
 		(layer "Cmts.User")
 		(uuid "eee56a1e-77dd-48e7-a083-e1fa5a287e7c")
 		(effects
@@ -109739,7 +109739,7 @@
 		)
 	)
 	(gr_text "island U24"
-		(at 283.345 173.335 0)
+		(at 280.95 173.285 0)
 		(layer "Cmts.User")
 		(uuid "df227629-6732-42eb-b511-8b9c1eb99045")
 		(effects
@@ -109967,7 +109967,7 @@
 		)
 	)
 	(gr_text "island SW1"
-		(at 242.11 215.2 90)
+		(at 241.685 215.415 90)
 		(layer "Cmts.User")
 		(uuid "bcb81982-17ec-4ef4-8fdf-ff0de6d1c6a5")
 		(effects
@@ -110027,7 +110027,7 @@
 		)
 	)
 	(gr_text "island D1"
-		(at 262.8775 219.36 180)
+		(at 262.5525 219.375 180)
 		(layer "Cmts.User")
 		(uuid "6c4a768f-56e5-4d2b-897d-4459ecaecd4c")
 		(effects
@@ -110075,7 +110075,7 @@
 		)
 	)
 	(gr_text "island U14"
-		(at 293.095 96.445 270)
+		(at 290.7 96.395 270)
 		(layer "Cmts.User")
 		(uuid "dc7e38bf-bf69-4843-b592-e7ee060fdb14")
 		(effects
