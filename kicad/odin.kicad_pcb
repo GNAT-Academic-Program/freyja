@@ -916,7 +916,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "0002ce0d-96fd-438b-8ca9-f219be8fea79")
-		(at 273.66704 97.307065 -90)
+		(at 273.66704 98.48276 -90)
 		(descr "10uF bypass on SLOT_E_PIN_VOLTAGE, for J55 (slot E power socket)")
 		(tags "capacitor")
 		(property "Reference" "C155"
@@ -2617,7 +2617,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "051a8e7a-0992-4b38-883b-50a3833bcb4c")
-		(at 273.66704 104.657065 -90)
+		(at 273.66704 105.83276 -90)
 		(descr "100nF bypass on SLOT_E_3V3, for J55 (slot E power socket)")
 		(tags "capacitor")
 		(property "Reference" "C156"
@@ -2911,7 +2911,7 @@
 	(footprint "EasyEDA:HDR-TH_7P-P2.54-V-F"
 		(layer "F.Cu")
 		(uuid "060093b6-3631-4d85-a0b1-880c62be02c0")
-		(at 276.24204 145.617065 -90)
+		(at 276.24204 146.79276 -90)
 		(descr "slot G power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.")
 		(property "Reference" "J56"
 			(at 0 -4 270)
@@ -4463,7 +4463,7 @@
 	(footprint "EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353"
 		(layer "F.Cu")
 		(uuid "0b8cfedd-8b7b-4ec0-8c60-e08159074ff8")
-		(at 278.78204 135.457065)
+		(at 278.78204 136.63276)
 		(descr "slot F key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.")
 		(property "Reference" "MK70"
 			(at 0 -2.5 0)
@@ -4572,7 +4572,7 @@
 	(footprint "odin:Fuse_TECHFUSE_SMD2018"
 		(layer "F.Cu")
 		(uuid "0be3d426-ca47-47dc-9e98-ff216971c1e1")
-		(at 280.305 160.85 90)
+		(at 280.305 162.025695 90)
 		(descr "1.1A 33V resettable fuse feeding SLOT_G_AUX from AUX_RAIL, for J56 (slot G power socket)")
 		(tags "PTC 2018 5045metric")
 		(property "Reference" "F36"
@@ -5408,7 +5408,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "0fdb76ea-901a-4ce8-84fc-8a604cb23662")
-		(at 273.66704 148.577065 90)
+		(at 273.66704 149.75276 90)
 		(descr "300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket)")
 		(property "Reference" "F35"
 			(at 0 -4 90)
@@ -7822,7 +7822,7 @@
 	(footprint "EasyEDA:HDR-TH_7P-P2.54-V-F"
 		(layer "F.Cu")
 		(uuid "1718e066-c6c3-473c-9376-95cb02a4d4ea")
-		(at 276.24204 125.297065 -90)
+		(at 276.24204 126.47276 -90)
 		(descr "slot F power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.")
 		(property "Reference" "J64"
 			(at 0 -4 270)
@@ -14499,7 +14499,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "25323dea-43ea-446e-9a68-6ba2f0d56cde")
-		(at 273.66704 132.647065 90)
+		(at 273.66704 133.82276 90)
 		(descr "500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket)")
 		(property "Reference" "F30"
 			(at 0 -4 90)
@@ -14871,7 +14871,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "25cbfc74-0742-4d84-a603-34c5a1bbacec")
-		(at 273.66704 124.977065 -90)
+		(at 273.66704 126.15276 -90)
 		(descr "100nF bypass on SLOT_F_3V3, for J64 (slot F power socket)")
 		(tags "capacitor")
 		(property "Reference" "C158"
@@ -15262,7 +15262,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "27a5ed8a-11d2-4df7-bb8a-622abea0b8c1")
-		(at 273.66704 152.967065 90)
+		(at 273.66704 154.14276 90)
 		(descr "500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket)")
 		(property "Reference" "F34"
 			(at 0 -4 90)
@@ -20726,7 +20726,7 @@
 	(footprint "EasyEDA:HDR-TH_7P-P2.54-V-F"
 		(layer "F.Cu")
 		(uuid "3a91b776-f7ee-4232-b058-b0a5a07fca64")
-		(at 276.24204 165.937065 -90)
+		(at 276.24204 167.11276 -90)
 		(descr "slot H power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.")
 		(property "Reference" "J65"
 			(at 0 -4 270)
@@ -25248,7 +25248,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "4722ec2c-073a-4d28-93f5-cbd85e91f9b6")
-		(at 273.66704 107.937065 90)
+		(at 273.66704 109.11276 90)
 		(descr "300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket)")
 		(property "Reference" "F27"
 			(at 0 -4 90)
@@ -25620,7 +25620,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "47756ff3-9e71-4293-8cc8-3d7f90d9f018")
-		(at 273.66704 142.017065 90)
+		(at 273.66704 143.19276 90)
 		(descr "500mA resettable fuse feeding SLOT_G_PIN_VOLTAGE from VCCIO_2_EXT, for J56 (slot G power socket)")
 		(property "Reference" "F33"
 			(at 0 -4 90)
@@ -31396,7 +31396,7 @@
 	(footprint "odin:Fuse_TECHFUSE_SMD2018"
 		(layer "F.Cu")
 		(uuid "5485980a-f935-4fff-8f2b-131c82b00c7c")
-		(at 280.205 171.05 -90)
+		(at 280.205 172.225695 -90)
 		(descr "1.1A 33V resettable fuse feeding SLOT_H_AUX from AUX_RAIL, for J65 (slot H power socket)")
 		(tags "PTC 2018 5045metric")
 		(property "Reference" "F40"
@@ -36122,7 +36122,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "639f33ec-709f-469e-b407-68fc472c75cd")
-		(at 273.66704 173.287065 90)
+		(at 273.66704 174.46276 90)
 		(descr "500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket)")
 		(property "Reference" "F38"
 			(at 0 -4 90)
@@ -39606,7 +39606,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "7002bb74-387d-40dc-a235-7c5ebe2b1a8b")
-		(at 273.66704 168.897065 90)
+		(at 273.66704 170.07276 90)
 		(descr "300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket)")
 		(property "Reference" "F39"
 			(at 0 -4 90)
@@ -40397,7 +40397,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "71f878eb-0dfd-4122-83bf-afeceaf1d0f2")
-		(at 273.66704 101.377065 90)
+		(at 273.66704 102.55276 90)
 		(descr "500mA resettable fuse feeding SLOT_E_PIN_VOLTAGE from VCCIO_2_EXT, for J55 (slot E power socket)")
 		(property "Reference" "F25"
 			(at 0 -4 90)
@@ -41661,7 +41661,7 @@
 	(footprint "EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353"
 		(layer "F.Cu")
 		(uuid "730138d9-7b22-4bf6-a7de-3f9de6335cb2")
-		(at 278.78204 155.777065)
+		(at 278.78204 156.95276)
 		(descr "slot G key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.")
 		(property "Reference" "MK71"
 			(at 0 -2.5 0)
@@ -43575,7 +43575,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "78eecbc6-b091-4174-99fe-14a00ae03af3")
-		(at 273.66704 165.617065 -90)
+		(at 273.66704 166.79276 -90)
 		(descr "100nF bypass on SLOT_H_3V3, for J65 (slot H power socket)")
 		(tags "capacitor")
 		(property "Reference" "C162"
@@ -44576,7 +44576,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "7a3109c3-1c19-4344-981a-076ed70e9a17")
-		(at 273.66704 128.257065 90)
+		(at 273.66704 129.43276 90)
 		(descr "300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket)")
 		(property "Reference" "F31"
 			(at 0 -4 90)
@@ -53272,7 +53272,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "8e4c639b-1e14-4afa-aea3-e0d72173044c")
-		(at 273.66704 117.627065 -90)
+		(at 273.66704 118.80276 -90)
 		(descr "10uF bypass on SLOT_F_PIN_VOLTAGE, for J64 (slot F power socket)")
 		(tags "capacitor")
 		(property "Reference" "C157"
@@ -57871,7 +57871,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "99501974-d988-4a11-9c45-9247e097ffc6")
-		(at 273.66704 121.697065 90)
+		(at 273.66704 122.87276 90)
 		(descr "500mA resettable fuse feeding SLOT_F_PIN_VOLTAGE from VCCIO_2_EXT, for J64 (slot F power socket)")
 		(property "Reference" "F29"
 			(at 0 -4 90)
@@ -58231,7 +58231,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "999edf1a-fb6d-4c85-9e4c-dbf3da3ac522")
-		(at 273.66704 112.327065 90)
+		(at 273.66704 113.50276 90)
 		(descr "500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket)")
 		(property "Reference" "F26"
 			(at 0 -4 90)
@@ -59380,7 +59380,7 @@
 	(footprint "EasyEDA:HDR-TH_7P-P2.54-V-F"
 		(layer "F.Cu")
 		(uuid "9c4381c5-ec9a-45f9-895c-95e45e4dfaa4")
-		(at 276.24204 104.977065 -90)
+		(at 276.24204 106.15276 -90)
 		(descr "slot E power socket: 1x7 female socket: PIN V, 3.3 V, 5 V and AUX for the extension, each beside a ground.")
 		(property "Reference" "J55"
 			(at 0 -4 90)
@@ -61751,7 +61751,7 @@
 	(footprint "EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353"
 		(layer "F.Cu")
 		(uuid "a4552d3e-a65e-4ce4-9056-61220d8bd710")
-		(at 278.78204 115.137065)
+		(at 278.78204 116.31276)
 		(descr "slot E key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.")
 		(property "Reference" "MK69"
 			(at 0 -2.5 0)
@@ -70983,7 +70983,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "b740f19d-e5d7-42c8-b3cd-3c28d035e0b3")
-		(at 273.66704 137.947065 -90)
+		(at 273.66704 139.12276 -90)
 		(descr "10uF bypass on SLOT_G_PIN_VOLTAGE, for J56 (slot G power socket)")
 		(tags "capacitor")
 		(property "Reference" "C159"
@@ -71355,7 +71355,7 @@
 	(footprint "EasyEDA:F1206"
 		(layer "F.Cu")
 		(uuid "b9837d2b-7ec6-4848-bda6-bd030a78630a")
-		(at 273.66704 162.337065 90)
+		(at 273.66704 163.51276 90)
 		(descr "500mA resettable fuse feeding SLOT_H_PIN_VOLTAGE from VCCIO_2_EXT, for J65 (slot H power socket)")
 		(property "Reference" "F37"
 			(at 0 -4 90)
@@ -71580,7 +71580,7 @@
 	(footprint "odin:Fuse_TECHFUSE_SMD2018"
 		(layer "F.Cu")
 		(uuid "ba1adba7-62c5-494c-8db2-2846c24da56e")
-		(at 280.205 130.35 -90)
+		(at 280.205 131.525695 -90)
 		(descr "1.1A 33V resettable fuse feeding SLOT_F_AUX from AUX_RAIL, for J64 (slot F power socket)")
 		(tags "PTC 2018 5045metric")
 		(property "Reference" "F32"
@@ -71852,7 +71852,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "bb48b072-7773-4c7b-8ac0-1db307480872")
-		(at 273.66704 158.267065 -90)
+		(at 273.66704 159.44276 -90)
 		(descr "10uF bypass on SLOT_H_PIN_VOLTAGE, for J65 (slot H power socket)")
 		(tags "capacitor")
 		(property "Reference" "C161"
@@ -85217,7 +85217,7 @@
 	(footprint "EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1"
 		(layer "F.Cu")
 		(uuid "be0afb9e-d610-4f39-8b08-10d50f51eb9c")
-		(at 269.89204 136.727065 90)
+		(at 269.89204 137.90276 90)
 		(descr "slots E-H signal socket: 2x32 female socket, left edge: signals of slots E, F, G, H.")
 		(property "Reference" "J5"
 			(at 0 -5.27 90)
@@ -89910,7 +89910,7 @@
 	(footprint "odin:Fuse_TECHFUSE_SMD2018"
 		(layer "F.Cu")
 		(uuid "c667c837-d098-4253-823d-e69f36f03e66")
-		(at 280.305 120.15 90)
+		(at 280.305 121.325695 90)
 		(descr "1.1A 33V resettable fuse feeding SLOT_E_AUX from AUX_RAIL, for J55 (slot E power socket)")
 		(tags "PTC 2018 5045metric")
 		(property "Reference" "F28"
@@ -97257,7 +97257,7 @@
 	(footprint "EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353"
 		(layer "F.Cu")
 		(uuid "e03fe4d3-a6ce-4cc8-ba11-249506936134")
-		(at 278.78204 176.097065)
+		(at 278.78204 177.27276)
 		(descr "slot H key post: Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.")
 		(property "Reference" "MK72"
 			(at 0 -2.5 0)
@@ -104381,7 +104381,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f51ccb5b-33e3-4caa-be02-444f3be0af22")
-		(at 273.66704 145.297065 -90)
+		(at 273.66704 146.47276 -90)
 		(descr "100nF bypass on SLOT_G_3V3, for J56 (slot G power socket)")
 		(tags "capacitor")
 		(property "Reference" "C160"
