@@ -37,8 +37,8 @@ RECOVERY_OFF = {'+1V0', '+2V5', '+1V2_MGT'}
 EXPORTS = [
     ('+5V_EXT', 5.0, 1.00, 'U21 TPS22950C 1.15k, 1.0 A typical'),
     ('+3V3_EXT', 3.3, 0.50, 'U22 TPS22950C 2.21k, 0.5 A typical'),
-    ('VCCIO_1_EXT', 3.3, 0.50, 'U23 TPS22953, no limit of its own: one 500 mA PINV PTC'),
-    ('VCCIO_2_EXT', 3.3, 0.50, 'U24 TPS22953, no limit of its own: one 500 mA PINV PTC'),
+    ('VCCIO_1_EXT', 3.3, 0.50, 'U23 TPS22975, no limit of its own: one 500 mA PINV PTC'),
+    ('VCCIO_2_EXT', 3.3, 0.50, 'U24 TPS22975, no limit of its own: one 500 mA PINV PTC'),
 ]
 
 VF_SS34 = 0.45

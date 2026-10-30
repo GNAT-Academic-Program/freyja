@@ -37,14 +37,15 @@ and its selectors were removed. There are no per-zone AUX selectors,
 +12V/+12V_EXT nets, U19 boost or U25.
 
 U21-U24 still protect the low-voltage connector supplies under EXT_EN;
-U21/U22 (TPS22950C) limit current and report EXT_FAULT, U23/U24 (TPS22953,
-biased from +3V3 so the 1.8 V setting is inside their rating, PG tied to
-ground as the datasheet asks of an unused PG) block reverse current while
-off, report nothing, and leave the overload limit to the 500 mA slot fuses;
-they restart by themselves after an output undervoltage, which the bench
-must see with a shorted branch (item 56). AUX
-has branch PTCs but no equivalent active reverse blocking. Never drive
-external voltage back into a connector power pin.
+U21/U22 (TPS22950C) limit current and report EXT_FAULT; U23/U24 (TPS22975
+since 2026-10-30, biased from +3V3 so the 1.8 V setting is inside their
+rating) have no PG, no reverse current blocking and no current limit of
+their own: EXT_FAULT reflects U21, U22 and U26 only, the 500 mA slot fuses
+are the PIN V overload limit, and while EXT_EN is low the switch discharges
+its output through 230 ohm but a voltage forced onto a PIN V pin reaches the
+domain through the switch's body diode. Neither PIN V nor AUX has active
+reverse blocking. Never drive external voltage back into a connector power
+pin.
 
 The base-board load estimates are in [power-budget.md](power-budget.md).
 Neither 3 A advertisement nor PD implies that every extension can draw its

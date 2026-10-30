@@ -312,17 +312,6 @@ def gen_extension_protection():
            ('1','OUT','passive','R'), ('8','OUT','passive','R'),
            ('9','ST','open_collector','R'), ('10','ILIM','passive','R'),
            ('11','SS','passive','R'), ('12','GND','power_in','R')]
-    # TPS22953 DSQ (SLVSCT5D section 6, DQC/DSQ top view): pins 1-2 IN, 3 BIAS,
-    # 4 EN, 5 GND, 6 CT, 7 PG, 8 SNS, 9-10 OUT, 11 the exposed pad (GND).
-    # PG is an open-drain output that the board ties to ground, as 9.3.3
-    # requires of an unused PG (findings item 56); typed passive so ERC does
-    # not call the ground tie a driver conflict.
-    sw53 = [('1','IN','power_in','L'), ('2','IN','passive','L'),
-            ('3','BIAS','power_in','L'), ('4','EN','input','L'),
-            ('5','GND','power_in','L'), ('11','EP','passive','L'),
-            ('9','OUT','passive','R'), ('10','OUT','passive','R'),
-            ('8','SNS','input','R'), ('7','PG','passive','R'),
-            ('6','CT','passive','R')]
     # TLV62569P in SOT-563 (SLVSDG1C Pin Functions, DRL column): 1 FB,
     # 2 GND, 3 VIN, 4 SW, 5 EN, 6 PG. PG is an open-drain power-good
     # output; "if it's not used, leave the pin floating" (same table), so
@@ -331,14 +320,23 @@ def gen_extension_protection():
     tlvp = [('3','VIN','power_in','L'), ('5','EN','input','L'),
             ('2','GND','power_in','L'), ('4','SW','power_out','R'),
             ('1','FB','input','R'), ('6','PG','open_collector','R')]
-    return (gen_box_symbol('TLV62569PDRL', tlvp,
+    # TPS22975 DSG (SLVSDD0B section 6, WSON-8 top view): 1-2 VIN, 3 ON,
+    # 4 VBIAS, 5 GND, 6 CT, 7-8 VOUT, 9 the exposed pad (GND). No PG, no
+    # SNS, no reverse current blocking (the TPS22953 it replaces had all
+    # three); QOD variant, 230 ohm to GND on VOUT while off.
+    sw75 = [('1','VIN','power_in','L'), ('2','VIN','passive','L'),
+            ('3','ON','input','L'), ('4','VBIAS','power_in','L'),
+            ('5','GND','power_in','L'), ('9','EP','passive','L'),
+            ('7','VOUT','passive','R'), ('8','VOUT','passive','R'),
+            ('6','CT','passive','R')]
+    return (gen_box_symbol('TPS22975DSG', sw75,
+            'EasyEDA:WSON-8_L2.0-W2.0-P0.50-TL-EP',
+            'https://www.ti.com/lit/ds/symlink/tps22975.pdf',
+            '0.6V-to-VBIAS 6A load switch, separate 2.5-5.7V bias, adjustable rise time, quick output discharge') +
+            gen_box_symbol('TLV62569PDRL', tlvp,
             'EasyEDA:SOT-563_L1.6-W1.2-P0.50-LS1.6-BL',
             'https://www.ti.com/lit/ds/symlink/tlv62569.pdf',
             '2.5-5.5V input, 2A synchronous buck converter with power good, SOT-563') +
-            gen_box_symbol('TPS22953DSQ', sw53,
-            'Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm',
-            'https://www.ti.com/lit/ds/symlink/tps22953.pdf',
-            '0.7V-to-VBIAS 5A load switch, separate 2.5-5.7V bias, reverse blocking when off, adjustable rise time') +
             gen_box_symbol('TPS2121RUX', mux,
             'Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm',
             'https://www.ti.com/lit/ds/symlink/tps2121.pdf',

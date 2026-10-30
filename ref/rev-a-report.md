@@ -791,3 +791,15 @@ except footprints whose outline changed.
     -001 sheet, inside a 1.00 mm leg in a 1.30 mm hole. The C427307
     EasyEDA land has the same pads. KiCad footprint kept, nothing moved,
     gate electrical PASS. The HC-HDMI0019T-4 fallback was not needed.
+11. U23/U24 TPS22953DSQR -> TPS22975DSGR (C524777), WSON-8 2x2 from the
+    import (pads counterclockwise from the top left, 0.9 x 1.6 mm pad 9
+    as the DSG0008A drawing). Wired VIN, VBIAS (+3V3), ON (EXT_EN), CT
+    (1 nF kept: about 1.2 ms at 3.3 V, SLVSDD0B Table 1), VOUT, GND; no
+    PG, no SNS. EXT_FAULT was already U21/U22/U26 only (the TPS22953's PG
+    was grounded); the documents now also say what the TPS22975 lacks:
+    reverse current blocking (a voltage forced onto PIN V reaches the
+    domain through the body diode) and any current limit, and that it
+    discharges its output through 230 ohm while off (QOD variant). Layout
+    profile TPS22975 (12.1, 12.2). Swapped in place in islands U23/U24, 0
+    moved, DRC 17 courtyards unchanged, gate electrical PASS. The old
+    TPS22953DSQ symbol generator is gone.

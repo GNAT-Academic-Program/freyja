@@ -140,18 +140,21 @@ PARTS = {
            '650 kHz with FREQ grounded',
     pinmap='KiCad Regulator_Switching symbol',
     src='TI SLVS859B'),
-  'odin:TPS22953DSQ': dict(
-    mpn='TPS22953DSQR', pkg='WSON-10 with thermal pad, 2 x 2 mm, 0.4 mm pitch (TI DSQ)',
-    fp='Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm',
-    rating='VIN 0.7 V to VBIAS, VBIAS 2.5-5.7 V (+3V3 here), 5 A, 14 mohm; '
-           'reverse current blocking while disabled (tRCB 10 us), thermal '
-           'shutdown, EN threshold 0.7 V, CT = 1 nF gives about 1.5 ms rise; '
-           'no programmable current limit: the 500 mA PINV branch PTCs are the '
-           'overload protection. Carries the jumpered 1.8/2.5/3.3 V domains, '
-           'which the TPS22950 (1.8 V minimum input) could not guarantee',
-    pinmap='SLVSCT5D section 6 top view: 1-2 IN, 3 BIAS, 4 EN, 5 GND, 6 CT, '
-           '7 PG, 8 SNS, 9-10 OUT, pad GND; symbol generated in tools/gen_kicad.py',
-    src='TI TPS22953/TPS22954 datasheet SLVSCT5D (rev D, September 2016); LCSC C2680343'),
+  'odin:TPS22975DSG': dict(
+    mpn='TPS22975DSGR', pkg='WSON-8 with thermal pad, 2 x 2 mm, 0.5 mm pitch (TI DSG)',
+    fp='EasyEDA:WSON-8_L2.0-W2.0-P0.50-TL-EP',
+    rating='VIN 0.6 V to VBIAS, VBIAS 2.5-5.7 V (+3V3 here), 6 A, 16 mohm; '
+           'thermal shutdown, ON threshold 1.05-1.2 V, CT = 1 nF gives about '
+           '1.2 ms rise at 3.3 V in (Table 1, VBIAS 5 V); quick output '
+           'discharge 230 ohm while off. No PG, no SNS, no reverse current '
+           'blocking and no programmable current limit: the 500 mA PINV '
+           'branch PTCs are the overload protection and EXT_FAULT comes from '
+           'U21/U22/U26 only. Carries the jumpered 1.8/2.5/3.3 V domains',
+    pinmap='SLVSDD0B section 6 top view: 1-2 VIN, 3 ON, 4 VBIAS, 5 GND, 6 CT, '
+           '7-8 VOUT, pad GND; symbol generated in tools/gen_kicad.py; the '
+           'C524777 import has pads 1-8 counterclockwise from the top left '
+           'with a 0.9 x 1.6 mm pad 9, the DSG0008A exposed pad',
+    src='TI TPS22975 datasheet SLVSDD0B (rev B, September 2017), ref/datasheets/tps22975.pdf; LCSC C524777'),
   'odin:TPS22950CDDC': dict(
     mpn='TPS22950CDDCR', pkg='SOT-23-THIN-6 (TI DDC)', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL_3',
     rating='1.8-5.5 V in, 6 V absolute max on VIN/VOUT, 3.2 A switch; '

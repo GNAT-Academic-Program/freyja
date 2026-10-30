@@ -584,8 +584,8 @@ PART.update({
     'U15': ('FPGA core regulator', 'Silergy SY8047, 4 A switching regulator: +5V to +1V0 for the FPGA core, with power-good output.'),
     'U21': ('extension 5 V switch', 'TI TPS22950C load switch: +5V to every slot\'s 5 V pin, about 1 A limit, reverse blocking.'),
     'U22': ('extension 3.3 V switch', 'TI TPS22950C load switch: +3V3 to every slot\'s 3.3 V pin, about 0.5 A limit.'),
-    'U23': ('slots A-D PIN V switch', 'TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_1 to the PIN V pin of slots A-D. Blocks reverse current while off; the slot fuses limit the current.'),
-    'U24': ('slots E-H PIN V switch', 'TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_2 to the PIN V pin of slots E-H. Blocks reverse current while off; the slot fuses limit the current.'),
+    'U23': ('slots A-D PIN V switch', 'TI TPS22975 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_1 to the PIN V pin of slots A-D. Discharges the output while off; the slot fuses limit the current; no reverse blocking.'),
+    'U24': ('slots E-H PIN V switch', 'TI TPS22975 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_2 to the PIN V pin of slots E-H. Discharges the output while off; the slot fuses limit the current; no reverse blocking.'),
     'J68': ('AUX IN screw terminal', 'Optional 9-28 V DC input feeding only the AUX pin of every extension port, unregulated. Your supply, your current limit.'),
     'U2': ('PSRAM 0', 'AP Memory APS6404L-SQN, 64 Mbit (8 MB) QSPI pseudo-static RAM, 1.8 V, on bank 13.'),
     'U3': ('PSRAM 1', 'AP Memory APS6404L-SQN, 8 MB QSPI RAM, 1.8 V, on bank 13.'),
@@ -674,8 +674,8 @@ NET_PREFIX = {
     'BUS5V': 'keeps the 5 V bus translator disabled until the FPGA enables it',
     'LED_': 'LED current limit',
     'U2': 'sets the switch\'s current limit (TI equation in design.py)',
-    'U23_CT': 'sets how fast U23 ramps its output, about 1.5 ms (TPS22953 CT)',
-    'U24_CT': 'sets how fast U24 ramps its output, about 1.5 ms (TPS22953 CT)',
+    'U23_CT': 'sets how fast U23 ramps its output, about 1.2 ms at 3.3 V (TPS22975 CT)',
+    'U24_CT': 'sets how fast U24 ramps its output, about 1.2 ms at 3.3 V (TPS22975 CT)',
     'SUP_': 'board controller to FPGA link (33 ohm series)',
 }
 COVERED = {'FPGA', 'Network', 'Power', 'Memory', 'Supervisor', 'Slots', 'Video'}

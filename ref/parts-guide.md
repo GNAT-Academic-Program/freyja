@@ -452,10 +452,10 @@ Switch for the PIN V supply of slots A-D (the voltage chosen on J19). It is bias
 
 | Ref | Value | What it does |
 |---|---|---|
-| U23 | TPS22953DSQR | slots A-D PIN V switch: TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_1 to the PIN V pin of slots A-D. Blocks reverse current while off; the slot fuses limit the current. |
+| U23 | TPS22975DSGR | slots A-D PIN V switch: TI TPS22975 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_1 to the PIN V pin of slots A-D. Discharges the output while off; the slot fuses limit the current; no reverse blocking. |
 | C220 | 1uF | 1uF bypass on VCCIO_1, for U23 (slots A-D PIN V switch) |
 | C271 | 100nF | 100nF bypass on +3V3, for U23 (slots A-D PIN V switch) |
-| C272 | 1nF 50V | 1nF 50V filter capacitor on U23_CT, for U23 (slots A-D PIN V switch): sets how fast U23 ramps its output, about 1.5 ms (TPS22953 CT) |
+| C272 | 1nF 50V | 1nF 50V filter capacitor on U23_CT, for U23 (slots A-D PIN V switch): sets how fast U23 ramps its output, about 1.2 ms at 3.3 V (TPS22975 CT) |
 | C273 | 1uF | 1uF bypass on VCCIO_1_EXT, for U23 (slots A-D PIN V switch) |
 
 ### U24  VCCIO_2 to VCCIO_2_EXT
@@ -464,10 +464,10 @@ Switch for the PIN V supply of slots E-H (the voltage chosen on J20). It is bias
 
 | Ref | Value | What it does |
 |---|---|---|
-| U24 | TPS22953DSQR | slots E-H PIN V switch: TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_2 to the PIN V pin of slots E-H. Blocks reverse current while off; the slot fuses limit the current. |
+| U24 | TPS22975DSGR | slots E-H PIN V switch: TI TPS22975 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_2 to the PIN V pin of slots E-H. Discharges the output while off; the slot fuses limit the current; no reverse blocking. |
 | C221 | 1uF | 1uF bypass on VCCIO_2, for U24 (slots E-H PIN V switch) |
 | C274 | 100nF | 100nF bypass on +3V3, for U24 (slots E-H PIN V switch) |
-| C275 | 1nF 50V | 1nF 50V filter capacitor on U24_CT, for U24 (slots E-H PIN V switch): sets how fast U24 ramps its output, about 1.5 ms (TPS22953 CT) |
+| C275 | 1nF 50V | 1nF 50V filter capacitor on U24_CT, for U24 (slots E-H PIN V switch): sets how fast U24 ramps its output, about 1.2 ms at 3.3 V (TPS22975 CT) |
 | C276 | 1uF | 1uF bypass on VCCIO_2_EXT, for U24 (slots E-H PIN V switch) |
 
 ### MGTAVCC filter

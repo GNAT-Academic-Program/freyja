@@ -35,7 +35,7 @@ control it. Change the external supply with the board unpowered.
 supply on J68. The KF301 terminal is rated well above that. A short heats and
 trips the branch PTC; an aggregate overload is the external supply's problem
 and droops the shared rail. Existing branch fuses remain PIN V 500 mA, 3V3
-300 mA, 5V 500 mA. U21/U22 limit and report; U23/U24 (TPS22953) block
+300 mA, 5V 500 mA. U21/U22 limit and report; U23/U24 (TPS22975) do not block
 reverse current while off and rely on the PINV fuses for overload. AUX has no
 active reverse blocking. Do not backfeed any connector power pin. The input
 envelope per source profile and operating mode is in

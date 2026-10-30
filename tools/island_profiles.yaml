@@ -280,20 +280,20 @@ LINK :
       match: {prefix: D}
       place: {dir: N}
 
-TPS22953:
-  source: TPS22953 datasheet SLVSCT5D, 12.1 Layout Guidelines (no dimensioned figure; 12.2 shows IN bypass at the IN pins, OUT bypass at the OUT pins, BIAS bypass and CT at their pins, vias under the pad)
-  pins: {IN: 1, BIAS: 3, EN: 4, GND: 5, CT: 6, PG: 7, SNS: 8, OUT: 9}
+TPS22975:
+  source: TPS22975 datasheet SLVSDD0B, 12.1 Layout Guidelines (input and output capacitors close to the device, wide VIN/VOUT/GND, the CT trace as short as possible) and 12.2 Layout Example (VIN bypass at pins 1-2, VOUT bypass at pins 7-8, CT at pin 6, vias under the pad); DSG pins 1-2 VIN, 3 ON, 4 VBIAS, 5 GND, 6 CT, 7-8 VOUT
+  pins: {VIN: 1, ON: 3, VBIAS: 4, GND: 5, CT: 6, VOUT: 7}
   rules:
-    - name: input bypass at the IN pins
-      match: {cap_between: [IN, GND]}
-      place: {side: IN}
-    - name: output bypass at the OUT pins
-      match: {cap_between: [OUT, GND]}
-      place: {side: OUT}
-    - name: BIAS bypass at pin 3
-      match: {cap_between: [BIAS, GND]}
-      place: {side: BIAS}
-    - name: CT capacitor at pin 6, nothing under it
+    - name: input bypass at the VIN pins
+      match: {cap_between: [VIN, GND]}
+      place: {side: VIN}
+    - name: output bypass at the VOUT pins
+      match: {cap_between: [VOUT, GND]}
+      place: {side: VOUT}
+    - name: VBIAS bypass at pin 4
+      match: {cap_between: [VBIAS, GND]}
+      place: {side: VBIAS}
+    - name: CT capacitor at pin 6, shortest trace
       match: {prefix: C, pin: CT}
       place: {side: CT}
 

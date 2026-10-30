@@ -41,7 +41,7 @@ VSSOP8_LVC2T45 = 'EasyEDA:VSSOP-8_L2.1-W2.4-P0.50-LS3.2-BL'
 QFN16_SY8047 = 'EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6'
 VQFN10RPU = 'Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm'
 VQFN12RUX = 'Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm'   # TI RUX0012A (MPQF508)
-WSON10_DSQ = 'Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm'
+WSON8_DSG = 'EasyEDA:WSON-8_L2.0-W2.0-P0.50-TL-EP'   # TI DSG, the C524777 import
 MRAM_FP = 'DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA'   # tools/gen_kicad.py gen_mram_fp
 EXT2x8  = 'EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54'
 EXT2x16 = 'EasyEDA:HDR-TH_32P-P2.54-V-F-R2-C16-S2.54'   # two per edge, end to end
@@ -876,24 +876,25 @@ def build():
         d.C('1uF', vin, GND, C0603)
     # The two jumpered domains can be 1.8 V, below the TPS22950's 1.8 V
     # minimum input (SLVSFJ2B 7.3; findings item 41). U23/U24 are TI
-    # TPS22953 (SLVSCT5D): the switch runs from a separate BIAS pin on the
-    # always-on +3V3 (2.5-5.7 V) and passes 0.7 V to VBIAS, 5 A, with
-    # reverse current blocking while off (tRCB 10 us), an adjustable rise
-    # time (CT) and thermal shutdown. It has no programmable current limit:
-    # the 500 mA PINV branch PTC in every slot is the overload protection.
-    # EN threshold 0.7 V, so EXT_EN drives it directly; SNS is tied to the
-    # output. PG is not used and is tied to ground, which SLVSCT5D 9.3.3
-    # requires of an unused PG (findings item 56); the switch itself does
-    # not report a fault, so the PTC branches stay the overload protection.
-    # The ILIM resistor each had is consumed
-    # here so the later resistors keep their designators; the 1 uF input
-    # bypass stays, the BIAS 100 nF, CT 1 nF and OUT 1 uF are appended.
+    # TPS22975 (SLVSDD0B) since 2026-10-30 (the TPS22953 is not in the
+    # JLCPCB library): the switch runs from a separate VBIAS pin on the
+    # always-on +3V3 (2.5-5.7 V) and passes 0.6 V to VBIAS, 6 A, 16 mohm,
+    # with an adjustable rise time (CT), thermal shutdown and quick output
+    # discharge (230 ohm to GND while off). Unlike the TPS22953 it has no
+    # PG, no SNS and no reverse current blocking: EXT_FAULT is U21, U22
+    # and U26 only, and a slot that back-feeds its PIN V pin while EXT_EN
+    # is low sees the switch's body diode (ref/extension-ux.md says so).
+    # No programmable current limit either: the 500 mA PINV branch PTC in
+    # every slot is the overload protection. ON VIH 1.05-1.2 V, so EXT_EN
+    # drives it directly. The ILIM resistor each had is consumed here so
+    # the later resistors keep their designators; the 1 uF input bypass
+    # stays, the BIAS 100 nF, CT 1 nF and OUT 1 uF are appended below.
     for ref, vin, vout in (('U23', 'VCCIO_1', 'VCCIO_1_EXT'),
                            ('U24', 'VCCIO_2', 'VCCIO_2_EXT')):
         d.group(f'{ref}  {vin} to {vout}')
-        d.add(ref, 'odin:TPS22953DSQ', 'TPS22953DSQR', WSON10_DSQ,
-              {'IN': vin, 'OUT': vout, 'BIAS': V33, 'EN': 'EXT_EN', 'GND': GND,
-               'CT': f'{ref}_CT', 'PG': GND, 'SNS': vout, 'EP': GND}, 'C2680343')
+        d.add(ref, 'odin:TPS22975DSG', 'TPS22975DSGR', WSON8_DSG,
+              {'VIN': vin, 'VOUT': vout, 'VBIAS': V33, 'ON': 'EXT_EN', 'GND': GND,
+               'CT': f'{ref}_CT', 'EP': GND}, 'C524777')
         d.reserve('R', 1)
         d.C('1uF', vin, GND, C0603)
 
@@ -1402,15 +1403,18 @@ def build():
         for lane in ('SCK', 'IO0', 'IO1', 'IO2', 'IO3'):
             d.R('10k', f'PSRAM{c}_{lane}_MEM', GND, R0603)
 
-    # ---- TPS22953 support parts for U23/U24 (item 41). SLVSCT5D 12.1: CT
-    # close to the pin (25 V rated, copper cut-out under it), BIAS, IN and
-    # OUT each bypassed close to the pins.
+    # ---- support parts for U23/U24 (item 41), now TPS22975 (SLVSDD0B
+    # 12.1: input and output capacitors close to the device, the CT trace
+    # as short as possible). CT: 9.3.1 wants a 30 V minimum rating on the CT
+    # capacitor (the pin reaches 15 V); SR = 0.43 x CT(pF) + 26 us/V at
+    # VBIAS 5 V, Table 1: 1000 pF gives 1.19 ms at 3.3 V in, 0.7 ms at
+    # 1.8 V [verify at VBIAS 3.3 V, the table is taken at 5 V].
     d.sheet('Power')
     for ref, vin, vout in (('U23', 'VCCIO_1', 'VCCIO_1_EXT'),
                            ('U24', 'VCCIO_2', 'VCCIO_2_EXT')):
         d.group(f'{ref}  {vin} to {vout}')
-        d.C('100nF', V33, GND)             # BIAS
-        d.C('1nF 50V', f'{ref}_CT', GND)   # about 1.5 ms rise (7.9, CT = 1000 pF)
+        d.C('100nF', V33, GND)             # VBIAS
+        d.C('1nF 50V', f'{ref}_CT', GND)   # about 1.2 ms rise at 3.3 V (Table 1, CT = 1000 pF)
         d.C('1uF', vout, GND, C0603)       # OUT
     d.sheet('Power')
 
