@@ -1,7 +1,7 @@
 (export (version "E")
   (design
     (source "/home/ohenley/freyja/kicad/odin.kicad_sch")
-    (date "2026-10-30T18:21:03-0400")
+    (date "2026-10-30T18:22:37-0400")
     (tool "Eeschema 9.0.8+dfsg-1")
     (sheet (number "1") (name "/") (tstamps "/")
       (title_block
@@ -5731,13 +5731,15 @@
       (tstamps "72298b1e-4760-e8e2-890e-d72fe8709a59"))
     (comp (ref "C137")
       (value "1uF 25V")
-      (footprint "Capacitor_SMD:C_0402_1005Metric")
+      (footprint "Capacitor_SMD:C_0603_1608Metric")
       (description "1uF 25V bypass on VBUS, for U18 (USB-PD negotiator)")
       (fields
-        (field (name "Footprint") "Capacitor_SMD:C_0402_1005Metric")
+        (field (name "LCSC") "C29936")
+        (field (name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
         (field (name "Datasheet"))
         (field (name "Description") "1uF 25V bypass on VBUS, for U18 (USB-PD negotiator)"))
       (libsource (lib "Device") (part "C") (description "Unpolarized capacitor"))
+      (property (name "LCSC") (value "C29936"))
       (property (name "Sheetname") (value "Board Controller"))
       (property (name "Sheetfile") (value "supervisor.kicad_sch"))
       (property (name "ki_keywords") (value "cap capacitor"))

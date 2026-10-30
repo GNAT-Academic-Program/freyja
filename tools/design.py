@@ -515,7 +515,7 @@ def build():
           {'VIN': 'VBUS', 'GND': GND, 'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
            'SDA': 'PD_SDA', 'SCL': 'PD_SCL', 'VSET': 'PD_VSET', 'ISET': 'PD_ISET',
            'D+': '', 'D-': '', 'GATE': ''}, 'C7471904')
-    d.C('1uF', 'VBUS', GND)        # VIN bypass (VBUS: 25 V rated by the HV rule)
+    d.C('1uF', 'VBUS', GND, C0603) # VIN bypass (VBUS: 25 V rated by the HV rule, 0603 for the rating)
     d.reserve('R', 1)              # the former PD_PG pull-up
     d.group('BOOTSEL')
     # series resistor so pressing the button cannot fight the RP2350 actively
