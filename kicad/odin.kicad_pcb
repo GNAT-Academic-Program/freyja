@@ -1288,7 +1288,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "00b28f40-9f90-4590-8c38-49c94646a371")
-		(at 222.14125 105.9 180)
+		(at 225.63 104.77 180)
 		(descr "1k resistor from MON_2V5 to +2V5, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R86"
@@ -1423,7 +1423,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "0112a8a4-fd08-4832-8b05-3eebc81b60ca")
-		(at 225.61125 99.76 180)
+		(at 222.12 99.88 180)
 		(descr "1k resistor from MON_VCCIO_2 to VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R199"
@@ -2053,7 +2053,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "02fc953a-0c54-43d2-899c-fd583e19a710")
-		(at 238.34 98.84 -90)
+		(at 237.6 98.4 -90)
 		(descr "10uF 50V bypass on VSYS, for U26 (USB input eFuse)")
 		(tags "capacitor")
 		(property "Reference" "C186"
@@ -3176,7 +3176,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "06677c63-6067-4f33-8c12-7f2b2df42b47")
-		(at 217.6 92.5 -90)
+		(at 207.5 89.815 -90)
 		(descr "10k resistor from PD_CFG1 to PD_VDD, for U18 (USB-PD negotiator): CH224K request: high (pull-up) = 5 V, pulled low by Q3 = 9 V; CH224K's internal regulator output")
 		(tags "resistor")
 		(property "Reference" "R172"
@@ -3311,7 +3311,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "06fe7a4b-1ad5-4533-8558-ade359051ae4")
-		(at 219.18 108.09)
+		(at 219.18 107.93)
 		(descr "100nF capacitor from SUP_RUN to GND, for U7 (board controller): board controller reset")
 		(tags "capacitor")
 		(property "Reference" "C135"
@@ -5273,7 +5273,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "0fd4e678-a04a-4880-b3e3-2f46c5042a26")
-		(at 230.4 189.56 -90)
+		(at 231.1 189.62 -90)
 		(descr "2.49k 1% resistor from PHY_RSET to GND, for U30 (gigabit Ethernet PHY): sets U30's transmit bias current (2.49 k 1 %, [verify] ref/network.md)")
 		(tags "resistor")
 		(property "Reference" "R131"
@@ -6005,7 +6005,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "12631d89-7c84-4070-b4e2-fb55d6ed97f6")
-		(at 233.84 103.14 -90)
+		(at 233.1 102.7 -90)
 		(descr "10k resistor from VBUS_OVLO to GND, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V")
 		(tags "resistor")
 		(property "Reference" "R53"
@@ -6716,7 +6716,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "13c6d2ed-a960-4dcc-b183-c2de88b1c84a")
-		(at 199 95.5 90)
+		(at 207.59 96.4 90)
 		(descr "33 series resistor between CFG_DONE and SUP_DONE, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R20"
@@ -7182,7 +7182,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1498025a-5c57-40e2-b48d-d01fd7036b42")
-		(at 278.9 189.7 180)
+		(at 278.96 191 180)
 		(descr "330 resistor from DONE_LED_A to +3V3, for D1 (FPGA DONE LED): sets D1's current")
 		(tags "resistor")
 		(property "Reference" "R7"
@@ -9130,7 +9130,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "1a3224bd-8f7a-447e-b453-275f97bb3b7f")
-		(at 225.63 106.35 180)
+		(at 229.14 103.14 180)
 		(descr "100k resistor from MON_5V to +5V, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R83"
@@ -11150,11 +11150,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "1f3c4fdf-6baf-47b4-b615-656339f6fe6b")
-		(at 205.8 108.08 180)
+		(at 206.94 109.8 -90)
 		(descr "33 series resistor between DBG_TMS and SUP_DBG_TMS, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R28"
-			(at 0 -1.17 0)
+			(at 0 -1.17 90)
 			(layer "F.Fab")
 			(uuid "1c536a7e-2bc6-401f-91ea-c1fc6b31dc07")
 			(effects
@@ -11165,7 +11165,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 0)
+			(at 0 1.17 90)
 			(layer "F.Fab")
 			(uuid "650dbc99-6da2-4a0d-8d33-ec56c8f7bfe5")
 			(effects
@@ -11176,7 +11176,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a83b7780-c538-4c2e-87d8-5c80d79c633d")
@@ -11188,7 +11188,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between DBG_TMS and SUP_DBG_TMS, for U7 (board controller): board controller to FPGA link (33 ohm series)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0f7a717a-b829-4f1e-9239-43f68a49aad1")
@@ -11200,7 +11200,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "8120aec1-5131-4819-aec8-91affd2e4569")
@@ -11255,7 +11255,7 @@
 			(uuid "e735b93d-12e1-4015-8060-10091821c201")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "4cc50a3f-496f-4aac-a0c4-5de651fd0953")
 			(effects
@@ -11266,7 +11266,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 180)
+			(at -0.51 0 270)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -11274,7 +11274,7 @@
 			(uuid "bac2b287-b041-48cb-9bd1-1bb8da7e32a1")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 180)
+			(at 0.51 0 270)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -11669,7 +11669,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "20354f8c-11f8-41d4-8605-146cc1d6e15f")
-		(at 276.34 196.7)
+		(at 276.4 198)
 		(descr "1k resistor from LED_USER1_A to +3V3, for D10 (USER 1 LED): LED current limit")
 		(tags "resistor")
 		(property "Reference" "R129"
@@ -12687,11 +12687,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "219befb5-28c7-4155-b27c-34799ce3f664")
-		(at 217.32 109.91 -90)
+		(at 219.2 112.6 0)
 		(descr "33 series resistor between SB_UART_RX and SUP_UART_TX, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R31"
-			(at 0 -1.17 270)
+			(at 0 -1.17 0)
 			(layer "F.Fab")
 			(uuid "5b2391df-bcf2-43b7-907b-0c506e7a1af3")
 			(effects
@@ -12702,7 +12702,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 270)
+			(at 0 1.17 0)
 			(layer "F.Fab")
 			(uuid "45d9b312-882f-4fa3-815a-6a6070b7ea1f")
 			(effects
@@ -12713,7 +12713,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "eac863de-9e91-4839-9eca-bcc32423e92c")
@@ -12725,7 +12725,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between SB_UART_RX and SUP_UART_TX, for U7 (board controller): board controller to FPGA link (33 ohm series)"
-			(at 0 0 270)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9667f49d-9c65-4cd4-b31f-ae9e2fc55a93")
@@ -12737,7 +12737,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "5cfd65cb-c0c5-40d1-adec-37f9cabac877")
@@ -12792,7 +12792,7 @@
 			(uuid "f9bbcb61-db86-4d00-a30e-a2493f5dfb89")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "47615584-f3c0-4258-a35a-c0b9ee721c0b")
 			(effects
@@ -12803,7 +12803,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 270)
+			(at -0.51 0 0)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -12811,7 +12811,7 @@
 			(uuid "6117b2e9-92c9-4e2a-8a78-a624d1844b38")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 270)
+			(at 0.51 0 0)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -12981,7 +12981,7 @@
 	(footprint "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "21ae1c0b-10af-4d77-b76e-2e2b5597172d")
-		(at 275.51 191.2325 180)
+		(at 275.57 192.5325 180)
 		(descr "DONE LED driver: Small N-MOSFET that sinks D1's current when DONE goes high, so the LED never loads the FPGA's open-drain DONE pin.")
 		(property "Reference" "Q4"
 			(at 0 -4.95 0)
@@ -13657,7 +13657,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "21fe8db6-5c1f-4d41-823e-3db9f024c55d")
-		(at 206.52 109.91 -90)
+		(at 208.24 109.8 -90)
 		(descr "33 series resistor between DBG_TDI and SUP_DBG_TDI, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R29"
@@ -13939,7 +13939,7 @@
 	(footprint "EasyEDA:LED0603-RD_GREEN"
 		(layer "F.Cu")
 		(uuid "247318e4-0471-4a5a-831a-cdd4efeba2ec")
-		(at 278.99 191.2325)
+		(at 279.05 192.5325)
 		(descr "FPGA DONE LED: Green LED, lit once the FPGA has finished loading a design.")
 		(property "Reference" "D1"
 			(at 0 -4.003 0)
@@ -15487,7 +15487,7 @@
 	(footprint "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm"
 		(layer "F.Cu")
 		(uuid "293169d7-f977-4b02-b6c2-c5421c474f29")
-		(at 183.9 182.1 180)
+		(at 184.3 183.6 180)
 		(descr "slots A-D PIN V switch: TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_1 to the PIN V pin of slots A-D. Blocks reverse current while off; the slot fuses limit the current.")
 		(tags "Texas WSON NoLead")
 		(property "Reference" "U23"
@@ -16118,7 +16118,7 @@
 	(footprint "EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1"
 		(layer "F.Cu")
 		(uuid "2a176332-b62f-4729-8eea-a54ab5d53bf4")
-		(at 271.205 184.85)
+		(at 271.205 186.87)
 		(descr "E-H PIN VOLTAGE jumper: 2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots E-H.")
 		(property "Reference" "J20"
 			(at 0 -5.27 0)
@@ -17987,7 +17987,7 @@
 	(footprint "EasyEDA:IND-SMD_L2.0-W1.6_AOTA-B201610S3R3-101-T"
 		(layer "F.Cu")
 		(uuid "2fcea96b-bc4e-4444-a402-79c073eb7e15")
-		(at 205.14125 92.1)
+		(at 215.5 92.51)
 		(descr "3.3uH AOTA-B201610S3R3-101-T inductor between +1V1 and SUP_LX, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(property "Reference" "L1"
 			(at 0 -4 0)
@@ -18182,7 +18182,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "327ff684-8b3a-4f57-bb17-c1fb0e7a58aa")
-		(at 184.8 185.38 -90)
+		(at 185.2 186.88 -90)
 		(descr "1uF bypass on VCCIO_1, for U23 (slots A-D PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C220"
@@ -18329,7 +18329,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "32be935a-1ba9-4b57-a628-36d375ec38b4")
-		(at 225.63 104.54 180)
+		(at 229.14 101.33 180)
 		(descr "1k resistor from MON_3V3 to +3V3, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R85"
@@ -18464,7 +18464,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "32ed84a0-bf79-42d7-a192-9707c3853bd4")
-		(at 231.46 189.56 -90)
+		(at 232.16 189.62 -90)
 		(descr "1k pull-down on PHY_RESET_N, for U30 (gigabit Ethernet PHY): holds U30 in reset until the FPGA drives it (Table 53 note 5)")
 		(tags "resistor")
 		(property "Reference" "R132"
@@ -19468,11 +19468,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "35951943-747c-446e-8479-ed6a28095fc1")
-		(at 229.42 189.54 -90)
+		(at 227 183.4 180)
 		(descr "18 pF load capacitor on the crystal's input side (X3, CL 12 pF with about 3 pF stray: 2 x (12 - 3))")
 		(tags "capacitor")
 		(property "Reference" "C244"
-			(at 0 -1.16 90)
+			(at 0 -1.16 0)
 			(layer "F.Fab")
 			(uuid "4ee1500f-3d53-4b4f-980d-d66acbac3018")
 			(effects
@@ -19483,7 +19483,7 @@
 			)
 		)
 		(property "Value" "18pF"
-			(at 0 1.16 90)
+			(at 0 1.16 0)
 			(layer "F.Fab")
 			(uuid "82dd7d69-f933-4f22-a56b-437d45f13f91")
 			(effects
@@ -19494,7 +19494,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6dfa924b-7fd4-496b-9dfe-1bb0d26627cf")
@@ -19506,7 +19506,7 @@
 			)
 		)
 		(property "Description" "18 pF load capacitor on the crystal's input side (X3, CL 12 pF with about 3 pF stray: 2 x (12 - 3))"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f0f3357b-30a7-44db-a365-fd6e99ee5b2d")
@@ -19561,7 +19561,7 @@
 			(uuid "68e23f4d-8c2c-4cc0-b2d9-26d05b87a7b3")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "64cf3b26-f2d2-4b6e-a39d-5b50f939d250")
 			(effects
@@ -19572,7 +19572,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0 270)
+			(at -0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -19580,7 +19580,7 @@
 			(uuid "19f2b8a2-9e19-46a2-ab21-8f115ac5e769")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0 270)
+			(at 0.48 0 180)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -19603,7 +19603,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "362a86d8-645b-4b44-9b83-9f81d91f7ddf")
-		(at 183.3 179.9)
+		(at 183.7 181.4)
 		(descr "1nF 50V filter capacitor on U23_CT, for U23 (slots A-D PIN V switch): sets how fast U23 ramps its output, about 1.5 ms (TPS22953 CT)")
 		(tags "capacitor")
 		(property "Reference" "C272"
@@ -20285,7 +20285,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "3a586a72-344b-4692-bd5c-0777e04c0ec0")
-		(at 186.99 182.1)
+		(at 187.39 183.6)
 		(descr "100nF bypass on +3V3, for U23 (slots A-D PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C271"
@@ -22622,7 +22622,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "3f33f2f7-ef79-4625-a311-c678d7d3d470")
-		(at 276.005 181.45 180)
+		(at 275.9 183.1 180)
 		(descr "100nF bypass on +3V3, for U24 (slots E-H PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C274"
@@ -22769,7 +22769,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "3f8b040a-ea22-40ac-9577-14614a301081")
-		(at 235.54 103.14 90)
+		(at 234.8 102.7 90)
 		(descr "73.2k resistor from VBUS_OVLO to VBUS, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V")
 		(tags "resistor")
 		(property "Reference" "R52"
@@ -22904,7 +22904,7 @@
 	(footprint "EasyEDA:LED0603-RD_GREEN"
 		(layer "F.Cu")
 		(uuid "416531b4-be55-48f4-a5f7-bbee8d59a778")
-		(at 278.97 199.4 180)
+		(at 279.03 200.7 180)
 		(descr "USER 2 LED: Green LED for software use.")
 		(property "Reference" "D11"
 			(at 0 -4.003 0)
@@ -23566,7 +23566,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "42463134-c031-49a2-94e5-ec3549284743")
-		(at 220.79 110.19 -90)
+		(at 219.13 110.35 -90)
 		(descr "16k resistor from MON_VSYS to GND, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R82"
@@ -23848,7 +23848,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "42a830f5-af13-4a45-bab2-b3c481c145d3")
-		(at 225.61125 102.84 180)
+		(at 222.12 102.96 180)
 		(descr "1k resistor from MON_VCCIO_1 to VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R198"
@@ -24204,7 +24204,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "43eedc8e-b767-4148-a012-9cd8507be51b")
-		(at 270.795 191.838 90)
+		(at 270.8 192.5335 90)
 		(descr "1uF bypass on +5V, for U21 (extension 5 V switch)")
 		(tags "capacitor")
 		(property "Reference" "C218"
@@ -25473,7 +25473,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "475572f8-fb6c-47ee-8356-4ff6dc5bec52")
-		(at 221.55 104.5)
+		(at 225.06 103.23)
 		(descr "100nF filter capacitor on MON_2V5, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C228"
@@ -26936,7 +26936,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "48354244-df47-4b0b-890d-74de41aa3bb1")
-		(at 221.55 101.42)
+		(at 225.06 100.15)
 		(descr "100nF filter capacitor on MON_1V8, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C229"
@@ -28064,7 +28064,7 @@
 	(footprint "EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1"
 		(layer "F.Cu")
 		(uuid "4d068040-ba21-42e4-b03f-9590b70190a1")
-		(at 191.4 185.6)
+		(at 191.495 187.58)
 		(descr "A-D PIN VOLTAGE jumper: 2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots A-D.")
 		(property "Reference" "J19"
 			(at 0 -5.27 0)
@@ -30903,7 +30903,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "53794213-cdd9-4d3e-a910-185295e12227")
-		(at 218.98 110.19 90)
+		(at 217.32 110.35 90)
 		(descr "100k resistor from MON_VSYS to VSYS, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R81"
@@ -34724,7 +34724,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "5de9fbd3-3105-4a08-98bc-d0a65c904981")
-		(at 233 100.8 180)
+		(at 232.26 100.36 180)
 		(descr "1.65k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A")
 		(tags "resistor")
 		(property "Reference" "R54"
@@ -34994,7 +34994,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "6136e177-75f8-4417-847e-e47c8371a982")
-		(at 225.04125 101.3)
+		(at 221.55 101.42)
 		(descr "100nF filter capacitor on MON_VCCIO_1, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C277"
@@ -35975,7 +35975,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "637fba1e-a1f9-4ffc-be4a-7845cdbe2177")
-		(at 276.34 194)
+		(at 276.4 195.3)
 		(descr "1k resistor from LED_HEARTBEAT_A to +3V3, for D9 (CTRL HB LED): LED current limit")
 		(tags "resistor")
 		(property "Reference" "R128"
@@ -36347,7 +36347,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "64297538-8a3f-4e37-aeea-92cb9e42ef49")
-		(at 207.5 92 -90)
+		(at 217.5 92.89 -90)
 		(descr "33 series resistor between +3V3 and SUP_VREG_AVDD: filtered analog supply for the RP2350's regulator")
 		(tags "resistor")
 		(property "Reference" "R8"
@@ -36899,7 +36899,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "64cf848d-5526-4880-8923-5bffe64ae4a9")
-		(at 191.705 181.02 90)
+		(at 191.8 183 90)
 		(descr "22uF bypass on VCCIO_1, for J19 (A-D PIN VOLTAGE jumper)")
 		(tags "capacitor")
 		(property "Reference" "C164"
@@ -37525,7 +37525,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "66695749-220e-4279-8142-128ea414f8bd")
-		(at 225.63 108.16)
+		(at 229.14 104.95)
 		(descr "47k resistor from MON_5V to GND, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R84"
@@ -39160,7 +39160,7 @@
 	(footprint "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR"
 		(layer "F.Cu")
 		(uuid "6f54abb6-7223-446e-82ec-789b94915d7d")
-		(at 216.1 94 180)
+		(at 206 91.315 180)
 		(descr "9 V request switch: Small N-MOSFET the board controller (PD_REQ_9V) uses to pull the CH224K's CFG1 low and ask the charger for 9 V. Off: 5 V.")
 		(property "Reference" "Q3"
 			(at 0 -4.95 180)
@@ -39978,7 +39978,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "70c07d5a-154f-4551-b1f3-61afe993600b")
-		(at 219.18 100)
+		(at 219.18 99.99)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C121"
@@ -43428,7 +43428,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "7885f608-06ea-4390-8689-a0531f92ded9")
-		(at 219.18 104.89)
+		(at 219.18 105.07)
 		(descr "100nF filter capacitor on MON_VSYS, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C225"
@@ -43857,7 +43857,7 @@
 	(footprint "EasyEDA:LED0603-RD_GREEN"
 		(layer "F.Cu")
 		(uuid "7952d4f8-c30d-460d-bae2-0e3a691b05af")
-		(at 279 194 180)
+		(at 279.06 195.3 180)
 		(descr "CTRL HB LED: Green LED: blinks while the board controller firmware runs.")
 		(property "Reference" "D9"
 			(at 0 -4.003 0)
@@ -46179,7 +46179,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "7b2bd875-bcb9-4860-bf65-f30b9017fac9")
-		(at 232.14 103.14 -90)
+		(at 231.4 102.7 -90)
 		(descr "47k resistor from VBUS_UVLO to GND, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V")
 		(tags "resistor")
 		(property "Reference" "R51"
@@ -47508,7 +47508,7 @@
 	(footprint "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm"
 		(layer "F.Cu")
 		(uuid "7fb7d766-c9dd-4d0b-beb2-e7f69d8e713c")
-		(at 278.705 180.55)
+		(at 278.6 182.2)
 		(descr "slots E-H PIN V switch: TI TPS22953 load switch, biased from +3V3 so it works at 1.8 V: VCCIO_2 to the PIN V pin of slots E-H. Blocks reverse current while off; the slot fuses limit the current.")
 		(tags "Texas WSON NoLead")
 		(property "Reference" "U24"
@@ -52132,7 +52132,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8aad131d-b35d-4709-9151-6e3242cd94d2")
-		(at 201.5 92.2 -90)
+		(at 212.09875 94.3 -90)
 		(descr "27 series resistor between USB_DP and USB_DP_MCU, for J1 (USB-C connector): USB D+ at the controller, after its 27 ohm series resistor")
 		(tags "resistor")
 		(property "Reference" "R170"
@@ -53956,7 +53956,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8fd94845-c003-4aa6-b613-0313f0e217fa")
-		(at 232.5 189.54 -90)
+		(at 233.2 189.6 -90)
 		(descr "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins")
 		(tags "capacitor")
 		(property "Reference" "C240"
@@ -54544,7 +54544,7 @@
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "9071594a-c62c-481c-8e23-26de4843d09a")
-		(at 233.84 98.14 180)
+		(at 233.1 97.7 180)
 		(descr "10uF 50V bypass on VSYS, for U26 (USB input eFuse)")
 		(tags "capacitor")
 		(property "Reference" "C185"
@@ -55371,7 +55371,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "932acc0c-fef3-4f4c-840a-fb3a374999bd")
-		(at 183 185.38 -90)
+		(at 183.4 186.88 -90)
 		(descr "1uF bypass on VCCIO_1_EXT, for U23 (slots A-D PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C273"
@@ -55518,7 +55518,7 @@
 	(footprint "Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm"
 		(layer "F.Cu")
 		(uuid "9331f1a6-9378-4ef8-84f7-d7076fdaec19")
-		(at 242.18 103.05 90)
+		(at 241.44 102.61 90)
 		(descr "USB input eFuse: TI TPS259470A: ramps USB power in gently, cuts off outside 3.75-10 V, limits current to about 2 A, blocks reverse current. Reports faults on EXT_FAULT.")
 		(tags "VQFN-HR NO LEAD")
 		(property "Reference" "U26"
@@ -55807,11 +55807,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "93a2fa6c-82ba-4353-93a3-5c8566da1a20")
-		(at 219.19 105.99)
+		(at 215.77 109.8 -90)
 		(descr "33 series resistor between SB_UART_TX and SUP_UART_RX, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R32"
-			(at 0 -1.17 0)
+			(at 0 -1.17 270)
 			(layer "F.Fab")
 			(uuid "c00edfe0-51b6-4d8e-bc8a-c6f4d81091fa")
 			(effects
@@ -55822,7 +55822,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 0)
+			(at 0 1.17 270)
 			(layer "F.Fab")
 			(uuid "ddd518e2-777b-4e26-90ef-be9a237cc87b")
 			(effects
@@ -55833,7 +55833,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a6ec5b4b-fcfe-4b92-870f-656f7cd8200f")
@@ -55845,7 +55845,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between SB_UART_TX and SUP_UART_RX, for U7 (board controller): board controller to FPGA link (33 ohm series)"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5091f54b-d909-463f-8b61-d4a8ba24e797")
@@ -55857,7 +55857,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a29ac1bc-cc0a-4ba1-a38f-26cfc4b4bce2")
@@ -55912,7 +55912,7 @@
 			(uuid "76bf27c8-4ae5-4aae-ae69-b71f9cea7573")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "41b211e7-f954-49e5-ad2b-83facea49fb3")
 			(effects
@@ -55923,7 +55923,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0)
+			(at -0.51 0 270)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -55931,7 +55931,7 @@
 			(uuid "99d63f4e-ade9-4cf1-9b48-442f0889dafe")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0)
+			(at 0.51 0 270)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -56101,7 +56101,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "948fad0b-066d-45de-843b-20b2ee57c26d")
-		(at 187.56 180.8)
+		(at 187.96 182.3)
 		(descr "100k pull-down on EXT_EN, for U7 (board controller): from the board controller: turns extension power on; off by default")
 		(tags "resistor")
 		(property "Reference" "R72"
@@ -56790,7 +56790,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "97404325-26ac-41f5-920a-bd5c967c5316")
-		(at 268.665 180.1 90)
+		(at 268.665 182.12 90)
 		(descr "22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper)")
 		(tags "capacitor")
 		(property "Reference" "C166"
@@ -56937,7 +56937,7 @@
 	(footprint "EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL_3"
 		(layer "F.Cu")
 		(uuid "97933861-954e-4ffc-9c6e-d88cd8002e2d")
-		(at 270.795 195.2545 180)
+		(at 270.8 195.95 180)
 		(descr "extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 1 A limit, reverse blocking.")
 		(property "Reference" "U21"
 			(at 0 -5.149 0)
@@ -57172,7 +57172,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "97c89a65-0a9f-4de6-9bb4-ec0c850b1bf4")
-		(at 213.6 94 -90)
+		(at 203.5 91.315 -90)
 		(descr "100k resistor from PD_REQ_9V to GND, for U7 (board controller): Q3's gate; off (5 V) unless the board controller drives it high")
 		(tags "resistor")
 		(property "Reference" "R173"
@@ -57466,7 +57466,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "9891d84c-9a81-4d9a-874f-5510c862b132")
-		(at 239.9 184.2 90)
+		(at 229.8 189.6 -90)
 		(descr "18 pF load capacitor on the crystal's output side (X3)")
 		(tags "capacitor")
 		(property "Reference" "C245"
@@ -57517,16 +57517,6 @@
 		)
 		(attr smd)
 		(fp_line
-			(start -0.107836 -0.36)
-			(end 0.107836 -0.36)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "7138493e-43c8-4d39-b44f-28a22ad5a797")
-		)
-		(fp_line
 			(start -0.107836 0.36)
 			(end 0.107836 0.36)
 			(stroke
@@ -57535,6 +57525,16 @@
 			)
 			(layer "F.SilkS")
 			(uuid "10774a45-13e2-45f2-9049-11d924d84138")
+		)
+		(fp_line
+			(start -0.107836 -0.36)
+			(end 0.107836 -0.36)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "7138493e-43c8-4d39-b44f-28a22ad5a797")
 		)
 		(fp_rect
 			(start -0.91 -0.46)
@@ -57570,7 +57570,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0 90)
+			(at -0.48 0 270)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -57578,7 +57578,7 @@
 			(uuid "5cbfc11c-22d5-444a-87c1-d7750c29ce2f")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0 90)
+			(at 0.48 0 270)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -59245,7 +59245,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9c0a313c-e9ea-4bd9-af9e-60ac6eac4c63")
-		(at 222.12 99.88 180)
+		(at 225.63 98.61 180)
 		(descr "1k resistor from MON_1V0 to +1V0, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R88"
@@ -59645,7 +59645,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "9c4e3fc5-76a5-4838-be66-9af89090af2d")
-		(at 225.04125 98.22)
+		(at 221.55 98.34)
 		(descr "100nF filter capacitor on MON_VCCIO_2, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C278"
@@ -59792,7 +59792,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "9d4f4c96-b6cd-44ad-a700-9bdf8195c540")
-		(at 205.04125 94)
+		(at 215.5 94.59)
 		(descr "4.7uF bypass on +1V1")
 		(tags "capacitor")
 		(property "Reference" "C131"
@@ -59939,7 +59939,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "9defa13e-85b6-4fd1-bfcb-ad3a4eff6c90")
-		(at 229.14 183.34)
+		(at 229.14 183.4)
 		(descr "4.7k pull-down on PHY_RX_CTL, for U30 (gigabit Ethernet PHY): strap PHYAD2 = 0 (Table 10)")
 		(tags "resistor")
 		(property "Reference" "R137"
@@ -60893,7 +60893,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "a1a29794-efe8-4e5f-8076-204b75631d6f")
-		(at 205.05125 95.71)
+		(at 215.1 96.6)
 		(descr "4.7uF bypass on +3V3")
 		(tags "capacitor")
 		(property "Reference" "C130"
@@ -61616,7 +61616,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a4356e60-ddf3-4bf6-92a0-43f8e8d04e4b")
-		(at 279.305 178.55)
+		(at 279.2 180.2)
 		(descr "1nF 50V filter capacitor on U24_CT, for U24 (slots E-H PIN V switch): sets how fast U24 ramps its output, about 1.5 ms (TPS22953 CT)")
 		(tags "capacitor")
 		(property "Reference" "C275"
@@ -61995,7 +61995,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a4ffc5e4-bc7c-493d-b43c-955da7678ffc")
-		(at 276.31 199.4)
+		(at 276.37 200.7)
 		(descr "1k resistor from LED_USER2_A to +3V3, for D11 (USER 2 LED): LED current limit")
 		(tags "resistor")
 		(property "Reference" "R130"
@@ -65606,7 +65606,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ab490d7a-24e5-4ea1-9dd7-be927d654f74")
-		(at 201.48125 95.53 90)
+		(at 212.06 96.42 90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C118"
@@ -66047,7 +66047,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ad24e325-c052-44ea-b0cd-afa6b131a3ba")
-		(at 208.8 109.9 -90)
+		(at 207.6 111.9 -90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C125"
@@ -67652,7 +67652,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "b279970c-254e-40c8-a84e-bca240dc7118")
-		(at 207.72 109.9 -90)
+		(at 211.86 114.28 -90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C123"
@@ -68916,7 +68916,7 @@
 	(footprint "EasyEDA:LED0603-RD_GREEN"
 		(layer "F.Cu")
 		(uuid "b4696af9-e13a-445a-92b7-f024bd8b7dd1")
-		(at 279 196.7 180)
+		(at 279.06 198 180)
 		(descr "USER 1 LED: Green LED for software use.")
 		(property "Reference" "D10"
 			(at 0 -4.003 0)
@@ -70848,7 +70848,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "b6fbe7f0-a657-43ff-a2e8-a018f93f05b7")
-		(at 233.49 189.56 -90)
+		(at 234.19 189.62 -90)
 		(descr "0 ohm in series with U30's crystal drive pin: a spot to fit a resistor if the measured drive level exceeds 0.5 mW (Table 56)")
 		(tags "resistor")
 		(property "Reference" "R146"
@@ -84559,7 +84559,7 @@
 	(footprint "EasyEDA:SMA_L4.3-W2.6-LS5.2-RD"
 		(layer "F.Cu")
 		(uuid "bc156b82-021f-4c39-a5a8-30f3436d045f")
-		(at 236.64 94.84 180)
+		(at 235.9 94.4 180)
 		(descr "USB input diode: SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB.")
 		(property "Reference" "D3"
 			(at 0 -4 0)
@@ -84935,7 +84935,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "bd83d0e4-4d0c-4f0d-b65e-8d2e66ddb04f")
-		(at 207.75125 94.96 -90)
+		(at 217.8 95.85 -90)
 		(descr "4.7uF bypass on SUP_VREG_AVDD: filtered analog supply for the RP2350's regulator")
 		(tags "capacitor")
 		(property "Reference" "C132"
@@ -86015,7 +86015,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "be3be9ce-ac88-433f-a459-38e610ef1cd2")
-		(at 277.805 183.83 -90)
+		(at 277.7 185.48 -90)
 		(descr "1uF bypass on VCCIO_2_EXT, for U24 (slots E-H PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C276"
@@ -87863,7 +87863,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c29104c1-49b1-4a4b-b738-8ca40e89b0d7")
-		(at 205.82 104.2 180)
+		(at 205.82 104.9 180)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C120"
@@ -89123,7 +89123,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c4cfc0e8-694c-4681-91aa-ded912020dcb")
-		(at 234.5 189.54 -90)
+		(at 235.2 189.6 -90)
 		(descr "100nF bypass on PHY_1V0, for U30 (gigabit Ethernet PHY): U30's internal 1.0 V LDO output; feeds only its own core pins")
 		(tags "capacitor")
 		(property "Reference" "C239"
@@ -90182,7 +90182,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c6f68c43-49f0-4e5f-b585-6d7fed68ae86")
-		(at 202.62125 95.53 90)
+		(at 213.04 96.42 90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C117"
@@ -90329,7 +90329,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "c761ffb6-cea3-4fd9-a704-31cff3f1f858")
-		(at 221.55 98.34)
+		(at 221.55 104.5)
 		(descr "100nF filter capacitor on MON_1V0, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C230"
@@ -93790,7 +93790,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "d56ad9ab-6ba9-4a53-be8f-81eebe03df70")
-		(at 221.54125 107.4)
+		(at 228.57 99.79)
 		(descr "100nF filter capacitor on MON_3V3, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "capacitor")
 		(property "Reference" "C227"
@@ -93937,7 +93937,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "d5cd0655-9a94-497e-8729-9c573f955d6e")
-		(at 271.205 180.1 90)
+		(at 271.205 182.12 90)
 		(descr "22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper)")
 		(tags "capacitor")
 		(property "Reference" "C165"
@@ -94084,7 +94084,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "d5f03581-a080-4d7f-86ab-45567d1e65b4")
-		(at 219.18 106.99)
+		(at 219.18 106.9)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C126"
@@ -98423,7 +98423,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "e3425638-1d13-45ae-a4df-3360312b8d29")
-		(at 194.235 181.02 90)
+		(at 194.33 183 90)
 		(descr "22uF bypass on VCCIO_1, for J19 (A-D PIN VOLTAGE jumper)")
 		(tags "capacitor")
 		(property "Reference" "C163"
@@ -98852,11 +98852,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "e511d979-513c-41f8-9614-788a38f62bb8")
-		(at 205.8 105.9 180)
+		(at 205.66 109.8 -90)
 		(descr "33 series resistor between DBG_TCK and SUP_DBG_TCK, for U7 (board controller): board controller to FPGA link (33 ohm series)")
 		(tags "resistor")
 		(property "Reference" "R27"
-			(at 0 -1.17 0)
+			(at 0 -1.17 90)
 			(layer "F.Fab")
 			(uuid "cfd3daa3-9508-4b75-a160-771547068426")
 			(effects
@@ -98867,7 +98867,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 1.17 0)
+			(at 0 1.17 90)
 			(layer "F.Fab")
 			(uuid "14d4d0ba-1203-4909-bddc-1824b94a29ea")
 			(effects
@@ -98878,7 +98878,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0ab1136a-2ddb-4433-9bb9-2398da101dbd")
@@ -98890,7 +98890,7 @@
 			)
 		)
 		(property "Description" "33 series resistor between DBG_TCK and SUP_DBG_TCK, for U7 (board controller): board controller to FPGA link (33 ohm series)"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "77ca064a-9099-4d45-8a1f-a6359f6cd001")
@@ -98902,7 +98902,7 @@
 			)
 		)
 		(property "LCSC Part" "C25105"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "9c54d034-fc6c-48b0-b06e-58c261eb7199")
@@ -98957,7 +98957,7 @@
 			(uuid "2e8924c6-1d0d-4245-b06c-5f732c8c97d3")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(uuid "bef81f82-e4b1-4326-acb8-9150c700e87f")
 			(effects
@@ -98968,7 +98968,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 180)
+			(at -0.51 0 270)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -98976,7 +98976,7 @@
 			(uuid "1344f358-c55d-4fd3-bec6-40d4c9282a75")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 180)
+			(at 0.51 0 270)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -99269,7 +99269,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "e826bb1f-52bd-45ab-a4e2-d5db10ce970e")
-		(at 270.3 198.638 -90)
+		(at 270.305 199.3335 -90)
 		(descr "1.15k resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py)")
 		(tags "resistor")
 		(property "Reference" "R74"
@@ -100068,7 +100068,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ebb72c02-915c-4542-ac8d-1f670e790d99")
-		(at 200.25125 95.53 90)
+		(at 210.3 96.42 90)
 		(descr "100nF bypass on +3V3, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C124"
@@ -100362,7 +100362,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ec2bbc34-26ed-4056-a78a-261a13a4bd6f")
-		(at 237.27 103.13 90)
+		(at 236.53 102.69 90)
 		(descr "100k resistor from VBUS_UVLO to VBUS, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V")
 		(tags "resistor")
 		(property "Reference" "R50"
@@ -101409,7 +101409,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "ee05c57d-c8f9-4b8f-b710-f3e493c66c80")
-		(at 275.405 180.15 180)
+		(at 275.3 181.8 180)
 		(descr "10k pull-up of EXT_FAULT to +3V3, for U7 (board controller): shared fault line, low when a protected supply trips")
 		(tags "resistor")
 		(property "Reference" "R73"
@@ -102236,7 +102236,7 @@
 	(footprint "Capacitor_SMD:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "efd3a221-0645-4cae-b03c-a55a86529f82")
-		(at 279.605 183.83 -90)
+		(at 279.5 185.48 -90)
 		(descr "1uF bypass on VCCIO_2, for U24 (slots E-H PIN V switch)")
 		(tags "capacitor")
 		(property "Reference" "C221"
@@ -102383,7 +102383,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f01cea63-acaa-4135-af88-7a0d680199e7")
-		(at 237.84 185.3 0)
+		(at 237.84 185.3)
 		(descr "100nF bypass on +3V3, for U30 (gigabit Ethernet PHY)")
 		(tags "capacitor")
 		(property "Reference" "C233"
@@ -102446,16 +102446,6 @@
 		)
 		(attr smd)
 		(fp_line
-			(start -0.107836 0.36)
-			(end 0.107836 0.36)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "979b72d2-61b0-4c33-a6c7-5823f3f92f58")
-		)
-		(fp_line
 			(start -0.107836 -0.36)
 			(end 0.107836 -0.36)
 			(stroke
@@ -102464,6 +102454,16 @@
 			)
 			(layer "F.SilkS")
 			(uuid "b002cdde-b37e-48ba-a134-565a7143ec73")
+		)
+		(fp_line
+			(start -0.107836 0.36)
+			(end 0.107836 0.36)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "979b72d2-61b0-4c33-a6c7-5823f3f92f58")
 		)
 		(fp_rect
 			(start -0.91 -0.46)
@@ -102499,7 +102499,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0 0)
+			(at -0.48 0)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -102507,7 +102507,7 @@
 			(uuid "a92d75df-35e3-486b-98de-92465c6f2b0c")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0 0)
+			(at 0.48 0)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -103094,7 +103094,7 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f1572418-6be7-44f8-9dcc-1aa905164ff3")
-		(at 202.7 92.2 -90)
+		(at 213.29875 94.3 -90)
 		(descr "27 series resistor between USB_DM and USB_DM_MCU, for J1 (USB-C connector): USB D- at the controller, after its 27 ohm series resistor")
 		(tags "resistor")
 		(property "Reference" "R171"
@@ -103940,7 +103940,7 @@
 	(footprint "Capacitor_SMD:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "f44e2ec3-8b68-4c6f-9d86-c0869d5f8f73")
-		(at 242.08 100.07 180)
+		(at 241.34 99.63 180)
 		(descr "10uF 25V bypass on VBUS, for U26 (USB input eFuse)")
 		(tags "capacitor")
 		(property "Reference" "C187"
@@ -104788,11 +104788,11 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f63acb4c-88fa-4cfd-9338-7c9aa50b14c0")
-		(at 214.4 111.5)
+		(at 213.14 113.08 -90)
 		(descr "100nF bypass on +1V1, for U7 (board controller)")
 		(tags "capacitor")
 		(property "Reference" "C127"
-			(at 0 -1.16 0)
+			(at 0 -1.16 270)
 			(layer "F.Fab")
 			(uuid "0fb83645-9020-4cea-902d-3e1726ec9651")
 			(effects
@@ -104803,7 +104803,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 0 1.16 0)
+			(at 0 1.16 270)
 			(layer "F.Fab")
 			(uuid "f906b949-3233-43da-9738-585433865d12")
 			(effects
@@ -104814,7 +104814,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "eb5d359a-fa8a-4488-93e9-512de2ec193d")
@@ -104826,7 +104826,7 @@
 			)
 		)
 		(property "Description" "100nF bypass on +1V1, for U7 (board controller)"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5fc7b682-ad51-43b9-a8ae-53de0b4593f8")
@@ -104838,7 +104838,7 @@
 			)
 		)
 		(property "LCSC Part" "C1525"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "302059fc-61cf-4029-bde6-77a22a2f765e")
@@ -104893,7 +104893,7 @@
 			(uuid "661ee4fc-09e7-4c8c-a4a4-6fd24269ab11")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
+			(at 0 0 270)
 			(layer "F.Fab")
 			(uuid "bf0eafc7-9548-4a17-9ce4-6507701d62de")
 			(effects
@@ -104904,7 +104904,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.48 0)
+			(at -0.48 0 270)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -104912,7 +104912,7 @@
 			(uuid "a8f3d9d2-91b1-4aa2-8770-fa25f4eeadf0")
 		)
 		(pad "2" smd roundrect
-			(at 0.48 0)
+			(at 0.48 0 270)
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -104935,7 +104935,7 @@
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "f81d49f5-2324-434d-ae16-c59976d65945")
-		(at 239.24 102.74 180)
+		(at 238.5 102.3 180)
 		(descr "2.2nF 25V capacitor from VBUS_DVDT to GND, for U26 (USB input eFuse): sets how slowly U26 ramps VSYS up, about 0.9 V/ms")
 		(tags "capacitor")
 		(property "Reference" "C184"
@@ -105352,7 +105352,7 @@
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "f8cf8c31-0734-4926-8cfe-8c5df7a98eb2")
-		(at 222.12 102.96 180)
+		(at 225.63 101.69 180)
 		(descr "1k resistor from MON_1V8 to +1V8, for U7 (board controller): rail monitor input to the board controller's ADC")
 		(tags "resistor")
 		(property "Reference" "R87"
@@ -106345,11 +106345,11 @@
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "fdaa2446-3e39-4236-a1b6-fd91282f5af9")
-		(at 215.11 109.91 90)
+		(at 219.2 113.71 180)
 		(descr "1k pull-up of SUP_RUN to +3V3, for U7 (board controller): board controller reset")
 		(tags "resistor")
 		(property "Reference" "R10"
-			(at 0 -1.17 90)
+			(at 0 -1.17 180)
 			(layer "F.Fab")
 			(uuid "59628cef-c928-419e-9b51-83bcd687493a")
 			(effects
@@ -106360,7 +106360,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 0 1.17 90)
+			(at 0 1.17 180)
 			(layer "F.Fab")
 			(uuid "31c80d11-eb14-4ac0-944f-7d1202fc5a8f")
 			(effects
@@ -106371,7 +106371,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "59f0dc54-2573-45cd-9ac0-3451097c70c9")
@@ -106383,7 +106383,7 @@
 			)
 		)
 		(property "Description" "1k pull-up of SUP_RUN to +3V3, for U7 (board controller): board controller reset"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "17370746-19bc-4883-b546-86d9975d05e0")
@@ -106395,7 +106395,7 @@
 			)
 		)
 		(property "LCSC Part" "C11702"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "7d574b12-27e0-43f7-b834-453c8a794956")
@@ -106450,7 +106450,7 @@
 			(uuid "17a49b9f-bad3-4066-88b8-c480772149ff")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 90)
+			(at 0 0 180)
 			(layer "F.Fab")
 			(uuid "4db281ec-8db8-43bf-baed-f54061c69b49")
 			(effects
@@ -106461,7 +106461,7 @@
 			)
 		)
 		(pad "1" smd roundrect
-			(at -0.51 0 90)
+			(at -0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -106469,7 +106469,7 @@
 			(uuid "667bbc13-92d6-44d5-83e6-f4f21cabd957")
 		)
 		(pad "2" smd roundrect
-			(at 0.51 0 90)
+			(at 0.51 0 180)
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
@@ -107316,8 +107316,8 @@
 		(uuid "46f70d07-8912-4669-b9a8-0864af408f9d")
 	)
 	(gr_rect
-		(start 180.745 170.835)
-		(end 191.745 176.955)
+		(start 181.145 172.335)
+		(end 192.145 178.455)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107327,8 +107327,8 @@
 		(uuid "76efd418-57fe-4bdb-acbe-5d180c5ac557")
 	)
 	(gr_rect
-		(start 180.745 176.955)
-		(end 191.745 188.385)
+		(start 181.145 178.455)
+		(end 192.145 189.885)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107360,8 +107360,8 @@
 		(uuid "af60ed91-272f-4d96-8d8c-ed537574bec9")
 	)
 	(gr_rect
-		(start 188.9 171.675)
-		(end 199.9 177.795)
+		(start 188.995 173.655)
+		(end 199.995 179.775)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -107371,8 +107371,8 @@
 		(uuid "1260eea7-bc6b-4578-873c-cc9558f9cc44")
 	)
 	(gr_rect
-		(start 188.9 177.795)
-		(end 199.9 189.805)
+		(start 188.995 179.775)
+		(end 199.995 191.785)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107380,28 +107380,6 @@
 		(fill no)
 		(layer "Cmts.User")
 		(uuid "8139719a-25f9-4969-83c8-5e5dde9e9486")
-	)
-	(gr_rect
-		(start 189.472 83.615)
-		(end 232.145 87.775)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "75a97e71-0fc3-45df-88c4-2afc30941825")
-	)
-	(gr_rect
-		(start 189.472 87.775)
-		(end 232.145 124.195)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "634796ac-b290-493f-b52f-5ee238d93fe5")
 	)
 	(gr_rect
 		(start 189.95 125.53)
@@ -107591,6 +107569,28 @@
 		(uuid "a2bfe9e7-77f9-410d-8993-eb01b4b82dd0")
 	)
 	(gr_rect
+		(start 200.315 82.21)
+		(end 211.685 88.33)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "42876f5c-9752-4bb1-9987-7ae1a060f418")
+	)
+	(gr_rect
+		(start 200.315 88.33)
+		(end 211.685 94.3)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "40cbaf77-7dce-4453-8c70-196faddd3bf8")
+	)
+	(gr_rect
 		(start 201.3 71.3)
 		(end 210.1 82.3)
 		(stroke
@@ -107701,28 +107701,6 @@
 		(uuid "40fc598f-1f2f-4e4f-9c0c-85836ff6fdc9")
 	)
 	(gr_rect
-		(start 210.415 84.895)
-		(end 221.785 91.015)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "42876f5c-9752-4bb1-9987-7ae1a060f418")
-	)
-	(gr_rect
-		(start 210.415 91.015)
-		(end 221.785 96.985)
-		(stroke
-			(width 0.15)
-			(type dash)
-		)
-		(fill no)
-		(layer "Cmts.User")
-		(uuid "40cbaf77-7dce-4453-8c70-196faddd3bf8")
-	)
-	(gr_rect
 		(start 213.4 165.91)
 		(end 225.72 179.69)
 		(stroke
@@ -107789,6 +107767,28 @@
 		(uuid "bfe0525b-e62e-440b-804b-1a9694cddfb2")
 	)
 	(gr_rect
+		(start 222.595 170.755)
+		(end 241.845 174.915)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "044ed3ec-3f97-4698-9d2d-4a26d80daa75")
+	)
+	(gr_rect
+		(start 222.595 174.915)
+		(end 241.845 192.015)
+		(stroke
+			(width 0.15)
+			(type dash)
+		)
+		(fill no)
+		(layer "Cmts.User")
+		(uuid "bcab4f89-23d7-4159-8e9b-50a0da13bee1")
+	)
+	(gr_rect
 		(start 223.655 68.26075)
 		(end 237.345 73.40075)
 		(stroke
@@ -107811,8 +107811,8 @@
 		(uuid "cddc3acd-4605-4bd9-822e-c347e1bfa677")
 	)
 	(gr_rect
-		(start 225.395 87.16)
-		(end 245.305 113.045)
+		(start 224.655 86.72)
+		(end 244.565 112.605)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -107822,8 +107822,8 @@
 		(uuid "2848442a-cf7b-4f06-90d1-9b2f05f33fbf")
 	)
 	(gr_rect
-		(start 225.395 113.045)
-		(end 245.305 117.205)
+		(start 224.655 112.605)
+		(end 244.565 116.765)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108075,8 +108075,8 @@
 		(uuid "9690d8dd-9408-4767-8213-423810ac471a")
 	)
 	(gr_rect
-		(start 264.3 182.4395)
-		(end 275.3 188.5595)
+		(start 264.305 183.135)
+		(end 275.305 189.255)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108086,8 +108086,8 @@
 		(uuid "f662ca89-6666-48dc-b917-586bebc8090c")
 	)
 	(gr_rect
-		(start 264.3 188.5595)
-		(end 275.3 198.4405)
+		(start 264.305 189.255)
+		(end 275.305 199.136)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108097,8 +108097,8 @@
 		(uuid "95ff8818-dab5-4f5d-9532-b6ad895b2e1b")
 	)
 	(gr_rect
-		(start 265.87 170.755)
-		(end 276.87 176.875)
+		(start 265.87 172.775)
+		(end 276.87 178.895)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108108,8 +108108,8 @@
 		(uuid "3c5c6e20-aad0-4155-9edc-2261e308e896")
 	)
 	(gr_rect
-		(start 265.87 176.875)
-		(end 276.87 188.875)
+		(start 265.87 178.895)
+		(end 276.87 190.895)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108152,8 +108152,8 @@
 		(uuid "dc425335-cfff-4aca-a07c-013936be93d7")
 	)
 	(gr_rect
-		(start 272.235 188.2475)
-		(end 284.105 208.2275)
+		(start 272.295 189.5475)
+		(end 284.165 209.5275)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108185,8 +108185,8 @@
 		(uuid "be177d5f-fe87-411c-b2ad-b0abfccc33ea")
 	)
 	(gr_rect
-		(start 280.55 171.685)
-		(end 291.55 177.805)
+		(start 280.445 173.335)
+		(end 291.445 179.455)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108196,8 +108196,8 @@
 		(uuid "8d1506a9-97b8-4cd6-a856-917598e500e2")
 	)
 	(gr_rect
-		(start 280.55 177.805)
-		(end 291.55 189.235)
+		(start 280.445 179.455)
+		(end 291.445 190.885)
 		(stroke
 			(width 0.15)
 			(type dash)
@@ -108207,8 +108207,8 @@
 		(uuid "847169ad-02fe-46ce-abd4-f24a0b4cfd8c")
 	)
 	(gr_rect
-		(start 284.105 188.2475)
-		(end 289.245 208.2275)
+		(start 284.165 189.5475)
+		(end 289.305 209.5275)
 		(stroke
 			(width 0.15)
 			(type solid)
@@ -108645,7 +108645,7 @@
 		)
 	)
 	(gr_text "slots A-D PIN V\nswitch\nTPS22953, 6\nparts, 2026-10-29"
-		(at 181.145 172.735 0)
+		(at 181.545 174.235 0)
 		(layer "Cmts.User")
 		(uuid "b797b83d-14a0-45ab-b350-0bf0e5e89545")
 		(effects
@@ -108657,21 +108657,9 @@
 		)
 	)
 	(gr_text "A-D PIN VOLTAGE\njumper\ngeneric, 3 parts,\n2026-10-28"
-		(at 189.3 173.575 0)
+		(at 189.395 175.555 0)
 		(layer "Cmts.User")
 		(uuid "ebb69865-3ab7-45f1-8fda-2d9a7aca25e5")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
-	(gr_text "board controller\nRP2350, 50 parts, 2026-10-29 + Y1, U8"
-		(at 189.872 85.515 0)
-		(layer "Cmts.User")
-		(uuid "030f9c7f-4324-4f2f-ad57-d68ef8bf0dff")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108696,6 +108684,18 @@
 		(at 199.51 107.505 0)
 		(layer "Cmts.User")
 		(uuid "616e47f8-11f7-4e3a-ab5f-7422b129abc0")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(gr_text "9 V request\nswitch\ngeneric, 3 parts,\n2026-10-29"
+		(at 200.715 84.11 0)
+		(layer "Cmts.User")
+		(uuid "9bb90f9e-54e2-4b47-b200-f3014ef8c157")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108752,18 +108752,6 @@
 			(justify left top)
 		)
 	)
-	(gr_text "9 V request\nswitch\ngeneric, 3 parts,\n2026-10-29"
-		(at 210.815 86.795 0)
-		(layer "Cmts.User")
-		(uuid "9bb90f9e-54e2-4b47-b200-f3014ef8c157")
-		(effects
-			(font
-				(size 0.7 0.7)
-				(thickness 0.105)
-			)
-			(justify left top)
-		)
-	)
 	(gr_text "USB-PD negotiator\ngeneric, 3 parts,\n2026-10-28"
 		(at 218.315 82.91 0)
 		(layer "Cmts.User")
@@ -108780,6 +108768,18 @@
 		(at 221.6 186.305 0)
 		(layer "Cmts.User")
 		(uuid "40da579d-0f9b-41d4-a0a5-0c7ee5066d49")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.105)
+			)
+			(justify left top)
+		)
+	)
+	(gr_text "gigabit Ethernet PHY\ngeneric, 27 parts, 2026-10-30"
+		(at 222.995 172.655 0)
+		(layer "Cmts.User")
+		(uuid "3d95bb8e-7d39-4a84-895e-a4c5a17ee0f5")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -108885,7 +108885,7 @@
 		)
 	)
 	(gr_text "extension 5 V\nswitch\nTPS22950, 3\nparts, 2026-10-28"
-		(at 264.7 184.3395 0)
+		(at 264.705 185.035 0)
 		(layer "Cmts.User")
 		(uuid "90c19c9d-53d4-4a30-88b7-f770138a712b")
 		(effects
@@ -108897,7 +108897,7 @@
 		)
 	)
 	(gr_text "E-H PIN VOLTAGE\njumper\ngeneric, 3 parts,\n2026-10-28"
-		(at 266.27 172.655 0)
+		(at 266.27 174.675 0)
 		(layer "Cmts.User")
 		(uuid "d1d3925e-afdb-4e26-b90a-c93c28a155c9")
 		(effects
@@ -108921,7 +108921,7 @@
 		)
 	)
 	(gr_text "slots E-H PIN V\nswitch\nTPS22953, 6\nparts, 2026-10-29"
-		(at 280.95 173.585 0)
+		(at 280.845 175.235 0)
 		(layer "Cmts.User")
 		(uuid "c29126ef-115c-4bcc-8578-5ce836144a9f")
 		(effects
@@ -109065,7 +109065,7 @@
 		)
 	)
 	(gr_text "USB input eFuse\nTPS259470, 13 parts, 2026-10-28"
-		(at 244.905 115.305 180)
+		(at 244.165 114.865 180)
 		(layer "Cmts.User")
 		(uuid "69cc0129-d483-4311-ada5-99f24263ed29")
 		(effects
@@ -109149,7 +109149,7 @@
 		)
 	)
 	(gr_text "FPGA DONE LED\ngeneric, 3 parts, 2026-10-28 +\nD9, D10, D11"
-		(at 287.345 188.6475 270)
+		(at 287.405 189.9475 270)
 		(layer "Cmts.User")
 		(uuid "7b72a6c0-8dda-40c6-ac33-6fb992f4f58d")
 		(effects
@@ -109401,7 +109401,7 @@
 		)
 	)
 	(gr_text "island U23"
-		(at 181.145 172.435 0)
+		(at 181.545 173.935 0)
 		(layer "Cmts.User")
 		(uuid "c9175de6-9c3f-4ffd-891c-eb9e84bdbe40")
 		(effects
@@ -109413,21 +109413,9 @@
 		)
 	)
 	(gr_text "island J19"
-		(at 189.3 173.275 0)
+		(at 189.395 175.255 0)
 		(layer "Cmts.User")
 		(uuid "504491c6-a47b-44d2-9382-339b0e858379")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "island U7"
-		(at 189.872 85.215 0)
-		(layer "Cmts.User")
-		(uuid "cbc26ccc-82b2-4243-8a28-43d2fc189e5a")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109452,6 +109440,18 @@
 		(at 199.51 107.205 0)
 		(layer "Cmts.User")
 		(uuid "b626b9e0-da86-4ea9-8185-8abf30eee083")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "island Q3"
+		(at 200.715 83.81 0)
+		(layer "Cmts.User")
+		(uuid "a445c8fb-e534-4650-96a3-e16c1a33de72")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109508,18 +109508,6 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "island Q3"
-		(at 210.815 86.495 0)
-		(layer "Cmts.User")
-		(uuid "a445c8fb-e534-4650-96a3-e16c1a33de72")
-		(effects
-			(font
-				(size 1.2 1.2)
-				(thickness 0.18)
-			)
-			(justify left bottom)
-		)
-	)
 	(gr_text "island U18"
 		(at 218.315 82.61 0)
 		(layer "Cmts.User")
@@ -109536,6 +109524,18 @@
 		(at 221.6 186.005 0)
 		(layer "Cmts.User")
 		(uuid "3df88dfa-f047-4622-8747-b38680afe4dc")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.18)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "island U30"
+		(at 222.995 172.355 0)
+		(layer "Cmts.User")
+		(uuid "24398b16-fc16-43fe-886c-5345fcc83eaf")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -109641,7 +109641,7 @@
 		)
 	)
 	(gr_text "island U21"
-		(at 264.7 184.0395 0)
+		(at 264.705 184.735 0)
 		(layer "Cmts.User")
 		(uuid "13f75506-4587-4a6d-adc1-63808b8aefb6")
 		(effects
@@ -109653,7 +109653,7 @@
 		)
 	)
 	(gr_text "island J20"
-		(at 266.27 172.355 0)
+		(at 266.27 174.375 0)
 		(layer "Cmts.User")
 		(uuid "3efe0aa8-d401-4823-b9e2-3d119d41fca6")
 		(effects
@@ -109677,7 +109677,7 @@
 		)
 	)
 	(gr_text "island U24"
-		(at 280.95 173.285 0)
+		(at 280.845 174.935 0)
 		(layer "Cmts.User")
 		(uuid "df227629-6732-42eb-b511-8b9c1eb99045")
 		(effects
@@ -109929,7 +109929,7 @@
 		)
 	)
 	(gr_text "island U26"
-		(at 244.905 115.605 180)
+		(at 244.165 115.165 180)
 		(layer "Cmts.User")
 		(uuid "82e1ff99-f1b9-4c0d-adef-56206c00f12c")
 		(effects
@@ -110013,7 +110013,7 @@
 		)
 	)
 	(gr_text "island D1"
-		(at 287.645 188.6475 270)
+		(at 287.705 189.9475 270)
 		(layer "Cmts.User")
 		(uuid "6c4a768f-56e5-4d2b-897d-4459ecaecd4c")
 		(effects
@@ -110196,6 +110196,26 @@
 			"c30f5fd6-cc66-4109-99d3-79e3f288f824" "f479abd2-7b8c-48cb-80cd-49ca92ddee8d"
 		)
 	)
+	(group "island U30"
+		(uuid "30a2381d-28db-4987-96d3-b0daa66a48d1")
+		(members "044ed3ec-3f97-4698-9d2d-4a26d80daa75" "0decc34a-9706-4603-aab1-de213567c6cf"
+			"0fd4e678-a04a-4880-b3e3-2f46c5042a26" "1ca9f8ec-1907-4ac0-9fc5-9b5a122188b0"
+			"1d89e29a-91f2-41de-9f25-6fb39c841ffe" "1f7d0b3d-61d3-4e8e-92eb-7eb31c66d04a"
+			"24398b16-fc16-43fe-886c-5345fcc83eaf" "32ed84a0-bf79-42d7-a192-9707c3853bd4"
+			"35951943-747c-446e-8479-ed6a28095fc1" "3d95bb8e-7d39-4a84-895e-a4c5a17ee0f5"
+			"480cb2de-3759-47d0-9606-4d918816e7d3" "51e4bce8-10fe-4510-a821-980fd5dab244"
+			"54890c58-f7dd-433d-ad65-83882b64b2a2" "625f73dd-15e2-421e-b606-fc93eaa216cd"
+			"71b7590f-7876-46bb-a831-4249cda3944d" "8fd94845-c003-4aa6-b613-0313f0e217fa"
+			"969578c0-ddd0-4c23-ac2f-dd6f7329e3c4" "9a03f924-0061-40e0-befe-719f07777edf"
+			"9defa13e-85b6-4fd1-bfcb-ad3a4eff6c90" "a07c50c5-5734-4016-9d13-e3abc2dca64b"
+			"a6303332-8fc8-42e3-938a-f01312703a21" "aa4b3153-43b8-4afe-91f2-555ccbec1e2c"
+			"b1c75c7d-cfc5-426b-9bb7-787913474596" "b6fbe7f0-a657-43ff-a2e8-a018f93f05b7"
+			"bcab4f89-23d7-4159-8e9b-50a0da13bee1" "c4cfc0e8-694c-4681-91aa-ded912020dcb"
+			"d54cdea5-b247-40bb-888b-d99b61446d4b" "ec05a2d3-8f7e-4e29-baa5-7ced1880a75a"
+			"f01cea63-acaa-4135-af88-7a0d680199e7" "f9cccf6a-3b0c-46b9-a322-eef16c5cadd5"
+			"fec57bf2-7a90-4547-be40-d25ac63347c9"
+		)
+	)
 	(group "island U11"
 		(uuid "3178b5c8-d647-4655-9444-d65525fe5e17")
 		(members "02bd4d60-d15b-4cd8-916c-e68a7a5f13c9" "0300b92e-2901-4150-9c23-b5a4c67f4b40"
@@ -110238,40 +110258,6 @@
 			"a4356e60-ddf3-4bf6-92a0-43f8e8d04e4b" "be3be9ce-ac88-433f-a459-38e610ef1cd2"
 			"c29126ef-115c-4bcc-8578-5ce836144a9f" "df227629-6732-42eb-b511-8b9c1eb99045"
 			"ee05c57d-c8f9-4b8f-b710-f3e493c66c80" "efd3a221-0645-4cae-b03c-a55a86529f82"
-		)
-	)
-	(group "island U7"
-		(uuid "4f41c4c8-8625-42a3-8aba-1478cca22b83")
-		(members "00b28f40-9f90-4590-8c38-49c94646a371" "0112a8a4-fd08-4832-8b05-3eebc81b60ca"
-			"030f9c7f-4324-4f2f-ad57-d68ef8bf0dff" "05b17e8a-29f5-4e08-9b88-ae17f8903461"
-			"06fe7a4b-1ad5-4533-8558-ade359051ae4" "13c6d2ed-a960-4dcc-b183-c2de88b1c84a"
-			"1a3224bd-8f7a-447e-b453-275f97bb3b7f" "1f3c4fdf-6baf-47b4-b615-656339f6fe6b"
-			"219befb5-28c7-4155-b27c-34799ce3f664" "21fe8db6-5c1f-4d41-823e-3db9f024c55d"
-			"2fcea96b-bc4e-4444-a402-79c073eb7e15" "32be935a-1ba9-4b57-a628-36d375ec38b4"
-			"3dfc7117-cde1-49df-bb5e-54ff13311886" "42463134-c031-49a2-94e5-ec3549284743"
-			"42a830f5-af13-4a45-bab2-b3c481c145d3" "475572f8-fb6c-47ee-8356-4ff6dc5bec52"
-			"48354244-df47-4b0b-890d-74de41aa3bb1" "499c07fe-3571-4f09-b2b1-253f7f47716c"
-			"4baeac51-e819-49ca-aba5-2af74f68d153" "4df7bac5-5132-4b10-bd04-4ba88d92974f"
-			"4eff0259-4921-4eff-95bf-54967082bd34" "53794213-cdd9-4d3e-a910-185295e12227"
-			"580977ee-ad5a-4075-aaf6-0cdcf40cc6e7" "6136e177-75f8-4417-847e-e47c8371a982"
-			"634796ac-b290-493f-b52f-5ee238d93fe5" "64297538-8a3f-4e37-aeea-92cb9e42ef49"
-			"66695749-220e-4279-8142-128ea414f8bd" "6e17d493-8822-4ad1-85b9-9c7bbb7e5871"
-			"70c07d5a-154f-4551-b1f3-61afe993600b" "75a97e71-0fc3-45df-88c4-2afc30941825"
-			"7885f608-06ea-4390-8689-a0531f92ded9" "851ab769-d860-4a1a-95fb-6df8f3b3df2e"
-			"8aad131d-b35d-4709-9151-6e3242cd94d2" "8f5b319b-1853-4fff-91ba-a9fadd83d296"
-			"93a2fa6c-82ba-4353-93a3-5c8566da1a20" "9c0a313c-e9ea-4bd9-af9e-60ac6eac4c63"
-			"9c4e3fc5-76a5-4838-be66-9af89090af2d" "9d4f4c96-b6cd-44ad-a700-9bdf8195c540"
-			"a1a29794-efe8-4e5f-8076-204b75631d6f" "a817c0e5-85d5-4df7-bfb6-c0afd4f90106"
-			"ab490d7a-24e5-4ea1-9dd7-be927d654f74" "ad24e325-c052-44ea-b0cd-afa6b131a3ba"
-			"b05e5add-39a5-4d47-9ce7-73781e602258" "b279970c-254e-40c8-a84e-bca240dc7118"
-			"bd83d0e4-4d0c-4f0d-b65e-8d2e66ddb04f" "c29104c1-49b1-4a4b-b738-8ca40e89b0d7"
-			"c6f68c43-49f0-4e5f-b585-6d7fed68ae86" "c761ffb6-cea3-4fd9-a704-31cff3f1f858"
-			"cbc26ccc-82b2-4243-8a28-43d2fc189e5a" "d56ad9ab-6ba9-4a53-be8f-81eebe03df70"
-			"d5f03581-a080-4d7f-86ab-45567d1e65b4" "d92810ad-05d6-4a15-9240-65609f8a0788"
-			"d978d681-386e-46dc-842b-f4bab4fd426f" "e511d979-513c-41f8-9614-788a38f62bb8"
-			"e8dd446a-c42e-4b28-82ab-bf7ceb437d34" "ebb72c02-915c-4542-ac8d-1f670e790d99"
-			"f1572418-6be7-44f8-9dcc-1aa905164ff3" "f63acb4c-88fa-4cfd-9338-7c9aa50b14c0"
-			"f8cf8c31-0734-4926-8cfe-8c5df7a98eb2" "fdaa2446-3e39-4236-a1b6-fd91282f5af9"
 		)
 	)
 	(group "island J51"
@@ -110627,31 +110613,31 @@
 	)
 	(embedded_fonts no)
 	(gr_rect
-		(start 222.595 174.915)
-		(end 241.845 192.015)
+		(start 203.385 90.185)
+		(end 232.145 116.715)
 		(stroke
 			(width 0.15)
 			(type dash)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "bcab4f89-23d7-4159-8e9b-50a0da13bee1")
+		(uuid "d1b79d73-73e9-4da1-9485-cb09f1d125dd")
 	)
 	(gr_rect
-		(start 222.595 170.755)
-		(end 241.845 174.915)
+		(start 203.385 86.025)
+		(end 232.145 90.185)
 		(stroke
 			(width 0.15)
 			(type solid)
 		)
 		(fill no)
 		(layer "Cmts.User")
-		(uuid "044ed3ec-3f97-4698-9d2d-4a26d80daa75")
+		(uuid "e2cb1fbd-fb9a-4cfd-9090-238785a919b4")
 	)
-	(gr_text "island U30"
-		(at 222.995 172.355 0)
+	(gr_text "island U7"
+		(at 203.785 87.625 0)
 		(layer "Cmts.User")
-		(uuid "24398b16-fc16-43fe-886c-5345fcc83eaf")
+		(uuid "c4e8415e-992f-4189-8183-d05e6b1d42b1")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -110660,10 +110646,10 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "gigabit Ethernet PHY\ngeneric, 27 parts, 2026-10-30"
-		(at 222.995 172.655 0)
+	(gr_text "board controller\nRP2350, 45 parts, 2026-10-30"
+		(at 203.785 87.925 0)
 		(layer "Cmts.User")
-		(uuid "3d95bb8e-7d39-4a84-895e-a4c5a17ee0f5")
+		(uuid "3655b947-2f26-4a6c-bb9b-d7f15dd2bade")
 		(effects
 			(font
 				(size 0.7 0.7)
@@ -110672,40 +110658,58 @@
 			(justify left top)
 		)
 	)
-	(group "island U30"
-		(uuid "30a2381d-28db-4987-96d3-b0daa66a48d1")
+	(group "island U7"
+		(uuid "574aa71b-7916-463c-a5ac-0fb2ce2a3f25")
 		(members
-			"bcab4f89-23d7-4159-8e9b-50a0da13bee1"
-			"044ed3ec-3f97-4698-9d2d-4a26d80daa75"
-			"24398b16-fc16-43fe-886c-5345fcc83eaf"
-			"3d95bb8e-7d39-4a84-895e-a4c5a17ee0f5"
-			"480cb2de-3759-47d0-9606-4d918816e7d3"
-			"aa4b3153-43b8-4afe-91f2-555ccbec1e2c"
-			"f01cea63-acaa-4135-af88-7a0d680199e7"
-			"54890c58-f7dd-433d-ad65-83882b64b2a2"
-			"ec05a2d3-8f7e-4e29-baa5-7ced1880a75a"
-			"a07c50c5-5734-4016-9d13-e3abc2dca64b"
-			"f9cccf6a-3b0c-46b9-a322-eef16c5cadd5"
-			"a6303332-8fc8-42e3-938a-f01312703a21"
-			"c4cfc0e8-694c-4681-91aa-ded912020dcb"
-			"8fd94845-c003-4aa6-b613-0313f0e217fa"
-			"969578c0-ddd0-4c23-ac2f-dd6f7329e3c4"
-			"9a03f924-0061-40e0-befe-719f07777edf"
-			"35951943-747c-446e-8479-ed6a28095fc1"
-			"0fd4e678-a04a-4880-b3e3-2f46c5042a26"
-			"32ed84a0-bf79-42d7-a192-9707c3853bd4"
-			"51e4bce8-10fe-4510-a821-980fd5dab244"
-			"0decc34a-9706-4603-aab1-de213567c6cf"
-			"625f73dd-15e2-421e-b606-fc93eaa216cd"
-			"1ca9f8ec-1907-4ac0-9fc5-9b5a122188b0"
-			"9defa13e-85b6-4fd1-bfcb-ad3a4eff6c90"
-			"1d89e29a-91f2-41de-9f25-6fb39c841ffe"
-			"b1c75c7d-cfc5-426b-9bb7-787913474596"
-			"fec57bf2-7a90-4547-be40-d25ac63347c9"
-			"d54cdea5-b247-40bb-888b-d99b61446d4b"
-			"1f7d0b3d-61d3-4e8e-92eb-7eb31c66d04a"
-			"71b7590f-7876-46bb-a831-4249cda3944d"
-			"b6fbe7f0-a657-43ff-a2e8-a018f93f05b7"
+			"d1b79d73-73e9-4da1-9485-cb09f1d125dd"
+			"e2cb1fbd-fb9a-4cfd-9090-238785a919b4"
+			"c4e8415e-992f-4189-8183-d05e6b1d42b1"
+			"3655b947-2f26-4a6c-bb9b-d7f15dd2bade"
+			"a817c0e5-85d5-4df7-bfb6-c0afd4f90106"
+			"4baeac51-e819-49ca-aba5-2af74f68d153"
+			"c6f68c43-49f0-4e5f-b585-6d7fed68ae86"
+			"ab490d7a-24e5-4ea1-9dd7-be927d654f74"
+			"d92810ad-05d6-4a15-9240-65609f8a0788"
+			"c29104c1-49b1-4a4b-b738-8ca40e89b0d7"
+			"70c07d5a-154f-4551-b1f3-61afe993600b"
+			"4eff0259-4921-4eff-95bf-54967082bd34"
+			"b279970c-254e-40c8-a84e-bca240dc7118"
+			"ebb72c02-915c-4542-ac8d-1f670e790d99"
+			"d5f03581-a080-4d7f-86ab-45567d1e65b4"
+			"f63acb4c-88fa-4cfd-9338-7c9aa50b14c0"
+			"05b17e8a-29f5-4e08-9b88-ae17f8903461"
+			"b05e5add-39a5-4d47-9ce7-73781e602258"
+			"a1a29794-efe8-4e5f-8076-204b75631d6f"
+			"9d4f4c96-b6cd-44ad-a700-9bdf8195c540"
+			"bd83d0e4-4d0c-4f0d-b65e-8d2e66ddb04f"
+			"06fe7a4b-1ad5-4533-8558-ade359051ae4"
+			"7885f608-06ea-4390-8689-a0531f92ded9"
+			"499c07fe-3571-4f09-b2b1-253f7f47716c"
+			"d56ad9ab-6ba9-4a53-be8f-81eebe03df70"
+			"475572f8-fb6c-47ee-8356-4ff6dc5bec52"
+			"48354244-df47-4b0b-890d-74de41aa3bb1"
+			"c761ffb6-cea3-4fd9-a704-31cff3f1f858"
+			"6136e177-75f8-4417-847e-e47c8371a982"
+			"9c4e3fc5-76a5-4838-be66-9af89090af2d"
+			"2fcea96b-bc4e-4444-a402-79c073eb7e15"
+			"64297538-8a3f-4e37-aeea-92cb9e42ef49"
+			"fdaa2446-3e39-4236-a1b6-fd91282f5af9"
+			"13c6d2ed-a960-4dcc-b183-c2de88b1c84a"
+			"e511d979-513c-41f8-9614-788a38f62bb8"
+			"1f3c4fdf-6baf-47b4-b615-656339f6fe6b"
+			"21fe8db6-5c1f-4d41-823e-3db9f024c55d"
+			"219befb5-28c7-4155-b27c-34799ce3f664"
+			"93a2fa6c-82ba-4353-93a3-5c8566da1a20"
+			"53794213-cdd9-4d3e-a910-185295e12227"
+			"42463134-c031-49a2-94e5-ec3549284743"
+			"1a3224bd-8f7a-447e-b453-275f97bb3b7f"
+			"66695749-220e-4279-8142-128ea414f8bd"
+			"32be935a-1ba9-4b57-a628-36d375ec38b4"
+			"00b28f40-9f90-4590-8c38-49c94646a371"
+			"f8cf8c31-0734-4926-8cfe-8c5df7a98eb2"
+			"9c0a313c-e9ea-4bd9-af9e-60ac6eac4c63"
+			"42a830f5-af13-4a45-bab2-b3c481c145d3"
+			"0112a8a4-fd08-4832-8b05-3eebc81b60ca"
 		)
 	)
 )
