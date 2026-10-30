@@ -7,11 +7,13 @@ generated from `tools/`, and those inputs are reference material only. **Items
 
 Regenerate everything with the commands in `kicad/README.md`.
 
-**Latest review:** [independent re-audit after the corrections, 2026-10-29](#re-audit-verdict),
-against `9dd5fa8`: three P1 corrections remain, plus four new P2 findings
-(52–58) and the qualification/placement work listed there. Most earlier
-corrections are verified. Parts III and its correction-status table are
-retained as history; **Part IV is the current independent verdict**.
+**Latest review:** [final practical audit, 2026-10-29](#final-practical-verdict),
+against `6ad8068`. **The earlier three P1 circuit findings are corrected;
+no additional confirmed schematic blocker was found. Proceed with detailed
+placement.** Connector mechanics, source-policy details and prototype
+measurements remain. Parts III–IV and their correction tables are history;
+**Part V is the current verdict**, including what merits action and what
+does not justify further redesign.
 
 ---
 
@@ -1664,3 +1666,188 @@ U12-U16, bench), item 34 (DS181 ramp and power-down waveforms), the
 U23/U24 shorted-branch test, the J1 land pattern against the HCTL drawing
 [verify], the pre-enumeration current, the A-F posts and the J5/J3 lattice,
 compaction and routing.
+
+---
+
+# Part V — final practical audit, 2026-10-29
+
+## Final practical verdict
+
+**The schematic and district plan are a reasonable basis for detailed
+placement and a first prototype. The previous three P1 circuit findings
+are corrected. I found no additional confirmed schematic blocker.**
+
+This is the verdict at `6ad8068`, including the new Q6/Q7 mux controls and
+the `districts` city plan. It supersedes the older audit's open/closed
+language. It is approval to advance the design to placement, not a claim
+that the present staged board is ready to order. No hardware or placement
+was changed during this review.
+
+The earlier reviews mixed schematic defects with normal layout and
+prototype work too readily. In particular, a nominal capacitor sum above
+a datasheet example, or a few millimetres in an unfinished island, does
+not establish a faulty circuit. Those points are treated proportionately
+below.
+
+| Reproduced check | Result |
+|---|---|
+| Design model versus every connected PCB pad | **553 parts, 553 footprints, 0 mismatches** |
+| Schematic netlist, XDC, gate top and parts guide | Match their generators; 553/553 roles covered |
+| ERC / schematic parity | **0 errors / 0 differences**; the two intentional temperature-diode warnings remain |
+| DRC | 8 courtyard errors, 297 warnings; a separate error-only run also finds just those 8 courtyard errors |
+| Mechanical checker | 9 findings: 3 lattice/row findings and 6 A–F key-position findings |
+| Gate | Electrical PASS, mechanical FAIL |
+| Stage | 66 origins on-board, 487 staged outside; all front-side; no tracks or vias |
+
+The old phase-report note about an L1/R8 copper-clearance error was not
+reproduced by either current DRC run; it is not counted as another blocker.
+The saved evidence is
+[final-audit-2026-10-29.json](ref/board-review/final-audit-2026-10-29.json).
+
+## Previous findings: final disposition
+
+| Item | Verdict now |
+|---|---|
+| 52 Mux overvoltage during negotiation | **Original normal-transition defect addressed.** Q6 pulls PR1 low during the 9 V request and holds it afterward; the mux selects U11 rather than waiting for OV1. The circuit is sensible for the intended startup sequence. Confirm transitions and controller resets on the prototype. |
+| 53 J50 plus USB 5 V | **Fixed.** Q7 senses VIN_EXT before D4 and overrides PR1. At the valid 9–21 V J50 input, it selects U11 even with USB connected. |
+| 54 Flash chip-select bias | **Fixed.** R203 is fitted, 4.7k from FLASH_CS_B to +3V3. |
+| 55 Source-current policy | **No automatic Type-C current claim remains, but the source-qualification wording still needs the clarification below.** This can be resolved in policy/firmware without a new power-tree design. |
+| 56 TPS22953 support | **Pin/bypass corrections verified.** Both PG pins are grounded. CT and BIAS pad distances are now about 1.43 and 1.60 mm respectively: reasonable. The accepted PTC-based fault behavior is a prototype test, not an unfinished pin-map fix. |
+| 57 Power junction placement | **Fixed at planning level.** U34 is in the power district, C280 supplies its local IN2 bypass, and the planner follows the actual U11→U34→loads path. |
+| 58 Oscillator side | **Fixed.** X4/R147/C246 are together west of U1, selected from SYS_CLK/M21 rather than shared supply pins. |
+
+The mux selection agrees with
+[TI TPS2121 Table 9-3](https://www.ti.com/lit/ds/symlink/tps2121.pdf).
+Q6/Q7 are switching a small divider current, not the board load; their
+threshold/headroom is appropriate to that task.
+[onsemi BSS138L datasheet](https://www.onsemi.com/pdf/datasheet/bss138lt1-d.pdf).
+
+The long Q6 hold is a reasonable practical solution. Its exact “2–7 s”
+value is an estimate, not a precision timer specification. USB PD allows a
+25–35 ms preparation interval before a fixed-voltage transition, and a
+normal SPR voltage transition settles within 275 ms of transition start.
+Check the actual gate charging and release waveforms; there is no reason
+to redesign this circuit merely because the RC timing is approximate.
+[USB-IF PD R3.2 v1.1, section 7 timing parameters, author-issued specification mirrored at HWWiki](https://www.hwwiki.net/lib/exe/fetch.php?media=%E6%A0%87%E5%87%86%3Ausb%3Apd%3Ausb_pd_r3_2_v1.1_2024-10.pdf).
+
+## What still merits action
+
+**Finish the extension connector geometry before ordering.** J5/J3 still
+have different pad lattices, J5/J55/MK69 and J3/J53/MK65 still fail their
+row tests, and the A–F keys remain out of position. Those errors affect
+whether an extension physically plugs in. They are real, expected
+placement work at the present stage.
+
+Six of the eight courtyard errors are the acknowledged zero-gap
+post/header arrangement. A justified courtyard exception is reasonable
+where the real bodies fit; it does not warrant expanding the board just
+to satisfy a library outline. The other two are MK71/C159 and MK72/C161:
+move/check those capacitors when legalizing the connectors. No body
+intersection or copper short was demonstrated by these courtyard reports.
+
+**Make source qualification explicit in firmware and the power contract.**
+Two current statements are too strong:
+
+- **MON_VSYS alone does not identify J50.** USB-PD at 9 V and J50 near
+  9 V can produce the same VSYS voltage; with USB attached, PD_PG and the
+  mux status can also agree in those two cases. Before authorizing the
+  J50-only full-export budget, require a declared external supply or a
+  source test, for example requesting USB 5 V and confirming that VSYS
+  remains in the external-input range after settling. No additional
+  detector is necessary if that policy is acceptable.
+- **A granted 9 V request is not universally a 15 W guarantee.** Managed
+  multi-port sources may offer 9 V at a reduced available power, and
+  optional PDOs also exist. The fitted CH224K still does not report that
+  current to U7. For this prototype, specify a qualified source providing
+  at least 9 V / 1 A for the present board-only estimate of about 0.83 A,
+  with practical headroom, and keep full export on the qualified J50
+  supply. Do not infer the 1.67 A budget solely from PD_PG.
+
+The second point follows from the actual source rules, including the
+managed-port cases in Table 10-3; it does not require designing around
+every possible charger. A stated, qualified supply requirement is enough.
+[USB-IF PD R3.2 v1.1, sections 10.2 and 10.2.3, Table 10-3](https://www.hwwiki.net/lib/exe/fetch.php?media=%E6%A0%87%E5%87%86%3Ausb%3Apd%3Ausb_pd_r3_2_v1.1_2024-10.pdf).
+
+**Keep the known USB cold-start limitation visible.** The approximately
+0.21 A recovery estimate exceeds legacy USB 2.0's 100 mA allowance before
+configuration. This does not mean every computer port will fail; many
+will power the board. It does mean universal bus-powered startup has not
+been established. For an engineering prototype, a qualified port or J50
+is a practical operating restriction. If guaranteed startup on arbitrary
+legacy computer ports is a release requirement, the always-powered load
+needs reduction or switching before that guarantee can be made. This is
+already acknowledged in the budget, rather than a new hidden defect.
+
+## District and island verdict
+
+**The regulator street is acceptable.** It now contains the real mux
+junction, with U11/U12 together in the input district and U13 beside the
+PHY. U11→U34 is about 30 mm in the staged city, versus 111 mm in the old
+plan. These distances are not final copper lengths. During compaction,
+prioritize each converter's switching loop, then its output-capacitor
+connection to the rail, and preserve a wide U34 output corridor to the
+low-voltage row. The row itself does not need further rearrangement for
+appearance or marginal centroid improvements.
+
+| District | Practical assessment |
+|---|---|
+| Four PSRAMs in a 2×2 block | Good use of the bank-13 neighborhood. Source resistors stay with U1; shorten the actual escapes when routing. |
+| FPGA clock | Correct west-side ownership and direction now. The staged distance is not a reason to reopen item 58. |
+| RP2350, its flash and crystal | Correct grouping. Preserve the local regulator/crystal sub-islands when moving the whole controller block. |
+| USB input and converters | Coherent: J1/U26/U18 together, U34 at the power row, U11/U12 adjacent. Reserve the VSYS route from the separate J50 entry. |
+| PHY, crystal, jack and 2.5 V regulator | Sensible arrangement; the PHY is now directly above its jack. Keep MDI pairs clear of switching circuitry. |
+| Configuration flash and MRAM shelf | Acceptable. Keep the configuration SPI run direct; there is no benefit in pulling the much wider SDRAM bus into this shelf. |
+| SDRAM below U1 | Reasonable compromise between its bank-14 and bank-35 connections. Actual clock/data routing decides timing. |
+| PIN V controls in opposite service corners | Reasonable relative to their separate banks and slot columns. They need wide supply distribution, not side-by-side placement. |
+| JTAG corner and LED dashboard | Sensible access/ownership choices; both have low placement priority compared with memory and power loops. |
+| Inboard microSD | Accepted above-board access choice. Preserve the already documented travel/finger space. |
+
+The 2.2× city is a planning diagram. Fitting connector bodies and routing
+corridors into the real 100×100 mm outline still has to be done. That is
+the next design phase, not evidence that these neighborhoods are wrong.
+The new district names should be reflected in the current-plan paragraph
+of `floorplan.md` eventually; stale “best” wording is documentation cleanup.
+
+## Prototype checks, rather than another schematic redesign
+
+Use the first board to answer the following concrete questions:
+
+1. **Mux:** capture VBUS, +5V and the hold signal through 5→9 V, 9→5 V,
+   controller reset, and USB/J50 connection changes. Confirm handoff
+   occurs before VBUS rises and lasts through its return.
+2. **Regulators:** check startup and load steps on the assembled output
+   networks, especially the large 1 V FPGA capacitor bank, at relevant
+   input voltages and jumper choices. Do not remove required FPGA
+   decoupling to match a regulator's example schematic.
+3. **FPGA supplies:** capture +3V3/VCCAUX ramps and power-down, including
+   recovery/reset. The hardware no longer leaves VCCAUX waiting on
+   firmware; verify the resulting waveforms.
+4. **PIN V faults:** short a protected extension branch under a controlled
+   supply and observe the shared rail/restart behavior. A base-board
+   reset is possible under the documented PTC-only contract; decide
+   whether that behavior is acceptable from the measurement.
+
+## Minor points that do not block progress
+
+- U16's approximately 50 uF nominal sum versus a 47 uF example is not an
+  independent defect. Part tolerance and effective capacitance are larger
+  effects. Include it in ordinary bring-up, without a special redesign.
+- The corrected CT/BIAS placement is adequately local for this stage.
+  There is no useful audit action in shaving fractions of a millimetre.
+- BOOTSEL button distance is an access/low-speed routing choice; it is
+  not equivalent to moving the QSPI flash away from U7.
+- A small series resistor in D24's charging path would be sensible
+  cleanup to limit the 10 uF capacitor's initial GPIO charge pulse. The
+  present waveform deserves observation; no damaging current or failed
+  negotiation has been demonstrated. RP2350 drive-strength settings are
+  not hard current limits.
+  [Raspberry Pi RP2350 datasheet, section 14.9.4.1](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf).
+- J1's modified land pattern still deserves the usual connector-drawing
+  comparison before fabrication. Its drill-clearance error is fixed; the
+  outstanding comparison is ordinary footprint review, not a renewed
+  electrical blocker.
+
+**Advance to placement.** Resolve the physical connector fit before PCB
+ordering, implement the conservative source policy, and use prototype
+measurements to close the remaining analogue questions. The current
+evidence does not justify another broad architectural redesign.

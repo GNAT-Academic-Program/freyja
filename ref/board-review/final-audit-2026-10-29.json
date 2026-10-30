@@ -1,0 +1,1129 @@
+{
+  "review": "Final practical audit",
+  "date": "2026-10-29",
+  "commit": "6ad8068c6246c1ba228b636362277c6fee6ca5be",
+  "baseline_hashes_sha256": {
+    "tools/design.py": "17902e649396212f35f2dad4a83889335ef6436137036578841f0a74243c9e53",
+    "tools/alloc.py": "678cba298e5229cd325094963a4c452b93056fae1bbfacd5164a3f01759ed3a5",
+    "tools/budget.py": "5e7c008c17857d7e3c23e8a4e9e36bace52fd8ddd4aee896cacc7f17f21a879d",
+    "tools/city.py": "1cb7eb901f5e4f7182d5b004c6b28aed091552b02bbb23cb034a7e4e1b7842ef",
+    "tools/island_profiles.yaml": "a8b243d3eccd57a414ad5e6e35709a49c4543493e5753bcb76295a429573e256",
+    "kicad/odin.net": "6eef66f269a6aab00f07527ffb42a7d781c392c4d94520dec5518b16f2a503db",
+    "kicad/odin.kicad_pcb": "e140fa54587945ae3e7e7e15a9f084da4df8fbc7488f569dae5f758dbd152235",
+    "ref/city/plan.yaml": "8a34ebb30151f51103ae9e17a58d169053cac61826a3fc467928dc2bbed72939",
+    "floorplan.md": "949333db87c5a85ff589a21cba19d90e5c890b2cfa270bf33de727ce7f3b0f98",
+    "kicad/fpga.kicad_sch": "f7986614adc309e6b342ad4b42317b8d4108da48e9f5417a5a66cf6040437bdd",
+    "kicad/memory.kicad_sch": "d819186086a043f38fdf7f2269113e822e547a11f4e4a5a3d35a5979579b6cf5",
+    "kicad/network.kicad_sch": "778e46a5ddee668a702a552c487f67a976ac4d662b3ccdf26217b95251fa977a",
+    "kicad/odin.kicad_sch": "a60e428d6196eaa7d6ac5febf0b29caee35206b0751b15ea44b1bfa74cd9956d",
+    "kicad/power.kicad_sch": "c30f712e999d037aeeec0563a85435b1f64ae2338583c2013b1c10af06052c55",
+    "kicad/slots.kicad_sch": "583f8ba37f9165efb844b1f3d9d380ca7d02021c0943004dcb90bf02d4e4730a",
+    "kicad/supervisor.kicad_sch": "e4f80105f7ec374e0de68af4935f0c2cb3429bd41c5594aaaae81bbbb02ec88e",
+    "kicad/video.kicad_sch": "6bc5b1a9dde03021c4672fea7d7b902ce1c12e8da539a415093ddbf1267a9fc2"
+  },
+  "gate_output": [
+    "design.py      exit 0",
+    "budget.py      exit 0",
+    "qualified.py   exit 0",
+    "netlist        matches kicad/odin.net",
+    "xdc            matches ref/freya.xdc and gateware/gate/top.v",
+    "roles          553/553 parts described, 0 problems, 0 gaps on uncovered sheets",
+    "check_erc.py   exit 0 | ERC PASS: zero errors; only FPGA_DXP and FPGA_DXN dangling-label warnings",
+    "DRC            8 errors, 297 warnings, 499 unrouted, 0 parity",
+    "   error types: {'courtyards_overlap': 8}",
+    "place.py --check exit 1 |   SLOT F: key is not uniform position 1: delta=(-58.02,3.20)",
+    "parts          553  {'Board Controller': 79, 'FPGA': 111, 'Memory': 83, 'Network': 39, 'Power': 135, 'Slots': 98, 'Video': 8}",
+    "pcb             {'footprints': 553, 'inside': 66, 'outside': 487, 'bcu': 0, 'tracks': 0, 'vias': 0}",
+    "depth           depth >= 7: 80  (inherent 17, allocator choice 63)",
+    "GATE electrical PASS",
+    "GATE mechanical FAIL (9 lattice findings; placement in progress, see ref/rev-a-report.md)"
+  ],
+  "pin_net_mismatches": [],
+  "parts": 553,
+  "footprints": 553,
+  "error_only_drc": {
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "source": "odin.kicad_pcb",
+    "date": "2026-10-29T17:25:36-0400",
+    "kicad_version": "9.0.8",
+    "violations": [
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J56",
+            "pos": {
+              "x": 120.9,
+              "y": 83.3
+            },
+            "uuid": "060093b6-3631-4d85-a0b1-880c62be02c0"
+          },
+          {
+            "description": "Footprint MK71",
+            "pos": {
+              "x": 120.9,
+              "y": 73.14
+            },
+            "uuid": "730138d9-7b22-4bf6-a7de-3f9de6335cb2"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J56",
+            "pos": {
+              "x": 120.9,
+              "y": 83.3
+            },
+            "uuid": "060093b6-3631-4d85-a0b1-880c62be02c0"
+          },
+          {
+            "description": "Footprint MK72",
+            "pos": {
+              "x": 121.0,
+              "y": 93.34
+            },
+            "uuid": "e03fe4d3-a6ce-4cc8-ba11-249506936134"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J64",
+            "pos": {
+              "x": 120.9,
+              "y": 63.0
+            },
+            "uuid": "1718e066-c6c3-473c-9376-95cb02a4d4ea"
+          },
+          {
+            "description": "Footprint MK71",
+            "pos": {
+              "x": 120.9,
+              "y": 73.14
+            },
+            "uuid": "730138d9-7b22-4bf6-a7de-3f9de6335cb2"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J57",
+            "pos": {
+              "x": 732.06,
+              "y": 45.69
+            },
+            "uuid": "39f26566-f6a8-4d4c-8153-3c027c047d21"
+          },
+          {
+            "description": "Footprint MK76",
+            "pos": {
+              "x": 721.9,
+              "y": 45.7
+            },
+            "uuid": "b3a7c832-95d4-4a51-a6d2-8346b7025bcb"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J65",
+            "pos": {
+              "x": 121.0,
+              "y": 103.5
+            },
+            "uuid": "3a91b776-f7ee-4232-b058-b0a5a07fca64"
+          },
+          {
+            "description": "Footprint MK72",
+            "pos": {
+              "x": 121.0,
+              "y": 93.34
+            },
+            "uuid": "e03fe4d3-a6ce-4cc8-ba11-249506936134"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint J58",
+            "pos": {
+              "x": 787.94,
+              "y": 45.69
+            },
+            "uuid": "4fac1b6c-7f39-4384-b271-785f73b09363"
+          },
+          {
+            "description": "Footprint MK77",
+            "pos": {
+              "x": 777.78,
+              "y": 45.7
+            },
+            "uuid": "ec7dd26a-bb94-4186-adfb-2992c6ddf8c1"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint MK71",
+            "pos": {
+              "x": 120.9,
+              "y": 73.14
+            },
+            "uuid": "730138d9-7b22-4bf6-a7de-3f9de6335cb2"
+          },
+          {
+            "description": "Footprint C159",
+            "pos": {
+              "x": 123.33,
+              "y": 74.36
+            },
+            "uuid": "b740f19d-e5d7-42c8-b3cd-3c28d035e0b3"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      },
+      {
+        "description": "Courtyards overlap",
+        "items": [
+          {
+            "description": "Footprint C161",
+            "pos": {
+              "x": 123.43,
+              "y": 94.56
+            },
+            "uuid": "bb48b072-7773-4c7b-8ac0-1db307480872"
+          },
+          {
+            "description": "Footprint MK72",
+            "pos": {
+              "x": 121.0,
+              "y": 93.34
+            },
+            "uuid": "e03fe4d3-a6ce-4cc8-ba11-249506936134"
+          }
+        ],
+        "severity": "error",
+        "type": "courtyards_overlap"
+      }
+    ],
+    "schematic_parity": [],
+    "unconnected_item_count": 499
+  },
+  "mechanical_output": [
+    "VERIFY FAILED, board not written:",
+    "  J5/J3: pad lattices differ; a shield cannot bridge",
+    "  J5/J55/MK69: rows off the 2.54 lattice: [125.73, 120.9, 41.9]",
+    "  J3/J53/MK65: rows off the 2.54 lattice: [31.73, 39.1, 41.9]",
+    "  SLOT A: key is not uniform position 1: delta=(-17.82,-2.80)",
+    "  SLOT B: key is not uniform position 1: delta=(1.58,-78.90)",
+    "  SLOT C: key is not uniform position 1: delta=(2.58,-2.80)",
+    "  SLOT D: key is not uniform position 1: delta=(2.58,-2.80)",
+    "  SLOT E: key is not uniform position 1: delta=(-77.92,79.00)",
+    "  SLOT F: key is not uniform position 1: delta=(-58.02,3.20)"
+  ],
+  "new_circuit_parts": {
+    "Q3": {
+      "ref": "Q3",
+      "lib_id": "Transistor_FET:Q_NMOS_GSD",
+      "value": "BSS138LT1G",
+      "fp": "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR",
+      "pins": {
+        "3": "PD_CFG1",
+        "2": "GND",
+        "1": "PD_REQ_9V"
+      },
+      "lcsc": "C82045",
+      "dnp": false,
+      "sheet": "Supervisor",
+      "group": "USB-PD sink"
+    },
+    "Q6": {
+      "ref": "Q6",
+      "lib_id": "Transistor_FET:Q_NMOS_GSD",
+      "value": "BSS138LT1G",
+      "fp": "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR",
+      "pins": {
+        "3": "VBUS5_PR1",
+        "2": "GND",
+        "1": "SEL_IN2"
+      },
+      "lcsc": "C82045",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "Q6  mux hold: 9 V request"
+    },
+    "Q7": {
+      "ref": "Q7",
+      "lib_id": "Transistor_FET:Q_NMOS_GSD",
+      "value": "BSS138LT1G",
+      "fp": "EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR",
+      "pins": {
+        "3": "VBUS5_PR1",
+        "2": "GND",
+        "1": "EXT_PRESENT"
+      },
+      "lcsc": "C82045",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "Q7  mux hold: screw input present"
+    },
+    "D24": {
+      "ref": "D24",
+      "lib_id": "Device:D",
+      "value": "1N4148W",
+      "fp": "Diode_SMD:D_SOD-123",
+      "pins": {
+        "2": "PD_REQ_9V",
+        "1": "SEL_IN2"
+      },
+      "lcsc": "C81598",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "Q6  mux hold: 9 V request"
+    },
+    "R173": {
+      "ref": "R173",
+      "lib_id": "Device:R",
+      "value": "100k",
+      "fp": "Resistor_SMD:R_0402_1005Metric",
+      "pins": {
+        "1": "PD_REQ_9V",
+        "2": "GND"
+      },
+      "lcsc": "C25741",
+      "dnp": false,
+      "sheet": "Supervisor",
+      "group": "USB-PD sink"
+    },
+    "R200": {
+      "ref": "R200",
+      "lib_id": "Device:R",
+      "value": "470k",
+      "fp": "Resistor_SMD:R_0603_1608Metric",
+      "pins": {
+        "1": "SEL_IN2",
+        "2": "GND"
+      },
+      "lcsc": "",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "Q6  mux hold: 9 V request"
+    },
+    "R201": {
+      "ref": "R201",
+      "lib_id": "Device:R",
+      "value": "100k",
+      "fp": "Resistor_SMD:R_0603_1608Metric",
+      "pins": {
+        "1": "VIN_EXT",
+        "2": "EXT_PRESENT"
+      },
+      "lcsc": "",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "Q7  mux hold: screw input present"
+    },
+    "R202": {
+      "ref": "R202",
+      "lib_id": "Device:R",
+      "value": "33k",
+      "fp": "Resistor_SMD:R_0603_1608Metric",
+      "pins": {
+        "1": "EXT_PRESENT",
+        "2": "GND"
+      },
+      "lcsc": "",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "Q7  mux hold: screw input present"
+    },
+    "R203": {
+      "ref": "R203",
+      "lib_id": "Device:R",
+      "value": "4.7k",
+      "fp": "Resistor_SMD:R_0402_1005Metric",
+      "pins": {
+        "1": "+3V3",
+        "2": "FLASH_CS_B"
+      },
+      "lcsc": "C25900",
+      "dnp": false,
+      "sheet": "FPGA",
+      "group": "config flash"
+    },
+    "C279": {
+      "ref": "C279",
+      "lib_id": "Device:C",
+      "value": "10uF",
+      "fp": "Capacitor_SMD:C_0805_2012Metric",
+      "pins": {
+        "1": "SEL_IN2",
+        "2": "GND"
+      },
+      "lcsc": "C15850",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "Q6  mux hold: 9 V request"
+    },
+    "C280": {
+      "ref": "C280",
+      "lib_id": "Device:C",
+      "value": "1uF",
+      "fp": "Capacitor_SMD:C_0603_1608Metric",
+      "pins": {
+        "1": "+5V_BUCK",
+        "2": "GND"
+      },
+      "lcsc": "C29936",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "U34  +5V source select"
+    },
+    "U23": {
+      "ref": "U23",
+      "lib_id": "odin:TPS22953DSQ",
+      "value": "TPS22953DSQR",
+      "fp": "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm",
+      "pins": {
+        "1": "VCCIO_1",
+        "2": "VCCIO_1",
+        "9": "VCCIO_1_EXT",
+        "10": "VCCIO_1_EXT",
+        "3": "+3V3",
+        "4": "EXT_EN",
+        "5": "GND",
+        "6": "U23_CT",
+        "7": "GND",
+        "8": "VCCIO_1_EXT",
+        "11": "GND"
+      },
+      "lcsc": "C2680343",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "U23  VCCIO_1 to VCCIO_1_EXT"
+    },
+    "U24": {
+      "ref": "U24",
+      "lib_id": "odin:TPS22953DSQ",
+      "value": "TPS22953DSQR",
+      "fp": "Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm",
+      "pins": {
+        "1": "VCCIO_2",
+        "2": "VCCIO_2",
+        "9": "VCCIO_2_EXT",
+        "10": "VCCIO_2_EXT",
+        "3": "+3V3",
+        "4": "EXT_EN",
+        "5": "GND",
+        "6": "U24_CT",
+        "7": "GND",
+        "8": "VCCIO_2_EXT",
+        "11": "GND"
+      },
+      "lcsc": "C2680343",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "U24  VCCIO_2 to VCCIO_2_EXT"
+    },
+    "U34": {
+      "ref": "U34",
+      "lib_id": "odin:TPS2121RUX",
+      "value": "TPS2121RUXR",
+      "fp": "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm",
+      "pins": {
+        "7": "VBUS",
+        "2": "+5V_BUCK",
+        "1": "+5V",
+        "8": "+5V",
+        "12": "GND",
+        "6": "VBUS5_PR1",
+        "3": "VBUS5_CP2",
+        "5": "VBUS5_OV1",
+        "4": "GND",
+        "10": "VBUS5_ILIM",
+        "11": "VBUS5_SS",
+        "9": "VBUS5_ST"
+      },
+      "lcsc": "C485916",
+      "dnp": false,
+      "sheet": "Power",
+      "group": "U34  +5V source select"
+    }
+  },
+  "positions_mm": {
+    "U1": {
+      "xy": [
+        763.4,
+        122.83
+      ],
+      "rotation": 90.0,
+      "island": [
+        "island U1"
+      ]
+    },
+    "X4": {
+      "xy": [
+        729.41,
+        125.52
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U1"
+      ]
+    },
+    "R147": {
+      "xy": [
+        732.66,
+        124.64
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U1"
+      ]
+    },
+    "U7": {
+      "xy": [
+        819.21,
+        120.31
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U7"
+      ]
+    },
+    "U8": {
+      "xy": [
+        801.33,
+        120.01
+      ],
+      "rotation": -90.0,
+      "island": [
+        "island U7"
+      ]
+    },
+    "Y1": {
+      "xy": [
+        819.21,
+        136.09
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U7"
+      ]
+    },
+    "U11": {
+      "xy": [
+        827.13,
+        92.97
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U11"
+      ]
+    },
+    "U12": {
+      "xy": [
+        849.83,
+        88.73
+      ],
+      "rotation": 180.0,
+      "island": [
+        "island U12"
+      ]
+    },
+    "U13": {
+      "xy": [
+        754.91,
+        173.7
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U13"
+      ]
+    },
+    "U14": {
+      "xy": [
+        785.58,
+        84.33
+      ],
+      "rotation": -90.0,
+      "island": [
+        "island U14"
+      ]
+    },
+    "U15": {
+      "xy": [
+        766.65,
+        81.22
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U15"
+      ]
+    },
+    "U16": {
+      "xy": [
+        751.16,
+        82.86
+      ],
+      "rotation": -90.0,
+      "island": [
+        "island U16"
+      ]
+    },
+    "U23": {
+      "xy": [
+        715.0,
+        180.59
+      ],
+      "rotation": 180.0,
+      "island": [
+        "island U23"
+      ]
+    },
+    "U24": {
+      "xy": [
+        816.83,
+        175.61
+      ],
+      "rotation": 180.0,
+      "island": [
+        "island U24"
+      ]
+    },
+    "U26": {
+      "xy": [
+        818.26,
+        61.69
+      ],
+      "rotation": -90.0,
+      "island": [
+        "island U26"
+      ]
+    },
+    "U34": {
+      "xy": [
+        805.65,
+        72.36
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U34"
+      ]
+    },
+    "U18": {
+      "xy": [
+        843.43,
+        57.93
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U18"
+      ]
+    },
+    "J1": {
+      "xy": [
+        828.2,
+        31.85
+      ],
+      "rotation": 180.0,
+      "island": [
+        "island J1"
+      ]
+    },
+    "J50": {
+      "xy": [
+        691.8,
+        30.68
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island J50"
+      ]
+    },
+    "J70": {
+      "xy": [
+        772.1,
+        224.58
+      ],
+      "rotation": 180.0,
+      "island": [
+        "island J70"
+      ]
+    },
+    "U30": {
+      "xy": [
+        773.22,
+        192.1
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U30"
+      ]
+    },
+    "U2": {
+      "xy": [
+        697.29,
+        105.78
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U2"
+      ]
+    },
+    "U3": {
+      "xy": [
+        716.62,
+        105.79
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U3"
+      ]
+    },
+    "U4": {
+      "xy": [
+        716.62,
+        129.95
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U4"
+      ]
+    },
+    "U5": {
+      "xy": [
+        697.29,
+        129.95
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U5"
+      ]
+    },
+    "U6": {
+      "xy": [
+        735.71,
+        81.54
+      ],
+      "rotation": 180.0,
+      "island": [
+        "island U6"
+      ]
+    },
+    "U33": {
+      "xy": [
+        722.75,
+        81.67
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island U33"
+      ]
+    },
+    "J19": {
+      "xy": [
+        717.18,
+        202.98
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island J19"
+      ]
+    },
+    "J20": {
+      "xy": [
+        819.0,
+        197.98
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island J20"
+      ]
+    },
+    "J74": {
+      "xy": [
+        710.57,
+        156.14
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island J74"
+      ]
+    },
+    "SW1": {
+      "xy": [
+        785.27,
+        67.0
+      ],
+      "rotation": 0.0,
+      "island": [
+        "island SW1"
+      ]
+    }
+  },
+  "stage_distances_mm": {
+    "U11->U34": 29.768,
+    "U34->U15": 39.994,
+    "U34->U14": 23.368,
+    "U11->U12": 23.093,
+    "U30->J70": 32.499
+  },
+  "support_pad_distances_mm": {
+    "U23:6->C272": 1.43,
+    "U23:3->C271": 1.597,
+    "U24:6->C275": 1.43,
+    "U24:3->C274": 1.598,
+    "U34:2->C280": 2.03
+  },
+  "budget_modes": [
+    [
+      "recovery",
+      "USB 2.0 port",
+      4.75,
+      0.9147390035460993,
+      0.2110749442163328,
+      0.5,
+      true,
+      "U34 0.03 A of 2.00 A + U26 0.18 A of 1.70 A"
+    ],
+    [
+      "recovery",
+      "USB-C 5V/1.5A",
+      4.75,
+      0.9147390035460993,
+      0.2110749442163328,
+      1.5,
+      true,
+      "U34 0.03 A of 2.00 A + U26 0.18 A of 1.70 A"
+    ],
+    [
+      "recovery",
+      "USB-C 5V/3A",
+      4.75,
+      0.9147390035460993,
+      0.2110749442163328,
+      3.0,
+      true,
+      "U34 0.03 A of 2.00 A + U26 0.18 A of 1.70 A"
+    ],
+    [
+      "recovery",
+      "USB-PD 9V",
+      9.0,
+      0.9147390035460993,
+      0.11293074117853077,
+      1.67,
+      true,
+      "U26 0.11 A of 1.70 A"
+    ],
+    [
+      "recovery",
+      "J50 VIN",
+      9.0,
+      0.9147390035460993,
+      0.11293074117853077,
+      3.0,
+      true,
+      "D4 path, no limiter of its own"
+    ],
+    [
+      "light",
+      "USB 2.0 port",
+      4.75,
+      6.729897399527186,
+      1.4898622205632281,
+      0.5,
+      false,
+      "U34 0.76 A of 2.00 A + U26 0.73 A of 1.70 A"
+    ],
+    [
+      "light",
+      "USB-C 5V/1.5A",
+      4.75,
+      6.729897399527186,
+      1.4898622205632281,
+      1.5,
+      true,
+      "U34 0.76 A of 2.00 A + U26 0.73 A of 1.70 A"
+    ],
+    [
+      "light",
+      "USB-C 5V/3A",
+      4.75,
+      6.729897399527186,
+      1.4898622205632281,
+      3.0,
+      true,
+      "U34 0.76 A of 2.00 A + U26 0.73 A of 1.70 A"
+    ],
+    [
+      "light",
+      "USB-PD 9V",
+      9.0,
+      6.729897399527186,
+      0.8308515308058254,
+      1.67,
+      true,
+      "U26 0.83 A of 1.70 A"
+    ],
+    [
+      "light",
+      "J50 VIN",
+      9.0,
+      6.729897399527186,
+      0.8308515308058254,
+      3.0,
+      true,
+      "D4 path, no limiter of its own"
+    ],
+    [
+      "full",
+      "USB 2.0 port",
+      4.75,
+      16.679897399527185,
+      3.7003885363527016,
+      0.5,
+      false,
+      "U34 1.81 A of 2.00 A + U26 1.89 A of 1.70 A"
+    ],
+    [
+      "full",
+      "USB-C 5V/1.5A",
+      4.75,
+      16.679897399527185,
+      3.7003885363527016,
+      1.5,
+      false,
+      "U34 1.81 A of 2.00 A + U26 1.89 A of 1.70 A"
+    ],
+    [
+      "full",
+      "USB-C 5V/3A",
+      4.75,
+      16.679897399527185,
+      3.7003885363527016,
+      3.0,
+      false,
+      "U34 1.81 A of 2.00 A + U26 1.89 A of 1.70 A"
+    ],
+    [
+      "full",
+      "USB-PD 9V",
+      9.0,
+      16.679897399527185,
+      2.0592465925342207,
+      1.67,
+      false,
+      "U26 2.06 A of 1.70 A"
+    ],
+    [
+      "full",
+      "J50 VIN",
+      9.0,
+      16.679897399527185,
+      2.0592465925342207,
+      3.0,
+      true,
+      "D4 path, no limiter of its own"
+    ]
+  ],
+  "cout_rows": [
+    [
+      "U11",
+      "+5V_BUCK",
+      6.7e-05,
+      6.8e-05,
+      "81.7 uF on +5V behind U34",
+      true,
+      "DS42002 p. 19: 22-68 uF ceramic for most applications"
+    ],
+    [
+      "U12",
+      "+3V3",
+      0.00022136000000000006,
+      6.8e-05,
+      "",
+      false,
+      "DS42002 p. 19: 22-68 uF ceramic for most applications"
+    ],
+    [
+      "U13",
+      "+2V5",
+      0.00010338,
+      4.7e-05,
+      "",
+      false,
+      "SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF"
+    ],
+    [
+      "U14",
+      "+1V8_IO",
+      0.00011298000000000002,
+      4.7e-05,
+      "63.5 uF on +1V8 behind FB1",
+      false,
+      "SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF"
+    ],
+    [
+      "U15",
+      "+1V0",
+      0.0005068999999999998,
+      4.4e-05,
+      "10.4 uF on +1V0_MGT behind L9",
+      false,
+      "Silergy SY8047 rev 0.9 reference circuit: 2 x 22 uF"
+    ],
+    [
+      "U16",
+      "+1V2_MGT",
+      4.99e-05,
+      4.7e-05,
+      "",
+      false,
+      "SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF"
+    ]
+  ],
+  "inductor_rows": [
+    [
+      "U11",
+      "SRN6045TA-4R7M",
+      1.7214728132387704,
+      0.9456264775413712,
+      2.1942860520094563,
+      21.0,
+      2.734644039175954,
+      6.8,
+      true
+    ],
+    [
+      "U12",
+      "SRN6045TA-4R7M",
+      2.4462222222222225,
+      0.8893617021276595,
+      2.890903073286052,
+      21.0,
+      3.1859638635596084,
+      6.8,
+      true
+    ],
+    [
+      "U13",
+      "SRN4018-2R2M",
+      0.13999999999999999,
+      0.3787878787878788,
+      0.32939393939393935,
+      5.5,
+      0.39826446280991734,
+      3.0,
+      true
+    ],
+    [
+      "U14",
+      "SRN4018-2R2M",
+      0.3081,
+      0.3490909090909091,
+      0.48264545454545454,
+      5.5,
+      0.5374388429752066,
+      3.0,
+      true
+    ],
+    [
+      "U15",
+      "FTC201610S1R0MBCA",
+      1.65,
+      0.64,
+      1.97,
+      5.5,
+      2.059090909090909,
+      4.6,
+      true
+    ],
+    [
+      "U16",
+      "SRN4018-2R2M",
+      0.15,
+      0.2763636363636363,
+      0.28818181818181815,
+      5.5,
+      0.3276859504132231,
+      3.0,
+      true
+    ]
+  ],
+  "disposition": {
+    "new_confirmed_schematic_blockers": [],
+    "previous_P1": "52/53/54 corrected for intended operating sequence; waveform confirmation belongs to prototype bring-up",
+    "source_policy": "MON_VSYS alone does not identify J50 at 9 V; PD_PG does not report contract current. Use declared qualified source mode or an active source-qualification sequence.",
+    "mechanical": "Nine checker findings and eight courtyard DRC errors remain before PCB ordering; six courtyard overlaps are the acknowledged zero-gap header/post contract.",
+    "USB_startup": "Recovery estimate about 0.21 A exceeds pre-enumeration 100 mA legacy USB allowance; known interoperability/compliance limitation, not proof all PC ports fail.",
+    "capacitance": "Nominal sum above an example value is not proof of instability. Concentrate on startup/load-step verification, particularly large FPGA core bank.",
+    "minor_only": [
+      "Exact RC hold time is approximate",
+      "BOOTSEL switch location is an ergonomic/low-speed routing choice",
+      "J1 custom land pattern still requires ordinary drawing review",
+      "Optional series resistance in D24 charging path avoids a large capacitor charge pulse through GPIO"
+    ]
+  },
+  "new_source_checks": [
+    {
+      "title": "USB-IF USB PD R3.2 v1.1, manufacturer/standards-author PDF mirrored at HWWiki",
+      "url": "https://www.hwwiki.net/lib/exe/fetch.php?media=%E6%A0%87%E5%87%86%3Ausb%3Apd%3Ausb_pd_r3_2_v1.1_2024-10.pdf",
+      "sha256": "f1f1cfb653909c3f00e3b814a1429c0a9e26e1af5bb18f2fd95f14435828e2ef",
+      "sections": [
+        "Section 7 timing parameters: tSrcTransition 25-35 ms; tSrcSettle SPR maximum 275 ms",
+        "Table 10.3: managed ports may offer 9 V at Port Present PDP below 15 W",
+        "10.2.3.1: optional source voltages"
+      ]
+    },
+    {
+      "title": "TI TPS2121 rev F",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2121.pdf",
+      "sections": [
+        "Table 9-3",
+        "7.5"
+      ]
+    },
+    {
+      "title": "onsemi BSS138LT1 rev 15",
+      "url": "https://www.onsemi.com/pdf/datasheet/bss138lt1-d.pdf",
+      "sections": [
+        "Threshold/current characteristics"
+      ]
+    },
+    {
+      "title": "RP2350 datasheet",
+      "url": "https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf",
+      "sections": [
+        "14.9.4.1 GPIO drive strengths are not hard current limits"
+      ]
+    }
+  ]
+}
