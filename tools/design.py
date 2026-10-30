@@ -44,7 +44,7 @@ VQFN12RUX = 'Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm'   # TI RUX0012A (M
 WSON10_DSQ = 'Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm'
 MRAM_FP = 'DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA'   # tools/gen_kicad.py gen_mram_fp
 EXT2x8  = 'EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54'
-EXT2x32 = 'EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1'
+EXT2x16 = 'EasyEDA:HDR-TH_32P-P2.54-V-F-R2-C16-S2.54'   # two per edge, end to end
 EXT_PWR = 'EasyEDA:HDR-TH_7P-P2.54-V-F'
 EXT_KEY = 'EasyEDA:HDR-TH_1P-P2.54-V-M-21MM-C51353'
 HDR2x3  = 'EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1'
@@ -593,9 +593,12 @@ def build():
     # ------------------------------------------------ shield connectors
     # A-H are eight logical zones.  Each has a 2x8 signal block plus a separate
     # keyed power row. All four sections on an edge share one continuous 2x32
-    # signal body: A-D on the right, E-H on the left. Each zone has its own
-    # long grounded key post at position 1 and a seven-contact female power
-    # socket at positions 2..8.
+    # signal lattice: A-D on the right, E-H on the left. Since 2026-10-30 the
+    # lattice is carried by two 2x16 female bodies end to end (the JLCPCB
+    # library has no 2x32 female; a 2.54 mm body is exactly n x 2.54 mm long,
+    # so the pitch runs through the joint): J3A/J3B right, J5A/J5B left.
+    # Each zone has its own long grounded key post at position 1 and a
+    # seven-contact female power socket at positions 2..8.
     rows = {}
     for s, (bank, _prs) in slots.items():
         if s in ('L', 'M'): continue
@@ -604,8 +607,7 @@ def build():
                    [sig[1], sig[3], GND, sig[5], sig[7], GND, sig[9], sig[11]])
 
     for jref, edge_slots in (('J3', 'ABCD'), ('J5', 'EFGH')):
-        d.group(f'SHIELD HEADER {edge_slots}')
-        pins = {}
+        pins = {}          # the 64 positions of the former single body
         for zone, s in enumerate(edge_slots):
             rowa, rowb = rows[s]
             for i in range(8):
@@ -622,9 +624,16 @@ def build():
                 else:
                     pins[str(2*physical_col+1)] = rowa[i]
                     pins[str(2*physical_col+2)] = rowb[i]
-        d.add(jref, 'EasyEDA:2044-2X32G00SA',
-              'WingTAT 2044-2X32G00SA', EXT2x32, pins, 'C49569844',
-              fp_ok='imported symbol has no footprint filters')
+        # Half A carries the first two slots of the edge (A,B / E,F), half
+        # B the other two. On J3 pads 1-32 are A,B; on J5 the physical
+        # column map above puts E,F on pads 33-64, so J5A takes those.
+        halves = (((f'{jref}A', 0), (f'{jref}B', 32)) if jref == 'J3' else
+                  ((f'{jref}A', 32), (f'{jref}B', 0)))
+        for half, off in halves:
+            d.group(f'SHIELD HEADER {edge_slots[:2] if half.endswith("A") else edge_slots[2:]}')
+            d.add(half, 'EasyEDA:HC-PM254-8.5H-2X16PZ', 'HC-PM254-8.5H-2x16PZ',
+                  EXT2x16, {str(n): pins[str(n + off)] for n in range(1, 33)},
+                  'C22373921', fp_ok='imported symbol has no footprint filters')
 
     # Two identical complete 8-bit, 5V-compatible buses. Signals stay on the
     # 2x8 block; all exported power stays on the adjacent 1x8 row.

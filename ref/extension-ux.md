@@ -4,11 +4,17 @@
 
 A 16 shield bridges A/E (or another matching section pair) for 24 I/O;
 a 32 spans two section pairs for 48 I/O; a 64 spans all four for 96 I/O.
-A-D use J3 and E-H use J5. The intended contract has J5 on the left and
-J3 on the right, each centred at board-local y=50.00 mm. Each edge is one
-WingTAT 2044-2X32G00SA 2x32 through-hole female body, C49569844, H8.5.
-There is no two-body seam. Smaller shields occupy contiguous sub-ranges
-starting and ending on eight-column section boundaries.
+A-D use J3A/J3B and E-H use J5A/J5B. The intended contract has the J5 pair
+on the left and the J3 pair on the right, each pair centred at board-local
+y=50.00 mm. Each edge is one continuous 2x32 lattice carried by two
+HC-PM254-8.5H-2x16PZ 2x16 through-hole female bodies, C22373921, H8.5, end to
+end: a 2.54 mm body is exactly 16 x 2.54 = 40.64 mm long, so the pitch runs
+through the joint and a shield's 2x32 male strip mates as before. J3A carries
+sections A and B (its pins 1-32 are positions 1-32 of the former single body),
+J3B sections C and D (pin n = former position n+32); J5A carries E and F, J5B
+G and H (on the left edge the former J5 numbering ran from the H end: J5B pin n
+= former position n, J5A pin n = former position n+32). Smaller shields occupy
+contiguous sub-ranges starting and ending on eight-column section boundaries.
 
 **Placement is not certified.** The authoritative hand-placed PCB was not
 moved to this contract. In the current PCB, J3/J5 remain on their previous,

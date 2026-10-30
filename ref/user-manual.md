@@ -131,7 +131,8 @@ complete FPGA banks and gets 96 direct I/O.
 
 The schematic names four 16-pin sections on each edge. Those are electrical
 zones, not a demand for four separate plastic connectors. Odin uses the
-physical arrangement: **one continuous 2x32 female signal body per edge, and
+physical arrangement: **one continuous 2x32 female signal lattice per edge
+(two 2x16 bodies end to end), and
 per zone one 1x7 female power socket with a grounded key post in front of
 it**. A 16 shield uses one zone on each edge, a 32 two, and a 64 all four. The
 key posts and outlines must make those partial positions unambiguous.

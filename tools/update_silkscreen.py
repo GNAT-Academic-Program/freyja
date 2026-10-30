@@ -16,7 +16,7 @@ USER_LABELS = {
     'D9': 'CTRL HB', 'D10': 'USER 1', 'D11': 'USER 2',
     'D1': 'FPGA DONE', 'SW1': 'CTRL BOOT',
     'J1': 'USB-C', 'J2': 'FPGA JTAG',
-    'J3': 'A | B | C | D', 'J5': 'E | F | G | H',
+    'J3A': 'A | B', 'J3B': 'C | D', 'J5A': 'E | F', 'J5B': 'G | H',
     'J7': '5V BUS 0', 'J8': '5V BUS 1',
     **{r: f'{s} POWER' for s, r in {
         'A':'J53', 'B':'J62', 'C':'J54', 'D':'J63', 'E':'J55',

@@ -2224,6 +2224,10 @@ def strip_layout(board, rail_ref, rail_at=None):
     Returns (rail footprint, members, info)."""
     import placement as pl
     if rail_ref not in board.fps:
+        if rail_ref in ('J3', 'J5') and f'{rail_ref}A' in board.fps:
+            sys.exit(f'--strip {rail_ref}: the 2x32 lattice is two 2x16 bodies since '
+                     f'2026-10-30 ({rail_ref}A over {rail_ref}B); this rule still reads one '
+                     '64-pad rail and has not been refitted to the pair')
         sys.exit(f'--strip {rail_ref}: no such footprint')
     rail = board.fps[rail_ref]
     rpos = (rail_at[0], rail_at[1], rail.rot) if rail_at else (rail.x, rail.y, rail.rot)

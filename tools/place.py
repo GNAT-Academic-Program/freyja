@@ -177,8 +177,22 @@ def normalized_signal_pattern(fp):
              for _x, net in sorted(columns[y])]
             for y in sorted(columns)]
 
+class _Strip:
+    """Two 2x16 bodies end to end, read as the one 2x32 lattice they carry
+    (J3A/J3B, J5A/J5B since 2026-10-30)."""
+    def __init__(self, *parts): self.parts = parts
+    def Pads(self): return [p for f in self.parts for p in f.Pads()]
+    def GetPosition(self): return self.parts[0].GetPosition()
+    def GetFPID(self): return self.parts[0].GetFPID()
+    def GetOrientationDegrees(self): return self.parts[0].GetOrientationDegrees()
+
+
 def verify(fps):
     errs = []
+    fps = dict(fps)
+    for s in ('J3', 'J5'):
+        if s not in fps and f'{s}A' in fps and f'{s}B' in fps:
+            fps[s] = _Strip(fps[f'{s}A'], fps[f'{s}B'])
     # opposite edges share one y-lattice; bottom buses one x-lattice
     for a, b, axis in (('J5', 'J3', 1), ('J7', 'J8', 0)):
         ca, cb = contact_coords(fps[a], axis), contact_coords(fps[b], axis)

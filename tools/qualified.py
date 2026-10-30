@@ -247,11 +247,14 @@ PARTS = {
     pinmap='NXP Table 3: 1 A0, 2 A1, 3 RESET, 4 INT0, 5 SD0, 6 SC0, 7 VSS, '
            '8 INT1, 9 SD1, 10 SC1, 11 INT, 12 SCL, 13 SDA, 14 VDD',
     src='NXP PCA9543A_43B rev 8; LCSC C2652904'),
-  'EasyEDA:2044-2X32G00SA': dict(
-    mpn='2044-2X32G00SA', pkg='2x32 female socket, 2.54 mm, THT, 8.5 mm, gold',
-    fp='EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1', rating='3 A per contact',
-    pinmap='odd/even physical columns verified from imported pad coordinates',
-    src='WingTAT drawing; LCSC C49569844'),
+  'EasyEDA:HC-PM254-8.5H-2X16PZ': dict(
+    mpn='HC-PM254-8.5H-2x16PZ', pkg='2x16 female socket, 2.54 mm, THT, 8.5 mm body (listing; the LCSC-attached XKB drawing is a 7.0 mm series) [verify body height at order time]',
+    fp='EasyEDA:HDR-TH_32P-P2.54-V-F-R2-C16-S2.54', rating='3 A per contact; two per edge end to end '
+           'carry the 2x32 lattice (a 2.54 mm body is n x 2.54 mm long, no pitch break at the joint)',
+    pinmap='odd/even pad numbers by physical column, pad 1 square at the first '
+           'column, as the former 2x32 import (same pad convention, 1.0 mm '
+           'holes); the C22373921 import has the same pads as the land kept here',
+    src='LCSC C22373921 listing and attached XKB drawing; HCTL part'),
   'EasyEDA:Header-Female-2.54_2x8': dict(
     mpn='2.54-2*8P female, 8.5 mm (LCSC C30734)', pkg='2x8 female socket, 2.54 mm, THT, 8.5 mm',
     fp='EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54',

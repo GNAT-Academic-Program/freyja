@@ -31,6 +31,7 @@ def normalize_imported_pin_types():
         'PH2.54-1X1P-H25', 'KF301-5.0-2P',
         'PM254-2-16-Z-8.5', 'PM254-2-08-Z-8.5',
         'PM254V-11-07-H85', 'B254N02-0B7P51-H85C32', '2.54mmlength21mm', '2044-2X32G00SA',
+        'HC-PM254-8.5H-2X16PZ',
         'PMEG060V100EPDZ',
         # network: the two jacks, the PHY crystal and the link TVS arrays
         'HR911130A', 'KH-RJ45-58-8P8C', 'R-RJ45R08P-B000', 'X322525MOB4SI', 'TPD4E1U06DBVR',

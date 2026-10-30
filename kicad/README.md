@@ -177,6 +177,7 @@ Regenerate stackup and rules without replacing placement or routing:
 DRC constraints live in the generated `odin.kicad_dru`.
 
 A–H are eight logical zones carried by one continuous 2x32 through-hole
-signal body on each left/right edge. Every A–H/L/M zone has a position-1 long key post and its own
+signal lattice on each left/right edge (two 2x16 female bodies end to end,
+J3A/J3B and J5A/J5B). Every A–H/L/M zone has a position-1 long key post and its own
 1x7 female power body at positions 2..8; L and M each use a separate 2x8
 through-hole signal body.

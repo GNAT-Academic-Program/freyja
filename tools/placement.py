@@ -41,11 +41,12 @@ class P:
         return f"{self.ref:5s} ({self.x:6.2f},{self.y:6.2f}) r{self.rot:<3d} {self.side}  {self.why}"
 
 # ------------------------------------------------------ the numbers that rule
-# 2x32 signal socket body (courtyard): 81.90 x 4.90, pads centred on origin.
+# 2x32 signal lattice: two 2x16 socket bodies end to end (courtyard 40.95
+# x 4.90 each, pads centred on each origin), since 2026-10-30.
 # Per-zone keyed power row: one post plus a 1x7 female body.
 # RJ45 jacks on the top edge: HR911130A 16.04 x 21.30, Ckmtw R-RJ45R08P 16.26 x 15.70.
 # FBGA-676:                            27.4 x 27.7 courtyard.
-SIG_LEN   = 81.90       # 2x32 body length
+SIG_LEN   = 81.90       # 2x32 lattice length (two 2x16 bodies)
 SIG_W     = 4.90
 PWR_W     = 2.54
 # THE LATTICE. A shield bridges signal rows, power row and key post, so all
@@ -88,14 +89,17 @@ def contract():
 
     # --- extension edges -------------------------------------------------
     # Left edge (x small): E-H. Right edge: A-D. Signal bodies vertical.
-    # One continuous 2x32 body serves all four zones on each edge. Opposite
-    # rotations face the sockets across the shield; design.py reverses J5's
-    # physical-column map so the electrical pattern itself is not mirrored.
-    # tools/place.py compares all 64 real pad coordinates directly.
+    # One continuous 2x32 lattice serves all four zones on each edge, carried
+    # by two 2x16 bodies end to end: the A/E half 20.32 mm above the body
+    # centre, the other half below. Opposite rotations face the sockets
+    # across the shield; design.py reverses J5's physical-column map so the
+    # electrical pattern itself is not mirrored. tools/place.py compares all
+    # 64 real pad coordinates directly.
     for jsig, edge in (('J5', 'L'), ('J3', 'R')):
         xs = EDGE_SIG if edge == 'L' else BOARD_W - EDGE_SIG
         r = 90 if edge == 'L' else 270
-        out.append(P(jsig, xs, BODY_CTR, r, why=f'{edge} edge signal 2x32'))
+        out.append(P(f'{jsig}A', xs, BODY_CTR - 20.32, r, why=f'{edge} edge signal 2x16, first half'))
+        out.append(P(f'{jsig}B', xs, BODY_CTR + 20.32, r, why=f'{edge} edge signal 2x16, second half'))
 
     # Keyed power rows: position 1 is the post; the 1x7 body covers positions
     # 2..8. Four eight-column sections occupy the body's uninterrupted pitch;
@@ -229,8 +233,7 @@ def _fp_bbox(fpname):
     return None
 
 CONTRACT_FP = {         # ref prefix -> footprint file stem, for the checker
-    'J3': 'HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1',
-    'J5': 'HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1',
+    **{r: 'HDR-TH_32P-P2.54-V-F-R2-C16-S2.54' for r in ('J3A', 'J3B', 'J5A', 'J5B')},
     'J7': 'HDR-TH_16P-P2.54-V-F-R2-C8-S2.54', 'J8': 'HDR-TH_16P-P2.54-V-F-R2-C8-S2.54',
     **{r: 'HDR-TH_7P-P2.54-V-F' for r in POWER_REFS.values()},
     'J70': 'RJ45-TH_HR911130A', 'J71': 'RJ45-TH_R-RJ45R08P-B000',
@@ -273,6 +276,9 @@ def check(placed):
     # courtyard boundary; this is the intended keyed compound row.
     inside.update(frozenset((f'MK{ord(s)}', POWER_REFS[t]))
                   for s in 'ABCDEFGHLM' for t in 'ABCDEFGHLM')
+    # The two 2x16 bodies of each edge stand end to end on purpose: their
+    # courtyards meet at the joint (2026-10-30).
+    inside.update({frozenset(('J3A', 'J3B')), frozenset(('J5A', 'J5B'))})
     for i, a in enumerate(boxes):
         for b in boxes[i + 1:]:
             if frozenset((a[0], b[0])) in inside:

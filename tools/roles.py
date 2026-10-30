@@ -515,13 +515,21 @@ GROUP.update({
         'alive; USER 1 and USER 2 are for software. Each has a 1 k '
         'current-limiting resistor from +3V3. Rules: ref/status-leds.md.',
     # ---- Slots sheet
-    'SHIELD HEADER ABCD':
-        'One long 2x32 socket on the right edge carrying the signals of slots '
-        'A, B, C and D: twelve FPGA pins each (bank 15), with grounds between '
-        'groups. Their voltage is whatever J19 selects.',
-    'SHIELD HEADER EFGH':
-        'One long 2x32 socket on the left edge carrying the signals of slots '
-        'E, F, G and H: twelve FPGA pins each (bank 34), voltage set by J20.',
+    'SHIELD HEADER AB':
+        'First half of the right-edge 2x32 signal lattice: a 2x16 socket '
+        'carrying the signals of slots A and B, twelve FPGA pins each (bank '
+        '15), with grounds between groups. Their voltage is whatever J19 '
+        'selects. J3B continues the same 2.54 mm lattice end to end.',
+    'SHIELD HEADER CD':
+        'Second half of the right-edge lattice, end to end with J3A: the '
+        'signals of slots C and D (bank 15, voltage set by J19).',
+    'SHIELD HEADER EF':
+        'First half of the left-edge 2x32 signal lattice: a 2x16 socket '
+        'carrying the signals of slots E and F, twelve FPGA pins each (bank '
+        '34), voltage set by J20. J5B continues the lattice end to end.',
+    'SHIELD HEADER GH':
+        'Second half of the left-edge lattice, end to end with J5A: the '
+        'signals of slots G and H (bank 34, voltage set by J20).',
     'SHIELD HEADER L':
         'The signal socket of slot L (5V BUS 0): eight 5 V data lines from U9, '
         'with four grounds between them.',
@@ -604,8 +612,10 @@ PART.update({
     'D11': ('USER 2 LED', 'Green LED for software use.'),
     'U9': ('5V BUS 0 translator', 'TI SN74LVC8T245: 8-bit 1.8 V (bank 13) to 5 V level shifter with direction control, for slot L.'),
     'U10': ('5V BUS 1 translator', 'TI SN74LVC8T245: 8-bit 1.8 V (bank 13) to 5 V level shifter with direction control, for slot M.'),
-    'J3': ('slots A-D signal socket', '2x32 female socket, right edge: signals of slots A, B, C, D.'),
-    'J5': ('slots E-H signal socket', '2x32 female socket, left edge: signals of slots E, F, G, H.'),
+    'J3A': ('slots A-B signal socket', '2x16 female socket, right edge, first half of the 2x32 lattice: signals of slots A and B.'),
+    'J3B': ('slots C-D signal socket', '2x16 female socket, right edge, end to end with J3A: signals of slots C and D.'),
+    'J5A': ('slots E-F signal socket', '2x16 female socket, left edge, first half of the 2x32 lattice: signals of slots E and F.'),
+    'J5B': ('slots G-H signal socket', '2x16 female socket, left edge, end to end with J5A: signals of slots G and H.'),
     'J7': ('slot L signal socket', '2x8 female socket: 5V BUS 0 data lines.'),
     'J8': ('slot M signal socket', '2x8 female socket: 5V BUS 1 data lines.'),
     'J19': ('A-D PIN VOLTAGE jumper', '2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots A-D.'),

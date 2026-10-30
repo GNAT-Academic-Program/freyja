@@ -25,7 +25,9 @@ def main():
     assert not ({'J66','J67','U28','U29','L10','D12'} & fps.keys())
     aux_fuses = set()
     for ref, slots in (('J3','ABCD'), ('J5','EFGH')):
-        pads = sorted(fps[ref].Pads(), key=lambda p:(p.GetPosition().y,p.GetPosition().x))
+        # two 2x16 bodies end to end carry the edge's 64 positions
+        pads = sorted([p for h in ('A', 'B') for p in fps[ref + h].Pads()],
+                      key=lambda p:(p.GetPosition().y,p.GetPosition().x))
         assert len(pads) == 64, ref
         for i, slot in enumerate(slots):
             actual = [p.GetNetname() for p in pads[16*i:16*(i+1)]]

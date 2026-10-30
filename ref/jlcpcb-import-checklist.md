@@ -102,7 +102,7 @@ as files; `tools/audit_easyeda.py` only checks parts the design fits.
 
 | Item | Selected part |
 |---|---|
-| two 2x32 signal sockets | `C49569844` — imported and linked |
+| four 2x16 signal sockets, two per edge end to end (HC-PM254-8.5H-2x16PZ) | `C22373921` — imported 2026-10-30; the 2x32 `C49569844` is not in the library |
 | ten 1x7 keyed power sockets | `C2832270` — imported and linked |
 | two 5V-bus 2x8 signal sockets | `C3975153` — imported and linked |
 | 2x8 through-hole signal sockets | `C2897409` — imported and linked |

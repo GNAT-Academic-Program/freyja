@@ -12,7 +12,7 @@ you care about; within it, groups appear in schematic order.
 - [Power](#power) (135 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
-- [Slots](#slots) (98 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
+- [Slots](#slots) (100 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
 - [Video](#video) (8 parts): HDMI output straight from the FPGA, with its protection chip.
 
@@ -979,21 +979,37 @@ Same as 5V BUS 0, for slot M: U10 shifts eight lines between the FPGA's 3.3 V an
 | C142 | 100nF | 100nF bypass on +5V, for U10 (5V BUS 1 translator) |
 | R97 | 10k | 10k pull-up of BUS5V1_OE_N to +1V8_IO, for U10 (5V BUS 1 translator): keeps the 5 V bus translator disabled until the FPGA enables it |
 
-### SHIELD HEADER ABCD
+### SHIELD HEADER AB
 
-One long 2x32 socket on the right edge carrying the signals of slots A, B, C and D: twelve FPGA pins each (bank 15), with grounds between groups. Their voltage is whatever J19 selects.
-
-| Ref | Value | What it does |
-|---|---|---|
-| J3 | WingTAT 2044-2X32G00SA | slots A-D signal socket: 2x32 female socket, right edge: signals of slots A, B, C, D. |
-
-### SHIELD HEADER EFGH
-
-One long 2x32 socket on the left edge carrying the signals of slots E, F, G and H: twelve FPGA pins each (bank 34), voltage set by J20.
+First half of the right-edge 2x32 signal lattice: a 2x16 socket carrying the signals of slots A and B, twelve FPGA pins each (bank 15), with grounds between groups. Their voltage is whatever J19 selects. J3B continues the same 2.54 mm lattice end to end.
 
 | Ref | Value | What it does |
 |---|---|---|
-| J5 | WingTAT 2044-2X32G00SA | slots E-H signal socket: 2x32 female socket, left edge: signals of slots E, F, G, H. |
+| J3A | HC-PM254-8.5H-2x16PZ | slots A-B signal socket: 2x16 female socket, right edge, first half of the 2x32 lattice: signals of slots A and B. |
+
+### SHIELD HEADER CD
+
+Second half of the right-edge lattice, end to end with J3A: the signals of slots C and D (bank 15, voltage set by J19).
+
+| Ref | Value | What it does |
+|---|---|---|
+| J3B | HC-PM254-8.5H-2x16PZ | slots C-D signal socket: 2x16 female socket, right edge, end to end with J3A: signals of slots C and D. |
+
+### SHIELD HEADER EF
+
+First half of the left-edge 2x32 signal lattice: a 2x16 socket carrying the signals of slots E and F, twelve FPGA pins each (bank 34), voltage set by J20. J5B continues the lattice end to end.
+
+| Ref | Value | What it does |
+|---|---|---|
+| J5A | HC-PM254-8.5H-2x16PZ | slots E-F signal socket: 2x16 female socket, left edge, first half of the 2x32 lattice: signals of slots E and F. |
+
+### SHIELD HEADER GH
+
+Second half of the left-edge lattice, end to end with J5A: the signals of slots G and H (bank 34, voltage set by J20).
+
+| Ref | Value | What it does |
+|---|---|---|
+| J5B | HC-PM254-8.5H-2x16PZ | slots G-H signal socket: 2x16 female socket, left edge, end to end with J5A: signals of slots G and H. |
 
 ### SHIELD HEADER L
 

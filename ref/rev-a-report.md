@@ -763,3 +763,23 @@ except footprints whose outline changed.
    land kept under the new number, symbol imported; the slot-row layout
    profile is keyed on the new value (islands.py --anchor J53 dry run
    matches it). 0 moved, gate electrical PASS.
+9. J3/J5 WingTAT 2044-2X32G00SA -> two HC-PM254-8.5H-2x16PZ (C22373921)
+   per edge, end to end: J3A (slots A,B) over J3B (C,D) on the right,
+   J5A (E,F) over J5B (G,H) on the left. A 2.54 mm body is 16 x 2.54 mm
+   long, so the lattice has no pitch break at the joint. design.py builds
+   the former 64-position map and hands pads 1-32 / 33-64 to the halves
+   (on J5 the E,F end was 33-64). tools/split_strip.py (new; report,
+   --apply) set each half with the old body's rotation so that its 32
+   pads land on the old pads, verified to 0 um on all 128 pads; nothing
+   else moved (546 common refs). Land: the 2x16 import is pad for pad the
+   library's HDR-TH_32P (1.0 mm holes), kept under the new number; body
+   height 8.5 mm per the listing, the LCSC-attached XKB drawing is a 7 mm
+   series [verify at order time]. placement.py contract and place.py
+   read the pair as one lattice; update_silkscreen labels A | B, C | D,
+   E | F, G | H; islands.py --strip J3/J5 says plainly that it has not
+   been refitted to the pair. Parts 550. DRC 17 courtyards: the 15 known
+   post pairs plus J3A x J3B and J5A x J5B, the butt joint (courtyards
+   0.3 mm longer than the bodies), same class as the posts' zero gap.
+   Gate electrical PASS; mechanical the 11 findings as before.
+   check_connector_rework.py (not in the gate) trips on FB1 already and
+   was not revived.
