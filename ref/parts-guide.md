@@ -356,7 +356,7 @@ Small switching regulator that makes +2V5 from +5V for FPGA bank 16 (network) an
 
 | Ref | Value | What it does |
 |---|---|---|
-| U13 | TLV62569DRLR | 2.5 V regulator: TI TLV62569, 2 A switching regulator: +5V to +2V5. |
+| U13 | TLV62569PDRLR | 2.5 V regulator: TI TLV62569, 2 A switching regulator: +5V to +2V5. |
 | C198 | 22uF | 22uF bypass on +2V5, for U13 (2.5 V regulator) |
 | C199 | 22uF | 22uF bypass on +2V5, for U13 (2.5 V regulator) |
 | C200 | 100nF | 100nF bypass on +5V, for U13 (2.5 V regulator) |
@@ -372,7 +372,7 @@ Small switching regulator that makes 1.8 V from +5V. Its output node is +1V8_IO:
 
 | Ref | Value | What it does |
 |---|---|---|
-| U14 | TLV62569DRLR | 1.8 V regulator, always on: TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). Enable tied to +5V. |
+| U14 | TLV62569PDRLR | 1.8 V regulator, always on: TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). Enable tied to +5V. |
 | C201 | 22uF | 22uF bypass on +1V8_IO, for U14 (1.8 V regulator, always on) |
 | C202 | 22uF | 22uF bypass on +1V8_IO, for U14 (1.8 V regulator, always on) |
 | C203 | 100nF | 100nF bypass on +5V, for U14 (1.8 V regulator, always on) |
@@ -387,7 +387,7 @@ Small switching regulator that makes +1V2_MGT from +5V for the FPGA transceivers
 
 | Ref | Value | What it does |
 |---|---|---|
-| U16 | TLV62569DRLR | 1.2 V transceiver regulator: TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT. |
+| U16 | TLV62569PDRLR | 1.2 V transceiver regulator: TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT. |
 | C204 | 22uF | 22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator) |
 | C205 | 22uF | 22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator) |
 | C206 | 100nF | 100nF bypass on +5V, for U16 (1.2 V transceiver regulator) |

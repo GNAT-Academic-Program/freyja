@@ -37,10 +37,10 @@ LM5157 SW pin is gone with the converter.
 |---|---|---|---|---|---:|
 | `U11` | `AP63300WU-7` | VSYS | +5V | 3.8–32 V | 3 A |
 | `U12` | `AP63300WU-7` | VSYS | +3V3 | 3.8–32 V | 3 A |
-| `U13` | `TLV62569DRLR` | +5V | +2V5 | 2.5–5.5 V | 2 A |
-| `U14` | `TLV62569DRLR` | +5V | +1V8_IO | 2.5–5.5 V | 2 A |
+| `U13` | `TLV62569PDRLR` | +5V | +2V5 | 2.5–5.5 V | 2 A |
+| `U14` | `TLV62569PDRLR` | +5V | +1V8_IO | 2.5–5.5 V | 2 A |
 | `U15` | `SY8047QDC` | +5V | +1V0 | 2.5–5.5 V | 4 A |
-| `U16` | `TLV62569DRLR` | +5V | +1V2_MGT | 2.5–5.5 V | 2 A |
+| `U16` | `TLV62569PDRLR` | +5V | +1V2_MGT | 2.5–5.5 V | 2 A |
 
 ## Board loads per regulator
 

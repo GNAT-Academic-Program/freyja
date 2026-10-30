@@ -714,3 +714,9 @@ except footprints whose outline changed.
    no inductor. Symbol, qualified entry, pin-type table, network.md,
    ballmap, XDC comments. Land pattern kept under the new LCSC number;
    0 moved; gate electrical PASS.
+3. U13/U14/U16 TLV62569DRLR -> TLV62569PDRLR (C398364), the PG variant
+   (12 pieces left of the plain part). Same SOT-563 pinout, pin 6 PG
+   instead of NC: a generated odin:TLV62569PDRL symbol carries it as an
+   open-drain output left unconnected, which SLVSDG1C's pin table allows
+   for an unused PG (board pads 6 carry no net, checked). Land kept, 0
+   moved, gate electrical PASS.

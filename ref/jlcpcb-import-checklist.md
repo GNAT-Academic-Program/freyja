@@ -49,7 +49,7 @@ against the manufacturer datasheet.
 | 3 | `SS34` from a named manufacturer | power diodes | C8678 |
 | 1 | `TPS54202DDCR` | 5 V supply | `C191884` |
 | 1 | `AP63300WU-7` | always-on 3.3 V supply | C2158012 |
-| 3 | `TLV62569DRLR` | 2.5/1.8/1.2 V supplies | `C163217` |
+| 3 | `TLV62569PDRLR` | 2.5/1.8/1.2 V supplies (PG variant, pin 6 left open) | `C398364` — imported 2026-10-30 |
 | 1 | `SY8047QDC` | 4 A FPGA 1.0 V supply | `C3018651` — imported and linked |
 | 1 | `TPS61085PWR` | 12 V slot-power supply | C13505 |
 | 4 | `TPS22950CDDCR` | low-voltage slot-power protection | C7587833 |

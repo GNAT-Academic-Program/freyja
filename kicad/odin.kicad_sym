@@ -6049,6 +6049,73 @@
 		)
 		(embedded_fonts no)
 	)
+	(symbol "TLV62569PDRL"
+		(pin_names (offset 1.016))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 15.00 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "TLV62569PDRL"
+			(at 0 12.46 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "EasyEDA:SOT-563_L1.6-W1.2-P0.50-LS1.6-BL"
+			(at 0 9.92 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tlv62569.pdf"
+			(at 0 7.38 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "2.5-5.5V input, 2A synchronous buck converter with power good, SOT-563"
+			(at 0 4.84 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "TLV62569PDRL_1_1"
+			(rectangle (start -12.70 5.08) (end 12.70 -5.08)
+				(stroke (width 0.254) (type default)) (fill (type background))
+			)
+			(pin power_in line
+				(at -17.78 2.54 0)
+				(length 5.08)
+				(name "VIN" (effects (font (size 1.27 1.27))))
+				(number "3" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 0.00 0)
+				(length 5.08)
+				(name "EN" (effects (font (size 1.27 1.27))))
+				(number "5" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at -17.78 -2.54 0)
+				(length 5.08)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_out line
+				(at 17.78 2.54 180)
+				(length 5.08)
+				(name "SW" (effects (font (size 1.27 1.27))))
+				(number "4" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at 17.78 0.00 180)
+				(length 5.08)
+				(name "FB" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin open_collector line
+				(at 17.78 -2.54 180)
+				(length 5.08)
+				(name "PG" (effects (font (size 1.27 1.27))))
+				(number "6" (effects (font (size 1.27 1.27))))
+			)
+		)
+	)
 	(symbol "TPS22953DSQ"
 		(pin_names (offset 1.016))
 		(exclude_from_sim no)

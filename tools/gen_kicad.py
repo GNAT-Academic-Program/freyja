@@ -322,7 +322,19 @@ def gen_extension_protection():
             ('9','OUT','passive','R'), ('10','OUT','passive','R'),
             ('8','SNS','input','R'), ('7','PG','passive','R'),
             ('6','CT','passive','R')]
-    return (gen_box_symbol('TPS22953DSQ', sw53,
+    # TLV62569P in SOT-563 (SLVSDG1C Pin Functions, DRL column): 1 FB,
+    # 2 GND, 3 VIN, 4 SW, 5 EN, 6 PG. PG is an open-drain power-good
+    # output; "if it's not used, leave the pin floating" (same table), so
+    # the design leaves it with a no-connect. KiCad ships only the DRL
+    # (pin 6 NC) symbol, hence this one.
+    tlvp = [('3','VIN','power_in','L'), ('5','EN','input','L'),
+            ('2','GND','power_in','L'), ('4','SW','power_out','R'),
+            ('1','FB','input','R'), ('6','PG','open_collector','R')]
+    return (gen_box_symbol('TLV62569PDRL', tlvp,
+            'EasyEDA:SOT-563_L1.6-W1.2-P0.50-LS1.6-BL',
+            'https://www.ti.com/lit/ds/symlink/tlv62569.pdf',
+            '2.5-5.5V input, 2A synchronous buck converter with power good, SOT-563') +
+            gen_box_symbol('TPS22953DSQ', sw53,
             'Package_DFN_QFN:Texas_DSQ0010A_WSON-10-1EP_2x2mm_P0.4mm_EP0.9x1.5mm',
             'https://www.ti.com/lit/ds/symlink/tps22953.pdf',
             '0.7V-to-VBIAS 5A load switch, separate 2.5-5.7V bias, reverse blocking when off, adjustable rise time') +

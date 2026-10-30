@@ -158,10 +158,10 @@ LOADS = [
 REGULATORS = [
     ('U11', 'AP63300WU-7', 'VSYS', '+5V', 3.8, 32.0, 3.0),
     ('U12', 'AP63300WU-7', 'VSYS', '+3V3', 3.8, 32.0, 3.0),
-    ('U13', 'TLV62569DRLR', '+5V', '+2V5', 2.5, 5.5, 2.0),
-    ('U14', 'TLV62569DRLR', '+5V', '+1V8_IO', 2.5, 5.5, 2.0),
+    ('U13', 'TLV62569PDRLR', '+5V', '+2V5', 2.5, 5.5, 2.0),
+    ('U14', 'TLV62569PDRLR', '+5V', '+1V8_IO', 2.5, 5.5, 2.0),
     ('U15', 'SY8047QDC', '+5V', '+1V0', 2.5, 5.5, 4.0),
-    ('U16', 'TLV62569DRLR', '+5V', '+1V2_MGT', 2.5, 5.5, 2.0),
+    ('U16', 'TLV62569PDRLR', '+5V', '+1V2_MGT', 2.5, 5.5, 2.0),
 ]
 # Per regulator: the net its capacitors sit on, inductor key, switching
 # frequency, and what the datasheet has actually validated for COUT

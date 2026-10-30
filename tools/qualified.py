@@ -117,11 +117,14 @@ PARTS = {
            '4.7 uH, 10 uF input, 3x22 uF output',
     pinmap='Diodes TSOT26 top view: 1 FB, 2 EN, 3 VIN, 4 GND, 5 SW, 6 BST',
     src='Diodes Incorporated DS42002 Rev. 3-2, Table 1'),
-  'Regulator_Switching:TLV62569DRL': dict(
-    mpn='TLV62569DRLR', pkg='SOT-563', fp=FP['SOT563'],
-    rating='2.5-5.5 V in, 2 A out, 1.5 MHz; output cap 10-47 uF',
-    pinmap='KiCad Regulator_Switching symbol',
-    src='TI SLVSDG1C; LCSC C163217'),
+  'odin:TLV62569PDRL': dict(
+    mpn='TLV62569PDRLR', pkg='SOT-563', fp=FP['SOT563'],
+    rating='2.5-5.5 V in, 2 A out, 1.5 MHz; output cap 10-47 uF; PG '
+           'open drain, left floating as the pin table allows for an unused PG',
+    pinmap='SLVSDG1C Pin Functions, SOT563-6 column: 1 FB, 2 GND, 3 VIN, 4 SW, '
+           '5 EN, 6 PG; symbol generated in tools/gen_kicad.py; land pattern '
+           'the C163217 import (same package), LCSC property now C398364',
+    src='TI SLVSDG1C (ref/datasheets/tlv62569.pdf); LCSC C398364'),
   'EasyEDA:SY8047QDC': dict(
     mpn='SY8047QDC', pkg='QFN-16-EP, 3x3 mm, 0.5 mm pitch',
     fp='EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6',

@@ -57,7 +57,7 @@ USBC    = 'odin:USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A_Odin'
 LED0603 = 'LED_SMD:LED_0603_1608Metric'
 
 LCSC = {'APS6404L-SQN-SN':'C5360304',
-        'TLV62569DRL':'C163217', 'TPS54202DDC':'C191884'}
+        'TLV62569PDRL':'C398364', 'TPS54202DDC':'C191884'}
 
 class Design:
     def __init__(self):
@@ -783,6 +783,10 @@ def build():
 
     # U14's EN is tied to its VIN (SLVSDG1C: EN -0.3..6 V absolute, VIH
     # 1.2 V max): the 1.8 V rail is up whenever +5V is, see U11 above.
+    # TLV62569PDRLR since 2026-10-30 (the plain DRLR is nearly out of the
+    # JLCPCB library): same SOT-563 pinout, pin 6 is the open-drain PG
+    # instead of NC and stays unconnected, as the datasheet's pin table
+    # says for an unused PG (the rails are read by the ADC monitors).
     for ref, rail, en, vtgt in (('U13', V25, 'EN_2V5', 2.5),
                                 ('U14', V18IO, V5, 1.8),
                                 ('U16', V12MGT, 'EN_1V2', 1.2)):
@@ -790,9 +794,9 @@ def build():
         RAIL_CHECK.append((rail, vtgt, act, top, bot))
         d.group(f'{ref}  5V to {rail}')
         fb = f'FB{rail}'; sw = f'SW{rail}'
-        d.add(ref, 'Regulator_Switching:TLV62569DRL', 'TLV62569DRLR', SOT563,
+        d.add(ref, 'odin:TLV62569PDRL', 'TLV62569PDRLR', SOT563,
               {'VIN': V5, 'GND': GND, 'EN': en, 'FB': fb, 'SW': sw},
-              LCSC['TLV62569DRL'])
+              LCSC['TLV62569PDRL'])
         d.L('2.2uH', rail, sw)
         d.R(top, rail, fb, R0603); d.R(bot, fb, GND, R0603)
         for _ in range(2): d.C('22uF', rail, GND, C0805)
