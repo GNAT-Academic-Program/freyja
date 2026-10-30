@@ -6,9 +6,9 @@
 
 USB-C can start at 4.75 V. The SS34 plus USB eFuse model loses
 0.48 V at 0.6 A, leaving **4.27 V**. The screw input is
-**9–21 V DC**. U11/U12 are AP63300 devices (3.8–32 V operating) and cover
-the full VSYS envelope. Both run without an enable: +3V3, +5V and the 1.8 V
-rail behind U14 are present whenever the board has power, so the FPGA's
+**9–21 V DC**. U11/U12 are LMR33630 devices (3.8–36 V operating, 400 kHz)
+and cover the full VSYS envelope. Both have EN tied to VIN: +3V3, +5V and the
+1.8 V rail behind U14 are present whenever the board has power, so the FPGA's
 VCCAUX never waits on firmware (DS181 Table 7, findings 34).
 
 On a plain 5 V source U11 cannot make 5 V from 4.3 V; U34 (TPS2121) then
@@ -26,8 +26,8 @@ Both of U34's inputs block reverse current and the rail is limited to
 2.5 A typical.
 
 The VIN clamp is SMBJ22A: 22 V standoff and 35.5 V maximum rated pulse clamp.
-The AP63300's 40 V/400 ms transient limit is the lowest transient limit after
-D4. VSYS capacitors are 50 V X7R. No switching node on the board sees VSYS
+The LMR33630's 38 V absolute maximum on VIN is the lowest limit after D4.
+VSYS capacitors are 50 V X7R. No switching node on the board sees VSYS
 plus a stored output any more, so the former surge release hold against the
 LM5157 SW pin is gone with the converter.
 
@@ -35,8 +35,8 @@ LM5157 SW pin is gone with the converter.
 
 | Ref | Part | Source | Output | Input rating | Output class |
 |---|---|---|---|---|---:|
-| `U11` | `AP63300WU-7` | VSYS | +5V | 3.8–32 V | 3 A |
-| `U12` | `AP63300WU-7` | VSYS | +3V3 | 3.8–32 V | 3 A |
+| `U11` | `LMR33630ADDAR` | VSYS | +5V | 3.8–36 V | 3 A |
+| `U12` | `LMR33630ADDAR` | VSYS | +3V3 | 3.8–36 V | 3 A |
 | `U13` | `TLV62569PDRLR` | +5V | +2V5 | 2.5–5.5 V | 2 A |
 | `U14` | `TLV62569PDRLR` | +5V | +1V8_IO | 2.5–5.5 V | 2 A |
 | `U15` | `SY8047QDC` | +5V | +1V0 | 2.5–5.5 V | 4 A |
@@ -103,8 +103,8 @@ bead or inductor are frequency-dependent and listed beside, not added.
 
 | Ref | Node | Direct COUT | Validated | Behind a filter | Status | Datasheet |
 |---|---|---:|---:|---|---|---|
-| `U11` | +5V_BUCK | 67.0 uF | 68 uF | 81.7 uF on +5V behind U34 | inside | DS42002 p. 19: 22-68 uF ceramic for most applications |
-| `U12` | +3V3 | 221.3 uF | 68 uF | - | **beyond: bench qualification** | DS42002 p. 19: 22-68 uF ceramic for most applications |
+| `U11` | +5V_BUCK | 67.0 uF | 880 uF | 81.7 uF on +5V behind U34 | inside | SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF |
+| `U12` | +3V3 | 221.3 uF | 880 uF | - | inside | SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF |
 | `U13` | +2V5 | 103.4 uF | 47 uF | - | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
 | `U14` | +1V8_IO | 113.0 uF | 47 uF | 63.5 uF on +1V8 behind FB1 | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
 | `U15` | +1V0 | 506.9 uF | 44 uF | 10.4 uF on +1V0_MGT behind L9 | **beyond: bench qualification** | Silergy SY8047 rev 0.9 reference circuit: 2 x 22 uF |
@@ -128,8 +128,8 @@ that is the figure checked against saturation.
 
 | Ref | Inductor | Load | Ripple | Peak | Peak, envelope | Isat | |
 |---|---|---:|---:|---:|---:|---:|---|
-| `U11` | `SWPA6045S4R7MT` | 1.72 A | 0.95 A | 2.19 A | 2.73 A at 21 V | 4.97 A | PASS |
-| `U12` | `SWPA6045S4R7MT` | 2.45 A | 0.89 A | 2.89 A | 3.19 A at 21 V | 4.97 A | PASS |
+| `U11` | `SWPA6045S4R7MT` | 1.72 A | 1.18 A | 2.31 A | 2.99 A at 21 V | 4.97 A | PASS |
+| `U12` | `SWPA6045S4R7MT` | 2.45 A | 1.11 A | 3.00 A | 3.37 A at 21 V | 4.97 A | PASS |
 | `U13` | `SRN4018-2R2M` | 0.14 A | 0.38 A | 0.33 A | 0.40 A at 5.5 V | 3 A | PASS |
 | `U14` | `SRN4018-2R2M` | 0.31 A | 0.35 A | 0.48 A | 0.54 A at 5.5 V | 3 A | PASS |
 | `U15` | `FTC201610S1R0MBCA` | 1.65 A | 0.64 A | 1.97 A | 2.06 A at 5.5 V | 4.6 A | PASS |

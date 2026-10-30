@@ -305,12 +305,13 @@ GROUP.update({
         'below. The two feedback resistors set the output voltage; the '
         'inductor and capacitors are its power stage; the 10 uF across its '
         'input is its own switching-current reservoir.',
-    'U12  VSYS to +3V3  (always-on AP63300 reference circuit)':
+    'U12  VSYS to +3V3  (always on)':
         'Switching regulator that makes +3V3 from VSYS. It has no enable: it '
         'starts as soon as any power is present, because +3V3 runs the board '
         'controller, which then switches everything else on. Also powers the '
         'PSRAM, the flashes, the PHY and most logic. The two feedback '
-        'resistors set 3.3 V; the inductor and capacitors are its power stage.',
+        'resistors set 3.3 V; the inductor and capacitors are its power stage; '
+        'the 1 uF on VCC feeds its own control circuit.',
     'U13  5V to +2V5':
         'Small switching regulator that makes +2V5 from +5V for FPGA bank 16 '
         '(network) and the PHY\'s RGMII pins. Enabled by the board controller '
@@ -576,8 +577,8 @@ PART.update({
     'Q6': ('mux: 9 V request hold', 'Small N-MOSFET that pulls U34\'s PR1 to ground while the board controller asks for 9 V and for 2-7 s after it stops (D24, R, C hold), so the +5V rail is on U11 before VBUS moves and until it is back at 5 V.'),
     'D24': ('mux hold diode', '1N4148W: charges the Q6 hold capacitor from PD_REQ_9V at once and lets it drain slowly through its own resistor.'),
     'Q7': ('mux: screw input present', 'Small N-MOSFET that pulls U34\'s PR1 to ground while the screw input (J50) carries voltage, so the whole board runs from J50 through U11 even with a 5 V USB cable plugged in.'),
-    'U11': ('5 V regulator, always on', 'Diodes AP63300, 3 A switching regulator: VSYS to +5V_BUCK, then U34 to +5V. Starts by itself.'),
-    'U12': ('3.3 V regulator, always on', 'Diodes AP63300, 3 A switching regulator: VSYS to +3V3. Starts by itself.'),
+    'U11': ('5 V regulator, always on', 'TI LMR33630, 3 A switching regulator: VSYS to +5V_BUCK, then U34 to +5V. Enable tied to its input, so it starts by itself.'),
+    'U12': ('3.3 V regulator, always on', 'TI LMR33630, 3 A switching regulator: VSYS to +3V3. Enable tied to its input, so it starts by itself.'),
     'U13': ('2.5 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +2V5.'),
     'U14': ('1.8 V regulator, always on', 'TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). Enable tied to +5V.'),
     'U16': ('1.2 V transceiver regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT.'),
@@ -634,6 +635,8 @@ NET.update({
     'VBUS_ILM': 'sets U26\'s current limit, about 2 A (89 / 44.2k)',
     'VBUS_DVDT': 'sets how slowly U26 ramps VSYS up, about 1.2 V/ms',
     'VBUS_IMON': 'U26 current monitor, 0.52 V per ampere into 10k; probe point, no ADC',
+    'U11_VCC': 'U11\'s internal 5 V regulator output, its own 1 uF; drives nothing else',
+    'U12_VCC': 'U12\'s internal 5 V regulator output, its own 1 uF; drives nothing else',
     'VBUS5_PR1': 'U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) unless Q6 (9 V request) or Q7 (screw input present) holds it at ground',
     'SEL_IN2': 'Q6\'s gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s',
     'EXT_PRESENT': 'Q7\'s gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT',

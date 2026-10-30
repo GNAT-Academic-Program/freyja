@@ -117,7 +117,7 @@ VARIANTS = {
 #     left above the LINK P jack: a ribbon cable comes from above, it needs
 #     no edge. The microSD (16.7 mm) does not fit either (the previous
 #     finding stands) and stays inboard, pulled by its bank lines.
-#   - U11 and U12 are the two identical VSYS converters (AP63300, 21 V in):
+#   - U11 and U12 are the two identical VSYS converters (LMR33630, 21 V in):
 #     they sit side by side straight under the eFuse U26 and against the
 #     mux U34, so the 21 V bus never leaves the USB corner where it enters
 #     (U26 under USB-C; J50's D4 at the top-left is the other source) and

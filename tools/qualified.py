@@ -102,20 +102,21 @@ PARTS = {
            'through it (9 mV), inside the 1.71 V VCCAUX minimum',
     pinmap='two-terminal, KiCad Device symbol',
     src='Murata BLM18PG121SN1D; LCSC C14709 (JLC basic)'),
-  'Regulator_Switching:TPS54202DDC': dict(
-    mpn='TPS54202DDCR', pkg='SOT-23 (6)', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL',
-    rating='4.5-28 V in, 2 A out, 500 kHz, 5 ms internal soft start. '
-           'The 4.5 V minimum is the binding constraint -- see findings 20',
-    pinmap='KiCad Regulator_Switching symbol',
-    src='TI SLVSD26C; LCSC C191884'),
-  'odin:AP63300WU': dict(
-    mpn='AP63300WU-7', pkg='TSOT26 (WU)', fp='EasyEDA:TSOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR',
-    rating='3.8-32 V input, 3 A output, 500 kHz, 0.8 V reference. '
-           '35 V DC absolute maximum and 40 V/400 ms transient limit. '
-           '3.3 V reference circuit: 93.1k/30.1k feedback, 56 pF feed-forward, '
-           '4.7 uH, 10 uF input, 3x22 uF output',
-    pinmap='Diodes TSOT26 top view: 1 FB, 2 EN, 3 VIN, 4 GND, 5 SW, 6 BST',
-    src='Diodes Incorporated DS42002 Rev. 3-2, Table 1'),
+  'Regulator_Switching:LMR33630ADDA': dict(
+    mpn='LMR33630ADDAR', pkg='HSOIC-8 with PowerPAD (TI DDA), 3.9 x 4.9 mm, 1.27 mm pitch',
+    fp='EasyEDA:ESOP-8_L4.9-W3.9-P1.27-LS6.0-TL-EP',
+    rating='3.8-36 V operating, 38 V absolute maximum on VIN (under it: the '
+           'SMBJ22A 35.5 V clamp), 3 A, 400 kHz, VREF 1.0 V (0.985-1.015). '
+           'EN tied to VIN (Table 6-1), PG open, 1 uF on VCC, 100 nF CBOOT, '
+           '10 uF 50 V + 220 nF 50 V at VIN, 100k/24.9k (5 V) and 100k/43.2k '
+           '(3.3 V) from Table 9-2, 4.7 uH above the 3.5 / 2.3 uH minimum of '
+           'Equation 5, 3 x 22 uF out (Table 9-2 lists 4 x 22 uF at 400 kHz; '
+           'the rails carry more bulk downstream)',
+    pinmap='KiCad Regulator_Switching symbol against SNVSAN3F Table 6-1 (HSOIC): '
+           '1 PGND, 2 VIN, 3 EN, 4 PG, 5 FB, 6 VCC, 7 BOOT, 8 SW, pad AGND (pin 9); '
+           'the C841384 import has pads 1-4 down the left, 5-8 up the right, a '
+           '2.5 x 3.5 mm pad 9 (DDA0008J thermal pad 2.5 x 3.1)',
+    src='TI LMR33630 datasheet SNVSAN3F (rev F, November 2020), ref/datasheets/lmr33630.pdf; LCSC C841384'),
   'odin:TLV62569PDRL': dict(
     mpn='TLV62569PDRLR', pkg='SOT-563', fp=FP['SOT563'],
     rating='2.5-5.5 V in, 2 A out, 1.5 MHz; output cap 10-47 uF; PG '
@@ -196,8 +197,8 @@ PARTS = {
   'D8': dict(
     mpn='SMBJ22A', pkg='SMB / DO-214AA', fp='Diode_SMD:D_SMB',
     rating='Unidirectional, 22 V standoff, 24.4-26.9 V breakdown, '
-           '35.5 V maximum rated pulse clamp, 600 W. The AP63300 40 V/400 ms '
-           'transient limit is the lowest downstream transient absolute maximum',
+           '35.5 V maximum rated pulse clamp, 600 W. The LMR33630\'s 38 V '
+           'absolute maximum on VIN is the lowest downstream limit after D4',
     pinmap='1 cathode to VIN_EXT; 2 anode to GND',
     src='BORN SMBJ22A datasheet; LCSC C151920'),
   'D24': dict(

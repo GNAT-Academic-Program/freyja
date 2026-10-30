@@ -844,3 +844,25 @@ except footprints whose outline changed.
     place in island U18 (3 x 3 instead of 4.9 x 3.9 mm), new resistors
     staged; 0 moved, DRC unchanged (17 courtyards, 3 clearance at U26),
     gate electrical PASS. Parts 551.
+14. U11/U12 AP63300WU-7 -> TI LMR33630ADDAR (C841384), HSOIC-8 PowerPAD
+    from the import (DDA0008J pad 2.5 x 3.1, import pad 2.5 x 3.5). Per
+    SNVSAN3F: EN tied to VIN (Table 6-1, so both still start by
+    themselves), PG open, 1 uF on VCC (C281, C283), 220 nF 50 V HF bypass
+    at VIN beside the 10 uF 50 V (C282, C284), 100 nF CBOOT kept, FB
+    dividers for the 1.0 V reference from Table 9-2: 100k/24.9k (5.016 V)
+    and 100k/43.2k (3.315 V); the AP63300's 56 pF feed-forward (C194) is
+    gone, no CFF at 100 k. 4.7 uH kept against the datasheet: Equation 5
+    minimum 3.5 / 2.3 uH, ripple 39 / 37 % of 3 A at the 9 V planning
+    input (inside the 20-40 % guidance), 68 / 56 % at 21 V (above it,
+    inside the saturation check: budget.py peaks 2.99 / 3.37 A at 400 kHz,
+    L -20 %, against 4.97 A). Operating 3.8-36 V, 38 V absolute maximum:
+    the SMBJ22A's 35.5 V clamp stays under it (D8 entry, power.md).
+    budget.py: 400 kHz, COUT allowance 880 uF (4 x 22 uF validated, at
+    most 10 x). Layout profile LMR33630 (10.1, Figure 10-2); the U12
+    group is now "U12  VSYS to +3V3  (always on)". Parts 554, 0 moved.
+    DRC 55 errors: the known 17 courtyards + 3 U26 clearances, plus 35
+    inside islands U11/U12 (L2/L3 and R55/R57 pads under the HSOIC body:
+    shorting items and mask bridges; C188/C189/C191/C193/C196/C197,
+    R56/R58 courtyard or clearance): both islands want their re-run with
+    the new profile before anything else happens on the board (owner's
+    flow, one island per commit). Gate electrical PASS.

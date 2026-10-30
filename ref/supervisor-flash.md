@@ -55,7 +55,7 @@ before any firmware has run. That drives the power sequencing below.
 The board controller runs on +3V3. If it also had to *enable* +3V3, it
 could never start — it would be waiting for a rail only it can turn on.
 
-So **+3V3 is always on**: a wide-input `AP63300` buck (`U12`) straight off
+So **+3V3 is always on**: a wide-input `LMR33630` buck (`U12`) straight off
 `VSYS`. Its enable is deliberately left floating, which its datasheet defines
 as automatic startup; it is not wired to any GPIO. Power appears, +3V3
 appears, the board controller boots, and only then does it bring up the rails it

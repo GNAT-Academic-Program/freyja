@@ -30,7 +30,7 @@ SOT563  = 'EasyEDA:SOT-563_L1.6-W1.2-P0.50-LS1.6-BL'
 SOT236_ESD = 'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR'
 SOT236_BUCK = 'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL'
 SOT236_LOAD = 'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL_3'
-SOT236_AP = 'EasyEDA:TSOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR'
+HSOP8_DDA = 'EasyEDA:ESOP-8_L4.9-W3.9-P1.27-LS6.0-TL-EP'   # TI DDA PowerPAD SOIC-8, the C841384 import
 DFN10_HUSB = 'EasyEDA:DFN-10_L3.0-W3.0-P0.50-BL-EP2.5'   # HUSB238 DFN-10L 3x3, the C7471904 import
 SOIC16W = 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'
 TSSOP8  = 'EasyEDA:TSSOP-8_L4.4-W3.0-P0.65-LS6.4-BL'
@@ -64,7 +64,7 @@ USBC    = 'Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12'
 LED0603 = 'LED_SMD:LED_0603_1608Metric'
 
 LCSC = {'APS6404L-SQN-SN':'C5360304',
-        'TLV62569PDRL':'C398364', 'TPS54202DDC':'C191884'}
+        'TLV62569PDRL':'C398364'}
 
 class Design:
     def __init__(self):
@@ -797,37 +797,49 @@ def build():
           {'A': 'VIN_EXT', 'K': VSYS}, 'C8678')
     d.C('10uF', VSYS, GND, C1210); d.C('10uF', VSYS, GND, C1210)
     d.C('10uF', 'VBUS', GND, C0805)
-    # VSYS -> 5V. AP63300's 32V operating / 40V 400ms transient limits cover
-    # the 21V screw input and the SMBJ22A's 35.5V pulse clamp.
-    # U11 has no enable (EN floating: DS42002 p. 3, automatic start-up),
-    # like U12: +5V, and through U14 the FPGA's VCCAUX, is present whenever
-    # +3V3 is, so the 3.3 V I/O banks never sit on an unpowered VCCAUX for
-    # longer than the regulators' own start-up (DS181 Table 7, findings 34).
-    # Its output node is +5V_BUCK; U34 joins it to the +5V rail.
+    # VSYS -> 5V. TI LMR33630ADDA (SNVSAN3F) since 2026-10-30, the AP63300
+    # being out of the JLCPCB library: 3.8-36 V operating, 38 V absolute
+    # maximum on VIN (the SMBJ22A's 35.5 V clamp sits under it), 3 A,
+    # 400 kHz, 1.0 V reference (7.5: 0.985-1.015 V), HSOIC-8 with the
+    # PowerPAD as AGND. Table 6-1: EN "can be connected directly to VIN;
+    # do not float", so EN is tied to VSYS and U11 and U12 keep starting by
+    # themselves (item 34): +5V, and through U14 the FPGA's VCCAUX, is
+    # present whenever +3V3 is, so the 3.3 V I/O banks never sit on an
+    # unpowered VCCAUX for longer than the regulators' own start-up (DS181
+    # Table 7). PG "can be left open when not used". 9.2.2: 100 nF CBOOT
+    # (10 V or more), 1 uF 16 V on VCC, at least 10 uF ceramic at VIN
+    # rated for the input (the 10 uF 50 V 1210 each has) plus a 220 nF
+    # 50 V X7R as close as possible (appended below), RFBT 100 k and RFBB
+    # from Equation 3 (Table 9-2: 24.9k for 5 V, 43.2k for 3.3 V, no CFF
+    # at 100 k). 4.7 uH stays: Equation 5's minimum is 3.5 uH at 5 V and
+    # 2.3 uH at 3.3 V; ripple is 39 % / 37 % of 3 A at the 9 V planning
+    # input (the 20-40 % guidance) and 68 % / 56 % at 21 V, where
+    # budget.py checks the peak against saturation. Its output node is
+    # +5V_BUCK; U34 joins it to the +5V rail.
     d.group('U11  VSYS to +5V')
-    d.add('U11', 'odin:AP63300WU', 'AP63300WU-7', SOT236_AP,
-          {'VIN': VSYS, 'GND': GND, 'FB': 'FB_5V',
-           'SW': 'SW_5V', 'BST': 'BOOT_5V'}, 'C2158012')
+    d.add('U11', 'Regulator_Switching:LMR33630ADDA', 'LMR33630ADDAR', HSOP8_DDA,
+          {'VIN': VSYS, 'GND': GND, 'FB': 'FB_5V', 'EN': VSYS, 'SW': 'SW_5V',
+           'BOOT': 'BOOT_5V', 'VCC': 'U11_VCC', 'PG': ''}, 'C841384')
     d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('4.7uH', V5BUCK, 'SW_5V')
-    rt, rb, act = fb_divider(5.0, 0.8)            # AP63300 Vref = 0.8 V
+    rt, rb, act = fb_divider(5.0, 1.0)            # LMR33630 VREF = 1.0 V
     d.R(rt, V5BUCK, 'FB_5V', R0603); d.R(rb, 'FB_5V', GND, R0603)
     RAIL_CHECK.append(('+5V', 5.0, act, rt, rb))
     for _ in range(3): d.C('22uF', V5BUCK, GND, C0805)
     # 5V -> the low rails
-    # +3V3 is ALWAYS ON and powers the supervisor. AP63300 works down to 3.8V,
-    # below the 4.27V weak-port worst case, and its 3A rating covers both
-    # protected VCCIO domains at their maximum current-limit tolerance.
-    d.group('U12  VSYS to +3V3  (always-on AP63300 reference circuit)')
-    rt3, rb3 = '93.1k', '30.1k'
-    act3 = 0.8 * (1 + 93.1 / 30.1)
+    # +3V3 is ALWAYS ON and powers the supervisor. The LMR33630 works down
+    # to 3.8 V, below the 4.27 V weak-port worst case, and its 3 A rating
+    # covers both protected VCCIO domains at their maximum current-limit
+    # tolerance.
+    d.group('U12  VSYS to +3V3  (always on)')
+    rt3, rb3, act3 = fb_divider(3.3, 1.0)         # Table 9-2: 100k / 43.2k
     RAIL_CHECK.append((V33, 3.3, act3, rt3, rb3))
-    d.add('U12', 'odin:AP63300WU', 'AP63300WU-7', SOT236_AP,
-          {'VIN': VSYS, 'GND': GND, 'FB': 'FB_3V3',
-           'SW': 'SW_3V3', 'BST': 'BOOT_3V3'}, 'C2158012')
+    d.add('U12', 'Regulator_Switching:LMR33630ADDA', 'LMR33630ADDAR', HSOP8_DDA,
+          {'VIN': VSYS, 'GND': GND, 'FB': 'FB_3V3', 'EN': VSYS, 'SW': 'SW_3V3',
+           'BOOT': 'BOOT_3V3', 'VCC': 'U12_VCC', 'PG': ''}, 'C841384')
     d.C('10uF', VSYS, GND, C1210)
     d.C('100nF', 'BOOT_3V3', 'SW_3V3'); d.L('4.7uH', V33, 'SW_3V3')
     d.R(rt3, V33, 'FB_3V3', R0603); d.R(rb3, 'FB_3V3', GND, R0603)
-    d.C('56pF', V33, 'FB_3V3')
+    d.reserve('C', 1)                              # the AP63300's 56 pF feed-forward
     for _ in range(3): d.C('22uF', V33, GND, C0805)
 
     # U14's EN is tied to its VIN (SLVSDG1C: EN -0.3..6 V absolute, VIH
@@ -1519,6 +1531,15 @@ def build():
     d.R('4.7k', V33, 'PD_SCL')
     d.R('0', 'PD_VSET', GND)
     d.R('4.53k', 'PD_ISET', GND)
+
+    # ---- LMR33630 support parts for U11/U12 (2026-10-30), appended so no
+    # earlier designator moves: 9.2.2.8 the 1 uF VCC capacitor, 9.2.2.6 the
+    # 220 nF high-frequency input bypass (50 V X7R by the HV rule).
+    d.sheet('Power')
+    for ref, grp in (('U11', 'U11  VSYS to +5V'), ('U12', 'U12  VSYS to +3V3  (always on)')):
+        d.group(grp)
+        d.C('1uF', f'{ref}_VCC', GND, C0603)
+        d.C('220nF', VSYS, GND, C0603)
 
     # ---- U26 current monitor resistor (TPS25942A since 2026-10-30, 9.3.7):
     # appended so no earlier designator moves; island U26 by group name.

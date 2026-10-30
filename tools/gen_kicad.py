@@ -312,9 +312,6 @@ def gen_extension_protection():
              ('8','OUT','passive','R'), ('17','ILIM','passive','R'),
              ('18','dVdT','passive','R'), ('19','IMON','passive','R'),
              ('2','PGOOD','open_collector','R'), ('20','FLT','open_collector','R')]
-    ap63300 = [('1','FB','input','L'), ('2','EN','input','L'),
-               ('3','VIN','power_in','L'), ('4','GND','power_in','R'),
-               ('5','SW','power_out','R'), ('6','BST','passive','R')]
     # TPS2121 RUX (SLVSEA3F Figure 6-2 / Pin Functions): the +5V source mux
     mux = [('7','IN1','power_in','L'), ('2','IN2','power_in','L'),
            ('6','PR1','input','L'), ('3','CP2','input','L'),
@@ -358,11 +355,7 @@ def gen_extension_protection():
             gen_box_symbol('TPS25942ARVC', efuse,
             'EasyEDA:QFN-20_L4.0-W3.0-P0.5-BL-EP',
             'https://www.ti.com/lit/ds/symlink/tps25942a.pdf',
-            '2.7-18V eFuse with reverse current blocking, adjustable UVLO/OVP/ILIM/dVdt, PGOOD and current monitor, auto-retry, WQFN-20') +
-            gen_box_symbol('AP63300WU', ap63300,
-            'Package_TO_SOT_SMD:SOT-23-6',
-            'https://www.diodes.com/datasheet/download/AP63300_AP63301.pdf',
-            '3.8-32V input, 3A synchronous buck converter, TSOT26'))
+            '2.7-18V eFuse with reverse current blocking, adjustable UVLO/OVP/ILIM/dVdt, PGOOD and current monitor, auto-retry, WQFN-20'))
 
 def gen_hdmi():
     """TPD12S016PW, the HDMI companion chip (ESD on the four TMDS pairs, DDC

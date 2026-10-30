@@ -9,7 +9,7 @@ the PCB (select a footprint, Description field). Start with the sheet
 you care about; within it, groups appear in schematic order.
 
 - [FPGA](#fpga) (111 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
-- [Power](#power) (135 parts): Inputs, the regulators that make every rail, extension power protection.
+- [Power](#power) (138 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (75 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (100 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
@@ -323,32 +323,35 @@ Switching regulator (buck converter) that makes +5V from VSYS. It runs whenever 
 
 | Ref | Value | What it does |
 |---|---|---|
-| U11 | AP63300WU-7 | 5 V regulator, always on: Diodes AP63300, 3 A switching regulator: VSYS to +5V_BUCK, then U34 to +5V. Starts by itself. |
+| U11 | LMR33630ADDAR | 5 V regulator, always on: TI LMR33630, 3 A switching regulator: VSYS to +5V_BUCK, then U34 to +5V. Enable tied to its input, so it starts by itself. |
 | C188 | 100nF | 100nF capacitor between BOOT_5V and SW_5V, for U11 (5 V regulator, always on): bootstrap capacitor for the regulator's high-side switch; regulator switching node |
 | C189 | 22uF | 22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on) |
 | C190 | 22uF | 22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on) |
 | C191 | 22uF | 22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on) |
 | C267 | 10uF 50V | 10uF 50V bypass on VSYS, for U11 (5 V regulator, always on) |
+| C281 | 1uF | 1uF bypass on U11_VCC, for U11 (5 V regulator, always on): U11's internal 5 V regulator output, its own 1 uF; drives nothing else |
+| C282 | 220nF 50V | 220nF 50V bypass on VSYS, for U11 (5 V regulator, always on) |
 | L2 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node |
 | R55 | 100k | 100k series resistor between +5V_BUCK and FB_5V, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
-| R56 | 19.1k | 19.1k resistor from FB_5V to GND, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R56 | 24.9k | 24.9k resistor from FB_5V to GND, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
-### U12  VSYS to +3V3  (always-on AP63300 reference circuit)
+### U12  VSYS to +3V3  (always on)
 
-Switching regulator that makes +3V3 from VSYS. It has no enable: it starts as soon as any power is present, because +3V3 runs the board controller, which then switches everything else on. Also powers the PSRAM, the flashes, the PHY and most logic. The two feedback resistors set 3.3 V; the inductor and capacitors are its power stage.
+Switching regulator that makes +3V3 from VSYS. It has no enable: it starts as soon as any power is present, because +3V3 runs the board controller, which then switches everything else on. Also powers the PSRAM, the flashes, the PHY and most logic. The two feedback resistors set 3.3 V; the inductor and capacitors are its power stage; the 1 uF on VCC feeds its own control circuit.
 
 | Ref | Value | What it does |
 |---|---|---|
-| U12 | AP63300WU-7 | 3.3 V regulator, always on: Diodes AP63300, 3 A switching regulator: VSYS to +3V3. Starts by itself. |
+| U12 | LMR33630ADDAR | 3.3 V regulator, always on: TI LMR33630, 3 A switching regulator: VSYS to +3V3. Enable tied to its input, so it starts by itself. |
 | C192 | 10uF 50V | 10uF 50V bypass on VSYS, for U12 (3.3 V regulator, always on) |
 | C193 | 100nF | 100nF capacitor between BOOT_3V3 and SW_3V3, for U12 (3.3 V regulator, always on): bootstrap capacitor for the regulator's high-side switch; regulator switching node |
-| C194 | 56pF | 56pF capacitor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
 | C195 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
 | C196 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
 | C197 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
+| C283 | 1uF | 1uF bypass on U12_VCC, for U12 (3.3 V regulator, always on): U12's internal 5 V regulator output, its own 1 uF; drives nothing else |
+| C284 | 220nF 50V | 220nF 50V bypass on VSYS, for U12 (3.3 V regulator, always on) |
 | L3 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node |
-| R57 | 93.1k | 93.1k series resistor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
-| R58 | 30.1k | 30.1k resistor from FB_3V3 to GND, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R57 | 100k | 100k series resistor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R58 | 43.2k | 43.2k resistor from FB_3V3 to GND, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
 ### U13  5V to +2V5
 

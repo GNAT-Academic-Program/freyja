@@ -47,8 +47,7 @@ against the manufacturer datasheet.
 | 3 | `BSS138LT1G` (onsemi) | Q4 DONE LED buffer; Q6/Q7 +5V mux holds | C82045 |
 | 1 | `TPS25942ARVCR` | USB input protection (eFuse) | `C181295` — imported 2026-10-30, pins checked against SLVSCE9D section 6 |
 | 3 | `SS34` from a named manufacturer | power diodes | C8678 |
-| 1 | `TPS54202DDCR` | 5 V supply | `C191884` |
-| 1 | `AP63300WU-7` | always-on 3.3 V supply | C2158012 |
+| 2 | `LMR33630ADDAR` | always-on 5 V and 3.3 V supplies (U11, U12) | `C841384` — imported 2026-10-30, pins checked against SNVSAN3F Table 6-1 |
 | 3 | `TLV62569PDRLR` | 2.5/1.8/1.2 V supplies (PG variant, pin 6 left open) | `C398364` — imported 2026-10-30 |
 | 1 | `SY8047QDC` | 4 A FPGA 1.0 V supply | `C3018651` — imported and linked |
 | 1 | `TPS61085PWR` | 12 V slot-power supply | C13505 |

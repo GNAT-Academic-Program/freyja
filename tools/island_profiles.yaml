@@ -132,48 +132,42 @@ RP2350:
       match: {prefix: R, pin: AVDD}
       place: {side: AVDD, face: {AVDD: inward}, outside: CFILT}
 
-AP63300:
-  source: AP63300/AP63301 datasheet DS42002 Rev. 3-2 (Diodes, August 2019), Layout p. 19, Figure 39 Recommended PCB Layout; pin table p. 3 (TSOT26 FB 1, EN 2, VIN 3, GND 4, SW 5, BST 6)
-  pins: {FB: 1, EN: 2, VIN: 3, GND: 4, SW: 5, BST: 6}
-  # The KiCad TSOT26 footprint at rotation 0 has pin 1 at the E side bottom;
-  # Figure 39 draws pin 1 at the W side top, so the footprint turned by 180
-  # looks like the figure. Directions below are the figure's.
-  figure_rotation: 180
+LMR33630:
+  source: LMR33630 datasheet SNVSAN3F (TI, rev. November 2020), 10.1 Layout Guidelines (1 to 9) and 10.2 Figure 10-2 Example Layout for the HSOIC (DDA) package; pin table 6-1 (HSOIC 1 PGND, 2 VIN, 3 EN, 4 PG, 5 FB, 6 VCC, 7 BOOT, 8 SW, pad AGND)
+  pins: {GND: 1, VIN: 2, EN: 3, PG: 4, FB: 5, VCC: 6, BOOT: 7, SW: 8}
+  # Imported ESOP-8 at rotation 0: pins 1 to 4 down the W side (PGND, VIN,
+  # EN, PG), 5 to 8 up the E side (FB, VCC, BOOT, SW), the pad in the
+  # middle. Figure 10-2 (same orientation): CIN and the 220 nF CHF across
+  # VIN and PGND on the W side with the smallest loop (guideline 1); the
+  # inductor E of SW; CBOOT between BOOT and SW with short wide traces (3);
+  # the VCC capacitor at pin 6 (2); COUT along the N edge from the inductor
+  # toward the GND copper; RFBT and RFBB at FB on the E side, bottom corner,
+  # away from the SW node (4); the pad on a 4 x 3 via array (10.1.1).
   rules:
-    # Figure 39, chip drawn with FB/EN/VIN down the W side and BST/SW/GND down
-    # the E side. L stands E of SW. C3 (BST) lies along the N flank at the BST
-    # corner, SW pad toward L. C1 (input) lies along the S flank under VIN, GND
-    # pad toward the GND pin; C2 (output) lies along the S flank under GND, GND
-    # pad toward C1, so the two caps share the GND copper between them. R1
-    # (VOUT to FB) stands W of FB with the FB pad up and C4 (feed-forward)
-    # stands beside it, outside; R2 (FB to GND) lies along the N flank at the
-    # FB corner with the GND pad E. Guidelines 2 to 5: input caps across VIN
-    # and GND, L at SW, output caps at GND, feedback parts at FB, all close.
-    # The EN pull-down is not in the figure; it stands under R1 along the W edge.
+    - name: high-frequency input bypass across VIN and PGND
+      match: {cap_between: [VIN, GND], value: 220nF 50V}
+      place: {side: VIN, face: {GND: N}}
+    - name: input bulk capacitor outside the bypass
+      match: {cap_between: [VIN, GND]}
+      place: {side: VIN, face: {GND: N}, outside: high-frequency input bypass across VIN and PGND}
     - name: inductor at SW
       match: {prefix: L, pin: SW}
       place: {side: SW}
-    - name: bootstrap cap along the N flank at BST, SW pad toward L
-      match: {cap_between: [BST, SW]}
-      place: {flank: BST, face: {SW: E}}
-    - name: input cap along the S flank under VIN, GND pad toward the GND pin
-      match: {cap_between: [VIN, GND]}
-      place: {flank: VIN, face: {GND: E}}
-    - name: output caps along the S flank under GND, GND pad toward the input cap
+    - name: bootstrap cap on the E flank at BOOT, SW pad toward SW
+      match: {cap_between: [BOOT, SW]}
+      place: {flank: BOOT, face: {SW: N}}
+    - name: VCC capacitor at pin 6
+      match: {cap_between: [VCC, GND]}
+      place: {side: VCC, face: {GND: S}}
+    - name: output caps along the N flank from the SW corner
       match: {cap_between: [OUT, GND]}
-      place: {flank: GND, face: {GND: W}}
-    - name: upper divider W of FB
+      place: {flank: SW, face: {GND: W}}
+    - name: upper divider at FB
       match: {prefix: R, between: [OUT, FB]}
       place: {side: FB, face: {FB: N}}
-    - name: feed-forward cap beside the upper divider, outside
-      match: {cap_between: [OUT, FB]}
-      place: {side: FB, face: {FB: N}, outside: upper divider W of FB}
-    - name: lower divider along the N flank at FB, GND pad E
+    - name: lower divider outside the upper one
       match: {between: [FB, GND]}
-      place: {flank: FB, face: {GND: E}}
-    - name: enable pull-down under the divider along the W edge
-      match: {prefix: R, pin: EN}
-      place: {side: EN, face: {GND: S}}
+      place: {side: FB, face: {FB: N}, outside: upper divider at FB}
 
 TPS25942:
   source: TPS25942A datasheet SLVSCE9D, 12.1 Layout Guidelines and 12.2 Figure 88 Board Layout; pin table section 6 (RVC WQFN-20: 1 DMODE, 2 PGOOD, 3 PGTH, 4-8 OUT, 9-13 IN, 14 EN/UVLO, 15 OVP, 16 GND, 17 ILIM, 18 dVdT, 19 IMON, 20 FLT)

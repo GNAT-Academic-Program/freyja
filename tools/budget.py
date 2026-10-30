@@ -164,8 +164,8 @@ LOADS = [
 ]
 
 REGULATORS = [
-    ('U11', 'AP63300WU-7', 'VSYS', '+5V', 3.8, 32.0, 3.0),
-    ('U12', 'AP63300WU-7', 'VSYS', '+3V3', 3.8, 32.0, 3.0),
+    ('U11', 'LMR33630ADDAR', 'VSYS', '+5V', 3.8, 36.0, 3.0),
+    ('U12', 'LMR33630ADDAR', 'VSYS', '+3V3', 3.8, 36.0, 3.0),
     ('U13', 'TLV62569PDRLR', '+5V', '+2V5', 2.5, 5.5, 2.0),
     ('U14', 'TLV62569PDRLR', '+5V', '+1V8_IO', 2.5, 5.5, 2.0),
     ('U15', 'SY8047QDC', '+5V', '+1V0', 2.5, 5.5, 4.0),
@@ -177,10 +177,10 @@ REGULATORS = [
 # qualification item, not a build error: load-step and start-up on the
 # assembled board, every jumper position.
 REG_DETAIL = {
-    'U11': dict(node='+5V_BUCK', ind='4.7uH', fsw=500e3, vin=9.0, vin_max=21.0,
-                cout_ok=68e-6, cite='DS42002 p. 19: 22-68 uF ceramic for most applications'),
-    'U12': dict(node='+3V3', ind='4.7uH', fsw=500e3, vin=9.0, vin_max=21.0,
-                cout_ok=68e-6, cite='DS42002 p. 19: 22-68 uF ceramic for most applications'),
+    'U11': dict(node='+5V_BUCK', ind='4.7uH', fsw=400e3, vin=9.0, vin_max=21.0,
+                cout_ok=880e-6, cite='SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF'),
+    'U12': dict(node='+3V3', ind='4.7uH', fsw=400e3, vin=9.0, vin_max=21.0,
+                cout_ok=880e-6, cite='SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF'),
     'U13': dict(vin_max=5.5, node='+2V5', ind='2.2uH', fsw=1.5e6, vin=5.0,
                 cout_ok=47e-6, cite='SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF'),
     'U14': dict(vin_max=5.5, node='+1V8_IO', ind='2.2uH', fsw=1.5e6, vin=5.0,
@@ -338,9 +338,9 @@ def analyse():
                 (mode == 'full' and src == 'J50 VIN')) and not ok:
             problems.append(f'{mode} mode does not fit {src}: {i:.2f} A against {lim:g} A ({hw})')
     if VSYS_MIN < 3.8:
-        problems.append(f'AP63300 minimum 3.8 V exceeds VSYS minimum {VSYS_MIN:.2f} V')
-    if VSYS_MAX > 32.0:
-        problems.append('21 V VIN exceeds AP63300 operating maximum')
+        problems.append(f'LMR33630 minimum 3.8 V exceeds VSYS minimum {VSYS_MIN:.2f} V')
+    if VSYS_MAX > 36.0:
+        problems.append('21 V VIN exceeds the LMR33630 operating maximum')
     loads = board_loads()
     for ref, part, src, rail, lo, hi, cap in REGULATORS:
         if loads[rail] > cap:
@@ -380,9 +380,9 @@ def report():
 
 USB-C can start at 4.75 V. The SS34 plus USB eFuse model loses
 {V_OR_DROP:.2f} V at 0.6 A, leaving **{VSYS_MIN:.2f} V**. The screw input is
-**9–21 V DC**. U11/U12 are AP63300 devices (3.8–32 V operating) and cover
-the full VSYS envelope. Both run without an enable: +3V3, +5V and the 1.8 V
-rail behind U14 are present whenever the board has power, so the FPGA's
+**9–21 V DC**. U11/U12 are LMR33630 devices (3.8–36 V operating, 400 kHz)
+and cover the full VSYS envelope. Both have EN tied to VIN: +3V3, +5V and the
+1.8 V rail behind U14 are present whenever the board has power, so the FPGA's
 VCCAUX never waits on firmware (DS181 Table 7, findings 34).
 
 On a plain 5 V source U11 cannot make 5 V from 4.3 V; U34 (TPS2121) then
@@ -400,8 +400,8 @@ Both of U34's inputs block reverse current and the rail is limited to
 {I_U34_TYP:g} A typical.
 
 The VIN clamp is SMBJ22A: 22 V standoff and 35.5 V maximum rated pulse clamp.
-The AP63300's 40 V/400 ms transient limit is the lowest transient limit after
-D4. VSYS capacitors are 50 V X7R. No switching node on the board sees VSYS
+The LMR33630's 38 V absolute maximum on VIN is the lowest limit after D4.
+VSYS capacitors are 50 V X7R. No switching node on the board sees VSYS
 plus a stored output any more, so the former surge release hold against the
 LM5157 SW pin is gone with the converter.
 
@@ -540,7 +540,7 @@ pin.
 def main():
     problems = analyse()
     print(f'VSYS envelope: {VSYS_MIN:.2f}..{VSYS_MAX:.2f} V')
-    print(f'AP63300 minimum operating input: 3.80 V -> {"PASS" if VSYS_MIN >= 3.8 else "FAIL"}')
+    print(f'LMR33630 minimum operating input: 3.80 V -> {"PASS" if VSYS_MIN >= 3.8 else "FAIL"}')
     if problems:
         print('PROBLEMS')
         for p in problems: print(' -', p)

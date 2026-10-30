@@ -52,7 +52,7 @@ VSYS additionally reaches exactly the parts listed below.
 | J50 / VIN_EXT | KF301 terminal, 250 V component rating |
 | D8 / VIN_EXT | SMBJ22A, 22 V standoff; 35.5 V rated pulse clamp |
 | D4 / VIN_EXT and VSYS; D3 / VSYS | SS34, 40 V reverse rating; 3 A path class |
-| U11/U12 / VSYS | AP63300WU-7, 3.8-32 V operating; 35 V DC absolute maximum, 40 V/400 ms transient |
+| U11/U12 / VSYS | LMR33630ADDAR (since 2026-10-30), 3.8-36 V operating; 38 V absolute maximum on VIN |
 | C185/C186/C192 / VSYS | explicitly 50 V rated |
 | R81 / VSYS | 100k/16k monitor divider: 2.90 V at ADC for 21 V input; resistor dissipation below 4 mW |
 
@@ -62,7 +62,7 @@ selectors. U19/U25 and their dedicated passives are removed. No +12V,
 
 ## Release holds
 
-- The SMBJ22A clamp versus the AP63300 40 V/400 ms transient limit is the
+- The SMBJ22A clamp versus the LMR33630 38 V absolute maximum is the
   input protection claim. With the SEPIC gone no switching node adds a stored
   output to the clamp voltage, so the former LM5157 SW surge hold is closed.
   The ADC divider protects the 21 V DC case, not the surge.
