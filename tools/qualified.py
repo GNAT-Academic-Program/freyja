@@ -252,10 +252,16 @@ PARTS = {
     fp='EasyEDA:HDR-TH_64P-P2.54-V-F-R2-C32-S2.54-1', rating='3 A per contact',
     pinmap='odd/even physical columns verified from imported pad coordinates',
     src='WingTAT drawing; LCSC C49569844'),
-  'EasyEDA:PM254-2-08-Z-8.5': dict(
-    mpn='PM254-2-08-Z-8.5', pkg='2x8 female socket, 2.54 mm, THT, 8.5 mm',
-    fp='EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54', rating='3 A per contact',
-    pinmap='physical columns verified from imported odd/even pad coordinates', src='HCTL drawing; LCSC C2897409'),
+  'EasyEDA:Header-Female-2.54_2x8': dict(
+    mpn='2.54-2*8P female, 8.5 mm (LCSC C30734)', pkg='2x8 female socket, 2.54 mm, THT, 8.5 mm',
+    fp='EasyEDA:HDR-TH_16P-P2.54-V-F-R2-C8-S2.54',
+    rating='signal rows only (the 5 V bus data lines); LCSC lists 2.5 A per '
+           'contact, the attached XKB X6521 drawing says 3 A [verify which '
+           'applies], both far above a data line',
+    pinmap='odd/even pad numbers by physical column, the same as the HCTL '
+           'land this part takes over (the C30734 import has identical pads); '
+           'XKB drawing: 1 and 2 share the first column',
+    src='LCSC C30734 listing and its attached XKB X6521FV drawing (2.54 mm pitch, 1.02 mm holes, 8.5 mm body)'),
   'EasyEDA:PM254V-11-07-H85': dict(
     mpn='PM254V-11-07-H85', pkg='1x7 female socket, 2.54 mm, THT, 8.5 mm',
     fp='EasyEDA:HDR-TH_7P-P2.54-V-F', rating='3 A per contact',

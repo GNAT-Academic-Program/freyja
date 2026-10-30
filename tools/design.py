@@ -640,8 +640,11 @@ def build():
         for i in range(8):
             pins[str(2*i+1)] = row0[i]
             pins[str(2*i+2)] = row1[i]
-        d.add(f'J{jn}', 'EasyEDA:PM254-2-08-Z-8.5',
-              'PM254-2-08-Z-8.5', EXT2x8, pins, 'C2897409',
+        # 2.54-2*8P female, 8.5 mm (C30734) since 2026-10-30: the HCTL
+        # PM254-2-08-Z-8.5 is not in the JLCPCB library. Same 2x8 odd/even
+        # column pads; the reviewed land is kept under the new number.
+        d.add(f'J{jn}', 'EasyEDA:Header-Female-2.54_2x8',
+              '2.54-2*8P female 8.5mm', EXT2x8, pins, 'C30734',
               fp_ok='imported symbol has no footprint filters')
 
     # Each logical zone owns four branch fuses and a keyed power row even

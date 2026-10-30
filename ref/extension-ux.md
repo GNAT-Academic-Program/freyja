@@ -33,8 +33,8 @@ electrical contact**. Every power rail has a neighboring ground contact.
 Six signal pairs occupy one column each; use the ball map for differential
 capability and bank-voltage requirements.
 
-J7/J8 serve L/M, the two complete eight-bit 5 V buses, using HCTL
-PM254-2-08-Z-8.5, C2897409. Their columns 3 and 6 are also GND in both rows;
+J7/J8 serve L/M, the two complete eight-bit 5 V buses, using a 2x8
+2.54 mm female socket, 8.5 mm body, C30734. Their columns 3 and 6 are also GND in both rows;
 columns 7 and 8 are NC in both rows because only eight bus bits exist.
 Each bus has one shared direction control and an active-low enable with
 a default-disable pull-up. A-H are raw FPGA pins, not 5 V tolerant.

@@ -27,7 +27,7 @@ def normalize_imported_pin_types():
     passive = {
         'F.0603.00025_P2-0603G1TS2-06T-002', 'PZ254V-11-02P',
         'HDR-IDC-2.54-2X5P', 'PM254-2-16-S-8.5', 'ZX-PM2.54-1-16PY',
-        'PM254-2-08-S-8.5', 'Header-Female-2.54_1x8',
+        'PM254-2-08-S-8.5', 'Header-Female-2.54_1x8', 'Header-Female-2.54_2x8',
         'PH2.54-1X1P-H25', 'KF301-5.0-2P',
         'PM254-2-16-Z-8.5', 'PM254-2-08-Z-8.5',
         'PM254V-11-07-H85', '2.54mmlength21mm', '2044-2X32G00SA',

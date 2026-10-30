@@ -1001,7 +1001,7 @@ The signal socket of slot L (5V BUS 0): eight 5 V data lines from U9, with four 
 
 | Ref | Value | What it does |
 |---|---|---|
-| J7 | PM254-2-08-Z-8.5 | slot L signal socket: 2x8 female socket: 5V BUS 0 data lines. |
+| J7 | 2.54-2*8P female 8.5mm | slot L signal socket: 2x8 female socket: 5V BUS 0 data lines. |
 
 ### SHIELD HEADER M
 
@@ -1009,7 +1009,7 @@ The signal socket of slot M (5V BUS 1): eight 5 V data lines from U10, with four
 
 | Ref | Value | What it does |
 |---|---|---|
-| J8 | PM254-2-08-Z-8.5 | slot M signal socket: 2x8 female socket: 5V BUS 1 data lines. |
+| J8 | 2.54-2*8P female 8.5mm | slot M signal socket: 2x8 female socket: 5V BUS 1 data lines. |
 
 ### SLOT L branches
 

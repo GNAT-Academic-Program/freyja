@@ -753,3 +753,7 @@ except footprints whose outline changed.
    than the Kinghelm's (the city plan sets the overhang by rule when it is
    next applied; nothing moved here). DRC 15 courtyards unchanged, gate
    electrical PASS.
+7. J7/J8 HCTL PM254-2-08-Z-8.5 -> 2.54-2*8P female 8.5 mm (C30734).
+   Same 2x8 odd/even column pads (the C30734 import is pad for pad the
+   HCTL land); land kept under the new number, symbol imported. 0 moved,
+   gate electrical PASS.
