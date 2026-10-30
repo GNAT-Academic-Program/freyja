@@ -39,12 +39,12 @@ against the manufacturer datasheet.
 | 1 | `TYPE-C-31-M-12` (Korean Hroparts) | USB-C connector, top mount | `C165948` — KiCad's HRO footprint, checked against the HRO drawing 2026-10-30 |
 | 1 | `ESDA6V1BC6` | USB data/CC protection | C495220 |
 | 1 | `SMBJ12A` | USB power surge protection, 19.9 V clamp under U26's 20 V | `C19077565` — imported 2026-10-30 |
-| 1 | `CH224K` | USB power request | C970725 |
+| 1 | `HUSB238_002DD` (Hynetek) | USB-PD sink, I2C | `C7471904` — imported 2026-10-30, pins checked against datasheet Table 1 |
 | 1 | `B3U-1000P` | controller boot button | C231329 |
 | 1 | `SN74CB3Q3384APWR` | JTAG owner switch | C469874 |
 | 2 | `SN74LVC8T245PWR` | Two complete 8-bit 5 V buses | `C27643` — imported 2026-10-30, pins checked against SCES584D Table 4-1 |
 | 2 | `DMG2305UX` | switched power | C5261054 |
-| 2 | `BSS138LT1G` (onsemi) | Q3 power-switch drive; Q4 DONE LED buffer | C82045 |
+| 3 | `BSS138LT1G` (onsemi) | Q4 DONE LED buffer; Q6/Q7 +5V mux holds | C82045 |
 | 1 | `TPS25942ARVCR` | USB input protection (eFuse) | `C181295` — imported 2026-10-30, pins checked against SLVSCE9D section 6 |
 | 3 | `SS34` from a named manufacturer | power diodes | C8678 |
 | 1 | `TPS54202DDCR` | 5 V supply | `C191884` |

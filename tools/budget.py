@@ -4,12 +4,14 @@ import sys
 
 # (name, minimum voltage at the connector, current the source guarantees, note)
 # Currents are what the source profile promises, not what the board may take.
-# What the controller can observe (findings item 55): the CC lines go only to
-# the CH224K, which has no data interface (the CH224A/Q I2C status register
-# exists on those parts, not on the K; WCH CH224 manual 1 v2.1, Table 5-3),
-# so a 5 V Type-C advertisement (default / 1.5 A / 3 A) is not readable.
-# Observable are PD_PG (the 9 V request succeeded), VBUS5_ST (which input
-# feeds +5V) and MON_VSYS (the screw input is present). A 9 V contract is a
+# What the controller can observe (findings item 55, revisited 2026-10-30):
+# U18 is a HUSB238 on I2C1 since the CH224K left the JLCPCB library. Its
+# PD_STATUS0 register reports the contract voltage and current and
+# PD_STATUS1 bits 1:0 the 5 V Type-C advertisement (default / 1.5 A / 2.4 A
+# / 3 A), so a 5 V advertisement IS readable now. This table keeps the
+# user-declared policy for the 5 V rows until the owner decides to use that
+# register (it reverses item 55's premise, not its decision). Observable
+# besides: VBUS5_ST (which input feeds +5V) and MON_VSYS. A 9 V contract is a
 # guarantee in itself: any source that offers 9 V must offer it at 15 W or
 # more, 1.67 A at 9 V (USB PD power rules, PD3 section 10.2 [verify]); 3 A at
 # 9 V is only guaranteed above 27 W and is not observable, so it is not
@@ -17,9 +19,9 @@ import sys
 # may use them only on a stored setting the user made, never by detection.
 SOURCES = [
     ('USB 2.0 port', 4.75, 0.5, 'configured bus power; an SDP guarantees no more; the planning default for any 5 V source'),
-    ('USB-C 5V/1.5A', 4.75, 1.5, 'Type-C 1.5 A advertisement (Rp): NOT observable by the controller; user-declared only'),
-    ('USB-C 5V/3A', 4.75, 3.0, 'Type-C 3 A advertisement: NOT observable; user-declared only'),
-    ('USB-PD 9V', 9.00, 1.67, 'the only contract above 5 V the CFG pins can form; a 9 V PDO is 15 W or more (PD power rules [verify])'),
+    ('USB-C 5V/1.5A', 4.75, 1.5, 'Type-C 1.5 A advertisement (Rp): readable in HUSB238 PD_STATUS1 since 2026-10-30; still user-declared in this budget (item 55 open)'),
+    ('USB-C 5V/3A', 4.75, 3.0, 'Type-C 3 A advertisement: readable in PD_STATUS1; still user-declared (item 55 open)'),
+    ('USB-PD 9V', 9.00, 1.67, 'the only PDO firmware may select (PDO_SELECT 9 V; the VSET strap asks 5 V on its own); a 9 V PDO is 15 W or more (PD power rules [verify])'),
     ('J50 VIN', 9.00, 3.0, 'official 9-21 V screw-input range; 3 A is the planning figure; U34 (Q7) puts the whole board on it, USB connected or not'),
 ]
 # Hardware limits on the two USB paths: U26 (eFuse to VSYS) and U34 (mux to
@@ -477,13 +479,14 @@ the +5V loads come straight from VBUS through U34 and only the +3V3 side
 passes U26, so the port carries the sum of both paths; each path is checked
 against its own limiter and the sum against the source. With J50 connected
 U34 puts the whole board on U11 (Q7), so the J50 row also covers J50 with a
-USB cable attached: USB then carries nothing but the CH224K.
+USB cable attached: USB then carries nothing but the HUSB238.
 
-**Source policy (findings item 55).** The controller cannot read a 5 V
-Type-C advertisement: the CC lines go only to the CH224K, which has no
-data interface (that is the CH224A/Q, not the fitted K). What it can read
-is PD_PG (the 9 V request was granted), VBUS5_ST (which input feeds +5V)
-and MON_VSYS (J50 present). So:
+**Source policy (findings item 55).** Since 2026-10-30 the PD sink is a
+HUSB238 on I2C1: PD_STATUS0 reports the contract (voltage, current) and
+PD_STATUS1 the 5 V Type-C advertisement (default / 1.5 A / 2.4 A / 3 A), so
+the premise of item 55 (not readable) no longer holds; the policy below is
+kept until the owner decides to use that register. Also readable: VBUS5_ST
+(which input feeds +5V) and MON_VSYS (J50 present). So, for now:
 
 1. Any 5 V source is planned as a USB 2.0 port, 500 mA: recovery mode only.
    Recovery draws about {mode_rows()[0][4]*1000:.0f} mA at 4.75 V. That fits

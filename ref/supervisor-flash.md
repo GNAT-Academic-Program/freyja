@@ -65,8 +65,8 @@ has negotiated anything.
 
 The order, on a virgin board:
 
-1. USB-C plugged in. `VBUS` = 5 V: the CH224K asks for 5 V on its own
-   (CFG1 pull-up), whatever the controller is doing.
+1. USB-C plugged in. `VBUS` = 5 V: the HUSB238 asks for 5 V on its own
+   (VSET/ISET straps), whatever the controller is doing.
 2. `U12` makes +3V3, `U11` makes +5V and `U14` makes the 1.8 V rail, all
    without an enable; `U34` passes the 5 V `VBUS` straight to the +5V rail
    while the source is plain 5 V.
@@ -74,7 +74,7 @@ The order, on a virgin board:
    FPGA already has VCCO, VCCAUX and its configuration flash; only its core
    (+1V0), +2V5 and +1V2 wait for firmware.
 4. You drag firmware on. It writes the flash and resets.
-5. Now firmware runs: it reads `VBUS5_ST`, `PD_PG` and the monitors, asks
+5. Now firmware runs: it reads `VBUS5_ST`, the HUSB238 status registers and the monitors, asks
    the source for 9 V (`PD_REQ_9V`) if it decides to, and brings up +2V5,
    +1V0 and +1V2 in order.
 

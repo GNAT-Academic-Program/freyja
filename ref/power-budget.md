@@ -169,13 +169,14 @@ the +5V loads come straight from VBUS through U34 and only the +3V3 side
 passes U26, so the port carries the sum of both paths; each path is checked
 against its own limiter and the sum against the source. With J50 connected
 U34 puts the whole board on U11 (Q7), so the J50 row also covers J50 with a
-USB cable attached: USB then carries nothing but the CH224K.
+USB cable attached: USB then carries nothing but the HUSB238.
 
-**Source policy (findings item 55).** The controller cannot read a 5 V
-Type-C advertisement: the CC lines go only to the CH224K, which has no
-data interface (that is the CH224A/Q, not the fitted K). What it can read
-is PD_PG (the 9 V request was granted), VBUS5_ST (which input feeds +5V)
-and MON_VSYS (J50 present). So:
+**Source policy (findings item 55).** Since 2026-10-30 the PD sink is a
+HUSB238 on I2C1: PD_STATUS0 reports the contract (voltage, current) and
+PD_STATUS1 the 5 V Type-C advertisement (default / 1.5 A / 2.4 A / 3 A), so
+the premise of item 55 (not readable) no longer holds; the policy below is
+kept until the owner decides to use that register. Also readable: VBUS5_ST
+(which input feeds +5V) and MON_VSYS (J50 present). So, for now:
 
 1. Any 5 V source is planned as a USB 2.0 port, 500 mA: recovery mode only.
    Recovery draws about 211 mA at 4.75 V. That fits

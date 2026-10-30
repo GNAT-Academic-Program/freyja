@@ -11,7 +11,7 @@ you care about; within it, groups appear in schematic order.
 - [FPGA](#fpga) (111 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
 - [Power](#power) (135 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
-- [Supervisor](#supervisor) (74 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
+- [Supervisor](#supervisor) (75 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (100 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
 - [Video](#video) (8 parts): HDMI output straight from the FPGA, with its protection chip.
@@ -315,7 +315,7 @@ Where power enters. Two inputs feed one internal supply, VSYS: USB-C (5 V, or 9 
 | R51 | 24.9k | 24.9k series resistor between VBUS_OVLO and VBUS_UVLO, for U26 (USB input eFuse): U26 overvoltage: the same string cuts it off above about 10 V; U26 enable: the 110k/24.9k/14.7k string turns it on above 3.74 V |
 | R52 | 14.7k | 14.7k resistor from VBUS_OVLO to GND, for U26 (USB input eFuse): U26 overvoltage: the same string cuts it off above about 10 V |
 | R54 | 44.2k | 44.2k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A (89 / 44.2k) |
-| R204 | 10k | 10k resistor from VBUS_IMON to GND, for U26 (USB input eFuse): U26 current monitor, 0.52 V per ampere into 10k; probe point, no ADC |
+| R207 | 10k | 10k resistor from VBUS_IMON to GND, for U26 (USB input eFuse): U26 current monitor, 0.52 V per ampere into 10k; probe point, no ADC |
 
 ### U11  VSYS to +5V
 
@@ -856,16 +856,17 @@ Clamps for static discharge and voltage spikes on the USB connector: D6 on the d
 
 ### USB-PD sink
 
-Negotiates the supply voltage with a USB-PD charger. Out of the box it asks for 5 V: CFG1 is pulled up to the chip's own 3.3 V and CFG2/CFG3 are grounded, so the only other request the pins can form is 9 V, which the board controller selects by turning Q3 on (PD_REQ_9V). A dead or resetting controller leaves it at 5 V. PD_PG tells the controller whether the charger agreed.
+Negotiates the supply voltage with a USB-PD charger. Out of the box it asks for 5 V at 1.5 A (the VSET and ISET strap resistors), so a dead or resetting controller leaves it at 5 V. The board controller asks for 9 V over I2C (SDA/SCL with their pull-ups) while it raises PD_REQ_9V for the +5V mux, and reads back over I2C whether the charger agreed and what a plain Type-C source advertises. Firmware must never ask for more than 9 V: the eFuse opens above 10 V.
 
 | Ref | Value | What it does |
 |---|---|---|
-| Q3 | BSS138LT1G | 9 V request switch: Small N-MOSFET the board controller (PD_REQ_9V) uses to pull the CH224K's CFG1 low and ask the charger for 9 V. Off: 5 V. |
-| U18 | CH224K | USB-PD negotiator: WCH CH224K: asks a USB-PD charger for 5 V by default, or 9 V when the board controller turns Q3 on. Its pins cannot form any higher request. |
-| C137 | 1uF | 1uF bypass on PD_VDD, for U18 (USB-PD negotiator): CH224K's internal regulator output |
-| R11 | 10k | 10k pull-up of PD_PG to +3V3, for U7 (board controller): CH224K: high when the charger accepted the request |
-| R172 | 10k | 10k resistor from PD_CFG1 to PD_VDD, for U18 (USB-PD negotiator): CH224K request: high (pull-up) = 5 V, pulled low by Q3 = 9 V; CH224K's internal regulator output |
-| R173 | 100k | 100k resistor from PD_REQ_9V to GND, for U7 (board controller): Q3's gate; off (5 V) unless the board controller drives it high |
+| U18 | HUSB238_002DD | USB-PD negotiator: Hynetek HUSB238: asks a USB-PD charger for 5 V by default (strap resistors), or 9 V when the board controller asks over I2C. Reports the contract and the charger's offers over I2C. |
+| C137 | 1uF 25V | 1uF 25V bypass on VBUS, for U18 (USB-PD negotiator) |
+| R172 | 4.7k | 4.7k pull-up of PD_SDA to +3V3, for U7 (board controller): I2C1 data to U18 (GPIO14), 4.7k pull-up to +3V3 |
+| R173 | 100k | 100k resistor from PD_REQ_9V to GND, for U7 (board controller): raised by the board controller while it asks U18 for 9 V; holds the +5V mux on U11 through D24/Q6 |
+| R204 | 4.7k | 4.7k pull-up of PD_SCL to +3V3, for U7 (board controller): I2C1 clock to U18 (GPIO31), 4.7k pull-up to +3V3 |
+| R205 | 0 | 0 resistor from PD_VSET to GND, for U18 (USB-PD negotiator): U18 voltage strap: 0 ohm = ask for 5 V on its own (HUSB238 Table 5) |
+| R206 | 4.53k | 4.53k resistor from PD_ISET to GND, for U18 (USB-PD negotiator): U18 current strap: 4.53k = 1.5 A (HUSB238 Table 6) |
 
 ### BOOTSEL
 

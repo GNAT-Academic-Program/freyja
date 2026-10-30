@@ -222,7 +222,7 @@ PARTS = {
   'Transistor_FET:Q_NMOS_GSD': dict(
     mpn='BSS138LT1G', pkg='SOT-23', fp='EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
     rating='50 V, 200 mA; RDS(on) max 10 ohm at VGS 2.75 V (-40..85 C). '
-           'Q3 pulls the CH224K CFG1 low (9 V request) against a 10k; Q4 sinks the DONE LED',
+           'Q4 sinks the DONE LED; Q6 and Q7 hold U34\'s PR1 at ground',
     pinmap='G-S-D SOT-23, pins 1-2-3',
     src='onsemi BSS138LT1/D, https://www.onsemi.com/pdf/datasheet/bss138lt1-d.pdf'),
   # ------------------------------------------------------------------ logic
@@ -304,14 +304,21 @@ PARTS = {
            'drawing\'s pin table (A1/B12 GND, A4/B9 VBUS, A5 CC1, B5 CC2, '
            'A6/B6 D+, A7/B7 D-, A8/B8 SBU)',
     src='Korean Hroparts TYPE-C-31-M-12 drawing (2020-12-08, LCSC attachment); LCSC C165948'),
-  'Interface_USB:CH224K': dict(
-    mpn='CH224K', pkg='SSOP-10 with exposed pad (3.9x4.9 mm)',
-    fp='EasyEDA:ESSOP-10_L4.9-W3.9-P1.0-LS6.0-TL-EP',
-    rating='PD/QC sink controller, 3.3-22 V VBUS. CFG1 pulled up to its own '
-           '3.3 V (5 V request, Table 5-2) and pulled low by Q3 for 9 V; CFG2 '
-           'and CFG3 grounded, so 9 V is the highest code the pins can form. '
-           'VDD is the internal LDO output (1 uF)',
-    pinmap='KiCad Interface_USB symbol', src='WCH CH224 datasheet (CH224Q/A/K/D edition, 2025, Table 5-2, section 6.2)'),
+  'Interface_USB:HUSB238_xxxDD': dict(
+    mpn='HUSB238_002DD', pkg='DFN-10L, 3 x 3 mm, 0.5 mm pitch, exposed pad',
+    fp='EasyEDA:DFN-10_L3.0-W3.0-P0.50-BL-EP2.5',
+    rating='USB-PD 3.0 sink controller, VIN 3-25 V (30 V absolute), CC pins 25 V; '
+           'VSET 0 ohm = 5 V, ISET 4.53k = 1.5 A autonomous request; 9 V by I2C '
+           '(address 0x08, PDO_SELECT and GO_COMMAND); SDA/SCL VIH 1.4 V, 6 V '
+           'absolute, pulled up to +3V3; _002DD: no over-temperature cut-off at '
+           '90 C, RDO mismatch = next PDO, GATE unused. The I2C path can select '
+           'any offered PDO: the 9 V ceiling is firmware\'s, backed by U26 OVP '
+           '(10.07 V) and D7 (SMBJ12A)',
+    pinmap='KiCad Interface_USB symbol: 1 VIN, 2 D+, 3 D-, 4 CC1, 5 CC2, 6 SDA, '
+           '7 SCL, 8 VSET, 9 ISET, 10 GATE, 11 GND pad, as datasheet Table 1; the '
+           'C7471904 import has pads 1-5 along one side, 6-10 back along the '
+           'other, pad 11 the 2.5 x 1.5 mm exposed pad',
+    src='Hynetek HUSB238 datasheet rev 2.0 (2021) and register map, ref/datasheets/husb238.pdf, husb238-registers.pdf; LCSC C7471904'),
   'Power_Protection:ESDA6V1BC6': dict(
     mpn='ESDA6V1BC6', pkg='SOT-23-6', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR',
     rating='4-line bidirectional ESD array, 6.1 V standoff. On D+, D-, '

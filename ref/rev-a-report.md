@@ -820,3 +820,27 @@ except footprints whose outline changed.
     and C187 (the 10 uF at IN placed against the old 2 x 2 mm body):
     island U26 wants its re-run with the new profile (owner's flow,
     one island per commit). Gate electrical PASS.
+13. U18 CH224K -> Hynetek HUSB238_002DD (C7471904), DFN-10 3x3 from the
+    import (pads 1-5 one side, 6-10 back, 2.5 x 1.5 mm pad 11; KiCad's
+    Interface_USB symbol, pins as datasheet Table 1). Wired: VIN on VBUS
+    with its 1 uF, CC1/CC2, SDA/SCL on I2C1 (GPIO14/GPIO31, native pins,
+    4.7k pull-ups to +3V3; the pins are 6 V absolute, not VIN-relative,
+    so 3.3 V on an unpowered chip is inside ratings), VSET 0 ohm = 5 V
+    (Table 5), ISET 4.53k = 1.5 A (Table 6), D+/D- and GATE open. The
+    reference circuit's PMOS on GATE is optional ("leave this pin open if
+    not used") and U26 already switches VBUS: no FET added. Q3, the CFG1
+    pull-up and the PD_PG pull-up are gone (GPIO30 spare); PD_REQ_9V stays
+    as the U34 hold line firmware raises while it writes PDO_SELECT 9 V
+    and GO_COMMAND (I2C address 0x08). Consequences stated in design.py,
+    budget.py, power-input.md and supervisor-flash.md: (a) the 9 V
+    ceiling is no longer by construction, I2C can select any offered PDO;
+    firmware must never select above 9 V, U26's 10.07 V OVP and D7 are
+    backstops only, which reverses the premise of findings item 55's
+    CH224A rejection; (b) PD_STATUS1 reports the 5 V Type-C advertisement
+    (default/1.5/2.4/3 A), so the "not observable" premise of item 55 is
+    gone too; the budget keeps the user-declared policy until the owner
+    revisits it. PD_VDD rail removed from the generators. Layout profile
+    HUSB238 [verify: the datasheet has no layout page]. U18 swapped in
+    place in island U18 (3 x 3 instead of 4.9 x 3.9 mm), new resistors
+    staged; 0 moved, DRC unchanged (17 courtyards, 3 clearance at U26),
+    gate electrical PASS. Parts 551.

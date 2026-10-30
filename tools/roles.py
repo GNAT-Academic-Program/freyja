@@ -482,11 +482,12 @@ GROUP.update({
         'D6 on the data and CC lines, D7 on the power line (VBUS).',
     'USB-PD sink':
         'Negotiates the supply voltage with a USB-PD charger. Out of the box '
-        'it asks for 5 V: CFG1 is pulled up to the chip\'s own 3.3 V and '
-        'CFG2/CFG3 are grounded, so the only other request the pins can form '
-        'is 9 V, which the board controller selects by turning Q3 on '
-        '(PD_REQ_9V). A dead or resetting controller leaves it at 5 V. PD_PG '
-        'tells the controller whether the charger agreed.',
+        'it asks for 5 V at 1.5 A (the VSET and ISET strap resistors), so a '
+        'dead or resetting controller leaves it at 5 V. The board controller '
+        'asks for 9 V over I2C (SDA/SCL with their pull-ups) while it raises '
+        'PD_REQ_9V for the +5V mux, and reads back over I2C whether the '
+        'charger agreed and what a plain Type-C source advertises. Firmware '
+        'must never ask for more than 9 V: the eFuse opens above 10 V.',
     'BOOTSEL':
         'Hold CTRL BOOT while plugging in USB to put the board controller in '
         'its built-in USB bootloader, for installing or recovering its '
@@ -572,7 +573,6 @@ PART.update({
     'D4': ('screw input diode', 'SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it.'),
     'D8': ('screw input surge clamp', 'SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V.'),
     'U34': ('+5V source mux', 'TI TPS2121 power mux: passes plain 5 V USB straight to the +5V rail; hands the rail to U11 while the board controller asks for 9 V (Q6), while the screw input is powered (Q7), or if VBUS goes above about 5.6 V or away. Blocks reverse current both ways, limits to about 2.5 A.'),
-    'Q3': ('9 V request switch', 'Small N-MOSFET the board controller (PD_REQ_9V) uses to pull the CH224K\'s CFG1 low and ask the charger for 9 V. Off: 5 V.'),
     'Q6': ('mux: 9 V request hold', 'Small N-MOSFET that pulls U34\'s PR1 to ground while the board controller asks for 9 V and for 2-7 s after it stops (D24, R, C hold), so the +5V rail is on U11 before VBUS moves and until it is back at 5 V.'),
     'D24': ('mux hold diode', '1N4148W: charges the Q6 hold capacitor from PD_REQ_9V at once and lets it drain slowly through its own resistor.'),
     'Q7': ('mux: screw input present', 'Small N-MOSFET that pulls U34\'s PR1 to ground while the screw input (J50) carries voltage, so the whole board runs from J50 through U11 even with a 5 V USB cable plugged in.'),
@@ -601,7 +601,7 @@ PART.update({
     'J1': ('USB-C connector', 'Power in and USB 2.0 data to the board controller.'),
     'D6': ('USB data ESD clamp', 'ST ESDA6V1BC6: clamps static discharge on D+, D-, CC1 and CC2.'),
     'D7': ('USB power surge clamp', 'SMBJ12A TVS diode: clamps spikes on VBUS above about 13 V, under 20 V at full surge, which U26 survives.'),
-    'U18': ('USB-PD negotiator', 'WCH CH224K: asks a USB-PD charger for 5 V by default, or 9 V when the board controller turns Q3 on. Its pins cannot form any higher request.'),
+    'U18': ('USB-PD negotiator', 'Hynetek HUSB238: asks a USB-PD charger for 5 V by default (strap resistors), or 9 V when the board controller asks over I2C. Reports the contract and the charger\'s offers over I2C.'),
     'SW1': ('CTRL BOOT button', 'Hold while plugging in USB to enter the board controller\'s USB bootloader.'),
     'J51': ('CTRL SWD connector', '3-pin JST-SH debug port for the board controller\'s processor.'),
     'U20': ('JTAG switch', 'TI SN74CB3Q3384 bus switch: connects or isolates the board controller\'s JTAG from the FPGA, set by J52.'),
@@ -642,8 +642,11 @@ NET.update({
     'VBUS5_ILIM': 'sets U34\'s current limit, about 2.5 A',
     'VBUS5_SS': 'sets how fast U34 ramps the +5V rail, about 780 V/s',
     'VBUS5_ST': 'U34 status to the board controller: low when U11 feeds +5V',
-    'PD_CFG1': 'CH224K request: high (pull-up) = 5 V, pulled low by Q3 = 9 V',
-    'PD_REQ_9V': 'Q3\'s gate; off (5 V) unless the board controller drives it high',
+    'PD_REQ_9V': 'raised by the board controller while it asks U18 for 9 V; holds the +5V mux on U11 through D24/Q6',
+    'PD_SDA': 'I2C1 data to U18 (GPIO14), 4.7k pull-up to +3V3',
+    'PD_SCL': 'I2C1 clock to U18 (GPIO31), 4.7k pull-up to +3V3',
+    'PD_VSET': 'U18 voltage strap: 0 ohm = ask for 5 V on its own (HUSB238 Table 5)',
+    'PD_ISET': 'U18 current strap: 4.53k = 1.5 A (HUSB238 Table 6)',
     'USB_DP_MCU': 'USB D+ at the controller, after its 27 ohm series resistor',
     'USB_DM_MCU': 'USB D- at the controller, after its 27 ohm series resistor',
     'CORE_1V0_GOOD': 'U15 power-good, read by the board controller (GPIO38)',
@@ -651,8 +654,6 @@ NET.update({
     'CORE_1V0_SVIN': 'filtered supply for U15\'s control circuit',
     'EXT_EN': 'from the board controller: turns extension power on; off by default',
     'EXT_FAULT': 'shared fault line, low when a protected supply trips',
-    'PD_PG': 'CH224K: high when the charger accepted the request',
-    'PD_VDD': 'CH224K\'s internal regulator output',
     'SUP_RUN': 'board controller reset',
     'SUP_VREG_AVDD': 'filtered analog supply for the RP2350\'s regulator',
     'SUP_XOUT': 'limits the crystal drive level (RP-008280)',
@@ -685,7 +686,7 @@ COVERED = {'FPGA', 'Network', 'Power', 'Memory', 'Supervisor', 'Slots', 'Video'}
 # Nets that are supplies, for telling a bypass capacitor from a filter one.
 def _is_supply(n):
     if n.startswith('MON_'): return False         # a measurement, not a supply
-    return (n.startswith('+') or n in ('VSYS', 'VBUS', 'PD_VDD', 'SUP_VREG_AVDD', 'AUX_RAIL',
+    return (n.startswith('+') or n in ('VSYS', 'VBUS', 'SUP_VREG_AVDD', 'AUX_RAIL',
                                        'PHY_1V0') or
             re.match(r'VCCIO_\d(_EXT)?$', n) is not None or
             re.search(r'_(3V3|5V|PIN_VOLTAGE|AUX|VCC)$', n) is not None)
@@ -705,7 +706,7 @@ def _is_pull(net):
     """A resistor on this net is a pull (default level), not a load or a
     reference: active-low lines, straps, and any net without its own note."""
     return (_net_note(net) is None or net.endswith(('_N', '_B', '_MDIO')) or
-            net.startswith(('EN_', 'BUS5V', 'EXT_', 'PD_PG', 'SUP_RUN')) or
+            net.startswith(('EN_', 'BUS5V', 'EXT_', 'PD_S', 'SUP_RUN')) or
             net.startswith(('PHY_RX', 'PHY_LED', 'CFG_', 'PUDC')))
 
 

@@ -324,3 +324,26 @@ TPS2121:
     - name: CP2 divider at pin 3
       match: {prefix: R, pin: CP2}
       place: {side: CP2}
+
+HUSB238:
+  source: Hynetek HUSB238 datasheet rev 2.0, VIN PIN ("connect a 1 uF decoupling MLCC between VIN and GND as close as possible"), Figure 4 application circuit; no layout page, so the strap resistors and the I2C pull-ups go at their pins by common practice [verify]
+  pins: {VIN: 1, CC1: 4, CC2: 5, SDA: 6, SCL: 7, VSET: 8, ISET: 9, GND: 11}
+  # Imported DFN-10 at rotation 0: pins 1 to 5 along the S edge from W to E
+  # (VIN, D+, D-, CC1, CC2), 6 to 10 along the N edge from E to W (SDA, SCL,
+  # VSET, ISET, GATE), the pad in the middle.
+  rules:
+    - name: VIN bypass at pin 1
+      match: {cap_between: [VIN, GND]}
+      place: {side: VIN}
+    - name: VSET and ISET straps at pins 8 and 9
+      match: {prefix: R, pin: VSET}
+      place: {side: VSET, overhang: 0.3}
+    - name: ISET strap beside VSET
+      match: {prefix: R, pin: ISET}
+      place: {side: ISET, overhang: 0.3}
+    - name: I2C pull-ups at pins 6 and 7
+      match: {prefix: R, pin: SDA}
+      place: {side: SDA, overhang: 0.3}
+    - name: SCL pull-up beside SDA
+      match: {prefix: R, pin: SCL}
+      place: {side: SCL, overhang: 0.3}

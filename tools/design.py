@@ -31,7 +31,7 @@ SOT236_ESD = 'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR'
 SOT236_BUCK = 'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL'
 SOT236_LOAD = 'EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL_3'
 SOT236_AP = 'EasyEDA:TSOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR'
-SSOP10  = 'EasyEDA:ESSOP-10_L4.9-W3.9-P1.0-LS6.0-TL-EP'
+DFN10_HUSB = 'EasyEDA:DFN-10_L3.0-W3.0-P0.50-BL-EP2.5'   # HUSB238 DFN-10L 3x3, the C7471904 import
 SOIC16W = 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'
 TSSOP8  = 'EasyEDA:TSSOP-8_L4.4-W3.0-P0.65-LS6.4-BL'
 QFN80   = 'EasyEDA:QFN-80_L10.0-W10.0-P0.40-TL-EP3.4'
@@ -406,20 +406,22 @@ def build():
     # Every shared peripheral sits on a native RP2350 pin pair (datasheet
     # section 9.4, GPIO function table; findings item 42): the FPGA flash
     # bus is SPI1 (SCK 10, TX 11, RX 12, CSn 9; FD2/FD3 are PIO lines for
-    # quad mode), the sideband UART is UART0 (TX 32, RX 33). The 9 V
-    # request is one open-drain line (item 37); U11 and U14 have no enable
-    # any more (item 34); GPIO21 reads which source feeds +5V (item 35).
-    # The three status LEDs and U15's power-good are plain GPIOs (35-38);
-    # the I2C expander that used to carry them is gone (owner, 2026-10-30:
-    # an extended part plus passives for four lines the RP2350 has spare).
-    # Spare: 14, 19, 20, 23, 26, 28, 29, 31, 39.
+    # quad mode), the sideband UART is UART0 (TX 32, RX 33), the USB-PD
+    # controller U18 is on I2C1 (SDA 14, SCL 31) since 2026-10-30. The 9 V
+    # request is still one line, PD_REQ_9V (item 37): firmware raises it
+    # (it drives the U34 hold, Q6) while it asks U18 for 9 V over I2C. U11
+    # and U14 have no enable any more (item 34); GPIO21 reads which source
+    # feeds +5V (item 35). The three status LEDs and U15's power-good are
+    # plain GPIOs (35-38); the I2C expander that used to carry them is gone
+    # (owner, 2026-10-30: an extended part plus passives for four lines the
+    # RP2350 has spare). Spare: 19, 20, 23, 26, 28, 29, 30, 39.
     gp = {0:'SUP_JTAG_TCK', 1:'SUP_JTAG_TMS', 2:'SUP_JTAG_TDI', 3:'SUP_JTAG_TDO',
           4:'SUP_PROG_B', 5:'SUP_INIT_B', 6:'SUP_DONE', 10:'SUP_CCLK',
           9:'SUP_FCS_B', 11:'SUP_FD0', 12:'SUP_FD1', 13:'SUP_FD2', 7:'SUP_FD3',
           15:'SUP_DBG_TCK', 16:'SUP_DBG_TMS', 17:'SUP_DBG_TDI', 18:'SUP_DBG_TDO',
           32:'SUP_UART_TX', 33:'SUP_UART_RX',
           21:'VBUS5_ST', 22:'EN_2V5', 24:'EN_1V0', 25:'EN_1V2',
-          27:'PD_REQ_9V', 30:'PD_PG',
+          27:'PD_REQ_9V', 14:'PD_SDA', 31:'PD_SCL',
           8:'EXT_EN', 34:'EXT_FAULT',
           35:'LED_HEARTBEAT_N', 36:'LED_USER1_N', 37:'LED_USER2_N',
           38:'CORE_1V0_GOOD'}
@@ -472,15 +474,18 @@ def build():
     d.add('J1', 'Connector:USB_C_Receptacle_USB2.0_16P', 'USB-C', USBC,
           {'VBUS': 'VBUS', 'GND': GND, 'SHIELD': GND, 'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
            'D+': 'USB_DP', 'D-': 'USB_DM'}, 'C165948')
-    # CH224K owns the CC lines and negotiates; no plain 5.1k pull-downs here.
-    # CFG1 is pulled up to the chip's own 3.3 V, so the board asks for 5 V
-    # before, without and in spite of the controller (WCH CH224 datasheet
-    # Table 5-2: CFG1 = 1 is 5 V whatever CFG2/3 are; a floating CFG1 would
-    # be 20 V). CFG2 and CFG3 are grounded, so the only other code the chip
-    # can ever see is 0/0/0 = 9 V: the 12 V TVS (D7) and U26's 10 V OVP are
-    # consistent with that ceiling by construction, not by firmware. The
-    # controller asks for 9 V by turning Q3 on (PD_REQ_9V); its gate has a
-    # pull-down so an unpowered or reset controller leaves the request at 5 V.
+    # U18 (HUSB238) owns the CC lines and negotiates; no plain 5.1k
+    # pull-downs here. Its VSET strap is 0 ohm (Table 5: 5 V) and ISET
+    # 4.53k (Table 6: 1.5 A), so the board asks for 5 V at 1.5 A before,
+    # without and in spite of the controller; the controller asks for 9 V
+    # over I2C (PDO_SELECT = 9 V, GO_COMMAND; register map rev 2.0) while
+    # it raises PD_REQ_9V for the U34 hold. Unlike the CH224K's CFG pins,
+    # I2C can select any PDO the charger offers: the 9 V ceiling is no
+    # longer by construction. Firmware must never select above 9 V; U26's
+    # 10.07 V OVP opens the path above that and D7 (13.3-14.7 V breakdown)
+    # avalanches on a 12 V or higher contract, which the board must not
+    # rely on (findings item 55 chose pins over I2C for this very reason;
+    # the JLCPCB library left no pin-strapped PD sink, 2026-10-30).
     d.group('USB protection')
     # A student board gets its USB cable handled constantly. Protect the data
     # and CC lines, and clamp VBUS above the highest voltage PD will negotiate.
@@ -499,16 +504,20 @@ def build():
           {'K': 'VBUS', 'A': GND}, 'C19077565')
 
     d.group('USB-PD sink')
-    d.add('U18', 'Interface_USB:CH224K', 'CH224K', SSOP10,
-          {'VDD': 'PD_VDD', 'VBUS': 'VBUS', 'GND': GND,
-           'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
-           'CFG1': 'PD_CFG1', 'CFG2': GND, 'CFG3': GND,
-           'PG': 'PD_PG', 'DP': '', 'DM': ''}, 'C970725')
-    d.C('1uF', 'PD_VDD', GND)      # VDD is the chip's own LDO output, decouple only
-    d.R('10k', V33, 'PD_PG')
-    d.add('Q3', 'Transistor_FET:Q_NMOS_GSD', 'BSS138LT1G',
-          'EasyEDA:SOT-23-3_L2.9-W1.6-P1.90-LS2.8-BR',
-          {'D': 'PD_CFG1', 'S': GND, 'G': 'PD_REQ_9V'}, 'C82045')
+    # Hynetek HUSB238_002DD (datasheet rev 2.0, 2021; DFN-10 3x3): VIN from
+    # VBUS with its 1 uF "as close as possible" (VIN PIN), no LDO output
+    # pin; D+/D- unused (they are for BC1.2 / Apple detection and the USB
+    # data lines belong to the RP2350); GATE open ("leave this pin open if
+    # not used"): U26 is the VBUS switch, no PMOS. I2C address 0x08,
+    # SDA/SCL 1.4 V VIH, 6 V absolute (not VIN-relative), pulled up to +3V3.
+    # Status comes over I2C (PD_STATUS0/1), so the CH224K's PG line and
+    # the Q3 request switch are gone; PD_REQ_9V stays as the U34 hold line.
+    d.add('U18', 'Interface_USB:HUSB238_xxxDD', 'HUSB238_002DD', DFN10_HUSB,
+          {'VIN': 'VBUS', 'GND': GND, 'CC1': 'USB_CC1', 'CC2': 'USB_CC2',
+           'SDA': 'PD_SDA', 'SCL': 'PD_SCL', 'VSET': 'PD_VSET', 'ISET': 'PD_ISET',
+           'D+': '', 'D-': '', 'GATE': ''}, 'C7471904')
+    d.C('1uF', 'VBUS', GND)        # VIN bypass (VBUS: 25 V rated by the HV rule)
+    d.reserve('R', 1)              # the former PD_PG pull-up
     d.group('BOOTSEL')
     # series resistor so pressing the button cannot fight the RP2350 actively
     # driving chip-select high; it only needs to win during the reset window
@@ -1349,7 +1358,7 @@ def build():
     # VSYS minus 0.1 V: the +5V rail sits near 4.5 V for the length of the
     # negotiation (TLV62569 and SY8047 run from 2.5 V; +5V_EXT is off until
     # firmware enables it). Firmware asks for 9 V at start-up, before EXT_EN,
-    # and withdraws the request if PD_PG does not confirm it.
+    # and withdraws the request if U18's PD_STATUS0 (I2C) does not confirm it.
     # ST (open drain, 10k pull-up, 6-20k allowed) tells the controller which
     # input feeds the rail: high = VBUS or none, low = U11.
     d.sheet('Power')
@@ -1400,8 +1409,8 @@ def build():
 
     # ---- USB-PD request default (item 37): see the U18 comment above
     d.group('USB-PD sink')
-    d.R('10k', 'PD_VDD', 'PD_CFG1')        # CFG1 high = 5 V, before any controller
-    d.R('100k', 'PD_REQ_9V', GND)          # Q3 off while the controller is dead or in reset
+    d.R('4.7k', V33, 'PD_SDA')             # I2C1 pull-up (was the CFG1 10k)
+    d.R('100k', 'PD_REQ_9V', GND)          # Q6 off while the controller is dead or in reset
 
     # ---- PSRAM power-up pin states (item 39). APS6404L-SQN rev 4.0 section
     # 8: from the start of the VDD ramp until 150 us after it is stable, CE#
@@ -1501,6 +1510,15 @@ def build():
     d.sheet('FPGA')
     d.group('config flash')
     d.R('4.7k', V33, 'FLASH_CS_B')
+
+    # ---- HUSB238 straps and the second I2C pull-up (2026-10-30), appended so
+    # no earlier designator moves: VSET 0 ohm = 5 V (Table 5), ISET 4.53k =
+    # 1.5 A (Table 6: every 5 V or 9 V PDO of a 15 W source satisfies it).
+    d.sheet('Supervisor')
+    d.group('USB-PD sink')
+    d.R('4.7k', V33, 'PD_SCL')
+    d.R('0', 'PD_VSET', GND)
+    d.R('4.53k', 'PD_ISET', GND)
 
     # ---- U26 current monitor resistor (TPS25942A since 2026-10-30, 9.3.7):
     # appended so no earlier designator moves; island U26 by group name.

@@ -21,15 +21,21 @@ voltage, so a connected bench supply carries the whole board even with a
 During a negotiation the rail is U11 in dropout, about 4.5 V, which every
 +5V consumer accepts; firmware asks for 9 V before it enables extension
 power. Both of U34's inputs block reverse current and it limits the rail to
-about 2.5 A. The CH224K asks for 5 V by default and its CFG pins cannot
-form any request above 9 V.
+about 2.5 A. The PD sink is a Hynetek HUSB238 (since 2026-10-30, the CH224K
+being out of the JLCPCB library): its strap resistors ask for 5 V at 1.5 A
+on their own, and the controller asks for 9 V over I2C1 (address 0x08).
+That I2C path can select any PDO the charger offers, so the 9 V ceiling is
+firmware's to keep, not the pins': U26 opens above 10.07 V and D7 (SMBJ12A,
+13.3-14.7 V breakdown) avalanches on a 12 V or higher contract, backstops,
+not a design.
 
-What the controller can know about the source (item 55): PD_PG says the
-9 V request was granted (a 15 W guarantee under the PD power rules),
-VBUS5_ST says which input feeds +5V, MON_VSYS says J50 is present. A 5 V
-Type-C advertisement is not readable (the CC lines go only to the CH224K,
-which has no data interface), so any 5 V source is planned as a 500 mA
-port unless the user has stored a declaration; see
+What the controller can know about the source (item 55): the HUSB238's
+PD_STATUS0 says what contract was granted (9 V is a 15 W guarantee under
+the PD power rules), PD_STATUS1 what a plain Type-C source advertises at
+5 V (default, 1.5 A, 2.4 A or 3 A), VBUS5_ST says which input feeds +5V,
+MON_VSYS says J50 is present. The 5 V advertisement is readable now; the
+budget still plans any 5 V source as a 500 mA port unless the user has
+stored a declaration, until that policy is revisited; see
 [power-budget.md](power-budget.md).
 
 J68 AUX IN is a separate 9-28 V raw input feeding `AUX_RAIL` and the ten
