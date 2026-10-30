@@ -1,4 +1,4 @@
-# Network: RTL8211FD-CG and the ETH jack
+# Network: RTL8211FDI-CG and the ETH jack
 
 Rev A puts one gigabit PHY on the board, RGMII to FPGA bank 16, and one
 1000Base-T jack with integrated magnetics. Every value below carries its
@@ -9,7 +9,7 @@ source; the three marked **[verify]** are not in the Realtek datasheet (rev
 
 | Ref | Part | LCSC | Why |
 |---|---|---|---|
-| U30 | RTL8211FD-CG, QFN-40 | C2687133 | decision D2: the LDO model needs no switching inductor |
+| U30 | RTL8211FDI-CG, QFN-40 | C692886 | decision D2: the LDO model needs no switching inductor; the industrial-temperature FD (same pinout, same LDO core mode) because the commercial FD-CG is not in the JLCPCB library (2026-10-30) |
 | J70 | HanRun HR911130A | C54408 | IEEE 802.3ab 1000Base-T magnetics, 1500 Vrms, two LEDs, tab down |
 | X3 | YXC X322525MOB4SI, 25 MHz, 12 pF | C9006 (Basic) | Table 56: 25 MHz, ±50 ppm all in, ESR ≤ 50 Ω |
 

@@ -453,7 +453,7 @@ slave-serial path: the mode pins are fixed in copper.
 
 ## Network and link ports
 
-**ETH** is a 1000Base-T jack behind an RTL8211FD-CG PHY on RGMII. The FPGA
+**ETH** is a 1000Base-T jack behind an RTL8211FDI-CG PHY on RGMII. The FPGA
 design still needs a MAC (and a stack): the PHY gives you a link, not an
 Ethernet controller. Green is link/activity, yellow is a 1000 Mb/s link.
 

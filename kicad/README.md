@@ -12,7 +12,7 @@ Six pages, one per functional block, from `odin.kicad_sch` (the root):
 | `memory.kicad_sch` | PSRAM x4 (1.8 V), SDRAM, MRAM, microSD and configuration flash |
 | `supervisor.kicad_sch` | RP2350B, USB-C, flash, links to the FPGA |
 | `slots.kicad_sch` | Nine extension slots, rail selection, fusing, shifting |
-| `network.kicad_sch` | RTL8211FD-CG PHY, ETH jack, LINK P and LINK Q |
+| `network.kicad_sch` | RTL8211FDI-CG PHY, ETH jack, LINK P and LINK Q |
 
 **New to the board? Read [ref/parts-guide.md](../ref/parts-guide.md) first.**
 Every part's purpose, from `tools/roles.py`, is also in the schematic (each

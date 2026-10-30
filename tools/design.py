@@ -982,9 +982,10 @@ def build():
               {'A': f'LED_{name}_A', 'C': f'LED_{name}_N'}, 'C7496818')
 
     # ------------------------------------------------ Network
-    # RTL8211FD-CG (decision D2: the LDO model, no switching inductor).
-    # Pin names are the datasheet rev 1.7 Table 1-9 names as the imported
-    # C2687133 symbol carries them. RGMII, MDC and MDIO run at the DVDD_RG
+    # RTL8211FDI-CG (decision D2: the LDO model, no switching inductor; the
+    # industrial-grade FD since 2026-10-30, the only FD in the JLCPCB
+    # library). Pin names are the datasheet rev 1.7 Table 1-9 names as the
+    # imported C692886 symbol carries them (identical to the C2687133 import). RGMII, MDC and MDIO run at the DVDD_RG
     # level, 2.5 V from +2V5, into bank 16 (VCCO = +2V5, tools/alloc.py).
     # PHYRSTB and INTB are 3.3 V pins (Table 58 note) and go to bank 35
     # (3.3 V; bank 13 is 1.8 V), tools/alloc.py PHY_CTL.
@@ -992,7 +993,7 @@ def build():
     # gateware clears it (PHYCR2) once MDIO is up.
     d.sheet('Network')
     d.group('U30  gigabit PHY')
-    d.add('U30', 'EasyEDA:RTL8211FD-CG', 'RTL8211FD-CG',
+    d.add('U30', 'EasyEDA:RTL8211FDI-CG', 'RTL8211FDI-CG',
           'EasyEDA:QFN-40_L5.0-W5.0-P0.40-BL-EP3.7',
           {'MDIP0': 'ETH_MDI0_P', 'MDIN0': 'ETH_MDI0_N',
            'MDIP1': 'ETH_MDI1_P', 'MDIN1': 'ETH_MDI1_N',
@@ -1011,7 +1012,7 @@ def build():
            'CFG_EXT/LED0': 'PHY_LED0', 'CFG_LDO0/LED1': 'PHY_LED1',
            'CFG_LDO1/LED2': 'PHY_LED2',
            'XTAL_IN': 'PHY_XI', 'XTAL_OUT/EXT_CLK': 'PHY_XO',
-           'RSET': 'PHY_RSET'}, 'C2687133')
+           'RSET': 'PHY_RSET'}, 'C692886')
     # Table 9 supplies. 3.3 V on pins 11, 29, 40: one 100nF each plus bulk.
     # Table 53 note 1: the 3.3 V rise must take more than 0.5 ms, which U12's
     # soft start provides; do not add a fast switch in front of the PHY.

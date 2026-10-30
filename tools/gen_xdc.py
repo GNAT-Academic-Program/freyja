@@ -31,7 +31,7 @@ VCCO_STD = {'13': 'LVCMOS18', '14': 'LVCMOS33', '15': 'LVCMOS33',
             '34': 'LVCMOS33', '16': 'LVCMOS25', '35': 'LVCMOS33'}
 # Input clocks: net -> (period ns, note)
 CLOCKS = {SYS_CLK: (20.0, 'X4, 50 MHz CMOS oscillator'),
-          'PHY_RXC': (8.0, 'RTL8211FD-CG RXC at 1000 Mb/s, 2 ns RXDLY inside the PHY'),
+          'PHY_RXC': (8.0, 'RTL8211FDI-CG RXC at 1000 Mb/s, 2 ns RXDLY inside the PHY'),
           'LINK_P_RXC_P': (10.0, 'LINK P receive clock, 100 MHz placeholder until characterised'),
           'LINK_Q_RXC_P': (10.0, 'LINK Q receive clock, 100 MHz placeholder until characterised')}
 

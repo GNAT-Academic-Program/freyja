@@ -304,6 +304,6 @@ set_property -dict {PACKAGE_PIN M21 IOSTANDARD LVCMOS33} [get_ports {SYS_CLK}]  
 
 # ---- input clocks
 create_clock -period 20.000 -name sys_clk [get_ports {SYS_CLK}]   ;# X4, 50 MHz CMOS oscillator
-create_clock -period 8.000 -name phy_rxc [get_ports {PHY_RXC}]   ;# RTL8211FD-CG RXC at 1000 Mb/s, 2 ns RXDLY inside the PHY
+create_clock -period 8.000 -name phy_rxc [get_ports {PHY_RXC}]   ;# RTL8211FDI-CG RXC at 1000 Mb/s, 2 ns RXDLY inside the PHY
 create_clock -period 10.000 -name link_p_rxc_p [get_ports {LINK_P_RXC_P}]   ;# LINK P receive clock, 100 MHz placeholder until characterised
 create_clock -period 10.000 -name link_q_rxc_p [get_ports {LINK_Q_RXC_P}]   ;# LINK Q receive clock, 100 MHz placeholder until characterised

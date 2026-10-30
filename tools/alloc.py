@@ -43,7 +43,7 @@ SLOT_BANK = OrderedDict([('L', '13'), ('M', '13'),
 # The fabric's own clock: 50 MHz CMOS oscillator X4 into bank 14 (3.3 V).
 SYS_CLK = 'SYS_CLK'
 # Bank 16 is the network bank, VCCO = +2V5 (gen_sch.RAIL). RGMII at 2.5 V
-# to the RTL8211FD-CG: TXC/TXD/TX_CTL driven by the fabric, RXC/RXD/RX_CTL
+# to the RTL8211FDI-CG: TXC/TXD/TX_CTL driven by the fabric, RXC/RXD/RX_CTL
 # from the PHY, MDC/MDIO at the DVDD_RG level (RTL8211F Table 58). RXC is
 # the only single-ended input clock and goes on an MRCC P ball.
 RGMII_RXC = 'PHY_RXC'

@@ -708,3 +708,9 @@ except footprints whose outline changed.
    package) is kept so islands U9/U10 do not change; its LCSC property
    is now C27643. Parts 548, ERC 0, DRC 15 courtyards (unchanged), 0
    moved, gate electrical PASS.
+2. U30 RTL8211FD-CG -> RTL8211FDI-CG (C692886): the industrial-grade
+   twin, same QFN-40 pinout (the C692886 import's pin names and numbers
+   are identical to the C2687133 import, checked), same LDO core mode,
+   no inductor. Symbol, qualified entry, pin-type table, network.md,
+   ballmap, XDC comments. Land pattern kept under the new LCSC number;
+   0 moved; gate electrical PASS.

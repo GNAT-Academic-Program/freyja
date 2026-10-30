@@ -176,7 +176,7 @@ PART = {
            'YXC OT322550MJBA4SL 50 MHz CMOS oscillator: the fabric\'s '
            'always-running clock (SYS_CLK), into a bank 14 MRCC ball.'),
     'U30': ('gigabit Ethernet PHY',
-            'Realtek RTL8211FD-CG: 10/100/1000Base-T transceiver between the '
+            'Realtek RTL8211FDI-CG: 10/100/1000Base-T transceiver between the '
             'FPGA\'s RGMII bus and the ETH jack. Managed over MDIO from the '
             'FPGA; reset and interrupt on bank 35 at 3.3 V.'),
     'U31': ('HDMI protection and level shifter',

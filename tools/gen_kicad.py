@@ -43,12 +43,16 @@ def normalize_imported_pin_types():
         # LED pins are outputs that double as strap inputs during reset; a
         # pull resistor on an output is fine for ERC. Pin 30 is the LDO
         # output that feeds the 1.0 V pins, so it drives them.
-        'RTL8211FD-CG': {
+        # The same table for the commercial FD-CG import (C2687133, kept in
+        # the library) and the industrial FDI-CG fitted since 2026-10-30
+        # (C692886): identical pin names and numbers.
+        **{name: {
             **{str(n): 'bidirectional' for n in (1, 2, 4, 5, 6, 7, 9, 10, 14)},
             **{str(n): 'power_in' for n in (3, 8, 11, 21, 28, 29, 38, 40, 41)},
             **{str(n): 'input' for n in (12, 13, 15, 16, 17, 18, 19, 20, 36)},
             **{str(n): 'output' for n in (22, 23, 24, 25, 26, 27, 32, 33, 34, 35, 37)},
-            '30': 'power_out', '31': 'open_collector', '39': 'passive'},
+            '30': 'power_out', '31': 'open_collector', '39': 'passive'}
+           for name in ('RTL8211FD-CG', 'RTL8211FDI-CG')},
         # YXC OT3225 CMOS oscillator: 1 tri-state in, 2 GND, 3 out, 4 VDD
         'OT322550MJBA4SL': {'1': 'input', '2': 'power_in', '3': 'output', '4': 'power_in'},
         # Everspin MR25H10CDF, datasheet rev 9.5 Table 1.1: CS, WP, SI, SCK,

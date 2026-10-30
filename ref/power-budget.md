@@ -73,7 +73,7 @@ are not in these numbers.
 | +3V3 | microSD card in J74, writing | 0.100 A | 0.0020 A | estimate | SD specification: up to 100 mA average for a 3.3 V card; peaks are carried by the 10 uF at the socket; an idle inserted card about 1-2 mA |
 | +3V3 | W9825G6KH-6 SDRAM, burst read/write | 0.085 A | 0.0300 A | datasheet | W9825G6KH rev A03 p. 14, DC characteristics: IDD4 85 mA max at the -6 grade; recovery: IDD2 30 mA, the standby figure with CKE high, taken because the unconfigured FPGA leaves its inputs floating (PUDC_B high) |
 | +3V3 | U33 MR25H10 MRAM | 0.027 A | 0.0001 A | datasheet | MR25H10 DC table: IDDW 27 mA max at 40 MHz; ISB 115 uA max |
-| +3V3 | RTL8211FD-CG, 1000Base-T link | 0.200 A | 0.0500 A | estimate | datasheet rev 1.7 gives no active-mode consumption table; planning allowance for a 1 Gb PHY with internal LDO, verify on the prototype. Recovery: held in reset by the unconfigured FPGA strap state, still powered; planning figure [verify on the prototype] |
+| +3V3 | RTL8211FDI-CG, 1000Base-T link | 0.200 A | 0.0500 A | estimate | datasheet rev 1.7 gives no active-mode consumption table; planning allowance for a 1 Gb PHY with internal LDO, verify on the prototype. Recovery: held in reset by the unconfigured FPGA strap state, still powered; planning figure [verify on the prototype] |
 | +3V3 | ETH jack LEDs x2 through 510 ohm | 0.006 A | 0.0000 A | datasheet | RTL8211F Figure 5; about 3 mA each; no link in recovery |
 | +3V3 | X4 50 MHz CMOS oscillator | 0.010 A | 0.0100 A | estimate | typical 3225 CMOS oscillator at 50 MHz into a 15 pF load; always powered |
 | +3V3 | Heartbeat and user LEDs x3, all on | 0.005 A | 0.0050 A | estimate | D9-D11 via 1k each; 5 mA budget allowance |
@@ -83,7 +83,7 @@ are not in these numbers.
 | +3V3 | FPGA bank 35 VCCO and bank 0 | 0.060 A | 0.0050 A | estimate | bank 35 drives HDMI (TMDS_33 current comes from the monitor's 3.3 V pull-ups, not from VCCO); bank 13 is on +1V8_IO |
 | +3V3 | U31 TPD12S016 VCCA, level shifters on | 0.001 A | 0.0002 A | datasheet | SLLSE96F 8.2.2: about 200 uA fully on |
 | +2V5 | FPGA bank 16 VCCO: RGMII and eight LVDS_25 pairs | 0.120 A | off | estimate | LVDS_25 drivers about 3.5 mA each plus RGMII switching; replace with XPE |
-| +2V5 | RTL8211FD-CG DVDD_RG (RGMII pads) | 0.020 A | off | estimate | external 2.5 V I/O supply, CFG_EXT=1 CFG_LDO=01 |
+| +2V5 | RTL8211FDI-CG DVDD_RG (RGMII pads) | 0.020 A | off | estimate | external 2.5 V I/O supply, CFG_EXT=1 CFG_LDO=01 |
 | +1V1 | RP2350B core (DVDD) | 0.060 A | 0.0600 A | estimate | RP2350 at 150 MHz; the on-chip regulator is rated 200 mA |
 | +5V | U9/U10 VCCB | 0.020 A | 0.0010 A | estimate | quiescent translator supply |
 | +5V | HDMI 5 V to the monitor through U31 | 0.055 A | 0.0000 A | datasheet | TPD12S016 5V_OUT current limit, SLLSE96F; U31 is off in recovery |

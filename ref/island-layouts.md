@@ -21,7 +21,7 @@ Items marked [verify] were not read from the actual figure.
 | TPS2121 VQFN-HR-12 (U34) | 100 nF at IN1, 1 uF at IN2, 2 x 22 uF at OUT, 100 nF SS, 44.2k ILIM, PR1/OV1/CP2 dividers, ST pull-up; Q6 (D24, 470k, 10 uF hold) and Q7 (100k/33k from VIN_EXT) pull PR1 from their own islands | SLVSEA3F 12.1 Layout Guidelines (short wide IN/OUT copper, vias under the input and output pins), 11 (bypass on IN1, IN2 and OUT close to the pins); no dimensioned figure | Power copper straight through, bypass at the pins; the control dividers have no guidance. IN2's bypass is U11's 3 x 22 uF: place U34 beside U11. | `TPS2121` |
 | TPS22953 WSON-10 (U23, U24) | 1 uF at IN, 1 uF at OUT, 100 nF at BIAS, 1 nF CT | SLVSCT5D 12.1 Layout Guidelines, 12.2 Layout Example (IN bypass at the IN pins, OUT bypass at the OUT pins, vias under the pad, CT close with copper cut out beneath it) | Bypass at each pin pair, CT shortest. | `TPS22953` |
 | XC7A100T FGG676 (U1) | UG483 decoupling set | UG483 v1.14 ch. 2 | Caps as close to the balls as possible, placed on the ring around the package (single-sided board: top ring only). | generic ring |
-| RTL8211FD-CG (U30) | decoupling, RSET, MDI centre taps, straps | RTL8211F layout guide [verify: not read] | | generic |
+| RTL8211FDI-CG (U30) | decoupling, RSET, MDI centre taps, straps | RTL8211F layout guide [verify: not read] | | generic |
 
 Not an island of any anchor (series parts ending at a two-pin locked part): R7,
 R12, R49, R128 to R130. Name the LED, switch or transistor with `--anchor` to

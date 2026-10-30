@@ -33,7 +33,7 @@ the supervisor sideband, the fabric clock, the SDRAM address bus, the MRAM
 and the microSD socket. Bank 13 runs at 1.8V from +1V8_IO: the four
 APS6404L-SQN PSRAMs and both 5V bus translators (their A side and DIR/OE).
 Banks 15 and 34 are the two settable extension domains, four slots each.
-Bank 16 runs at 2.5V: RGMII to the RTL8211FD-CG and the eight LVDS_25 link
+Bank 16 runs at 2.5V: RGMII to the RTL8211FDI-CG and the eight LVDS_25 link
 pairs. Bank 35 is at 3.3V: HDMI, the SDRAM data and control lines, and the
 two PHY control pins (PHYRSTB, INTB). The PSRAM, SDRAM, MRAM, microSD and
 PHY control balls are hand-chosen tables in tools/alloc.py; inside each
@@ -226,7 +226,7 @@ Raise OE_N again before changing direction.
 
 ## Network: bank 16 at 2.5 V
 
-RGMII and MDIO to the RTL8211FD-CG (DVDD_RG = +2V5). `PHY_RXC` is the
+RGMII and MDIO to the RTL8211FDI-CG (DVDD_RG = +2V5). `PHY_RXC` is the
 PHY's 125 MHz receive clock on an MRCC ball; the two link receive clocks
 sit on clock-capable pairs (MRCC for P, SRCC for Q). See `ref/network.md`
 and `ref/link-ports.md`.

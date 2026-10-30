@@ -297,17 +297,19 @@ PARTS = {
            'CC1, CC2 -- data and CC only, never VBUS',
     pinmap='KiCad Power_Protection symbol', src='ST ESDA6V1BC6 datasheet'),
   # ----------------------------------------------------------------- network
-  'EasyEDA:RTL8211FD-CG': dict(
-    mpn='RTL8211FD-CG', pkg='QFN-40 5x5 mm, 0.4 mm pitch, exposed pad 3.60 mm nominal (3.45-3.75)',
+  'EasyEDA:RTL8211FDI-CG': dict(
+    mpn='RTL8211FDI-CG', pkg='QFN-40 5x5 mm, 0.4 mm pitch, exposed pad 3.60 mm nominal (3.45-3.75)',
     fp='EasyEDA:QFN-40_L5.0-W5.0-P0.40-BL-EP3.7',
     rating='10/100/1000Base-T PHY, RGMII; DVDD33/AVDD33 2.97-3.63 V; DVDD_RG '
            '2.5 V external I/O supply (CFG_EXT=1, CFG_LDO=01); integrated LDO '
            'makes the 1.0 V core (LDO model, no inductor); MDI internally '
-           'terminated; 0-70 C commercial grade. Imported pad 0.20x0.80 mm, '
-           'EP 3.7 mm within the drawing maximum',
-    pinmap='Datasheet rev 1.7 Tables 1-9 agree with the imported C2687133 '
-           'symbol pin for pin (41 = exposed pad GND)',
-    src='Realtek RTL8211F(I)/RTL8211FD(I)-CG datasheet rev 1.7; LCSC/JLC C2687133'),
+           'terminated; -40..85 C industrial grade (the I suffix; same die, '
+           'same LDO core mode as the FD-CG it replaces). Imported pad '
+           '0.20x0.80 mm, EP 3.7 mm within the drawing maximum',
+    pinmap='Datasheet rev 1.7 Tables 1-9 agree with the imported C692886 '
+           'symbol pin for pin, which is pin for pin the C2687133 import '
+           '(41 = exposed pad GND); the land pattern is the same import',
+    src='Realtek RTL8211F(I)/RTL8211FD(I)-CG datasheet rev 1.7; LCSC/JLC C692886'),
   'EasyEDA:HR911130A': dict(
     mpn='HR911130A', pkg='tab-down shielded RJ45 with integrated 1000Base-T magnetics and two LEDs, THT',
     fp='EasyEDA:RJ45-TH_HR911130A',

@@ -118,7 +118,7 @@ LOADS = [
      'unconfigured FPGA leaves its inputs floating (PUDC_B high)'),
     ('+3V3', 'U33 MR25H10 MRAM', 0.027, 0.000115, 'datasheet',
      'MR25H10 DC table: IDDW 27 mA max at 40 MHz; ISB 115 uA max'),
-    ('+3V3', 'RTL8211FD-CG, 1000Base-T link', 0.20, 0.05, 'estimate',
+    ('+3V3', 'RTL8211FDI-CG, 1000Base-T link', 0.20, 0.05, 'estimate',
      'datasheet rev 1.7 gives no active-mode consumption table; planning '
      'allowance for a 1 Gb PHY with internal LDO, verify on the prototype. '
      'Recovery: held in reset by the unconfigured FPGA strap state, still '
@@ -143,7 +143,7 @@ LOADS = [
     # ---- +2V5: bank 16 I/O and the PHY RGMII pads
     ('+2V5', 'FPGA bank 16 VCCO: RGMII and eight LVDS_25 pairs', 0.12, 0.0, 'estimate',
      'LVDS_25 drivers about 3.5 mA each plus RGMII switching; replace with XPE'),
-    ('+2V5', 'RTL8211FD-CG DVDD_RG (RGMII pads)', 0.02, 0.0, 'estimate',
+    ('+2V5', 'RTL8211FDI-CG DVDD_RG (RGMII pads)', 0.02, 0.0, 'estimate',
      'external 2.5 V I/O supply, CFG_EXT=1 CFG_LDO=01'),
     # ---- +1V1, the supervisor's core, off the RP2350's own regulator
     ('+1V1', 'RP2350B core (DVDD)', 0.06, 0.06, 'estimate',

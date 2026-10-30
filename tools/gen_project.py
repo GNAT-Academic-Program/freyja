@@ -21,7 +21,7 @@ TITLE  = {'FPGA':'FPGA, decoupling and configuration straps',
           'Memory':'PSRAM x4 (independent buses, 1.8 V), SDRAM, MRAM, microSD and configuration flash',
           'Supervisor':'Board controller: RP2350B, USB-C, startup memory and FPGA control',
           'Slots':'Ten keyed extension ports, branch fusing and level shifting',
-          'Network':'Network: RTL8211FD-CG gigabit PHY and ETH jack, LINK P and LINK Q raw LVDS ports',
+          'Network':'Network: RTL8211FDI-CG gigabit PHY and ETH jack, LINK P and LINK Q raw LVDS ports',
           'Video':'Video: HDMI out from bank 35 (TMDS_33) through a TPD12S016'}
 GNDS   = {'GND'}
 RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
