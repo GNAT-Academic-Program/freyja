@@ -306,16 +306,16 @@ Where power enters. Two inputs feed one internal supply, VSYS: USB-C (5 V, or 9 
 | D4 | SS34 | screw input diode: SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it. |
 | D8 | SMBJ22A | screw input surge clamp: SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V. |
 | J50 | 9-21V POWER IN | POWER IN screw terminal: Main power input, 9-21 V DC. Polarity marked on the board. |
-| U26 | TPS259470ARPWR | USB input eFuse: TI TPS259470A: ramps USB power in gently, cuts off outside 3.75-10 V, limits current to about 2 A, blocks reverse current. Reports faults on EXT_FAULT. |
-| C184 | 2.2nF 25V | 2.2nF 25V capacitor from VBUS_DVDT to GND, for U26 (USB input eFuse): sets how slowly U26 ramps VSYS up, about 0.9 V/ms |
+| U26 | TPS25942ARVCR | USB input eFuse: TI TPS25942A: ramps USB power in gently, cuts off outside 3.7-10 V, limits current to about 2 A, blocks reverse current, retries by itself. Reports faults on EXT_FAULT; IMON gives 0.52 V per ampere as a probe point. |
+| C184 | 10nF 25V | 10nF 25V capacitor from VBUS_DVDT to GND, for U26 (USB input eFuse): sets how slowly U26 ramps VSYS up, about 1.2 V/ms |
 | C185 | 10uF 50V | 10uF 50V bypass on VSYS, for U26 (USB input eFuse) |
 | C186 | 10uF 50V | 10uF 50V bypass on VSYS, for U26 (USB input eFuse) |
 | C187 | 10uF 25V | 10uF 25V bypass on VBUS, for U26 (USB input eFuse) |
-| R50 | 100k | 100k resistor from VBUS_UVLO to VBUS, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V |
-| R51 | 47k | 47k resistor from VBUS_UVLO to GND, for U26 (USB input eFuse): sets U26's turn-on voltage, 3.75 V |
-| R52 | 73.2k | 73.2k resistor from VBUS_OVLO to VBUS, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V |
-| R53 | 10k | 10k resistor from VBUS_OVLO to GND, for U26 (USB input eFuse): sets U26's cut-off voltage, about 10 V |
-| R54 | 1.65k | 1.65k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A |
+| R50 | 110k | 110k resistor from VBUS_UVLO to VBUS, for U26 (USB input eFuse): U26 enable: the 110k/24.9k/14.7k string turns it on above 3.74 V |
+| R51 | 24.9k | 24.9k series resistor between VBUS_OVLO and VBUS_UVLO, for U26 (USB input eFuse): U26 overvoltage: the same string cuts it off above about 10 V; U26 enable: the 110k/24.9k/14.7k string turns it on above 3.74 V |
+| R52 | 14.7k | 14.7k resistor from VBUS_OVLO to GND, for U26 (USB input eFuse): U26 overvoltage: the same string cuts it off above about 10 V |
+| R54 | 44.2k | 44.2k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A (89 / 44.2k) |
+| R204 | 10k | 10k resistor from VBUS_IMON to GND, for U26 (USB input eFuse): U26 current monitor, 0.52 V per ampere into 10k; probe point, no ADC |
 
 ### U11  VSYS to +5V
 
@@ -852,7 +852,7 @@ Clamps for static discharge and voltage spikes on the USB connector: D6 on the d
 | Ref | Value | What it does |
 |---|---|---|
 | D6 | ESDA6V1BC6 | USB data ESD clamp: ST ESDA6V1BC6: clamps static discharge on D+, D-, CC1 and CC2. |
-| D7 | SMBJ13A-TR | USB power surge clamp: SMBJ13A TVS diode: clamps spikes on VBUS above about 14 V. |
+| D7 | SMBJ12A | USB power surge clamp: SMBJ12A TVS diode: clamps spikes on VBUS above about 13 V, under 20 V at full surge, which U26 survives. |
 
 ### USB-PD sink
 

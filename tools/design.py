@@ -39,7 +39,7 @@ TSSOP24_SWITCH = 'EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL'
 TSSOP24_XLATE = 'EasyEDA:TSSOP-24_L7.8-W4.4-P0.65-LS6.4-BL_1'
 VSSOP8_LVC2T45 = 'EasyEDA:VSSOP-8_L2.1-W2.4-P0.50-LS3.2-BL'
 QFN16_SY8047 = 'EasyEDA:TQFN-16_L3.0-W3.0-P0.50-TL-EP1.6'
-VQFN10RPU = 'Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm'
+QFN20_RVC = 'EasyEDA:QFN-20_L4.0-W3.0-P0.5-BL-EP'   # TI RVC WQFN-20 3x4, the C181295 import
 VQFN12RUX = 'Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm'   # TI RUX0012A (MPQF508)
 WSON8_DSG = 'EasyEDA:WSON-8_L2.0-W2.0-P0.50-TL-EP'   # TI DSG, the C524777 import
 MRAM_FP = 'DFN-8_L5.0-W6.0-P1.27-EP2.0-2VIA'   # tools/gen_kicad.py gen_mram_fp
@@ -477,7 +477,7 @@ def build():
     # before, without and in spite of the controller (WCH CH224 datasheet
     # Table 5-2: CFG1 = 1 is 5 V whatever CFG2/3 are; a floating CFG1 would
     # be 20 V). CFG2 and CFG3 are grounded, so the only other code the chip
-    # can ever see is 0/0/0 = 9 V: the 13 V TVS (D7) and U26's 10 V OVLO are
+    # can ever see is 0/0/0 = 9 V: the 12 V TVS (D7) and U26's 10 V OVP are
     # consistent with that ceiling by construction, not by firmware. The
     # controller asks for 9 V by turning Q3 on (PD_REQ_9V); its gate has a
     # pull-down so an unpowered or reset controller leaves the request at 5 V.
@@ -487,13 +487,16 @@ def build():
     d.add('D6', 'Power_Protection:ESDA6V1BC6', 'ESDA6V1BC6', SOT236_ESD,
           {'COM': GND, 'TVS1': 'USB_DP', 'TVS2': 'USB_DM',
            'TVS3': 'USB_CC1', 'TVS4': 'USB_CC2'}, 'C495220')
-    # SMBJ13A is UNIDIRECTIONAL: cathode to VBUS, anode to ground. Reversed, it
+    # SMBJ12A is UNIDIRECTIONAL: cathode to VBUS, anode to ground. Reversed, it
     # forward-conducts on ordinary VBUS and shorts the supply. KiCad's
-    # Device:D_TVS is the bidirectional (SMBJ13CA) symbol and cannot express
+    # Device:D_TVS is the bidirectional (SMBJ12CA) symbol and cannot express
     # that orientation, so use the polarised avalanche-diode symbol -- which is
     # what a unidirectional TVS physically is -- and name the part in the value.
-    d.add('D7', 'Device:D_Zener', 'SMBJ13A-TR', 'EasyEDA:SMB_L4.6-W3.6-LS5.3-RD',
-          {'K': 'VBUS', 'A': GND}, 'C133675')
+    # 12 V standoff (the 9 V contract plus 5 % is 9.45 V), breakdown 13.3-14.7 V,
+    # clamp 19.9 V at 30.2 A: under U26's 20 V absolute maximum, which the
+    # SMBJ13A's 21.5 V clamp was not (2026-10-30).
+    d.add('D7', 'Device:D_Zener', 'SMBJ12A', 'EasyEDA:SMB_L4.3-W3.6-LS5.3-RD',
+          {'K': 'VBUS', 'A': GND}, 'C19077565')
 
     d.group('USB-PD sink')
     d.add('U18', 'Interface_USB:CH224K', 'CH224K', SSOP10,
@@ -753,18 +756,32 @@ def build():
     # that will not start on some chargers and will on others.
     #
     # U26 gives a specified linear output slew instead of assuming a MOSFET
-    # gate ramp becomes a linear current ramp. 100k/47k enables at 3.75V;
-    # 73.2k/10k cuts off above 9.98V; 1.65k sets 2.03A typical current limit.
-    # 2.2nF gives 0.91V/ms, so charging the 44uF VSYS bulk draws about 40mA.
+    # gate ramp becomes a linear current ramp. TI TPS25942A (SLVSCE9D) since
+    # 2026-10-30, the TPS25947's predecessor that the JLCPCB library has:
+    # reverse current blocking, auto-retry, 2.7-18 V operating, 20 V
+    # absolute maximum (22 V for 10 ms), hence D7 is an SMBJ12A (19.9 V
+    # clamp). One resistor string sets both thresholds (9.3.1, 9.3.2,
+    # Equations 11 and 12, V(ENR) = V(OVPR) = 0.99 V): 110k / 24.9k / 14.7k
+    # from VBUS to EN/UVLO to OVP to GND turns on at 3.74 V (off below
+    # 0.93 x that, 3.48 V) and cuts off above 10.07 V; 33 uA through the
+    # string at 5 V, far above the 100 nA pin leakage, 5.3 V on EN at 20 V
+    # (20 V absolute). ILIM = 89 / R(kohm) (Equation 4): 44.2k = 2.01 A
+    # typical (about 1.86-2.17 A from the 42.2k row of 7.5). dVdT: 1 uA
+    # into the capacitor with a gain of 12 (Equation 1), 10 nF = 1.2 V/ms,
+    # so charging the 44 uF VSYS bulk draws about 53 mA. IMON sources
+    # 52 uA/A (Equation 7): 10k makes 0.52 V/A, a probe point, no ADC on it.
+    # DMODE low (no diode mode), PGTH to ground and PGOOD open ("may be left
+    # open or tied to ground when not used", 9.3.8); FLT to EXT_FAULT.
     # It is input-powered and automatic because this path creates +3V3.
-    d.add('U26', 'odin:TPS259470ARPW', 'TPS259470ARPWR', VQFN10RPU,
-          {'EN/UVLO':'VBUS_UVLO', 'OVLO':'VBUS_OVLO', 'FLT':'EXT_FAULT',
-           'IN':'VBUS', 'OUT':'VBUS_SS', 'dVdt':'VBUS_DVDT',
-           'GND':GND, 'ILM':'VBUS_ILM'}, 'C3662799')
-    d.R('100k', 'VBUS', 'VBUS_UVLO', R0603); d.R('47k', 'VBUS_UVLO', GND, R0603)
-    d.R('73.2k', 'VBUS', 'VBUS_OVLO', R0603); d.R('10k', 'VBUS_OVLO', GND, R0603)
-    d.R('1.65k', 'VBUS_ILM', GND, R0603)
-    d.C('2.2nF 25V', 'VBUS_DVDT', GND)
+    d.add('U26', 'odin:TPS25942ARVC', 'TPS25942ARVCR', QFN20_RVC,
+          {'EN/UVLO':'VBUS_UVLO', 'OVP':'VBUS_OVLO', 'FLT':'EXT_FAULT',
+           'IN':'VBUS', 'OUT':'VBUS_SS', 'dVdT':'VBUS_DVDT', 'ILIM':'VBUS_ILM',
+           'IMON':'VBUS_IMON', 'DMODE':GND, 'PGTH':GND, 'PGOOD':'',
+           'GND':GND, 'EP':GND}, 'C181295')
+    d.R('110k', 'VBUS', 'VBUS_UVLO', R0603); d.R('24.9k', 'VBUS_UVLO', 'VBUS_OVLO', R0603)
+    d.R('14.7k', 'VBUS_OVLO', GND, R0603); d.reserve('R', 1)   # the former 10k of the second divider
+    d.R('44.2k', 'VBUS_ILM', GND, R0603)
+    d.C('10nF 25V', 'VBUS_DVDT', GND)
     d.add('D3', 'Device:D_Schottky', 'SS34', 'EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
           {'A': 'VBUS_SS', 'K': VSYS}, 'C8678')
     d.add('D4', 'Device:D_Schottky', 'SS34', 'EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
@@ -1484,6 +1501,12 @@ def build():
     d.sheet('FPGA')
     d.group('config flash')
     d.R('4.7k', V33, 'FLASH_CS_B')
+
+    # ---- U26 current monitor resistor (TPS25942A since 2026-10-30, 9.3.7):
+    # appended so no earlier designator moves; island U26 by group name.
+    d.sheet('Power')
+    d.group('input OR-ing')
+    d.R('10k', 'VBUS_IMON', GND, R0603)
 
     # Mandatory connector-accounting gate. A post is a ground probe/key, not
     # a mated contact; each section separately has four signal grounds plus

@@ -146,20 +146,20 @@ that is the figure checked against saturation.
 
 | Mode | Source | V | Board + export power | Current at the connector | Source or hardware limit | | Path |
 |---|---|---:|---:|---:|---:|---|---|
-| recovery | USB 2.0 port | 4.75 V | 0.91 W | 0.21 A | 0.50 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 1.70 A |
-| recovery | USB-C 5V/1.5A | 4.75 V | 0.91 W | 0.21 A | 1.50 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 1.70 A |
-| recovery | USB-C 5V/3A | 4.75 V | 0.91 W | 0.21 A | 3.00 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 1.70 A |
-| recovery | USB-PD 9V | 9 V | 0.91 W | 0.11 A | 1.67 A | fits | U26 0.11 A of 1.70 A |
+| recovery | USB 2.0 port | 4.75 V | 0.91 W | 0.21 A | 0.50 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 1.86 A |
+| recovery | USB-C 5V/1.5A | 4.75 V | 0.91 W | 0.21 A | 1.50 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 1.86 A |
+| recovery | USB-C 5V/3A | 4.75 V | 0.91 W | 0.21 A | 3.00 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 1.86 A |
+| recovery | USB-PD 9V | 9 V | 0.91 W | 0.11 A | 1.67 A | fits | U26 0.11 A of 1.86 A |
 | recovery | J50 VIN | 9 V | 0.91 W | 0.11 A | 3.00 A | fits | D4 path, no limiter of its own |
-| light | USB 2.0 port | 4.75 V | 6.73 W | 1.49 A | 0.50 A | **does not fit** | U34 0.76 A of 2.00 A + U26 0.73 A of 1.70 A |
-| light | USB-C 5V/1.5A | 4.75 V | 6.73 W | 1.49 A | 1.50 A | fits | U34 0.76 A of 2.00 A + U26 0.73 A of 1.70 A |
-| light | USB-C 5V/3A | 4.75 V | 6.73 W | 1.49 A | 3.00 A | fits | U34 0.76 A of 2.00 A + U26 0.73 A of 1.70 A |
-| light | USB-PD 9V | 9 V | 6.73 W | 0.83 A | 1.67 A | fits | U26 0.83 A of 1.70 A |
+| light | USB 2.0 port | 4.75 V | 6.73 W | 1.49 A | 0.50 A | **does not fit** | U34 0.76 A of 2.00 A + U26 0.73 A of 1.86 A |
+| light | USB-C 5V/1.5A | 4.75 V | 6.73 W | 1.49 A | 1.50 A | fits | U34 0.76 A of 2.00 A + U26 0.73 A of 1.86 A |
+| light | USB-C 5V/3A | 4.75 V | 6.73 W | 1.49 A | 3.00 A | fits | U34 0.76 A of 2.00 A + U26 0.73 A of 1.86 A |
+| light | USB-PD 9V | 9 V | 6.73 W | 0.83 A | 1.67 A | fits | U26 0.83 A of 1.86 A |
 | light | J50 VIN | 9 V | 6.73 W | 0.83 A | 3.00 A | fits | D4 path, no limiter of its own |
-| full | USB 2.0 port | 4.75 V | 16.68 W | 3.70 A | 0.50 A | **does not fit** | U34 1.81 A of 2.00 A + U26 1.89 A of 1.70 A |
-| full | USB-C 5V/1.5A | 4.75 V | 16.68 W | 3.70 A | 1.50 A | **does not fit** | U34 1.81 A of 2.00 A + U26 1.89 A of 1.70 A |
-| full | USB-C 5V/3A | 4.75 V | 16.68 W | 3.70 A | 3.00 A | **does not fit** | U34 1.81 A of 2.00 A + U26 1.89 A of 1.70 A |
-| full | USB-PD 9V | 9 V | 16.68 W | 2.06 A | 1.67 A | **does not fit** | U26 2.06 A of 1.70 A |
+| full | USB 2.0 port | 4.75 V | 16.68 W | 3.70 A | 0.50 A | **does not fit** | U34 1.81 A of 2.00 A + U26 1.89 A of 1.86 A |
+| full | USB-C 5V/1.5A | 4.75 V | 16.68 W | 3.70 A | 1.50 A | **does not fit** | U34 1.81 A of 2.00 A + U26 1.89 A of 1.86 A |
+| full | USB-C 5V/3A | 4.75 V | 16.68 W | 3.70 A | 3.00 A | **does not fit** | U34 1.81 A of 2.00 A + U26 1.89 A of 1.86 A |
+| full | USB-PD 9V | 9 V | 16.68 W | 2.06 A | 1.67 A | **does not fit** | U26 2.06 A of 1.86 A |
 | full | J50 VIN | 9 V | 16.68 W | 2.06 A | 3.00 A | fits | D4 path, no limiter of its own |
 
 Modes: *recovery* is the controller alone with the FPGA unconfigured (the

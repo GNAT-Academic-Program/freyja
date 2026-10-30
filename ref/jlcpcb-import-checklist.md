@@ -38,14 +38,14 @@ against the manufacturer datasheet.
 | 1 | `W25Q32JVZPIQ` | controller memory | `C571260` — imported and linked |
 | 1 | `TYPE-C-31-M-12` (Korean Hroparts) | USB-C connector, top mount | `C165948` — KiCad's HRO footprint, checked against the HRO drawing 2026-10-30 |
 | 1 | `ESDA6V1BC6` | USB data/CC protection | C495220 |
-| 1 | `SMBJ13A` from a named manufacturer | USB power surge protection | C133675 |
+| 1 | `SMBJ12A` | USB power surge protection, 19.9 V clamp under U26's 20 V | `C19077565` — imported 2026-10-30 |
 | 1 | `CH224K` | USB power request | C970725 |
 | 1 | `B3U-1000P` | controller boot button | C231329 |
 | 1 | `SN74CB3Q3384APWR` | JTAG owner switch | C469874 |
 | 2 | `SN74LVC8T245PWR` | Two complete 8-bit 5 V buses | `C27643` — imported 2026-10-30, pins checked against SCES584D Table 4-1 |
 | 2 | `DMG2305UX` | switched power | C5261054 |
 | 2 | `BSS138LT1G` (onsemi) | Q3 power-switch drive; Q4 DONE LED buffer | C82045 |
-| 1 | `TPS259470ARPWR` | USB input protection | C3662799 |
+| 1 | `TPS25942ARVCR` | USB input protection (eFuse) | `C181295` — imported 2026-10-30, pins checked against SLVSCE9D section 6 |
 | 3 | `SS34` from a named manufacturer | power diodes | C8678 |
 | 1 | `TPS54202DDCR` | 5 V supply | `C191884` |
 | 1 | `AP63300WU-7` | always-on 3.3 V supply | C2158012 |
@@ -53,7 +53,6 @@ against the manufacturer datasheet.
 | 1 | `SY8047QDC` | 4 A FPGA 1.0 V supply | `C3018651` — imported and linked |
 | 1 | `TPS61085PWR` | 12 V slot-power supply | C13505 |
 | 4 | `TPS22950CDDCR` | low-voltage slot-power protection | C7587833 |
-| 1 | `TPS259470LRPWR` | 12 V slot-power protection | C3662793 |
 | 1 | `AOTA-B201610S3R3-101-T` | controller 1.1 V inductor | C42411119 |
 | 1 | `VLS252010HBX-1R0M-1` | FPGA transceiver filter | `C88211` — imported and linked |
 | 3 | `SRN4018-2R2M` | 2.5/1.8/1.2 V supply inductors | `C913207` — imported and linked |

@@ -24,7 +24,7 @@ SOURCES = [
 ]
 # Hardware limits on the two USB paths: U26 (eFuse to VSYS) and U34 (mux to
 # +5V) draw from the same connector when the source is plain 5 V.
-I_U26_MIN, I_U26_TYP = 1.70, 2.03     # TPS259470A 1.65k ILM, SLVSFC9C
+I_U26_MIN, I_U26_TYP = 1.86, 2.01     # TPS25942A 44.2k ILIM: 89/R, SLVSCE9D Equation 4 and the 42.2k row of 7.5
 I_U34_MIN, I_U34_TYP = 2.00, 2.50     # TPS2121 44.2k RILM, SLVSEA3F Table 7.5
 ETA = 0.90                            # planning efficiency per conversion stage
 # Rails whose regulator is held off in recovery mode (EN low from the

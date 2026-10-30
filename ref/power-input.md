@@ -4,9 +4,11 @@ The current hardware manual is [power.md](power.md). It supersedes the old
 fixed-12 V boost/selector architecture formerly described here.
 
 USB-C accepts 5 V fallback and requests at most 9 V PD. J50 accepts 9-21 V
-DC. They feed VSYS through D3/D4; U26 limits the USB-to-VSYS path to about
-2.03 A typical and provides automatic inrush limiting, OVLO and reverse
-blocking. U11 and U12 are AP63300 devices with no enable: +3V3, +5V and the
+DC. They feed VSYS through D3/D4; U26 (TI TPS25942A since 2026-10-30) limits
+the USB-to-VSYS path to about 2.0 A typical and provides automatic inrush
+limiting (1.2 V/ms), undervoltage lockout at 3.7 V, overvoltage cut-off at
+10 V and reverse blocking. Its absolute maximum is 20 V, so the VBUS TVS D7 is
+an SMBJ12A, 19.9 V clamp at full surge, 12 V standoff above the 9 V contract. U11 and U12 are AP63300 devices with no enable: +3V3, +5V and the
 1.8 V rail are present whenever the board has power. On a plain 5 V source
 U34 (TPS2121) passes VBUS to the +5V rail directly. The rail is handed to
 U11 by intent, not by a voltage threshold (findings items 52, 53): Q6 holds

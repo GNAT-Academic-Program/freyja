@@ -803,3 +803,20 @@ except footprints whose outline changed.
     profile TPS22975 (12.1, 12.2). Swapped in place in islands U23/U24, 0
     moved, DRC 17 courtyards unchanged, gate electrical PASS. The old
     TPS22953DSQ symbol generator is gone.
+12. U26 TPS259470ARPWR -> TPS25942ARVCR (C181295), WQFN-20 3x4 from the
+    import (pads counterclockwise, 2.5 x 1.5 mm PowerPAD as RVC0020A).
+    Wired per SLVSCE9D: EN/UVLO and OVP from one 110k/24.9k/14.7k string
+    (Equations 11, 12: on at 3.74 V, power fail 3.48 V, off above 10.07 V;
+    33 uA string current), ILIM 44.2k = 2.01 A typical (Equation 4,
+    1.86-2.17 A), dVdT 10 nF = 1.2 V/ms (Equation 1, about 53 mA into the
+    44 uF VSYS bulk), IMON 10k = 0.52 V/A as a probe point (R204, new, no
+    ADC), DMODE and PGTH grounded, PGOOD open, FLT on EXT_FAULT. One
+    divider resistor fewer: R53's designator is consumed. budget.py
+    I_U26 1.86/2.01 A. D7 SMBJ13A -> SMBJ12A (C19077565, land from the
+    import): 12 V standoff, 19.9 V clamp under the eFuse's 20 V absolute
+    maximum. power-input.md states the new limits; layout profile
+    TPS25942 (12.1, Figure 88). U26 and D7 swapped in place, 0 moved;
+    DRC: the 17 courtyards plus 3 clearance errors between U26's pads
+    and C187 (the 10 uF at IN placed against the old 2 x 2 mm body):
+    island U26 wants its re-run with the new profile (owner's flow,
+    one island per commit). Gate electrical PASS.

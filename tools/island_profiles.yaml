@@ -175,38 +175,37 @@ AP63300:
       match: {prefix: R, pin: EN}
       place: {side: EN, face: {GND: S}}
 
-TPS259470:
-  source: TPS25947 datasheet SLVSFC9C (TI, rev. May 2026), 8.4.1 Layout Guidelines and 8.4.2 Figure 8-22 Layout Example; pin table 5-1 (RPW WQFN-10 EN/UVLO 1, OVLO 2, FLT 4, IN 5, OUT 6, DVDT 7, GND 8, ILM 9, ITIMER 10)
-  pins: {UVLO: 1, OVLO: 2, FLT: 4, IN: 5, OUT: 6, DVDT: 7, GND: 8, ILM: 9, ITIMER: 10}
-  # Directions are the KiCad footprint's at rotation 0: pins 1 to 3 down the W
-  # side, 4 to 6 down the E side, 7 to 10 along the N edge. 8.4.1: the
-  # 0.1 uF decoupling cap closest to the IN and GND terminals with the
-  # smallest loop; RILM, CdVdT, CITIMER and the EN/UVLO, OVLO divider
-  # resistors close to their pins, their other end to the GND pin by the
-  # shortest trace; GND a quiet plane island. Figure 8-22 shows the caps
-  # across the pins they serve and the resistors in a block at their pins.
-  # This board has the 10 uF bulk cap but no 0.1 uF at IN [verify]; the
-  # OR-ing FET gate RC (R46, C183 on VBUS/VBUS5_GATE) sits in this island by
-  # nearest anchor and goes outside the input cap.
+TPS25942:
+  source: TPS25942A datasheet SLVSCE9D, 12.1 Layout Guidelines and 12.2 Figure 88 Board Layout; pin table section 6 (RVC WQFN-20: 1 DMODE, 2 PGOOD, 3 PGTH, 4-8 OUT, 9-13 IN, 14 EN/UVLO, 15 OVP, 16 GND, 17 ILIM, 18 dVdT, 19 IMON, 20 FLT)
+  pins: {UVLO: 14, OVP: 15, FLT: 20, IN: 11, OUT: 6, DVDT: 18, GND: 16, ILIM: 17, IMON: 19}
+  # Directions are the imported footprint's at rotation 0: pins 1 to 6 along
+  # the S edge (DMODE, PGOOD, PGTH, OUT x3), 7 to 10 up the E side (OUT, OUT,
+  # IN, IN), 11 to 16 along the N edge from E to W (IN x3, EN, OVP, GND), 17
+  # to 20 down the W side (ILIM, dVdT, IMON, FLT). 12.1: the IN bypass closest
+  # to the IN and GND terminals with the smallest loop; RILIM, CdVdT, RIMON
+  # and the UVLO/OVP resistors close to their pins, their other end to the
+  # signal ground by the shortest trace, those traces away from switching
+  # signals; the PowerPAD on a via field. Figure 88 shows the bypass capacitor
+  # across the IN pins and the support parts in a row off the W side.
   rules:
-    - name: input cap on the IN side
+    - name: input cap at the IN pins
       match: {cap_between: [IN, GND]}
-      place: {side: IN, face: {GND: N}}
-    - name: dVdT cap along the N edge over pins 7 and 8
+      place: {side: IN, face: {GND: W}}
+    - name: dVdT cap at pin 18 on the W side
       match: {cap_between: [DVDT, GND]}
-      place: {side: DVDT, face: {GND: W}}
-    - name: ILM resistor across the N edge at pin 9
-      match: {between: [ILM, GND]}
-      place: {side: ILM}
-    - name: UVLO divider across the W edge at pin 1
+      place: {side: DVDT}
+    - name: ILIM resistor at pin 17
+      match: {between: [ILIM, GND]}
+      place: {side: ILIM, overhang: 0.3}
+    - name: IMON resistor at pin 19
+      match: {between: [IMON, GND]}
+      place: {side: IMON, overhang: 0.3}
+    - name: UVLO string resistors at pin 14 along the N edge
       match: {prefix: R, pin: UVLO}
       place: {side: UVLO, overhang: 0.3}
-    - name: OVLO divider across the W edge outside the UVLO divider
-      match: {prefix: R, pin: OVLO}
-      place: {side: OVLO, outside: UVLO divider across the W edge at pin 1, overhang: 0.3}
-    - name: OR-ing gate RC on IN outside the input cap
-      match: {pin: IN}
-      place: {side: IN, outside: input cap on the IN side, overhang: 0.3}
+    - name: OVP string resistor at pin 15 outside the UVLO resistors
+      match: {prefix: R, pin: OVP}
+      place: {side: OVP, outside: UVLO string resistors at pin 14 along the N edge, overhang: 0.3}
 
 SY8047:
   source: no datasheet reachable (LCSC bot gate, 2026-10-28); pin roles read from the board nets (TQFN-16 3x3, SW 1 2, PG 4, FB 5, GND 6 14 15 17, SS 9, SVIN 10, VIN 11 12, EN 13), layout from common synchronous buck practice as in the TLV62569 and AP63300 figures [verify against the SY8047 datasheet layout page when it is in ref/datasheets/]

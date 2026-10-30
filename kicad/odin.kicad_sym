@@ -6371,7 +6371,7 @@
 			)
 		)
 	)
-	(symbol "TPS259470LRPW"
+	(symbol "TPS25942ARVC"
 		(pin_names (offset 1.016))
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6380,176 +6380,151 @@
 			(at 0 15.00 0)
 			(effects (font (size 1.27 1.27)))
 		)
-		(property "Value" "TPS259470LRPW"
+		(property "Value" "TPS25942ARVC"
 			(at 0 12.46 0)
 			(effects (font (size 1.27 1.27)))
 		)
-		(property "Footprint" "Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm"
+		(property "Footprint" "EasyEDA:QFN-20_L4.0-W3.0-P0.5-BL-EP"
 			(at 0 9.92 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps25947.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps25942a.pdf"
 			(at 0 7.38 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(property "Description" "2.7-23V true-reverse-blocking eFuse, adjustable OVLO, latch-off"
+		(property "Description" "2.7-18V eFuse with reverse current blocking, adjustable UVLO/OVP/ILIM/dVdt, PGOOD and current monitor, auto-retry, WQFN-20"
 			(at 0 4.84 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
-		(symbol "TPS259470LRPW_1_1"
-			(rectangle (start -12.70 7.62) (end 12.70 -7.62)
+		(symbol "TPS25942ARVC_1_1"
+			(rectangle (start -12.70 15.24) (end 12.70 -15.24)
 				(stroke (width 0.254) (type default)) (fill (type background))
+			)
+			(pin input line
+				(at -17.78 12.70 0)
+				(length 5.08)
+				(name "EN/UVLO" (effects (font (size 1.27 1.27))))
+				(number "14" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 10.16 0)
+				(length 5.08)
+				(name "OVP" (effects (font (size 1.27 1.27))))
+				(number "15" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -17.78 7.62 0)
+				(length 5.08)
+				(name "DMODE" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
 			)
 			(pin input line
 				(at -17.78 5.08 0)
 				(length 5.08)
-				(name "EN/UVLO" (effects (font (size 1.27 1.27))))
-				(number "1" (effects (font (size 1.27 1.27))))
-			)
-			(pin input line
-				(at -17.78 2.54 0)
-				(length 5.08)
-				(name "OVLO" (effects (font (size 1.27 1.27))))
-				(number "2" (effects (font (size 1.27 1.27))))
-			)
-			(pin open_collector line
-				(at -17.78 0.00 0)
-				(length 5.08)
-				(name "AUXOFF" (effects (font (size 1.27 1.27))))
+				(name "PGTH" (effects (font (size 1.27 1.27))))
 				(number "3" (effects (font (size 1.27 1.27))))
 			)
-			(pin open_collector line
+			(pin power_in line
+				(at -17.78 2.54 0)
+				(length 5.08)
+				(name "IN" (effects (font (size 1.27 1.27))))
+				(number "9" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -17.78 0.00 0)
+				(length 5.08)
+				(name "IN" (effects (font (size 1.27 1.27))))
+				(number "10" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
 				(at -17.78 -2.54 0)
 				(length 5.08)
-				(name "FLT" (effects (font (size 1.27 1.27))))
-				(number "4" (effects (font (size 1.27 1.27))))
+				(name "IN" (effects (font (size 1.27 1.27))))
+				(number "11" (effects (font (size 1.27 1.27))))
 			)
-			(pin power_in line
+			(pin passive line
 				(at -17.78 -5.08 0)
 				(length 5.08)
 				(name "IN" (effects (font (size 1.27 1.27))))
-				(number "5" (effects (font (size 1.27 1.27))))
+				(number "12" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -17.78 -7.62 0)
+				(length 5.08)
+				(name "IN" (effects (font (size 1.27 1.27))))
+				(number "13" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at -17.78 -10.16 0)
+				(length 5.08)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "16" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -17.78 -12.70 0)
+				(length 5.08)
+				(name "EP" (effects (font (size 1.27 1.27))))
+				(number "21" (effects (font (size 1.27 1.27))))
 			)
 			(pin power_out line
-				(at 17.78 5.08 180)
+				(at 17.78 12.70 180)
+				(length 5.08)
+				(name "OUT" (effects (font (size 1.27 1.27))))
+				(number "4" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 10.16 180)
+				(length 5.08)
+				(name "OUT" (effects (font (size 1.27 1.27))))
+				(number "5" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 17.78 7.62 180)
 				(length 5.08)
 				(name "OUT" (effects (font (size 1.27 1.27))))
 				(number "6" (effects (font (size 1.27 1.27))))
 			)
 			(pin passive line
-				(at 17.78 2.54 180)
-				(length 5.08)
-				(name "dVdt" (effects (font (size 1.27 1.27))))
-				(number "7" (effects (font (size 1.27 1.27))))
-			)
-			(pin power_in line
-				(at 17.78 0.00 180)
-				(length 5.08)
-				(name "GND" (effects (font (size 1.27 1.27))))
-				(number "8" (effects (font (size 1.27 1.27))))
-			)
-			(pin passive line
-				(at 17.78 -2.54 180)
-				(length 5.08)
-				(name "ILM" (effects (font (size 1.27 1.27))))
-				(number "9" (effects (font (size 1.27 1.27))))
-			)
-			(pin passive line
-				(at 17.78 -5.08 180)
-				(length 5.08)
-				(name "ITIMER" (effects (font (size 1.27 1.27))))
-				(number "10" (effects (font (size 1.27 1.27))))
-			)
-		)
-	)
-	(symbol "TPS259470ARPW"
-		(pin_names (offset 1.016))
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(property "Reference" "U"
-			(at 0 15.00 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(property "Value" "TPS259470ARPW"
-			(at 0 12.46 0)
-			(effects (font (size 1.27 1.27)))
-		)
-		(property "Footprint" "Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm"
-			(at 0 9.92 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps25947.pdf"
-			(at 0 7.38 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(property "Description" "2.7-23V true-reverse-blocking eFuse, adjustable OVLO, auto-retry"
-			(at 0 4.84 0)
-			(effects (font (size 1.27 1.27)) (hide yes))
-		)
-		(symbol "TPS259470ARPW_1_1"
-			(rectangle (start -12.70 7.62) (end 12.70 -7.62)
-				(stroke (width 0.254) (type default)) (fill (type background))
-			)
-			(pin input line
-				(at -17.78 5.08 0)
-				(length 5.08)
-				(name "EN/UVLO" (effects (font (size 1.27 1.27))))
-				(number "1" (effects (font (size 1.27 1.27))))
-			)
-			(pin input line
-				(at -17.78 2.54 0)
-				(length 5.08)
-				(name "OVLO" (effects (font (size 1.27 1.27))))
-				(number "2" (effects (font (size 1.27 1.27))))
-			)
-			(pin open_collector line
-				(at -17.78 0.00 0)
-				(length 5.08)
-				(name "AUXOFF" (effects (font (size 1.27 1.27))))
-				(number "3" (effects (font (size 1.27 1.27))))
-			)
-			(pin open_collector line
-				(at -17.78 -2.54 0)
-				(length 5.08)
-				(name "FLT" (effects (font (size 1.27 1.27))))
-				(number "4" (effects (font (size 1.27 1.27))))
-			)
-			(pin power_in line
-				(at -17.78 -5.08 0)
-				(length 5.08)
-				(name "IN" (effects (font (size 1.27 1.27))))
-				(number "5" (effects (font (size 1.27 1.27))))
-			)
-			(pin power_out line
 				(at 17.78 5.08 180)
 				(length 5.08)
 				(name "OUT" (effects (font (size 1.27 1.27))))
-				(number "6" (effects (font (size 1.27 1.27))))
+				(number "7" (effects (font (size 1.27 1.27))))
 			)
 			(pin passive line
 				(at 17.78 2.54 180)
 				(length 5.08)
-				(name "dVdt" (effects (font (size 1.27 1.27))))
-				(number "7" (effects (font (size 1.27 1.27))))
+				(name "OUT" (effects (font (size 1.27 1.27))))
+				(number "8" (effects (font (size 1.27 1.27))))
 			)
-			(pin power_in line
+			(pin passive line
 				(at 17.78 0.00 180)
 				(length 5.08)
-				(name "GND" (effects (font (size 1.27 1.27))))
-				(number "8" (effects (font (size 1.27 1.27))))
+				(name "ILIM" (effects (font (size 1.27 1.27))))
+				(number "17" (effects (font (size 1.27 1.27))))
 			)
 			(pin passive line
 				(at 17.78 -2.54 180)
 				(length 5.08)
-				(name "ILM" (effects (font (size 1.27 1.27))))
-				(number "9" (effects (font (size 1.27 1.27))))
+				(name "dVdT" (effects (font (size 1.27 1.27))))
+				(number "18" (effects (font (size 1.27 1.27))))
 			)
 			(pin passive line
 				(at 17.78 -5.08 180)
 				(length 5.08)
-				(name "ITIMER" (effects (font (size 1.27 1.27))))
-				(number "10" (effects (font (size 1.27 1.27))))
+				(name "IMON" (effects (font (size 1.27 1.27))))
+				(number "19" (effects (font (size 1.27 1.27))))
+			)
+			(pin open_collector line
+				(at 17.78 -7.62 180)
+				(length 5.08)
+				(name "PGOOD" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin open_collector line
+				(at 17.78 -10.16 180)
+				(length 5.08)
+				(name "FLT" (effects (font (size 1.27 1.27))))
+				(number "20" (effects (font (size 1.27 1.27))))
 			)
 		)
 	)

@@ -567,7 +567,7 @@ for _s in 'ABCDEFGHLM':
 
 PART.update({
     'J50': ('POWER IN screw terminal', 'Main power input, 9-21 V DC. Polarity marked on the board.'),
-    'U26': ('USB input eFuse', 'TI TPS259470A: ramps USB power in gently, cuts off outside 3.75-10 V, limits current to about 2 A, blocks reverse current. Reports faults on EXT_FAULT.'),
+    'U26': ('USB input eFuse', 'TI TPS25942A: ramps USB power in gently, cuts off outside 3.7-10 V, limits current to about 2 A, blocks reverse current, retries by itself. Reports faults on EXT_FAULT; IMON gives 0.52 V per ampere as a probe point.'),
     'D3': ('USB input diode', 'SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB.'),
     'D4': ('screw input diode', 'SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it.'),
     'D8': ('screw input surge clamp', 'SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V.'),
@@ -600,7 +600,7 @@ PART.update({
     'U8': ('controller firmware flash', 'Winbond W25Q32JV, 32 Mbit (4 MB) quad-SPI flash holding the board controller\'s firmware.'),
     'J1': ('USB-C connector', 'Power in and USB 2.0 data to the board controller.'),
     'D6': ('USB data ESD clamp', 'ST ESDA6V1BC6: clamps static discharge on D+, D-, CC1 and CC2.'),
-    'D7': ('USB power surge clamp', 'SMBJ13A TVS diode: clamps spikes on VBUS above about 14 V.'),
+    'D7': ('USB power surge clamp', 'SMBJ12A TVS diode: clamps spikes on VBUS above about 13 V, under 20 V at full surge, which U26 survives.'),
     'U18': ('USB-PD negotiator', 'WCH CH224K: asks a USB-PD charger for 5 V by default, or 9 V when the board controller turns Q3 on. Its pins cannot form any higher request.'),
     'SW1': ('CTRL BOOT button', 'Hold while plugging in USB to enter the board controller\'s USB bootloader.'),
     'J51': ('CTRL SWD connector', '3-pin JST-SH debug port for the board controller\'s processor.'),
@@ -629,10 +629,11 @@ for _s, _j in {'A':'J53', 'B':'J62', 'C':'J54', 'D':'J63', 'E':'J55',
                             'Long grounded pin in front of the power socket: keys the extension so it fits one way only, and doubles as a ground probe point.')
 
 NET.update({
-    'VBUS_UVLO': 'sets U26\'s turn-on voltage, 3.75 V',
-    'VBUS_OVLO': 'sets U26\'s cut-off voltage, about 10 V',
-    'VBUS_ILM': 'sets U26\'s current limit, about 2 A',
-    'VBUS_DVDT': 'sets how slowly U26 ramps VSYS up, about 0.9 V/ms',
+    'VBUS_UVLO': 'U26 enable: the 110k/24.9k/14.7k string turns it on above 3.74 V',
+    'VBUS_OVLO': 'U26 overvoltage: the same string cuts it off above about 10 V',
+    'VBUS_ILM': 'sets U26\'s current limit, about 2 A (89 / 44.2k)',
+    'VBUS_DVDT': 'sets how slowly U26 ramps VSYS up, about 1.2 V/ms',
+    'VBUS_IMON': 'U26 current monitor, 0.52 V per ampere into 10k; probe point, no ADC',
     'VBUS5_PR1': 'U34 priority sense: VBUS wins above 4.44 V (PR1 above CP2) unless Q6 (9 V request) or Q7 (screw input present) holds it at ground',
     'SEL_IN2': 'Q6\'s gate: charged from PD_REQ_9V through D24, drains through 470k/10 uF in 2-7 s',
     'EXT_PRESENT': 'Q7\'s gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT',

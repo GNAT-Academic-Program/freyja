@@ -297,11 +297,21 @@ def gen_extension_protection():
     low = [('1','ON','input','L'), ('2','VIN','power_in','L'),
            ('3','GND','power_in','L'), ('4','ILIM','passive','R'),
            ('5','VOUT','power_out','R'), ('6','FLT','open_collector','R')]
-    high = [('1','EN/UVLO','input','L'), ('2','OVLO','input','L'),
-            ('3','AUXOFF','open_collector','L'), ('4','FLT','open_collector','L'),
-            ('5','IN','power_in','L'), ('6','OUT','power_out','R'),
-            ('7','dVdt','passive','R'), ('8','GND','power_in','R'),
-            ('9','ILM','passive','R'), ('10','ITIMER','passive','R')]
+    # TPS25942A RVC (SLVSCE9D section 6, WQFN-20 top view): 1 DMODE, 2 PGOOD,
+    # 3 PGTH, 4-8 OUT, 9-13 IN, 14 EN/UVLO, 15 OVP, 16 GND, 17 ILIM, 18 dVdT,
+    # 19 IMON, 20 FLT, 21 the PowerPAD (GND). One pin of each IN/OUT group
+    # carries the power type, the others are passive, as for the TPS2121.
+    efuse = [('14','EN/UVLO','input','L'), ('15','OVP','input','L'),
+             ('1','DMODE','input','L'), ('3','PGTH','input','L'),
+             ('9','IN','power_in','L'), ('10','IN','passive','L'),
+             ('11','IN','passive','L'), ('12','IN','passive','L'),
+             ('13','IN','passive','L'), ('16','GND','power_in','L'),
+             ('21','EP','passive','L'),
+             ('4','OUT','power_out','R'), ('5','OUT','passive','R'),
+             ('6','OUT','passive','R'), ('7','OUT','passive','R'),
+             ('8','OUT','passive','R'), ('17','ILIM','passive','R'),
+             ('18','dVdT','passive','R'), ('19','IMON','passive','R'),
+             ('2','PGOOD','open_collector','R'), ('20','FLT','open_collector','R')]
     ap63300 = [('1','FB','input','L'), ('2','EN','input','L'),
                ('3','VIN','power_in','L'), ('4','GND','power_in','R'),
                ('5','SW','power_out','R'), ('6','BST','passive','R')]
@@ -345,14 +355,10 @@ def gen_extension_protection():
             'Package_TO_SOT_SMD:SOT-23-6',
             'https://www.ti.com/lit/ds/symlink/tps22950.pdf',
             '1.8-5.5V adjustable current-limited load switch with reverse blocking') +
-            gen_box_symbol('TPS259470LRPW', high,
-            'Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm',
-            'https://www.ti.com/lit/ds/symlink/tps25947.pdf',
-            '2.7-23V true-reverse-blocking eFuse, adjustable OVLO, latch-off') +
-            gen_box_symbol('TPS259470ARPW', high,
-            'Package_DFN_QFN:Texas_RPU0010A_VQFN-HR-10_2x2mm_P0.5mm',
-            'https://www.ti.com/lit/ds/symlink/tps25947.pdf',
-            '2.7-23V true-reverse-blocking eFuse, adjustable OVLO, auto-retry') +
+            gen_box_symbol('TPS25942ARVC', efuse,
+            'EasyEDA:QFN-20_L4.0-W3.0-P0.5-BL-EP',
+            'https://www.ti.com/lit/ds/symlink/tps25942a.pdf',
+            '2.7-18V eFuse with reverse current blocking, adjustable UVLO/OVP/ILIM/dVdt, PGOOD and current monitor, auto-retry, WQFN-20') +
             gen_box_symbol('AP63300WU', ap63300,
             'Package_TO_SOT_SMD:SOT-23-6',
             'https://www.diodes.com/datasheet/download/AP63300_AP63301.pdf',
