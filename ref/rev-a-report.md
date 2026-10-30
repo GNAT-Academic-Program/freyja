@@ -889,3 +889,25 @@ except footprints whose outline changed.
     courtyards): island U15 wants its re-run, and L7's size may send the
     owner to the smaller SWPA5045S2R2MT (Isat 6.4 A, 5 x 5 x 4.5 mm) once
     its library number is confirmed. Gate electrical PASS.
+18. tools/bom_jlc.py (new) writes ref/bom-jlcpcb.csv in JLCPCB's four
+    columns (Comment, Designator, Footprint, LCSC Part; one row per
+    identical part, DNP left out: 109 lines for 550 fitted parts, 67 with
+    an LCSC number, 42 generic passives for JLCPCB's matcher) and
+    ref/preorder.md, the lines still outside the library pending decisions
+    16 and 17: U1 (C1521803, 11 pieces) and U2-U5 (C5360304, 44 pieces)
+    for 10 boards plus attrition. Basic/extended classification is not
+    available offline, so the fee count is not recomputed here; the
+    audit's figure (about 42 extended lines) stands as its author's.
+Decisions 16 (U1 package) and 17 (PSRAM voltage) are untouched, as
+instructed. State after the pass: parts 550, ERC 0, parity 0, gate
+electrical PASS at every commit; DRC 80 errors, all placement: the 15
+post courtyards, the 2 butt joints (J3A/J3B, J5A/J5B) and the parts of
+islands U11, U12, U15, U26 that the larger bodies now sit on (LMR33630
+HSOIC over the TSOT26's inductor and divider pads, WQFN-20 against its
+10 uF, L7's 6 x 6 mm body over U15/U26/C211). Those four islands, and
+U18's new strap resistors and pull-ups (R205-R207, staged), are the next
+islands.py runs: datasheet profiles LMR33630, TPS564201, TPS25942 and
+HUSB238 are in tools/island_profiles.yaml. Firmware consequences written
+down: the 9 V request is an I2C write to U18 (never above 9 V), the 5 V
+Type-C advertisement is now readable (item 55 to revisit), EN_1V0 waits
+for +5V at 4.5 V or more, and the core has no power-good pin.

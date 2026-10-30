@@ -40,6 +40,7 @@ kicad-cli sch export netlist --format kicadsexpr -o kicad/odin.net kicad/odin.ki
 python3 tools/load_pcb.py       # sync footprints and nets into the board, placement kept
 python3 tools/gen_xdc.py        # ref/freya.xdc and the Vivado gate top from tools/alloc.py
 python3 tools/gate.py           # every phase check in one run (ref/rev-a-report.md numbers)
+python3 tools/bom_jlc.py --write # ref/bom-jlcpcb.csv (Comment, Designator, Footprint, LCSC Part) and ref/preorder.md
 ```
 
 `load_pcb.py` reads `kicad/odin.net`, so export the netlist before running it
