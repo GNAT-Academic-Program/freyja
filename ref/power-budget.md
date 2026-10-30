@@ -128,8 +128,8 @@ that is the figure checked against saturation.
 
 | Ref | Inductor | Load | Ripple | Peak | Peak, envelope | Isat | |
 |---|---|---:|---:|---:|---:|---:|---|
-| `U11` | `SRN6045TA-4R7M` | 1.72 A | 0.95 A | 2.19 A | 2.73 A at 21 V | 6.8 A | PASS |
-| `U12` | `SRN6045TA-4R7M` | 2.45 A | 0.89 A | 2.89 A | 3.19 A at 21 V | 6.8 A | PASS |
+| `U11` | `SWPA6045S4R7MT` | 1.72 A | 0.95 A | 2.19 A | 2.73 A at 21 V | 4.97 A | PASS |
+| `U12` | `SWPA6045S4R7MT` | 2.45 A | 0.89 A | 2.89 A | 3.19 A at 21 V | 4.97 A | PASS |
 | `U13` | `SRN4018-2R2M` | 0.14 A | 0.38 A | 0.33 A | 0.40 A at 5.5 V | 3 A | PASS |
 | `U14` | `SRN4018-2R2M` | 0.31 A | 0.35 A | 0.48 A | 0.54 A at 5.5 V | 3 A | PASS |
 | `U15` | `FTC201610S1R0MBCA` | 1.65 A | 0.64 A | 1.97 A | 2.06 A at 5.5 V | 4.6 A | PASS |

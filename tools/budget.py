@@ -55,9 +55,15 @@ INDUCTOR = {
                      dcr=0.035, size='2.0 x 1.6 mm',
                      fp='EasyEDA:IND-SMD_L2.0-W1.6-B', lcsc='C5832342',
                      cite='cjiang FTC201610S1R0MBCA: Irms 4.50 A, Isat 4.60 A'),
-    '4.7uH': dict(mpn='SRN6045TA-4R7M', l=4.7e-6, isat=6.80, dcr=0.026,
-                  size='6.0 x 6.0 x 4.5 mm', fp='EasyEDA:IND-SMD_L6.0-W6.0',
-                  lcsc='C2044594', cite='Bourns SRN6045TA: Irms 4.50 A, Isat 6.80 A'),
+    # Sunlord SWPA6045S catalog (rev 2025/5/8, SWPA6045S table): 4R7MT
+    # Isat 4.97 A guaranteed / 5.50 A typical, Irms 3.30 / 3.60 A, DCR
+    # 34 mohm max / 26 typ; the Bourns SRN6045TA-4R7M it replaces is not in
+    # the JLCPCB library (2026-10-30). Same 6.0 x 6.0 x 4.5 mm class; the
+    # land is the C78804 import (2.47 x 5.02 mm pads on 5.2 mm centres,
+    # Sunlord Fig. 2 pattern a 2.8 / b 1.7 / c 5.7).
+    '4.7uH': dict(mpn='SWPA6045S4R7MT', l=4.7e-6, isat=4.97, dcr=0.034,
+                  size='6.0 x 6.0 x 4.5 mm', fp='EasyEDA:IND-SMD_L6.0-W6.0_SWPA6045S',
+                  lcsc='C78804', cite='Sunlord SWPA6045S4R7MT: Irms 3.30 A, Isat 4.97 A (guaranteed), 5.50 A typical'),
     '10uH': dict(mpn='SRN6045TA-100M', l=10e-6, isat=4.60, dcr=0.052,
                   size='6.0 x 6.0 x 4.5 mm', fp='EasyEDA:IND-SMD_L6.0-W6.0-1',
                   lcsc='C2046332', cite='Bourns SRN6045TA: Irms 3.20 A, Isat 4.60 A'),

@@ -720,3 +720,10 @@ except footprints whose outline changed.
    open-drain output left unconnected, which SLVSDG1C's pin table allows
    for an unused PG (board pads 6 carry no net, checked). Land kept, 0
    moved, gate electrical PASS.
+4. L2/L3 SRN6045TA-4R7M -> Sunlord SWPA6045S4R7MT (C78804),
+   budget.py INDUCTOR['4.7uH']: Isat 4.97 A guaranteed (5.50 typical),
+   Irms 3.30 A, 34 mohm max (catalog rev 2025/5/8). Envelope peaks at
+   21 V in, L -20 %: U11 2.73 A, U12 3.19 A, both inside 4.97 A; loads
+   1.72 / 2.45 A inside Irms. Land is the C78804 import (2.47 x 5.02 mm
+   pads on 5.2 mm centres, Sunlord Fig. 2); L2/L3 swapped in place, 0
+   moved, islands U11/U12 kept. Gate electrical PASS.

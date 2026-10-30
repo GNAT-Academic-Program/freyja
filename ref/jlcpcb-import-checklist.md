@@ -62,7 +62,7 @@ against the manufacturer datasheet.
 | 20 | `SMD1206B050TF` | 5 V and pin-voltage PTC, 500 mA | `C269115` — imported and linked |
 | 10 | `BSMD1206-030-16V` | 3.3 V slot PTC, 300 mA | `C22378340` — imported and linked |
 | 2 | `SRN6045TA-100M` | 5 V and 12 V supply inductors | C2046332 |
-| 1 | `SRN6045TA-4R7M` | 3.3 V supply inductor | C2044594 |
+| 2 | `SWPA6045S4R7MT` | 5 V and 3.3 V supply inductors (L2, L3) | `C78804` — imported 2026-10-30, Sunlord SWPA6045S catalog |
 | 1 | `2.54-2*5P` | keyed FPGA JTAG header | `C5665` — imported and linked |
 | 1 | `BM03B-SRSS-TB(LF)(SN)` | keyed controller SWD header | `C160389` — imported and linked |
 | 1 | `KF301-5.0-2P` | 9–21 V external power terminal | `C474881` — imported and linked |

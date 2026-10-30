@@ -329,7 +329,7 @@ Switching regulator (buck converter) that makes +5V from VSYS. It runs whenever 
 | C190 | 22uF | 22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on) |
 | C191 | 22uF | 22uF bypass on +5V_BUCK, for U11 (5 V regulator, always on) |
 | C267 | 10uF 50V | 10uF 50V bypass on VSYS, for U11 (5 V regulator, always on) |
-| L2 | 4.7uH SRN6045TA-4R7M | 4.7uH SRN6045TA-4R7M inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node |
+| L2 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node |
 | R55 | 100k | 100k series resistor between +5V_BUCK and FB_5V, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
 | R56 | 19.1k | 19.1k resistor from FB_5V to GND, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
@@ -346,7 +346,7 @@ Switching regulator that makes +3V3 from VSYS. It has no enable: it starts as so
 | C195 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
 | C196 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
 | C197 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
-| L3 | 4.7uH SRN6045TA-4R7M | 4.7uH SRN6045TA-4R7M inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node |
+| L3 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node |
 | R57 | 93.1k | 93.1k series resistor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
 | R58 | 30.1k | 30.1k resistor from FB_3V3 to GND, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
 

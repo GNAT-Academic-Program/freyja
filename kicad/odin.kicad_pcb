@@ -1837,219 +1837,6 @@
 			)
 		)
 	)
-	(footprint "EasyEDA:IND-SMD_L6.0-W6.0"
-		(layer "F.Cu")
-		(uuid "02bd4d60-d15b-4cd8-916c-e68a7a5f13c9")
-		(at 261.7 114 180)
-		(descr "4.7uH SRN6045TA-4R7M inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node")
-		(property "Reference" "L2"
-			(at 0 -4 0)
-			(layer "F.Fab")
-			(uuid "c5127bd0-336b-4cfb-ad77-84180a56288b")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Value" "4.7uH SRN6045TA-4R7M"
-			(at 0 4 0)
-			(layer "F.Fab")
-			(uuid "77ff19c8-a457-4770-8c76-108e34433f26")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "cd29e72c-cd1c-4299-b51b-d9b59241d8bd")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Description" "4.7uH SRN6045TA-4R7M inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a26d66b3-62e7-4f9c-8997-bedddadc57d6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC Part" "C2044594"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "34794c64-15b8-4c1b-a47f-aba7f4b83309")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(attr through_hole)
-		(fp_line
-			(start 3.18 3.18)
-			(end 3.18 3.01)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "f2156ef6-89a2-48a5-bdd9-e49c8c82292b")
-		)
-		(fp_line
-			(start 3.18 -3.18)
-			(end 3.18 -3.01)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "864f921c-7280-45df-b035-a0bc6022ae33")
-		)
-		(fp_line
-			(start -3.18 3.18)
-			(end 3.18 3.18)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "f58a443e-24a2-4b69-a015-3d11020a905e")
-		)
-		(fp_line
-			(start -3.18 3.01)
-			(end -3.18 3.18)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "141c4199-6cec-4606-8763-90b5c5266af9")
-		)
-		(fp_line
-			(start -3.18 -3.01)
-			(end -3.18 -3.18)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "8f07a993-b6f2-448c-b7cc-63ef5264a8d0")
-		)
-		(fp_line
-			(start -3.18 -3.18)
-			(end 3.18 -3.18)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "86dd059a-3454-4405-8651-537580b4129f")
-		)
-		(fp_circle
-			(center -3 3)
-			(end -2.97 3)
-			(stroke
-				(width 0.06)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.SilkS")
-			(uuid "63c7438e-9df3-4a9f-b29f-30537afcc338")
-		)
-		(fp_line
-			(start 3 3)
-			(end -3 3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "1e8f31d1-0ce0-4179-a833-75eeb758be58")
-		)
-		(fp_line
-			(start 3 -3)
-			(end 3 3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "ab189cb3-8428-4686-9920-79b0a5a36cf4")
-		)
-		(fp_line
-			(start -3 3)
-			(end -3 -3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "9024d5b4-cc5b-4d61-a2e5-9d9c98d12cfe")
-		)
-		(fp_line
-			(start -3 -3)
-			(end 3 -3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "446d483c-08d5-4bb4-8c68-200249d46c8a")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(uuid "e724cad1-467e-41ae-bff5-ba26030a54b3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(pad "1" smd rect
-			(at -2.5 0 180)
-			(size 2.2 5.72)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 701 "+5V_BUCK")
-			(uuid "88c71b04-2ebc-4069-84e8-92f72f3ff83e")
-		)
-		(pad "2" smd rect
-			(at 2.5 0 180)
-			(size 2.2 5.72)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 156 "SW_5V")
-			(uuid "27352d4b-fbf9-4951-a1a4-11f21a824f7b")
-		)
-		(embedded_fonts no)
-		(model "${KIPRJMOD}/../easyeda/EasyEDA.3dshapes/IND-SMD_L6.0-W6.0-H4.5.wrl"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 270)
-			)
-		)
-	)
 	(footprint "Capacitor_SMD:C_1210_3225Metric"
 		(layer "F.Cu")
 		(uuid "02fc953a-0c54-43d2-899c-fd583e19a710")
@@ -2975,7 +2762,7 @@
 		(property "UI_LABEL" "G POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "997ebf57-2a98-4be0-a3f1-1da3c8c20335")
+			(uuid "4361f5bf-7b74-4ee3-bcf6-b5c5d72fa67a")
 			(effects
 				(font
 					(size 1 1)
@@ -4526,7 +4313,7 @@
 		(property "UI_LABEL" "KEY F"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "55a1aef7-b322-4df8-8147-7370113fd2b3")
+			(uuid "627d3f86-a38e-4f33-a83e-1add21664f5c")
 			(effects
 				(font
 					(size 1 1)
@@ -7886,7 +7673,7 @@
 		(property "UI_LABEL" "F POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e2e279b2-8eb2-43b2-a69c-8b72cd14e55f")
+			(uuid "fbe39708-8787-4a75-a141-5fcfbe481135")
 			(effects
 				(font
 					(size 1 1)
@@ -14003,7 +13790,7 @@
 		(property "UI_LABEL" "FPGA DONE"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "dd01bea9-1413-4f5f-929f-3590dc169f42")
+			(uuid "b0dc86de-6b8e-4b54-8129-45bd265dd120")
 			(effects
 				(font
 					(size 1 1)
@@ -15216,7 +15003,7 @@
 		(property "UI_LABEL" "KEY D"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "8281848e-7ed9-4cc3-9a8d-0f0496353f6c")
+			(uuid "17febe3c-95eb-41d9-88ab-3712d478e339")
 			(effects
 				(font
 					(size 1 1)
@@ -15551,7 +15338,7 @@
 		(property "UI_ROLE" "A-D PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6528c362-962b-4f40-b486-34dc343ebd40")
+			(uuid "ba2e127e-1967-4d8c-a342-76bd5db322ec")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -16182,7 +15969,7 @@
 		(property "UI_LABEL" "E-H PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "ab983457-f58c-4320-8699-f7965aa9963d")
+			(uuid "ad1ae6f5-f822-4bb3-bdc9-e3094d87aa50")
 			(effects
 				(font
 					(size 1 1)
@@ -16194,7 +15981,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "2d5569ae-70f5-4742-914e-441c3bf2f353")
+			(uuid "dccdc098-1d87-44d5-b325-f1f8d5dd1bd7")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -16206,7 +15993,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "be0849f6-80df-4fef-b677-347ee34a6230")
+			(uuid "4ff3fee5-14ad-4c5d-9aa3-d17d1824e361")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -19422,7 +19209,7 @@
 		(property "UI_LABEL" "KEY B"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "5769eead-8726-4bb6-a025-92ae0b7ebcf3")
+			(uuid "cfc7514f-867d-4dac-84cc-249ce912e78b")
 			(effects
 				(font
 					(size 1 1)
@@ -20084,7 +19871,7 @@
 		(property "UI_LABEL" "L POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "aa0ca254-65de-41b5-addf-46e6db3bb715")
+			(uuid "afc3b77f-1e11-4e03-925f-f1c20bf78467")
 			(effects
 				(font
 					(size 1 1)
@@ -20790,7 +20577,7 @@
 		(property "UI_LABEL" "H POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "59f32504-584d-4f17-848a-86d49e0c886d")
+			(uuid "42e3c173-ce55-4626-bae6-643ef06370e0")
 			(effects
 				(font
 					(size 1 1)
@@ -21878,7 +21665,7 @@
 		(property "UI_ROLE" "WORK MEMORY 2"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "cbf3e463-27a0-475b-9584-b5ac19475b9f")
+			(uuid "1eb42e44-1ec0-45aa-814a-c683f442da5e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -22968,7 +22755,7 @@
 		(property "UI_LABEL" "USER 2"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "4e8f9dd3-3b9c-45f2-bafd-37cdcc420c92")
+			(uuid "b0be0dbb-169b-4c31-8a57-58e870c81f7a")
 			(effects
 				(font
 					(size 1 1)
@@ -23257,7 +23044,7 @@
 		(property "UI_ROLE" "1V0 SUPPLY\nFPGA CORE"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "f702110f-038d-4909-a75a-1e5a985f28ad")
+			(uuid "a0582279-3322-462b-9a6f-12976111eaf7")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -24639,7 +24426,7 @@
 		(property "UI_ROLE" "WORK MEMORY 1"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "fe094f66-5022-4a2d-bb4a-b004f8fa3dbf")
+			(uuid "31c6df3c-bc7f-47db-9257-faf0d6ef703d")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -25909,7 +25696,7 @@
 		(property "UI_LABEL" "CTRL BOOT"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "999d52d0-ef82-45d3-84ac-25f040483bbc")
+			(uuid "baca7e1d-eebd-43f6-a853-9bdc8cb336e1")
 			(effects
 				(font
 					(size 1 1)
@@ -26312,7 +26099,7 @@
 		(property "UI_ROLE" "ETHERNET PHY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6e768bfe-795c-4cc2-8a03-51e6ddcfd9fe")
+			(uuid "eafad907-9845-4ffa-9a37-e0a70a9affa5")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28128,7 +27915,7 @@
 		(property "UI_LABEL" "A-D PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "12879cd2-285e-4047-9397-317e92f62d53")
+			(uuid "d80e66c0-9615-46ae-a52f-61d7cbf28954")
 			(effects
 				(font
 					(size 1 1)
@@ -28140,7 +27927,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "8183d4f3-c762-4a25-b632-04e1dfef2447")
+			(uuid "351a812d-01cd-4af0-8fd4-6c145bb0f4f1")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28152,7 +27939,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "5a77488f-0648-4d5f-a934-be6ff8adf73e")
+			(uuid "e79a8771-de25-4048-bdec-502ee7a9c05e")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -28427,7 +28214,7 @@
 		(property "UI_ROLE" "CONTROLLER MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "29344394-9a31-4839-9b4e-6f8c8b91ce2f")
+			(uuid "ebdffd37-2805-4d28-a917-89fa906eecb1")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28684,7 +28471,7 @@
 		(property "UI_LABEL" "CTRL SWD"
 			(at 0 5.263 0)
 			(layer "F.SilkS")
-			(uuid "e34da0e1-3f15-4e8e-a5aa-435dcc840724")
+			(uuid "667e6ca2-2e41-4aba-b04b-0c3deb531817")
 			(effects
 				(font
 					(size 1 1)
@@ -29384,7 +29171,7 @@
 		(property "UI_LABEL" "M POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "80b69015-bf60-41ef-97d6-42684b228763")
+			(uuid "88e5ad8c-e041-4f00-a6f9-88a153943a55")
 			(effects
 				(font
 					(size 1 1)
@@ -33467,7 +33254,7 @@
 		(property "UI_LABEL" "EXT JTAG"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "8efeeacc-2978-4ec5-949f-2e8c0f47c205")
+			(uuid "4b71c09e-2142-467b-816a-02e6386b0e58")
 			(effects
 				(font
 					(size 1 1)
@@ -33479,7 +33266,7 @@
 		(property "UI_STATES" "OPEN: CTRL\nFIT: EXT"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "4a0a6a2a-d57a-4004-bf65-b9c771bdaf21")
+			(uuid "496ee651-65f4-439b-8b4d-6471751210a7")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -34250,7 +34037,7 @@
 		(property "UI_ROLE" "WORK MEMORY 3"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "ecdcdbb5-b9ef-4bb4-8240-94cf6365c5bf")
+			(uuid "95ca03b6-b2ab-416b-a5e4-4d9d52a64219")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -37110,7 +36897,7 @@
 		(property "UI_LABEL" "9-21V POWER IN"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "318e9547-de51-468f-949d-7b6455a148c0")
+			(uuid "9c051482-ddc3-4678-a9dc-8259e92670be")
 			(effects
 				(font
 					(size 1 1)
@@ -37122,7 +36909,7 @@
 		(property "UI_PINS" "9-21V +\nGND"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "e5238425-3550-43b9-9267-1c4b1d0f301c")
+			(uuid "f73cde5d-d481-484a-83e0-5d76dfc3597b")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -40690,7 +40477,7 @@
 		(property "UI_LABEL" "USB-C"
 			(at 0 5 0)
 			(layer "F.SilkS")
-			(uuid "3aa0e2cb-dfc1-47cb-996a-290a069a86dc")
+			(uuid "1a0e814c-3db1-422d-a941-621af849e85c")
 			(effects
 				(font
 					(size 1 1)
@@ -41489,7 +41276,7 @@
 		(property "UI_ROLE" "SLOT 3V3 PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "8cf622ee-29bf-4f0e-83fb-580591e65c56")
+			(uuid "0e38347a-1a5e-4d78-9974-b61b663ebe8c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -41724,7 +41511,7 @@
 		(property "UI_LABEL" "KEY G"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "2ba5b35f-6f71-42b5-b7fc-4d4059bc5460")
+			(uuid "369dd1c3-e34e-4579-8d84-cb15da089441")
 			(effects
 				(font
 					(size 1 1)
@@ -41980,7 +41767,7 @@
 		(property "UI_LABEL" "KEY C"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "a99cb9e4-6d9a-4fde-aad1-2bb1e19dde7c")
+			(uuid "ca3a1b27-adb7-4396-9be4-35545361a2fc")
 			(effects
 				(font
 					(size 1 1)
@@ -43921,7 +43708,7 @@
 		(property "UI_LABEL" "CTRL HB"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "cc0bfc5a-f52a-4438-a4a7-f24b9906222f")
+			(uuid "625dd2e2-c645-42e5-8a74-0ee8322edf0c")
 			(effects
 				(font
 					(size 1 1)
@@ -45000,7 +44787,7 @@
 		(property "UI_LABEL" "A | B | C | D"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "b94cb589-9385-424c-8d7b-54b1118404e5")
+			(uuid "40c8b4d7-726f-4f9a-a577-bd8cc8c64a73")
 			(effects
 				(font
 					(size 1 1)
@@ -46512,7 +46299,7 @@
 		(property "UI_ROLE" "5V SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "8d2e702f-f11c-486f-9433-66dd8e00a750")
+			(uuid "d30ce91c-2587-430d-a9e4-952d172d4a27")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -47025,7 +46812,7 @@
 		(property "UI_LABEL" "D POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "2196f8ae-d942-4ce2-922a-08f90e4c4d72")
+			(uuid "4e678f98-60d1-415e-8a96-31073d13e6b0")
 			(effects
 				(font
 					(size 1 1)
@@ -47572,7 +47359,7 @@
 		(property "UI_ROLE" "E-H PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "ce08a882-3418-4f1a-abd7-7350e6b12bb6")
+			(uuid "4d2bb693-61c8-4368-9ebc-aeccb0c15393")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -48068,7 +47855,7 @@
 		(property "UI_LABEL" "C POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "30f29897-89eb-480d-b885-9db53a238845")
+			(uuid "0284fd14-c96a-42bd-a811-67411253c9e3")
 			(effects
 				(font
 					(size 1 1)
@@ -48332,7 +48119,7 @@
 		(property "UI_ROLE" "3V3 SUPPLY\nALWAYS ON"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "9370c3d2-bfcb-4397-a227-feb822bffe32")
+			(uuid "8e965476-06cc-4778-8cf2-e8e92ccab4a6")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -49005,6 +48792,219 @@
 			)
 			(rotate
 				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "EasyEDA:IND-SMD_L6.0-W6.0_SWPA6045S"
+		(layer "F.Cu")
+		(uuid "82e2cbf5-0401-4842-8261-73da3aade355")
+		(at 261.7 114 180)
+		(descr "4.7uH SWPA6045S4R7MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node")
+		(property "Reference" "L2"
+			(at 0 -4 180)
+			(layer "F.Fab")
+			(uuid "b584b292-41ba-4ad4-9051-65090acfd4a0")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "4.7uH SWPA6045S4R7MT"
+			(at 0 4 180)
+			(layer "F.Fab")
+			(uuid "b73c0db3-e537-44a6-8984-3e005a8eca78")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "5d1cfb66-74a4-4069-bfa0-2647ccdf554c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" "4.7uH SWPA6045S4R7MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "85d611ab-9ffc-410f-b006-88337773fd54")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C78804"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c4d2b860-0a5d-4c75-8724-67aa9695ee12")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(attr smd)
+		(fp_line
+			(start 3.08 3.08)
+			(end 3.08 2.66)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "99fc5aac-46c0-470d-b4f0-b4fb0bb8432c")
+		)
+		(fp_line
+			(start 3.08 -3.08)
+			(end 3.08 -2.66)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "d119a5c2-2b89-4f15-bcb3-5bffd18da0bf")
+		)
+		(fp_line
+			(start -3.08 3.08)
+			(end 3.08 3.08)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "0c0c9591-efb9-4725-9ad3-62bb3606e8c1")
+		)
+		(fp_line
+			(start -3.08 2.66)
+			(end -3.08 3.08)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "9050ce70-7f14-46e4-91af-d0076793df17")
+		)
+		(fp_line
+			(start -3.08 -2.66)
+			(end -3.08 -3.08)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "9ef3659b-1093-48b9-a8c8-d9c3dc663649")
+		)
+		(fp_line
+			(start -3.08 -3.08)
+			(end 3.08 -3.08)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "2f3a3b1a-f5bf-4d30-8344-26e5dc0cb9ea")
+		)
+		(fp_circle
+			(center -2.97 2.97)
+			(end -2.94 2.97)
+			(stroke
+				(width 0.06)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.SilkS")
+			(uuid "77c3b4da-3ed5-40fe-9075-d37039005635")
+		)
+		(fp_line
+			(start 3 3)
+			(end -3 3)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "22db6cec-31c4-459e-b5d6-a293b495d561")
+		)
+		(fp_line
+			(start 3 -3)
+			(end 3 3)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "92519d3f-8a8a-40d1-82cc-7840fbc1ee0e")
+		)
+		(fp_line
+			(start -3 3)
+			(end -3 -3)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "b5494928-2d2c-42ce-8018-89daef3291e6")
+		)
+		(fp_line
+			(start -3 -3)
+			(end 3 -3)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "49dca0cd-4ca4-4892-a518-4a36b3a4b904")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(uuid "65d75067-c59d-4775-a49f-456fad1821b2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(pad "1" smd rect
+			(at -2.6 0)
+			(size 2.474 5.02)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 701 "+5V_BUCK")
+			(uuid "7f1fea9b-ad8c-4174-b569-d8a9b6e7735b")
+		)
+		(pad "2" smd rect
+			(at 2.6 0)
+			(size 2.474 5.02)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 156 "SW_5V")
+			(uuid "cbf1362a-2c35-40e2-9d11-e05f32367c0f")
+		)
+		(embedded_fonts no)
+		(model "${KICAD_3RD_PARTY}/EasyEDA.3dshapes/IND-SMD_L6.0-W6.0-H4.5.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 270)
 			)
 		)
 	)
@@ -50830,7 +50830,7 @@
 		(property "UI_ROLE" "5V BUS 0 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "bc2fd430-df63-46e4-96fa-97bb675908e4")
+			(uuid "50221e91-d1cf-4be2-92e3-0726314aad9e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -51222,7 +51222,7 @@
 		(property "UI_ROLE" "FPGA STARTUP MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e6491320-edfb-4546-878b-f7b6eea9993c")
+			(uuid "faa5f7fd-06c5-4914-bcfd-caf860f2d643")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -53482,7 +53482,7 @@
 		(property "UI_ROLE" "WORK MEMORY 0"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "bf66a53a-7307-4a43-9ad0-180f6381d6d5")
+			(uuid "52a8e15f-537d-4126-83b4-733ba3c0fc2d")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -55586,7 +55586,7 @@
 		(property "UI_ROLE" "USB INPUT PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "0d4689a9-3609-407d-8892-511c12f479ae")
+			(uuid "bbe49ecb-608e-4a8d-86da-363ed3d1a6fb")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -57000,7 +57000,7 @@
 		(property "UI_ROLE" "SLOT 5V PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "a1b09489-d37e-4d55-a898-3def687385de")
+			(uuid "d3ab7721-0044-4ada-9d26-1cc3299f840a")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -59444,7 +59444,7 @@
 		(property "UI_LABEL" "E POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "77e044da-9c1a-4eea-92da-ae5f279364d9")
+			(uuid "9fadfa57-9dbe-496e-83a6-ad5a99d85b0c")
 			(effects
 				(font
 					(size 1 1)
@@ -60410,7 +60410,7 @@
 		(property "UI_LABEL" "B POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b3d23d60-91af-4c75-9ead-11ef5a682af8")
+			(uuid "8078dc7e-8915-4ce4-985b-9be40f475da9")
 			(effects
 				(font
 					(size 1 1)
@@ -61814,7 +61814,7 @@
 		(property "UI_LABEL" "KEY E"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "b5b0459a-acc9-4e4a-abfd-89a1354d2df8")
+			(uuid "c9474d85-0738-49c5-9aff-09250bb8783b")
 			(effects
 				(font
 					(size 1 1)
@@ -63705,7 +63705,7 @@
 		(property "UI_ROLE" "BOARD CONTROLLER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "a38ce05e-13e9-4d34-99d0-32db60bc6a8d")
+			(uuid "5b2cce77-456e-42ec-8e88-32ddf5591756")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -63717,7 +63717,7 @@
 		(property "PART_ID" "RP2350B"
 			(at 0 7 0)
 			(layer "F.SilkS")
-			(uuid "321df141-4b31-4ee8-98c8-2a86d2e29837")
+			(uuid "49866a59-857d-4e1b-b5e2-d947d1ecd4a4")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -65045,7 +65045,7 @@
 		(property "UI_LABEL" "FPGA JTAG"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "c13add65-9487-4cbf-8ad9-7101d8b47ffa")
+			(uuid "3467572a-c040-4d0b-9129-3fd9b96a0e31")
 			(effects
 				(font
 					(size 1 1)
@@ -66257,7 +66257,7 @@
 		(property "UI_ROLE" "FPGA CLOCK\n50MHz"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b39ef172-72de-436e-90ef-30a93b5d4d85")
+			(uuid "1b45921a-0be6-442a-bea8-ffad515912f3")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -66937,7 +66937,7 @@
 		(property "UI_LABEL" "LINK P"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "798b0842-e2fc-4557-b4cd-aeba8f503d9f")
+			(uuid "d47fdf0e-e676-4ad1-bdab-3093e06cef7b")
 			(effects
 				(font
 					(size 1 1)
@@ -66949,7 +66949,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "0b579c89-4c91-4103-88bb-1a7640012145")
+			(uuid "b392bfc8-52b3-4e07-9536-d59a223b0aa8")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -67997,7 +67997,7 @@
 		(property "UI_ROLE" "2V5 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "84c79c8f-cf23-46a1-a3e5-58af79af1c88")
+			(uuid "8a5085e2-d1e5-44d4-8f9e-b736dca159b2")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -68588,7 +68588,7 @@
 		(property "UI_LABEL" "KEY L"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "811e29c9-9386-4300-acda-59f93f9205f4")
+			(uuid "61e3fb72-18b4-4d40-8dc2-80e1133cb067")
 			(effects
 				(font
 					(size 1 1)
@@ -68763,6 +68763,219 @@
 			)
 			(rotate
 				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "EasyEDA:IND-SMD_L6.0-W6.0_SWPA6045S"
+		(layer "F.Cu")
+		(uuid "b43e4911-f465-489e-893e-58d17815e344")
+		(at 207.3 165.7 180)
+		(descr "4.7uH SWPA6045S4R7MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node")
+		(property "Reference" "L3"
+			(at 0 -4 180)
+			(layer "F.Fab")
+			(uuid "5c8d0b8c-63b5-4105-8ad0-1a1edf80e7f2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "4.7uH SWPA6045S4R7MT"
+			(at 0 4 180)
+			(layer "F.Fab")
+			(uuid "22d7eb92-5991-4a6c-9215-09d15241a383")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a9f46ee1-5788-4cc3-9b17-dc766e0d966a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" "4.7uH SWPA6045S4R7MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "49064578-8efc-433a-8ca3-3afe74639f89")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C78804"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2c1e125e-4cc8-41bd-8a5c-2b52a9132922")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(attr smd)
+		(fp_line
+			(start 3.08 3.08)
+			(end 3.08 2.66)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "daf262ae-5815-493c-8ca9-a53da2441d3c")
+		)
+		(fp_line
+			(start 3.08 -3.08)
+			(end 3.08 -2.66)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "302aa4ce-7ad2-4d49-b7c8-35096242e6cb")
+		)
+		(fp_line
+			(start -3.08 3.08)
+			(end 3.08 3.08)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "fef30655-6782-42bf-b1df-e228f3c9a1bc")
+		)
+		(fp_line
+			(start -3.08 2.66)
+			(end -3.08 3.08)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "48b7ff80-d9b2-4b75-8f09-24f57afd224c")
+		)
+		(fp_line
+			(start -3.08 -2.66)
+			(end -3.08 -3.08)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "d01e23a6-1385-4615-8f19-dc4cf229fd60")
+		)
+		(fp_line
+			(start -3.08 -3.08)
+			(end 3.08 -3.08)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "93adae66-90bf-45af-a90c-011f18019a7a")
+		)
+		(fp_circle
+			(center -2.97 2.97)
+			(end -2.94 2.97)
+			(stroke
+				(width 0.06)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.SilkS")
+			(uuid "d6c1e8a3-bd01-460f-83c8-76e87af95a07")
+		)
+		(fp_line
+			(start 3 3)
+			(end -3 3)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "52e1cc64-bbec-477e-a0aa-30547594a15d")
+		)
+		(fp_line
+			(start 3 -3)
+			(end 3 3)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "77823e7d-6f35-489a-a787-a86ce92c3939")
+		)
+		(fp_line
+			(start -3 3)
+			(end -3 -3)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "1b71267b-1a3c-4e6b-9238-5903f7f786a9")
+		)
+		(fp_line
+			(start -3 -3)
+			(end 3 -3)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "af00ab58-22ee-4c64-924e-fe3af618ba93")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(uuid "8f58e977-8157-410a-ae3e-aaaf85d3601f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(pad "1" smd rect
+			(at -2.6 0)
+			(size 2.474 5.02)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 8 "+3V3")
+			(uuid "c0d2e7ca-af36-42ec-8a5f-eaa3cbb8e634")
+		)
+		(pad "2" smd rect
+			(at 2.6 0)
+			(size 2.474 5.02)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 155 "SW_3V3")
+			(uuid "df0a53c0-db8b-47e6-943c-9a4255eed006")
+		)
+		(embedded_fonts no)
+		(model "${KICAD_3RD_PARTY}/EasyEDA.3dshapes/IND-SMD_L6.0-W6.0-H4.5.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 270)
 			)
 		)
 	)
@@ -68980,7 +69193,7 @@
 		(property "UI_LABEL" "USER 1"
 			(at 0 4.003 0)
 			(layer "F.SilkS")
-			(uuid "b9939a26-c699-4151-b48e-463e1377456b")
+			(uuid "bc403a6a-9809-468a-83ab-56e5b99c5302")
 			(effects
 				(font
 					(size 1 1)
@@ -69270,7 +69483,7 @@
 		(property "UI_LABEL" "ETH"
 			(at 0 10.895 0)
 			(layer "F.SilkS")
-			(uuid "27ea110d-fde2-433f-8ddc-92b0334ff326")
+			(uuid "b208dbed-49c2-41bb-9f62-c2b5d370c261")
 			(effects
 				(font
 					(size 1 1)
@@ -70441,7 +70654,7 @@
 		(property "UI_LABEL" "5V BUS 0"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "bcd26954-b897-4829-b30b-82ce83d744fe")
+			(uuid "f8391b23-a7f4-4658-b034-0b473aba0941")
 			(effects
 				(font
 					(size 1 1)
@@ -72197,7 +72410,7 @@
 		(property "UI_ROLE" "PROGRAMMABLE LOGIC"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "56735be1-344c-431a-862f-fa9d692b3a92")
+			(uuid "fe464e32-66fc-4642-8c38-f9da16ea6f4e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -72209,7 +72422,7 @@
 		(property "PART_ID" "XC7A100T-2FGG676I"
 			(at 0 16 0)
 			(layer "F.SilkS")
-			(uuid "2a7d8b23-866d-4aba-b6c5-ed879345c000")
+			(uuid "cc75fde0-0b64-4597-85f1-63df87a4ca80")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -85281,7 +85494,7 @@
 		(property "UI_LABEL" "E | F | G | H"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "509c4a9a-5e8f-4f49-bcea-4bd46c9f0c54")
+			(uuid "56b273ba-58c6-44d7-ae0c-efafb3d9958b")
 			(effects
 				(font
 					(size 1 1)
@@ -86373,7 +86586,7 @@
 		(property "UI_LABEL" "LINK Q"
 			(at 0 9.92 0)
 			(layer "F.SilkS")
-			(uuid "b338bc3d-ba0e-47f1-858b-551e4ac3636f")
+			(uuid "58fbda5a-d26b-4ca1-b9f7-186bb6ce406c")
 			(effects
 				(font
 					(size 1 1)
@@ -86385,7 +86598,7 @@
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
 			(at 0 12 0)
 			(layer "F.SilkS")
-			(uuid "3241825f-1961-4d7d-9056-e81e0207c922")
+			(uuid "1d3069a2-cfba-4bf9-91ad-2e39e1d9fedd")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -87309,7 +87522,7 @@
 		(property "UI_LABEL" "5V BUS 1"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "0022f9a7-6c15-4324-94cf-605f58c1d1b9")
+			(uuid "9007908b-2926-4625-be2a-15833beb4090")
 			(effects
 				(font
 					(size 1 1)
@@ -88209,7 +88422,7 @@
 		(property "UI_LABEL" "AUX IN 9-28V UNREGULATED\nYOUR RAIL, YOUR PROBLEM"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6c057f07-62f9-4a4e-8c35-6499961317ce")
+			(uuid "2f7a04e7-e8cf-4dc0-84a0-ada91d8259f7")
 			(effects
 				(font
 					(size 1 1)
@@ -88221,7 +88434,7 @@
 		(property "UI_PINS" "AUX +\nGND"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "d70f3e53-ab09-4b96-a09c-eb2e5043c856")
+			(uuid "cc590c1f-4d31-48e7-bb1e-2f6279ecc991")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -88552,7 +88765,7 @@
 		(property "UI_ROLE" "USB POWER REQUEST"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b8a572bd-fa7d-47f7-90a4-31116d969117")
+			(uuid "058eea86-db51-4633-96b5-e8136a415d95")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -90809,7 +91022,7 @@
 		(property "UI_ROLE" "5V BUS 1 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "f65091ae-0d51-49d1-803a-546c3a466f9b")
+			(uuid "ead91992-7644-4c61-b529-5e715b11fff4")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -92569,219 +92782,6 @@
 			)
 		)
 	)
-	(footprint "EasyEDA:IND-SMD_L6.0-W6.0"
-		(layer "F.Cu")
-		(uuid "ccb681ee-9d75-41fd-9601-6995a024491e")
-		(at 207.3 165.7 180)
-		(descr "4.7uH SRN6045TA-4R7M inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node")
-		(property "Reference" "L3"
-			(at 0 -4 180)
-			(layer "F.Fab")
-			(uuid "6f483223-4491-41a4-87be-7bd511e5590b")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Value" "4.7uH SRN6045TA-4R7M"
-			(at 0 4 180)
-			(layer "F.Fab")
-			(uuid "1cc29bc9-d22c-42ed-a068-5827a15390b4")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 180)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "635293ec-ce51-48bc-ac54-257bc30b9b6f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Description" "4.7uH SRN6045TA-4R7M inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node"
-			(at 0 0 180)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "05e2ddca-f5a6-44f0-9535-ddf47ac0d1a4")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC Part" "C2044594"
-			(at 0 0 180)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9c50b85d-e013-467a-aac6-08a5be23d14d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(attr through_hole)
-		(fp_line
-			(start 3.18 3.18)
-			(end 3.18 3.01)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "f44eb483-154b-4813-afff-8722815e2308")
-		)
-		(fp_line
-			(start 3.18 -3.18)
-			(end 3.18 -3.01)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "d6e8d6b1-a989-470f-b639-c0c7c449057e")
-		)
-		(fp_line
-			(start -3.18 3.18)
-			(end 3.18 3.18)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "f4cf2ca7-6399-4a5e-b0b4-ed9dfcee1419")
-		)
-		(fp_line
-			(start -3.18 3.01)
-			(end -3.18 3.18)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "51153066-ca9d-45bf-bc4e-9eaa6dc01d80")
-		)
-		(fp_line
-			(start -3.18 -3.01)
-			(end -3.18 -3.18)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "b0a36ac1-4f71-416d-bc32-b810b0345595")
-		)
-		(fp_line
-			(start -3.18 -3.18)
-			(end 3.18 -3.18)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "d9fa1faf-75b0-49c5-beca-bcf1bc798b92")
-		)
-		(fp_circle
-			(center -3 3)
-			(end -2.97 3)
-			(stroke
-				(width 0.06)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.SilkS")
-			(uuid "8b9c5478-1f54-4a9f-8f71-0d7e273edaef")
-		)
-		(fp_line
-			(start 3 3)
-			(end -3 3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "7442c919-a7e0-4de7-9c3d-eba9cbbca4fb")
-		)
-		(fp_line
-			(start 3 -3)
-			(end 3 3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "7da04847-806d-41c6-bf77-32851156c09d")
-		)
-		(fp_line
-			(start -3 3)
-			(end -3 -3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "70b3caa6-2388-44cd-a7fe-fcba08710158")
-		)
-		(fp_line
-			(start -3 -3)
-			(end 3 -3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "2ed2428a-ed83-4417-836d-309ab2060957")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 0 0 180)
-			(layer "F.Fab")
-			(uuid "8683d88e-d917-4ec5-8f3a-2888b4108c32")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(pad "1" smd rect
-			(at -2.5 0 180)
-			(size 2.2 5.72)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 8 "+3V3")
-			(uuid "cf7e2dd9-dc0a-429d-8181-cd024f6b2594")
-		)
-		(pad "2" smd rect
-			(at 2.5 0 180)
-			(size 2.2 5.72)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 155 "SW_3V3")
-			(uuid "997bbc3e-41e8-4f09-9209-9058309d2323")
-		)
-		(embedded_fonts no)
-		(model "${KIPRJMOD}/../easyeda/EasyEDA.3dshapes/IND-SMD_L6.0-W6.0-H4.5.wrl"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 270)
-			)
-		)
-	)
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "cd2301e4-cb4c-43f9-bc2b-d4bf17629c76")
@@ -94294,7 +94294,7 @@
 		(property "UI_ROLE" "JTAG OWNER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "51a996a5-d880-41ba-82ab-ac25d4d69039")
+			(uuid "8c7852d2-93eb-40d0-a932-9c0f6cc1b4ff")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -97320,7 +97320,7 @@
 		(property "UI_LABEL" "KEY H"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "2d4def64-6099-4857-b61c-60df832133b8")
+			(uuid "ac711d05-54a3-487f-9abe-983f93f8927c")
 			(effects
 				(font
 					(size 1 1)
@@ -97969,7 +97969,7 @@
 		(property "UI_ROLE" "1V2 SUPPLY\nTRANSCEIVERS"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "baf3f030-0f2e-4a30-b516-730025cb4341")
+			(uuid "785da93c-d3f9-4a34-a318-efe8fd263a72")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -99896,7 +99896,7 @@
 		(property "UI_ROLE" "1V8 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "da2e6c43-bb06-4c78-b139-1b92d3e5e392")
+			(uuid "f074dab1-1fba-476e-bcc3-a8ce56062d5d")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -100560,7 +100560,7 @@
 		(property "UI_LABEL" "KEY A"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "13e55ab3-385d-41ae-8f07-b43bd32096cb")
+			(uuid "fbbb4e02-c588-47b9-95d3-510e0f3e480a")
 			(effects
 				(font
 					(size 1 1)
@@ -100804,7 +100804,7 @@
 		(property "UI_LABEL" "KEY M"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "e0584ad2-c13d-478d-a896-3f8490639c4b")
+			(uuid "f3a45838-af01-4cee-b447-d8f6f2b73d5d")
 			(effects
 				(font
 					(size 1 1)
@@ -100914,7 +100914,7 @@
 		(property "UI_LABEL" "A POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5712ab28-38b9-4f4c-8394-040ed3cd39fc")
+			(uuid "169bf821-e0c8-412b-bb0e-5f510ae5814a")
 			(effects
 				(font
 					(size 1 1)
@@ -110264,10 +110264,10 @@
 	)
 	(group "island U11"
 		(uuid "3178b5c8-d647-4655-9444-d65525fe5e17")
-		(members "02bd4d60-d15b-4cd8-916c-e68a7a5f13c9" "0300b92e-2901-4150-9c23-b5a4c67f4b40"
-			"171a6cc4-8cc3-467a-bb6c-fec80149283c" "47b24bf6-6244-40e9-9091-9b278e9327c8"
-			"5dccd64b-ff7e-4952-907a-968e1b85f36f" "7b69b182-9bb2-495c-88aa-94b5e5da14c7"
-			"7d81e816-b447-4041-957a-fc84308de6e4" "8b8a52e4-8d2c-4afb-aa9b-2b5d38a76054"
+		(members "0300b92e-2901-4150-9c23-b5a4c67f4b40" "171a6cc4-8cc3-467a-bb6c-fec80149283c"
+			"47b24bf6-6244-40e9-9091-9b278e9327c8" "5dccd64b-ff7e-4952-907a-968e1b85f36f"
+			"7b69b182-9bb2-495c-88aa-94b5e5da14c7" "7d81e816-b447-4041-957a-fc84308de6e4"
+			"82e2cbf5-0401-4842-8261-73da3aade355" "8b8a52e4-8d2c-4afb-aa9b-2b5d38a76054"
 			"a683adfd-5974-4cd1-b47c-6da53214b68e" "b49d8d33-a84c-4b39-9074-a743e9a6ea84"
 			"d6edac5b-e0c1-4c5d-9536-9146de7be84c" "e520bad8-ed8f-44e8-82ef-bb7bc6d00bb6"
 			"e60e3c57-1730-4b09-9b07-bb8d55b6eeb8"
@@ -110497,8 +110497,8 @@
 			"5c3e4dcb-0b0e-42b6-a658-bc0881ac5326" "80d3c5c8-37f9-47ad-8a24-2aa1868d4321"
 			"82155938-e12b-449c-9589-e65a73098e2d" "839da46b-aa1c-465e-8d37-1de6684738ad"
 			"8962a969-ac15-40b3-9a6a-5dc2fb225370" "a5149a9f-6064-47ac-ae83-f6ba7370c7e0"
-			"b609a720-91da-43cd-9937-3265448bb3f3" "c1d79671-1381-4c8a-b500-ada2e776df75"
-			"ccb681ee-9d75-41fd-9601-6995a024491e" "f7fe2f06-a8cc-494f-bf7a-029de11fade0"
+			"b43e4911-f465-489e-893e-58d17815e344" "b609a720-91da-43cd-9937-3265448bb3f3"
+			"c1d79671-1381-4c8a-b500-ada2e776df75" "f7fe2f06-a8cc-494f-bf7a-029de11fade0"
 		)
 	)
 	(group "island U4"
