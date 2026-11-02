@@ -1,7 +1,7 @@
 (export (version "E")
   (design
     (source "/home/ohenley/freyja/kicad/odin.kicad_sch")
-    (date "2026-10-30T18:22:37-0400")
+    (date "2026-11-02T14:58:19-0500")
     (tool "Eeschema 9.0.8+dfsg-1")
     (sheet (number "1") (name "/") (tstamps "/")
       (title_block
@@ -150,14 +150,16 @@
       (sheetpath (names "/FPGA/") (tstamps "/8cec9eb4-56b4-e78b-2213-febb3af15411/"))
       (tstamps "1412381f-0391-f308-d67f-fdc08262c046"))
     (comp (ref "C301")
-      (value "330uF 2.5V T520V337M2R5ATE025")
+      (value "330uF 6.3V T520V337M006ATE025")
       (footprint "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D")
-      (description "330uF 2.5V T520V337M2R5ATE025 FPGA decoupling on VCCINT (+1V0), UG483")
+      (description "330uF 6.3V T520V337M006ATE025 FPGA decoupling on VCCINT (+1V0), UG483")
       (fields
+        (field (name "LCSC") "C136150")
         (field (name "Footprint") "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D")
         (field (name "Datasheet"))
-        (field (name "Description") "330uF 2.5V T520V337M2R5ATE025 FPGA decoupling on VCCINT (+1V0), UG483"))
+        (field (name "Description") "330uF 6.3V T520V337M006ATE025 FPGA decoupling on VCCINT (+1V0), UG483"))
       (libsource (lib "Device") (part "C_Polarized") (description "Polarized capacitor"))
+      (property (name "LCSC") (value "C136150"))
       (property (name "Sheetname") (value "FPGA"))
       (property (name "Sheetfile") (value "fpga.kicad_sch"))
       (property (name "ki_keywords") (value "cap capacitor"))

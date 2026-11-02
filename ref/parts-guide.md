@@ -34,7 +34,7 @@ Decoupling for VCCINT (+1V0), which powers the FPGA core logic; quantities from 
 
 | Ref | Value | What it does |
 |---|---|---|
-| C301 | 330uF 2.5V T520V337M2R5ATE025 | 330uF 2.5V T520V337M2R5ATE025 FPGA decoupling on VCCINT (+1V0), UG483 |
+| C301 | 330uF 6.3V T520V337M006ATE025 | 330uF 6.3V T520V337M006ATE025 FPGA decoupling on VCCINT (+1V0), UG483 |
 | C302 | 4.7uF 6.3V | 4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483 |
 | C303 | 4.7uF 6.3V | 4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483 |
 | C304 | 4.7uF 6.3V | 4.7uF 6.3V FPGA decoupling on VCCINT (+1V0), UG483 |

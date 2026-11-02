@@ -418,12 +418,14 @@ PARTS = {
   # are ordinary passives matched at BOM time (C > nominal, X7R or X5R, ESR
   # and ESL per that table). The tantalum is not ordinary, so it is here.
   'Device:C_Polarized': dict(
-    mpn='T520V337M2R5ATE025', pkg='EIA 7343-31 (KEMET D), 2-terminal polymer tantalum',
+    mpn='T520V337M006ATE025', pkg='EIA 7343-19 (KEMET V), 2-terminal polymer tantalum, '
+                                  'on the 7343-31 D land (same pads, lower body)',
     fp='Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D',
-    rating='330 uF, 2.5 V, 25 mohm ESR; on +1V0 (VCCINT). UG483 Table 2-5: '
-           'C > 330 uF, ESL <= 1 nH, 5 mohm < ESR < 40 mohm, >= 2.5 V. No '
-           'LCSC listing found 2026-10-23; owner sources it or a part meeting '
-           'that line at quote time',
+    rating='330 uF, 6.3 V, 25 mohm ESR; on +1V0 (VCCINT). UG483 Table 2-5: '
+           'C > 330 uF, ESL <= 1 nH, 5 mohm < ESR < 40 mohm, >= 2.5 V. The '
+           '2.5 V T520V337M2R5ATE025 has no LCSC listing (2026-10-23, 2026-11-02); '
+           'the owner chose the 6.3 V part of the same series and ESR, LCSC '
+           'C136150, in the JLCPCB library (2026-11-02)',
     pinmap='pad 1 positive (+1V0), pad 2 negative (GND); KiCad C_Polarized '
            'pin 1 is the positive plate, footprint pad 1 is the marked anode',
     src='UG483 v1.14 Table 2-2 (FGG676 / XC7A100T) and Table 2-5; KEMET T520 series'),

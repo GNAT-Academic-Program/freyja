@@ -298,8 +298,8 @@ def build():
         for n, val, fp in spec:
             for _ in range(n): decap(group, rail, val, fp)
     # VCCINT: 1 x 330uF (D-case tantalum), 6 x 4.7uF 0805, 8 x 0.47uF 0603
-    decap('decap VCCINT', V10, '330uF 2.5V T520V337M2R5ATE025', CP_D,
-          'Device:C_Polarized')
+    decap('decap VCCINT', V10, '330uF 6.3V T520V337M006ATE025', CP_D,
+          'Device:C_Polarized', lcsc='C136150')
     decaps('decap VCCINT', V10, [(6, '4.7uF 6.3V', C0805), (8, '0.47uF 6.3V', C0603)])
     # VCCBRAM shares +1V0 (gen_sch.py RAIL): 1 x 100uF 1210, 2 x 0.47uF 0603
     decaps('decap VCCBRAM', V10, [(1, '100uF 2.5V', C1210), (2, '0.47uF 6.3V', C0603)])

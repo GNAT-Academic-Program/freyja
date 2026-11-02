@@ -39,7 +39,7 @@ Total: 15 + 3 + 9 + 1 + 36 + 3 = 67 UG483 parts, plus 24 MGT and 1 VCCADC
 
 | Ideal value | Body | Type | ESL max | ESR range | Rating | Suggested part |
 |---|---|---|---|---|---|---|
-| 330 uF | 7343 / D | 2-terminal tantalum | 1 nH | 5-40 mohm | 2.5 V | T520V337M2R5ATE025 |
+| 330 uF | 7343 / D | 2-terminal tantalum | 1 nH | 5-40 mohm | 2.5 V | T520V337M2R5ATE025; fitted as T520V337M006ATE025 (6.3 V, same series and ESR, LCSC C136150) since the 2.5 V part has no LCSC listing |
 | 100 uF | 1210 | X7R/X5R ceramic | 1 nH | 1-40 mohm | 2.5 V | GRM32ER60J107ME20L |
 | 47 uF | 1210 | X7R/X5R ceramic | 1 nH | 1-40 mohm | 6.3 V | GRM32ER70J476ME20L |
 | 4.7 uF | 0805 | X7R/X5R ceramic | 0.5 nH | 1-20 mohm | 6.3 V | GRM21BR71A475KA73 |
