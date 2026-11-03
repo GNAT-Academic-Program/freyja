@@ -13,7 +13,7 @@ Two verdicts, printed separately so neither hides the other:
   GATE mechanical  - place.py --check (the connector lattice contract)
 The exit code is 1 if the electrical gate fails; with --strict also if the
 mechanical one does. DRC violations and unrouted counts are reported, not
-gated: the board is not routed yet.
+gated: routing is unfinished.
 """
 import collections, json, os, re, subprocess, sys, tempfile
 
@@ -46,8 +46,8 @@ def pcb_counts():
         if x0 <= x <= x1 and y0 <= y <= y1: inside += 1
         if '(layer "B.Cu")' in f[:400]: bcu += 1
     return dict(outline=f'{x1 - x0:g} x {y1 - y0:g}', footprints=len(fps), inside=inside, outside=len(fps) - inside,
-                bcu=bcu, tracks=len(re.findall(r'\n\t\(segment ', s)),
-                vias=len(re.findall(r'\n\t\(via ', s)))
+                bcu=bcu, tracks=len(re.findall(r'\n\t\((?:segment|arc)\b', s)),
+                vias=len(re.findall(r'\n\t\(via\b', s)))
 
 
 def main():

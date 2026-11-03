@@ -24,9 +24,41 @@ and the `PSRAM1_IO2` B.Cu lane. SCK (In2) and CE_B (In5) leave on row y 142.84
 through the gap between the +1V8_IO vias at (198.92, 142.84) and (198.8, 143.69),
 at **0.154 mm clearance each side**, a margin of 4 um that DRC passes. IO2 goes
 round on B.Cu and is the longest of the 12 ball legs (37.8 mm); one pocket ball
-has to take that way round while the accepted lanes stay. U2–U5 pin 4 and the 20
-pull GND pads have **no copper**; sites for them were kept clear, but the memories
-have no ground yet.
+has to take that way round while the accepted lanes stay.
+
+**PSRAM grounds and return stitching transferred.** U2–U5 pin 4 and all 20 pull GND
+pads reach the main piece of In1, In4 and In6 through their own vias (stubs 0.62–
+1.31 mm, pad centre to via). The memories' C111–C114 and the rest of the 17 `+1V8_IO`
+capacitors' GND pads were already connected. Of the 73 PSRAM vias, 23 go F.Cu↔In2
+and keep In1 as reference, so they get no stitching. The other 50 go to In5 or B.Cu
+and change reference from In1 to In6; 48 now have a GND via within 2.0 mm, a target
+chosen here (worst 2.56 mm). This took 44 new vias: the 24 above, 6 U1 GND-ball
+dogbones with their stubs (U18, W22, V15, Y19, T21, T13), and 14 stitching vias.
+Of those 14, 4 use reserved GND sites of C336, C338, C340 and C246 without connecting
+the capacitors; 10 are new sites outside the BGA lattice and part courtyards.
+
+Plane continuity was read from the refilled In1 and In6. Of 125 track crossings
+of a void, 112 are a track leaving its own via and 11 are that same case with a
+neighbouring clearance merged in (9 end in the void; the 2 measured add 0.59 and
+0.12 mm to the return). The other 2 are location 1 below. Stitching vias change no void, since GND vias have
+no hole in a GND plane. With the 591 still-reserved vias added on a scratch copy,
+no PSRAM track gained a no-copper sample. Those tracks then run on webs of about
+0.25 mm between holes; that is continuous copper, not a modelled return path.
+
+**Unresolved return-path locations:**
+1. **(198.86, 143.27), In1 and In6:** the +1V8_IO vias at (198.9, 142.29),
+   (198.92, 142.84) and (198.8, 143.69) merge into one 2.1 mm void. `PSRAM2_SCK`
+   (In2 over In1) and `PSRAM2_CE_B` (In5 over In6) cross it, and the return goes
+   1.92 mm further. Closing it means moving accepted power vias.
+2. **(179.60, 157.39), `PSRAM0_IO3_MEM`:** nearest GND via 2.56 mm. Free sites within
+   2.0 mm all fall in part courtyards, which were excluded. One under U2's body, at
+   (179.9, 156.84) and 0.63 mm away, is clear of copper if a via under the package
+   is acceptable.
+3. **(184.95, 143.84), `PSRAM2_IO1_MEM`:** nearest GND via 2.15 mm (U4 pin 4). The
+   pocket is closed on F.Cu by accepted `PSRAM1_IO0_MEM`.
+
+U1 still has only 14 of 141 GND balls connected, so return current at the FPGA has
+few paths into the package until the rest are done.
 
 **Differential escapes transferred; onward routing unfinished.** The 12 LINK and
 HDMI pairs have F.Cu stubs, through vias, coupled B.Cu lanes and GND stitching
@@ -38,10 +70,9 @@ west lanes x 198.9–209.8 at y 172–173.3, HDMI lanes x 220.7–227.35 at y 16
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule
-passes do not establish any of this. For the memories: within-port skew to SCK,
-via stubs and missing GND return vias at PSRAM layer changes are not assessed.
-GND is absent directly under 7.5% of sampled PSRAM2/3 track (6.3% on PSRAM0/1),
-at via clearances; its return-path effect is not modelled.
+passes do not establish any of this. For the memories: within-port skew to SCK
+and via stubs are not assessed. The stitching and continuity above describe copper,
+not simulated return current.
 
 **+1V8_IO distribution routed.** All 40 pads on the net reach L5.1 by copper: U1
 balls AC25, T16, T26, U23, V20, Y24, U2–U5, U9/U10 VCCA, decoupling, pull-ups, the
@@ -65,9 +96,10 @@ integrity; decoupling and the 113 uF output capacitance still need bench
 qualification (`ref/power-budget.md`).
 
 B.Cu is now walled by the north trunk (y≈125) and west spine (x≈176): crossing
-signals there need In2 or In5. PSRAM2/3 was planned around 626 reserved vias
-that were not placed on the board: every other connected ball's dogbone, plus capacitor,
-memory and pull supply vias. All fit, which shows only that those vias fit. SDRAM,
+signals there need In2 or In5. PSRAM2/3 was planned around 626 reserved vias: every
+other connected ball's dogbone, plus capacitor, memory and pull supply vias. 34 of
+those sites are now real GND vias; the rest are unplaced. All fit, which shows
+only that those vias fit. SDRAM,
 slot and bus signals have no onward routes yet, and PSRAM2/3 now uses the free
 rows y 134–139 north of the BGA on In2, In5 and B.Cu.
 
@@ -78,21 +110,22 @@ and the mask dam need the fabricator's answer.
 
 Results after refill: DRC with parity **0 errors, 0 parity issues, 334 warnings**
 (silk_overlap 199, capped; silk_over_copper 104; track_dangling 24; text_height 4;
-lib_footprint_mismatch 2; isolated_copper 1). Ratsnest **1509**, from 1545 at the
-+1V8_IO checkpoint and 1649 before routing, by `GetUnconnectedCount(True)`; the DRC
+lib_footprint_mismatch 2; isolated_copper 1). Ratsnest **1479**, from 1509 at the
+PSRAM2/3 checkpoint and 1649 before routing, by `GetUnconnectedCount(True)`; the DRC
 unconnected list stops at 499. The X4 mismatch comes from its bottom silk line,
 opened over C337's pads on this board only; J1 and the isolated +1V0 fill predate
-routing. `gate.py --strict` passes; its `tracks`/`vias` line prints 0 because its
-regex expects a space after `(segment`, which KiCad does not write. By pcbnew the
-board has **672 tracks and 167 vias**.
+routing. `gate.py --strict` passes and reports **702 tracks and 211 vias**, which
+match pcbnew; its counters read 0 until this checkpoint.
 
 To keep silk clear of the routing, UI_ROLE labels of U2, U3, U4 and X4 moved.
 `update_silkscreen.py`, which `load_pcb.py` also runs, recreates those fields and
 would undo this. U5's label still overlaps R125/R127 silk, as it overlapped
 R125/R126 before these moves. Evidence and scripts:
 `~/freyja-review/psram-pilot-2026-11-03/` (`transfer/`, `scripts/transfer.py`),
-`~/freyja-review/1v8-io-2026-11-03/` and `~/freyja-review/psram23-2026-11-03/`
-(`reports/verify_live.txt`, per-signal lengths, layers and vias).
+`~/freyja-review/1v8-io-2026-11-03/`, `~/freyja-review/psram23-2026-11-03/`
+(`reports/verify_live.txt`, per-signal lengths, layers and vias) and
+`~/freyja-review/psram-gnd-2026-11-03/` (`reports/verify_live.txt`,
+`reports/continuity_live.txt`).
 
 The cleanup status below predates this transfer: its tracks/vias and DRC counts
 are the pre-routing baseline.

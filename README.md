@@ -18,16 +18,18 @@ Open **[`kicad/odin.kicad_pro`](kicad/odin.kicad_pro)** in KiCad 9.
 See [the project map](kicad/README.md) and the single
 [current workflow](ref/ide-agent-prompt.md) before editing or regenerating.
 
-Current measured status, **2026-11-03**, at the repository cleanup baseline
-`3f76447`: 100 × 140 mm, eight copper layers, 551 schematic components and
-555 placed footprints including four board-only mounting holes. All footprint
-origins are inside the outline's bounding box; all assembly is on F.Cu.
-There are **zero tracks and vias**, 499 unrouted items, and five saved filled zones.
-The full gate passes electrical and mechanical checks, with ERC zero errors
-and two expected warnings; DRC reports zero errors, 313 warnings and zero
-schematic-parity issues. **Routing is unfinished.** These counts describe
-this baseline, not a fabrication pass. Independent import/connector checks
-have pre-existing failures listed in [current findings](findings.md).
+The board is 100 × 140 mm with eight copper layers, 551 schematic components
+and 555 placed footprints including four board-only mounting holes. All
+assembly is on F.Cu. **Routing is unfinished.** All four PSRAM ports, their
+ground connections and return stitching, the `+1V8_IO` distribution and the
+differential escapes are on the board; counts and open issues are in
+[current findings](findings.md). The gate reports DRC and unrouted items
+without gating them, so a passing gate is not a fabrication pass.
+
+Historical baseline, 2026-11-03 cleanup at `3f76447`, before any routing: zero
+tracks and vias, 499 unrouted items listed, DRC zero errors and 313 warnings,
+zero schematic-parity issues. Independent import/connector checks had
+pre-existing failures, listed in the findings.
 
 ## Work and validate
 
