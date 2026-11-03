@@ -92,7 +92,13 @@ on-board AUX converter; all ten AUX branches share the J68 terminal.
 The per-zone fitted PTC is C70150, actually **1.1 A hold / 33 V at 25 C**,
 not an exact 1.0 A-hold device; its temperature derating must be respected.
 This remains a deviation from the exact 1 A-hold request, not a silent rating
-change. PIN V/3V3/5V branch PTCs remain 500/300/500 mA.
+change. PIN V/3V3/5V branch PTCs are 500 mA / 500 mA / 1.1 A hold (2026-11-03,
+were 500/300/500): one slot can carry a display, a radio module or a small
+servo on 5 V. The buses above are the ceiling the ten slots share: U21 2 A on
+5 V, U22 1 A on 3.3 V, so two slots at their PTC rating already exceed the
+bus, and a dead short is cleared by the bus switch (every slot on that bus
+drops, EXT_FAULT) rather than isolated by the slot PTC; a sustained overload
+below the switch limit opens the slot PTC alone.
 
 Four low-voltage protection channels remain (U21-U24) under EXT_EN. U21/U22
 (TPS22950C) limit current and report on EXT_FAULT; U23/U24 are TPS22975

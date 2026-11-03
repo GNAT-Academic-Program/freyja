@@ -164,9 +164,10 @@ PARTS = {
     mpn='TPS22950CDDCR', pkg='SOT-23-THIN-6 (TI DDC)', fp='EasyEDA:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL_3',
     rating='1.8-5.5 V in, 6 V absolute max on VIN/VOUT, 3.2 A switch; '
            'adjustable current limit, thermal shutdown, fixed controlled '
-           'turn-on, reverse blocking enabled and disabled. U21: 1.15k = '
-           '1.000 A typical (0.75-1.25 A). U22: 2.21k = 0.500 A typical '
-           '(0.38-0.62 A)',
+           'turn-on, reverse blocking enabled and disabled. U21: 604 ohm = '
+           '2.03 A typical by Equation 1 (the 610 ohm row of 7.5: 1.54-2.46 A). '
+           'U22: 1.15k = 1.000 A typical (0.75-1.25 A). Raised 2026-11-03 from '
+           '1.0 / 0.5 A so the ten slots can carry real loads',
     pinmap='TI DDC top view: 1 ON, 2 VIN, 3 GND, 4 ILIM, 5 VOUT, 6 FLT',
     src='TI TPS22950x datasheet SLVSFJ2B'),
   'odin:TPS25942ARVC': dict(
@@ -175,7 +176,7 @@ PARTS = {
     rating='2.7-18 V operating, 20 V absolute maximum on IN/OUT/EN/OVP (22 V 10 ms), '
            'reverse current blocking, auto-retry (A), thermal shutdown. Input '
            'path: 110k/24.9k/14.7k string, UVLO 3.74 V (power fail 3.48 V), '
-           'OVP 10.07 V; 44.2k ILIM = 2.01 A typical (about 1.86-2.17); 10 nF '
+           'OVP 10.07 V; 29.4k ILIM = 3.03 A typical, +/-8 % (2.79-3.27 A; was 44.2k = 2.01 A until 2026-11-03); 10 nF '
            'dVdT = 1.2 V/ms, about 53 mA into 44 uF; 10k IMON = 0.52 V/A; '
            'DMODE and PGTH grounded, PGOOD open, FLT to EXT_FAULT',
     pinmap='SLVSCE9D section 6 top view: 1 DMODE, 2 PGOOD, 3 PGTH, 4-8 OUT, '
@@ -186,10 +187,11 @@ PARTS = {
            '21, the RVC0020A drawing\'s 3 x 4 mm body and 1.5 x 2.5 mm pad',
     src='TI TPS25942A/L, TPS25944A/L datasheet SLVSCE9D (rev D, October 2017), ref/datasheets/tps25942a.pdf; LCSC C181295'),
   'Device:D_Schottky': dict(
-    mpn='SS34', pkg='SMA / DO-214AC', fp='EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
-    rating='40 V, 3 A, Vf about 0.45 V at 0.5 A. D3/D4 OR the inputs, '
-           'D3/D4 OR the two base-board inputs',
-    pinmap='2-pin polarised', src='generic SS34, multiple vendors'),
+    mpn='SS54', pkg='SMA / DO-214AC', fp='EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
+    rating='40 V, 5 A, Vf 0.55 V at 5 A (about 0.45 V at 0.6 A). D3/D4 OR the '
+           'two base-board inputs; full export at 9 V is about 2.3 A through '
+           'one of them (budget.py). SS34 (3 A) until 2026-11-03, same land',
+    pinmap='2-pin polarised', src='generic SS54, JLCPCB basic C22452'),
   'Device:D_Zener': dict(
     mpn='SMBJ12A', pkg='SMB / DO-214AA', fp='EasyEDA:SMB_L4.3-W3.6-LS5.3-RD',
     rating='UNIDIRECTIONAL. 12 V standoff, VBR 13.3-14.7 V at 1 mA, VC 19.9 V '

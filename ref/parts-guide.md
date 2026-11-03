@@ -302,11 +302,11 @@ Where power enters. Two inputs feed one internal supply, VSYS: USB-C (5 V, or 9 
 
 | Ref | Value | What it does |
 |---|---|---|
-| D3 | SS34 | USB input diode: SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB. |
-| D4 | SS34 | screw input diode: SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it. |
+| D3 | SS54 | USB input diode: SS54 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB. |
+| D4 | SS54 | screw input diode: SS54 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it. |
 | D8 | SMBJ22A | screw input surge clamp: SMBJ22A TVS diode: absorbs voltage spikes on the screw input above about 24 V. |
 | J50 | 9-21V POWER IN | POWER IN screw terminal: Main power input, 9-21 V DC. Polarity marked on the board. |
-| U26 | TPS25942ARVCR | USB input eFuse: TI TPS25942A: ramps USB power in gently, cuts off outside 3.7-10 V, limits current to about 2 A, blocks reverse current, retries by itself. Reports faults on EXT_FAULT; IMON gives 0.52 V per ampere as a probe point. |
+| U26 | TPS25942ARVCR | USB input eFuse: TI TPS25942A: ramps USB power in gently, cuts off outside 3.7-10 V, limits current to about 3 A (the Type-C cable figure), blocks reverse current, retries by itself. Reports faults on EXT_FAULT; IMON gives 0.52 V per ampere as a probe point. |
 | C184 | 10nF 25V | 10nF 25V capacitor from VBUS_DVDT to GND, for U26 (USB input eFuse): sets how slowly U26 ramps VSYS up, about 1.2 V/ms |
 | C185 | 10uF 50V | 10uF 50V bypass on VSYS, for U26 (USB input eFuse) |
 | C186 | 10uF 50V | 10uF 50V bypass on VSYS, for U26 (USB input eFuse) |
@@ -314,7 +314,7 @@ Where power enters. Two inputs feed one internal supply, VSYS: USB-C (5 V, or 9 
 | R50 | 110k | 110k resistor from VBUS_UVLO to VBUS, for U26 (USB input eFuse): U26 enable: the 110k/24.9k/14.7k string turns it on above 3.74 V |
 | R51 | 24.9k | 24.9k series resistor between VBUS_OVLO and VBUS_UVLO, for U26 (USB input eFuse): U26 overvoltage: the same string cuts it off above about 10 V; U26 enable: the 110k/24.9k/14.7k string turns it on above 3.74 V |
 | R52 | 14.7k | 14.7k resistor from VBUS_OVLO to GND, for U26 (USB input eFuse): U26 overvoltage: the same string cuts it off above about 10 V |
-| R54 | 44.2k | 44.2k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A (89 / 44.2k) |
+| R54 | 29.4k | 29.4k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 3 A (89 / 29.4k) |
 | R207 | 10k | 10k resistor from VBUS_IMON to GND, for U26 (USB input eFuse): U26 current monitor, 0.52 V per ampere into 10k; probe point, no ADC |
 
 ### U11  VSYS to +5V
@@ -432,9 +432,9 @@ Protected switch between the board's +5V and the 5 V pins of every extension por
 
 | Ref | Value | What it does |
 |---|---|---|
-| U21 | TPS22950CDDCR | extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 1 A limit, reverse blocking. |
+| U21 | TPS22950CDDCR | extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 2 A limit (1.5-2.5 A), reverse blocking. |
 | C218 | 1uF | 1uF bypass on +5V, for U21 (extension 5 V switch) |
-| R74 | 1.15k | 1.15k resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py) |
+| R74 | 604 | 604 resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py) |
 
 ### U22  +3V3 to +3V3_EXT
 
@@ -442,9 +442,9 @@ Protected switch between +3V3 and the 3.3 V pins of every extension port, limite
 
 | Ref | Value | What it does |
 |---|---|---|
-| U22 | TPS22950CDDCR | extension 3.3 V switch: TI TPS22950C load switch: +3V3 to every slot's 3.3 V pin, about 0.5 A limit. |
+| U22 | TPS22950CDDCR | extension 3.3 V switch: TI TPS22950C load switch: +3V3 to every slot's 3.3 V pin, about 1 A limit (0.75-1.25 A). |
 | C219 | 1uF | 1uF bypass on +3V3, for U22 (extension 3.3 V switch) |
-| R75 | 2.21k | 2.21k resistor from U22_ILIM to GND, for U22 (extension 3.3 V switch): sets the switch's current limit (TI equation in design.py) |
+| R75 | 1.15k | 1.15k resistor from U22_ILIM to GND, for U22 (extension 3.3 V switch): sets the switch's current limit (TI equation in design.py) |
 
 ### U23  VCCIO_1 to VCCIO_1_EXT
 
@@ -1039,8 +1039,8 @@ Power for whatever is plugged into slot L. The 1x7 power socket carries PIN V (3
 | C143 | 10uF | 10uF bypass on SLOT_L_PIN_VOLTAGE, for J57 (slot L power socket) |
 | C144 | 100nF | 100nF bypass on SLOT_L_3V3, for J57 (slot L power socket) |
 | F1 | 500mA | 500mA resettable fuse feeding SLOT_L_PIN_VOLTAGE from +3V3_EXT, for J57 (slot L power socket) |
-| F2 | 500mA | 500mA resettable fuse feeding SLOT_L_5V from +5V_EXT, for J57 (slot L power socket) |
-| F3 | 300mA | 300mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for J57 (slot L power socket) |
+| F2 | 1.1A | 1.1A resettable fuse feeding SLOT_L_5V from +5V_EXT, for J57 (slot L power socket) |
+| F3 | 500mA | 500mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for J57 (slot L power socket) |
 | F4 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_L_AUX from AUX_RAIL, for J57 (slot L power socket) |
 
 ### SLOT M branches
@@ -1054,8 +1054,8 @@ Power for whatever is plugged into slot M. The 1x7 power socket carries PIN V (3
 | C145 | 10uF | 10uF bypass on SLOT_M_PIN_VOLTAGE, for J58 (slot M power socket) |
 | C146 | 100nF | 100nF bypass on SLOT_M_3V3, for J58 (slot M power socket) |
 | F5 | 500mA | 500mA resettable fuse feeding SLOT_M_PIN_VOLTAGE from +3V3_EXT, for J58 (slot M power socket) |
-| F6 | 500mA | 500mA resettable fuse feeding SLOT_M_5V from +5V_EXT, for J58 (slot M power socket) |
-| F7 | 300mA | 300mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for J58 (slot M power socket) |
+| F6 | 1.1A | 1.1A resettable fuse feeding SLOT_M_5V from +5V_EXT, for J58 (slot M power socket) |
+| F7 | 500mA | 500mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for J58 (slot M power socket) |
 | F8 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_M_AUX from AUX_RAIL, for J58 (slot M power socket) |
 
 ### SLOT A branches
@@ -1069,8 +1069,8 @@ Power for whatever is plugged into slot A. The 1x7 power socket carries PIN V (t
 | C147 | 10uF | 10uF bypass on SLOT_A_PIN_VOLTAGE, for J53 (slot A power socket) |
 | C148 | 100nF | 100nF bypass on SLOT_A_3V3, for J53 (slot A power socket) |
 | F9 | 500mA | 500mA resettable fuse feeding SLOT_A_PIN_VOLTAGE from VCCIO_1_EXT, for J53 (slot A power socket) |
-| F10 | 500mA | 500mA resettable fuse feeding SLOT_A_5V from +5V_EXT, for J53 (slot A power socket) |
-| F11 | 300mA | 300mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for J53 (slot A power socket) |
+| F10 | 1.1A | 1.1A resettable fuse feeding SLOT_A_5V from +5V_EXT, for J53 (slot A power socket) |
+| F11 | 500mA | 500mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for J53 (slot A power socket) |
 | F12 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_A_AUX from AUX_RAIL, for J53 (slot A power socket) |
 
 ### SLOT B branches
@@ -1084,8 +1084,8 @@ Power for whatever is plugged into slot B. The 1x7 power socket carries PIN V (t
 | C149 | 10uF | 10uF bypass on SLOT_B_PIN_VOLTAGE, for J62 (slot B power socket) |
 | C150 | 100nF | 100nF bypass on SLOT_B_3V3, for J62 (slot B power socket) |
 | F13 | 500mA | 500mA resettable fuse feeding SLOT_B_PIN_VOLTAGE from VCCIO_1_EXT, for J62 (slot B power socket) |
-| F14 | 500mA | 500mA resettable fuse feeding SLOT_B_5V from +5V_EXT, for J62 (slot B power socket) |
-| F15 | 300mA | 300mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for J62 (slot B power socket) |
+| F14 | 1.1A | 1.1A resettable fuse feeding SLOT_B_5V from +5V_EXT, for J62 (slot B power socket) |
+| F15 | 500mA | 500mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for J62 (slot B power socket) |
 | F16 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_B_AUX from AUX_RAIL, for J62 (slot B power socket) |
 
 ### SLOT C branches
@@ -1099,8 +1099,8 @@ Power for whatever is plugged into slot C. The 1x7 power socket carries PIN V (t
 | C151 | 10uF | 10uF bypass on SLOT_C_PIN_VOLTAGE, for J54 (slot C power socket) |
 | C152 | 100nF | 100nF bypass on SLOT_C_3V3, for J54 (slot C power socket) |
 | F17 | 500mA | 500mA resettable fuse feeding SLOT_C_PIN_VOLTAGE from VCCIO_1_EXT, for J54 (slot C power socket) |
-| F18 | 500mA | 500mA resettable fuse feeding SLOT_C_5V from +5V_EXT, for J54 (slot C power socket) |
-| F19 | 300mA | 300mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for J54 (slot C power socket) |
+| F18 | 1.1A | 1.1A resettable fuse feeding SLOT_C_5V from +5V_EXT, for J54 (slot C power socket) |
+| F19 | 500mA | 500mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for J54 (slot C power socket) |
 | F20 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_C_AUX from AUX_RAIL, for J54 (slot C power socket) |
 
 ### SLOT D branches
@@ -1114,8 +1114,8 @@ Power for whatever is plugged into slot D. The 1x7 power socket carries PIN V (t
 | C153 | 10uF | 10uF bypass on SLOT_D_PIN_VOLTAGE, for J63 (slot D power socket) |
 | C154 | 100nF | 100nF bypass on SLOT_D_3V3, for J63 (slot D power socket) |
 | F21 | 500mA | 500mA resettable fuse feeding SLOT_D_PIN_VOLTAGE from VCCIO_1_EXT, for J63 (slot D power socket) |
-| F22 | 500mA | 500mA resettable fuse feeding SLOT_D_5V from +5V_EXT, for J63 (slot D power socket) |
-| F23 | 300mA | 300mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for J63 (slot D power socket) |
+| F22 | 1.1A | 1.1A resettable fuse feeding SLOT_D_5V from +5V_EXT, for J63 (slot D power socket) |
+| F23 | 500mA | 500mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for J63 (slot D power socket) |
 | F24 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_D_AUX from AUX_RAIL, for J63 (slot D power socket) |
 
 ### SLOT E branches
@@ -1129,8 +1129,8 @@ Power for whatever is plugged into slot E. The 1x7 power socket carries PIN V (t
 | C155 | 10uF | 10uF bypass on SLOT_E_PIN_VOLTAGE, for J55 (slot E power socket) |
 | C156 | 100nF | 100nF bypass on SLOT_E_3V3, for J55 (slot E power socket) |
 | F25 | 500mA | 500mA resettable fuse feeding SLOT_E_PIN_VOLTAGE from VCCIO_2_EXT, for J55 (slot E power socket) |
-| F26 | 500mA | 500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket) |
-| F27 | 300mA | 300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket) |
+| F26 | 1.1A | 1.1A resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket) |
+| F27 | 500mA | 500mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket) |
 | F28 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_E_AUX from AUX_RAIL, for J55 (slot E power socket) |
 
 ### SLOT F branches
@@ -1144,8 +1144,8 @@ Power for whatever is plugged into slot F. The 1x7 power socket carries PIN V (t
 | C157 | 10uF | 10uF bypass on SLOT_F_PIN_VOLTAGE, for J64 (slot F power socket) |
 | C158 | 100nF | 100nF bypass on SLOT_F_3V3, for J64 (slot F power socket) |
 | F29 | 500mA | 500mA resettable fuse feeding SLOT_F_PIN_VOLTAGE from VCCIO_2_EXT, for J64 (slot F power socket) |
-| F30 | 500mA | 500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket) |
-| F31 | 300mA | 300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket) |
+| F30 | 1.1A | 1.1A resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket) |
+| F31 | 500mA | 500mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket) |
 | F32 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_F_AUX from AUX_RAIL, for J64 (slot F power socket) |
 
 ### SLOT G branches
@@ -1159,8 +1159,8 @@ Power for whatever is plugged into slot G. The 1x7 power socket carries PIN V (t
 | C159 | 10uF | 10uF bypass on SLOT_G_PIN_VOLTAGE, for J56 (slot G power socket) |
 | C160 | 100nF | 100nF bypass on SLOT_G_3V3, for J56 (slot G power socket) |
 | F33 | 500mA | 500mA resettable fuse feeding SLOT_G_PIN_VOLTAGE from VCCIO_2_EXT, for J56 (slot G power socket) |
-| F34 | 500mA | 500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket) |
-| F35 | 300mA | 300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket) |
+| F34 | 1.1A | 1.1A resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket) |
+| F35 | 500mA | 500mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket) |
 | F36 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_G_AUX from AUX_RAIL, for J56 (slot G power socket) |
 
 ### SLOT H branches
@@ -1174,8 +1174,8 @@ Power for whatever is plugged into slot H. The 1x7 power socket carries PIN V (t
 | C161 | 10uF | 10uF bypass on SLOT_H_PIN_VOLTAGE, for J65 (slot H power socket) |
 | C162 | 100nF | 100nF bypass on SLOT_H_3V3, for J65 (slot H power socket) |
 | F37 | 500mA | 500mA resettable fuse feeding SLOT_H_PIN_VOLTAGE from VCCIO_2_EXT, for J65 (slot H power socket) |
-| F38 | 500mA | 500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket) |
-| F39 | 300mA | 300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket) |
+| F38 | 1.1A | 1.1A resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket) |
+| F39 | 500mA | 500mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket) |
 | F40 | 1.1A 33V | 1.1A 33V resettable fuse feeding SLOT_H_AUX from AUX_RAIL, for J65 (slot H power socket) |
 
 ### VCCIO_1 selector

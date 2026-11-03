@@ -34,7 +34,7 @@ RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'P
 # the same outer-layer 50 ohm geometry as RGMII; CLK has its 22 ohm at the
 # FPGA and the data/control lines are length-matched by hand to it.
 SDRAM_PATTERNS = ('SDRAM_*',)
-GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'SDRAM', 'PSRAM', 'AUX_5A')
+GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'SDRAM', 'PSRAM', 'AUX_5A', 'PWR_3A', 'EXT_2A')
 
 
 POWER_HEADERS = ' || '.join(f"B.Reference == '{r}'" for r in
@@ -58,6 +58,13 @@ def emit_rules():
         dict(default, name='PSRAM', priority=1, track_width=0.1),
         dict(default, name='AUX_5A', priority=2, track_width=2.0,
              via_diameter=1.0, via_drill=0.5),
+        # input path at the 3 A planning current (U26 at 29.4k, J50 3 A):
+        # 1.5 mm on 1 oz outer copper is about 3 A at 10 C rise (IPC-2221)
+        dict(default, name='PWR_3A', priority=2, track_width=1.5,
+             via_diameter=0.8, via_drill=0.4),
+        # the four switched extension buses: 2 A on +5V_EXT, 1 A on the rest
+        dict(default, name='EXT_2A', priority=2, track_width=1.0,
+             via_diameter=0.8, via_drill=0.4),
     ]
     settings['netclass_patterns'] = [p for p in settings['netclass_patterns']
                                     if p['netclass'] not in GENERATED]
@@ -67,6 +74,10 @@ def emit_rules():
     settings['netclass_patterns'] += [dict(netclass='SDRAM', pattern=p) for p in SDRAM_PATTERNS]
     settings['netclass_patterns'].append(dict(netclass='PSRAM', pattern='PSRAM*'))
     settings['netclass_patterns'].append(dict(netclass='AUX_5A', pattern='AUX_RAIL'))
+    settings['netclass_patterns'] += [dict(netclass='PWR_3A', pattern=p)
+                                      for p in ('VBUS', 'VBUS_SS', 'VSYS', 'VIN_EXT', '+5V_BUCK')]
+    settings['netclass_patterns'] += [dict(netclass='EXT_2A', pattern=p)
+                                      for p in ('+5V_EXT', '+3V3_EXT', 'VCCIO_1_EXT', 'VCCIO_2_EXT')]
     project['board']['design_settings']['rules'].update(
         min_clearance=0.15, min_track_width=0.0889,
         min_via_diameter=0.45, min_through_hole_diameter=0.2)
@@ -81,6 +92,12 @@ def emit_rules():
 (rule "AUX_RAIL 5A aggregate"
   (condition "A.hasNetclass('AUX_5A')")
   (constraint track_width (min 2.0mm) (opt 2.0mm)))
+(rule "input path 3A"
+  (condition "A.hasNetclass('PWR_3A')")
+  (constraint track_width (min 1.5mm) (opt 1.5mm)))
+(rule "extension buses 2A"
+  (condition "A.hasNetclass('EXT_2A')")
+  (constraint track_width (min 1.0mm) (opt 1.0mm)))
 # RGMII: about 50 ohm on the outer layers; keep the twelve lines the same
 # width and length-match TXD[3:0]/TX_CTL to TXC and RXD[3:0]/RX_CTL to RXC
 # by hand (KiCad has no bus-skew rule); the PHY's 2 ns delays do the rest.

@@ -18,15 +18,16 @@ import sys
 # planned on. The 5 V rows above 500 mA are user-declared ports: firmware
 # may use them only on a stored setting the user made, never by detection.
 SOURCES = [
-    ('USB 2.0 port', 4.75, 0.5, 'configured bus power; an SDP guarantees no more; the planning default for any 5 V source'),
-    ('USB-C 5V/1.5A', 4.75, 1.5, 'Type-C 1.5 A advertisement (Rp): readable in HUSB238 PD_STATUS1 since 2026-10-30; still user-declared in this budget (item 55 open)'),
-    ('USB-C 5V/3A', 4.75, 3.0, 'Type-C 3 A advertisement: readable in PD_STATUS1; still user-declared (item 55 open)'),
-    ('USB-PD 9V', 9.00, 1.67, 'the only PDO firmware may select (PDO_SELECT 9 V; the VSET strap asks 5 V on its own); a 9 V PDO is 15 W or more (PD power rules [verify])'),
+    ('USB 2.0 port', 4.75, 0.5, 'configured bus power; what any 5 V source is until PD_STATUS1 says more (default Rp)'),
+    ('USB-C 5V/1.5A', 4.75, 1.5, 'Type-C 1.5 A advertisement (Rp), read by firmware in HUSB238 PD_STATUS1 bits 1:0 (2026-11-03: detected, no longer user-declared)'),
+    ('USB-C 5V/3A', 4.75, 3.0, 'Type-C 3 A advertisement, read in PD_STATUS1; a 5 V source never carries full export (U34, 15 W)'),
+    ('USB-PD 9V', 9.00, 1.67, 'the 9 V PDO firmware selects, at its 15 W floor (PD power rules [verify PD3 10.2]); PD_STATUS0 bits 3:0 report the granted current'),
+    ('USB-PD 9V/3A', 9.00, 3.0, '9 V granted at 3 A (PD_STATUS0 PD_SRC_CURRENT = 3 A, any 27 W or larger charger); 3 A is the Type-C cable limit without an e-marker'),
     ('J50 VIN', 9.00, 3.0, 'official 9-21 V screw-input range; 3 A is the planning figure; U34 (Q7) puts the whole board on it, USB connected or not'),
 ]
 # Hardware limits on the two USB paths: U26 (eFuse to VSYS) and U34 (mux to
 # +5V) draw from the same connector when the source is plain 5 V.
-I_U26_MIN, I_U26_TYP = 1.86, 2.01     # TPS25942A 44.2k ILIM: 89/R, SLVSCE9D Equation 4 and the 42.2k row of 7.5
+I_U26_MIN, I_U26_TYP = 2.79, 3.03     # TPS25942A 29.4k ILIM: 89/R (SLVSCE9D Equation 4), +/-8 %; the 24.9k row of 7.5 reads 3.25-3.81 A
 I_U34_MIN, I_U34_TYP = 2.00, 2.50     # TPS2121 44.2k RILM, SLVSEA3F Table 7.5
 ETA = 0.90                            # planning efficiency per conversion stage
 # Rails whose regulator is held off in recovery mode (EN low from the
@@ -37,16 +38,23 @@ RECOVERY_OFF = {'+1V0', '+2V5', '+1V2_MGT'}
 # typical limit or, for the PIN V domains, one slot fuse's hold current.
 # They are not additive guarantees: ref/extension-ux.md.
 EXPORTS = [
-    ('+5V_EXT', 5.0, 1.00, 'U21 TPS22950C 1.15k, 1.0 A typical'),
-    ('+3V3_EXT', 3.3, 0.50, 'U22 TPS22950C 2.21k, 0.5 A typical'),
+    ('+5V_EXT', 5.0, 2.00, 'U21 TPS22950C 604 ohm, 2.0 A typical (1.54-2.46 A, SLVSFJ2B 7.5 at 610 ohm)'),
+    ('+3V3_EXT', 3.3, 1.00, 'U22 TPS22950C 1.15k, 1.0 A typical (0.75-1.25 A)'),
     ('VCCIO_1_EXT', 3.3, 0.50, 'U23 TPS22975, no limit of its own: one 500 mA PINV PTC'),
     ('VCCIO_2_EXT', 3.3, 0.50, 'U24 TPS22975, no limit of its own: one 500 mA PINV PTC'),
 ]
+# Per-slot branch PTCs, hold current at 25 C (design.py fits these values;
+# the LCSC parts are in its F() table). Fault isolation, not an allowance:
+# ten slots share each bus above. 2026-11-03: 5 V 500 mA -> 1.1 A and
+# 3V3 300 -> 500 mA so one slot can carry a real load (a display, a radio
+# module, a small servo); the buses above went to 2 A and 1 A to match.
+SLOT_PTC = {'PIN_VOLTAGE': '500mA', '5V': '1.1A', '3V3': '500mA', 'AUX': '1.1A 33V'}
+PTC_TRIP = {'500mA': 1.0, '1.1A': 2.2, '300mA': 0.65, '1.1A 33V': 2.2}   # trip at 25 C, datasheets
 
-VF_SS34 = 0.45
+VF_OR = 0.45          # SS54 at the 0.6 A planning current; about 0.5 V at 3 A
 RON_U26 = 0.05
 I_VSYS_HI = 0.60
-V_OR_DROP = VF_SS34 + RON_U26 * I_VSYS_HI
+V_OR_DROP = VF_OR + RON_U26 * I_VSYS_HI
 VSYS_MIN = min(v for _, v, _, _ in SOURCES) - V_OR_DROP
 VSYS_MAX = 21.0
 
@@ -85,8 +93,9 @@ INDUCTOR = {
 # never the active figure (findings, re-audit 2026-10-29).
 LOADS = [
     # ---- +1V0, FPGA core
-    ('+1V0', 'XC7A100T VCCINT, busy design', 1.50, 0.0, 'estimate',
-     'pre-bitstream planning allowance; replace with an AMD XPE result'),
+    ('+1V0', 'XC7A100T VCCINT, busy design', 2.00, 0.0, 'estimate',
+     'planning allowance for a design that keeps the four PSRAM ports, the SDRAM, '
+     'the PHY and HDMI busy at once (raised from 1.5 A, 2026-11-03); replace with an AMD XPE result'),
     ('+1V0', 'VCCBRAM', 0.05, 0.0, 'estimate', 'share of the 0.25 W AUX/BRAM line'),
     ('+1V0', '+1V0_MGT (MGTAVCC, filtered off +1V0)', 0.10, 0.0, 'estimate',
      '2 lanes, share of the 0.4 W transceiver line'),
@@ -241,9 +250,7 @@ def inductor_rows(parts):
     for ref, part, _src, out, _lo, _hi, _cap in REGULATORS:
         d = REG_DETAIL[ref]; ind = INDUCTOR[d['ind']]
         vout = {'+5V': 5.0, '+3V3': 3.3, '+2V5': 2.5, '+1V8_IO': 1.8, '+1V0': 1.0, '+1V2_MGT': 1.2}[out]
-        iload = loads[out]
-        if out == '+5V': iload += 1.0          # +5V_EXT allowance rides on U11
-        if out == '+3V3': iload += 0.5 + 1.0   # +3V3_EXT and both PIN V domains at 3.3 V
+        iload = loads[out] + export_on(out)
         ripple = vout * (1 - vout / d['vin']) / (ind['l'] * d['fsw'])
         ripple_env = vout * (1 - vout / d['vin_max']) / (ind['l'] * L_TOL * d['fsw'])
         ipk = iload + ripple / 2
@@ -297,6 +304,26 @@ def mode_rows():
             rows.append((name, sname, v, p33m + p5m, i_tot, limit, ok, hw))
     return rows
 
+def export_on(rail):
+    """Connector export allowance a regulator carries: +5V_EXT on U11,
+    +3V3_EXT and both PIN V domains (worst case jumpered to 3.3 V) on U12."""
+    if rail == '+5V':
+        return sum(a for n, _v, a, _c in EXPORTS if n == '+5V_EXT')
+    if rail == '+3V3':
+        return sum(a for n, _v, a, _c in EXPORTS if n != '+5V_EXT')
+    return 0.0
+
+
+def or_diode_rows():
+    """Current and dissipation in D3 (USB) or D4 (J50) in full mode at 9 V:
+    the SS54 is a 5 A SMA part, 0.55 V at 5 A; about 0.5 V at these currents."""
+    out = []
+    for m, s, v, p, i, lim, ok, hw in mode_rows():
+        if m == 'full' and v >= 9.0:
+            out.append((s, i, 0.5 * i))
+    return out
+
+
 def board_loads():
     own = {rail: sum(amps for r, _, amps, _rec, _k, _n in LOADS if r == rail)
            for rail in ('+5V', '+3V3', '+2V5', '+1V8_IO', '+1V0', '+1V1', '+1V2_MGT')}
@@ -328,19 +355,28 @@ def analyse():
     # any 5 V source, item 55); recovery and light fit a 9 V PD contract;
     # full export (every allowance at once) needs J50. A PD source carries
     # full mode only as far as U26's minimum current limit allows.
+    # Contract (2026-11-03): recovery fits a plain USB 2.0 port; light fits a
+    # 3 A Type-C port and the 15 W PD floor; full export fits a 27 W PD
+    # charger (9 V at 3 A) and J50. Firmware reads which one it has.
     for mode, src, v, p, i, lim, ok, hw in mode_rows():
         if ((mode == 'recovery' and src == 'USB 2.0 port') or
-                (mode in ('recovery', 'light') and src == 'USB-PD 9V') or
-                (mode == 'full' and src == 'J50 VIN')) and not ok:
+                (mode == 'light' and src in ('USB-C 5V/3A', 'USB-PD 9V')) or
+                (mode == 'full' and src in ('USB-PD 9V/3A', 'J50 VIN'))) and not ok:
             problems.append(f'{mode} mode does not fit {src}: {i:.2f} A against {lim:g} A ({hw})')
+    for src, i, p in or_diode_rows():
+        if i > 5.0:
+            problems.append(f'full mode on {src} puts {i:.2f} A through the 5 A OR diode')
+    for n, v, a, c in EXPORTS:
+        for rail, cap in (('+5V', 3.0), ('+3V3', 3.0)):
+            pass
+    loads = board_loads()
+    for ref, part, src, rail, lo, hi, cap in REGULATORS:
+        if loads[rail] + export_on(rail) > cap:
+            problems.append(f'{ref}: board {loads[rail]:.2f} A plus export {export_on(rail):.2f} A exceeds {cap:g} A')
     if VSYS_MIN < 3.8:
         problems.append(f'LMR33630 minimum 3.8 V exceeds VSYS minimum {VSYS_MIN:.2f} V')
     if VSYS_MAX > 36.0:
         problems.append('21 V VIN exceeds the LMR33630 operating maximum')
-    loads = board_loads()
-    for ref, part, src, rail, lo, hi, cap in REGULATORS:
-        if loads[rail] > cap:
-            problems.append(f'{ref}: board-only {loads[rail]:.3f} A exceeds {cap:g} A')
     return problems
 
 def report():
@@ -374,8 +410,10 @@ def report():
 
 ## Input envelope
 
-USB-C can start at 4.75 V. The SS34 plus USB eFuse model loses
-{V_OR_DROP:.2f} V at 0.6 A, leaving **{VSYS_MIN:.2f} V**. The screw input is
+USB-C can start at 4.75 V. The SS54 OR diode plus USB eFuse model loses
+{V_OR_DROP:.2f} V at 0.6 A, leaving **{VSYS_MIN:.2f} V**. In full mode at 9 V
+the OR diode carries {' / '.join(f'{i:.2f} A ({p:.2f} W) on {s}' for s, i, p in or_diode_rows())}:
+the SS54 (SMA, 5 A) wants its copper; give D3 and D4 a wide VSYS pour. The screw input is
 **9–21 V DC**. U11/U12 are LMR33630 devices (3.8–36 V operating, 400 kHz)
 and cover the full VSYS envelope. Both have EN tied to VIN: +3V3, +5V and the
 1.8 V rail behind U14 are present whenever the board has power, so the FPGA's
@@ -396,7 +434,8 @@ minimum input since 2026-10-30): firmware asks for 9 V before it enables
 EXT_EN, and enables EN_1V0 only once the source is settled (9 V granted,
 or a 5 V source confirmed: 4.75 V less U34's drop is 4.69 V).
 Both of U34's inputs block reverse current and the rail is limited to
-{I_U34_TYP:g} A typical.
+{I_U34_TYP:g} A typical. U26 limits the USB path into VSYS to {I_U26_TYP:.2f} A typical
+({I_U26_MIN:.2f} A minimum), the Type-C cable figure.
 
 The VIN clamp is SMBJ22A: 22 V standoff and 35.5 V maximum rated pulse clamp.
 The LMR33630's 38 V absolute maximum on VIN is the lowest limit after D4.
@@ -451,8 +490,8 @@ FPGA decoupling to make a row fit.
 
 Ripple from the buck equation (TLV62569 SLVSDG1C eq. 3) at the planning
 input voltage, load from the table above plus the connector allowance the
-rail carries (+5V: 1 A for +5V_EXT; +3V3: 0.5 A for +3V3_EXT and 1 A for
-both PIN V domains at 3.3 V). The envelope column repeats the peak at the
+rail carries (+5V: {export_on('+5V'):g} A for +5V_EXT; +3V3: {export_on('+3V3'):g} A for
++3V3_EXT and both PIN V domains at 3.3 V). The envelope column repeats the peak at the
 highest input the converter can see (21 V on U11/U12, 5.5 V on the 5 V
 row) with the inductance at -20 % (the fitted parts are "M" tolerance);
 that is the figure checked against saturation.
@@ -480,32 +519,32 @@ against its own limiter and the sum against the source. With J50 connected
 U34 puts the whole board on U11 (Q7), so the J50 row also covers J50 with a
 USB cable attached: USB then carries nothing but the HUSB238.
 
-**Source policy (findings item 55).** Since 2026-10-30 the PD sink is a
-HUSB238 on I2C1: PD_STATUS0 reports the contract (voltage, current) and
-PD_STATUS1 the 5 V Type-C advertisement (default / 1.5 A / 2.4 A / 3 A), so
-the premise of item 55 (not readable) no longer holds; the policy below is
-kept until the owner decides to use that register. Also readable: VBUS5_ST
-(which input feeds +5V) and MON_VSYS (J50 present). So, for now:
+**Source policy (findings item 55, settled 2026-11-03).** The PD sink is a
+HUSB238 on I2C1. Firmware reads the source instead of guessing it:
+PD_STATUS1 bits 1:0 give the 5 V Type-C advertisement (default / 1.5 A /
+2.4 A / 3 A), PD_STATUS0 bits 7:4 the granted PD voltage and bits 3:0 the
+granted current (0.5-5 A in steps), VBUS5_ST which input feeds +5V and
+MON_VSYS whether J50 is present. Item 55's premise (not readable) is gone
+with the CH224K. The rules:
 
-1. Any 5 V source is planned as a USB 2.0 port, 500 mA: recovery mode only.
-   Recovery draws about {mode_rows()[0][4]*1000:.0f} mA at 4.75 V. That fits
-   the configured 500 mA but not the 100 mA USB 2.0 allows an unconfigured
-   device: the PHY, SDRAM and oscillator sit on the always-on
-   +3V3 with no switch. Open item: accept it (ports rarely police the
-   100 mA step) or give those loads a switch in rev B; this table does not
-   claim the pre-enumeration allowance is met.
-2. A granted 9 V request is a 15 W guarantee (a 9 V PDO is offered at 1.67 A
-   or more under the PD power rules [verify PD3 10.2]): light mode fits,
-   full export does not, and firmware rations EXT_EN inside what U26's
-   minimum limit leaves over the board load.
-3. A 5 V port above 500 mA (1.5 A / 3 A rows) is a user-declared setting the
-   controller stores; it is never detected. J50 is detected (MON_VSYS) and
-   carries full mode.
+1. Until PD_STATUS1 says otherwise, a 5 V source is a USB 2.0 port, 500 mA:
+   recovery mode only. Recovery draws about {mode_rows()[0][4]*1000:.0f} mA at
+   4.75 V, inside the configured 500 mA but not the 100 mA USB 2.0 allows an
+   unconfigured device (the PHY, SDRAM and oscillator sit on the always-on
+   +3V3 with no switch; ports rarely police that step; rev B item).
+2. A 1.5 A or 3 A advertisement is believed. Light mode (every board load,
+   no export) fits a 3 A port; a 5 V source never carries full export: the
+   +5V side passes U34 (2.0 A minimum) and the whole port is 15 W.
+3. A granted 9 V is at least 15 W: light mode. With PD_SRC_CURRENT at 3 A
+   (any 27 W or larger charger) full export fits, inside U26's
+   {I_U26_MIN:.2f} A minimum limit. Between the two, firmware rations EXT_EN to
+   (granted current x 9 V x {ETA}) less the board load.
+4. J50 (detected on MON_VSYS) carries full mode from 9 V up.
 
-The hardware limits (U26, U34, the PTCs) protect the board and the
+The hardware limits (U26, U34, U21, U22, the PTCs) protect the board and the
 connector, not the source. The contract checked by `budget.py`: recovery
-fits a USB 2.0 port, recovery and light fit a 9 V PD contract, full fits
-J50.
+fits a USB 2.0 port; light fits a 3 A Type-C port and the 15 W PD floor;
+full fits a 27 W PD charger and J50.
 
 ## AUX: raw pass-through, no converter
 
@@ -529,11 +568,25 @@ their maximum switch-limit tolerances are not additive guaranteed allowances.
 
 `AUX_RAIL` is a 5 A routing class, but source capacity is the external supply
 on J68. Each of ten AUX branches has its own 33 V, 1.1 A-hold PTC. The other
-per-zone PTCs remain 500 mA PINV, 300 mA 3V3, and 500 mA 5V. These are fault
-isolation, not additive current allocations: an overloaded external supply
-droops the shared rail; a branch short heats and opens that branch PTC. AUX
-has no active reverse blocking: never drive voltage back into a connector AUX
-pin.
+per-slot PTCs are {SLOT_PTC['PIN_VOLTAGE']} PIN V, {SLOT_PTC['3V3']} 3V3 and {SLOT_PTC['5V']} 5V
+(hold at 25 C; trip at twice that; hold falls with temperature). They are
+fault isolation, not additive current allocations: the bus above each is
+the real ceiling ({' / '.join(f'{n} {a:g} A' for n, _v, a, _c in EXPORTS)}),
+so two slots at their PTC rating already exceed the 5 V and 3.3 V buses. A
+sustained overload on one slot heats and opens that slot's PTC; a dead
+short is cleared by the bus switch first (U21 at 1.54-2.46 A, U22 at
+0.75-1.25 A, both auto-retry and report EXT_FAULT), which drops every slot
+on that bus until firmware clears it: the PTC trip points sit at or above
+the switch minimums, so a short is not isolated to one slot. PIN V has no
+switch limit: a short there is the PTC (1 A trip) against U12. An
+overloaded external supply droops the shared AUX rail. AUX has no active
+reverse blocking: never drive voltage back into a connector AUX pin.
+
+Realistic loads this covers, per slot: a 5 V display or radio module
+(300-800 mA), two small servos idling (5 V), a 3.3 V sensor stack with an
+OLED (under 200 mA), and on AUX a motor driver or LED strip up to 1 A from
+the supply you wire to J68. Not covered: a 2 A LED strip on one 5 V pin
+(use AUX), or every slot loaded at once (the bus limits above).
 '''
 
 def main():

@@ -45,16 +45,18 @@ This manual is for using the board. If you are designing an extension, read
 5. Wait for the board controller to start.
 6. Plug in one simple extension and test it before adding the next.
 
-Use a USB-PD charger when the board carries displays, speakers or motors. A computer port is fine for programming and light work, but it may
-not have enough power for everything at once.
+Use a USB-PD charger of 27 W or more (9 V at 3 A) when the board carries
+displays, speakers or motors: that carries every extension rail at once. A
+15 W charger or a 3 A computer port runs the whole board with light
+extensions; a plain 500 mA port runs the board controller alone.
 
 Odin asks USB-C for 5 V by default and for 9 V only once the board controller
 is running and has decided to; its pins cannot form any higher request.
 While it asks, the board's 5 V runs a little low for under a second;
 extension power stays off until the request is settled. A 9 V charger is
-good for at least 15 W. A computer port is treated as 500 mA unless you
-tell the board controller otherwise: it cannot measure what a 5 V port
-offers.
+good for at least 15 W. The board controller reads what the source offers
+(the 5 V advertisement and the granted 9 V current) and turns extension
+power on only inside that.
 
 ### Optional power input
 
@@ -64,8 +66,8 @@ power. Connect **9–21 V** to the pin marked `+` and supply ground to `GND`.
 USB-C may remain connected; while the optional input is powered, Odin runs
 from it and uses USB only to talk to the computer. Never exceed 21 V.
 Full extension power (every connector rail loaded at once) needs this
-input; a 9 V USB-PD charger carries the board and part of the extensions.
-See [power-budget.md](power-budget.md).
+input or a 27 W USB-PD charger; a 15 W charger carries the board and part
+of the extensions. See [power-budget.md](power-budget.md).
 
 ## The extension idea, from zero
 
@@ -242,17 +244,19 @@ The small fuse beside each slot is fault protection. It is not a promise that
 every slot may draw the number printed on the fuse at the same time.
 
 Odin also separates connector power from its own power. One protected switch
-feeds each shared extension bus: 5 V, 3.3 V, the two PIN VOLTAGE groups, and
-selected 12 V power. A short or power applied backward can shut down the affected shared bus
+feeds each shared extension bus: 5 V (2 A for all slots together, 1.1 A per
+slot fuse), 3.3 V (1 A together, 500 mA per slot) and the two PIN VOLTAGE
+groups (500 mA per slot). AUX is your own supply on AUX IN, 1.1 A per slot.
+A short or power applied backward shuts down the affected shared bus
 without shutting down the FPGA, memories or board controller. All extensions on
 that bus lose power together. Unplug the bad extension before retrying.
 
 This protects power pins only. It does not make the ordinary FPGA signals
 5 V compatible. Use 5V BUS 0 or 5V BUS 1 for 5 V signals.
 
-The selectable 12 V rail is the tightest. Treat **about 0.5 A across the whole board**
-as the present design target, pending final component qualification. One LCD
-backlight is sensible. Nine motors are not.
+The 5 V bus is the one to watch: 2 A across the whole board. One display
+and a couple of small servos are sensible; nine motors are not, and an LED
+strip belongs on AUX with its own supply.
 
 The final production manual must take its exact limits from the released
 power-budget report. Do not copy preliminary figures from an old schematic.

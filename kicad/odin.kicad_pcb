@@ -2760,7 +2760,7 @@
 		(property "UI_LABEL" "G POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6dbcc2c1-ab86-4b41-a279-af0935faa412")
+			(uuid "33ccb139-e0d1-49de-bc15-837577134590")
 			(effects
 				(font
 					(size 1 1)
@@ -3172,7 +3172,7 @@
 		(property "UI_LABEL" "E | F"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "4cbf96e2-ec22-45fe-b7a4-e0d49230f878")
+			(uuid "ff91380d-06aa-424d-8d86-07172a238d6d")
 			(effects
 				(font
 					(size 1 1)
@@ -4841,9 +4841,9 @@
 			)
 		)
 		(property "UI_LABEL" "KEY F"
-			(at -0.651 2.5 0)
+			(at -0.600953 2.5 0)
 			(layer "F.SilkS")
-			(uuid "8210b9dc-419e-4415-bb85-467515f5bb5f")
+			(uuid "23c23a69-3cd5-4abb-aa05-016165afde31")
 			(effects
 				(font
 					(size 1 1)
@@ -5726,7 +5726,7 @@
 		(layer "F.Cu")
 		(uuid "0fdb76ea-901a-4ce8-84fc-8a604cb23662")
 		(at 247.484 159.64776 90)
-		(descr "300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket)")
+		(descr "500mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket)")
 		(property "Reference" "F35"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -5738,7 +5738,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "fb1d9367-2f4d-4310-a13f-1b22bd0f01ab")
@@ -5761,7 +5761,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_G_3V3 from +3V3_EXT, for J56 (slot G power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5773,7 +5773,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -8067,7 +8067,7 @@
 		(property "UI_ROLE" "A-D PIN PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5784869d-efd6-4a8f-817a-f7cc71364cca")
+			(uuid "db02e43a-1dac-431a-9ccc-5ce57391f3be")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -8324,7 +8324,7 @@
 		(property "UI_LABEL" "F POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "a17ff330-f1e1-42f9-8679-c60cd46311af")
+			(uuid "42131c6b-7066-4895-bd28-ad5b8fe68998")
 			(effects
 				(font
 					(size 1 1)
@@ -10383,7 +10383,7 @@
 		(layer "F.Cu")
 		(uuid "1c0a300b-3408-4f1c-8336-c1c0776e4928")
 		(at 166.28 139.32776 90)
-		(descr "300mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for J62 (slot B power socket)")
+		(descr "500mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for J62 (slot B power socket)")
 		(property "Reference" "F15"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -10395,7 +10395,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "8f444ff8-52a5-4747-b67a-dc025f68c9aa")
@@ -10418,7 +10418,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for J62 (slot B power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_B_3V3 from +3V3_EXT, for J62 (slot B power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10430,7 +10430,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -11601,7 +11601,7 @@
 		(layer "F.Cu")
 		(uuid "1f5c311d-fee5-481f-8f71-4ca139bdb0a2")
 		(at 166.28 143.71776 90)
-		(descr "500mA resettable fuse feeding SLOT_B_5V from +5V_EXT, for J62 (slot B power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_B_5V from +5V_EXT, for J62 (slot B power socket)")
 		(property "Reference" "F14"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -11613,7 +11613,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "99ae6f27-1e3b-4422-806b-bc53a04e3fbf")
@@ -11636,7 +11636,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_B_5V from +5V_EXT, for J62 (slot B power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_B_5V from +5V_EXT, for J62 (slot B power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -11648,7 +11648,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -12537,7 +12537,7 @@
 		(layer "F.Cu")
 		(uuid "217ffef6-c6b2-49a2-bfc4-be726980d803")
 		(at 166.28 123.39776 90)
-		(descr "500mA resettable fuse feeding SLOT_A_5V from +5V_EXT, for J53 (slot A power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_A_5V from +5V_EXT, for J53 (slot A power socket)")
 		(property "Reference" "F10"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -12549,7 +12549,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "597f8471-ecc1-4b08-a663-d99b50e81590")
@@ -12572,7 +12572,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_A_5V from +5V_EXT, for J53 (slot A power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_A_5V from +5V_EXT, for J53 (slot A power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -12584,7 +12584,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -14076,7 +14076,7 @@
 		(property "UI_ROLE" "5V SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "5525fbdc-04c7-40cc-9f32-4eb020633d8f")
+			(uuid "5f1e20c6-d354-4698-ac9c-5d122b5ab05f")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -14452,9 +14452,9 @@
 			)
 		)
 		(property "UI_LABEL" "FPGA DONE"
-			(at -6.752 4.003 0)
+			(at -6.834191 4.003 0)
 			(layer "F.SilkS")
-			(uuid "55581c0b-8728-479d-8dc8-cd2828465772")
+			(uuid "9dd64f4e-6db4-4822-9481-a5583146ba44")
 			(effects
 				(font
 					(size 1 1)
@@ -14951,7 +14951,7 @@
 		(layer "F.Cu")
 		(uuid "25323dea-43ea-446e-9a68-6ba2f0d56cde")
 		(at 247.484 143.71776 90)
-		(descr "500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket)")
 		(property "Reference" "F30"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -14963,7 +14963,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "2f3eab34-67cd-45cf-83b3-2626148829cb")
@@ -14986,7 +14986,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_F_5V from +5V_EXT, for J64 (slot F power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -14998,7 +14998,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -15667,7 +15667,7 @@
 		(property "UI_LABEL" "KEY D"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "e357f0d9-4ee0-45d5-816d-2113dc3042fa")
+			(uuid "9f734133-7981-4ac5-b8a5-05768e9d83dd")
 			(effects
 				(font
 					(size 1 1)
@@ -15714,7 +15714,7 @@
 		(layer "F.Cu")
 		(uuid "27a5ed8a-11d2-4df7-bb8a-622abea0b8c1")
 		(at 247.484 164.03776 90)
-		(descr "500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket)")
 		(property "Reference" "F34"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -15726,7 +15726,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "24c4ceef-8dda-4fcc-b84b-1326228ded80")
@@ -15749,7 +15749,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_G_5V from +5V_EXT, for J56 (slot G power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -15761,7 +15761,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -16270,9 +16270,9 @@
 			)
 		)
 		(property "UI_LABEL" "E-H PIN VOLTAGE"
-			(at -3.744 5.27 0)
+			(at -3.694191 5.27 0)
 			(layer "F.SilkS")
-			(uuid "72e83eea-71ef-4bb2-a382-6a2357dd9659")
+			(uuid "de9cc54a-52d1-4590-a044-f87756ca3b5f")
 			(effects
 				(font
 					(size 1 1)
@@ -16284,7 +16284,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "907fac6d-f0ea-48ff-a3cf-9f6d8b67bd63")
+			(uuid "096c5d12-50e2-4583-8600-22d10c8212b0")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -16296,7 +16296,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "c223a19c-3170-4290-adc2-c59665e4d813")
+			(uuid "cf1c4c11-63b7-409a-a364-3f3231204a76")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -18336,7 +18336,7 @@
 		(property "UI_LABEL" "LINK P"
 			(at 0 4.89 0)
 			(layer "F.SilkS")
-			(uuid "8ab4e85c-259d-4627-ba56-8810564ffc12")
+			(uuid "34c381ed-8156-4661-bbb8-eb0846821f26")
 			(effects
 				(font
 					(size 1 1)
@@ -18346,9 +18346,9 @@
 			)
 		)
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
-			(at 0 7.244 0)
+			(at 0 7.293769 0)
 			(layer "F.SilkS")
-			(uuid "f7901682-174c-4871-a131-aeb4cdd65778")
+			(uuid "9aeb7bab-edfc-42c4-8abe-729e4deda59a")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -19315,7 +19315,7 @@
 		(layer "F.Cu")
 		(uuid "33a5c7d7-129d-45f3-acb9-d70681d5260f")
 		(at 217.14 111.01 90)
-		(descr "USB input eFuse: TI TPS25942A: ramps USB power in gently, cuts off outside 3.7-10 V, limits current to about 2 A, blocks reverse current, retries by itself. Reports faults on EXT_FAULT; IMON gives 0.52 V per ampere as a probe point.")
+		(descr "USB input eFuse: TI TPS25942A: ramps USB power in gently, cuts off outside 3.7-10 V, limits current to about 3 A (the Type-C cable figure), blocks reverse current, retries by itself. Reports faults on EXT_FAULT; IMON gives 0.52 V per ampere as a probe point.")
 		(property "Reference" "U26"
 			(at 0 -5.407 90)
 			(layer "F.Fab")
@@ -19350,7 +19350,7 @@
 				)
 			)
 		)
-		(property "Description" "USB input eFuse: TI TPS25942A: ramps USB power in gently, cuts off outside 3.7-10 V, limits current to about 2 A, blocks reverse current, retries by itself. Reports faults on EXT_FAULT; IMON gives 0.52 V per ampere as a probe point."
+		(property "Description" "USB input eFuse: TI TPS25942A: ramps USB power in gently, cuts off outside 3.7-10 V, limits current to about 3 A (the Type-C cable figure), blocks reverse current, retries by itself. Reports faults on EXT_FAULT; IMON gives 0.52 V per ampere as a probe point."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -19377,7 +19377,7 @@
 		(property "UI_ROLE" "USB INPUT PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "7e0f0bff-f37d-47a5-8e89-c8bea276058b")
+			(uuid "f73cba4e-cdf8-4ef3-b68f-8b18247e25d3")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -20341,7 +20341,7 @@
 		(property "UI_LABEL" "KEY B"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "55931246-bc36-412d-8c9e-a4db332abe18")
+			(uuid "0802bd46-50ee-4cb3-a990-cf938a34cc57")
 			(effects
 				(font
 					(size 1 1)
@@ -21003,7 +21003,7 @@
 		(property "UI_LABEL" "L POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "00bb0959-5b6e-456c-9fba-6f25d646f528")
+			(uuid "e0dd4f4a-0a74-4ead-8957-04ce6110837c")
 			(effects
 				(font
 					(size 1 1)
@@ -21709,7 +21709,7 @@
 		(property "UI_LABEL" "H POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "798c1bb6-63e2-493c-8f28-68911820cc69")
+			(uuid "c0de6645-9149-47c4-8028-96d694f5629e")
 			(effects
 				(font
 					(size 1 1)
@@ -21971,9 +21971,9 @@
 			)
 		)
 		(property "UI_ROLE" "E-H PIN PROTECTION"
-			(at -11.037 4 0)
+			(at -10.986571 4 0)
 			(layer "F.SilkS")
-			(uuid "6bd2bd5a-b02d-4b76-9add-d2fb643888e0")
+			(uuid "09e6a0a4-9651-490d-bc11-55c89afe2bef")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -23053,7 +23053,7 @@
 		(property "UI_ROLE" "WORK MEMORY 2"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "523def2f-1b86-4518-9394-94954f3a356f")
+			(uuid "80acdc1a-75ff-4f36-b37a-e1b4ba25a9a9")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -24141,9 +24141,9 @@
 			)
 		)
 		(property "UI_LABEL" "USER 2"
-			(at 3.875 4.003 0)
+			(at 3.957048 4.003 0)
 			(layer "F.SilkS")
-			(uuid "02a614a5-1c68-4a8a-99d6-0f0786aec04c")
+			(uuid "a4e7ba57-92ca-4cdd-8a21-972e627e0651")
 			(effects
 				(font
 					(size 1 1)
@@ -25155,7 +25155,7 @@
 		(layer "F.Cu")
 		(uuid "44b8b4da-3d00-4912-afe2-adb9487becb4")
 		(at 193.122 194.92776 180)
-		(descr "500mA resettable fuse feeding SLOT_L_5V from +5V_EXT, for J57 (slot L power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_L_5V from +5V_EXT, for J57 (slot L power socket)")
 		(property "Reference" "F2"
 			(at 0 -4 180)
 			(layer "F.Fab")
@@ -25167,7 +25167,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 180)
 			(layer "F.Fab")
 			(uuid "2ff1d7fa-948f-435a-84e1-218fb20c24d4")
@@ -25190,7 +25190,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_L_5V from +5V_EXT, for J57 (slot L power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_L_5V from +5V_EXT, for J57 (slot L power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -25202,7 +25202,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -25442,7 +25442,7 @@
 		(property "UI_ROLE" "WORK MEMORY 1"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e1d03dc1-3336-48b4-9da5-244397cd80c4")
+			(uuid "e7025b95-48cf-4784-a89a-ffb7806bfee9")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -26052,7 +26052,7 @@
 		(layer "F.Cu")
 		(uuid "4722ec2c-073a-4d28-93f5-cbd85e91f9b6")
 		(at 247.484 119.00776 90)
-		(descr "300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket)")
+		(descr "500mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket)")
 		(property "Reference" "F27"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -26064,7 +26064,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "af8074ba-6fdf-4481-ad57-2f3ad9bccbc5")
@@ -26087,7 +26087,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_E_3V3 from +3V3_EXT, for J55 (slot E power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -26099,7 +26099,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -26710,9 +26710,9 @@
 			)
 		)
 		(property "UI_LABEL" "CTRL BOOT"
-			(at 0 -3.816 0)
+			(at 0 -4.408477 0)
 			(layer "F.SilkS")
-			(uuid "035a1da7-fc7f-49ce-a620-db4193fdf461")
+			(uuid "e3c892b9-48bb-421d-a358-65abc2a92319")
 			(effects
 				(font
 					(size 1 1)
@@ -27115,7 +27115,7 @@
 		(property "UI_ROLE" "ETHERNET PHY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "42e41fe9-645c-4058-b64d-bb5b794abe39")
+			(uuid "667aa2b8-4b37-41f3-b08c-367098dcb473")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28931,7 +28931,7 @@
 		(property "UI_LABEL" "A-D PIN VOLTAGE"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "a85928bb-d4ff-4ced-ab87-553e94c5e88b")
+			(uuid "3c49404c-3c57-47ec-a581-7a831f5e94ba")
 			(effects
 				(font
 					(size 1 1)
@@ -28943,7 +28943,7 @@
 		(property "UI_CHOICES" "3V3\n2V5\n1V8"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "280e0865-7e63-41a8-8224-f44531af71c0")
+			(uuid "2139fab0-929b-4a35-930e-0c64b20cee3c")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28955,7 +28955,7 @@
 		(property "UI_RULE" "ONE ROW ONLY"
 			(at -4 7 0)
 			(layer "F.SilkS")
-			(uuid "1c2e73d9-1946-4cc8-af4c-27487829fc30")
+			(uuid "e560546e-74df-4b72-979f-c0a4a6ca64ad")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -29230,13 +29230,13 @@
 		(property "UI_ROLE" "CONTROLLER MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "994e4272-f2bc-465d-bb6a-e606ab860e7f")
+			(uuid "26567e99-e4f8-417f-9ac8-34177916bf71")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -29485,15 +29485,15 @@
 			)
 		)
 		(property "UI_LABEL" "CTRL SWD"
-			(at 0 5.263 90)
+			(at 0 5.263 0)
 			(layer "F.SilkS")
-			(uuid "10670025-b023-4276-8b4b-adcb1002dce3")
+			(uuid "b2ea1a00-5b17-4e19-b1f4-3ae9f580d02f")
 			(effects
 				(font
 					(size 1 1)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr smd)
@@ -30187,7 +30187,7 @@
 		(property "UI_LABEL" "M POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3029475a-cc69-40f1-8b9a-9689169942a6")
+			(uuid "eb62cd66-53f4-4645-ac9a-89ba90ea244a")
 			(effects
 				(font
 					(size 1 1)
@@ -31770,7 +31770,7 @@
 		(property "UI_LABEL" "LINK Q"
 			(at 0 4.89 0)
 			(layer "F.SilkS")
-			(uuid "70e396f0-e200-4468-9754-ffd6aad1c1ee")
+			(uuid "bf2d78d8-6543-4875-a2da-8cabc057bbd4")
 			(effects
 				(font
 					(size 1 1)
@@ -31780,9 +31780,9 @@
 			)
 		)
 		(property "UI_RULE" "STP ONLY\nPOWER BOTH BOARDS FIRST"
-			(at 0 7.244 0)
+			(at 0 7.293769 0)
 			(layer "F.SilkS")
-			(uuid "c8cd8d58-a823-4382-a195-95f8fe78e479")
+			(uuid "79edeb6e-8b91-4df6-b139-4db2588e690d")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -33171,7 +33171,7 @@
 		(layer "F.Cu")
 		(uuid "54fdb60e-897f-4bb9-96aa-6422272d5f9c")
 		(at 166.28 184.35776 90)
-		(descr "500mA resettable fuse feeding SLOT_D_5V from +5V_EXT, for J63 (slot D power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_D_5V from +5V_EXT, for J63 (slot D power socket)")
 		(property "Reference" "F22"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -33183,7 +33183,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "808dcc10-9de1-4651-a4e4-3c55b1efbd72")
@@ -33206,7 +33206,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_D_5V from +5V_EXT, for J63 (slot D power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_D_5V from +5V_EXT, for J63 (slot D power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -33218,7 +33218,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -33458,7 +33458,7 @@
 		(property "UI_ROLE" "1V0 SUPPLY\nFPGA CORE"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "cc1f8bd1-05b2-48cb-a79f-9c107145b8e9")
+			(uuid "b9c3b572-26ee-453e-990d-d2c04676d2a0")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -34775,25 +34775,25 @@
 		(property "UI_LABEL" "EXT JTAG"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "7853324e-8fa0-4b83-9820-38e1612a3ae3")
+			(uuid "35b1f3d6-7023-4c90-9e76-400f8feaff0f")
 			(effects
 				(font
 					(size 1 1)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "UI_STATES" "OPEN: CTRL\nFIT: EXT"
 			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "1f48fbbb-0fcc-43a0-902d-a55dfa215a5c")
+			(uuid "63a74acf-e751-4663-9d25-b04e541ff1a3")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr through_hole)
@@ -35558,7 +35558,7 @@
 		(property "UI_ROLE" "WORK MEMORY 3"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6e14c364-08e9-4c62-8896-9420ac1faa99")
+			(uuid "b391a7ea-69bf-4b51-ace4-282111364ea0")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -36033,7 +36033,7 @@
 		(layer "F.Cu")
 		(uuid "5de9fbd3-3105-4a08-98bc-d0a65c904981")
 		(at 207.96 108.76 180)
-		(descr "44.2k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A (89 / 44.2k)")
+		(descr "29.4k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 3 A (89 / 29.4k)")
 		(tags "resistor")
 		(property "Reference" "R54"
 			(at 0 -1.43 0)
@@ -36046,7 +36046,7 @@
 				)
 			)
 		)
-		(property "Value" "44.2k"
+		(property "Value" "29.4k"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "0600ca5e-dc9f-4b9e-b025-c84976ceaea7")
@@ -36069,7 +36069,7 @@
 				)
 			)
 		)
-		(property "Description" "44.2k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 2 A (89 / 44.2k)"
+		(property "Description" "29.4k resistor from VBUS_ILM to GND, for U26 (USB input eFuse): sets U26's current limit, about 3 A (89 / 29.4k)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -37431,7 +37431,7 @@
 		(layer "F.Cu")
 		(uuid "639f33ec-709f-469e-b407-68fc472c75cd")
 		(at 247.484 184.35776 90)
-		(descr "500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket)")
 		(property "Reference" "F38"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -37443,7 +37443,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "823b9dac-7771-4ea0-b34f-9e33435442c1")
@@ -37466,7 +37466,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_H_5V from +5V_EXT, for J65 (slot H power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -37478,7 +37478,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -38416,9 +38416,9 @@
 			)
 		)
 		(property "UI_LABEL" "9-21V POWER IN"
-			(at 0 2.452 180)
+			(at 0 2.50175 0)
 			(layer "F.SilkS")
-			(uuid "f440e5bf-ce42-49ad-8ab8-6548283f673a")
+			(uuid "fe3eec25-d9e3-45c6-ae73-2c76644b7597")
 			(effects
 				(font
 					(size 1 1)
@@ -38428,9 +38428,9 @@
 			)
 		)
 		(property "UI_PINS" "9-21V +\nGND"
-			(at -4 0 180)
+			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "302f6824-5c87-4ede-9685-5a0b9f018b59")
+			(uuid "82167fbb-0cc8-430a-89e9-f83bb632f786")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -39293,7 +39293,7 @@
 		(property "UI_LABEL" "C | D"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "e0878503-4a49-43d5-8310-0d86ba087807")
+			(uuid "af30a34d-cf3e-4bb3-b772-2b249b87061f")
 			(effects
 				(font
 					(size 1 1)
@@ -39959,7 +39959,7 @@
 		(property "UI_ROLE" "USB POWER REQUEST"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "4c54c950-e665-4e3f-9f6c-810f87d59285")
+			(uuid "50023672-359c-4091-babc-850c3bf0aa15")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -40489,7 +40489,7 @@
 		(layer "F.Cu")
 		(uuid "6da6f60c-79e7-4e8b-a6bd-212da1ea820e")
 		(at 166.28 179.96776 90)
-		(descr "300mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for J63 (slot D power socket)")
+		(descr "500mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for J63 (slot D power socket)")
 		(property "Reference" "F23"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -40501,7 +40501,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "4187edde-2732-431c-ad41-d9baaa16e118")
@@ -40524,7 +40524,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for J63 (slot D power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_D_3V3 from +3V3_EXT, for J63 (slot D power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -40536,7 +40536,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -41650,7 +41650,7 @@
 		(layer "F.Cu")
 		(uuid "7002bb74-387d-40dc-a235-7c5ebe2b1a8b")
 		(at 247.484 179.96776 90)
-		(descr "300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket)")
+		(descr "500mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket)")
 		(property "Reference" "F39"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -41662,7 +41662,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "17312f20-e109-4a83-b832-22ebbb959265")
@@ -41685,7 +41685,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_H_3V3 from +3V3_EXT, for J65 (slot H power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -41697,7 +41697,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -43002,7 +43002,7 @@
 		(layer "F.Cu")
 		(uuid "72b8a96d-40d4-4378-a2ce-f18ac5d1f954")
 		(at 179.7 185.6225 90)
-		(descr "extension 3.3 V switch: TI TPS22950C load switch: +3V3 to every slot's 3.3 V pin, about 0.5 A limit.")
+		(descr "extension 3.3 V switch: TI TPS22950C load switch: +3V3 to every slot's 3.3 V pin, about 1 A limit (0.75-1.25 A).")
 		(property "Reference" "U22"
 			(at 0 -5.149 90)
 			(layer "F.Fab")
@@ -43037,7 +43037,7 @@
 				)
 			)
 		)
-		(property "Description" "extension 3.3 V switch: TI TPS22950C load switch: +3V3 to every slot's 3.3 V pin, about 0.5 A limit."
+		(property "Description" "extension 3.3 V switch: TI TPS22950C load switch: +3V3 to every slot's 3.3 V pin, about 1 A limit (0.75-1.25 A)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -43064,7 +43064,7 @@
 		(property "UI_ROLE" "SLOT 3V3 PROTECTION"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "4e30b027-a466-4e5d-afc0-e9e4ccbe0666")
+			(uuid "ee99b105-a88d-4d91-b493-14c6469c7db3")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -43297,9 +43297,9 @@
 			)
 		)
 		(property "UI_LABEL" "KEY G"
-			(at -0.794 2.5 0)
+			(at -0.74381 2.5 0)
 			(layer "F.SilkS")
-			(uuid "78e101c2-23d2-4f58-ab47-5bc85fbf0414")
+			(uuid "241485f0-cc82-48b3-8c83-f10c0e22936a")
 			(effects
 				(font
 					(size 1 1)
@@ -43555,7 +43555,7 @@
 		(property "UI_LABEL" "KEY C"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "2b7dc984-038a-4b03-af9e-085390fa15da")
+			(uuid "ef7a71f0-9a73-4d3b-9d71-56b34303e15e")
 			(effects
 				(font
 					(size 1 1)
@@ -45494,9 +45494,9 @@
 			)
 		)
 		(property "UI_LABEL" "CTRL HB"
-			(at 4.666 4.003 0)
+			(at 4.748953 4.003 0)
 			(layer "F.SilkS")
-			(uuid "f0e79076-629f-4bba-84be-c4d805a51c30")
+			(uuid "c9b8fd92-519c-4718-b2a9-4420b00b9de5")
 			(effects
 				(font
 					(size 1 1)
@@ -46152,7 +46152,7 @@
 		(layer "F.Cu")
 		(uuid "7a3109c3-1c19-4344-981a-076ed70e9a17")
 		(at 247.484 139.32776 90)
-		(descr "300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket)")
+		(descr "500mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket)")
 		(property "Reference" "F31"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -46164,7 +46164,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "2704e2f0-b703-4076-b815-8349a17169a6")
@@ -46187,7 +46187,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_F_3V3 from +3V3_EXT, for J64 (slot F power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -46199,7 +46199,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -46440,7 +46440,7 @@
 		(property "UI_LABEL" "G | H"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "defbc90f-5cc6-44a5-a75c-893c30df61f3")
+			(uuid "9122df07-a5cf-4e3d-a0c4-17e9b0e5b209")
 			(effects
 				(font
 					(size 1 1)
@@ -48087,7 +48087,7 @@
 		(property "UI_LABEL" "D POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "6d79c105-8cf2-42ae-9862-face0e5b5d68")
+			(uuid "5331c2e4-5f41-4f54-8a00-eb1d6addec42")
 			(effects
 				(font
 					(size 1 1)
@@ -48769,7 +48769,7 @@
 		(property "UI_LABEL" "C POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "21ff3aa4-fe99-4f39-95fd-21cd3ef5587a")
+			(uuid "7946dc0c-2f74-408c-ac26-8dacaee731c7")
 			(effects
 				(font
 					(size 1 1)
@@ -49118,7 +49118,7 @@
 		(layer "F.Cu")
 		(uuid "82a6b1e5-a320-46f6-b4e4-fa684a80d6bd")
 		(at 234.802 195.02776 180)
-		(descr "500mA resettable fuse feeding SLOT_M_5V from +5V_EXT, for J58 (slot M power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_M_5V from +5V_EXT, for J58 (slot M power socket)")
 		(property "Reference" "F6"
 			(at 0 -4 180)
 			(layer "F.Fab")
@@ -49130,7 +49130,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 180)
 			(layer "F.Fab")
 			(uuid "319d1d4d-07ad-4bc6-bfaa-7c552ab2d70e")
@@ -49153,7 +49153,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_M_5V from +5V_EXT, for J58 (slot M power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_M_5V from +5V_EXT, for J58 (slot M power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -49165,7 +49165,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -51587,7 +51587,7 @@
 		(property "UI_ROLE" "5V BUS 0 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "18753c75-a14b-4322-83db-6ec2ba927765")
+			(uuid "a5e4849c-827c-44d5-8b02-16381b58246e")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -51979,7 +51979,7 @@
 		(property "UI_ROLE" "FPGA STARTUP MEMORY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "2716f29d-bd05-4dc2-99c8-81afc0683e3d")
+			(uuid "ed6cb7e0-5f06-4a4a-8d1d-6b9ec0e0ca81")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -52289,7 +52289,7 @@
 		(layer "F.Cu")
 		(uuid "894838eb-45ae-4fa2-bacb-335b4bb9536e")
 		(at 184.25 96.75 90)
-		(descr "screw input diode: SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it.")
+		(descr "screw input diode: SS54 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it.")
 		(property "Reference" "D4"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -52301,7 +52301,7 @@
 				)
 			)
 		)
-		(property "Value" "SS34"
+		(property "Value" "SS54"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "41c9bef6-4687-4cf0-9068-756ae37db60f")
@@ -52324,7 +52324,7 @@
 				)
 			)
 		)
-		(property "Description" "screw input diode: SS34 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it."
+		(property "Description" "screw input diode: SS54 Schottky diode: lets the screw input reach VSYS and stops USB feeding back into it."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -52336,7 +52336,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C8678"
+		(property "LCSC Part" "C22452"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -54374,7 +54374,7 @@
 		(property "UI_ROLE" "WORK MEMORY 0"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "9f1e1d31-07cc-46bf-a7c8-5ed25d357604")
+			(uuid "b3516137-138e-492a-9810-59a58879f7ad")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -55866,7 +55866,7 @@
 		(layer "F.Cu")
 		(uuid "91fac4fc-5a5a-44fd-b1d8-69d682b298bf")
 		(at 166.28 119.00776 90)
-		(descr "300mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for J53 (slot A power socket)")
+		(descr "500mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for J53 (slot A power socket)")
 		(property "Reference" "F11"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -55878,7 +55878,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "349485d2-9fd1-4c39-9a3d-45c901f994a8")
@@ -55901,7 +55901,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for J53 (slot A power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_A_3V3 from +3V3_EXT, for J53 (slot A power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -55913,7 +55913,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -57541,7 +57541,7 @@
 		(layer "F.Cu")
 		(uuid "97933861-954e-4ffc-9c6e-d88cd8002e2d")
 		(at 243.8 205 180)
-		(descr "extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 1 A limit, reverse blocking.")
+		(descr "extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 2 A limit (1.5-2.5 A), reverse blocking.")
 		(property "Reference" "U21"
 			(at 0 -5.149 0)
 			(layer "F.Fab")
@@ -57576,7 +57576,7 @@
 				)
 			)
 		)
-		(property "Description" "extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 1 A limit, reverse blocking."
+		(property "Description" "extension 5 V switch: TI TPS22950C load switch: +5V to every slot's 5 V pin, about 2 A limit (1.5-2.5 A), reverse blocking."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -57601,9 +57601,9 @@
 			)
 		)
 		(property "UI_ROLE" "SLOT 5V PROTECTION"
-			(at 1.827 4 0)
+			(at 0.219905 4 0)
 			(layer "F.SilkS")
-			(uuid "5bcfda7f-bc06-4b38-95b1-f207b94058d0")
+			(uuid "9b08a67f-7a02-477b-aa22-6f21070b4813")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -58970,7 +58970,7 @@
 		(layer "F.Cu")
 		(uuid "999edf1a-fb6d-4c85-9e4c-dbf3da3ac522")
 		(at 247.484 123.39776 90)
-		(descr "500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket)")
 		(property "Reference" "F26"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -58982,7 +58982,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "bc6d1900-cd77-44c3-9003-2ef92789c6b0")
@@ -59005,7 +59005,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_E_5V from +5V_EXT, for J55 (slot E power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -59017,7 +59017,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -59759,7 +59759,7 @@
 		(layer "F.Cu")
 		(uuid "9c04bdd4-e0f1-4584-a31d-5dcc5e22e03f")
 		(at 188.722 195.02776 180)
-		(descr "300mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for J57 (slot L power socket)")
+		(descr "500mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for J57 (slot L power socket)")
 		(property "Reference" "F3"
 			(at 0 -4 180)
 			(layer "F.Fab")
@@ -59771,7 +59771,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 180)
 			(layer "F.Fab")
 			(uuid "6ac16992-d276-4016-976e-e7d617d8ff98")
@@ -59794,7 +59794,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for J57 (slot L power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_L_3V3 from +3V3_EXT, for J57 (slot L power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -59806,7 +59806,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -60182,7 +60182,7 @@
 		(property "UI_LABEL" "E POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "1b1b823b-c227-4aac-8165-a8121aa9aa61")
+			(uuid "edc74897-d68d-4b1d-9143-46cfdf6e3174")
 			(effects
 				(font
 					(size 1 1)
@@ -60741,7 +60741,7 @@
 		(property "UI_LABEL" "A | B"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "13a7ea75-aa99-4c91-a7d1-712093c4d23d")
+			(uuid "98aee501-20e4-441f-9a52-7ea98208ae17")
 			(effects
 				(font
 					(size 1 1)
@@ -61668,7 +61668,7 @@
 		(property "UI_LABEL" "B POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "3c36bf50-fd4e-42f8-8645-556faabbe59a")
+			(uuid "1cd19ccd-2904-4b96-98eb-02565e2e179f")
 			(effects
 				(font
 					(size 1 1)
@@ -62593,7 +62593,7 @@
 		(layer "F.Cu")
 		(uuid "a38e7637-ed90-4da4-a0cc-223452ea63f3")
 		(at 176.2165 185.0275 180)
-		(descr "2.21k resistor from U22_ILIM to GND, for U22 (extension 3.3 V switch): sets the switch's current limit (TI equation in design.py)")
+		(descr "1.15k resistor from U22_ILIM to GND, for U22 (extension 3.3 V switch): sets the switch's current limit (TI equation in design.py)")
 		(tags "resistor")
 		(property "Reference" "R75"
 			(at 0 -1.43 0)
@@ -62606,7 +62606,7 @@
 				)
 			)
 		)
-		(property "Value" "2.21k"
+		(property "Value" "1.15k"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "142eaa8b-33fb-4f14-affd-de9fa0641632")
@@ -62629,7 +62629,7 @@
 				)
 			)
 		)
-		(property "Description" "2.21k resistor from U22_ILIM to GND, for U22 (extension 3.3 V switch): sets the switch's current limit (TI equation in design.py)"
+		(property "Description" "1.15k resistor from U22_ILIM to GND, for U22 (extension 3.3 V switch): sets the switch's current limit (TI equation in design.py)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -63070,9 +63070,9 @@
 			)
 		)
 		(property "UI_LABEL" "KEY E"
-			(at -0.699 2.5 0)
+			(at -0.648572 2.5 0)
 			(layer "F.SilkS")
-			(uuid "f015d03d-7f89-44cb-9e47-70cfb141e887")
+			(uuid "473584ff-4a42-4c17-a236-23a9fc172cff")
 			(effects
 				(font
 					(size 1 1)
@@ -64816,7 +64816,7 @@
 		(property "UI_ROLE" "BOARD CONTROLLER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "d73c53ae-4cad-4e53-92cb-8872d9cd6768")
+			(uuid "8332b410-f804-430c-b7f8-845a2a8eb359")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -64828,7 +64828,7 @@
 		(property "PART_ID" "RP2350B"
 			(at 0 7 0)
 			(layer "F.SilkS")
-			(uuid "31b5bc52-1f19-4322-a9f5-2a76bceb6db6")
+			(uuid "05c2841b-c47a-44cf-aeb7-234abfd673c4")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -65733,7 +65733,7 @@
 		(layer "F.Cu")
 		(uuid "a989883c-4081-4b16-a2c6-e10163ed0497")
 		(at 166.28 159.64776 90)
-		(descr "300mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for J54 (slot C power socket)")
+		(descr "500mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for J54 (slot C power socket)")
 		(property "Reference" "F19"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -65745,7 +65745,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "626012dd-81bb-4577-b8c8-9a17d1dd1f95")
@@ -65768,7 +65768,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for J54 (slot C power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_C_3V3 from +3V3_EXT, for J54 (slot C power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -65780,7 +65780,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -66156,13 +66156,13 @@
 		(property "UI_LABEL" "FPGA JTAG"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "41804fb4-85fe-413d-93de-13ab9106e176")
+			(uuid "93fbdbc0-1345-48b1-a11d-bcac75682e2a")
 			(effects
 				(font
 					(size 1 1)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr through_hole)
@@ -67368,7 +67368,7 @@
 		(property "UI_ROLE" "FPGA CLOCK\n50MHz"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "e06eb853-c3f3-488e-a5f7-300a07e6ba0c")
+			(uuid "8fbc1dc4-4eb1-4afe-a8e6-4649ba575c37")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -68883,7 +68883,7 @@
 		(property "UI_ROLE" "2V5 SUPPLY"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "fb4352b0-8571-43ca-ad26-87e2529cf593")
+			(uuid "9fd7a22f-3f49-4ea2-87dc-627e80df6c26")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -69339,7 +69339,7 @@
 		(property "UI_LABEL" "KEY L"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "2a4201f1-0dba-4b12-97f2-4005ec18fb27")
+			(uuid "6aa1cbc2-9e66-43e9-907b-c7827e05ebb4")
 			(effects
 				(font
 					(size 1 1)
@@ -69942,9 +69942,9 @@
 			)
 		)
 		(property "UI_LABEL" "USER 1"
-			(at 3.905 4.003 0)
+			(at 3.987048 4.003 0)
 			(layer "F.SilkS")
-			(uuid "37c470b1-791a-4a9a-bc90-0d293c5b8e33")
+			(uuid "ebd72c5b-c859-4ad7-955e-1525aa301918")
 			(effects
 				(font
 					(size 1 1)
@@ -70234,7 +70234,7 @@
 		(property "UI_LABEL" "ETH"
 			(at 0 10.895 0)
 			(layer "F.SilkS")
-			(uuid "08975934-67a0-4414-ae31-a6390de17956")
+			(uuid "fb93d35b-515e-4266-a3f2-a537a2e500e6")
 			(effects
 				(font
 					(size 1 1)
@@ -71614,7 +71614,7 @@
 		(property "UI_LABEL" "5V BUS 0"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "34f973c0-0413-4c4c-bcd2-bc13ab85e790")
+			(uuid "766c8648-1906-4ed5-adf3-88b5b5958ae6")
 			(effects
 				(font
 					(size 1 1)
@@ -73517,7 +73517,7 @@
 		(property "UI_ROLE" "PROGRAMMABLE LOGIC"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "378ed40c-79aa-40a1-b931-0bda7d8f779d")
+			(uuid "ccb2b7bf-2fed-451f-91af-1023de7034c5")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -73529,7 +73529,7 @@
 		(property "PART_ID" "XC7A100T-2FGG676I"
 			(at 0 16 0)
 			(layer "F.SilkS")
-			(uuid "687a60d0-fdda-4362-85bf-e153f9c063b9")
+			(uuid "a2295975-121a-4d9e-b243-65bb72f2e909")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -85880,7 +85880,7 @@
 		(layer "F.Cu")
 		(uuid "bc156b82-021f-4c39-a5a8-30f3436d045f")
 		(at 211.6 102.8 180)
-		(descr "USB input diode: SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB.")
+		(descr "USB input diode: SS54 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB.")
 		(property "Reference" "D3"
 			(at 0 -4 0)
 			(layer "F.Fab")
@@ -85892,7 +85892,7 @@
 				)
 			)
 		)
-		(property "Value" "SS34"
+		(property "Value" "SS54"
 			(at 0 4 0)
 			(layer "F.Fab")
 			(uuid "44233869-d086-462e-a3de-55717c2a95e6")
@@ -85915,7 +85915,7 @@
 				)
 			)
 		)
-		(property "Description" "USB input diode: SS34 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB."
+		(property "Description" "USB input diode: SS54 Schottky diode: lets USB power reach VSYS and stops the screw input feeding back into USB."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85927,7 +85927,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C8678"
+		(property "LCSC Part" "C22452"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -87459,7 +87459,7 @@
 		(property "UI_LABEL" "5V BUS 1"
 			(at 0 5.27 0)
 			(layer "F.SilkS")
-			(uuid "79d100c6-7fa5-43a2-b1b5-4bf3c59795ee")
+			(uuid "6458a8e5-7b3e-4a0c-b040-52956e6bb497")
 			(effects
 				(font
 					(size 1 1)
@@ -88357,27 +88357,27 @@
 			)
 		)
 		(property "UI_LABEL" "AUX IN 9-28V UNREGULATED\nYOUR RAIL, YOUR PROBLEM"
-			(at 0 3.3 270)
+			(at 0 1.696778 0)
 			(layer "F.SilkS")
-			(uuid "1c207e45-9a11-4314-9c42-c9e3633a004d")
+			(uuid "9b177f8f-cafa-4856-bcc0-6f50f074fe9c")
 			(effects
 				(font
 					(size 1 1)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "UI_PINS" "AUX +\nGND"
-			(at -4 0 270)
+			(at -4 0 0)
 			(layer "F.SilkS")
-			(uuid "7eb07080-f6ae-425b-8593-f2abd6120c95")
+			(uuid "b463c392-490f-447a-affb-3dc9996742cf")
 			(effects
 				(font
 					(size 0.8 0.8)
 					(thickness 0.15)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(attr through_hole)
@@ -90316,7 +90316,7 @@
 		(property "UI_ROLE" "5V BUS 1 CONVERTER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "b3ffbdf7-56ef-48b6-b1ca-1482192c003b")
+			(uuid "fa1e00bf-34d3-48b5-8c43-1b0803a920fb")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -92424,7 +92424,7 @@
 		(property "UI_ROLE" "3V3 SUPPLY\nALWAYS ON"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "74b1e275-4006-4635-af7b-6d579a8cb6e3")
+			(uuid "8037ef5c-1c33-47fe-9a48-1873ff7ed131")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -94636,7 +94636,7 @@
 		(property "UI_ROLE" "JTAG OWNER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "9024d460-1337-4958-8268-d265e95c7a6d")
+			(uuid "a107d7a0-356c-4baf-8d68-d36756bcd716")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -95279,7 +95279,7 @@
 		(layer "F.Cu")
 		(uuid "d8e68604-36d9-4c97-8b1e-95c4fe23d73b")
 		(at 230.402 195.02776 180)
-		(descr "300mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for J58 (slot M power socket)")
+		(descr "500mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for J58 (slot M power socket)")
 		(property "Reference" "F7"
 			(at 0 -4 180)
 			(layer "F.Fab")
@@ -95291,7 +95291,7 @@
 				)
 			)
 		)
-		(property "Value" "300mA"
+		(property "Value" "500mA"
 			(at 0 4 180)
 			(layer "F.Fab")
 			(uuid "b4ea1574-3193-48ea-80ff-614913934970")
@@ -95314,7 +95314,7 @@
 				)
 			)
 		)
-		(property "Description" "300mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for J58 (slot M power socket)"
+		(property "Description" "500mA resettable fuse feeding SLOT_M_3V3 from +3V3_EXT, for J58 (slot M power socket)"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -95326,7 +95326,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C22378340"
+		(property "LCSC Part" "C269115"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -97341,7 +97341,7 @@
 		(layer "F.Cu")
 		(uuid "dcec30e9-0577-4d69-9c88-0d550ce661fd")
 		(at 166.28 164.03776 90)
-		(descr "500mA resettable fuse feeding SLOT_C_5V from +5V_EXT, for J54 (slot C power socket)")
+		(descr "1.1A resettable fuse feeding SLOT_C_5V from +5V_EXT, for J54 (slot C power socket)")
 		(property "Reference" "F18"
 			(at 0 -4 90)
 			(layer "F.Fab")
@@ -97353,7 +97353,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "1.1A"
 			(at 0 4 90)
 			(layer "F.Fab")
 			(uuid "90c887cc-9249-4db5-ae4e-e18c6f095672")
@@ -97376,7 +97376,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA resettable fuse feeding SLOT_C_5V from +5V_EXT, for J54 (slot C power socket)"
+		(property "Description" "1.1A resettable fuse feeding SLOT_C_5V from +5V_EXT, for J54 (slot C power socket)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -97388,7 +97388,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C269115"
+		(property "LCSC Part" "C269119"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -97984,9 +97984,9 @@
 			)
 		)
 		(property "UI_LABEL" "KEY H"
-			(at -0.841 2.5 0)
+			(at -0.791429 2.5 0)
 			(layer "F.SilkS")
-			(uuid "54567e52-41c9-46bb-82d1-ed8442c7fb3d")
+			(uuid "1512e528-6b34-4e23-91c6-5434ad723116")
 			(effects
 				(font
 					(size 1 1)
@@ -98635,7 +98635,7 @@
 		(property "UI_ROLE" "1V2 SUPPLY\nTRANSCEIVERS"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "239ae185-4496-4b32-bd10-58d24dd7fa77")
+			(uuid "c7106db2-66ad-4253-82d6-f0386b4c7881")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -100071,7 +100071,7 @@
 		(layer "F.Cu")
 		(uuid "e826bb1f-52bd-45ab-a4e2-d5db10ce970e")
 		(at 243.305 208.3835 -90)
-		(descr "1.15k resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py)")
+		(descr "604 resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py)")
 		(tags "resistor")
 		(property "Reference" "R74"
 			(at 0 -1.43 90)
@@ -100084,7 +100084,7 @@
 				)
 			)
 		)
-		(property "Value" "1.15k"
+		(property "Value" "604"
 			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "e03ca483-5fc0-4824-bcbf-9aa4177766d5")
@@ -100107,7 +100107,7 @@
 				)
 			)
 		)
-		(property "Description" "1.15k resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py)"
+		(property "Description" "604 resistor from U21_ILIM to GND, for U21 (extension 5 V switch): sets the switch's current limit (TI equation in design.py)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -100695,9 +100695,9 @@
 			)
 		)
 		(property "UI_ROLE" "1V8 SUPPLY"
-			(at 5.545 4 0)
+			(at 5.494531 4 0)
 			(layer "F.SilkS")
-			(uuid "d9d15e09-2c6e-4d79-8d97-96c3bc524b2f")
+			(uuid "68e813d5-e84e-41dc-bf1f-f2f3ced670eb")
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -101361,7 +101361,7 @@
 		(property "UI_LABEL" "KEY A"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "e9b98ec8-7097-4089-8050-4bc3369041f7")
+			(uuid "70d66ea7-2e87-4408-9ce9-59309fdae2ac")
 			(effects
 				(font
 					(size 1 1)
@@ -101605,7 +101605,7 @@
 		(property "UI_LABEL" "KEY M"
 			(at 0 2.5 0)
 			(layer "F.SilkS")
-			(uuid "349cc8c4-9285-43bc-869a-f83eac458044")
+			(uuid "0df52c9d-22bd-4fb0-a3ed-aae9155dfdf5")
 			(effects
 				(font
 					(size 1 1)
@@ -101715,7 +101715,7 @@
 		(property "UI_LABEL" "A POWER"
 			(at 0 4 0)
 			(layer "F.SilkS")
-			(uuid "a02b496c-3bd9-441f-8c8e-4de4532b16fe")
+			(uuid "6d188985-6c26-48ad-87f7-83745d91e5d4")
 			(effects
 				(font
 					(size 1 1)
@@ -107747,9 +107747,9 @@
 			)
 		)
 		(property "UI_LABEL" "USB-C"
-			(at 0 2.502 0)
+			(at 0 2.55175 0)
 			(layer "F.SilkS")
-			(uuid "498c831a-45df-46b6-bfb8-16e50e3c12ed")
+			(uuid "794c0669-62d2-465d-845a-4bb31e8139fc")
 			(effects
 				(font
 					(size 1 1)
@@ -111056,6 +111056,72 @@
 				(thickness 0.25)
 			)
 			(justify left)
+		)
+	)
+	(zone
+		(net 45)
+		(net_name "GND")
+		(layer "In1.Cu")
+		(uuid "5f31c824-0089-4105-80d7-a1f4ae0d8318")
+		(hatch edge 0.5)
+		(connect_pads
+			(clearance 0.15)
+		)
+		(min_thickness 0.2)
+		(filled_areas_thickness no)
+		(fill yes
+			(thermal_gap 0.3)
+			(thermal_bridge_width 0.3)
+		)
+		(polygon
+			(pts
+				(xy 158.882 84.805) (xy 254.882 84.805) (xy 256.882 86.805) (xy 256.882 222.805) (xy 254.882 224.805)
+				(xy 158.882 224.805) (xy 156.882 222.805) (xy 156.882 86.805)
+			)
+		)
+	)
+	(zone
+		(net 45)
+		(net_name "GND")
+		(layer "In4.Cu")
+		(uuid "29d73cb0-ff3b-47e5-aefe-b91aafc06399")
+		(hatch edge 0.5)
+		(connect_pads
+			(clearance 0.15)
+		)
+		(min_thickness 0.2)
+		(filled_areas_thickness no)
+		(fill yes
+			(thermal_gap 0.3)
+			(thermal_bridge_width 0.3)
+		)
+		(polygon
+			(pts
+				(xy 158.882 84.805) (xy 254.882 84.805) (xy 256.882 86.805) (xy 256.882 222.805) (xy 254.882 224.805)
+				(xy 158.882 224.805) (xy 156.882 222.805) (xy 156.882 86.805)
+			)
+		)
+	)
+	(zone
+		(net 45)
+		(net_name "GND")
+		(layer "In6.Cu")
+		(uuid "753532c3-aa2a-4664-965a-b35180041685")
+		(hatch edge 0.5)
+		(connect_pads
+			(clearance 0.15)
+		)
+		(min_thickness 0.2)
+		(filled_areas_thickness no)
+		(fill yes
+			(thermal_gap 0.3)
+			(thermal_bridge_width 0.3)
+		)
+		(polygon
+			(pts
+				(xy 158.882 84.805) (xy 254.882 84.805) (xy 256.882 86.805) (xy 256.882 222.805) (xy 254.882 224.805)
+				(xy 158.882 224.805) (xy 156.882 222.805) (xy 156.882 86.805)
+			)
 		)
 	)
 	(group "island U23"

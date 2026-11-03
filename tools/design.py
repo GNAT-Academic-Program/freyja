@@ -5,7 +5,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 import symlib
 from alloc import assign, load
-from budget import INDUCTOR
+from budget import INDUCTOR, SLOT_PTC
 from identity import FPGA_PART, CONTROLLER_PART
 from collections import OrderedDict
 
@@ -168,7 +168,8 @@ class Design:
         selected = {
             '200mA': (PTC1206_EASYEDA, 'C269111'),  # 24 V maximum
             '300mA': (PTC1206_EASYEDA, 'C22378340'), # 16 V maximum
-            '500mA': (PTC1206_EASYEDA, 'C269115'),  # 6 V maximum
+            '500mA': (PTC1206_EASYEDA, 'C269115'),  # 6 V maximum, 1 A trip
+            '1.1A': (PTC1206_EASYEDA, 'C269119'),   # SMD1206B110TFT: 8 V maximum, 2.2 A trip, 40 mohm
             '1.1A 33V': (PTC2018, 'C70150'),
         }.get(val, (PTC1206, ''))
         return self.add(self.seq('F'), 'Device:Polyfuse', val, selected[0],
@@ -698,17 +699,18 @@ def build():
         d.add(power_ref[s], 'EasyEDA:B254N02-0B7P51-H85C32',
               'B254N02-0B7P51-H85C32', EXT_PWR,
               {str(i+1): n for i, n in enumerate(power)}, 'C41426870')
-        # per-module resettable fuse on every exported rail
-        # Per-slot fuses are FAULT protection, not a current allocation. The
-        # shared source budgets are far smaller than 9 x these ratings; see
-        # ref/extension-ux.md. Sized so one slot cannot take the whole rail.
-        d.F('500mA', vio_ext, f'SLOT_{s}_PIN_VOLTAGE')
-        d.F('500mA', '+5V_EXT', f'SLOT_{s}_5V')
-        d.F('300mA', '+3V3_EXT', f'SLOT_{s}_3V3')
+        # per-module resettable fuse on every exported rail, hold currents
+        # from budget.SLOT_PTC (2026-11-03: 5 V 1.1 A, 3V3 and PIN V 500 mA,
+        # AUX 1.1 A). Per-slot fuses are FAULT protection, not a current
+        # allocation: the bus switch above (U21 2 A, U22 1 A) is the ceiling
+        # ten slots share, see ref/extension-ux.md and the budget report.
+        d.F(SLOT_PTC['PIN_VOLTAGE'], vio_ext, f'SLOT_{s}_PIN_VOLTAGE')
+        d.F(SLOT_PTC['5V'], '+5V_EXT', f'SLOT_{s}_5V')
+        d.F(SLOT_PTC['3V3'], '+3V3_EXT', f'SLOT_{s}_3V3')
         # C70150 is 1.1 A hold / 2.2 A trip at 25 C and rated 33 V. The ten
         # branches protect faults independently; AUX_RAIL remains a shared
         # 5 A aggregate routing class, not ten amperes of source capacity.
-        d.F('1.1A 33V', 'AUX_RAIL', aux)
+        d.F(SLOT_PTC['AUX'], 'AUX_RAIL', aux)
         d.C('10uF', f'SLOT_{s}_PIN_VOLTAGE', GND, C0805)
         d.C('100nF', f'SLOT_{s}_3V3', GND)
 
@@ -773,8 +775,10 @@ def build():
     # from VBUS to EN/UVLO to OVP to GND turns on at 3.74 V (off below
     # 0.93 x that, 3.48 V) and cuts off above 10.07 V; 33 uA through the
     # string at 5 V, far above the 100 nA pin leakage, 5.3 V on EN at 20 V
-    # (20 V absolute). ILIM = 89 / R(kohm) (Equation 4): 44.2k = 2.01 A
-    # typical (about 1.86-2.17 A from the 42.2k row of 7.5). dVdT: 1 uA
+    # (20 V absolute). ILIM = 89 / R(kohm) (Equation 4): 29.4k = 3.03 A
+    # typical, +/-8 % (2.79-3.27 A; the 24.9k row of 7.5 reads 3.25-3.81 A
+    # at 3.53), the Type-C cable figure, so a 27 W PD charger carries full
+    # export (2026-11-03, was 44.2k = 2.01 A). dVdT: 1 uA
     # into the capacitor with a gain of 12 (Equation 1), 10 nF = 1.2 V/ms,
     # so charging the 44 uF VSYS bulk draws about 53 mA. IMON sources
     # 52 uA/A (Equation 7): 10k makes 0.52 V/A, a probe point, no ADC on it.
@@ -788,12 +792,15 @@ def build():
            'GND':GND, 'EP':GND}, 'C181295')
     d.R('110k', 'VBUS', 'VBUS_UVLO', R0603); d.R('24.9k', 'VBUS_UVLO', 'VBUS_OVLO', R0603)
     d.R('14.7k', 'VBUS_OVLO', GND, R0603); d.reserve('R', 1)   # the former 10k of the second divider
-    d.R('44.2k', 'VBUS_ILM', GND, R0603)
+    d.R('29.4k', 'VBUS_ILM', GND, R0603)
     d.C('10nF 25V', 'VBUS_DVDT', GND)
-    d.add('D3', 'Device:D_Schottky', 'SS34', 'EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
-          {'A': 'VBUS_SS', 'K': VSYS}, 'C8678')
-    d.add('D4', 'Device:D_Schottky', 'SS34', 'EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
-          {'A': 'VIN_EXT', 'K': VSYS}, 'C8678')
+    # SS54 (C22452, JLCPCB basic) since 2026-11-03: same SMA land as the
+    # SS34, 5 A instead of 3 A and 0.55 V at 5 A, because full export at
+    # 9 V puts about 2.9 A through whichever diode feeds VSYS (budget.py).
+    d.add('D3', 'Device:D_Schottky', 'SS54', 'EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
+          {'A': 'VBUS_SS', 'K': VSYS}, 'C22452')
+    d.add('D4', 'Device:D_Schottky', 'SS54', 'EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
+          {'A': 'VIN_EXT', 'K': VSYS}, 'C22452')
     d.C('10uF', VSYS, GND, C1210); d.C('10uF', VSYS, GND, C1210)
     d.C('10uF', 'VBUS', GND, C0805)
     # VSYS -> 5V. TI LMR33630ADDA (SNVSAN3F) since 2026-10-30, the AP63300
@@ -909,14 +916,18 @@ def build():
     d.R('100k', 'EXT_EN', GND, R0603)
     d.R('10k', V33, 'EXT_FAULT', R0603)
 
-    # TPS22950C is the orderable SOT-23-6 member with reverse blocking. The
-    # +5V limit is below its qualified 1.615A shared budget. The other channels
-    # use the part's minimum supported 0.5A setting. RILIM follows TI equation
-    # ILIM(A)=1.18*RILIM(kohm)^-1.072. Each input gets TI's required 1uF local
-    # bypass; output bulk already exists after the downstream PTCs.
+    # TPS22950C is the orderable SOT-23-6 member with reverse blocking
+    # (3.2 A continuous, 34 mohm at 5 V). RILIM follows SLVSFJ2B Equation 1,
+    # ILIM(A) = 1.18 * RILIM(kohm)^-1.072; 7.5 characterises 610 ohm as
+    # 1.54 / 2.0 / 2.46 A and 1.15k as 0.75 / 1.0 / 1.25 A. 2026-11-03: the
+    # 5 V bus went from 1 A to 2 A and the 3.3 V bus from 0.5 to 1 A so the
+    # ten slots can carry real loads; budget.py keeps U11/U12 (3 A each)
+    # inside their ratings with these allowances. 604 ohm (E96) = 2.03 A.
+    # Each input gets TI's required 1uF local bypass; output bulk already
+    # exists after the downstream PTCs.
     low_ext = [
-        ('U21', V5,        '+5V_EXT',     '1.15k', 1.000),
-        ('U22', V33,       '+3V3_EXT',    '2.21k', 0.500),
+        ('U21', V5,        '+5V_EXT',     '604',   2.000),
+        ('U22', V33,       '+3V3_EXT',    '1.15k', 1.000),
     ]
     for ref, vin, vout, rilim, _ilim in low_ext:
         d.group(f'{ref}  {vin} to {vout}')

@@ -8,6 +8,12 @@
 (rule "AUX_RAIL 5A aggregate"
   (condition "A.hasNetclass('AUX_5A')")
   (constraint track_width (min 2.0mm) (opt 2.0mm)))
+(rule "input path 3A"
+  (condition "A.hasNetclass('PWR_3A')")
+  (constraint track_width (min 1.5mm) (opt 1.5mm)))
+(rule "extension buses 2A"
+  (condition "A.hasNetclass('EXT_2A')")
+  (constraint track_width (min 1.0mm) (opt 1.0mm)))
 # RGMII: about 50 ohm on the outer layers; keep the twelve lines the same
 # width and length-match TXD[3:0]/TX_CTL to TXC and RXD[3:0]/RX_CTL to RXC
 # by hand (KiCad has no bus-skew rule); the PHY's 2 ns delays do the rest.

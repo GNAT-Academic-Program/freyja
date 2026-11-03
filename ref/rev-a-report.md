@@ -1011,3 +1011,43 @@ footprints when it syncs, so the holes survive it. The owner copies it to the ot
 Mounting holes H1-H4, M3, placed by the owner at (164.7, 99.2), (242.7, 103.0),
 (247.4, 211.7), (172.9, 204.5); no DRC error. Gate electrical and mechanical PASS,
 parity 0.
+
+## Power rundown for realistic loads 2026-11-03
+
+The owner: the earlier budget planned on minimum guarantees and the fuses were
+too small for experiments. Re-run on realistic use; nothing moved on the board,
+gate electrical and mechanical PASS, ERC 0, parity 0, 0 DRC errors.
+
+1. Slot fuses: 5 V 500 mA -> 1.1 A hold (C269119 SMD1206B110TFT, 8 V, 2.2 A
+   trip, same 1206 land and family), 3V3 300 -> 500 mA (C269115, the PIN V
+   part), PIN V 500 mA and AUX 1.1 A unchanged. One slot now carries a display,
+   a radio module or a small servo on 5 V. The values live in budget.SLOT_PTC.
+2. Buses above them: U21 +5V_EXT 1 A -> 2 A (RILIM 1.15k -> 604 ohm; SLVSFJ2B
+   7.5 at 610 ohm: 1.54 / 2.0 / 2.46 A), U22 +3V3_EXT 0.5 -> 1 A (2.21k ->
+   1.15k: 0.75 / 1.0 / 1.25 A). U11 then carries 2.84 A and U12 2.95 A of
+   their 3 A with every allowance at once (board + export checked per
+   regulator in budget.py); inductor peaks 4.11 / 3.87 A against 4.97 A
+   saturation at 21 V in and L -20 %. A short on a bus is cleared by the switch
+   (every slot on it drops, EXT_FAULT), not isolated by the slot PTC, whose
+   trip sits at or above the switch minimum; written in the three documents.
+3. Input: U26 ILIM 44.2k -> 29.4k, 3.03 A typical +/-8 % (Equation 4), the
+   Type-C cable figure, so a 27 W PD charger (9 V at 3 A) carries full export:
+   2.34 A at 9 V against 2.79 A minimum. D3/D4 SS34 -> SS54 (C22452, JLCPCB
+   basic, same SMA land, 5 A): 2.34 A and about 1.2 W in whichever diode feeds
+   VSYS in full mode at 9 V; give them a wide VSYS pour.
+4. Source policy (item 55) settled: firmware reads the HUSB238 (PD_STATUS1 5 V
+   advertisement, PD_STATUS0 granted voltage and current). Contract checked by
+   budget.py: recovery fits a USB 2.0 port (0.21 A); light (every board load)
+   fits a 3 A Type-C port (1.61 A) and the 15 W PD floor (0.90 A); full fits a
+   27 W PD charger and J50 (2.34 A at 9 V). A 5 V source never carries full
+   export (U34 2 A minimum, 15 W port). Rows that do not fit stay in the table.
+5. FPGA core allowance 1.5 -> 2.0 A (four PSRAM ports, SDRAM, PHY and HDMI busy
+   at once; U15 is 4 A), still an estimate pending XPE.
+6. Net classes (gen_pcb.py): PWR_3A 1.5 mm on VBUS, VBUS_SS, VSYS, VIN_EXT,
+   +5V_BUCK; EXT_2A 1.0 mm on the four extension buses. Rules in odin.kicad_dru.
+7. Regenerated: qualified-parts, parts-guide, power-budget, schematic (power,
+   slots), project rules, netlist, board (0 moved, values in place), BOM,
+   jlc-stock against the 2026-11-01 library snapshot: every new part in stock
+   (C269119 108k, C22452 2.18M, resistors generic). power.md, power-input.md,
+   extension-ux.md and the user manual say the new numbers; the manual's stale
+   "selectable 12 V rail" paragraph is gone.

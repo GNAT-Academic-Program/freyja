@@ -34,13 +34,16 @@ control it. Change the external supply with the board unpowered.
 `AUX_RAIL` has a **5 A copper design target**; source capacity is the external
 supply on J68. The KF301 terminal is rated well above that. A short heats and
 trips the branch PTC; an aggregate overload is the external supply's problem
-and droops the shared rail. Existing branch fuses remain PIN V 500 mA, 3V3
-300 mA, 5V 500 mA. U21/U22 limit and report; U23/U24 (TPS22975) do not block
+and droops the shared rail. Branch fuses (2026-11-03): PIN V 500 mA, 3V3
+500 mA, 5V 1.1 A hold. The buses above them: U21 2 A on +5V_EXT, U22 1 A on
++3V3_EXT (both limit and report EXT_FAULT); U23/U24 (TPS22975) do not block
 reverse current while off and rely on the PINV fuses for overload. AUX has no
 active reverse blocking. Do not backfeed any connector power pin. The input
 envelope per source profile and operating mode is in
 [power-budget.md](power-budget.md): a plain USB 2.0 port carries the
-controller alone, full extension export needs J50.
+controller alone, a 3 A Type-C port or a 15 W PD charger the whole board,
+a 27 W PD charger (9 V at 3 A) or J50 the full extension export. USB into
+VSYS is limited by U26 at about 3 A (29.4k).
 
 ## VIN and VSYS component audit
 
@@ -51,7 +54,7 @@ VSYS additionally reaches exactly the parts listed below.
 |---|---|
 | J50 / VIN_EXT | KF301 terminal, 250 V component rating |
 | D8 / VIN_EXT | SMBJ22A, 22 V standoff; 35.5 V rated pulse clamp |
-| D4 / VIN_EXT and VSYS; D3 / VSYS | SS34, 40 V reverse rating; 3 A path class |
+| D4 / VIN_EXT and VSYS; D3 / VSYS | SS54, 40 V reverse rating, 5 A; 3 A path class (full export at 9 V is about 2.9 A, 1.4 W: wide VSYS pour) |
 | U11/U12 / VSYS | LMR33630ADDAR (since 2026-10-30), 3.8-36 V operating; 38 V absolute maximum on VIN |
 | C185/C186/C192 / VSYS | explicitly 50 V rated |
 | R81 / VSYS | 100k/16k monitor divider: 2.90 V at ADC for 21 V input; resistor dissipation below 4 mW |

@@ -4,8 +4,8 @@ The current hardware manual is [power.md](power.md). It supersedes the old
 fixed-12 V boost/selector architecture formerly described here.
 
 USB-C accepts 5 V fallback and requests at most 9 V PD. J50 accepts 9-21 V
-DC. They feed VSYS through D3/D4; U26 (TI TPS25942A since 2026-10-30) limits
-the USB-to-VSYS path to about 2.0 A typical and provides automatic inrush
+DC. They feed VSYS through D3/D4 (SS54, 5 A); U26 (TI TPS25942A since 2026-10-30) limits
+the USB-to-VSYS path to about 3 A typical (29.4k since 2026-11-03, the Type-C cable figure) and provides automatic inrush
 limiting (1.2 V/ms), undervoltage lockout at 3.7 V, overvoltage cut-off at
 10 V and reverse blocking. Its absolute maximum is 20 V, so the VBUS TVS D7 is
 an SMBJ12A, 19.9 V clamp at full surge, 12 V standoff above the 9 V contract. U11 and U12 are LMR33630 devices with EN tied to VIN: +3V3, +5V and the
@@ -33,10 +33,10 @@ What the controller can know about the source (item 55): the HUSB238's
 PD_STATUS0 says what contract was granted (9 V is a 15 W guarantee under
 the PD power rules), PD_STATUS1 what a plain Type-C source advertises at
 5 V (default, 1.5 A, 2.4 A or 3 A), VBUS5_ST says which input feeds +5V,
-MON_VSYS says J50 is present. The 5 V advertisement is readable now; the
-budget still plans any 5 V source as a 500 mA port unless the user has
-stored a declaration, until that policy is revisited; see
-[power-budget.md](power-budget.md).
+MON_VSYS says J50 is present. Since 2026-11-03 the budget plans on firmware
+reading those registers: a 5 V source is 500 mA until PD_STATUS1 says 1.5 A
+or 3 A, a 9 V contract carries what PD_STATUS0 reports (15 W floor, 27 W
+for full export); see [power-budget.md](power-budget.md).
 
 J68 AUX IN is a separate 9-28 V raw input feeding `AUX_RAIL` and the ten
 slot AUX branch PTCs, nothing else. It does not power the supervisor or
@@ -45,7 +45,8 @@ and its selectors were removed. There are no per-zone AUX selectors,
 +12V/+12V_EXT nets, U19 boost or U25.
 
 U21-U24 still protect the low-voltage connector supplies under EXT_EN;
-U21/U22 (TPS22950C) limit current and report EXT_FAULT; U23/U24 (TPS22975
+U21/U22 (TPS22950C) limit current (2 A on +5V_EXT, 1 A on +3V3_EXT since
+2026-11-03) and report EXT_FAULT; U23/U24 (TPS22975
 since 2026-10-30, biased from +3V3 so the 1.8 V setting is inside their
 rating) have no PG, no reverse current blocking and no current limit of
 their own: EXT_FAULT reflects U21, U22 and U26 only, the 500 mA slot fuses

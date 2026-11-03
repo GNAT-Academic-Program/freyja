@@ -501,6 +501,24 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
+        "name": "EXT_2A",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 1.0,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
         "name": "ISL01_U15_5V_TO_1V0_4A_F",
         "pcb_color": "rgba(36, 96, 242, 0.800)",
         "priority": 10001,
@@ -1833,6 +1851,24 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
+        "name": "PWR_3A",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 1.5,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
         "name": "RGMII",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 1,
@@ -2806,6 +2842,42 @@
       {
         "netclass": "AUX_5A",
         "pattern": "AUX_RAIL"
+      },
+      {
+        "netclass": "PWR_3A",
+        "pattern": "VBUS"
+      },
+      {
+        "netclass": "PWR_3A",
+        "pattern": "VBUS_SS"
+      },
+      {
+        "netclass": "PWR_3A",
+        "pattern": "VSYS"
+      },
+      {
+        "netclass": "PWR_3A",
+        "pattern": "VIN_EXT"
+      },
+      {
+        "netclass": "PWR_3A",
+        "pattern": "+5V_BUCK"
+      },
+      {
+        "netclass": "EXT_2A",
+        "pattern": "+5V_EXT"
+      },
+      {
+        "netclass": "EXT_2A",
+        "pattern": "+3V3_EXT"
+      },
+      {
+        "netclass": "EXT_2A",
+        "pattern": "VCCIO_1_EXT"
+      },
+      {
+        "netclass": "EXT_2A",
+        "pattern": "VCCIO_2_EXT"
       }
     ]
   },
