@@ -21,8 +21,8 @@ longest), against PSRAM0 31.9–38.2 and PSRAM1 28.2–37.4.
 
 PSRAM2 is the tight port. T19, T20, U19 and U20 sit between accepted In2/In5 lanes
 and the `PSRAM1_IO2` B.Cu lane. SCK (In2) and CE_B (In5) leave on row y 142.84
-through the gap between the +1V8_IO vias at (198.92, 142.84) and (198.8, 143.69),
-at **0.154 mm clearance each side**, a margin of 4 um that DRC passes. IO2 goes
+between three +1V8_IO vias, since moved by the repair below (0.19 mm or more
+clear now; it was 0.154 mm when routed). IO2 goes
 round on B.Cu and is the longest of the 12 ball legs (37.8 mm); one pocket ball
 has to take that way round while the accepted lanes stay.
 
@@ -45,20 +45,43 @@ no hole in a GND plane. With the 591 still-reserved vias added on a scratch copy
 no PSRAM track gained a no-copper sample. Those tracks then run on webs of about
 0.25 mm between holes; that is continuous copper, not a modelled return path.
 
-**Unresolved return-path locations:**
-1. **(198.86, 143.27), In1 and In6:** the +1V8_IO vias at (198.9, 142.29),
-   (198.92, 142.84) and (198.8, 143.69) merge into one 2.1 mm void. `PSRAM2_SCK`
-   (In2 over In1) and `PSRAM2_CE_B` (In5 over In6) cross it, and the return goes
-   1.92 mm further. Closing it means moving accepted power vias.
-2. **(179.60, 157.39), `PSRAM0_IO3_MEM`:** nearest GND via 2.56 mm. Free sites within
-   2.0 mm all fall in part courtyards, which were excluded. One under U2's body, at
-   (179.9, 156.84) and 0.63 mm away, is clear of copper if a via under the package
-   is acceptable.
-3. **(184.95, 143.84), `PSRAM2_IO1_MEM`:** nearest GND via 2.15 mm (U4 pin 4). The
-   pocket is closed on F.Cu by accepted `PSRAM1_IO0_MEM`.
+**U1 ground fanout and local repairs transferred.** All **141 of 141 U1 GND balls**
+reach the main piece of In1, In4 and In6, 127 of them added here with a 0.2 mm F.Cu
+stub (0.707 mm) to a through via on the half-ball lattice. Every one used its tested
+reserved site, so no ball is unresolved and the ball-row lanes stay open. 126 of
+the 127 got a new via; B15's reserved site at (210.7, 158.34) already held a GND via,
+so its stub lands on that one.
 
-U1 still has only 14 of 141 GND balls connected, so return current at the FPGA has
-few paths into the package until the rest are done.
+- **U2:** tented GND via at (179.9, 156.84), under the body, on all three planes.
+  `PSRAM0_IO3_MEM` at (179.60, 157.39) now has a GND via 0.63 mm away. Copper gap to
+  pin 6, and so to that pad's mask and paste openings, is at least 0.20 mm. The exported F.Mask
+  and F.Paste draw nothing at the via; with front tenting switched off on a scratch
+  copy, the same check does find a mask opening there. The board's tenting setting is
+  unchanged.
+- **+1V8_IO repair at (198.86, 143.27):** the three vias are now (198.81, 142.71),
+  (199.7, 143.34) and (198.79, 143.74), each to its old supply lane. They sit 0.99–
+  1.09 mm apart and 0.96 mm from the nearest reserved neighbour, `BUS5V0_IO5` at
+  (199.7, 142.34). `PSRAM2_SCK` and `PSRAM2_CE_B` are untouched and now run over copper:
+  no-copper samples in that window went from 67 to 0 of 1980 on each. Merged foreign
+  crossings went from 2 to 0. Power copper: 3 vias and 4 attached tracks changed, one
+  0.3 mm stub removed, and a 0.22 mm B.Cu end and a 0.4 mm F.Cu tie added. Three vias and
+  all lane widths are kept. A DC solve moves one ball, U1.V20, from 9.3 to
+  9.4 mV at 0.308 A; the worst drops stay 9.5 mV at 0.308 A and 43.1 mV at 1.508 A.
+- **Reserved sites:** the 465 vias and 469 stubs still reserved were added to a scratch
+  copy, before and after this work. DRC gave the same 54 items both times, so this
+  chunk adds no conflict. Those items need attention when that routing is done: 51
+  SDRAM and PHY reserved stubs drawn at 0.1 mm against a 0.125 mm minimum; a `+2V5` stub
+  at (203.3, 172.32) 0.133 mm from the GND site at (202.95, 171.19); and two near-
+  duplicate site pairs, `+3V3` (197.7, 143.24)/(197.75, 143.19) and GND (196.15, 147.19)/
+  (196.2, 147.14). No PSRAM track gained a no-copper sample on that scratch copy.
+
+**Unresolved location:** (184.95, 143.84), `PSRAM2_IO1_MEM`, left unchanged as agreed.
+Nearest GND via 2.15 mm (U4 pin 4). With the reservations kept, the raster finds no
+clear site closer, even inside courtyards. It is now the only one of the 50 reference-changing vias beyond 2.0 mm.
+
+Each GND plane is one piece; `+3V3` and `+1V0` keep one piece each, losing 23.6 and
+31.7 mm2 of fill. A fresh refill of this board reproduces it byte for byte. Evidence:
+`~/freyja-review/u1-gnd-2026-11-03/`.
 
 **Differential escapes transferred; onward routing unfinished.** The 12 LINK and
 HDMI pairs have F.Cu stubs, through vias, coupled B.Cu lanes and GND stitching
@@ -110,12 +133,12 @@ and the mask dam need the fabricator's answer.
 
 Results after refill: DRC with parity **0 errors, 0 parity issues, 334 warnings**
 (silk_overlap 199, capped; silk_over_copper 104; track_dangling 24; text_height 4;
-lib_footprint_mismatch 2; isolated_copper 1). Ratsnest **1479**, from 1509 at the
-PSRAM2/3 checkpoint and 1649 before routing, by `GetUnconnectedCount(True)`; the DRC
+lib_footprint_mismatch 2; isolated_copper 1). Ratsnest **1352**, from 1479 at the
+PSRAM ground checkpoint, 1509 at PSRAM2/3 and 1649 before routing, by `GetUnconnectedCount(True)`; the DRC
 unconnected list stops at 499. The X4 mismatch comes from its bottom silk line,
 opened over C337's pads on this board only; J1 and the isolated +1V0 fill predate
-routing. `gate.py --strict` passes and reports **702 tracks and 211 vias**, which
-match pcbnew; its counters read 0 until this checkpoint.
+routing. `gate.py --strict` passes and reports **830 tracks and 338 vias**, of which 207 vias are GND; both match
+pcbnew.
 
 To keep silk clear of the routing, UI_ROLE labels of U2, U3, U4 and X4 moved.
 `update_silkscreen.py`, which `load_pcb.py` also runs, recreates those fields and
