@@ -20,7 +20,7 @@ def rect(x0, y0, x1, y1, fill, label='', stroke='#444'):
 
 def main():
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{int(110*S)}" '
-           f'height="{int(110*S)}" viewBox="{-5*S} {-9*S} {110*S} {115*S}">',
+           f'height="{int((pl.BOARD_H+15)*S)}" viewBox="{-5*S} {-9*S} {110*S} {(pl.BOARD_H+15)*S}">',
            rect(0, 0, pl.BOARD_W, pl.BOARD_H, '#f7f5ef', stroke='#000')]
     colors = {'J': '#cfe3f5', 'M': '#f5d9cf', 'S': '#ddd', 'U': '#d9f0d0', 'X': '#f5eecf'}
     for p in pl.contract():

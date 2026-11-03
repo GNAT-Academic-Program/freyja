@@ -10,8 +10,8 @@ import json
 from pathlib import Path
 
 from identity import PRODUCT, HW_VERSION, FPGA_PART, CONTROLLER_PART
-W, H, R = 100.0, 100.0, 3.0        # board size and corner radius
-X0, Y0 = 30.0, 30.0
+W, H, C = 100.0, 140.0, 2.0        # board size and 45 degree corner chamfer
+X0, Y0 = 156.882, 84.805           # top-left corner: slot axis - W/2; bottom edge on the jack faces
 OUT = 'kicad/odin.kicad_pcb'
 
 # JLC08161H-1080A keeps the JLC06161H-1080B outer prepreg (1080, 0.0764 mm,
@@ -36,6 +36,9 @@ RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'P
 SDRAM_PATTERNS = ('SDRAM_*',)
 GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'SDRAM', 'PSRAM', 'AUX_5A')
 
+
+POWER_HEADERS = ' || '.join(f"B.Reference == '{r}'" for r in
+                          ('J53', 'J62', 'J54', 'J63', 'J55', 'J64', 'J56', 'J65', 'J57', 'J58'))
 
 def emit_rules():
     """Merge generated classes into the project; preserve unrelated settings."""
@@ -109,6 +112,15 @@ def emit_rules():
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))
+# The key post stands one pitch off its power header's line: the plastic clears
+# by 0.07 mm, only the courtyards meet. The two 2x16 signal bodies of an edge
+# stand end to end on the pitch (design.py). Named pairs only.
+(rule "key post beside its power header"
+  (condition "(A.Reference == 'MK*' && ({POWER_HEADERS})) || (B.Reference == 'MK*' && ({POWER_HEADERS.replace('B.Ref', 'A.Ref')}))")
+  (constraint courtyard_clearance (min -1mm)))
+(rule "signal bodies end to end"
+  (condition "(A.Reference == 'J3A' && B.Reference == 'J3B') || (A.Reference == 'J3B' && B.Reference == 'J3A') || (A.Reference == 'J5A' && B.Reference == 'J5B') || (A.Reference == 'J5B' && B.Reference == 'J5A')")
+  (constraint courtyard_clearance (min -1mm)))
 '''
     Path(OUT).with_suffix('.kicad_dru').write_text(rules)
     print(f'wrote {path} net classes and {Path(OUT).with_suffix(".kicad_dru")}')
@@ -230,25 +242,21 @@ def emit_board():
     # JLC08161H-1080A: ref/jlc08161h-1080a-stackup.json, ref/pcb-impedance.md.
     o.append(SETUP)
     o.append('\t(net 0 "")')
-    # rounded rectangular outline
+    # chamfered rectangular outline
     x1, y1, x2, y2 = X0, Y0, X0 + W, Y0 + H
     seg = lambda ax, ay, bx, by: (f'\t(gr_line (start {ax} {ay}) (end {bx} {by}) '
                                   f'(stroke (width 0.1) (type default)) (layer "Edge.Cuts"))')
-    arc = lambda ax, ay, mx, my, bx, by: (f'\t(gr_arc (start {ax} {ay}) (mid {mx} {my}) '
-                                          f'(end {bx} {by}) (stroke (width 0.1) (type default)) '
-                                          f'(layer "Edge.Cuts"))')
-    k = R * (1 - 0.70710678)
-    o += [seg(x1+R, y1, x2-R, y1), seg(x2, y1+R, x2, y2-R),
-          seg(x2-R, y2, x1+R, y2), seg(x1, y2-R, x1, y1+R),
-          arc(x2-R, y1, x2-k, y1+k, x2, y1+R),
-          arc(x2, y2-R, x2-k, y2-k, x2-R, y2),
-          arc(x1+R, y2, x1+k, y2-k, x1, y2-R),
-          arc(x1, y1+R, x1+k, y1+k, x1+R, y1)]
-    for tx, ty, txt, sz, layer in (
-            (x1+4, y1+5, f'{PRODUCT} HW {HW_VERSION}', 2.0, 'F.SilkS'),
-            (x1+4, y1+10, f'{FPGA_PART} + {CONTROLLER_PART}  |  8 layer', 1.5, 'F.Fab')):
+    o += [seg(x1+C, y1, x2-C, y1), seg(x2-C, y1, x2, y1+C),
+          seg(x2, y1+C, x2, y2-C), seg(x2, y2-C, x2-C, y2),
+          seg(x2-C, y2, x1+C, y2), seg(x1+C, y2, x1, y2-C),
+          seg(x1, y2-C, x1, y1+C), seg(x1, y1+C, x1+C, y1)]
+    # The version stamp is on the back, the assembled side has no room for it,
+    # below U1's escape field and clear of the through-hole pins.
+    for tx, ty, txt, sz, layer, just in (
+            (x1+W/2, y1+87, f'{PRODUCT} HW {HW_VERSION}', 3.0, 'B.SilkS', 'mirror'),
+            (x1+3, y1+3, f'{FPGA_PART} + {CONTROLLER_PART}  |  8 layer', 1.5, 'F.Fab', 'left')):
         o.append(f'\t(gr_text "{txt}" (at {tx} {ty}) (layer "{layer}") '
-                 f'(effects (font (size {sz} {sz}) (thickness {sz/6:.2f})) (justify left)))')
+                 f'(effects (font (size {sz} {sz}) (thickness {sz/6:.2f})) (justify {just})))')
     o.append(')')
     open(OUT, 'w').write('\n'.join(o) + '\n')
     print(f"wrote {OUT}: {W}x{H}mm, 8 layers, ENIG")

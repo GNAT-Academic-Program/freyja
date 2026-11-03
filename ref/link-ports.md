@@ -1,6 +1,6 @@
 # LINK P and LINK Q: raw LVDS link ports
 
-Two RJ45 jacks on the top edge carry eight LVDS_25 pairs straight from FPGA
+Two RJ45 jacks on the bottom edge carry eight LVDS_25 pairs straight from FPGA
 bank 16 (VCCO = 2.5 V) over ordinary twisted-pair cable. There is no PHY, no
 protocol and no isolation: these are FPGA pins on a cable. The jacks are
 plain shielded 8P8C (Ckmtw R-RJ45R08P-B000, C386756, tab up), **not** Ethernet

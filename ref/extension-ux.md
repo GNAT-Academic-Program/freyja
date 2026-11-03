@@ -47,15 +47,16 @@ a default-disable pull-up. A-H are raw FPGA pins, not 5 V tolerant.
 
 ## Keyed power row and shield obligations
 
-Each zone uses C41426870 (Boom B254N02-0B7P51-H85C32, 3 A), a 1x7 female at positions
-2..8. A-H retain MK65..MK72; L/M retain MK76/MK77 for the GND post at position 1.
+Each zone uses C41426870 (Boom B254N02-0B7P51-H85C32, 3 A), a 1x7 female on columns
+1..7. A-H retain MK65..MK72; L/M retain MK76/MK77 for the GND post on column 8, one
+pitch off the socket's line toward the board edge.
 Female references are A:J53, B:J62, C:J54, D:J63, E:J55, F:J64,
 G:J56, H:J65, L:J57, M:J58.
 
 The shield must provide:
 
-- A male 1x7 strip at positions 2..8; cut a breakaway strip such as C2337.
-- A **bare NPTH >=1.6 mm at position 1**, with **no plated contact** there.
+- A male 1x7 strip on columns 1..7; cut a breakaway strip such as C2337.
+- A **bare NPTH >=1.6 mm at the post** (column 8, one pitch toward the edge), with **no plated contact** there.
   A pin rubbing a plated hole is not a contact.
 - Mating pin projection below the shield PCB **<=9 mm**.
 - Seating height of approximately **11 mm** with plain male strips, or
@@ -71,12 +72,13 @@ is rejected **before any signal or power pin touches any socket**. C51353
 (21 mm donor, cut to 1P, hand/wave soldered) is provisional: total pin length
 is not installed projection. **TODO:** qualify a ~25 mm donor if necessary.
 
-With the uniform position-1 post, a 180-degree reversal maps position
-p to 9-p: a fixed key would require p=9-p, with no integer solution.
-An in-row shift of 1..7 pitches puts a post under a populated contact or
-solid shield material rather than the sole bare key hole. This argument
-depends on every post occupying exactly position 1, adequate shield coverage
-at its boundary, and sufficient post projection. Signal bodies do not key
+With the post off the socket's line, a 180-degree reversal about the zone
+centre puts it on column 1, one pitch on the other side of the line: not the
+key hole, so it meets solid shield material. A shift along the row keeps it off
+the line, so it cannot enter a contact hole there either. This argument depends
+on every post having the same offset, the shield keeping that area free of
+holes, adequate shield coverage at its boundary, and sufficient post
+projection. It has not been tried on a real shield. Signal bodies do not key
 the shield. It does not certify arbitrary out-of-row offsets or abusive tilt.
 
 ## Power and voltage domains

@@ -607,9 +607,9 @@ def build():
     # signal lattice: A-D on the right, E-H on the left. Since 2026-10-30 the
     # lattice is carried by two 2x16 female bodies end to end (the JLCPCB
     # library has no 2x32 female; a 2.54 mm body is exactly n x 2.54 mm long,
-    # so the pitch runs through the joint): J3A/J3B right, J5A/J5B left.
-    # Each zone has its own long grounded key post at position 1 and a
-    # seven-contact female power socket at positions 2..8.
+    # so the pitch runs through the joint): J3A/J3B left, J5A/J5B right.
+    # Each zone has its own long grounded key post on column 8, one pitch off
+    # the line of its seven-contact female power socket on columns 1..7.
     rows = {}
     for s, (bank, _prs) in slots.items():
         if s in ('L', 'M'): continue
@@ -679,7 +679,7 @@ def build():
         vio_ext = ('+3V3_EXT' if s in ('L', 'M') else
                    ('VCCIO_1_EXT' if bank == '15' else 'VCCIO_2_EXT'))
         aux = f'SLOT_{s}_AUX'
-        # Position 1 is a long grounded male post, cut from a 21 mm 1x40 strip.
+        # The key is a long grounded male post, cut from a 21 mm 1x40 strip.
         # It is both the mechanical key and a probe point, not a mated contact.
         d.add(f'MK{ord(s)}', 'Connector_Generic:Conn_01x01',
               'BOOMELE 2.54-1x40P-21mm; cut to 1P; hand/wave soldered', EXT_KEY,

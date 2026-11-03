@@ -160,7 +160,7 @@ def main():
             placed += 1
         y += rowh + 6.0
     for ref, fp in old_fps.items():
-        if ref not in comps:
+        if ref not in comps and not fp.IsBoardOnly():   # mounting holes have no symbol
             board.Remove(fp)
     if miss:
         raise SystemExit('PCB NOT SAVED: missing footprints: ' + '\n'.join(load_errors))

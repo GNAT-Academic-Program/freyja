@@ -36,13 +36,16 @@ def parts_and_sheets():
 def pcb_counts():
     s = open('kicad/odin.kicad_pcb', encoding='utf-8').read()
     fps = re.split(r'\n\t\(footprint ', s)[1:]
+    sys.path.insert(0, 'tools')
+    from islands import Board
+    x0, y0, x1, y1 = Board('kicad/odin.kicad_pcb').outline
     inside = bcu = 0
     for f in fps:
         m = re.search(r'\(at ([-\d.]+) ([-\d.]+)', f)
         x, y = float(m.group(1)), float(m.group(2))
-        if 30 <= x <= 130 and 30 <= y <= 130: inside += 1
+        if x0 <= x <= x1 and y0 <= y <= y1: inside += 1
         if '(layer "B.Cu")' in f[:400]: bcu += 1
-    return dict(footprints=len(fps), inside=inside, outside=len(fps) - inside,
+    return dict(outline=f'{x1 - x0:g} x {y1 - y0:g}', footprints=len(fps), inside=inside, outside=len(fps) - inside,
                 bcu=bcu, tracks=len(re.findall(r'\n\t\(segment ', s)),
                 vias=len(re.findall(r'\n\t\(via ', s)))
 

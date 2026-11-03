@@ -3,7 +3,9 @@
 
 Pure geometry: no pcbnew, no KiCad. Every position here is in BOARD-LOCAL
 millimetres, origin at the top-left board corner, x rightward, y downward,
-board 100 x 100 (gen_pcb.py puts that corner at absolute (30, 30)).
+board 100 x 140 with 2 mm corner chamfers (gen_pcb.py puts that corner at
+absolute (156.882, 84.805)). The hand placement in kicad/odin.kicad_pcb has
+overtaken the positions below; place.py --check reads only the lattice rules.
 tools/place.py converts and applies; this module only decides and checks.
 
 Three tiers, in order of authority:
@@ -23,8 +25,8 @@ Run standalone to print the table and check courtyard collisions:
 import os, re, sys
 sys.path.insert(0, os.path.dirname(__file__))
 
-BOARD_W, BOARD_H = 100.0, 100.0
-ORIGIN_X, ORIGIN_Y = 30.0, 30.0          # must match tools/gen_pcb.py X0, Y0
+BOARD_W, BOARD_H = 100.0, 140.0
+ORIGIN_X, ORIGIN_Y = 156.882, 84.805          # must match tools/gen_pcb.py X0, Y0
 
 # ---------------------------------------------------------------- helpers
 def grid(v, pitch=0.01):
@@ -54,7 +56,7 @@ PWR_W     = 2.54
 # inset from the board edge is free; the relative spacings are the contract.
 EDGE_SIG  = 4.70                     # signal 2x32 centreline; rows at +/-1.27
 EDGE_PWR  = EDGE_SIG + 1.27 + 3 * 2.54   # 13.59: inner sig row + 3 pitches
-BODY_CTR  = 50.0                    # one continuous body per left/right edge
+BODY_CTR  = 62.993                  # the J3A/J3B joint: one continuous body per left/right edge
 
 # Slot letters per edge. Package geometry decides this, not taste: bank 34
 # balls (E-H) live on package columns 1..8 (left half of U1), banks 15/13/14

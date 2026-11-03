@@ -911,3 +911,103 @@ HUSB238 are in tools/island_profiles.yaml. Firmware consequences written
 down: the 9 V request is an I2C write to U18 (never above 9 V), the 5 V
 Type-C advertisement is now readable (item 55 to revisit), EN_1V0 waits
 for +5V at 4.5 V or more, and the core has no power-good pin.
+
+## Board outline, groups and edge connectors 2026-11-03
+
+The owner moved the whole board by hand and asked for a real outline around
+it. No schematic or netlist change.
+
+1. Outline: 100 x 140 mm, straight, 2 mm 45 degree chamfers, x 156.882-256.882,
+   y 84.805-224.805. x is centred on the slot rows' axis (206.882, the midpoint
+   of MK65/MK69 and of J7/J8). The old corner arcs at x and y 30-130 and the
+   hand-drawn lines are gone. DRC invalid_outline 8 to 0.
+2. Length: the bottom edge is the jack mating faces; 140 mm fits the top row
+   (J1, J50, J74, J68, J52) with only J2 to move, 0.8 mm. JLCPCB's published
+   capabilities: copper to routed edge 0.2 mm or more (the board's rule stays
+   0.5 mm), edge tolerance +/-0.2 mm, 656 x 586 mm maximum at 6 layers and up.
+3. Edge connectors: J70, J71, J72, J73 faces on the bottom edge (J71 +2.31,
+   J72 +2.40, J73 +1.41 mm in y, with their groups; faces from the courtyard
+   for the RJ45 bodies, from F.Fab for HDMI, whose footprint draws the PCB edge
+   1 mm behind the face: check flush mounting against the drawings before
+   ordering [verify]). J1 -0.546 and J50 +0.160 in y, J68 +0.424 in x.
+4. Left for the owner's squeeze: 21 parts with a pad over or past the edge
+   (J71, F12, F16, F20, F24, F28, F32, F36, F40, C198, C199, C201, C202, C204,
+   C205, C270, L4, L5, L6, R91, U14) and 6 under the 0.5 mm rule (R61, R62, R63,
+   R64, R93, C269): 40 copper_edge_clearance errors until then.
+5. Groups: 25 parts that were placed by hand but in no group joined their
+   islands (U7 with U8, Y1 and their support parts; U6, U11, U12, U15, U18, U26,
+   U30, D1). Island frames refitted to the courtyards. Island Q3 dissolved, Q3
+   left with the HUSB238: R172 and R173 are in U7. The eight slot strips stay
+   ungrouped.
+6. Silkscreen: the version stamp moved to the back, mirrored, below U1
+   (update_silkscreen.py and gen_pcb.py follow); it sat off the board.
+7. Selection filter: Graphics and Text on (kicad/odin.kicad_prl). With
+   footprints only, KiCad's left-to-right box can drop a group whose test
+   member is a frame drawing (pcb_selection_tool.cpp, 9.0).
+8. Tools: gate.py reads the outline from the board, place.py and placement.py
+   use the new origin and size. place.py --check findings unchanged.
+
+Still open before ordering: no mounting holes or fiducials; edge rails for
+assembly to be checked on the JLCPCB quote [verify].
+
+### Rails on one lattice, edge connectors reseated 2026-11-03
+
+After the owner's squeeze, 117 footprints were snapped. DRC courtyards 17 to 18:
+the new one is J58/MK77, the same post-against-header contact as the other nine
+slots, now that slot M has their geometry (the open post courtyard decision).
+
+1. J3 and J5: 29 pitches apart (73.66 mm), centred on x 206.882, same y. Power
+   rows, key posts, caps and fuses follow at their fixed offsets; E-H mirrors
+   A-D in x and equals it in y. AUX fuses at 47.132 mm from the axis, pads
+   0.58 mm from the edge, with the owner's alternating y offsets made uniform.
+2. J7 and J8: 17 pitches apart, centred, row on the J3/J5 y grid. J57/J58 at
+   the rail + 6.35 mm, MK76/MK77 at + 8.89 mm, the A-D geometry; their caps and
+   fuses moved with them. place.py --check: the J5/J3, J7/J8 and J7/J57/MK76
+   findings are gone. The 10 left are the old in-line key rule (slot strip
+   geometry of 2026-10-30, superseded).
+3. J50 and J68 turned 180 degrees: the wire entry is the footprint's +y face
+   (3D model, cavity from +3.6 to -3.2 at the pins, and the silkscreen openings).
+   The earlier step of today flushed the wrong face. Both on the top edge now.
+   Pin 1 changes side: VIN_EXT at x 190.43, AUX_RAIL at x 168.70.
+4. J70-J73, J1 reseated on their edges, J74's rear just inside the top edge, with
+   their groups; island frames refitted. No pad under 0.5 mm from the edge.
+
+### Gate mechanical PASS: key rule, post courtyards, edge silk 2026-11-03
+
+1. place.py --check tests the owner's key geometry of 2026-10-30: header pins on
+   columns 1..7, the post on column 8, one pitch off the line toward the edge.
+   Gate mechanical PASS. extension-ux.md, user-manual.md, floorplan.md, the kicad
+   README and the design.py comments follow; the reversal argument in
+   extension-ux.md is rewritten for the off-line post and has not been tried on a
+   real shield [verify].
+2. DRC courtyards 18 to 0 by two rules in odin.kicad_dru (gen_pcb.py), named pairs
+   only: key post against a power header (the plastic clears by 0.07 mm) and
+   J3A/J3B, J5A/J5B end to end (design.py: a 2.54 mm body is n x 2.54 mm long; check
+   against the HC-PM254 drawing, the courtyard is longer than that [verify]).
+3. DRC silk_edge_clearance 47 to 0. On J1, J50, J68, J70, J71, J72, J74 the silk
+   lines are clipped 0.2 mm inside the outline and five pin-1 dots removed; 18 silk
+   labels moved inboard, up to 11 mm. 7 lib_footprint_mismatch warnings follow:
+   "Update Footprint from Library" on those parts brings the old silk back.
+   No footprint moved.
+
+Follow-up: update_silkscreen.py ends with a pass that moves any visible silk field
+back inside the outline, so the labels stay on the board when it runs. The EasyEDA
+library copies of KF301, HR911130A, R-RJ45R08P and TF-01A carry the same trimmed
+silk, so "Update Footprint from Library" keeps it. J1 is KiCad's stock footprint:
+its one lib_footprint_mismatch stays, and updating J1 from the library brings its
+silk over the edge back.
+
+### U1 and the PSRAMs are settled 2026-11-03
+
+Decisions 16 and 17 of the availability audit are closed: U1 stays XC7A100T-2FGG676I
+(C1521803) and U2-U5 stay APS6404L-SQN-SN (C5360304). The owner confirmed both at
+JLCPCB on 2026-11-02. No pre-order and no redesign. ref/preorder.md is removed and
+tools/bom_jlc.py no longer writes it. Re-check stock when ordering.
+
+Mounting hole H1 added, M3 (3.2 mm NPTH, KiCad's MountingHole_3.2mm_M3, board only) at
+x 160.882, y 96.5, under J68: the corner itself is J68's. load_pcb.py keeps board-only
+footprints when it syncs, so the holes survive it. The owner copies it to the other three.
+
+Mounting holes H1-H4, M3, placed by the owner at (164.7, 99.2), (242.7, 103.0),
+(247.4, 211.7), (172.9, 204.5); no DRC error. Gate electrical and mechanical PASS,
+parity 0.

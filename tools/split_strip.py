@@ -5,8 +5,8 @@
     python3 tools/split_strip.py --before OLD.kicad_pcb --apply    # write
 
 The JLCPCB library has no 2x32 female header, so each edge body is two
-2x16 bodies end to end (design.py, 2026-10-30): J3A/J3B on the right edge
-(slots A-B / C-D), J5A/J5B on the left (E-F / G-H). load_pcb.py stages the
+2x16 bodies end to end (design.py, 2026-10-30): J3A/J3B on the left edge
+(slots A-B / C-D), J5A/J5B on the right (E-F / G-H). load_pcb.py stages the
 new references in the band below the board; this script moves each half so
 that its 32 pads land exactly on the 32 pads the old body had there, with
 the old body's rotation, and refuses to write unless all 64 centres agree

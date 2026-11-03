@@ -216,6 +216,7 @@ error; high-speed link performance still requires hardware validation.
 ## 7. FIXED — board outline now matches the mechanical contract
 
 `kicad/odin.kicad_pcb` is now 100 x 100 mm, matching the required board size.
+(Superseded 2026-11-03: the outline is 100 x 140 mm, see `floorplan.md`.)
 A–H use four continuous 2x16 signal bodies plus four parallel 1x16 power
 bodies (two logical zones per body), plus two complete 5V-bus signal and power
 connector pairs. Placement
@@ -1803,7 +1804,8 @@ appearance or marginal centroid improvements.
 | Inboard microSD | Accepted above-board access choice. Preserve the already documented travel/finger space. |
 
 The 2.2× city is a planning diagram. Fitting connector bodies and routing
-corridors into the real 100×100 mm outline still has to be done. That is
+corridors into the real 100×100 mm outline (100 x 140 mm since 2026-11-03)
+still has to be done. That is
 the next design phase, not evidence that these neighborhoods are wrong.
 The new district names should be reflected in the current-plan paragraph
 of `floorplan.md` eventually; stale “best” wording is documentation cleanup.

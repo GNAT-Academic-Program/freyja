@@ -40,7 +40,7 @@ kicad-cli sch export netlist --format kicadsexpr -o kicad/odin.net kicad/odin.ki
 python3 tools/load_pcb.py       # sync footprints and nets into the board, placement kept
 python3 tools/gen_xdc.py        # ref/freya.xdc and the Vivado gate top from tools/alloc.py
 python3 tools/gate.py           # every phase check in one run (ref/rev-a-report.md numbers)
-python3 tools/bom_jlc.py --write # ref/bom-jlcpcb.csv (Comment, Designator, Footprint, LCSC Part) and ref/preorder.md
+python3 tools/bom_jlc.py --write # ref/bom-jlcpcb.csv (Comment, Designator, Footprint, LCSC Part)
 ```
 
 `load_pcb.py` reads `kicad/odin.net`, so export the netlist before running it
@@ -158,7 +158,7 @@ suffix without checking its package and ratings.
 
 ## Board
 
-100 x 100 mm, **8 layers**, ENIG, nominal 1.6 mm: JLC08161H-1080A,
+100 x 140 mm with 2 mm corner chamfers, **8 layers**, ENIG, nominal 1.6 mm: JLC08161H-1080A,
 S / GND / S / PWR / GND / S / GND / S (F.Cu, In1 GND, In2 signal, In3 power,
 In4 GND, In5 signal, In6 GND, B.Cu). In2 and In5 are the BGA escape layers,
 each 0.1 mm from a ground plane; In3/In4 are a tight plane pair. Keep every
@@ -179,6 +179,7 @@ DRC constraints live in the generated `odin.kicad_dru`.
 
 A–H are eight logical zones carried by one continuous 2x32 through-hole
 signal lattice on each left/right edge (two 2x16 female bodies end to end,
-J3A/J3B and J5A/J5B). Every A–H/L/M zone has a position-1 long key post and its own
-1x7 female power body at positions 2..8; L and M each use a separate 2x8
+J3A/J3B and J5A/J5B). Every A–H/L/M zone has its own 1x7 female power body on
+columns 1..7 and a long key post on column 8, one pitch off the body's line
+toward the board edge; L and M each use a separate 2x8
 through-hole signal body.

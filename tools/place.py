@@ -121,8 +121,8 @@ def report_overlaps(fps):
     """Courtyard-collision report over the whole board, so anchor tuning is
     a directed loop, not an eyeball hunt. Pairs entirely outside the board
     area (the unanchored import pile) are skipped as noise."""
-    inside = lambda fp: 30.0 <= mm(fp.GetPosition().x) <= 130.0 and \
-                        30.0 <= mm(fp.GetPosition().y) <= 130.0
+    inside = lambda fp: pl.ORIGIN_X <= mm(fp.GetPosition().x) <= pl.ORIGIN_X + pl.BOARD_W and \
+                        pl.ORIGIN_Y <= mm(fp.GetPosition().y) <= pl.ORIGIN_Y + pl.BOARD_H
     items = [(r, fp.GetBoundingBox(False)) for r, fp in fps.items()]
     hits = []
     for i in range(len(items)):
@@ -214,8 +214,9 @@ def verify(fps):
                 contact_coords(fps[key], axis)[0]]
         if not lattice_ok(vals):
             errs.append(f'{sig}/{pwr}/{key}: rows off the 2.54 lattice: {vals}')
-    # Every zone uses the same keyed sequence: post at position 1, followed
-    # exactly one pitch later by female-header pin 1 (position 2).
+    # Every zone uses the same keyed geometry (owner, 2026-10-30): header pins
+    # on columns 1..7, the post on column 8, one pitch off the header's line
+    # toward the board edge.
     sig_for = {**{s:'J3' for s in 'ABCD'}, **{s:'J5' for s in 'EFGH'},
                'L':'J7', 'M':'J8'}
     for s in 'ABCDEFGHLM':
@@ -227,8 +228,9 @@ def verify(fps):
             errs.append(f'{pl.POWER_REFS[s]}: missing pin 1'); continue
         along = mm(pin1.GetPosition()[axis]) - mm(key.GetPosition()[axis])
         across = mm(pin1.GetPosition()[cross]) - mm(key.GetPosition()[cross])
-        if abs(along - 2.54) > .05 or abs(across) > .05:
-            errs.append(f'SLOT {s}: key is not uniform position 1: delta=({along:.2f},{across:.2f})')
+        off = 2.54 if s in 'ABCD' else -2.54           # the post is on the edge side
+        if abs(along + 7 * 2.54) > .05 or abs(across - off) > .05:
+            errs.append(f'SLOT {s}: key is not on column 8 one pitch toward the edge: delta=({along:.2f},{across:.2f})')
 
         ordered = sorted(pwr.Pads(), key=lambda p: mm(p.GetPosition()[axis]))
         nets = [p.GetNetname() for p in ordered]
@@ -239,7 +241,7 @@ def verify(fps):
                                      (i+1 < len(nets) and nets[i+1] == 'GND')):
                 errs.append(f'SLOT {s}: rail {net} has no adjacent GND')
         if next(iter(key.Pads())).GetNetname() != 'GND':
-            errs.append(f'SLOT {s}: position-1 post is not GND')
+            errs.append(f'SLOT {s}: key post is not GND')
 
         sig = fps[sig_for[s]]
         pads = list(sig.Pads())

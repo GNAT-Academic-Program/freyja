@@ -39,3 +39,12 @@
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))
+# The key post stands one pitch off its power header's line: the plastic clears
+# by 0.07 mm, only the courtyards meet. The two 2x16 signal bodies of an edge
+# stand end to end on the pitch (design.py). Named pairs only.
+(rule "key post beside its power header"
+  (condition "(A.Reference == 'MK*' && (B.Reference == 'J53' || B.Reference == 'J62' || B.Reference == 'J54' || B.Reference == 'J63' || B.Reference == 'J55' || B.Reference == 'J64' || B.Reference == 'J56' || B.Reference == 'J65' || B.Reference == 'J57' || B.Reference == 'J58')) || (B.Reference == 'MK*' && (A.Reference == 'J53' || A.Reference == 'J62' || A.Reference == 'J54' || A.Reference == 'J63' || A.Reference == 'J55' || A.Reference == 'J64' || A.Reference == 'J56' || A.Reference == 'J65' || A.Reference == 'J57' || A.Reference == 'J58'))")
+  (constraint courtyard_clearance (min -1mm)))
+(rule "signal bodies end to end"
+  (condition "(A.Reference == 'J3A' && B.Reference == 'J3B') || (A.Reference == 'J3B' && B.Reference == 'J3A') || (A.Reference == 'J5A' && B.Reference == 'J5B') || (A.Reference == 'J5B' && B.Reference == 'J5A')")
+  (constraint courtyard_clearance (min -1mm)))

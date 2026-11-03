@@ -69,6 +69,24 @@ def add_field(fp, name, text, x_mm, y_mm, size_mm=0.8):
     field.SetFPRelativePosition(pcbnew.VECTOR2I(pcbnew.FromMM(x_mm), pcbnew.FromMM(y_mm)))
     fp.AddField(field)
 
+def keep_on_board(board, inset_mm=0.3):
+    """Move every visible silk field that runs past the outline back inside it;
+    a label over the edge is cut by the fab."""
+    edge = board.GetBoardEdgesBoundingBox()
+    inset = pcbnew.FromMM(inset_mm)
+    moved = 0
+    for fp in board.GetFootprints():
+        for field in fp.GetFields():
+            if not field.IsVisible() or field.GetLayer() not in (pcbnew.F_SilkS, pcbnew.B_SilkS):
+                continue
+            box = field.GetBoundingBox()
+            dx = max(edge.GetLeft() + inset - box.GetLeft(), 0) + min(edge.GetRight() - inset - box.GetRight(), 0)
+            dy = max(edge.GetTop() + inset - box.GetTop(), 0) + min(edge.GetBottom() - inset - box.GetBottom(), 0)
+            if dx or dy:
+                field.Move(pcbnew.VECTOR2I(dx, dy))
+                moved += 1
+    return moved
+
 def main():
     board = pcbnew.LoadBoard(BOARD)
     netlist = open(NETLIST).read()
@@ -87,12 +105,13 @@ def main():
     for drawing in board.GetDrawings():
         if not hasattr(drawing, 'GetText'):
             continue
-        if re.fullmatch(r'ODIN(?: HW .*)?', drawing.GetText()):
+        if re.fullmatch(r'(?:ODIN|FREYA)(?: HW .*)?', drawing.GetText()):
             drawing.SetText(version_text)
-            drawing.SetLayer(pcbnew.F_SilkS)
+            drawing.SetLayer(pcbnew.B_SilkS)
+            drawing.SetMirrored(True)
             version_found = True
     if not version_found:
-        raise SystemExit('missing managed ODIN hardware-version silkscreen text')
+        raise SystemExit('missing managed hardware-version silkscreen text')
     found = set()
     for fp in board.GetFootprints():
         ref = fp.GetReference()
@@ -155,6 +174,7 @@ def main():
     missing_part_ids = set(PART_ID_OFFSETS) - part_ids_found
     if missing_part_ids:
         raise SystemExit('missing silk part identities: ' + ', '.join(sorted(missing_part_ids)))
+    print(f'{keep_on_board(board)} labels kept on the board')
     pcbnew.SaveBoard(BOARD, board)
     print(f'updated {len(found)} controls/connectors and {len(role_found)} role labels; '
           f'HW {HW_VERSION} and {len(part_ids_found)} exact part identities on F.SilkS; '

@@ -6,7 +6,7 @@
 	(paper "A3")
 	(lib_symbols
 	)
-	(text "ODIN HW 0.1.0-proto.1" (at 30 25 0) (effects (font (size 8 8) (thickness 1.2)) (justify left)))
+	(text "FREYA HW 0.1.0-proto.1" (at 30 25 0) (effects (font (size 8 8) (thickness 1.2)) (justify left)))
 	(text "Artix-7 dev board. Every page is generated — see kicad/README.md" (at 30 34 0) (effects (font (size 3 3)) (justify left)))
 	(sheet (at 30 55) (size 95 40)
 		(stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0.0000))

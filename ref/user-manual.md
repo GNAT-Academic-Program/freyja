@@ -69,10 +69,10 @@ See [power-budget.md](power-budget.md).
 
 ## The extension idea, from zero
 
-Odin has eight shield sections on the left and right edges of the 100 x 100 mm
+Odin has eight shield sections on the left and right edges of the 100 x 140 mm
 board (A–D on the left, E–H on the right). Each section has a 16-position
-signal block and a separate keyed power row: a grounded post at position 1
-and a seven-contact socket. Two additional ports are complete 5 V-compatible
+signal block and a separate keyed power row: a seven-contact socket and a
+grounded post one column past its end, one pitch toward the board edge. Two additional ports are complete 5 V-compatible
 eight-bit buses. The authoritative pin map is
 [extension-ux.md](extension-ux.md); the tables below repeat it.
 
@@ -162,8 +162,8 @@ the board on one 2.54 mm lattice. All eight zones have the same pitch,
 orientation and distance from the board edge; `tools/place.py --check`
 verifies that from the real pad coordinates.
 
-**Their exact coordinates do not exist yet because placement has not been
-done.** Until those coordinates and a real extension outline are drawn and
+**Their exact coordinates are not final yet because placement is still being
+squeezed into the 100 x 140 mm outline.** Until those coordinates and a real extension outline are drawn and
 measured together, the bridge and stacking fit remain an intention, not a
 proven feature.
 

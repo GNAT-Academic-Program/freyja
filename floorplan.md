@@ -3,6 +3,14 @@
 **Intent doc for `tools/placement.py` / `tools/place.py`. The code is
 authoritative; this page says why.** Rev A state, 2026-10-23.
 
+**Board outline (2026-11-03):** 100 x 140 mm with 2 mm, 45 degree corner
+chamfers, at x 156.882-256.882, y 84.805-224.805, centred on the slot rows'
+axis. The J70, J71, J72 and J73 mating faces sit on the bottom edge, the J1 front
+and the J50 and J68 wire entries on the top edge. The extension rails share one
+2.54 mm lattice: J3 and J5 are 29 pitches apart, centred on the axis, with equal
+y; J7 and J8 are 17 pitches apart on the same grid. The 100 x 100 mm
+figures further down this page are history.
+
 **Current plan (2026-10-28, owner's choice: `tools/city.py` variant `best`):**
 U1 turned 90 degrees, the network jacks (LINK P, LINK Q, ETH) and HDMI on the
 **bottom** edge with the JTAG header and AUX IN, the two 5 V bus headers on
@@ -10,7 +18,7 @@ the **top** edge with the DC input and USB-C, slots A-D (J3) on the left and
 E-H (J5) on the right. The zone sketch and the "top edge: network" section below are
 the earlier contract and are kept as history; `ref/city/plan.yaml` and
 `ref/city/city.svg` are the plan being compacted by hand. The lattice rules
-(signal 2x32, power 1x7, post at position 1) are unchanged and still checked.
+(signal 2x32, power 1x7, post on column 8 one pitch toward the edge) are still checked.
 
 **microSD access (findings 45):** J74 sits inboard, south-west of U1, card
 opening toward the bottom edge. Access is **from above**: keep the card's
@@ -41,8 +49,8 @@ Signal rows, power row and key post of every extension edge sit on ONE
 - signal 2x32 centreline 4.70 mm from its edge, rows at 3.43 / 5.97
 - power 1x7 centreline 13.59 mm (inner signal row + 3 pitches)
 - one continuous signal body per left/right edge, centred at y = 50; zone
-  centres 20.32 mm apart within it; position 1 of every power row is the
-  grounded key post
+  centres 20.32 mm apart within it; the grounded key post stands on column 8,
+  one pitch off the power row's line toward the edge (since 2026-10-30)
 
 `tools/place.py --check` verifies from real pad coordinates that the left
 and right sockets expose identical y-lattices (bottom pair: x-lattices) and
