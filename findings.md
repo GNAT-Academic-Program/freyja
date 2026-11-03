@@ -1,5 +1,52 @@
 # Freyja — current status and dated findings
 
+## Current status — 2026-11-03 routing checkpoint
+
+**PSRAM0/1 routing transferred** to `kicad/odin.kicad_pcb`: all six signals of
+both ports, through R104–R115 to U2/U3, with pull branches. All 60 pads on the
+24 nets connect. R104–R115, C337, C341 and C394 moved; no other footprint did.
+C337/C341 reach the +3V3 and GND planes; C394 ties to FB1 output and C261 by
+copper and to GND. Nothing else was connected: stress-test copper, dogbones,
+placeholder vias and the provisional T16 chain were left out.
+
+**Differential escapes transferred; onward routing unfinished.** The 12 LINK and
+HDMI pairs have F.Cu stubs, through vias, coupled B.Cu lanes and GND stitching
+(present on In1, In4, In6 after refill; four pairs are stitched on one side
+only: LINK_Q_TXC, LINK_Q_TXD, LINK_Q_RXD, HDMI_D1). The 24 `track_dangling`
+warnings are exactly these intentional corridor ends:
+west lanes x 198.9–209.8 at y 172–173.3, HDMI lanes x 220.7–227.35 at y 162.4–163.6.
+
+**Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
+provisional. Lengths are not delays, because these routes mix layers. Pair
+impedance through the transitions and stitching is not modelled, and rule
+passes do not establish any of this.
+
+**Bank 13 supply routing is next.** `+1V8_IO` has no plane. FB1, C261 and C394
+are joined; U1's six VCCO balls and everything else on the net are not, so this
+copper is not verified power integrity.
+
+**Resistor-adjacent via solder-mask geometry needs fabrication review.** Landing
+and memory-side vias sit 0.095 mm from their own R104–R115 pads (measured, edge
+to edge) and DRC passes, but tenting or via fill
+and the mask dam need the fabricator's answer.
+
+Results after refill: DRC with parity **0 errors, 0 parity issues, 334 warnings**
+(silk_overlap 199, capped; silk_over_copper 104; track_dangling 24; text_height 4;
+lib_footprint_mismatch 2; isolated_copper 1). Ratsnest **1598**, from 1649 by
+`GetUnconnectedCount(True)`; the DRC unconnected list stops at 499. The new
+mismatch is X4, whose bottom silk line is opened over C337's pads on this board
+only; J1 and the isolated +1V0 fill predate this transfer. `gate.py --strict`
+passes; its `tracks`/`vias` line prints 0 because its regex expects a space after
+`(segment`, which KiCad does not write, so read counts from the board (312/82).
+
+To keep silk clear of the routing, UI_ROLE labels of U2, U3, U4 and X4 moved.
+`update_silkscreen.py`, which `load_pcb.py` also runs, recreates those fields and
+would undo this. Evidence and the transfer script:
+`~/freyja-review/psram-pilot-2026-11-03/` (`transfer/`, `scripts/transfer.py`).
+
+The cleanup status below predates this transfer: its tracks/vias and DRC counts
+are the pre-routing baseline.
+
 ## Current status — 2026-11-03 repository cleanup
 
 Starting commit: `3f76447e95960261cd3486e88a7cd382be51181f`; tracked/untracked
