@@ -21,9 +21,31 @@ provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule
 passes do not establish any of this.
 
-**Bank 13 supply routing is next.** `+1V8_IO` has no plane. FB1, C261 and C394
-are joined; U1's six VCCO balls and everything else on the net are not, so this
-copper is not verified power integrity.
+**+1V8_IO distribution routed.** All 40 pads on the net reach L5.1 by copper: U1
+balls AC25, T16, T26, U23, V20, Y24, U2–U5, U9/U10 VCCA, decoupling, pull-ups, the
+J19/J20 selector pins, FB1.1 and the R61 sense. Their 16 local decoupling GND pads
+have vias into In1, In4 and In6. No footprint, rule, plane or accepted signal
+copper changed. This completes rail distribution only: U14's +5V input, SW and FB
+nets, the upstream +5V supply and the +1V8 network behind FB1 are not routed, so
+the rail is not yet powered in layout terms.
+
+Sizing is from `ref/power-budget.md` and copper of 1 oz outer, 0.5 oz inner.
+Board load is 0.308 A. Connector exports are not in that figure, so J19 and J20
+each carry 0.6 A at the 1.8 V setting (0.5 A PIN V allowance plus the 0.1 A bank
+estimate), 1.508 A at the source against U14's 2 A. Source node four 0.45/0.20 mm
+vias; north trunk 1.5 mm B.Cu with a 0.6 mm neck through J5A's pin pitch; west
+spine 1.5 mm; J20 branch 1.0 mm; bank 13 spine 0.6 mm F.Cu, 0.4 mm beside R18/R4;
+ball lanes 0.22 mm, the widest that keeps both neighbouring dogbone rows on the
+1 mm lattice. Calculated DC drop from C201 at 25 C, assuming 18 um via barrels:
+**9.5 mV worst at board load; 43 mV at J19, 25 mV at the balls with both selectors
+at 1.8 V.** Conductor sizing and connectivity do not prove transient power
+integrity; decoupling and the 113 uF output capacitance still need bench
+qualification (`ref/power-budget.md`).
+
+B.Cu is now walled by the north trunk (y≈125) and west spine (x≈176): crossing
+signals there need In2 or In5. The first-pass access test still fits all 443
+remaining dogbones, other capacitor vias and PSRAM2/3 legs, for at least one route
+order, but SDRAM, slot and bus signals have no onward routes yet.
 
 **Resistor-adjacent via solder-mask geometry needs fabrication review.** Landing
 and memory-side vias sit 0.095 mm from their own R104–R115 pads (measured, edge
@@ -32,17 +54,18 @@ and the mask dam need the fabricator's answer.
 
 Results after refill: DRC with parity **0 errors, 0 parity issues, 334 warnings**
 (silk_overlap 199, capped; silk_over_copper 104; track_dangling 24; text_height 4;
-lib_footprint_mismatch 2; isolated_copper 1). Ratsnest **1598**, from 1649 by
-`GetUnconnectedCount(True)`; the DRC unconnected list stops at 499. The new
-mismatch is X4, whose bottom silk line is opened over C337's pads on this board
-only; J1 and the isolated +1V0 fill predate this transfer. `gate.py --strict`
-passes; its `tracks`/`vias` line prints 0 because its regex expects a space after
-`(segment`, which KiCad does not write, so read counts from the board (312/82).
+lib_footprint_mismatch 2; isolated_copper 1). Ratsnest **1545**, from 1598 at the
+PSRAM checkpoint and 1649 before routing, by `GetUnconnectedCount(True)`; the DRC
+unconnected list stops at 499. The X4 mismatch comes from its bottom silk line,
+opened over C337's pads on this board only; J1 and the isolated +1V0 fill predate
+routing. `gate.py --strict` passes; its `tracks`/`vias` line prints 0 because its
+regex expects a space after `(segment`, which KiCad does not write. By pcbnew the
+board has **442 tracks and 130 vias**.
 
 To keep silk clear of the routing, UI_ROLE labels of U2, U3, U4 and X4 moved.
 `update_silkscreen.py`, which `load_pcb.py` also runs, recreates those fields and
-would undo this. Evidence and the transfer script:
-`~/freyja-review/psram-pilot-2026-11-03/` (`transfer/`, `scripts/transfer.py`).
+would undo this. Evidence and scripts: `~/freyja-review/psram-pilot-2026-11-03/`
+(`transfer/`, `scripts/transfer.py`) and `~/freyja-review/1v8-io-2026-11-03/`.
 
 The cleanup status below predates this transfer: its tracks/vias and DRC counts
 are the pre-routing baseline.
