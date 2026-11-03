@@ -165,6 +165,15 @@ each 0.1 mm from a ground plane; In3/In4 are a tight plane pair. Keep every
 ground plane continuous under the PSRAM groups, the RGMII bus and the 100 Ω
 pairs. The board is assembled on one side; B.Cu carries routing only.
 
+Planes on the board since 2026-11-03: GND over the whole outline on In1, In4
+and In6. In3 is +3V3 over the whole outline with a +1V0 island (priority 1):
+from L7/U15 above U1, through the core balls, to the caps below U1. Inner
+copper is 0.0152 mm, so the island is 8 mm at its narrowest in the BGA neck and
+wider elsewhere; U1's other rails (+1V8_IO, +2V5, VCCIO, the MGT supplies, +5V)
+are local tracks on the signal layers. C329, C362 and U1 ball (215.2, 140.8)
+are +3V3 pads inside the island: reach the +3V3 plane with a short track first.
+Zones are not stored filled: press B in the PCB editor.
+
 Dielectrics come from JLC's template (`ref/jlc08161h-1080a-stackup.json`):
 0.0764 mm 1080 prepreg outside, 0.1 mm cores, 7628/1080/7628 stacks between
 the plane pairs. The 100 Ω pairs (`LVDS_100R`, `MDI_100R`) use 0.099 mm

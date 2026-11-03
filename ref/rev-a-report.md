@@ -1051,3 +1051,16 @@ gate electrical and mechanical PASS, ERC 0, parity 0, 0 DRC errors.
    (C269119 108k, C22452 2.18M, resistors generic). power.md, power-input.md,
    extension-ux.md and the user manual say the new numbers; the manual's stale
    "selectable 12 V rail" paragraph is gone.
+
+## Planes and layer names 2026-11-03
+
+In3: +3V3 over the outline, +1V0 island at priority 1 (x 203-221 above and below
+U1, a neck x 212.7-220.7 then 212.7-218.7 through the core balls), area about
+700 mm2. Inner copper is 0.0152 mm: IPC-2221 inner gives about 3.5 A at 10 C rise
+for 10 mm, so the 2 A allowance is comfortable outside the neck; the short neck
+carries more than that and wants a thermal check with XPE and on the bench [verify].
+Islands under 10 mm2 are dropped. C329, C362 and one U1 +3V3 ball sit inside the
+island and need a short track out. C307-C309, C312, L9 and R88 are +1V0 pads
+outside it, joined by tracks. Layer names are now In1_GND, In2_signal, In3_power,
+In4_GND, In5_signal, In6_GND (the three GND layers all read "GND plane"). 0 moved.
+DRC: 0 errors; two isolated_copper warnings on In3 until the first vias land.

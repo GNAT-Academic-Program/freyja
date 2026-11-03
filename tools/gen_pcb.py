@@ -180,10 +180,10 @@ def update_stackup():
     path.write_text(board)
     print(f'updated {path}: JLC08161H-1080A 8-layer stackup and layer list; placement preserved')
 
-LAYERS = [(0,'F.Cu','signal'), (4,'In1.Cu','signal','GND plane'),
-          (6,'In2.Cu','signal'), (8,'In3.Cu','signal','power planes'),
-          (10,'In4.Cu','signal','GND plane'), (12,'In5.Cu','signal'),
-          (14,'In6.Cu','signal','GND plane'), (2,'B.Cu','signal'),
+LAYERS = [(0,'F.Cu','signal'), (4,'In1.Cu','signal','In1_GND'),
+          (6,'In2.Cu','signal','In2_signal'), (8,'In3.Cu','signal','In3_power'),
+          (10,'In4.Cu','signal','In4_GND'), (12,'In5.Cu','signal','In5_signal'),
+          (14,'In6.Cu','signal','In6_GND'), (2,'B.Cu','signal'),
           (9,'F.Adhes','user','F.Adhesive'), (11,'B.Adhes','user','B.Adhesive'),
           (13,'F.Paste','user'), (15,'B.Paste','user'),
           (5,'F.SilkS','user','F.Silkscreen'), (7,'B.SilkS','user','B.Silkscreen'),
