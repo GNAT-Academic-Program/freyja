@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run every rev A phase gate and print the numbers for ref/rev-a-report.md.
+"""Run the current project gates; workflow: ref/ide-agent-prompt.md.
 
     python3 tools/gate.py
 
@@ -125,7 +125,7 @@ def main():
     print('GATE electrical', 'PASS' if ok else 'FAIL')
     print('GATE mechanical', 'PASS' if mech_ok else
           f'FAIL ({len([l for l in mech_lines if l.startswith("  ")])} lattice findings; '
-          'placement in progress, see ref/rev-a-report.md)')
+          'see current status in findings.md)')
     strict = '--strict' in sys.argv
     sys.exit(0 if ok and (mech_ok or not strict) else 1)
 

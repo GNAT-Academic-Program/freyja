@@ -89,12 +89,15 @@ schematic and BOM. An imported file is not automatically better than the
 manufacturer-package footprint.
 
 The slot fuses, network parts and complete extension connector system are
-selected, linked and audited. Only ordinary passive BOM matching remains below.
+selected. **2026-11-03 verification:** the import audit still fails for the
+new C269119 fuse and C22452 diode selections/metadata; see
+[current findings](../findings.md). The selection tables below do not establish
+a passing audit or current stock. Ordinary passive BOM matching also remains.
 
 ## Fast Links removed (2026-10-23)
 
 The SFP connectors, cages, 125 MHz oscillator and I²C switch left the design
-in rev A (`ref/rev-a-plan.md` A3). Their library imports stay in `easyeda/`
+in rev A ([historical plan](../archive/history/rev-a-plan.md), A3). Their library imports stay in `easyeda/`
 as files; `tools/audit_easyeda.py` only checks parts the design fits.
 
 ## Extension hardware — imported and linked

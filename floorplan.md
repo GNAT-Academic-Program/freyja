@@ -1,7 +1,10 @@
-# Odin floorplan and placement contract
+# FREYA floorplan intent and placement history
 
-**Intent doc for `tools/placement.py` / `tools/place.py`. The code is
-authoritative; this page says why.** Rev A state, 2026-10-23.
+**The live `kicad/odin.kicad_pcb` owns actual placement and routing.**
+`tools/placement.py` / `tools/place.py --check` describe/check the connector
+contract; their placement-writing modes must not overwrite manual work as
+cleanup. This page preserves mechanical intent and the reasons for earlier
+plans. Follow [the current workflow](ref/ide-agent-prompt.md).
 
 **Board outline (2026-11-03):** 100 x 140 mm with 2 mm, 45 degree corner
 chamfers, at x 156.882-256.882, y 84.805-224.805, centred on the slot rows'
@@ -11,13 +14,15 @@ and the J50 and J68 wire entries on the top edge. The extension rails share one
 y; J7 and J8 are 17 pitches apart on the same grid. The 100 x 100 mm
 figures further down this page are history.
 
-**Current plan (2026-10-28, owner's choice: `tools/city.py` variant `best`):**
+**Planning history (2026-10-28, then `tools/city.py` variant `best`):**
 U1 turned 90 degrees, the network jacks (LINK P, LINK Q, ETH) and HDMI on the
 **bottom** edge with the JTAG header and AUX IN, the two 5 V bus headers on
 the **top** edge with the DC input and USB-C, slots A-D (J3) on the left and
 E-H (J5) on the right. The zone sketch and the "top edge: network" section below are
 the earlier contract and are kept as history; `ref/city/plan.yaml` and
-`ref/city/city.svg` are the plan being compacted by hand. The lattice rules
+`ref/city/city.svg` are planning aids, not snapshots of current placement.
+The PCB at the 2026-11-03 cleanup has all 555 footprint origins inside its
+outline's bounding box and passes `place.py --check`. The lattice rules
 (signal 2x32, power 1x7, post on column 8 one pitch toward the edge) are still checked.
 
 **microSD access (findings 45):** J74 sits inboard, south-west of U1, card
@@ -27,7 +32,7 @@ travel (the socket body plus 10 mm toward its opening) and a finger-width
 cut-out over that rectangle. No board-edge opening is reserved. Check
 insertion and ejection with J72/J2 populated before the layout is frozen.
 
-## Zones
+## Historical zone sketch
 
 ```text
    J50  LINK P  LINK Q   ETH        USB-C      top:    three RJ45 mouths out,
@@ -41,7 +46,11 @@ insertion and ejection with J72/J2 populated before the layout is frozen.
                                                       5V buses L and M
 ```
 
-## The lattice (the actual contract)
+## Lattice rationale (historical dimensions)
+
+The coordinates below describe the earlier plan. Inspect current pad
+coordinates in the PCB and use `tools/place.py --check` for the current
+contract; do not apply the old y=50 placement to the manually placed board.
 
 Signal rows, power row and key post of every extension edge sit on ONE
 2.54 mm grid, because a shield PCB bridges all three:

@@ -1,8 +1,11 @@
-# What to keep from Odin_0 (last year's board)
+# Historical engineering rationale from Odin_0
 
-Derived from `Netlist_Odin_0_2026-09-02.net`, which is the only fully-wired
-description of the extension scheme. Designators here are Odin_0's, real and
-trustworthy. They do **not** carry to the new schematic — the pattern does.
+Derived from the [archived Odin_0 netlist](../archive/legacy-odin/Netlist_Odin_0_2026-09-02.net),
+which was the fully wired input available during the early migration.
+Designators and KEEP/FIX proposals below belong to that revision; retain the
+reasoning, not its old pinout as a current contract. Current ownership is in
+[the KiCad workflow](ide-agent-prompt.md), and today's connector definition is
+in [extension UX](extension-ux.md) and `tools/design.py`.
 
 ## 1. KEEP — the modulo-16 IO slot scheme
 

@@ -1,96 +1,78 @@
-# Odin
+# Freyja
 
-An FPGA dev board built on one idea: **remove the accidental complexity, so
-what's left is the actual project.**
+An FPGA development board intended to remove the setup work between an idea
+and a working project: independent memory ports, a USB board controller,
+observable power rails and keyed extension connectors.
 
-## Why dumb projects look complicated
+The repository is **Freyja**; the current hardware stamp is **FREYA HW
+0.1.0-proto.1**, with **XC7A100T-2FGG676I + RP2350B**. Identity comes from
+[`tools/identity.py`](tools/identity.py). The KiCad basename `odin` and imported
+library names are retained for compatibility; they do not identify another
+active project.
 
-Watch a student build a handheld game on a normal FPGA board. Where does the
-effort go?
+## Open the current project
 
-- Writing a memory controller, because the framebuffer doesn't fit in BRAM.
-- Fighting the programming workflow, because loading a bitstream is a ritual
-  involving a vendor GUI.
-- Designing a power supply, because the LCD backlight needs 12V and the board
-  offers 3.3V and 5V.
-- Level-shifting, because half the parts are 5V.
-- Reading a 400-page manual to find which pins share a bank.
-- Guessing, when it doesn't work, because the board cannot tell them anything.
+Open **[`kicad/odin.kicad_pro`](kicad/odin.kicad_pro)** in KiCad 9.
+[`kicad/odin.kicad_pcb`](kicad/odin.kicad_pcb) owns placement and routing;
+[`kicad/odin.kicad_sch`](kicad/odin.kicad_sch) is the generated root schematic.
+See [the project map](kicad/README.md) and the single
+[current workflow](ref/ide-agent-prompt.md) before editing or regenerating.
 
-Roughly 80% of the effort, and **none of it is the game.** The project isn't
-complicated. The scaffolding is. And because the scaffolding is where the time
-goes, the finished thing looks far more impressive than the idea deserves —
-which is its own kind of failure, because the student learned plumbing instead
-of architecture.
+Current measured status, **2026-11-03**, at the repository cleanup baseline
+`3f76447`: 100 × 140 mm, eight copper layers, 551 schematic components and
+555 placed footprints including four board-only mounting holes. All footprint
+origins are inside the outline's bounding box; all assembly is on F.Cu.
+There are **zero tracks and vias**, 499 unrouted items, and five saved filled zones.
+The full gate passes electrical and mechanical checks, with ERC zero errors
+and two expected warnings; DRC reports zero errors, 313 warnings and zero
+schematic-parity issues. **Routing is unfinished.** These counts describe
+this baseline, not a fabrication pass. Independent import/connector checks
+have pre-existing failures listed in [current findings](findings.md).
 
-## What's actually missing, and what Odin does
+## Work and validate
 
-| Missing on normal boards | What it causes | Odin |
-|---|---|---|
-| **A middle rung of memory.** BRAM (KB) → cliff → DDR3 (nightmare) | Every project that outgrows BRAM becomes a memory-controller project | 4× PSRAM, 32 MB, four independent ports, predictable latency; a 32 MB SDRAM beside them |
-| **Scriptable programming.** JTAG blaster + vendor GUI | Can't run 40 variants overnight, so nobody experiments | RP-class supervisor owns config; one USB-C, no helper bitstream |
-| **Self-observation.** No rail telemetry, no software power control | Superstition-driven debugging | Supervisor drives every enable, reads back every rail |
-| **A real expansion standard.** Pmod is 8 pins/3.3V; FMC is a $200 connector and a 400-page spec | Every extension is bespoke, nothing composes | Keyed 16-pin modules, 16/32/64, documented in one page |
-| **Rails on the connector.** 3.3V and 5V, take it or leave it | Half of every extension BOM is regulators | Four rails per module: VCCIO, +5V, fixed +3V3, selectable AUX |
-| **A level-shifting story.** All-shifted (slow) or none (no 5V parts) | You find out which by burning a part | One buffered slot, eight direct. One table says which and why |
-| **Docs a human reads.** 400-page reference manual | Nobody reads it; everyone guesses | One page per subsystem. Over two pages is a bug |
+Run from the repository root with Python 3, KiCad CLI/pcbnew 9 and PyYAML:
 
-Each row of that table is a decision in this repo, and each one exists to
-delete a category of work that was never the point.
+```sh
+python3 tools/alloc.py --check
+python3 tools/gate.py --strict
+python3 tools/audit_easyeda.py
+python3 tools/check_connector_rework.py
+git diff --check
+```
 
-## The legibility principle
+The gate reports DRC/unrouted counts without failing on them. Read the report
+and independent checker results. [The workflow](ref/ide-agent-prompt.md)
+explains exact ERC expectations, scratch DRC reports, file ownership,
+generator writes and the cleanup checkpoint after several routing chunks.
+Documentation cleanup must preserve hardware contents. Never use
+`tools/gen_pcb.py` without `--rules-only` on the existing board.
 
-50 MB/s per link, 8 MB per chip. That's modest. It is also **knowable** — you
-can work out on paper, before writing a line of HDL, whether your design fits.
+Circuit ownership is [`tools/design.py`](tools/design.py); FPGA allocation is
+[`tools/alloc.py`](tools/alloc.py). The project uses generated `odin:` libraries,
+stock KiCad libraries, and **active imported `EasyEDA:` symbols, footprints and
+3D models under [`easyeda/`](easyeda/)**. Preserve their identifiers and exact
+qualified land patterns.
 
-DDR3 offers "up to 12.8 GB/s," qualified by access pattern, bank conflicts,
-refresh, and calibration. You cannot reason about it in advance. You build it,
-measure it, and find out.
+## Design intent
 
-**A legible constraint teaches. An opaque abundance does not.** A student who
-computes "640×480 at 60 Hz is 37 MB/s, one PSRAM link is 50, it fits" has
-learned something transferable. A student who gets 12.8 GB/s from an IP core
-has learned to instantiate an IP core.
+Four independent QSPI PSRAM links provide 32 MB without forcing a project to
+start with a DDR controller; a 32 MB SDRAM provides another memory option.
+The RP2350B is the board controller for configuration, power control and
+readback. Eight direct extension sections and two buffered sections expose
+documented signals and rails. ETH, raw LVDS LINK P/Q and HDMI are present in
+the current circuit. Firmware, timing and operating performance still require
+their own validation; PCB/ERC checks alone do not establish them.
 
-This is why the numbers on this board are small and published rather than
-large and asterisked.
+For future decisions, keep the original test: **does this remove work that
+was never the point, or add work that looks like the point?** Prefer explicit
+limits, direct wiring and references an extension builder can understand.
 
-## The honest ceiling
+## Supporting references
 
-Odin is not fast. Some things do not fit, and pretending otherwise would
-undermine the point:
-
-- **1080p60** RGB565 needs ~249 MB/s. Four chips ganged give ~200. Doesn't fit.
-- **720p60** is ~110 MB/s. Fits ganged, with headroom.
-- **VGA 60 Hz** is 37 MB/s. Fits on a single link, leaving three ports free.
-- Anything wanting sustained gigabytes per second wants DDR3 and a different
-  board.
-
-If you need the ceiling raised, this is the wrong board. If you need the floor
-raised so you can get to the interesting part, this is the right one.
-
-## The test for any future decision
-
-> Does this remove work that was never the point, or does it add work that
-> looks like the point?
-
-Series resistors on shared config lines: removes work (a firmware bug can't
-brick the board). Four independent PSRAM buses instead of one shared: removes
-work (no arbiter to design). A 400-page pinout PDF: adds work.
-
-Apply it to anything proposed for this board.
-
-## Reference
-
-- [`ref/user-manual.md`](ref/user-manual.md) — start here: powering, extensions, examples and recovery.
-- [`ref/extension-ux.md`](ref/extension-ux.md) — the extension connector spec. One page. Read this first.
-- [`ref/psram.md`](ref/psram.md) — memory: four independent ports, and why four.
-- [`ref/supervisor-flash.md`](ref/supervisor-flash.md) — the supervisor's boot flash, and why you cannot brick it.
-- [`ref/power-input.md`](ref/power-input.md) — one USB-C, PD at 9V, and why there is no battery on the board.
-- [`ref/power-budget.md`](ref/power-budget.md) — generated: every rail's load, limit and spare, with the basis for each number.
-- [`ref/qualified-parts.md`](ref/qualified-parts.md) — generated: the exact part in every non-generic position, and its ratings.
-- [`ref/highspeed.md`](ref/highspeed.md) — the two fast serial ports and their reference clock.
-- [`ref/gameboy-extension.md`](ref/gameboy-extension.md) — worked example: LCD, speaker, gamepad.
-- [`ref/salvage-from-odin0.md`](ref/salvage-from-odin0.md) — what survives from last year's board.
-- [`ref/ide-agent-prompt.md`](ref/ide-agent-prompt.md) — the review brief for the implementation agent.
-- [`findings.md`](findings.md) — open issues against the current schematic.
+- [User manual](ref/user-manual.md), [extension connector contract](ref/extension-ux.md) and [worked Gameboy extension](ref/gameboy-extension.md).
+- [Parts guide](ref/parts-guide.md), [qualified parts](ref/qualified-parts.md), [power budget](ref/power-budget.md), [assembly/import checklist](ref/jlcpcb-import-checklist.md) and [BOM](ref/bom-jlcpcb.csv).
+- [Power input](ref/power-input.md), [power tree](ref/power.md), [PSRAM](ref/psram.md), [controller flash](ref/supervisor-flash.md), [network](ref/network.md) and [raw LVDS links](ref/link-ports.md).
+- [Mechanical intent and history](floorplan.md), [FPGA decoupling](ref/decoupling.md), [island layout rationale](ref/island-layouts.md), [impedance/stackup](ref/pcb-impedance.md) and [local datasheets](ref/datasheets/).
+- [Current status and chronological findings](findings.md). Its older numbered findings are dated history, not a fresh open-task list.
+- [Archive index and provenance](archive/README.md): old Altium/EasyEDA exports, extraction reports, superseded workflow/plans, dated review evidence and Vivado scratch outputs. [Salvage rationale](ref/salvage-from-odin0.md) retains useful earlier engineering decisions.

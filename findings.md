@@ -1,19 +1,74 @@
-# Odin — findings
+# Freyja — current status and dated findings
 
-Two eras are recorded here. **Items 1–4 are historical** — they describe the
-EasyEDA/Altium input set and are closed: the design now lives in `kicad/`,
-generated from `tools/`, and those inputs are reference material only. **Items
-5 onward are live**, against the current KiCad design.
+## Current status — 2026-11-03 repository cleanup
 
-Regenerate everything with the commands in `kicad/README.md`.
+Starting commit: `3f76447e95960261cd3486e88a7cd382be51181f`; tracked/untracked
+working tree clean. Existing ignored KiCad backups, Vivado build outputs
+and Python caches were left in place. During the session the local `.prl`
+selected layer changed from 25 to 6 and the editor lock disappeared; that
+editor-state change is preserved, not restored over current work. See
+[the current workflow](ref/ide-agent-prompt.md)
+for ownership, generator side effects and the recurring cleanup checkpoint.
 
-**Latest review:** [final practical audit, 2026-10-29](#final-practical-verdict),
-against `6ad8068`. **The earlier three P1 circuit findings are corrected;
-no additional confirmed schematic blocker was found. Proceed with detailed
-placement.** Connector mechanics, source-policy details and prototype
-measurements remain. Parts III–IV and their correction tables are history;
-**Part V is the current verdict**, including what merits action and what
-does not justify further redesign.
+FREYA HW 0.1.0-proto.1 is the **100 × 140 mm, eight-layer** KiCad board with
+XC7A100T-2FGG676I and RP2350B. The schematic has 551 parts; the PCB has those
+551 plus board-only H1–H4. All 555 footprint origins are inside the outline's
+bounding box, with zero B.Cu footprints. **Tracks/vias: 0/0; routing remains
+unfinished.** The board is authoritative for current manual placement/zones.
+Its five zones already contain saved fills; cleanup did not refill them.
+
+Checks on the unchanged hardware, with identical results before/after cleanup:
+
+- `tools/gate.py --strict`: electrical/mechanical PASS; netlist, XDC/gate top
+  and parts-guide comparisons pass. ERC: zero errors and the two expected
+  DXP/DXN warnings. Connector placement contract passes.
+- Full DRC with schematic parity: **0 errors, 313 warnings, 499 unrouted
+  items, 0 parity issues**. The explicit `--exit-code-violations` invocation
+  exits 5, as expected for the remaining findings. Gate PASS is not a clean
+  fabrication DRC.
+- `tools/audit_easyeda.py`: **pre-existing FAIL**. F2/F6/F10/F14/F18/F22/F26/
+  F30/F34/F38 select C269119 without a matching imported symbol. D3/D4 select
+  C22452 without a matching imported symbol, and their imported footprint's
+  LCSC property still says C8678. Reconcile the selected parts and imported
+  metadata deliberately before the next part/library sync; do not substitute
+  stock footprints or relax the audit. Libraries are unchanged in cleanup.
+- `tools/check_connector_rework.py`: **pre-existing FAIL** at its exact
+  PCB/netlist reference-set assertion. H1–H4 are board-only footprints and
+  absent from the netlist; no schematic references are missing from the PCB.
+  The checker stops there, so its later topology assertions are not certified
+  by this run. Resolve its board-only accounting in a separate bounded change.
+- Supplemental read-only parity confirms all 551 schematic footprints' values,
+  footprint IDs and pad nets match; H1–H4 are separately confirmed board-only.
+  Allocation checks, Markdown file links and Python syntax pass. The archived
+  extractor reproduces all five saved outputs exactly in a disposable copy.
+- Imported 3D models: six of 39 distinct live-board model paths name files
+  absent from the repository even after mapping `KICAD_3RD_PARTY` to `easyeda/`.
+  That variable is unset in the verification shell. See [project setup](kicad/README.md)
+  for the pre-existing preview limitations; no models or identifiers changed.
+
+The opening SHA-256 manifest covers 280 files. All 278 other files still
+match exactly; only the local `.prl` active-layer preference and editor lock
+changed as described above. In particular the PCB, all schematics, netlist,
+`.kicad_pro` settings, `.kicad_dru` constraints, libraries/models and allocation
+constraints are unchanged. All 33 relocated tracked files are accounted for;
+archive notices/link fixes and the extractor's path guard are intentional edits.
+
+Next routing work should review the 313 DRC warnings and saved zone geometry,
+preserve the qualified land patterns, and account for the two checker failures
+above. The impedance reference still labels RGMII geometry as an estimate;
+FPGA power and prototype measurements remain qualifications, not cleanup fixes.
+Cleanup made no circuit or library edits.
+
+## Dated review record — historical
+
+Everything below records earlier revisions, including completed tasks and
+superseded conclusions. Do not treat item 5 onward or Part V as a current
+open-task list. The [2026-10-29 practical audit](#final-practical-verdict)
+reviewed `6ad8068`; later implementation/placement evidence is in
+[the phase history](archive/history/rev-a-report.md). The
+[archive index](archive/README.md) maps original export/report paths retained
+in the prose to their current locations. Keep engineering rationale and dates;
+revalidate any older statement before acting on it.
 
 ---
 
@@ -665,7 +720,8 @@ to the specified 1.55 mm NPTH.
 
 Amphenol lists this cage at **2.5 Gb/s**; the old TE cage's 16 Gb/s rating
 is not retained. Higher-rate operation remains unqualified. See
-[the source drawings, comparison and assembly notes](ref/sfp-cage.md).
+the former `ref/sfp-cage.md` (removed before cleanup; see the
+[historical phase report](archive/history/rev-a-report.md)).
 
 ## 28. FIXED — DONE LED loaded the open-drain configuration signal
 
@@ -715,7 +771,8 @@ Select 0x01 or 0x02, finish selection with STOP, then read 0x50; never
 select 0x03. Deselect with 0x00 before shared power-off. RESET is tied to
 SUP_RUN, providing a hardware recovery path if a module holds I2C low;
 a software controller reset alone may leave the mux selected. These rules,
-startup handling and stuck-bus limits are in [sfp-i2c.md](ref/sfp-i2c.md),
+startup handling and stuck-bus limits are in the former `ref/sfp-i2c.md` (removed before cleanup; see the
+[historical phase report](archive/history/rev-a-report.md)),
 with the NXP datasheet and procurement links. Firmware remains to be written.
 
 ## 31. FIXED — PSRAM series termination was documented but absent
@@ -803,7 +860,7 @@ gap means the decision is unproven, not that failure has been demonstrated.
 
 The last two rows need interpretation; see items 47 and 49. Machine-readable
 snapshot evidence is in
-[audit-2026-10-29.json](ref/board-review/audit-2026-10-29.json).
+[audit-2026-10-29.json](archive/history/board-review/audit-2026-10-29.json).
 
 ## 34. P1 — always-on FPGA VCCO with switchable VCCAUX violates the recovery case
 
@@ -1306,7 +1363,7 @@ Commits a557379, 49ebd65, b9d464b, cd02e23 and the documents commit that
 follows. Every step ends with the electrical gate passing (ERC 0 errors,
 DRC 0 errors, parity 0) and nothing inside the board outline moved; the new
 parts (53 footprints) are staged in the import band for the owner to island.
-The entries in `ref/rev-a-report.md` carry the numbers.
+The entries in `archive/history/rev-a-report.md` carry the numbers.
 
 | Item | Status | What changed |
 |---|---|---|
@@ -1363,7 +1420,7 @@ appropriate to this phase. P1/P2/P3 retain the definitions in Part III.
 
 Evidence, baseline hashes, relevant pin connections, source-case calculations,
 DRC pairs and selected pad coordinates are saved in
-[reaudit-2026-10-29.json](ref/board-review/reaudit-2026-10-29.json).
+[reaudit-2026-10-29.json](archive/history/board-review/reaudit-2026-10-29.json).
 
 | Independently reproduced check | Current result |
 |---|---|
@@ -1647,7 +1704,7 @@ and budget), `e243a09`..`dd31f75` (one island each: Q6, Q7, U34 twice,
 J57, J58, U23, U24), `bb9ab7f` (city re-planned and applied). Gate
 electrical PASS (parts 553, ERC 0, netlist/XDC/guide in step, parity 0);
 DRC 8 courtyard errors (was 10); mechanical 9 findings (was 10). The
-entries "Re-audit corrections, part 1 and 2" in `ref/rev-a-report.md`
+entries "Re-audit corrections, part 1 and 2" in `archive/history/rev-a-report.md`
 carry the numbers.
 
 | Item | Status | What changed |
@@ -1703,7 +1760,7 @@ below.
 The old phase-report note about an L1/R8 copper-clearance error was not
 reproduced by either current DRC run; it is not counted as another blocker.
 The saved evidence is
-[final-audit-2026-10-29.json](ref/board-review/final-audit-2026-10-29.json).
+[final-audit-2026-10-29.json](archive/history/board-review/final-audit-2026-10-29.json).
 
 ## Previous findings: final disposition
 

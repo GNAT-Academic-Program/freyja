@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Derive a canonical IR for Odin.
+"""Historical migration tool; not part of the current KiCad workflow.
+
+Derive a canonical IR for the archived Odin exports. Inputs and outputs are
+relative to this script's directory. Run a disposable copy to preserve the
+archived evidence; see ../README.md.
 
 Identity source is the EasyEDA Protel netlist (real designators). The Altium
 ASCII .schdoc exports contribute sheet grouping, port structure and pin
@@ -379,4 +383,6 @@ def main():
     print(f"part types: schdoc={len(sch_types)} netlist={len(nl_types)} shared={shared_types}",
           file=sys.stderr)
 
-main()
+if __name__ == '__main__':
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    main()

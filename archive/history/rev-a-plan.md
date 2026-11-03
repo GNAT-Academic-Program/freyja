@@ -1,3 +1,7 @@
+> **Historical record — not current instructions or verification.**
+> Preserved during the 2026-11-03 cleanup. Follow the [current KiCad workflow](../../ref/ide-agent-prompt.md).
+> Paths, tasks and counts below describe earlier revisions.
+
 # Freya rev A: rebased audit and plan
 
 Rebased on `bf28a92` (2026-10-23). This supersedes the "audit and

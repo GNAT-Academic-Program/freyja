@@ -1,3 +1,7 @@
+> **Historical record — not current instructions or verification.**
+> Preserved during the 2026-11-03 cleanup. Follow the [current KiCad workflow](../../ref/ide-agent-prompt.md).
+> Paths, tasks and counts below describe earlier revisions.
+
 # KiCad regeneration and validation
 
 Validated with KiCad CLI / pcbnew 9.0.8 on 2026-09-18.
@@ -236,7 +240,7 @@ produces identical PCB, project and rules files.
 
 The JLC coated-microstrip solver predicts 99.8515 Ω for the rounded
 0.099 mm width / 0.200 mm gap. Inputs and original solver responses are
-recorded in [PCB impedance](pcb-impedance.md). MGT routing is constrained
+recorded in [PCB impedance](../../ref/pcb-impedance.md). MGT routing is constrained
 to the outer layers; PSRAM minimum width is 0.1 mm, default clearance is
 0.15 mm, and MGT intra-pair skew is limited to 0.1 mm.
 

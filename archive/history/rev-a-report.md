@@ -1,3 +1,7 @@
+> **Historical record — not current instructions or verification.**
+> Preserved during the 2026-11-03 cleanup. Follow the [current KiCad workflow](../../ref/ide-agent-prompt.md).
+> Paths, tasks and counts below describe earlier revisions.
+
 # Freya rev A: phase report
 
 Appended per phase. Numbers come from `python3 tools/gate.py`; the escape

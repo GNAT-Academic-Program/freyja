@@ -64,12 +64,16 @@ The board is assembled on one side; nothing goes under the package on B.Cu.
 - **1210 and D-case bulk**: anywhere near the FPGA, best as close as the
   rings allow; short wide connections to the planes with multiple vias.
   Location is not critical for the low-frequency energy they supply.
-- Put each bank's six capacitors on that bank's side of the package. With
-  U1 at rotation 0 (row A toward the left board edge, column 26 toward the
+- Put each bank's six capacitors on that bank's side of the package. In the
+  historical rotation-0 example (row A toward the left board edge, column 26 toward the
   top edge) the bank centroids are: 13 top-right, 14 top-centre, 15 upper
   left, 16 top-left corner, 34 bottom-centre, 35 bottom-left. Computed from
-  `tools/alloc.py`; see `ref/rev-a-plan.md` for the ball-to-edge map.
+  `tools/alloc.py`; see [the historical plan](../archive/history/rev-a-plan.md)
+  for that ball-to-edge map. **The live U1 is rotated 90 degrees as of
+  2026-11-03**; use its actual PCB pads rather than this old orientation.
 - The MGT 100 nF 0402s keep the same ring rule on the GTP corner.
 
-The refs start in the import band outside the board. Hand placement in phase
-B; no script places them.
+New references initially enter the import band outside the board. At the
+2026-11-03 cleanup all footprint origins are inside the outline's bounding
+box; preserve their manual placement. Island/placement tools can move parts
+when explicitly applied; see [the current workflow](ide-agent-prompt.md).

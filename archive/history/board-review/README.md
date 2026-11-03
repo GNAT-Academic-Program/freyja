@@ -1,3 +1,7 @@
+> **Historical record — not current instructions or verification.**
+> Preserved during the 2026-11-03 cleanup. Follow the [current KiCad workflow](../../../ref/ide-agent-prompt.md).
+> Paths, tasks and counts below describe earlier revisions.
+
 # Board review snapshot
 
 Exported 2026-09-15 with KiCad 9.0.8 from the current working-tree board.

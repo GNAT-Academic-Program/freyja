@@ -9,3 +9,7 @@ kicad/drc.rpt
 
 # Vivado gate build products
 gateware/gate/build/
+
+# Vivado scratch files created when a gate is run from the repository root
+/.Xil/
+/clockInfo.txt
