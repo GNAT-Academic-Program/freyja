@@ -83,6 +83,108 @@ Each GND plane is one piece; `+3V3` and `+1V0` keep one piece each, losing 23.6 
 31.7 mm2 of fill. A fresh refill of this board reproduces it byte for byte. Evidence:
 `~/freyja-review/u1-gnd-2026-11-03/`.
 
+**SDRAM block routed and transferred; provisional, timing pending.** The netlist matched the expected scope: 39 balls
+to U32 plus R151, R152 and R153. All 82 pads on 40 nets connect, including both pull
+branches and R151 between `SDRAM_CLK` and `SDRAM_CLK_MEM`. U32's 7 `+3V3` pins and 7 GND
+pins reach their planes, and both pads of C250–C257 do too. All tracks are 0.125 mm; no
+reservation stub was imported, and each reserved site was checked against actual copper.
+No serpentine, no tuning.
+
+R151 moved from (235.62, 147.40) to (232.0, 153.19), east of L9, so the clock takes one
+direct path: 14.1 mm from ball to R151 (In2, 2 vias), then 29.4 mm on F.Cu to pin 38 with
+no via. That is the only footprint moved. Accepted copper is byte-identical; added are
+619 tracks and 108 vias, including 5 stitching vias. Board: 1449 tracks, 446 vias, ratsnest
+1352 to 1278, DRC 0 errors, 0 parity issues, the same 334 warnings. Each GND plane is one
+piece; `+3V3` and `+1V0` keep one piece each. U1 GND 141 of 141, PSRAM 120 of 120,
+`+1V8_IO` 40 of 40, differential corridors identical. A fresh refill reproduces the board
+byte for byte.
+
+Layout choices that decide later work:
+
+- **Bank 14 is at U1's far west, so address lanes are long (47.6–89.5 mm).** Accepted PSRAM
+  lanes close In2 above y 147.84, In5 above y 144.89 and B.Cu at rows 145.89 and 146.79, and
+  accepted LINK vias close columns 202.2 and 203.2 at the south edge. Fanouts were reworked
+  around these. A7 is the one net with no direct exit: it has a third via at (199.7, 145.34).
+- **A5, A6 and A7 pass south of U32 and reach their pins from the east (74.5–89.5 mm).** They
+  leave the ball field in the reverse of their pin order on one layer. This is the avoidable
+  part of the spread only if those balls or the accepted PSRAM lanes change.
+- **F.Cu under U32's body:** two pull branches, pin 19 to R152 and pin 37 to R153, with no
+  via. No via was placed under U32.
+- **Pin vias are staggered,** 0.95 mm or more from any other net's via, so their clearance
+  holes do not merge. No SDRAM track crosses a merged hole; 127 of 127 void crossings are a
+  track leaving its own via. PSRAM continuity is unchanged.
+
+Return paths: of 79 SDRAM vias, 31 keep their reference (F.Cu↔In2) and 48 change In1↔In6.
+41 of the 48 have a GND via within 2.0 mm, a figure chosen here. The other 7 have no free site
+outside courtyards and the ball field within 2.0 mm: `A7` (199.7, 145.34), 3.11 mm; `A2`
+(199.7, 146.34), 3.0; `A5` (200.7, 146.34), 2.83; `CS_N` (223.25, 178.09), 2.83; `A6` (200.7,
+145.34), `A11` (201.7, 146.34) and `BA0` (203.7, 146.34), 2.24.
+
+Room kept: the 416 vias and 430 stubs still reserved give the same 15 DRC items on a scratch
+copy before and after: 12 RGMII stubs at 0.1 mm against 0.125 mm, the `+2V5` stub and the two
+near-duplicate pairs listed above. All four HDMI pairs and the LINK corridor still have a
+B.Cu path with 0.31 mm clearance on that scratch copy; this is an access estimate, not a route.
+
+**SDRAM timing is not assessed.** There is no documented board operating frequency. The
+datasheet's -6 grade (rev A03, section 9.5, p. 15) gives tCK 6 ns at CL3 (166 MHz) and 7.5 ns
+at CL2 (133 MHz), tAC 5 ns at CL3, tOH 3 ns, setup 1.5 ns and hold 0.8 ns. That is the device
+rating, not verified board operation. `ref/freya.xdc` has no SDRAM clock or I/O delay
+constraint; missing are the target frequency and CAS latency, the forwarded clock phase, and
+input and output delays. The rule file asks for DQ, DQM, address and control within "a few mm"
+of `SDRAM_CLK` at 166 MHz. The routes do not meet that: clock 43.5 mm, data and DQM 13.5–41.3,
+control 25.6–52.6, address and bank 47.6–89.5. Short nets have room for later tuning, but
+matching everything to A7's 89.5 mm would lengthen the clock and data by about 46–76 mm, so
+the target should be decided before tuning. The 0.125 mm width is an outer-layer estimate;
+long In2 and In5 runs have no impedance calculation. Lengths exclude package delay. Evidence:
+`~/freyja-review/sdram-2026-11-03/`.
+
+<details><summary>Per-signal length (mm), layers and vias, ball to pin; CLK is ball to R151 and CLK_MEM is R151 to pin 38</summary>
+
+| Signal | Length | By layer | Vias |
+|---|---:|---|---:|
+| DQ0 | 13.5 | F.Cu 2.7 + In2 10.8 | 2 |
+| DQ1 | 13.5 | F.Cu 2.7 + In2 10.8 | 2 |
+| DQ2 | 21.1 | F.Cu 3.3 + In2 17.8 | 2 |
+| DQ3 | 21.9 | F.Cu 2.7 + In5 19.2 | 2 |
+| DQ4 | 22.1 | F.Cu 3.3 + In2 18.9 | 2 |
+| DQ5 | 21.7 | F.Cu 2.7 + In5 19.0 | 2 |
+| DQ6 | 22.7 | F.Cu 3.3 + In2 19.4 | 2 |
+| DQ7 | 23.8 | F.Cu 2.7 + In5 21.1 | 2 |
+| DQ8 | 41.3 | B.Cu 38.8 + F.Cu 2.6 | 2 |
+| DQ9 | 34.0 | F.Cu 2.6 + In2 31.4 | 2 |
+| DQ10 | 38.7 | B.Cu 36.7 + F.Cu 2.0 | 2 |
+| DQ11 | 34.5 | B.Cu 32.5 + F.Cu 2.0 | 2 |
+| DQ12 | 31.6 | F.Cu 2.6 + In2 29.0 | 2 |
+| DQ13 | 30.0 | F.Cu 2.6 + In5 27.4 | 2 |
+| DQ14 | 33.0 | F.Cu 2.0 + In2 31.0 | 2 |
+| DQ15 | 30.1 | F.Cu 2.0 + In5 28.1 | 2 |
+| LDQM | 28.4 | F.Cu 2.7 + In5 25.7 | 2 |
+| UDQM | 34.7 | F.Cu 2.0 + In5 32.7 | 2 |
+| A0 | 47.6 | F.Cu 3.3 + In2 44.4 | 2 |
+| A1 | 56.3 | F.Cu 11.4 + In5 44.9 | 2 |
+| A2 | 59.2 | F.Cu 11.6 + In5 47.6 | 2 |
+| A3 | 59.3 | F.Cu 10.8 + In5 48.4 | 2 |
+| A4 | 63.2 | F.Cu 2.0 + In2 61.2 | 2 |
+| A5 | 74.5 | F.Cu 2.6 + In5 71.9 | 2 |
+| A6 | 83.6 | F.Cu 2.0 + In5 81.6 | 2 |
+| A7 | 89.5 | F.Cu 2.6 + In2 1.4 + In5 85.5 | 3 |
+| A8 | 59.5 | F.Cu 2.0 + In2 57.5 | 2 |
+| A9 | 63.6 | F.Cu 2.6 + In5 61.0 | 2 |
+| A10 | 51.2 | F.Cu 13.1 + In5 38.2 | 2 |
+| A11 | 64.5 | F.Cu 4.0 + In5 60.5 | 2 |
+| A12 | 61.0 | F.Cu 2.6 + In5 58.4 | 2 |
+| BA0 | 49.4 | F.Cu 10.9 + In5 38.4 | 2 |
+| BA1 | 51.2 | F.Cu 13.1 + In5 38.0 | 2 |
+| CKE | 52.6 | F.Cu 13.0 + In2 39.6 | 2 |
+| CS_N | 37.4 | F.Cu 12.6 + In5 24.7 | 2 |
+| RAS_N | 25.6 | F.Cu 3.3 + In5 22.3 | 2 |
+| CAS_N | 27.8 | F.Cu 2.7 + In2 25.1 | 2 |
+| WE_N | 25.9 | F.Cu 3.3 + In2 22.7 | 2 |
+| CLK | 14.1 | F.Cu 1.7 + In2 12.4 | 2 |
+| CLK_MEM | 29.4 | F.Cu 29.4 | 0 |
+
+</details>
+
 **Differential escapes transferred; onward routing unfinished.** The 12 LINK and
 HDMI pairs have F.Cu stubs, through vias, coupled B.Cu lanes and GND stitching
 (present on In1, In4, In6 after refill; four pairs are stitched on one side
@@ -122,8 +224,8 @@ B.Cu is now walled by the north trunk (y≈125) and west spine (x≈176): crossi
 signals there need In2 or In5. PSRAM2/3 was planned around 626 reserved vias: every
 other connected ball's dogbone, plus capacitor, memory and pull supply vias. 34 of
 those sites are now real GND vias; the rest are unplaced. All fit, which shows
-only that those vias fit. SDRAM,
-slot and bus signals have no onward routes yet, and PSRAM2/3 now uses the free
+only that those vias fit. Slot
+and bus signals have no onward routes yet, and PSRAM2/3 now uses the free
 rows y 134–139 north of the BGA on In2, In5 and B.Cu.
 
 **Resistor-adjacent via solder-mask geometry needs fabrication review.** Landing
@@ -133,11 +235,11 @@ and the mask dam need the fabricator's answer.
 
 Results after refill: DRC with parity **0 errors, 0 parity issues, 334 warnings**
 (silk_overlap 199, capped; silk_over_copper 104; track_dangling 24; text_height 4;
-lib_footprint_mismatch 2; isolated_copper 1). Ratsnest **1352**, from 1479 at the
-PSRAM ground checkpoint, 1509 at PSRAM2/3 and 1649 before routing, by `GetUnconnectedCount(True)`; the DRC
+lib_footprint_mismatch 2; isolated_copper 1). Ratsnest **1278**, from 1352 at the
+U1 ground checkpoint, 1479 at PSRAM ground, 1509 at PSRAM2/3 and 1649 before routing, by `GetUnconnectedCount(True)`; the DRC
 unconnected list stops at 499. The X4 mismatch comes from its bottom silk line,
 opened over C337's pads on this board only; J1 and the isolated +1V0 fill predate
-routing. `gate.py --strict` passes and reports **830 tracks and 338 vias**, of which 207 vias are GND; both match
+routing. `gate.py --strict` passes and reports **1449 tracks and 446 vias**, of which 228 vias are GND; both match
 pcbnew.
 
 To keep silk clear of the routing, UI_ROLE labels of U2, U3, U4 and X4 moved.
