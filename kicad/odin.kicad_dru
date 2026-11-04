@@ -67,6 +67,16 @@
   (layer "F.Cu")
   (condition "A.Type == 'Track' && A.NetName == 'ETH_MDI*' && A.enclosedByArea('U30_MDI_LAUNCH') && B.Type == 'Pad' && B.memberOfFootprint('U30') && !AB.isCoupledDiffPair()")
   (constraint clearance (min 0.17mm)))
+# MDI to another MDI pair in U30_MDI_LAUNCH, tracks and vias: not between coupled partners, which keep the 0.200 mm gap.
+(rule "MDI launch to other MDI pairs"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'ETH_MDI*' && A.enclosedByArea('U30_MDI_LAUNCH') && (B.Type == 'Track' || B.Type == 'Via') && B.NetName == 'ETH_MDI*' && !AB.isCoupledDiffPair()")
+  (constraint clearance (min 0.16mm)))
+# PHY_1V0 exits of U30 pins 3 and 8 between MDI tracks in U30_MDI_LAUNCH: both tracks wholly inside it. A PHY_1V0 via keeps 0.31 mm.
+(rule "MDI launch to PHY_1V0 exits"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'ETH_MDI*' && A.enclosedByArea('U30_MDI_LAUNCH') && B.Type == 'Track' && B.NetName == 'PHY_1V0' && B.enclosedByArea('U30_MDI_LAUNCH')")
+  (constraint clearance (min 0.27mm)))
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))

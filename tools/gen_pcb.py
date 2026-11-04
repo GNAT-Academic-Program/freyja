@@ -58,6 +58,13 @@ MDI_PATTERNS = ('ETH_MDI*',)
 # missing the condition is false and the normal rule applies, so the launch fails loudly.
 MDI_LAUNCH_AREA = 'U30_MDI_LAUNCH'
 MDI_LAUNCH_CLEARANCE = 0.17
+# Pads 4-7 leave one pair's N beside the next pair's P at the same 0.4 mm pitch, then round
+# MDI1_N's via: 0.168 mm at worst, measured. Other pairs only, tracks and vias, in the same area.
+MDI_LAUNCH_PAIR_CLEARANCE = 0.16
+# Supply pins 3 and 8 sit between MDI pads, so their PHY_1V0 exits cannot keep 0.31 mm from the
+# MDI tracks beside them: 0.2786 mm at worst, measured. Both tracks wholly inside the area, on
+# PHY_1V0 only; a via keeps 0.31.
+MDI_LAUNCH_SUPPLY_CLEARANCE = 0.27
 RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'PHY_RX_CTL')
 # The SDR SDRAM bus (W9825G6KH-6, 3.3 V single-ended, target 100 MHz CL3) uses
 # 0.125 mm, about 50 ohm on all four signal layers; CLK has its 22 ohm at the
@@ -183,6 +190,16 @@ def emit_rules():
   (layer "F.Cu")
   (condition "A.Type == 'Track' && A.NetName == 'ETH_MDI*' && A.enclosedByArea('{MDI_LAUNCH_AREA}') && B.Type == 'Pad' && B.memberOfFootprint('U30') && !AB.isCoupledDiffPair()")
   (constraint clearance (min {MDI_LAUNCH_CLEARANCE}mm)))
+# MDI to another MDI pair in {MDI_LAUNCH_AREA}, tracks and vias: not between coupled partners, which keep the 0.200 mm gap.
+(rule "MDI launch to other MDI pairs"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'ETH_MDI*' && A.enclosedByArea('{MDI_LAUNCH_AREA}') && (B.Type == 'Track' || B.Type == 'Via') && B.NetName == 'ETH_MDI*' && !AB.isCoupledDiffPair()")
+  (constraint clearance (min {MDI_LAUNCH_PAIR_CLEARANCE}mm)))
+# PHY_1V0 exits of U30 pins 3 and 8 between MDI tracks in {MDI_LAUNCH_AREA}: both tracks wholly inside it. A PHY_1V0 via keeps 0.31 mm.
+(rule "MDI launch to PHY_1V0 exits"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'ETH_MDI*' && A.enclosedByArea('{MDI_LAUNCH_AREA}') && B.Type == 'Track' && B.NetName == 'PHY_1V0' && B.enclosedByArea('{MDI_LAUNCH_AREA}')")
+  (constraint clearance (min {MDI_LAUNCH_SUPPLY_CLEARANCE}mm)))
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))

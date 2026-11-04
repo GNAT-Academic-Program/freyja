@@ -80,7 +80,7 @@ Default meanings (Table 7): LED0 link at 10 Mb/s + activity, LED2 link at
 1000 Mb/s + activity. Gateware sets Table 17 Mode A to make green "link/act at
 any speed" and yellow "1000 Mb/s".
 
-## MDI and the jack (§7.7, HanRun drawing rev A)
+## MDI and the jack (§7.7, HanRun drawing rev B)
 
 | PHY | Jack pin | Jack signal |
 |---|---|---|
@@ -100,8 +100,10 @@ to ground through a capacitor.
 
 - MDI pairs 100 Ω differential, short, over one unbroken ground, no vias if
   the layer stack allows; keep the 4 × 75 Ω network's ground (P10) and the
-  shield tabs on the same ground as the PHY. The part row at y 198.7 forces one
-  via per net, and MDI2 is not routed: see [findings](../findings.md).
+  shield tabs on the same ground as the PHY. MDI0, MDI1 and MDI3 take one via per
+  net; MDI2 stays on F.Cu and is the only pair on F.Cu under the jack body: see
+  [findings](../findings.md). No keepout is drawn under the jack, which does not
+  establish that copper there is electrically suitable.
 - RGMII: length-match TXD[3:0]/TXCTL to TXC and RXD[3:0]/RXCTL to RXC within
   a few millimetres; the PHY's internal 2 ns delays do the rest.
 - The LDO output `PHY_1V0` is a local rail: keep its capacitors within a few

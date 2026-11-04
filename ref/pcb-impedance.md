@@ -138,10 +138,14 @@ rule area, against those jacks' pads only. The pair-gap rule is unchanged. Conta
 3-6 straddle 4-5, so each jack has F entries (TXC, RXC) and B entries (TXD, RXD);
 both members of a pair enter on one layer. See [findings](../findings.md).
 
-**U30 exception.** U30's 0.2 mm pads on 0.4 mm pitch leave 0.2505 mm from a track on
-a pad centre to the next pad. `MDI launch to U30 pads` allows 0.17 mm for an `ETH_MDI*`
-track wholly inside the board's F.Cu `U30_MDI_LAUNCH` rule area, against U30's pads
-only. See [findings](../findings.md), including the open MDI2 placement decision.
+**U30 exceptions.** U30's 0.2 mm pads on 0.4 mm pitch leave 0.2505 mm from a track on
+a pad centre to the next pad. Three rules cover an `ETH_MDI*` track wholly inside the
+board's F.Cu `U30_MDI_LAUNCH` rule area: `MDI launch to U30 pads` allows 0.17 mm against
+U30's pads only; `MDI launch to other MDI pairs` allows 0.16 mm against a track or via
+of another MDI pair, not coupled partners; `MDI launch to PHY_1V0 exits` allows 0.27 mm
+against a `PHY_1V0` track also wholly inside the area, for supply pins 3 and 8. A
+`PHY_1V0` via, every other net, and the same tracks outside the area keep 0.31 mm. See
+[findings](../findings.md).
 
 Inner-layer tracks are prohibited for the 100 Ω classes because the geometry
 is calculated only for the outer layers. Plane transitions still need ground

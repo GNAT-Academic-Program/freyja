@@ -628,6 +628,88 @@ Lengths run pad centre to pad centre, tracks only unless stated. No branch stubs
 
 *Checks.* HEAD against this commit: 70 tracks, 11 vias and the rule area added, nothing removed, no footprint moved, every existing track and via byte-identical, four zones refilled with no outline change. Fresh refills byte-identical. **0 DRC errors, 0 parity with H4 at either position**, warnings unchanged, no dangling copper, stackup guard passes, ratsnest 1218 to 1209. LINK 48 of 48, HDMI 24 of 24, SDRAM 82 of 82, PSRAM 120 of 120, `+1V8_IO` 40 of 40, U1 GND 141 of 141; KiCad 0 unconnected on LINK and HDMI nets alone. Stress copy 46 to 45 errors, none with an ETH net. `gate.py --strict` passes; `check_connector_rework.py` stops at the same H1–H4 assertion. The owner's H4 move, its fills and `.prl` remain uncommitted. Evidence: `~/freyja-review/eth-2026-11-04/`, image `images/eth_closeup.png`, scratch test `reports/scratch_all_four.txt`.
 
+**Ethernet MDI complete; `PHY_1V0` and the crystal routed (2026-11-04).** All 16 MDI pads on all 8 nets, all ten `PHY_1V0` pads and the crystal nets connect. This supersedes the MDI2 block and the MDI1 row in the entry above. Routing checks do not establish Ethernet compliance, crystal frequency or drive level. **One pin stays open: U30 pin 40 (`+3V3`) has no via site while RSET keeps its lane; see "Access" below.**
+
+*Documents.* Both retrieved and read; evidence copies in `~/freyja-review/mdi2-2026-11-04/dl/`.
+
+| Document | Revision | Source | SHA-256 starts |
+|---|---|---|---|
+| HanRun HR911130A drawing | **rev B**, 4 pages | https://hrdzcn.oss-cn-beijing.aliyuncs.com/202601/ab534667d942f65.pdf | d3a5d721 |
+| Realtek RTL8211F(I)/RTL8211FD(I)-CG datasheet | rev 1.7, 2016/12/28, distributor-hosted | https://static.chipdip.ru/lib/595/DOC042595102.pdf | 16573d85 |
+
+- **Pin mapping agrees.** Realtek Figure 4 and Tables 1, 2, 8, 9 against the netlist: MDI pins 1/2, 4/5, 6/7, 9/10; AVDD10 3, 8, 38; DVDD10 21; LDO_OUT 30; XTAL_IN 36; XTAL_OUT 37; RSET 39. HanRun page 1 against J70's nets: P2/P3 MDI0, P4/P7 MDI1, P5/P6 MDI2, P8/P9 MDI3, P1 centre taps, P10 network, 11 to 12 green, 14 to 13 yellow.
+- **QFN land agrees with Realtek section 11.1:** pitch 0.40, b 0.15-0.25 against a 0.20 mm pad, EP 3.45-3.75 against 3.7 mm.
+- **J70 even-row pads are 0.10 mm off the drawing.** Page 3 gives a 1.27 mm stagger, tolerance 0.08 mm. The imported footprint has 1.17 and 1.37 mm: P2, P4, P6, P8, P10 sit 0.10 mm west of nominal. Odd row, row spacing 2.54, posts 11.43, shield holes 15.48 against 15.49, and LED pins agree. Footprint not changed, J70 not moved. Holes are larger than recommended: 0.91 against 0.89, 1.70 against 1.63, 1.10 against 1.02. The drawing gives no pin diameter, so whether the even row seats cannot be settled from it. Check it against a real part before fabrication; correcting the footprint moves five entries by 0.10 mm.
+- **Stated restrictions:** no keepout is drawn; page 3 gives only a recommended layout and page 4 only materials, mechanical limits and 0-70 C operating temperature, against the PHY's -40 to 85 C. No drawn keepout does not establish that copper under the magnetics is electrically suitable.
+- `tools/qualified.py` still cites HanRun rev A and 1500 Vrms; rev B states 2250 VDC. Reported, not changed here. This is the LDO variant, so section 9.2 applies and the switching-regulator section 9.1 and its inductor do not: LDO_OUT only to AVDD10 and DVDD10, X5R/X7R low-ESR, at least 0.1 uF, close to the pins. The "RTL8211F Series Layout Guide" it names was not available.
+
+*Placement.* Owner decisions, the second and third taken during this chunk after scratch tests showed the brief's fixed parts could not meet it. Rotations unchanged.
+
+| Part | From | To | Why |
+|---|---|---|---|
+| `C240` | (208.7575, 199.495) | (208.7575, 200.145) | As approved: second via row |
+| `R146` | (209.7475, 199.515) | (204.08, 198.9) | Replaces the approved y 200.165. There, XO crossed the MDI strip, estimated 17 mm with 2 vias, and took pin 8's via site |
+| `X3` | (204.2575, 195.98) | (204.0775, 195.98) | Pins 34, 36, 37, 38, 39 need five F.Cu exits past X3 and four fit: forced on a scratch copy, 0.0811 mm and shorts. 0.18 mm is the limit, 0.15 mm from `C232` |
+
+*MDI.* P and N are symmetric and each pair enters on one layer. No net exceeds width or gap rules; no zone and no microscopic angle. Lengths as in the entry above.
+
+| Pair | J70 pads | Layers | Vias P, N | Entry | Length P, N, mm | With barrels, mm | KiCad skew, mm | Coupled, uncoupled, mm | Mean delay, ps |
+|---|---|---|---|---|---|---|---:|---|---:|
+| MDI0 | P2, P3 | F B | 1, 1 | B | 11.60, 11.60 | 13.19 | 0.000 | 4.72, 6.88 | 78.5 |
+| MDI1 | P4, P7 | F B | 1, 1 | B | 11.07, 11.07 | 12.66 | 0.000 | 4.27, 6.80 | 75.4 |
+| MDI2 | P5, P6 | F | 0, 0 | F | 11.08, 11.08 | 11.08 | 0.000 | 4.71, 6.37 | 64.4 |
+| MDI3 | P8, P9 | F B | 1, 1 | B | 12.42, 12.42 | 14.01 | 0.000 | 5.87, 6.54 | 83.2 |
+
+MDI0 and MDI3 copper is byte-identical. MDI1: N via (209.25, 198.4) to (209.0, 199.0), both B lanes re-laid; P's F launch and via kept. MDI2 needs no via now R146 has left the strip: F through the 1.38 mm gap between `C240` and `C239`, then over MDI1's B lanes. Because the S row is 2.54 mm further, P carries 2.45 mm of triangles about 0.5 mm high at y 202.75-204.30, just before P5. MDI2 is on F.Cu under the jack body for 1.5 mm (P) and 4.05 mm (N), the only pair there. The earlier "all MDI copper under the body is on B.Cu" no longer holds.
+
+*Launch exceptions, generated by `tools/gen_pcb.py`, F.Cu, inside `U30_MDI_LAUNCH`, now x 207.35-210.75, y 197.25-199.40.* Each is set just under its measured need.
+
+| Rule | Value | Measured | Scope |
+|---|---|---:|---|
+| `MDI launch to U30 pads` | 0.17 mm | unchanged | MDI track in the area, U30 pads only |
+| `MDI launch to other MDI pairs` | 0.16 mm | 0.168 mm | MDI track in the area against a track or via of another MDI pair. Not coupled partners. Owner authorized down to 0.150 mm |
+| `MDI launch to PHY_1V0 exits` | 0.27 mm | 0.2786 mm | MDI track and `PHY_1V0` track both wholly in the area. **Owner authorized this during the chunk**: the original 0.150 mm covered MDI to MDI only, and a track on pin 3 or 8's centre is at best 0.3066 mm from its neighbours |
+
+| Test, scratch copies | Result |
+|---|---|
+| Other pair, track at 0.155 / 0.165 mm | fails at 0.16 / passes |
+| Other pair, via at 0.155 / 0.165 mm | fires at 0.16 / does not |
+| Other pair at 0.25 mm, outside the area | fails, 0.31 mm rule |
+| Same pair, parallel at 0.25 / 0.20 mm | fails coupled gap / passes |
+| `PHY_1V0` at 0.265 / 0.275 mm | fails at 0.27 / passes |
+| `+3V3` net or LINK net instead, 0.275 mm | fail, 0.31 mm rule |
+| Both outside the area; `PHY_1V0` half outside, 0.275 mm | fail, 0.31 mm rule |
+| `PHY_1V0` via at 0.28 mm in the area | fails, 0.31 mm rule |
+| Rule area deleted | 21 errors, 0.31 mm rule |
+| `gen_pcb.py --rules-only` over the routed copy, then a save | byte-identical board |
+
+*`PHY_1V0`.* Local rail on its own net, tracks and vias only, with no zone and no tie to the FPGA's `+1V0`. F.Cu to each pin and capacitor, 7 vias, then a 0.4 mm In2 trunk (31.89 mm in all) from pin 30's via under U30's west and north edges, and on to the pin 38, bulk, pin 3 and pin 8 vias. Under the package it keeps to the edges, so exposed-pad vias stay free from x 207.7 and y 193.8.
+
+| Pin or part | Local copper | From pin 30, mohm |
+|---|---|---:|
+| 30, `C241` | 0.2 then 0.3 mm to `C241.1`, 0.3 mm to via (207.5, 189.55) | 1.6 |
+| 21, `C238` | 0.2 mm to via (211.6, 192.62); via (211.45, 188.87) at `C238.1`, In2 between | 29.2, 38.8 |
+| 38 | **0.09 mm x 2.67 mm** past X3, then 0.2 mm to via (205.35, 198.2) | 39.3 |
+| `C242` bulk | 0.3 mm to via (201.9, 194.75) | 41.3 |
+| 3, `C240` | **0.0889 x 0.61 mm** between MDI0_N and MDI1_P, **0.11 x 2.33 mm** through the 0.41 mm gap beside `C240`, 0.2 mm to via (208.7345, 201.28) | 48.4, 45.4 |
+| 8, `C239` | **0.0889 x 0.67 mm** between MDI2_N and MDI3_P, 0.15 x 0.74 mm to `C239.1`, 0.2 mm round `C239` to via (211.68, 200.62) | 57.9, 54.5 |
+
+Sizing basis: the datasheet read gives no core current, so this uses `tools/budget.py`'s 0.20 A estimate for the whole PHY, as an upper bound for 1.0 V. DC solve, tracks and barrels only, 1.6 mil outer and 0.0152 mm inner assumed: 0.05 A per pin gives 6.72 mV at worst (pin 8) and 3.21 mV at best (pin 21); all 0.20 A into one pin gives at most 11.58 mV. Table 55 allows 0.95-1.05 V; the LDO's own tolerance is not stated. Narrow lengths are fixed by neighbours: pads 0.4 mm apart, a 0.41 mm part gap, two lanes in the 0.63 mm beside X3. AC impedance and LDO stability are not modelled. `C238` is 3.7 mm from pin 21 behind two vias because of where it stands, against section 9.2's "as close as possible"; pin 38 has no capacitor of its own.
+
+*Crystal.* F.Cu, no vias, values unchanged. Pin 36 runs under X3 between its pads to `X3.1`, then `C244.1`, 4.25 mm in all at 0.1 and 0.15 mm. Pin 37 runs under X3 and down its centre to `R146.1`, 4.88 mm at 0.1 mm. `X3.3` to `C245.1` to `R146.2`, 2.69 mm at 0.15 mm. Grounds: `X3.2` via (203.2, 198.2), `C244.2` via (202.05, 194.0), `C245.2` via (205.36, 200.65). `X3.4` has no site for a via of its own, between the LINK B lanes under it and the lanes around it: it goes through `R137.1` and `R136.1` to via (204.1, 191.25), 3.72 mm in a line from its centre. XI and XO run side by side for 1.6 mm at 0.29 mm between X3's pads; coupling is not modelled. **The 18 pF load calculation's 3 pF stray, the frequency and the drive level remain unverified.**
+
+*Other grounds.* `C238.2` (210.86, 187.25), `C239.2` (210.8, 200.63), `C240.2` (209.4, 201.35), `C241.2` (206.87, 189.45), `C242.2` (200.75, 194.85); stubs 0.66-0.97 mm, pad centre to via. `ETH_CT`, `C243` and J70's grounds are unchanged.
+
+*Access to U30's other pins.* Raster search on real copper, then hand-drawn lanes under DRC on a scratch copy.
+
+- **Pin 40, `+3V3`, is closed: an open item.** It lies east of RSET's lane, between that lane, `R131`, and MDI0's vias and B lane. All four candidate sites tested fail. Best: a via partly on the toe at (206.3, 197.0) comes 0.0675 mm from RSET's lane, 0.0825 mm short. **Pin 38's lane is what closes it:** with that lane beside X3, RSET cannot pass further west, and pin 38 has no other way out. The In2 trunk was moved off that site to keep it usable. This needs its own decision, and U30 cannot run without it. Untested candidates: move `C232` and X3 about 0.1 mm further west, or move `R131`.
+- **RSET** has a clean lane to `R131.1`, west of pin 40 and east of pin 38's lane.
+- **Pins 31-34** reach via sites north of `R136`, but not yet cleanly: the hand-drawn lanes leave three items at 0.134-0.142 mm against 0.15. Three 0.0889 mm lanes between `R136.2` and `C241.1` need 0.8667 mm and there is about 0.85 mm. Neither part moved here. Expect a small nudge when those pins are routed.
+- **North and east pins:** each reaches a via or its pad alone. Laid greedily in sequence, the same 9 pins block before and after this chunk, so it closes none; that search is pessimistic and is not a routing result.
+- Stress copy with reservations: no error with an ETH or local net, none within U30's area. Its count moves from 44 to 46 only through SDRAM reservation shorts near (201, 144.5), which DRC reports in a different order.
+
+*Checks.* HEAD against the commit board: 125 tracks and 17 vias added, 22 tracks and 1 via removed, all on MDI1. Three footprints moved. Every kept track and via byte-identical, four copper zones refilled, one rule-area outline changed. Tracks 2070 to 2173, vias 515 to 531, ratsnest 1209 to 1182. KiCad 0 unconnected on the 8 MDI nets with `ETH_CT`, on `PHY_1V0`, and on the 3 crystal nets, each alone. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper; `silk_over_copper` 104 to 105, from X3's silk, other warnings unchanged. Fresh refills byte-identical, stackup guard passes. LINK 48 of 48, HDMI 24 of 24, SDRAM 82 of 82, PSRAM 120 of 120, `+1V8_IO` 40 of 40, U1 GND 141 of 141, all 268 GND vias on the main plane pieces. Each GND plane one piece; `+3V3` and `+1V0` one piece each. On refilled In1 and In6, 18 crossings of a void: 12 at P/N pairs' merged via holes ending at the own via, 5 at the own via, 1 `ETH_MDI1_N` entering J70 P7's clearance. `gate.py --strict` passes; `check_connector_rework.py` stops at the same H1-H4 assertion. The owner's H4 move, its fills and `.prl` remain uncommitted. Evidence: `~/freyja-review/mdi2-2026-11-04/`, image `images/closeup.png`.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule
