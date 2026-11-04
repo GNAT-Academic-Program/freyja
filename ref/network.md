@@ -10,7 +10,7 @@ source; the three marked **[verify]** are not in the Realtek datasheet (rev
 | Ref | Part | LCSC | Why |
 |---|---|---|---|
 | U30 | RTL8211FDI-CG, QFN-40 | C692886 | decision D2: the LDO model needs no switching inductor; the industrial-temperature FD (same pinout, same LDO core mode) because the commercial FD-CG is not in the JLCPCB library (2026-10-30) |
-| J70 | HanRun HR911130A | C54408 | IEEE 802.3ab 1000Base-T magnetics, 1500 Vrms, two LEDs, tab down |
+| J70 | HanRun HR911130A | C54408 | IEEE 802.3ab 1000Base-T magnetics per drawing rev B, isolation test 2250 VDC, 0.5 mA, 60 s, two LEDs, tab down |
 | X3 | YXC X322525MOB4SI, 25 MHz, 12 pF | C9006 (Basic) | Table 56: 25 MHz, ±50 ppm all in, ESR ≤ 50 Ω |
 
 ## Supplies and sequencing (Table 9, Table 53, Table 55)
@@ -108,6 +108,12 @@ to ground through a capacitor.
   a few millimetres; the PHY's internal 2 ns delays do the rest.
 - The LDO output `PHY_1V0` is a local rail: keep its capacitors within a few
   millimetres of pins 30, 3, 8, 21, 38 and give the exposed pad a via field.
+  As routed: C240 on pin 3, C239 on pin 8, C238 on pin 21, C241 on pin 38,
+  4.7 µF C242 on pin 30. Through vias are barred within 0.5845 mm of the LINK
+  lanes on B.Cu, which cross north-west of U30, so pins 28 and 29 reach their
+  vias 2.7–3.0 mm away; see [findings](../findings.md).
+- `+2V5` has a local In5 bus for pin 28, C236, C237, R134, R135, R139 and R140;
+  its feeder from the rest of the rail is not routed yet.
 - Crystal: shortest possible loop between X3, its two 18 pF capacitors and
   pins 36/37, ground fill underneath; 0 Ω in series with XTAL_OUT becomes a
   real value only if the measured drive exceeds 0.5 mW (Table 56).

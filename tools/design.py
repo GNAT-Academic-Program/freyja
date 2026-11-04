@@ -1150,7 +1150,7 @@ def build():
 
     d.group('ETH jack')
     # HanRun HR911130A, 1000Base-T magnetics and two LEDs in the jack. Pin
-    # names from the HanRun drawing rev A as the imported symbol carries
+    # names from the HanRun drawing rev B as the imported symbol carries
     # them. P10 is the jack's internal Bob-Smith network (4 x 75 ohm, 1000 pF
     # 2 kV) and goes to ground; P1 is the common chip-side centre tap. The
     # RTL8211F drives the line in voltage mode with internal termination

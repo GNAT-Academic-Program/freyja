@@ -349,13 +349,18 @@ PARTS = {
   'EasyEDA:HR911130A': dict(
     mpn='HR911130A', pkg='tab-down shielded RJ45 with integrated 1000Base-T magnetics and two LEDs, THT',
     fp='EasyEDA:RJ45-TH_HR911130A',
-    rating='IEEE 802.3ab 1000Base-T, 1500 Vrms isolation, 1CT:1CT, OCL 350 uH '
-           'min; chip-side centre taps common on P1, Bob-Smith 4x75 ohm + '
-           '1000 pF 2 kV inside on P10; LEDs 20 mA, 1.8-2.8 V forward',
-    pinmap='HanRun drawing rev A page 1: P2/P3 MDI0, P4/P7 MDI1, P5/P6 MDI2, '
+    rating='IEEE 802.3ab 1000Base-T per the drawing, isolation test 2250 VDC, '
+           '0.5 mA, 60 s, UTP side to chip side, 1CT:1CT, OCL 350 uH min at '
+           '100 kHz, 100 mV, 8 mADC; chip-side centre taps common on P1, '
+           'Bob-Smith 4x75 ohm + 1000 pF 2 kV inside on P10; LEDs 20 mA, '
+           '1.8-2.8 V forward; operating 0-70 C',
+    pinmap='HanRun drawing rev B page 1: P2/P3 MDI0, P4/P7 MDI1, P5/P6 MDI2, '
            'P8/P9 MDI3, P1 CT, P10 termination, 11(+)/12(-) green, 14(+)/13(-) '
-           'yellow, SHIELD0/1; imported footprint pad names match',
-    src='HanRun HR911130A drawing rev A; LCSC C54408'),
+           'yellow, SHIELD0/1; imported footprint pad names match. Page 3 hole '
+           'pattern: even row corrected 0.10 mm in the project footprint, '
+           'stagger 1.27 mm (the EasyEDA import had 1.17/1.37)',
+    src='HanRun HR911130A drawing rev B, 4 pages, https://hrdzcn.oss-cn-beijing.'
+        'aliyuncs.com/202601/ab534667d942f65.pdf; LCSC C54408'),
   'EasyEDA:R-RJ45R08P-B000': dict(
     mpn='R-RJ45R08P-B000', pkg='shielded 8P8C jack, no magnetics, THT, 16.26 x 15.75 mm, 13.1 mm tall; latch keyway at the top of the opening (tab up)',
     fp='EasyEDA:RJ45-TH_R-RJ45R08P-B000',

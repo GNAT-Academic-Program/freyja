@@ -710,6 +710,80 @@ Sizing basis: the datasheet read gives no core current, so this uses `tools/budg
 
 *Checks.* HEAD against the commit board: 125 tracks and 17 vias added, 22 tracks and 1 via removed, all on MDI1. Three footprints moved. Every kept track and via byte-identical, four copper zones refilled, one rule-area outline changed. Tracks 2070 to 2173, vias 515 to 531, ratsnest 1209 to 1182. KiCad 0 unconnected on the 8 MDI nets with `ETH_CT`, on `PHY_1V0`, and on the 3 crystal nets, each alone. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper; `silk_over_copper` 104 to 105, from X3's silk, other warnings unchanged. Fresh refills byte-identical, stackup guard passes. LINK 48 of 48, HDMI 24 of 24, SDRAM 82 of 82, PSRAM 120 of 120, `+1V8_IO` 40 of 40, U1 GND 141 of 141, all 268 GND vias on the main plane pieces. Each GND plane one piece; `+3V3` and `+1V0` one piece each. On refilled In1 and In6, 18 crossings of a void: 12 at P/N pairs' merged via holes ending at the own via, 5 at the own via, 1 `ETH_MDI1_N` entering J70 P7's clearance. `gate.py --strict` passes; `check_connector_rework.py` stops at the same H1-H4 assertion. The owner's H4 move, its fills and `.prl` remain uncommitted. Evidence: `~/freyja-review/mdi2-2026-11-04/`, image `images/closeup.png`.
 
+**U30 island finished; J70 footprint corrected (2026-11-04).** Pin 40, RSET, every strap and pull, the jack LEDs, all local supplies and capacitor grounds connect; the four MDI pairs stay complete. This closes the pin 40 and J70 items of the entry above. U30, the connectors and all other footprints stayed fixed. RGMII is not routed. Routing checks do not establish transient power integrity or Ethernet compliance.
+
+*J70.* Checked against HanRun HR911130A **rev B**, 4 pages (URL and hash in the entry above), the only revision retrieved. The earlier "rev A" citation had no drawing behind it, and no evidence of an incompatible revision was found. Rev B page 3 dimensions the pattern in the component-side view: centre line midway between the 15.49 mm shield holes and the 11.43 mm posts, rows 8.89 and 6.35 mm from the post line, 1.27 mm stagger, ±0.08 mm. The PDF's vector holes agree: even row +4.444, +1.902, −0.630, −3.173, −5.705 mm from that centre line.
+
+| Pad | Drawing, mm | Import, mm | Now, mm | Error was, mm |
+|---|---|---|---|---|
+| P2 | 4.445 | 4.55 | 4.45 | +0.105 |
+| P4 | 1.905 | 2.01 | 1.91 | +0.105 |
+| P6 | −0.635 | −0.53 | −0.63 | +0.105 |
+| P8 | −3.175 | −3.07 | −3.17 | +0.105 |
+| P10 | −5.715 | −5.61 | −5.71 | +0.105 |
+
+Genuine footprint error, outside tolerance, already in the EasyEDA source for C54408 (stagger 1.171/1.369 mm), not from conversion. The page 2 bottom view independently puts pins 2, 4, 6, 8 at +4.44, +1.93, −0.63, −3.18 mm. Corrected in `easyeda/EasyEDA.pretty/RJ45-TH_HR911130A.kicad_mod` and five `at` lines of the board instance only; the file's 0.005 mm frame offset is kept, so the stagger is exactly 1.27 mm. Position, orientation, pad names, nets, odd row, posts and LEDs unchanged. S-row entries now clear N-row pads by 0.4585 mm both sides, against 0.3585 before.
+
+Isolation is now recorded as written: 2250 VDC, 0.5 mA, 60 s, UTP to chip side, not equated with 1500 Vrms, in `tools/qualified.py`, generated `ref/qualified-parts.md` and `ref/network.md`.
+
+Open on J70: the undimensioned page 2 view draws pin 10 at about −5.32 mm against page 3's −5.715, and also draws LED pins off their dimensions, so it is not to scale there and page 3 governs. Library holes stay larger than recommended (0.91/1.70/1.10 against 0.89/1.63/1.02); the drawing gives no pin diameter. **Check P10 and the even row against a real part before fabrication.**
+
+*Placement.* 24 passives and X3 moved within the island, as authorized. C235, C239, C240 and R144, R145 did not.
+
+| Side | Parts and new centres | Why |
+|---|---|---|
+| West | X3 (203.17, 196.5), R146 (205.1, 196.72), C245 (203.7, 199.11), C244 (201.6, 193.6) | R146 now between pin 37 and X3.3; opens pins 38-40 |
+| South-west | R131 (205.74, 199.0), C232 (206.77, 199.4), C241 (204.72, 199.25) | Pin 40's via and capacitor; C241 becomes pin 38's capacitor |
+| North-west | R133 (205.09, 188.1), R141 (204.62, 192.2), R142 (204.34, 193.3), R143 (202.85, 193.4) | Pulls beside pins 31-34, not across the package |
+| North | C242 (206.28, 190.175), C234 (208.01, 191.12), C236 (208.49, 190.1), C238 (211.85, 191.3) | 4.7 µF on pin 30; pin 28's lane passes under C234 between its pads |
+| North, RX | R136 (207.99, 187.2), R137 (208.49, 188.3), R140 (210.42, 187.25), R139 (210.93, 188.75), R135 (212.47, 188.4), R138 (211.93, 186.0) | Straps moved from around the package onto the six RX lanes, which pass through or under them |
+| East | C233 (213.5, 197.2), R134 (215.81, 195.6), R132 (215.81, 196.85), C237 (214.52, 187.35) | Pin 11 capacitor; pulls on their own lanes; C237 on the `+2V5` bus |
+
+*Pin completion.* KiCad's own connectivity, each net alone, agrees with a flood over saved copper (`reports/pins.txt`, `netconn.txt`).
+
+| Pins | Net | State |
+|---|---|---|
+| 1, 2, 4-7, 9, 10 | `ETH_MDI0-3` | Complete to J70 |
+| 3, 8, 21, 30, 38 | `PHY_1V0` | Complete with C238-C242 |
+| 11, 29, 40 | `+3V3` | On the plane through their own vias, with C233, C234, C232 |
+| 28 | `+2V5` | Complete with C236, C237, R134, R135, R139, R140; feeder open |
+| 36, 37 | `PHY_XI`, `PHY_XO` | Complete with X3, C244, R146, C245 |
+| 39 | `PHY_RSET` | Complete to R131, 2.7 mm |
+| 32, 33, 34 | `PHY_LED0-2` | Complete: R141 and J70.12, R142, R143 and J70.14 |
+| 41 | `GND` | Exposed pad, four vias |
+| 22-27 | `PHY_RX*` | Pin and strap connected; U1 ball open |
+| 12, 14, 31 | `PHY_RESET_N`, `PHY_MDIO`, `PHY_INT_N` | Pin and pull connected; U1 ball open |
+| 13, 15-20 | `PHY_MDC`, `PHY_TX*` | Open; escape shown on the scratch copy |
+| 35 | `CLKOUT` | Unconnected by design |
+
+**Remaining connections to the rest of the board:** `PHY_TXC` C24, `PHY_TX_CTL` B21, `PHY_TXD0` B24, `PHY_TXD1` C22, `PHY_TXD2` C23, `PHY_TXD3` C21, `PHY_RXC` D19, `PHY_RX_CTL` A19, `PHY_RXD0` C19, `PHY_RXD1` H17, `PHY_RXD2` E22, `PHY_RXD3` B19, `PHY_MDC` C17, `PHY_MDIO` B17, `PHY_RESET_N` G1, `PHY_INT_N` G2, all on U1; and the **`+2V5` feeder** to the In5 bus, whose ends include via (207.95, 189.5). The rest of that rail, including L4.1, U1's bank 16 balls and C368, is not connected to it. `+3V3` and `GND` connect through their planes; what feeds those planes is outside this island and was not checked here.
+
+*Escapes.* One scratch copy, `~/freyja-review/u30-island-2026-11-04/rt/esc/`, carries all 16 remaining nets at once: **0 DRC errors, 0 parity, every plane one piece**. RX: `RXC`, `RX_CTL`, `RXD0`, `RXD1` on F.Cu past U32 to y 176.5; `RXD2`, `RXD3` by via to B.Cu, to y 178. TX: six vias at 0.95 mm or more, B.Cu at 0.3 mm pitch to y 188.2. `MDIO`, `MDC`, `RESET_N`, `INT_N` by via to In2, to y 184-187. RGMII at 0.125 mm throughout. None of this copper is on the live board. These prove access only: no length matching or route to a ball was attempted.
+
+*Crystal.* F.Cu, no vias, values unchanged. `PHY_XI` 6.40 mm with its C244 branch, 5.46 mm pin to X3.1; `PHY_XO` 1.70; `PHY_XO_X` 2.22: 10.32 mm against 11.82 before. XI is longer, XO and XO_X shorter, and XI no longer runs beside XO under the crystal. X3.4 and X3.2 tie under the crystal to one GND via. Frequency, drive and stray remain unverified.
+
+*Supply sizing.* DC only; connectivity and DRC do not establish transient behaviour. No Realtek core current exists in rev 1.7, so `PHY_1V0` keeps `tools/budget.py`'s 0.20 A estimate: at most 6.02 mV at 0.05 A per pin, 10.92 mV with all of it into pin 8. `+2V5` at the budget's 0.02 A estimate for `DVDD_RG`: 0.67 mV from C237 to pin 28.
+
+| Path, pin to capacitor | Length, mm | Narrowest |
+|---|---|---|
+| Pin 3, C240 | 2.21 | 0.0889 x 0.61 exit, then 0.11 x 2.33 |
+| Pin 8, C239 | 1.01 | 0.0889 x 0.67 exit |
+| Pin 21, C238 | 1.64 | 0.2 |
+| Pin 38, C241 | 3.86 | 0.18 x 3.07, replacing 0.09 x 2.67 |
+| Pin 30, C242 | 1.35 | 0.2 |
+| Pin 11, C233 | 1.50 | 0.2 |
+| Pin 29, C234 | 1.47 | 0.2; then 0.15 to its via, 2.98 from the pin |
+| Pin 40, C232 | 2.11 | 0.2; via 0.59 from the pin |
+| Pin 28, C236 | 2.10 | 0.098 x 0.95 between C234's pads; via 2.7 from the pin; C237 10.5 by the In5 bus |
+
+Through vias are barred within 0.5845 mm of the LINK lanes on B.Cu, a band across the north-west of U30, which is why pins 28 and 29 reach vias about 3 mm out and pin 38's capacitor sits behind 2.9 mm of track. `+2V5`'s In5 bus is 0.3 mm over 18 mm. Trunk changes: the In2 diagonal to the old C242 is gone, pin 30 joins In2 at a new via beside C242.
+
+*MDI.* MDI0's vias moved to (207.25, 198.3) and (207.78, 198.8) to free the pin 40 corner, B.Cu re-laid to the jack. Each even-row entry moved 0.10 mm; partners retuned with their existing bumps, moves of 0.002-0.044 mm. Tracks only: MDI0 10.25, MDI1 11.03, MDI2 11.14, MDI3 12.38 mm. **KiCad skew 0.0000 mm on all four** with the rule set to zero on a scratch copy. MDI2 stays F.Cu only; the others keep one via per net and B entry. **`tools/gen_pcb.py`, `kicad/odin.kicad_dru` and the `U30_MDI_LAUNCH` outline are unchanged.** A wider area was tested and removed: P's lane beside pad 2 is its coupled partner, so no extension was needed.
+
+*Checks.* HEAD against the commit board: 25 footprints moved, J70's five pad lines changed and nothing else in it, U30 unchanged, every kept track and via byte-identical, four copper zones refilled, no zone outline, rule, stackup or net changed. Tracks 2173 to 2278, vias 531 to 551, ratsnest 1182 to 1137. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical. `silk_over_copper` 105 to 107: five new, all X3's silk, three gone; `lib_footprint_mismatch` stays X4 and J1. `silk_overlap` is capped at 199, so a moved part's label overlap cannot be counted from that list. KiCad 0 unconnected on the MDI nets with `ETH_CT`, on `PHY_1V0`, the crystal nets, `PHY_RSET`, and the LED nets. LINK 48 of 48, HDMI 24 of 24, SDRAM 82 of 82, PSRAM 120 of 120, `+1V8_IO` 40 of 40, U1 GND 141 of 141. Each GND plane one piece; `+3V3` and `+1V0` one piece each. On refilled In1 and In6, 18 MDI crossings of a void, the same classes as before: 12 at P/N merged via holes ending at the own via, 5 at the own via, 1 `ETH_MDI1_N` entering J70 P7's clearance. Reservation stress copy: 46 errors, none in the island. `gate.py --strict` passes; `check_connector_rework.py` stops at the same H1-H4 assertion and `audit_easyeda.py` at its listed failures. The owner's H4 move, its fills and `.prl` remain uncommitted. Evidence: `~/freyja-review/u30-island-2026-11-04/`, image `images/closeup.png`.
+
+*Still unverified:* the Realtek layout guide was not available; C241's 3.86 mm path and pin 29's via distance rest on the LINK lanes staying; LED wiring is about 40 mm each on In5, under the jack; decoupling effectiveness, crystal behaviour, LED polarity on a real part and PHY operation need the bench.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule
