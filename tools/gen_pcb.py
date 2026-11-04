@@ -41,6 +41,15 @@ HDMI_ENTRY_AREA = 'J73_TMDS_ENTRY'
 HDMI_ENTRY_CLEARANCE = 0.3
 HDMI_ENTRY_PAIR_PITCH = 2 * 0.5
 HDMI_ENTRY_GAP_MAX = round(HDMI_ENTRY_PAIR_PITCH - DIFF_WIDTH, 3)
+# J71 and J72 contacts are 1.02 mm apart along the rows, staggered 1.78 mm, 1.524 mm
+# across. A 0.099 mm track on a south-row contact's axis passes between two north-row
+# contacts with 1.02 - 0.762 - 0.0495 = 0.2085 mm a side, so 0.31 mm cannot be met; the
+# limit here is 0.200 mm, on LINK tracks wholly inside the rule areas the board owns and
+# against those two jacks' pads only. If an area is missing the conditions are false and
+# the normal rule applies, so the entries fail loudly. No local pair-gap rule: the part of
+# an entry beside its partner lies inside the north-row pad, which the gap check skips.
+LINK_ENTRY_AREAS = ('J71_LINK_ENTRY', 'J72_LINK_ENTRY')
+LINK_ENTRY_CLEARANCE = 0.2
 MDI_PATTERNS = ('ETH_MDI*',)
 RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'PHY_RX_CTL')
 # The SDR SDRAM bus (W9825G6KH-6, 3.3 V single-ended, target 100 MHz CL3) uses
@@ -51,6 +60,8 @@ GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'SDRAM', 'PSRAM', 'AU
 
 
 TMDS_NETS = ' || '.join(f"A.NetName == '{p}'" for p in HDMI_TMDS_PATTERNS)
+LINK_IN_ENTRY = ("A.Type == 'Track' && A.NetName == 'LINK_*' && ("
+                 + ' || '.join(f"A.enclosedByArea('{a}')" for a in LINK_ENTRY_AREAS) + ')')
 POWER_HEADERS = ' || '.join(f"B.Reference == '{r}'" for r in
                           ('J53', 'J62', 'J54', 'J63', 'J55', 'J64', 'J56', 'J65', 'J57', 'J58'))
 
@@ -153,6 +164,12 @@ def emit_rules():
   (layer "F.Cu")
   (condition "A.Type == 'Track' && ({TMDS_NETS}) && A.enclosedByArea('{HDMI_ENTRY_AREA}')")
   (constraint diff_pair_gap (min {DIFF_GAP}mm) (opt {DIFF_GAP}mm) (max {HDMI_ENTRY_GAP_MAX}mm)))
+# J71/J72 contact entries: a 0.099 mm track between 1.524 mm contacts on 2.04 mm pitch has
+# 0.2085 mm a side. LINK tracks wholly inside {LINK_ENTRY_AREAS[0]} or {LINK_ENTRY_AREAS[1]}, against those jacks' pads only.
+(rule "LINK entry to J71 J72 pads"
+  (layer outer)
+  (condition "{LINK_IN_ENTRY} && B.Type == 'Pad' && (B.memberOfFootprint('J71') || B.memberOfFootprint('J72')) && !AB.isCoupledDiffPair()")
+  (constraint clearance (min {LINK_ENTRY_CLEARANCE}mm)))
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))

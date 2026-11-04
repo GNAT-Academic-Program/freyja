@@ -132,6 +132,13 @@ gap of 0.200–0.901 mm. Width, coupled gap, skew and 0.31 mm everywhere else ar
 unchanged. Without the area the rules never apply and the entries fail. They say
 nothing about HDMI electrical compliance, which remains unverified.
 
+**J71/J72 exception.** A 0.099 mm track on a south-row contact's axis passes two
+north-row contacts with 0.2085 mm a side. `LINK entry to J71 J72 pads` allows 0.200 mm
+for a `LINK_*` track wholly inside the board's `J71_LINK_ENTRY` or `J72_LINK_ENTRY`
+rule area, against those jacks' pads only. The pair-gap rule is unchanged. Contacts
+3-6 straddle 4-5, so each jack has F entries (TXC, RXC) and B entries (TXD, RXD);
+both members of a pair enter on one layer. See [findings](../findings.md).
+
 Inner-layer tracks are prohibited for the 100 Ω classes because the geometry
 is calculated only for the outer layers. Plane transitions still need ground
 stitching vias beside the signal vias. Board minimum track width is
