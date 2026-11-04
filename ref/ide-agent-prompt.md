@@ -64,12 +64,13 @@ the project tables select the `easyeda/` versions.
 ```sh
 python3 tools/alloc.py --check
 python3 tools/gate.py --strict
+python3 tools/check_stackup.py
 python3 tools/audit_easyeda.py
 python3 tools/check_connector_rework.py
 git diff --check
 ```
 
-`gate.py` runs circuit/budget/qualification checks, compares a temporary
+`gate.py` runs circuit/budget/qualification checks and the stackup check, compares a temporary
 netlist export, XDC/gate top and parts guide, checks exact ERC and DRC with
 schematic parity, verifies the connector placement contract, and reports
 escape depth. `--strict` also gates mechanical failures. **DRC violations and

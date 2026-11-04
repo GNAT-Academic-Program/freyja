@@ -1,6 +1,6 @@
 # Freyja — current status and dated findings
 
-## Current status — 2026-11-03 routing checkpoint
+## Current status — 2026-11-04 routing checkpoint
 
 **PSRAM0/1 routing transferred** to `kicad/odin.kicad_pcb`: all six signals of
 both ports, through R104–R115 to U2/U3, with pull branches. All 60 pads on the
@@ -389,8 +389,9 @@ connectivity, with only these nets loaded, reports 0 unconnected. All sixteen co
 | Q_RXD | 77.14, 76.14 | +1.00 | 2, 3 | 26.3, 25.3 |
 
 Lengths are track length from the U1 ball centre to the jack contact centre, including existing corridor copper;
-vias include the existing escape via. KiCad's skew rule counts each via as 1.0 mm, so the pairs with unequal
-vias have a matching track difference and KiCad's skew is **at most 0.003 mm on every pair**, limit 0.1 mm.
+vias include the existing escape via. **Superseded by the stackup correction below:** KiCad counted each via as 1.0 mm only
+because the PCB had lost 0.589 mm of dielectric, so the 1.0 and 2.0 mm track differences above matched a wrong figure and "KiCad
+skew at most 0.003 mm on every pair" no longer holds. Five of these pairs now fail the 0.1 mm limit.
 There are no ESD branch stubs: every line runs through its ESD pad, and each net's track total equals its path.
 Uncoupled counts every part of a lane without its partner on the same layer at 0.299 mm, including length made up.
 
@@ -439,15 +440,107 @@ closer in angle is exactly parallel at the 0.200 mm gap, or at least 2 mm from t
 - **Reserved site blocked.** The reserved `+1V0` via at (208.7, 173.89), for C301, sits between `P_RXC`'s lanes. On the stress
   copy this is the only new conflict: 3 new errors of 54, all this site. C301's pad spans x 209.04–211.11, and (211.5, 174.5) is clear
   on this copper, so the via can move there when that net is routed. Not tested with the rest of the +1V0 work.
-- **Via length model.** KiCad's 1.0 mm per via comes from the PCB's stackup block, which lists 0.2104 mm for the two thick
-  dielectrics where `ref/pcb-impedance.md` lists 0.2104 + 0.084 + 0.2104: 1.086 mm against the documented 1.624 mm. Pre-existing, not changed here. If a real via is about 1.6 mm of path, the unequal-via pairs
-  are off by about 0.6 mm per extra via, 1.2 mm on `Q_RXC`, before any return or capacitance effect. The rule cannot see that.
+- **Via length model.** Closed; see the stackup correction below.
 - **Clock to data within a lane is not matched** and no rule covers it: track totals TXC against TXD 116.6/106.8 on P and 70.9/76.9 on
-  Q; RXC against RXD 106.7/101.4 on P and 78.1/77.1 on Q. A real link adds the far board and the cable. Timing is not assessed.
+  Q; RXC against RXD 106.7/101.4 on P and 78.1/77.1 on Q. Calculated by direction below. A real link adds the cable.
 
 **Not established: cable performance and electrical compliance.** These checks show copper connects and meets the rules. Impedance
 through the split sections, vias, ESD capacitance and serpentines is not modelled; no eye, return-loss or link test exists. Evidence:
 `~/freyja-review/link-2026-11-03/`.
+
+**Stackup representation corrected (2026-11-04).** No track, via, footprint, zone outline or fill changed. Sixteen lines were
+added to the PCB's stackup block; five LINK pairs now fail the existing skew rule, which is a measurement correction and not a
+geometry regression.
+
+*Root cause: missing data in the board, not a counting or parser error in the sum.* `tools/gen_pcb.py` wrote the extra sublayers of
+dielectrics 3 and 5 as `(addsublayer)` since `3e44271`. KiCad's word is the bare `addsublayer`. The parenthesised form loads without any
+message and folds all three sublayers into one holding the last values: on a scratch copy with 0.1111/0.0222/0.3333 mm, pcbnew kept one
+sublayer of 0.3333 mm, while the bare form kept all three. The last sublayer here is 0.2104 mm, like the first, so the result looked
+plausible. Every pcbnew save then wrote the reduced block. `gen_pcb.py` and `ref/jlc08161h-1080a-stackup.json` always agreed on intent.
+
+| mm | Intended (JLC template) | Loaded and saved before | Loaded and saved now |
+|---|---:|---:|---:|
+| Copper | 0.1612 | 0.1612 | 0.1612 |
+| Dielectric | 1.4624 | 0.8736 | 1.4624 |
+| **Copper plus dielectric** | **1.6236** | **1.0348** | **1.6236** |
+| Solder mask, two faces, not in the template | 0.0508 | 0.0508 | 0.0508 |
+| F.Cu to B.Cu mid-plane, KiCad's via length | 1.5886 | 0.9998 | 1.5886 |
+
+Mid-plane depths from F.Cu: In1 0.1015, In2 0.2167, In3 0.7367, In4 0.8519, In5 1.3719, In6 1.4871, B.Cu 1.5886 mm. The general
+thickness field stays 1.6 mm, the nominal order thickness. It was not changed, and it does not set via length: DRC measured 1.5886 mm with it at 1.6.
+The mask's Dk 3.8 in the generator does not survive a pcbnew save, before or after this fix. It stays in the impedance record.
+
+*Durable fix.* The generator now writes the bare word. New `tools/check_stackup.py`, run by `gate.py` in the electrical verdict, loads
+the board in pcbnew, saves a temporary copy and compares each sublayer's thickness, material, Dk and loss tangent with the template, plus the
+generator's own text. It fails on the old board and on the old generator text. Python cannot read pcbnew's stackup directly, so the check
+reads the saved copy. Round trip: two pcbnew load and save cycles are byte-identical; the Gerber job file, a separate reader, lists all 3/3 sublayers
+and 1.6236 mm; `gen_pcb.py --rules-only` on a scratch tree, then a save, reproduces the board byte for byte, with the same `.kicad_dru`.
+
+*Intra-pair skew, P minus N, mm unless marked.* Barrels are counted between the layers really entered and left; every signal via here is F.Cu
+to B.Cu, and all tracks are on the main path with no stubs. "Plus jack barrel" adds 1.5886 mm where a line enters a through-hole contact on B.Cu,
+because the jack body is on F.Cu; KiCad cannot see this. Delay is calculated, not measured. The KiCad figures match DRC with the limit forced to 0 on a scratch copy.
+
+| Pair | Vias P, N | Exit P, N | Track only | KiCad before | KiCad now | Plus jack barrel | Delay, ps (vias; plus jack) | U1 package, ps | DRC 0.1 mm |
+|---|---|---|---:|---:|---:|---:|---:|---:|---|
+| HDMI_CLK | 2, 2 | F, F | −0.001 | −0.001 | −0.001 | −0.001 | −0.01; −0.01 | +4.40 | pass |
+| HDMI_D0 | 2, 2 | F, F | −0.001 | −0.001 | −0.001 | −0.001 | 0.00; 0.00 | −9.84 | pass |
+| HDMI_D1 | 2, 2 | F, F | −0.001 | −0.001 | −0.001 | −0.001 | 0.00; 0.00 | −3.79 | pass |
+| HDMI_D2 | 2, 2 | F, F | +0.001 | +0.001 | +0.001 | +0.001 | 0.00; 0.00 | −29.09 | pass |
+| P_TXC | 2, 2 | F, F | +0.002 | +0.002 | +0.002 | +0.002 | +0.01; +0.01 | −2.32 | pass |
+| P_TXD | 2, 3 | F, B | +1.000 | 0.000 | **−0.588** | −2.177 | −5.21; −16.28 | −5.91 | **fail** |
+| P_RXC | 3, 2 | B, F | −0.999 | +0.001 | **+0.589** | +2.178 | +5.21; +16.29 | −0.93 | **fail** |
+| P_RXD | 2, 2 | F, F | 0.000 | 0.000 | 0.000 | 0.000 | 0.00; 0.00 | −2.28 | pass |
+| Q_TXC | 3, 4 | B, F | +1.000 | 0.000 | **−0.589** | +1.000 | −5.21; +5.87 | −4.65 | **fail** |
+| Q_TXD | 3, 3 | B, B | +0.002 | +0.002 | +0.002 | +0.002 | +0.02; +0.02 | +0.77 | pass |
+| Q_RXC | 2, 4 | F, F | +1.997 | −0.002 | **−1.180** | −1.180 | −10.43; −10.43 | −0.05 | **fail** |
+| Q_RXD | 2, 3 | F, B | +1.000 | +0.001 | **−0.588** | −2.177 | −5.21; −16.28 | −10.19 | **fail** |
+
+*Clock to data on LINK, clock minus data, mean of P and N.* A positive value means the clock arrives later. KiCad's figure is a length with barrels counted
+as track; the delay is length converted per section. Cable, drivers and receivers are excluded, and a real P-to-Q link adds the cable's pair difference.
+
+| Leg | KiCad before, mm | KiCad now, mm | Delay, ps (vias) | Plus jack barrel, ps | U1 package, ps | Sum, ps |
+|---|---:|---:|---:|---:|---:|---:|
+| P TX | +9.847 | +9.553 | +53.93 | +48.39 | +3.18 | +51.57 |
+| Q RX | +0.939 | +1.233 | +7.54 | +2.00 | −21.13 | −19.13 |
+| **P out, Q in** | +10.786 | +10.786 | +61.47 | +50.39 | −17.95 | **+32.44** |
+| Q TX | −5.937 | −5.642 | −31.16 | −36.70 | +17.74 | −18.96 |
+| P RX | +6.215 | +6.509 | +39.10 | +44.63 | +2.72 | +47.35 |
+| **Q out, P in** | +0.278 | +0.867 | +7.93 | +7.93 | +20.46 | **+28.39** |
+
+Delay model: `fieldsolve.py`, the same solver as the SDRAM profile, gives at 0.099 mm odd mode 5.737 ps/mm (99.8 ohm differential) with a coupled 0.200 mm gap
+and 5.865 ps/mm for a lone line (53.6 ohm); the barrel is 6.97 ps/mm, the figure `flight.py` already uses, an assumption rather than a via solve. So one barrel is 11.07 ps,
+about 1.89 mm of lone track, not the 1.59 mm KiCad counts: matching KiCad's length is not matching delay. U1 package figures are the midpoints of Vivado's `write_csv`
+trace delays for the exact part. Dk spread (about ±2.5 % on delay), via excess capacitance, ESD capacitance and return paths are not included. HDMI
+pair delay on the board is 410.1–491.6 ps; this correction moves all four by the same 8.2 ps.
+
+*SDRAM profile: not affected, nothing rerun in Vivado, all results stand.* It never read KiCad's stackup. `fieldsolve.py` carries the full 0.2104 + 0.084 + 0.2104 mm
+prepreg stack, and only the route's sections come from the board. Unchanged `flight.py` on the corrected board reproduces `data/flight_8.json` exactly.
+Its hard-coded via depths (F–In2 0.23, F–In5 1.33, F–B 1.57 mm) are rounded, not derived from the defective block. Using the exact depths on a scratch copy moves
+any settle or leave time by at most 4.3 ps and any DQ line delay by at most 0.55 ps, against read margins of +1.30/+1.78 ns. The depths and `VIA_PS` are kept as committed.
+
+*Superseded:* commit `9c37332`'s "KiCad skew at most 0.003 mm" and "0 DRC errors"; the 1.0 mm per via in `tune.py`, and thus the length made up on P_TXD, P_RXC, Q_TXC, Q_RXC and Q_RXD;
+the "1.086 mm" reading in the LINK notes. *Still valid:* HDMI skew and every HDMI, SDRAM, PSRAM and rail result; LINK connectivity, polarity and coupled geometry.
+
+*Checks.* HEAD plus this block against HEAD: only `setup` differs, item for item, and a fresh refill reproduces the file byte for byte. DRC: 0 parity; errors 0 to 5, all `skew_out_of_range`, no other
+violation added or removed, warnings identical. 2136 tracks, 504 vias, 555 footprints, 6 zones, ratsnest 1218 unchanged. HDMI 24 of 24, LINK 48 of 48, SDRAM 82 of 82, PSRAM 120 of 120,
+`+1V8_IO` 40 of 40, U1 GND 141 of 141 still connect, and KiCad reports 0 unconnected on the HDMI and LINK nets alone. `gate.py --strict` passes; `check_connector_rework.py` stops at the same H1–H4 assertion.
+
+*Working tree, not committed.* `kicad/odin.kicad_pcb` also carries the owner's uncommitted move of H4 to (174, 205), and `.kicad_prl` its own changes; both are preserved and left out of this commit.
+Saved without a refill, H4 adds 4 `hole_clearance` errors against the stale GND and `+3V3` fill, so `gate.py` on the working tree counts 9 errors. On a scratch refill those 4 go away, only those four fills change, and nothing else
+appears. Refill in KiCad when that move is accepted.
+
+**Next corrections, not done here.** No length was tuned and no rule changed. Which track each pair needs depends on the metric, and for the four mixed-exit pairs no one length can satisfy both:
+
+| Pair | Add for KiCad's rule | Add for path with jack barrel | Conflict |
+|---|---|---|---|
+| Q_RXC | P +1.180 mm | P +1.180 mm | none on length; delay needs P +1.78 mm |
+| P_TXD | P +0.588 mm | P +2.177 mm | leaves 1.589 mm the rule cannot see |
+| P_RXC | N +0.589 mm | N +2.178 mm | same |
+| Q_RXD | P +0.588 mm | P +2.177 mm | same |
+| Q_TXC | P +0.589 mm | N +1.000 mm | opposite directions |
+
+Removing the difference at its source, with equal barrel counts and the same contact entry layer on both lanes of a pair, avoids all of this and belongs to the LINK placement work. Decide also whether length or calculated delay governs,
+whether to compensate U1's package (HDMI_D2 at −29 ps equals about 5 mm of track and passes every board rule), and what clock-to-data budget the link needs: no requirement exists yet. Evidence: `~/freyja-review/stackup-2026-11-04/`.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair

@@ -4,7 +4,7 @@
     python3 tools/gate.py
 
 Read-only. Runs, in order: design.py / budget.py / qualified.py build checks,
-check_erc.py, netlist export to a scratch file compared with kicad/odin.net,
+check_stackup.py, check_erc.py, netlist export to a scratch file compared with kicad/odin.net,
 ref/freya.xdc compared with a fresh gen_xdc export, DRC with schematic
 parity, place.py --check, depth.py.
 
@@ -92,6 +92,10 @@ def main():
         print(f'roles          {ndone}/{ntot} parts described, {nprob} problems, {ngap} gaps on uncovered sheets'
               + ('; GUIDE DRIFT: run tools/roles.py --write' if drift else ''))
         if nprob or drift: ok = False
+
+        r = run([PY, 'tools/check_stackup.py'])
+        print('check_stackup  exit', r.returncode, '|', r.stdout.strip().splitlines()[-1] if r.stdout.strip() else r.stderr.strip()[-200:])
+        if r.returncode: ok = False
 
         r = run([PY, 'tools/check_erc.py'])
         print('check_erc.py   exit', r.returncode, '|', r.stdout.strip().splitlines()[-1] if r.stdout.strip() else r.stderr.strip()[-200:])

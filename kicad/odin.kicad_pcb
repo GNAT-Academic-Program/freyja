@@ -78,6 +78,14 @@
 				(thickness 0.2104)
 				(material "NP-155F 7628 RC49%")
 				(epsilon_r 4.4)
+				(loss_tangent 0.02) addsublayer
+				(thickness 0.084)
+				(material "NP-155F 1080 RC67%")
+				(epsilon_r 3.91)
+				(loss_tangent 0.02) addsublayer
+				(thickness 0.2104)
+				(material "NP-155F 7628 RC49%")
+				(epsilon_r 4.4)
 				(loss_tangent 0.02)
 			)
 			(layer "In3.Cu"
@@ -97,6 +105,14 @@
 			)
 			(layer "dielectric 5"
 				(type "prepreg")
+				(thickness 0.2104)
+				(material "NP-155F 7628 RC49%")
+				(epsilon_r 4.4)
+				(loss_tangent 0.02) addsublayer
+				(thickness 0.084)
+				(material "NP-155F 1080 RC67%")
+				(epsilon_r 3.91)
+				(loss_tangent 0.02) addsublayer
 				(thickness 0.2104)
 				(material "NP-155F 7628 RC49%")
 				(epsilon_r 4.4)

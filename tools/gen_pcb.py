@@ -228,6 +228,9 @@ def layers_block():
     o.append('\t)')
     return '\n'.join(o)
 
+# KiCad's sublayer separator is the bare word addsublayer. Written in parentheses
+# it loads without complaint and keeps only the last sublayer's values, which is
+# how the board lost 0.589 mm of dielectric: tools/check_stackup.py guards this.
 SETUP = '''\t(setup
 \t\t(pad_to_mask_clearance 0)
 \t\t(allow_soldermask_bridges_in_footprints no)
@@ -242,14 +245,14 @@ SETUP = '''\t(setup
 \t\t\t(layer "dielectric 2" (type "core") (thickness 0.1) (material "NP-155F core") (epsilon_r 4.36) (loss_tangent 0.02))
 \t\t\t(layer "In2.Cu" (type "copper") (thickness 0.0152))
 \t\t\t(layer "dielectric 3" (type "prepreg") (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02)
-                (addsublayer) (thickness 0.084) (material "NP-155F 1080 RC67%") (epsilon_r 3.91) (loss_tangent 0.02)
-                (addsublayer) (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02))
+                addsublayer (thickness 0.084) (material "NP-155F 1080 RC67%") (epsilon_r 3.91) (loss_tangent 0.02)
+                addsublayer (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02))
 \t\t\t(layer "In3.Cu" (type "copper") (thickness 0.0152))
 \t\t\t(layer "dielectric 4" (type "core") (thickness 0.1) (material "NP-155F core") (epsilon_r 4.36) (loss_tangent 0.02))
 \t\t\t(layer "In4.Cu" (type "copper") (thickness 0.0152))
 \t\t\t(layer "dielectric 5" (type "prepreg") (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02)
-                (addsublayer) (thickness 0.084) (material "NP-155F 1080 RC67%") (epsilon_r 3.91) (loss_tangent 0.02)
-                (addsublayer) (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02))
+                addsublayer (thickness 0.084) (material "NP-155F 1080 RC67%") (epsilon_r 3.91) (loss_tangent 0.02)
+                addsublayer (thickness 0.2104) (material "NP-155F 7628 RC49%") (epsilon_r 4.4) (loss_tangent 0.02))
 \t\t\t(layer "In5.Cu" (type "copper") (thickness 0.0152))
 \t\t\t(layer "dielectric 6" (type "core") (thickness 0.1) (material "NP-155F core") (epsilon_r 4.36) (loss_tangent 0.02))
 \t\t\t(layer "In6.Cu" (type "copper") (thickness 0.0152))

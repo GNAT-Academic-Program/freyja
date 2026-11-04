@@ -33,6 +33,13 @@ L6) tight against a ground plane and the power plane (L4) tight against a
 ground plane (L5). Copper: 0.035 mm outer, 0.0152 mm inner, as JLC's tables
 give them. The board is assembled on one side; B.Cu is a routing layer.
 
+Copper plus dielectric is 1.6236 mm; solder mask adds 0.0254 mm a face and is not
+in the template. The PCB holds the two thick prepreg stacks as KiCad sublayers, so F.Cu
+to B.Cu is 1.5886 mm mid-plane to mid-plane, which is the length DRC counts for a through
+via. The general thickness field stays the nominal 1.6 mm and does not set that length.
+`tools/check_stackup.py` checks what pcbnew loads and saves against the template; the
+gate runs it.
+
 ## 100 Ω differential: LVDS link pairs and PHY MDI pairs
 
 Coated edge-coupled microstrip on **F.Cu referenced to In1.Cu** or **B.Cu
@@ -106,7 +113,9 @@ The contract and how to rerun it are in [`gateware/sdram100/`](../gateware/sdram
 | PSRAM | `PSRAM*`, including chip-side `_MEM` nets | 0.1 mm minimum and preferred width |
 | AUX_5A | `AUX_RAIL` | 2.0 mm width, 1.0/0.5 mm vias |
 
-Skew is checked within each P/N pair. The 0.31 mm clearance (about four
+Skew is checked within each P/N pair. It sums track length and via barrels between
+the connected layers, as lengths: it knows no layer delay and cannot see a through-hole
+contact's barrel, so it is not a delay check. The 0.31 mm clearance (about four
 dielectric heights) keeps other copper from loading the non-coplanar model. It
 holds a pair track against any foreign copper, pads included, so a track
 entering fine-pitch pads can fall under it; the 0.4 mm-pitch PHY pads have not
