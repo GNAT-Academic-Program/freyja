@@ -272,12 +272,73 @@ the live FB1 is the current 120 ohm bead, present at both commits. Neither was c
 
 </details>
 
-**Differential escapes transferred; onward routing unfinished.** The 12 LINK and
-HDMI pairs have F.Cu stubs, through vias, coupled B.Cu lanes and GND stitching
-(present on In1, In4, In6 after refill; four pairs are stitched on one side
-only: LINK_Q_TXC, LINK_Q_TXD, LINK_Q_RXD, HDMI_D1). The 24 `track_dangling`
-warnings are exactly these intentional corridor ends:
-west lanes x 198.9–209.8 at y 172–173.3, HDMI lanes x 220.7–227.35 at y 162.4–163.6.
+**Four HDMI high-speed pairs routed and transferred.** `HDMI_CLK_P/N` and `HDMI_D0`–`D2_P/N`: all
+24 pads on 8 nets connect, U1 ball to U31 pin to J73 pad; KiCad's own connectivity, with only these
+nets loaded, reports 0 unconnected. References checked against the netlist: J73, U31. Rules,
+allocation, footprints and all accepted copper are unchanged. The eight corridor ends are closed.
+
+| Pair | Length, mm (P, N) | Skew, mm | Vias per net | Uncoupled, mm (new part) |
+|---|---|---:|---|---|
+| CLK | 71.64, 71.64 | 0.001 | 2 | 14.2 (12.9) |
+| D0 | 66.27, 66.28 | 0.001 | 2 | 11.7 (9.4) |
+| D1 | 67.69, 67.69 | 0.000 | 2 | 12.7 (9.0) |
+| D2 | 80.48, 80.48 | 0.000 | 2 | 11.4 (9.0) |
+
+Lengths are track length, ball to J73, and exclude U1's package. Pair-to-pair spread is 14.2 mm; no
+rule covers it and timing is not assessed. Geometry: 0.099 mm, 0.200 mm coupled gap, F.Cu and B.Cu
+only, 0.31 mm to foreign copper from tracks except as noted. Each net has its one new through via
+beside U31, on the body side of the pin: J73 to U31 is F.Cu with no via, and the line runs through the
+pin, per SLLSE96F 10.1. New uncoupled length is about 4 mm of F.Cu fan-out per net (U31 pitch 0.65 mm
+to J73's 1.0 mm P-to-N with a shield pad between), via tapers, the corridors' staggered ends, and the
+bumps below.
+
+Topology, forced by order rather than chosen: on B.Cu, D2 is west of the other pairs and CLK has P west
+of N, while U31 has CLK at the west end, D2 at the east end and N west of P in every pair. All four
+stay planar with no extra via. D0 and D1 land on their vias from the north, CLK loops under the via row
+and lands from the south, and D2 runs under CLK and all the vias and comes back from the east. CLK, D0
+and D1 pass J8's east end; D2 passes its west end. The corridors end staggered and these turns add more,
+so length bumps of about 0.3 mm height sit on one lane of each pair: 1.7 mm total height on D0_N and on
+D1_N near the corridors, 2.5 mm on CLK_N and 0.9 mm on D2_P just before the loop.
+
+**One deviation to review: J73 pad entries.** No track can enter J73's pads within the rule. At 0.5 mm
+pitch a 0.099 mm track touching a pad is at most 0.304 mm from the neighbouring pad, against the
+0.31 mm in `100R clearance to other copper`; the probes measured 0.3005–0.3048 mm, and an arc is flagged
+too. Only `HDMI_D2_P` has one foreign neighbour and enters as a plain track, 0.06 mm off centre. The
+other seven tracks stop 0.105 mm short of the pad and meet it through a small F.Cu copper taper, a zone
+named `J73 pad taper` on that net, 0.30 mm wide at the pad, 0.052 mm2. Each track meets 0.31 mm by
+DRC. The taper's gap to the neighbouring pad is 0.20 mm, the same as pad to pad. The rule passes because
+it applies to tracks, and its comment says jack pins set their own spacing, so nothing is suppressed and
+no rule moved; but this is a workaround, not the rule being met by a track. The alternative is to
+exclude J73's pads from the rule and enter with plain tracks at 0.3005 mm. That is the owner's choice.
+
+**Returns.** New GND vias: U31 pins 14 and 19 at the via row, pin 6 tented under the body, one stitching
+via at (239.0, 208.95), and one for each of J73's five SMD GND pads at y 216.75, under the connector
+body, tented. All reach In1, In4 and In6; U31 3 of 3, J73 5 of 5 plus 4 of 4 shell pads. Each of the 8
+new HDMI vias has a GND via within 0.67–1.85 mm (within 2.05 mm at the existing U1 end). On the refilled
+planes all 32 void crossings are a track leaving its own via. Via pitch at U31's 0.65 mm pads merges the
+clearance holes into two slots on In1 and In6, x 233.48–236.12 and x 236.72–239.38 at y 210.32–211.08,
+1.68 mm2 each. No plane splits: each GND plane is one piece, 3.4 mm2 smaller. The return current is
+not modelled.
+
+**Checks on the live board:** refilled DRC 0 errors, 0 parity; warnings unchanged except `track_dangling`
+24 to 16, all LINK. Tracks 1449 to 1668, vias 446 to 463, 7 zones added, ratsnest 1278 to 1254. Accepted
+tracks, vias, footprints and settings are byte-identical; existing zones differ only in fill; a fresh
+refill reproduces the file byte for byte. SDRAM 82 of 82, PSRAM 120 of 120, `+1V8_IO` 40 of 40, U1 GND
+141 of 141 still connect. On the stress copy the error count is unchanged and none involves HDMI; each
+LINK pair still has a B.Cu access path to its connector, an estimate rather than a route. `gate.py
+--strict` passes; `check_connector_rework.py` stops at the same pre-existing H1–H4 assertion.
+
+**Not established.** Routing checks do not establish HDMI electrical compliance. Impedance through the
+vias, tapers, bumps and U31's pad capacitance is not modelled; no eye, return-loss or inter-pair timing
+result exists. Not routed: HDMI management signals, `HDMI_5V`, `+5V` and `+3V3` at U31, U31's supply
+capacitors, R150. F.Cu around U31's west end and In2/In5 look open for those, but that was not route
+tested. KiCad's project manager was running at transfer, with no lock on the PCB: reopen the board from
+disk. Evidence: `~/freyja-review/hdmi-2026-11-03/`.
+
+**Differential escapes transferred; onward routing unfinished.** The 8 LINK pairs have F.Cu stubs, through
+vias, coupled B.Cu lanes and GND stitching (present on In1, In4, In6 after refill; three pairs are
+stitched on one side only: LINK_Q_TXC, LINK_Q_TXD, LINK_Q_RXD). The 16 remaining `track_dangling` warnings
+are exactly these intentional corridor ends: west lanes x 198.9–209.8 at y 172–173.3.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
