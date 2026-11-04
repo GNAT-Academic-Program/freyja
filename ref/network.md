@@ -100,7 +100,8 @@ to ground through a capacitor.
 
 - MDI pairs 100 Ω differential, short, over one unbroken ground, no vias if
   the layer stack allows; keep the 4 × 75 Ω network's ground (P10) and the
-  shield tabs on the same ground as the PHY.
+  shield tabs on the same ground as the PHY. The part row at y 198.7 forces one
+  via per net, and MDI2 is not routed: see [findings](../findings.md).
 - RGMII: length-match TXD[3:0]/TXCTL to TXC and RXD[3:0]/RXCTL to RXC within
   a few millimetres; the PHY's internal 2 ns delays do the rest.
 - The LDO output `PHY_1V0` is a local rail: keep its capacitors within a few

@@ -61,6 +61,12 @@
   (layer outer)
   (condition "A.Type == 'Track' && A.NetName == 'LINK_*' && (A.enclosedByArea('J71_LINK_ENTRY') || A.enclosedByArea('J72_LINK_ENTRY')) && B.Type == 'Pad' && (B.memberOfFootprint('J71') || B.memberOfFootprint('J72')) && !AB.isCoupledDiffPair()")
   (constraint clearance (min 0.2mm)))
+# U30 MDI launch: on a 0.4 mm pitch pad centre a 0.099 mm track is 0.2505 mm from the next
+# pad, and one lane has about 0.17 mm at a pad corner. MDI tracks wholly inside U30_MDI_LAUNCH, against U30 pads only.
+(rule "MDI launch to U30 pads"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'ETH_MDI*' && A.enclosedByArea('U30_MDI_LAUNCH') && B.Type == 'Pad' && B.memberOfFootprint('U30') && !AB.isCoupledDiffPair()")
+  (constraint clearance (min 0.17mm)))
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))

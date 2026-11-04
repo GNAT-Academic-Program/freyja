@@ -51,6 +51,13 @@ HDMI_ENTRY_GAP_MAX = round(HDMI_ENTRY_PAIR_PITCH - DIFF_WIDTH, 3)
 LINK_ENTRY_AREAS = ('J71_LINK_ENTRY', 'J72_LINK_ENTRY')
 LINK_ENTRY_CLEARANCE = 0.2
 MDI_PATTERNS = ('ETH_MDI*',)
+# U30 launch: pads 0.2 mm wide on 0.4 mm pitch, so a 0.099 mm track on a pad centre is
+# 0.4 - 0.1 - 0.0495 = 0.2505 mm from the next pad; MDI1_N then threads about 0.17 mm between
+# pad 6's corner and MDI1_P's via, because parts sit 0.74 mm under the toes. MDI tracks
+# wholly inside the rule area the board owns, against U30's pads only. If the area is
+# missing the condition is false and the normal rule applies, so the launch fails loudly.
+MDI_LAUNCH_AREA = 'U30_MDI_LAUNCH'
+MDI_LAUNCH_CLEARANCE = 0.17
 RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'PHY_RX_CTL')
 # The SDR SDRAM bus (W9825G6KH-6, 3.3 V single-ended, target 100 MHz CL3) uses
 # 0.125 mm, about 50 ohm on all four signal layers; CLK has its 22 ohm at the
@@ -170,6 +177,12 @@ def emit_rules():
   (layer outer)
   (condition "{LINK_IN_ENTRY} && B.Type == 'Pad' && (B.memberOfFootprint('J71') || B.memberOfFootprint('J72')) && !AB.isCoupledDiffPair()")
   (constraint clearance (min {LINK_ENTRY_CLEARANCE}mm)))
+# U30 MDI launch: on a 0.4 mm pitch pad centre a 0.099 mm track is 0.2505 mm from the next
+# pad, and one lane has about 0.17 mm at a pad corner. MDI tracks wholly inside {MDI_LAUNCH_AREA}, against U30 pads only.
+(rule "MDI launch to U30 pads"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'ETH_MDI*' && A.enclosedByArea('{MDI_LAUNCH_AREA}') && B.Type == 'Pad' && B.memberOfFootprint('U30') && !AB.isCoupledDiffPair()")
+  (constraint clearance (min {MDI_LAUNCH_CLEARANCE}mm)))
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))

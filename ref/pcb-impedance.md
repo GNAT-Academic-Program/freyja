@@ -118,8 +118,7 @@ the connected layers, as lengths: it knows no layer delay and cannot see a throu
 contact's barrel, so it is not a delay check. The 0.31 mm clearance (about four
 dielectric heights) keeps other copper from loading the non-coplanar model. It
 holds a pair track against any foreign copper, pads included, so a track
-entering fine-pitch pads can fall under it; the 0.4 mm-pitch PHY pads have not
-been routed yet.
+entering fine-pitch pads can fall under it.
 
 **J73 exceptions.** At 0.5 mm pitch a 0.099 mm track on a J73 pad centre is
 0.3005 mm from the next pad, so 0.31 mm cannot be met, and P and N are 1.0 mm
@@ -138,6 +137,11 @@ for a `LINK_*` track wholly inside the board's `J71_LINK_ENTRY` or `J72_LINK_ENT
 rule area, against those jacks' pads only. The pair-gap rule is unchanged. Contacts
 3-6 straddle 4-5, so each jack has F entries (TXC, RXC) and B entries (TXD, RXD);
 both members of a pair enter on one layer. See [findings](../findings.md).
+
+**U30 exception.** U30's 0.2 mm pads on 0.4 mm pitch leave 0.2505 mm from a track on
+a pad centre to the next pad. `MDI launch to U30 pads` allows 0.17 mm for an `ETH_MDI*`
+track wholly inside the board's F.Cu `U30_MDI_LAUNCH` rule area, against U30's pads
+only. See [findings](../findings.md), including the open MDI2 placement decision.
 
 Inner-layer tracks are prohibited for the 100 Ω classes because the geometry
 is calculated only for the outer layers. Plane transitions still need ground
