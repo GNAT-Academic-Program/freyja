@@ -22,7 +22,7 @@ The board is 100 × 140 mm with eight copper layers, 551 schematic components
 and 555 placed footprints including four board-only mounting holes. All
 assembly is on F.Cu. **Routing is unfinished.** All four PSRAM ports, their
 ground connections and return stitching, the `+1V8_IO` distribution, the SDRAM,
-the four HDMI pairs and the LINK escapes are on the board; counts and open issues are in
+the four HDMI pairs and LINK P and Q are on the board; counts and open issues are in
 [current findings](findings.md). The gate reports DRC and unrouted items
 without gating them, so a passing gate is not a fabrication pass.
 

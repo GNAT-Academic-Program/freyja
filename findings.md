@@ -371,10 +371,83 @@ capacitors, R150. F.Cu around U31's west end and In2/In5 look open for those, bu
 tested. KiCad's project manager was running at transfer, with no lock on the PCB: reopen the board from
 disk. Evidence: `~/freyja-review/hdmi-2026-11-03/`, `~/freyja-review/j73-entry-2026-11-03/`.
 
-**Differential escapes transferred; onward routing unfinished.** The 8 LINK pairs have F.Cu stubs, through
-vias, coupled B.Cu lanes and GND stitching (present on In1, In4, In6 after refill; three pairs are
-stitched on one side only: LINK_Q_TXC, LINK_Q_TXD, LINK_Q_RXD). The 16 remaining `track_dangling` warnings
-are exactly these intentional corridor ends: west lanes x 198.9–209.8 at y 172–173.3.
+**LINK P and LINK Q routed and transferred.** All sixteen `LINK_*` nets run from the corridors through their
+ESD arrays to their jacks: **48 of 48 pads on 16 nets**, ball, D20–D23, J71 or J72. References and contact pairing
+checked against the netlist and `ref/link-ports.md`, P/N polarity on every contact and ESD pin. KiCad's own
+connectivity, with only these nets loaded, reports 0 unconnected. All sixteen corridor ends are closed and no
+`track_dangling` warning is left on the board. No external termination: receivers use `DIFF_TERM`.
+
+| Pair | Length, mm (P, N) | Track skew, mm | Vias per net (P, N) | Uncoupled, mm (P, N) |
+|---|---|---:|---|---|
+| P_TXC | 116.61, 116.61 | +0.00 | 2, 2 | 25.9, 25.9 |
+| P_TXD | 106.76, 105.76 | +1.00 | 2, 3 | 25.6, 24.6 |
+| P_RXC | 106.66, 107.66 | −1.00 | 3, 2 | 22.1, 23.0 |
+| P_RXD | 101.44, 101.44 | −0.00 | 2, 2 | 16.5, 16.5 |
+| Q_TXC | 70.92, 69.92 | +1.00 | 3, 4 | 28.6, 27.5 |
+| Q_TXD | 76.85, 76.85 | +0.00 | 3, 3 | 26.3, 26.2 |
+| Q_RXC | 78.08, 76.09 | +2.00 | 2, 4 | 22.8, 20.8 |
+| Q_RXD | 77.14, 76.14 | +1.00 | 2, 3 | 26.3, 25.3 |
+
+Lengths are track length from the U1 ball centre to the jack contact centre, including existing corridor copper;
+vias include the existing escape via. KiCad's skew rule counts each via as 1.0 mm, so the pairs with unequal
+vias have a matching track difference and KiCad's skew is **at most 0.003 mm on every pair**, limit 0.1 mm.
+There are no ESD branch stubs: every line runs through its ESD pad, and each net's track total equals its path.
+Uncoupled counts every part of a lane without its partner on the same layer at 0.299 mm, including length made up.
+
+**Why the uncoupled figures are this high.** Three fixed things force it, and no rule was relaxed for any of them:
+
+- **Contact pads, the exact conflict.** Neighbouring J71/J72 contact pads in a row are 2.04 mm apart and 1.524 mm across,
+  0.516 mm of gap. A 0.099 mm track in that gap has 0.2085 mm a side against the 0.31 mm rule, on every layer, so a
+  south-row contact cannot be reached between two north-row contacts. Contacts 3 and 5 of both jacks are reached from
+  the south, round the jack end. So are contacts 1 and 2 of J71 and 7 and 8 of J72; contact 7 of J71 comes round
+  its west end. This splits every 3-6 and 4-5 pair by layer for the length of the jack.
+- **ESD order against contact order.** D20–D23 run TXC, TXD, RXC, RXD west to east on J71's side and RXC, RXD, TXC, TXD on
+  J72's, nearly the reverse of the contact order, and D20 sits about 10 mm west of J71's TXC contacts.
+- **P and N pads on opposite sides of each array,** 2.7 mm apart in one column, so one lane of a pair must change layer
+  beside the part.
+
+Length is made up on the short net in real copper outside pads: triangles on the coupled B.Cu run of `P_TXC` and
+`Q_TXD`, and serpentines on the uncoupled legs of the other six. Owner decisions that could reduce this: a local rule at
+J71/J72 contact pads, 0.2085 mm, would allow direct entry to contacts 3 and 5; or swapping or moving D20–D23. Neither
+was done. The HDMI exception was not broadened: a LINK pair in the J73 area still fails, tested above.
+
+**Topology.** Outer layers only. LINK P runs on B.Cu, its four pairs in one row bundle north of the ESD row at 0.31 mm
+between pairs, south of MK76 and between J19 and H4. LINK Q crosses that bundle on F.Cu: Q_RXC and Q_RXD change layer near
+(205, 187), Q_TXC and Q_TXD near (198, 200). Two reserved sites shaped the corridors: `Q_RXD` jogs east round GND at
+(206.85, 176.19), and `Q_TXC` passes west of the existing vias at (200.75, 177.19) and (200.75, 179.39).
+
+**Grounds and stitching.** D20–D23 pin 2 reach In1, In4 and In6 through 4 vias, 4 of 4; J71 and J72 shells 4 of 4. 26 new LINK
+vias, 11 new stitching vias: 25 of the 26 have a GND via or through GND pad within 2.0 mm, a figure chosen here;
+`LINK_Q_TXD_N` at (199.65, 200.6) has 2.23 mm; the search found no free site within 2.0 mm of it. On the refilled planes,
+68 void crossings are a track leaving its own via and 32 are that same case where a P/N via pair's clearance holes merge, at 8
+locations, 5 of them new, 0.83–0.89 mm2 each. Every crossing ends at its own via; none is under a foreign via. The detour probe does not
+apply to those 32, since the track ends inside the hole; the return current through these transitions is not modelled.
+Each GND plane stays one piece, 11.5 mm2 smaller; `+3V3` and `+1V0` keep one piece each.
+
+**Checks on the live board:** refilled DRC 0 errors, 0 parity; warnings as before except `track_dangling` 16 to 0. Tracks 1676 to
+2136, vias 463 to 504, ratsnest 1254 to 1218. No footprint moved; every accepted track and via is byte-identical,
+LINK corridors kept item for item, and a fresh refill reproduces the file byte for byte. HDMI 24 of 24, SDRAM 82 of 82,
+PSRAM 120 of 120, `+1V8_IO` 40 of 40, U1 GND 141 of 141 still connect. `gate.py --strict` passes;
+`check_connector_rework.py` stops at the same pre-existing H1–H4 assertion.
+
+KiCad fires the gap rule on any exactly parallel P/N overlap on one layer, so uncoupled lanes beside their partner are ordinary
+slanted legs. Within 1.5 mm of the partner, and overlapping by more than 0.05 mm, the smallest angle is 3.5 degrees. Anything
+closer in angle is exactly parallel at the 0.200 mm gap, or at least 2 mm from the partner. No sub-degree tilt is used.
+
+**Open points.**
+
+- **Reserved site blocked.** The reserved `+1V0` via at (208.7, 173.89), for C301, sits between `P_RXC`'s lanes. On the stress
+  copy this is the only new conflict: 3 new errors of 54, all this site. C301's pad spans x 209.04–211.11, and (211.5, 174.5) is clear
+  on this copper, so the via can move there when that net is routed. Not tested with the rest of the +1V0 work.
+- **Via length model.** KiCad's 1.0 mm per via comes from the PCB's stackup block, which lists 0.2104 mm for the two thick
+  dielectrics where `ref/pcb-impedance.md` lists 0.2104 + 0.084 + 0.2104: 1.086 mm against the documented 1.624 mm. Pre-existing, not changed here. If a real via is about 1.6 mm of path, the unequal-via pairs
+  are off by about 0.6 mm per extra via, 1.2 mm on `Q_RXC`, before any return or capacitance effect. The rule cannot see that.
+- **Clock to data within a lane is not matched** and no rule covers it: track totals TXC against TXD 116.6/106.8 on P and 70.9/76.9 on
+  Q; RXC against RXD 106.7/101.4 on P and 78.1/77.1 on Q. A real link adds the far board and the cable. Timing is not assessed.
+
+**Not established: cable performance and electrical compliance.** These checks show copper connects and meets the rules. Impedance
+through the split sections, vias, ESD capacitance and serpentines is not modelled; no eye, return-loss or link test exists. Evidence:
+`~/freyja-review/link-2026-11-03/`.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
