@@ -1,0 +1,19 @@
+validation JLC 100 ohm pair: solver Zodd 50.1 ohm, Zdiff 100.3 ohm (JLC 100.0)
+F.Cu / B.Cu 0.125 mm     Z0  48.4 ohm  Dk_eff 3.112  5.88 ps/mm
+In2 / In5 0.125 mm       Z0  49.1 ohm  Dk_eff 4.365  6.97 ps/mm
+  inner width 0.1125: Z0  51.9, 6.97 ps/mm
+  inner width 0.1375: Z0  46.6, 6.97 ps/mm
+  inner width 0.1500: Z0  45.1, 6.97 ps/mm
+  inner width 0.2000: Z0  38.9, 6.97 ps/mm
+  inner width 0.2500: Z0  34.2, 6.97 ps/mm
+  inner width 0.3000: Z0  30.7, 6.96 ps/mm
+  inner 0.125, far plane absent: Z0 50.3, 6.97 ps/mm
+  inner 0.125, core 0.09: Z0 46.7
+  inner 0.125, core 0.11: Z0 51.2
+  inner 0.125, Dk +5%: Z0 47.9, 7.14 ps/mm
+  inner 0.125, Dk -5%: Z0 50.3, 6.79 ps/mm
+  outer width 0.1125: Z0 51.0, 5.87
+  outer width 0.1375: Z0 46.1, 5.90
+  outer 0.125, no mask: Z0 51.8, 5.50 ps/mm
+  inner pair at pitch 0.3: even Z 54.1, 6.97 ps/mm; odd Z 43.8, 6.97 ps/mm
+  outer pair at pitch 0.3: even Z 52.1, 6.00 ps/mm; odd Z 44.4, 5.74 ps/mm

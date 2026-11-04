@@ -1,0 +1,14 @@
+command: setup +2.70 (SDRAM_A7) hold +1.44 (SDRAM_LDQM); with note 8 setup +1.57 (SDRAM_A7) hold +0.79 (SDRAM_A7); limits settle-clock <= +4.22 leave-clock >= -1.77; now +1.58 -0.36
+write: setup +3.08 (SDRAM_DQ8) hold +1.41 (SDRAM_DQ2); with note 8 setup +2.42 (SDRAM_DQ8) hold +0.92 (SDRAM_DQ8); limits settle-clock <= +4.26 leave-clock >= -1.77; now +1.20 -0.39
+read: setup +1.30 (SDRAM_DQ8) hold +1.78 (SDRAM_DQ2); limit clock+DQ <= 2.17; now 0.60-0.89
+T arc, either direction: setup +3.029 (SDRAM_DQ8) hold +0.059 (SDRAM_DQ0)
+Slow BL4 read to write, FPGA drives from c0 edge 7: margin at U32 -2.67, at FPGA pad -3.22
+Slow BL4 read to write, FPGA drives from c0 edge 8: margin at U32 +7.33, at FPGA pad +6.78
+Slow write to read, FPGA release launched 0 cycles after READ: 27.31 ns before U32 can drive
+Slow write to read, FPGA release launched 1 cycles after READ: 17.31 ns before U32 can drive
+Slow write to read, FPGA release launched 2 cycles after READ: 7.31 ns before U32 can drive
+Fast BL4 read to write, FPGA drives from c0 edge 7: margin at U32 -2.32, at FPGA pad -2.87
+Fast BL4 read to write, FPGA drives from c0 edge 8: margin at U32 +7.68, at FPGA pad +7.13
+Fast write to read, FPGA release launched 0 cycles after READ: 27.86 ns before U32 can drive
+Fast write to read, FPGA release launched 1 cycles after READ: 17.86 ns before U32 can drive
+Fast write to read, FPGA release launched 2 cycles after READ: 7.86 ns before U32 can drive

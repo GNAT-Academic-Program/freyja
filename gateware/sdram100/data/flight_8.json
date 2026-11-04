@@ -1,0 +1,3758 @@
+{
+"SDRAM_A7": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+1.41
+],
+[
+"via",
+"In2-In5"
+],
+[
+"In5",
+85.51
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.88
+]
+],
+"ball": "T25",
+"len": 89.51,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.6226,
+"settle": 1.1349,
+"flight": 0.8481,
+"edge": 1.031,
+"vmax": 3.52,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.8316,
+"settle": 1.3501,
+"flight": 1.0713,
+"edge": 0.904,
+"vmax": 3.3,
+"vmin": -0.51,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.6102,
+"settle": 1.6886,
+"flight": 0.9398,
+"edge": 2.345,
+"vmax": 3.27,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.9058,
+"settle": 2.0104,
+"flight": 1.3749,
+"edge": 1.904,
+"vmax": 3.13,
+"vmin": -0.28,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.6366,
+"settle": 0.9466,
+"flight": 0.7903,
+"edge": 0.561,
+"vmax": 3.59,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.01
+},
+"f": {
+"leave": 0.7528,
+"settle": 1.0927,
+"flight": 0.922,
+"edge": 0.584,
+"vmax": 3.47,
+"vmin": -0.97,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A4": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+61.2
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "M25",
+"len": 63.19,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.4397,
+"settle": 0.9429,
+"flight": 0.6655,
+"edge": 0.969,
+"vmax": 3.51,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6455,
+"settle": 1.1441,
+"flight": 0.8827,
+"edge": 0.866,
+"vmax": 3.3,
+"vmin": -0.51,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.4147,
+"settle": 1.4266,
+"flight": 0.7425,
+"edge": 1.94,
+"vmax": 3.24,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.707,
+"settle": 1.7224,
+"flight": 1.1603,
+"edge": 1.617,
+"vmax": 3.13,
+"vmin": -0.31,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.4681,
+"settle": 0.7766,
+"flight": 0.6233,
+"edge": 0.558,
+"vmax": 3.57,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5866,
+"settle": 0.9187,
+"flight": 0.7537,
+"edge": 0.57,
+"vmax": 3.47,
+"vmin": -0.97,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A5": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+71.91
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.88
+]
+],
+"ball": "P25",
+"len": 74.5,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.5223,
+"settle": 1.0329,
+"flight": 0.7475,
+"edge": 1.012,
+"vmax": 3.52,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.7296,
+"settle": 1.2441,
+"flight": 0.9704,
+"edge": 0.889,
+"vmax": 3.3,
+"vmin": -0.5,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.5015,
+"settle": 1.5466,
+"flight": 0.8292,
+"edge": 2.131,
+"vmax": 3.25,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.7965,
+"settle": 1.8744,
+"flight": 1.2614,
+"edge": 1.748,
+"vmax": 3.13,
+"vmin": -0.29,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.5385,
+"settle": 0.8466,
+"flight": 0.6925,
+"edge": 0.559,
+"vmax": 3.58,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6551,
+"settle": 0.9927,
+"flight": 0.8235,
+"edge": 0.581,
+"vmax": 3.47,
+"vmin": -0.95,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A11": {
+"sections": [
+[
+"F.Cu",
+2.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+60.49
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "T24",
+"len": 64.48,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.4427,
+"settle": 0.9589,
+"flight": 0.6689,
+"edge": 1.024,
+"vmax": 3.52,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.653,
+"settle": 1.1681,
+"flight": 0.8938,
+"edge": 0.905,
+"vmax": 3.3,
+"vmin": -0.47,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.4175,
+"settle": 1.5126,
+"flight": 0.7529,
+"edge": 1.965,
+"vmax": 3.22,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.7196,
+"settle": 1.7764,
+"flight": 1.1852,
+"edge": 1.646,
+"vmax": 3.13,
+"vmin": -0.29,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.4643,
+"settle": 0.7746,
+"flight": 0.6178,
+"edge": 0.565,
+"vmax": 3.6,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5803,
+"settle": 0.9227,
+"flight": 0.7512,
+"edge": 0.586,
+"vmax": 3.47,
+"vmin": -0.87,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A12": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+58.37
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.88
+]
+],
+"ball": "N23",
+"len": 60.95,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.4337,
+"settle": 0.9409,
+"flight": 0.6591,
+"edge": 0.98,
+"vmax": 3.51,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6406,
+"settle": 1.1441,
+"flight": 0.8786,
+"edge": 0.876,
+"vmax": 3.3,
+"vmin": -0.49,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.4093,
+"settle": 1.4426,
+"flight": 0.7385,
+"edge": 1.936,
+"vmax": 3.23,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.7045,
+"settle": 1.7304,
+"flight": 1.1609,
+"edge": 1.618,
+"vmax": 3.13,
+"vmin": -0.3,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.4559,
+"settle": 0.7646,
+"flight": 0.6103,
+"edge": 0.559,
+"vmax": 3.57,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5732,
+"settle": 0.9087,
+"flight": 0.7416,
+"edge": 0.574,
+"vmax": 3.47,
+"vmin": -0.93,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A0": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+44.36
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+2.57
+]
+],
+"ball": "M26",
+"len": 47.64,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.3422,
+"settle": 0.8449,
+"flight": 0.5695,
+"edge": 0.947,
+"vmax": 3.5,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5488,
+"settle": 1.0441,
+"flight": 0.784,
+"edge": 0.869,
+"vmax": 3.3,
+"vmin": -0.47,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.3103,
+"settle": 1.3466,
+"flight": 0.6353,
+"edge": 1.732,
+"vmax": 3.2,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6021,
+"settle": 1.5524,
+"flight": 1.0552,
+"edge": 1.485,
+"vmax": 3.13,
+"vmin": -0.31,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.3713,
+"settle": 0.6826,
+"flight": 0.5278,
+"edge": 0.561,
+"vmax": 3.57,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.491,
+"settle": 0.8187,
+"flight": 0.6572,
+"edge": 0.562,
+"vmax": 3.47,
+"vmin": -0.9,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A10": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+38.18
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+12.35
+]
+],
+"ball": "P24",
+"len": 51.23,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.3488,
+"settle": 0.8509,
+"flight": 0.5748,
+"edge": 0.949,
+"vmax": 3.5,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5539,
+"settle": 1.0521,
+"flight": 0.7895,
+"edge": 0.869,
+"vmax": 3.3,
+"vmin": -0.48,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.3202,
+"settle": 1.3566,
+"flight": 0.6446,
+"edge": 1.751,
+"vmax": 3.21,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6118,
+"settle": 1.5704,
+"flight": 1.066,
+"edge": 1.497,
+"vmax": 3.13,
+"vmin": -0.31,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.3753,
+"settle": 0.6846,
+"flight": 0.5305,
+"edge": 0.557,
+"vmax": 3.57,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4942,
+"settle": 0.8227,
+"flight": 0.6599,
+"edge": 0.562,
+"vmax": 3.47,
+"vmin": -0.9,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A3": {
+"sections": [
+[
+"F.Cu",
+5.18
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+48.44
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+5.67
+]
+],
+"ball": "R26",
+"len": 59.29,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.412,
+"settle": 0.9249,
+"flight": 0.6386,
+"edge": 0.998,
+"vmax": 3.51,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6214,
+"settle": 1.1301,
+"flight": 0.8612,
+"edge": 0.895,
+"vmax": 3.3,
+"vmin": -0.47,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.3873,
+"settle": 1.4766,
+"flight": 0.7203,
+"edge": 1.899,
+"vmax": 3.22,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6871,
+"settle": 1.7124,
+"flight": 1.1482,
+"edge": 1.599,
+"vmax": 3.13,
+"vmin": -0.3,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.4332,
+"settle": 0.7446,
+"flight": 0.5875,
+"edge": 0.564,
+"vmax": 3.58,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5501,
+"settle": 0.8887,
+"flight": 0.7206,
+"edge": 0.58,
+"vmax": 3.47,
+"vmin": -0.87,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A2": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+47.61
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+10.88
+]
+],
+"ball": "P26",
+"len": 59.2,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.4198,
+"settle": 0.9269,
+"flight": 0.6462,
+"edge": 0.973,
+"vmax": 3.51,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.627,
+"settle": 1.1281,
+"flight": 0.8649,
+"edge": 0.874,
+"vmax": 3.3,
+"vmin": -0.49,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.3941,
+"settle": 1.4306,
+"flight": 0.7238,
+"edge": 1.903,
+"vmax": 3.23,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6891,
+"settle": 1.7024,
+"flight": 1.1429,
+"edge": 1.595,
+"vmax": 3.13,
+"vmin": -0.3,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.4433,
+"settle": 0.7546,
+"flight": 0.5986,
+"edge": 0.561,
+"vmax": 3.56,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.01
+},
+"f": {
+"leave": 0.5614,
+"settle": 0.8967,
+"flight": 0.7299,
+"edge": 0.572,
+"vmax": 3.47,
+"vmin": -0.93,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_A6": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+81.64
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "R25",
+"len": 83.62,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.5798,
+"settle": 1.0909,
+"flight": 0.8048,
+"edge": 1.024,
+"vmax": 3.52,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.7874,
+"settle": 1.3041,
+"flight": 1.0278,
+"edge": 0.897,
+"vmax": 3.3,
+"vmin": -0.51,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.5639,
+"settle": 1.6286,
+"flight": 0.8928,
+"edge": 2.256,
+"vmax": 3.26,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.8592,
+"settle": 1.9584,
+"flight": 1.3274,
+"edge": 1.837,
+"vmax": 3.13,
+"vmin": -0.28,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.5941,
+"settle": 0.9026,
+"flight": 0.7477,
+"edge": 0.559,
+"vmax": 3.59,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.7103,
+"settle": 1.0487,
+"flight": 0.8791,
+"edge": 0.583,
+"vmax": 3.47,
+"vmin": -0.96,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A1": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+44.91
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+10.68
+]
+],
+"ball": "N26",
+"len": 56.3,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.4097,
+"settle": 0.9209,
+"flight": 0.6374,
+"edge": 0.986,
+"vmax": 3.51,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6194,
+"settle": 1.1241,
+"flight": 0.8585,
+"edge": 0.887,
+"vmax": 3.3,
+"vmin": -0.47,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.3838,
+"settle": 1.4566,
+"flight": 0.7169,
+"edge": 1.888,
+"vmax": 3.22,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6823,
+"settle": 1.6984,
+"flight": 1.1395,
+"edge": 1.59,
+"vmax": 3.13,
+"vmin": -0.3,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.4339,
+"settle": 0.7466,
+"flight": 0.5895,
+"edge": 0.567,
+"vmax": 3.58,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5518,
+"settle": 0.8907,
+"flight": 0.7222,
+"edge": 0.578,
+"vmax": 3.47,
+"vmin": -0.89,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_A8": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+57.47
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "M24",
+"len": 59.45,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.4177,
+"settle": 0.9189,
+"flight": 0.6438,
+"edge": 0.95,
+"vmax": 3.51,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6227,
+"settle": 1.1161,
+"flight": 0.8584,
+"edge": 0.855,
+"vmax": 3.3,
+"vmin": -0.51,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.3907,
+"settle": 1.3906,
+"flight": 0.7172,
+"edge": 1.885,
+"vmax": 3.24,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6808,
+"settle": 1.6744,
+"flight": 1.1287,
+"edge": 1.577,
+"vmax": 3.13,
+"vmin": -0.31,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.4463,
+"settle": 0.7546,
+"flight": 0.6019,
+"edge": 0.557,
+"vmax": 3.57,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5656,
+"settle": 0.8947,
+"flight": 0.7319,
+"edge": 0.565,
+"vmax": 3.47,
+"vmin": -0.98,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ12": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+28.99
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+1.88
+]
+],
+"ball": "J6",
+"len": 31.57,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2603,
+"settle": 0.9049,
+"flight": 0.5188,
+"edge": 1.356,
+"vmax": 3.4,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4948,
+"settle": 1.1161,
+"flight": 0.7738,
+"edge": 1.046,
+"vmax": 3.3,
+"vmin": -0.36,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.2415,
+"settle": 1.3726,
+"flight": 0.6465,
+"edge": 1.677,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5903,
+"settle": 1.5164,
+"flight": 1.1017,
+"edge": 1.467,
+"vmax": 3.14,
+"vmin": -0.18,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2771,
+"settle": 0.6466,
+"flight": 0.4553,
+"edge": 0.673,
+"vmax": 3.65,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4182,
+"settle": 0.8187,
+"flight": 0.6065,
+"edge": 0.698,
+"vmax": 3.47,
+"vmin": -0.52,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ1": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+10.85
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+1.97
+]
+],
+"ball": "D6",
+"len": 13.52,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.1693,
+"settle": 0.7849,
+"flight": 0.4188,
+"edge": 1.19,
+"vmax": 3.37,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4003,
+"settle": 0.9801,
+"flight": 0.6767,
+"edge": 0.948,
+"vmax": 3.3,
+"vmin": -0.36,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.142,
+"settle": 1.1446,
+"flight": 0.5545,
+"edge": 1.488,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4901,
+"settle": 1.2924,
+"flight": 0.9466,
+"edge": 1.326,
+"vmax": 3.14,
+"vmin": -0.14,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.1978,
+"settle": 0.5486,
+"flight": 0.3725,
+"edge": 0.654,
+"vmax": 3.63,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3313,
+"settle": 0.7227,
+"flight": 0.5194,
+"edge": 0.676,
+"vmax": 3.47,
+"vmin": -0.49,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ0": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+10.79
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+1.97
+]
+],
+"ball": "E6",
+"len": 13.47,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.1449,
+"settle": 0.7969,
+"flight": 0.3997,
+"edge": 1.176,
+"vmax": 3.33,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.383,
+"settle": 0.9641,
+"flight": 0.6691,
+"edge": 0.938,
+"vmax": 3.3,
+"vmin": -0.33,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1182,
+"settle": 1.0926,
+"flight": 0.5654,
+"edge": 1.45,
+"vmax": 3.13,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4811,
+"settle": 1.2484,
+"flight": 0.9179,
+"edge": 1.303,
+"vmax": 3.14,
+"vmin": -0.1,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.1728,
+"settle": 0.5306,
+"flight": 0.3463,
+"edge": 0.683,
+"vmax": 3.63,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3078,
+"settle": 0.7187,
+"flight": 0.5023,
+"edge": 0.697,
+"vmax": 3.47,
+"vmin": -0.46,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_A9": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+60.99
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.88
+]
+],
+"ball": "N24",
+"len": 63.58,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.4624,
+"settle": 0.9709,
+"flight": 0.6883,
+"edge": 0.987,
+"vmax": 3.51,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6701,
+"settle": 1.1741,
+"flight": 0.9086,
+"edge": 0.876,
+"vmax": 3.3,
+"vmin": -0.5,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.4361,
+"settle": 1.4626,
+"flight": 0.7668,
+"edge": 1.992,
+"vmax": 3.24,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.7316,
+"settle": 1.7724,
+"flight": 1.1893,
+"edge": 1.655,
+"vmax": 3.13,
+"vmin": -0.3,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.4821,
+"settle": 0.7926,
+"flight": 0.637,
+"edge": 0.561,
+"vmax": 3.57,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.01
+},
+"f": {
+"leave": 0.5996,
+"settle": 0.9367,
+"flight": 0.7681,
+"edge": 0.576,
+"vmax": 3.47,
+"vmin": -0.94,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_BA0": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+38.42
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+10.25
+]
+],
+"ball": "P23",
+"len": 49.38,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.3348,
+"settle": 0.8409,
+"flight": 0.561,
+"edge": 0.974,
+"vmax": 3.5,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.542,
+"settle": 1.0481,
+"flight": 0.7791,
+"edge": 0.889,
+"vmax": 3.3,
+"vmin": -0.46,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.3068,
+"settle": 1.3806,
+"flight": 0.6335,
+"edge": 1.734,
+"vmax": 3.19,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6026,
+"settle": 1.5624,
+"flight": 1.0645,
+"edge": 1.49,
+"vmax": 3.13,
+"vmin": -0.3,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.3626,
+"settle": 0.6726,
+"flight": 0.5175,
+"edge": 0.56,
+"vmax": 3.59,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4807,
+"settle": 0.8127,
+"flight": 0.6479,
+"edge": 0.569,
+"vmax": 3.47,
+"vmin": -0.85,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_CKE": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+39.58
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "K6",
+"len": 41.57,
+"stub": 11.05,
+"cload": 5.142876895930681e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2784,
+"settle": 0.8429,
+"flight": 0.5211,
+"edge": 1.308,
+"vmax": 3.46,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5012,
+"settle": 1.0801,
+"flight": 0.7582,
+"edge": 0.995,
+"vmax": 3.3,
+"vmin": -0.38,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.2557,
+"settle": 1.3826,
+"flight": 0.6189,
+"edge": 1.684,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5795,
+"settle": 1.5224,
+"flight": 1.082,
+"edge": 1.464,
+"vmax": 3.13,
+"vmin": -0.24,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.3021,
+"settle": 0.6406,
+"flight": 0.4668,
+"edge": 0.62,
+"vmax": 3.66,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4312,
+"settle": 0.7967,
+"flight": 0.6091,
+"edge": 0.641,
+"vmax": 3.47,
+"vmin": -0.61,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_BA1": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+38.05
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+12.43
+]
+],
+"ball": "R23",
+"len": 51.18,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.3504,
+"settle": 0.8589,
+"flight": 0.5772,
+"edge": 0.975,
+"vmax": 3.5,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5578,
+"settle": 1.0641,
+"flight": 0.7957,
+"edge": 0.889,
+"vmax": 3.3,
+"vmin": -0.46,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.3188,
+"settle": 1.3946,
+"flight": 0.6467,
+"edge": 1.758,
+"vmax": 3.2,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6148,
+"settle": 1.5824,
+"flight": 1.0762,
+"edge": 1.505,
+"vmax": 3.13,
+"vmin": -0.3,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.376,
+"settle": 0.6866,
+"flight": 0.5311,
+"edge": 0.561,
+"vmax": 3.58,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4941,
+"settle": 0.8287,
+"flight": 0.6619,
+"edge": 0.57,
+"vmax": 3.47,
+"vmin": -0.86,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_DQ11": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"B.Cu-F.Cu"
+],
+[
+"B.Cu",
+32.46
+],
+[
+"via",
+"B.Cu-F.Cu"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "G9",
+"len": 34.45,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2388,
+"settle": 0.9329,
+"flight": 0.499,
+"edge": 1.353,
+"vmax": 3.37,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4801,
+"settle": 1.1181,
+"flight": 0.7712,
+"edge": 1.051,
+"vmax": 3.3,
+"vmin": -0.35,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.2264,
+"settle": 1.3486,
+"flight": 0.6588,
+"edge": 1.653,
+"vmax": 3.13,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.59,
+"settle": 1.4944,
+"flight": 1.0984,
+"edge": 1.456,
+"vmax": 3.14,
+"vmin": -0.14,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2578,
+"settle": 0.6326,
+"flight": 0.4359,
+"edge": 0.696,
+"vmax": 3.65,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3984,
+"settle": 0.8227,
+"flight": 0.5949,
+"edge": 0.732,
+"vmax": 3.47,
+"vmin": -0.47,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_CAS_N": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+25.13
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+1.97
+]
+],
+"ball": "F3",
+"len": 27.81,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2148,
+"settle": 0.6989,
+"flight": 0.4379,
+"edge": 0.947,
+"vmax": 3.44,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4186,
+"settle": 0.9161,
+"flight": 0.6498,
+"edge": 0.851,
+"vmax": 3.3,
+"vmin": -0.43,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1771,
+"settle": 1.1466,
+"flight": 0.4921,
+"edge": 1.506,
+"vmax": 3.16,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4651,
+"settle": 1.3144,
+"flight": 0.9134,
+"edge": 1.319,
+"vmax": 3.13,
+"vmin": -0.29,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.252,
+"settle": 0.5606,
+"flight": 0.4071,
+"edge": 0.553,
+"vmax": 3.54,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3666,
+"settle": 0.6907,
+"flight": 0.5274,
+"edge": 0.561,
+"vmax": 3.47,
+"vmin": -0.74,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_DQ13": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+27.45
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.88
+]
+],
+"ball": "J5",
+"len": 30.03,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2689,
+"settle": 0.8709,
+"flight": 0.5254,
+"edge": 1.318,
+"vmax": 3.43,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.497,
+"settle": 1.0921,
+"flight": 0.7651,
+"edge": 1.015,
+"vmax": 3.3,
+"vmin": -0.38,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.2454,
+"settle": 1.3626,
+"flight": 0.6258,
+"edge": 1.675,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5794,
+"settle": 1.5104,
+"flight": 1.0831,
+"edge": 1.459,
+"vmax": 3.14,
+"vmin": -0.22,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2853,
+"settle": 0.6466,
+"flight": 0.4617,
+"edge": 0.651,
+"vmax": 3.63,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4258,
+"settle": 0.8047,
+"flight": 0.6069,
+"edge": 0.662,
+"vmax": 3.47,
+"vmin": -0.58,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_CS_N": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+24.73
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.97
+]
+],
+"ball": "D3",
+"len": 27.41,
+"stub": 9.95,
+"cload": 5.008290557337074e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2876,
+"settle": 0.7969,
+"flight": 0.527,
+"edge": 0.999,
+"vmax": 3.45,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4988,
+"settle": 1.0061,
+"flight": 0.7377,
+"edge": 0.885,
+"vmax": 3.3,
+"vmin": -0.42,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.2566,
+"settle": 1.2846,
+"flight": 0.5892,
+"edge": 1.652,
+"vmax": 3.16,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5521,
+"settle": 1.4684,
+"flight": 1.0101,
+"edge": 1.424,
+"vmax": 3.13,
+"vmin": -0.3,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.3145,
+"settle": 0.6486,
+"flight": 0.4822,
+"edge": 0.593,
+"vmax": 3.55,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4438,
+"settle": 0.7747,
+"flight": 0.6088,
+"edge": 0.576,
+"vmax": 3.47,
+"vmin": -0.79,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_DQ14": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+31.02
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "L8",
+"len": 33.0,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2715,
+"settle": 0.9029,
+"flight": 0.5303,
+"edge": 1.362,
+"vmax": 3.42,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5044,
+"settle": 1.1221,
+"flight": 0.7798,
+"edge": 1.046,
+"vmax": 3.3,
+"vmin": -0.37,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.2524,
+"settle": 1.3926,
+"flight": 0.6485,
+"edge": 1.697,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5964,
+"settle": 1.5364,
+"flight": 1.1102,
+"edge": 1.479,
+"vmax": 3.14,
+"vmin": -0.2,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2912,
+"settle": 0.6586,
+"flight": 0.4691,
+"edge": 0.669,
+"vmax": 3.65,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4329,
+"settle": 0.8267,
+"flight": 0.6182,
+"edge": 0.687,
+"vmax": 3.47,
+"vmin": -0.54,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ10": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"B.Cu-F.Cu"
+],
+[
+"B.Cu",
+36.69
+],
+[
+"via",
+"B.Cu-F.Cu"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "H9",
+"len": 38.68,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2848,
+"settle": 0.8929,
+"flight": 0.5433,
+"edge": 1.352,
+"vmax": 3.43,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5138,
+"settle": 1.1161,
+"flight": 0.7837,
+"edge": 1.034,
+"vmax": 3.3,
+"vmin": -0.38,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.2684,
+"settle": 1.4146,
+"flight": 0.6484,
+"edge": 1.72,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6023,
+"settle": 1.5584,
+"flight": 1.115,
+"edge": 1.493,
+"vmax": 3.14,
+"vmin": -0.23,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.3051,
+"settle": 0.6686,
+"flight": 0.4814,
+"edge": 0.657,
+"vmax": 3.65,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.01
+},
+"f": {
+"leave": 0.4473,
+"settle": 0.8267,
+"flight": 0.628,
+"edge": 0.664,
+"vmax": 3.47,
+"vmin": -0.59,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_DQ15": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+28.06
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "K8",
+"len": 30.05,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2683,
+"settle": 0.8809,
+"flight": 0.5253,
+"edge": 1.333,
+"vmax": 3.42,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.498,
+"settle": 1.1001,
+"flight": 0.7686,
+"edge": 1.025,
+"vmax": 3.3,
+"vmin": -0.38,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.2476,
+"settle": 1.3726,
+"flight": 0.6334,
+"edge": 1.683,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5851,
+"settle": 1.5184,
+"flight": 1.0925,
+"edge": 1.466,
+"vmax": 3.14,
+"vmin": -0.21,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2856,
+"settle": 0.6486,
+"flight": 0.4625,
+"edge": 0.656,
+"vmax": 3.64,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4264,
+"settle": 0.8107,
+"flight": 0.609,
+"edge": 0.671,
+"vmax": 3.47,
+"vmin": -0.56,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ2": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+17.8
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+2.57
+]
+],
+"ball": "H8",
+"len": 21.08,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.1655,
+"settle": 0.8429,
+"flight": 0.4226,
+"edge": 1.221,
+"vmax": 3.33,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4089,
+"settle": 1.0081,
+"flight": 0.7018,
+"edge": 0.971,
+"vmax": 3.3,
+"vmin": -0.33,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1442,
+"settle": 1.1546,
+"flight": 0.6035,
+"edge": 1.495,
+"vmax": 3.13,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5148,
+"settle": 1.3084,
+"flight": 0.9664,
+"edge": 1.345,
+"vmax": 3.14,
+"vmin": -0.1,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.1863,
+"settle": 0.5526,
+"flight": 0.3628,
+"edge": 0.716,
+"vmax": 3.63,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3247,
+"settle": 0.7507,
+"flight": 0.5271,
+"edge": 0.723,
+"vmax": 3.47,
+"vmin": -0.46,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ4": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+18.88
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+2.57
+]
+],
+"ball": "H7",
+"len": 22.15,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.1888,
+"settle": 0.8529,
+"flight": 0.4442,
+"edge": 1.253,
+"vmax": 3.36,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4279,
+"settle": 1.0341,
+"flight": 0.7157,
+"edge": 0.989,
+"vmax": 3.3,
+"vmin": -0.35,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1661,
+"settle": 1.2066,
+"flight": 0.6034,
+"edge": 1.535,
+"vmax": 3.13,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.529,
+"settle": 1.3564,
+"flight": 0.9988,
+"edge": 1.37,
+"vmax": 3.14,
+"vmin": -0.12,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.208,
+"settle": 0.5726,
+"flight": 0.3855,
+"edge": 0.689,
+"vmax": 3.64,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3462,
+"settle": 0.7627,
+"flight": 0.5437,
+"edge": 0.714,
+"vmax": 3.47,
+"vmin": -0.47,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_DQ8": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"B.Cu-F.Cu"
+],
+[
+"B.Cu",
+38.75
+],
+[
+"via",
+"B.Cu-F.Cu"
+],
+[
+"F.Cu",
+1.88
+]
+],
+"ball": "H6",
+"len": 41.33,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.3125,
+"settle": 0.9349,
+"flight": 0.5737,
+"edge": 1.422,
+"vmax": 3.44,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5453,
+"settle": 1.1641,
+"flight": 0.8186,
+"edge": 1.075,
+"vmax": 3.3,
+"vmin": -0.36,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.3008,
+"settle": 1.4986,
+"flight": 0.69,
+"edge": 1.792,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6401,
+"settle": 1.6364,
+"flight": 1.1668,
+"edge": 1.545,
+"vmax": 3.14,
+"vmin": -0.22,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.3273,
+"settle": 0.6966,
+"flight": 0.5055,
+"edge": 0.673,
+"vmax": 3.66,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4704,
+"settle": 0.8587,
+"flight": 0.6547,
+"edge": 0.68,
+"vmax": 3.47,
+"vmin": -0.57,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ3": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+19.25
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.97
+]
+],
+"ball": "G8",
+"len": 21.92,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2007,
+"settle": 0.8569,
+"flight": 0.4553,
+"edge": 1.268,
+"vmax": 3.37,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4375,
+"settle": 1.0441,
+"flight": 0.7221,
+"edge": 0.996,
+"vmax": 3.3,
+"vmin": -0.36,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1773,
+"settle": 1.2306,
+"flight": 0.6037,
+"edge": 1.556,
+"vmax": 3.13,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5359,
+"settle": 1.3804,
+"flight": 1.0139,
+"edge": 1.382,
+"vmax": 3.14,
+"vmin": -0.13,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2204,
+"settle": 0.5846,
+"flight": 0.3974,
+"edge": 0.677,
+"vmax": 3.65,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3584,
+"settle": 0.7687,
+"flight": 0.5529,
+"edge": 0.707,
+"vmax": 3.47,
+"vmin": -0.48,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ5": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+19.02
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.97
+]
+],
+"ball": "G7",
+"len": 21.7,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2034,
+"settle": 0.8509,
+"flight": 0.4573,
+"edge": 1.267,
+"vmax": 3.37,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4387,
+"settle": 1.0441,
+"flight": 0.7211,
+"edge": 0.994,
+"vmax": 3.3,
+"vmin": -0.36,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1815,
+"settle": 1.2386,
+"flight": 0.601,
+"edge": 1.563,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5366,
+"settle": 1.3864,
+"flight": 1.0173,
+"edge": 1.385,
+"vmax": 3.14,
+"vmin": -0.14,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2235,
+"settle": 0.5866,
+"flight": 0.4005,
+"edge": 0.67,
+"vmax": 3.65,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3613,
+"settle": 0.7667,
+"flight": 0.5541,
+"edge": 0.7,
+"vmax": 3.47,
+"vmin": -0.49,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ6": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+19.4
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+2.57
+]
+],
+"ball": "F8",
+"len": 22.68,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.221,
+"settle": 0.8389,
+"flight": 0.474,
+"edge": 1.267,
+"vmax": 3.4,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.451,
+"settle": 1.0461,
+"flight": 0.7246,
+"edge": 0.992,
+"vmax": 3.3,
+"vmin": -0.38,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1954,
+"settle": 1.2606,
+"flight": 0.5928,
+"edge": 1.585,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5381,
+"settle": 1.4084,
+"flight": 1.0238,
+"edge": 1.396,
+"vmax": 3.14,
+"vmin": -0.18,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.242,
+"settle": 0.6006,
+"flight": 0.4199,
+"edge": 0.651,
+"vmax": 3.64,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3799,
+"settle": 0.7687,
+"flight": 0.566,
+"edge": 0.672,
+"vmax": 3.47,
+"vmin": -0.52,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ9": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+31.39
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+1.88
+]
+],
+"ball": "G6",
+"len": 33.98,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2899,
+"settle": 0.8989,
+"flight": 0.5492,
+"edge": 1.362,
+"vmax": 3.43,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5197,
+"settle": 1.1221,
+"flight": 0.7896,
+"edge": 1.039,
+"vmax": 3.3,
+"vmin": -0.37,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.2726,
+"settle": 1.4246,
+"flight": 0.6543,
+"edge": 1.73,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.6074,
+"settle": 1.5684,
+"flight": 1.121,
+"edge": 1.499,
+"vmax": 3.14,
+"vmin": -0.22,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.3086,
+"settle": 0.6746,
+"flight": 0.4865,
+"edge": 0.661,
+"vmax": 3.64,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4511,
+"settle": 0.8327,
+"flight": 0.6324,
+"edge": 0.667,
+"vmax": 3.47,
+"vmin": -0.58,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_LDQM": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+25.68
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.97
+]
+],
+"ball": "J4",
+"len": 28.35,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.1827,
+"settle": 0.6749,
+"flight": 0.4044,
+"edge": 0.997,
+"vmax": 3.44,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3879,
+"settle": 0.8981,
+"flight": 0.6234,
+"edge": 0.861,
+"vmax": 3.3,
+"vmin": -0.43,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.146,
+"settle": 1.1146,
+"flight": 0.4673,
+"edge": 1.461,
+"vmax": 3.15,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4407,
+"settle": 1.2644,
+"flight": 0.8946,
+"edge": 1.289,
+"vmax": 3.13,
+"vmin": -0.27,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2201,
+"settle": 0.5246,
+"flight": 0.3723,
+"edge": 0.55,
+"vmax": 3.58,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3331,
+"settle": 0.6647,
+"flight": 0.4955,
+"edge": 0.576,
+"vmax": 3.47,
+"vmin": -0.66,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_DQ7": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+21.12
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.97
+]
+],
+"ball": "F7",
+"len": 23.8,
+"stub": 0.0,
+"cload": 6.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2375,
+"settle": 0.8449,
+"flight": 0.4913,
+"edge": 1.28,
+"vmax": 3.41,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4656,
+"settle": 1.0581,
+"flight": 0.7368,
+"edge": 0.998,
+"vmax": 3.3,
+"vmin": -0.38,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.212,
+"settle": 1.2926,
+"flight": 0.5995,
+"edge": 1.614,
+"vmax": 3.14,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.5499,
+"settle": 1.4404,
+"flight": 1.0421,
+"edge": 1.415,
+"vmax": 3.14,
+"vmin": -0.19,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.257,
+"settle": 0.6166,
+"flight": 0.4342,
+"edge": 0.648,
+"vmax": 3.64,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3954,
+"settle": 0.7807,
+"flight": 0.5791,
+"edge": 0.666,
+"vmax": 3.47,
+"vmin": -0.54,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_RAS_N": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+22.31
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+2.57
+]
+],
+"ball": "C3",
+"len": 25.59,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2334,
+"settle": 0.7049,
+"flight": 0.4557,
+"edge": 0.893,
+"vmax": 3.43,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4342,
+"settle": 0.9121,
+"flight": 0.6597,
+"edge": 0.825,
+"vmax": 3.3,
+"vmin": -0.46,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1949,
+"settle": 1.1346,
+"flight": 0.5022,
+"edge": 1.521,
+"vmax": 3.18,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4752,
+"settle": 1.3284,
+"flight": 0.9099,
+"edge": 1.328,
+"vmax": 3.13,
+"vmin": -0.32,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2663,
+"settle": 0.5746,
+"flight": 0.4226,
+"edge": 0.55,
+"vmax": 3.51,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3815,
+"settle": 0.6947,
+"flight": 0.5399,
+"edge": 0.545,
+"vmax": 3.47,
+"vmin": -0.82,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_UDQM": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"In5",
+32.73
+],
+[
+"via",
+"F.Cu-In5"
+],
+[
+"F.Cu",
+1.28
+]
+],
+"ball": "H4",
+"len": 34.72,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.2312,
+"settle": 0.7309,
+"flight": 0.4545,
+"edge": 1.014,
+"vmax": 3.46,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4381,
+"settle": 0.9541,
+"flight": 0.6742,
+"edge": 0.886,
+"vmax": 3.3,
+"vmin": -0.43,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1973,
+"settle": 1.2146,
+"flight": 0.521,
+"edge": 1.547,
+"vmax": 3.15,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.494,
+"settle": 1.3664,
+"flight": 0.9589,
+"edge": 1.356,
+"vmax": 3.13,
+"vmin": -0.28,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.2634,
+"settle": 0.5706,
+"flight": 0.4162,
+"edge": 0.558,
+"vmax": 3.6,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3779,
+"settle": 0.7087,
+"flight": 0.5434,
+"edge": 0.577,
+"vmax": 3.47,
+"vmin": -0.71,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+},
+"SDRAM_CLK": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+12.39
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+0.99
+],
+[
+"F.Cu",
+29.37
+]
+],
+"ball": "K7",
+"len": 43.47,
+"stub": 0,
+"cload": 3.5e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.3147,
+"settle": 0.5989,
+"flight": 0.4607,
+"edge": 0.503,
+"vmax": 3.66,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.01
+},
+"f": {
+"leave": 0.4337,
+"settle": 0.6776,
+"flight": 0.5568,
+"edge": 0.418,
+"vmax": 3.3,
+"vmin": -0.72,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.307,
+"settle": 0.7028,
+"flight": 0.5055,
+"edge": 0.7,
+"vmax": 3.21,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4547,
+"settle": 0.8026,
+"flight": 0.6291,
+"edge": 0.605,
+"vmax": 3.14,
+"vmin": -0.39,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.3131,
+"settle": 0.5377,
+"flight": 0.4346,
+"edge": 0.404,
+"vmax": 4.09,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4264,
+"settle": 0.6169,
+"flight": 0.521,
+"edge": 0.327,
+"vmax": 3.47,
+"vmin": -1.04,
+"ringback": false,
+"margin": 0.01
+}
+}
+}
+},
+"SDRAM_WE_N": {
+"sections": [
+[
+"F.Cu",
+0.71
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"In2",
+22.67
+],
+[
+"via",
+"F.Cu-In2"
+],
+[
+"F.Cu",
+2.57
+]
+],
+"ball": "E3",
+"len": 25.95,
+"stub": 0.0,
+"cload": 3.8e-12,
+"sim": {
+"typ": {
+"r": {
+"leave": 0.1838,
+"settle": 0.6829,
+"flight": 0.4077,
+"edge": 1.03,
+"vmax": 3.43,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3915,
+"settle": 0.9101,
+"flight": 0.6314,
+"edge": 0.874,
+"vmax": 3.3,
+"vmin": -0.41,
+"ringback": false,
+"margin": 0.0
+}
+},
+"slow": {
+"r": {
+"leave": 0.1471,
+"settle": 1.1226,
+"flight": 0.4751,
+"edge": 1.47,
+"vmax": 3.15,
+"vmin": 0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.4472,
+"settle": 1.2744,
+"flight": 0.9043,
+"edge": 1.294,
+"vmax": 3.13,
+"vmin": -0.25,
+"ringback": false,
+"margin": 0.0
+}
+},
+"fast": {
+"r": {
+"leave": 0.221,
+"settle": 0.5306,
+"flight": 0.3745,
+"edge": 0.557,
+"vmax": 3.57,
+"vmin": -0.0,
+"ringback": false,
+"margin": 0.0
+},
+"f": {
+"leave": 0.3335,
+"settle": 0.6707,
+"flight": 0.498,
+"edge": 0.585,
+"vmax": 3.47,
+"vmin": -0.63,
+"ringback": false,
+"margin": 0.0
+}
+}
+}
+}
+}

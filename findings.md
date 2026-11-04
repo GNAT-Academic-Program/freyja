@@ -83,7 +83,7 @@ Each GND plane is one piece; `+3V3` and `+1V0` keep one piece each, losing 23.6 
 31.7 mm2 of fill. A fresh refill of this board reproduces it byte for byte. Evidence:
 `~/freyja-review/u1-gnd-2026-11-03/`.
 
-**SDRAM block routed and transferred; provisional, timing pending.** The netlist matched the expected scope: 39 balls
+**SDRAM block routed and transferred; timing assessed below at 100 MHz.** The netlist matched the expected scope: 39 balls
 to U32 plus R151, R152 and R153. All 82 pads on 40 nets connect, including both pull
 branches and R151 between `SDRAM_CLK` and `SDRAM_CLK_MEM`. U32's 7 `+3V3` pins and 7 GND
 pins reach their planes, and both pads of C250–C257 do too. All tracks are 0.125 mm; no
@@ -125,18 +125,105 @@ copy before and after: 12 RGMII stubs at 0.1 mm against 0.125 mm, the `+2V5` stu
 near-duplicate pairs listed above. All four HDMI pairs and the LINK corridor still have a
 B.Cu path with 0.31 mm clearance on that scratch copy; this is an access estimate, not a route.
 
-**SDRAM timing is not assessed.** There is no documented board operating frequency. The
-datasheet's -6 grade (rev A03, section 9.5, p. 15) gives tCK 6 ns at CL3 (166 MHz) and 7.5 ns
-at CL2 (133 MHz), tAC 5 ns at CL3, tOH 3 ns, setup 1.5 ns and hold 0.8 ns. That is the device
-rating, not verified board operation. `ref/freya.xdc` has no SDRAM clock or I/O delay
-constraint; missing are the target frequency and CAS latency, the forwarded clock phase, and
-input and output delays. The rule file asks for DQ, DQM, address and control within "a few mm"
-of `SDRAM_CLK` at 166 MHz. The routes do not meet that: clock 43.5 mm, data and DQM 13.5–41.3,
-control 25.6–52.6, address and bank 47.6–89.5. Short nets have room for later tuning, but
-matching everything to A7's 89.5 mm would lengthen the clock and data by about 46–76 mm, so
-the target should be decided before tuning. The 0.125 mm width is an outer-layer estimate;
-long In2 and In5 runs have no impedance calculation. Lengths exclude package delay. Evidence:
-`~/freyja-review/sdram-2026-11-03/`.
+**SDRAM timing assessed for 100 MHz, CL3: keep the routing, change the clock scheme and bus drive.**
+The target is the owner's. No board measurement exists; this is worst-case analysis on the
+committed copper (`8cbbd79`), with Vivado 2026.1 STA on `xc7a100tfgg676-2`. No exceptions except one
+justified multicycle below. The contract, fixture, constraints, calculation scripts and model
+provenance are in [`gateware/sdram100/`](gateware/sdram100/README.md), separate from the allocation gate.
+
+The scheme: all registers in the IOBs on one 100 MHz clock `c0`. `SDRAM_CLK` comes from an ODDR on
+a second MMCM output at 270 degrees. Read data is captured in the IOB on `c0`, and the controller
+accepts c0 edge 4 after the edge launching READ (CL + 1). Bus at 8 mA slow; clock stays 12 mA
+fast through R151. Worst margins, ns, slow and fast corners:
+
+| Group | Setup | Hold | Limit, ns | Now | Offenders |
+|---|---:|---:|---|---|---|
+| A, BA, command, CKE, DQM to U32 | +2.70 (A7) | +1.44 (LDQM) | settle − clock ≤ +4.22; leave − clock ≥ −1.77 | +1.58; −0.36 | none |
+| Same, note 8 applied in full | +1.57 (A7) | +0.79 (A7) | | | none |
+| Write DQ to U32 | +3.08 (DQ8) | +1.41 (DQ2) | settle − clock ≤ +4.26; leave − clock ≥ −1.77 | +1.20; −0.39 | none |
+| Same, note 8 applied in full | +2.42 (DQ8) | +0.92 (DQ8) | | | none |
+| Read DQ at FPGA | +1.30 (DQ8) | +1.78 (DQ2) | clock + DQ board delay ≤ 2.17 | 0.60–0.89 | none |
+
+"Settle" and "leave" are per-net flight times from the IBIS simulation: the last crossing into, and
+the first departure from, a valid input level (VIH 2.0 V, VIL 0.8 V). Both are stricter than the
+datasheet's 1.4 V reference. Note 8 adds `(tr + tf)/2 − 1` ns to setup and hold because 8 mA edges
+reach 2.35 ns in the slow corner; it is counted on top of those stricter figures, so the rows are
+deliberately pessimistic.
+
+These limits replace "a few mm at 166 MHz". **Equal lengths are not required at 100 MHz.** A7, at
+89.5 mm and 46 mm longer than the clock, has 2.70 ns of setup margin left, equal to about 387 mm of
+In5. Do not add copper to match A7. Above 100 MHz the limits do not apply and the fixture must be
+rerun.
+
+What fails, and why it matters:
+
+- **Capture on the default STA edge fails:** read setup −1.20 ns (DQ8) at 180 degrees and −8.70 ns
+  at 270, because the default edge is never more than one period after launch. The window is
+  3.08 ns wide, so this is a capture-edge choice, not a board fault. The fix is one more period
+  and a 90 degree offset, constrained by `set_multicycle_path -setup 2` from `sdram_clk` to
+  `dq_i_reg[*]`. The justification is physical: the flop samples every edge and the read-latency
+  counter accepts only that one.
+- **The exception was checked against a four-word read before saving it; no problem found.** READ
+  launched at c0 edge 0, sampled at U32 T0 (7.5 ns). Words launched by T2–T5 (27.5–57.5 ns) are
+  accepted at c0 edges 4–7 (40–70 ns), so every capture gets the intended word. On the routed design
+  setup is launch 7.5 to capture 20, requirement 12.5 ns: that word against its accept edge. Hold is
+  launch 7.5 to capture 10, requirement 2.5 ns: the next word against that same edge. Scope: 16 paths,
+  DQ ports to `dq_i_reg[*]` only, no pad-loopback path; narrowing it from the clock-to-clock form
+  changed no slack. Exactly one edge works: `-setup 3` gives hold −8.22 ns. `-hold` is deliberately
+  absent: `-hold 1` moves the hold launch to 17.5 ns, slack +11.78, checking nothing real. The full
+  edge table is in the profile.
+- **Forwarded clock at 180 degrees is too early at 12 mA:** A7 setup −1.97 ns.
+- **12 mA on the bus passes timing thinly and overshoots.** With the same scheme: A7 setup +0.53,
+  hold +0.75. Simulated at U32 with no input clamps modelled, 31 nets re-cross a threshold after
+  first crossing it, 8 exceed 4.6 V and 18 go below −1.5 V, against datasheet limits of VDD + 0.5 V
+  absolute (4.6 V maximum) and −1.5 V for pulses up to 5 ns. A7 settles only at 4.65 ns. At 8 mA:
+  no threshold re-crossing, 3.66 V peak, bus −0.98 V, settled by 2.01 ns. The clock, unchanged at
+  12 mA fast through R151, has no re-crossing either but reaches 4.09 V and −1.04 V in the fast corner.
+
+**DQ turnaround** (section 10.2 of the datasheet: tLZ from edge CL−1, tHZ from the edge after the
+last launching edge). Let `e` be the c0 edge before the U32 edge launching the last read word; that
+word is accepted at c0 `e+2`. FPGA drivers on at `e+2` overlap U32 by up to 3.22 ns. At `e+3` the
+margin is +6.78 ns (now taken across all 16 DQ, not DQ0 alone); for BL4, that is c0 edge 8. On write to read, releasing with the READ or one cycle after leaves at least
+17.31 ns before U32 can drive, satisfying section 7.10's one clear cycle; two cycles after does not.
+Release no earlier than one c0 edge after the last write word: STA hold there is +0.059 ns on the
+disable arc (DQ0), counting a line that changes at release, though it actually floats. Section 7.8
+still applies: mask with DQM when a READ would drive during the first two write clocks.
+
+**Layer delays and impedance at 0.125 mm**, from a 2D field solve of the published stackup. The
+solver gives 100.3 ohm for the saved JLC pair (JLC 100.0).
+
+| Layer | Z0, ohm | Delay, ps/mm | Spread |
+|---|---:|---:|---|
+| F.Cu, B.Cu | 48.4 | 5.88 | width ±0.0125 mm 46.1–51.0 ohm; no mask 51.8 ohm, 5.50 ps/mm; adjacent lane at 0.3 mm 5.74–6.00 ps/mm |
+| In2, In5 | 49.1 | 6.97 | width ±0.0125 mm 46.6–51.9 ohm; core ±0.01 mm 46.7–51.2; Dk ±5 % 6.79–7.14 ps/mm; In3 absent 50.3 ohm |
+
+0.125 mm is therefore also about 50 ohm on the inner layers. The worry that it was only an
+outer-layer estimate is settled by calculation, not by a fabricator's result. Adjacent inner lanes
+at 0.3 mm pitch are 43.8 ohm odd and 54.1 ohm even; their crosstalk is not assessed.
+
+**Verified by tool on the committed copper:** routed lengths and sections, STA paths and clock
+uncertainty (0.208 ns: 0.071 system, 0.162 discrete jitter, 0.120 MMCM phase error), per-ball package
+delay from Vivado (58–160 ps across the 39 SDRAM balls), AMD IBIS drivers, all 70 fixture registers in the
+IOBs, `check_timing` clean.
+
+**Assumptions, not verified:** X4's jitter, 200 ps peak to peak, as no datasheet for C717684 is in the
+repository. U32 output behaviour into the real line, covered by a 0.3 ns allowance, because no U32
+IBIS is available; this allowance also covers the 1.65 V against 1.4 V threshold difference. U32
+input clamps, so the overshoot figures are upper estimates. Not assessed: crosstalk,
+simultaneous-switching noise, read-direction ringing, and the -6 grade's 0–70 °C ambient against the
+FPGA's industrial grade. Nothing has been measured on hardware.
+
+Not changed: `ref/freya.xdc`, `tools/alloc.py`, the allocation gate, SDRAM copper. The 8 mA drive and
+clock scheme apply through the separate profile, with RTL that makes the phase; an XDC waveform alone
+is not enough. Reproduced from the repository: every command and read slack, and all 108 delay lines,
+match the review fixture; `flight.py` matches its stored data exactly.
+
+**`check_connector_rework.py`:** the failure predates this routing. At `3f76447`, `bde689c` and
+`8cbbd79` the only reference difference is H1–H4 on the PCB and not in the netlist (board-only
+mounting holes); nothing is missing from the PCB. The SDRAM chunk did not introduce it. Past that
+assertion, in a scratch copy only, the checker next stops on its own stale rule forbidding `FB1`:
+the live FB1 is the current 120 ohm bead, present at both commits. Neither was changed here. Evidence:
+`~/freyja-review/sdram-timing-2026-11-03/`.
 
 <details><summary>Per-signal length (mm), layers and vias, ball to pin; CLK is ball to R151 and CLK_MEM is R151 to pin 38</summary>
 

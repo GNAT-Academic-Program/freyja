@@ -9,6 +9,8 @@ kicad/drc.rpt
 
 # Vivado gate build products
 gateware/gate/build/
+gateware/sdram100/build/
+gateware/sdram100/__pycache__/
 
 # Vivado scratch files created when a gate is run from the repository root
 /.Xil/

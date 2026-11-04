@@ -20,8 +20,9 @@
 (rule "RGMII width"
   (condition "A.hasNetclass('RGMII')")
   (constraint track_width (min 0.125mm) (opt 0.125mm)))
-# SDRAM: the same 50 ohm outer-layer width; length-match DQ, DQM, address
-# and control to SDRAM_CLK by hand (within a few mm at 166 MHz).
+# SDRAM: 0.125 mm is about 50 ohm on all four signal layers (48.4 outer, 49.1
+# inner, field solve). Target 100 MHz, CL3. Equal lengths are not required: use
+# the derived delay limits in ref/pcb-impedance.md. Above 100 MHz, reassess.
 (rule "SDRAM width"
   (condition "A.hasNetclass('SDRAM')")
   (constraint track_width (min 0.125mm) (opt 0.125mm)))

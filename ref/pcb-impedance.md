@@ -70,6 +70,30 @@ about 50 Ω exactly: keep TXD[3:0]/TX_CTL within a few millimetres of TXC and
 RXD[3:0]/RX_CTL of RXC, by hand (KiCad has no bus-skew rule); the PHY's
 strapped 2 ns delays supply the clock skew.
 
+## 50 Ω single-ended: SDRAM, target 100 MHz CL3
+
+A 2D field solve of the stackup above gives, at the 0.125 mm class width: F.Cu and B.Cu 48.4 Ω,
+5.88 ps/mm; In2 and In5 49.1 Ω, 6.97 ps/mm. The same solver gives 100.3 Ω for the saved JLC pair.
+Width ±0.0125 mm moves the inner figure to 46.6–51.9 Ω. This is a calculation, not a fabricator
+result.
+
+The limits below are not length-matching rules. They hold only with this scheme: IOB registers on
+one 100 MHz clock, `SDRAM_CLK` from an ODDR at +270°, read capture in the IOB on the same clock at
+edge CL + 1, bus at 8 mA slow, clock at 12 mA fast through R151. They come from Vivado STA on the
+exact part and an AMD IBIS flight simulation, with assumptions listed in [findings](../findings.md):
+X4 jitter, U32 output behaviour and U32 input clamps are not verified.
+
+| Timing group | Allowed board delay, ns | On the board, ns |
+|---|---|---|
+| A, BA, command, CKE, DQM | settle − clock ≤ +4.22; leave − clock ≥ −1.77 | +1.58; −0.36 |
+| Write DQ | settle − clock ≤ +4.26; leave − clock ≥ −1.77 | +1.20; −0.39 |
+| Read DQ | clock + DQ ≤ 2.17 | 0.60–0.89 |
+
+"Settle" and "leave" are simulated flight times to the last and first valid-level crossings at
+U32, including driver and package; a new route must be simulated, not converted from length. The
+limits are for 100 MHz only. Do not tune lengths to meet a group's longest net.
+The contract and how to rerun it are in [`gateware/sdram100/`](../gateware/sdram100/README.md).
+
 ## Generated classes and DRC constraints
 
 | Class | Nets | Rules |
@@ -78,6 +102,7 @@ strapped 2 ns delays supply the clock skew.
 | LVDS_100R | `LINK_*` | outer layers only; 0.099 mm width; 0.200 mm coupled gap; ≤ 0.1 mm intra-pair skew; pair tracks ≥ 0.31 mm from other copper |
 | MDI_100R | `ETH_MDI*` | same geometry and rules as LVDS_100R |
 | RGMII | `PHY_TXC`, `PHY_TXD?`, `PHY_TX_CTL`, `PHY_RXC`, `PHY_RXD?`, `PHY_RX_CTL` | 0.125 mm width |
+| SDRAM | `SDRAM_*` | 0.125 mm width; timing limits above |
 | PSRAM | `PSRAM*`, including chip-side `_MEM` nets | 0.1 mm minimum and preferred width |
 | AUX_5A | `AUX_RAIL` | 2.0 mm width, 1.0/0.5 mm vias |
 

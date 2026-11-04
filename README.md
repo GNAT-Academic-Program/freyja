@@ -76,5 +76,6 @@ limits, direct wiring and references an extension builder can understand.
 - [Parts guide](ref/parts-guide.md), [qualified parts](ref/qualified-parts.md), [power budget](ref/power-budget.md), [assembly/import checklist](ref/jlcpcb-import-checklist.md) and [BOM](ref/bom-jlcpcb.csv).
 - [Power input](ref/power-input.md), [power tree](ref/power.md), [PSRAM](ref/psram.md), [controller flash](ref/supervisor-flash.md), [network](ref/network.md) and [raw LVDS links](ref/link-ports.md).
 - [Mechanical intent and history](floorplan.md), [FPGA decoupling](ref/decoupling.md), [island layout rationale](ref/island-layouts.md), [impedance/stackup](ref/pcb-impedance.md) and [local datasheets](ref/datasheets/).
+- [SDRAM profile, 100 MHz CL3](gateware/sdram100/README.md): implementation contract, timing fixture and constraints, separate from the allocation gate.
 - [Current status and chronological findings](findings.md). Its older numbered findings are dated history, not a fresh open-task list.
 - [Archive index and provenance](archive/README.md): old Altium/EasyEDA exports, extraction reports, superseded workflow/plans, dated review evidence and Vivado scratch outputs. [Salvage rationale](ref/salvage-from-odin0.md) retains useful earlier engineering decisions.

@@ -1,0 +1,24 @@
+sdram_clk to c0: 16 paths, 16 endpoints; all dq_i_reg: 1
+other paths into dq_i from c0 (pad loopback): 0
+
+== as constrained
+read setup Slow              SDRAM_DQ8      to dq_i_reg[8]/D  launch sdram_clk rise@7.500ns capture c0 rise@20.000ns     req  12.500 slack   1.301 Slow
+read hold Slow               SDRAM_DQ2      to dq_i_reg[2]/D  launch sdram_clk rise@7.500ns capture c0 rise@10.000ns     req   2.500 slack   4.476 Slow
+read setup Fast              SDRAM_DQ8      to dq_i_reg[8]/D  launch sdram_clk rise@7.500ns capture c0 rise@20.000ns     req  12.500 slack   3.792 Fast
+read hold Fast               SDRAM_DQ2      to dq_i_reg[2]/D  launch sdram_clk rise@7.500ns capture c0 rise@10.000ns     req   2.500 slack   1.776 Fast
+command setup Slow           o_r_reg[7]/C   to SDRAM_A7       launch c0 rise@0.000ns        capture sdram_clk rise@7.500ns req   7.500 slack   2.735 Slow
+command hold Slow            o_r_reg[20]/C  to SDRAM_LDQM     launch c0 rise@10.000ns       capture sdram_clk rise@7.500ns req  -2.500 slack   1.655 Slow
+write setup Slow             dq_o_reg[8]/C  to SDRAM_DQ8      launch c0 rise@0.000ns        capture sdram_clk rise@7.500ns req   7.500 slack   3.129 Slow
+write hold Slow              dq_o_reg[2]/C  to SDRAM_DQ2      launch c0 rise@10.000ns       capture sdram_clk rise@7.500ns req  -2.500 slack   1.630 Slow
+command setup Fast           o_r_reg[7]/C   to SDRAM_A7       launch c0 rise@0.000ns        capture sdram_clk rise@7.500ns req   7.500 slack   2.699 Fast
+command hold Fast            o_r_reg[20]/C  to SDRAM_LDQM     launch c0 rise@10.000ns       capture sdram_clk rise@7.500ns req  -2.500 slack   1.436 Fast
+write setup Fast             dq_o_reg[8]/C  to SDRAM_DQ8      launch c0 rise@0.000ns        capture sdram_clk rise@7.500ns req   7.500 slack   3.084 Fast
+write hold Fast              dq_o_reg[2]/C  to SDRAM_DQ2      launch c0 rise@10.000ns       capture sdram_clk rise@7.500ns req  -2.500 slack   1.405 Fast
+
+== alternatives, for comparison only; a later constraint overrides the earlier one
+no exception: setup          SDRAM_DQ8      to dq_i_reg[8]/D  launch sdram_clk rise@7.500ns capture c0 rise@10.000ns     req   2.500 slack  -8.699 Slow
+no exception: hold           SDRAM_DQ2      to dq_i_reg[2]/D  launch sdram_clk rise@7.500ns capture c0 rise@0.000ns      req  -7.500 slack  11.776 Fast
+-setup 2 -hold 1: setup      SDRAM_DQ8      to dq_i_reg[8]/D  launch sdram_clk rise@7.500ns capture c0 rise@20.000ns     req  12.500 slack   1.301 Slow
+-setup 2 -hold 1: hold       SDRAM_DQ2      to dq_i_reg[2]/D  launch sdram_clk rise@17.500ns capture c0 rise@10.000ns     req  -7.500 slack  11.776 Fast
+-setup 3, one edge late: setup SDRAM_DQ8      to dq_i_reg[8]/D  launch sdram_clk rise@7.500ns capture c0 rise@30.000ns     req  22.500 slack  11.301 Slow
+-setup 3, one edge late: hold SDRAM_DQ2      to dq_i_reg[2]/D  launch sdram_clk rise@7.500ns capture c0 rise@20.000ns     req  12.500 slack  -8.224 Fast

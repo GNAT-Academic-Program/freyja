@@ -30,9 +30,9 @@ RGMII_WIDTH = 0.125
 LVDS_PATTERNS = ('LINK_*', 'HDMI_CLK_*', 'HDMI_D0_*', 'HDMI_D1_*', 'HDMI_D2_*')
 MDI_PATTERNS = ('ETH_MDI*',)
 RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'PHY_RX_CTL')
-# The SDR SDRAM bus (W9825G6KH-6, up to 166 MHz, 3.3 V single-ended) wants
-# the same outer-layer 50 ohm geometry as RGMII; CLK has its 22 ohm at the
-# FPGA and the data/control lines are length-matched by hand to it.
+# The SDR SDRAM bus (W9825G6KH-6, 3.3 V single-ended, target 100 MHz CL3) uses
+# 0.125 mm, about 50 ohm on all four signal layers; CLK has its 22 ohm at the
+# FPGA. Delay limits, not equal lengths: see ref/pcb-impedance.md.
 SDRAM_PATTERNS = ('SDRAM_*',)
 GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'SDRAM', 'PSRAM', 'AUX_5A', 'PWR_3A', 'EXT_2A')
 
@@ -104,8 +104,9 @@ def emit_rules():
 (rule "RGMII width"
   (condition "A.hasNetclass('RGMII')")
   (constraint track_width (min {RGMII_WIDTH}mm) (opt {RGMII_WIDTH}mm)))
-# SDRAM: the same 50 ohm outer-layer width; length-match DQ, DQM, address
-# and control to SDRAM_CLK by hand (within a few mm at 166 MHz).
+# SDRAM: 0.125 mm is about 50 ohm on all four signal layers (48.4 outer, 49.1
+# inner, field solve). Target 100 MHz, CL3. Equal lengths are not required: use
+# the derived delay limits in ref/pcb-impedance.md. Above 100 MHz, reassess.
 (rule "SDRAM width"
   (condition "A.hasNetclass('SDRAM')")
   (constraint track_width (min {RGMII_WIDTH}mm) (opt {RGMII_WIDTH}mm)))
