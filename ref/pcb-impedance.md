@@ -112,14 +112,16 @@ holds a pair track against any foreign copper, pads included, so a track
 entering fine-pitch pads can fall under it; the 0.4 mm-pitch PHY pads have not
 been routed yet.
 
-**J73 exception.** At 0.5 mm pitch a 0.099 mm track entering a J73 pad is
-0.3005 mm from the next pad, so 0.31 mm cannot be met there. The rule `HDMI TMDS
-entry to J73 pads` allows 0.300 mm on F.Cu only, for a track on an `HDMI_CLK_*`
-or `HDMI_D0`–`D2_*` net, wholly inside the board's `J73_TMDS_ENTRY` rule area
-(x 234.95–239.85, y 214.19–214.45), against a J73 pad, not between coupled
-partners. Width, coupled gap, skew and 0.31 mm everywhere else are unchanged.
-Without the area the rule never applies and the entries fail. It says nothing
-about HDMI electrical compliance, which remains unverified.
+**J73 exceptions.** At 0.5 mm pitch a 0.099 mm track on a J73 pad centre is
+0.3005 mm from the next pad, so 0.31 mm cannot be met, and P and N are 1.0 mm
+apart with a GND pad between, so the gap there is 1.0 − 0.099 = 0.901 mm. Two
+rules cover this, on F.Cu only, for a track on an `HDMI_CLK_*` or `HDMI_D0`–`D2_*`
+net wholly inside the board's `J73_TMDS_ENTRY` rule area (x 234.95–240.85, y
+214.19–215.40): `HDMI TMDS entry to J73 pads` allows 0.300 mm against a J73 pad,
+not between coupled partners; `HDMI TMDS entry pair gap at J73` allows a pair
+gap of 0.200–0.901 mm. Width, coupled gap, skew and 0.31 mm everywhere else are
+unchanged. Without the area the rules never apply and the entries fail. They say
+nothing about HDMI electrical compliance, which remains unverified.
 
 Inner-layer tracks are prohibited for the 100 Ω classes because the geometry
 is calculated only for the outer layers. Plane transitions still need ground

@@ -43,13 +43,18 @@
 (rule "100R clearance to other copper"
   (condition "A.Type == 'Track' && (A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')) && !AB.isCoupledDiffPair()")
   (constraint clearance (min 0.31mm)))
-# J73 pad entry: at 0.5 mm pitch a 0.099 mm track entering a pad is 0.3005 mm from
-# the next pad, so 0.31 mm cannot be met. HDMI TMDS tracks wholly inside the
-# J73_TMDS_ENTRY rule area, against J73's pads only. Must follow the rule above.
+# J73 pad entry: at 0.5 mm pitch a 0.099 mm track on a pad centre is 0.3005 mm
+# from the next pad, so 0.31 mm cannot be met, and P and N run 1.0 mm apart
+# with a GND pad between, so the gap is 0.901 mm. HDMI TMDS tracks wholly inside the
+# J73_TMDS_ENTRY rule area only. These must follow the rules above.
 (rule "HDMI TMDS entry to J73 pads"
   (layer "F.Cu")
   (condition "A.Type == 'Track' && (A.NetName == 'HDMI_CLK_*' || A.NetName == 'HDMI_D0_*' || A.NetName == 'HDMI_D1_*' || A.NetName == 'HDMI_D2_*') && A.enclosedByArea('J73_TMDS_ENTRY') && B.Type == 'Pad' && B.memberOfFootprint('J73') && !AB.isCoupledDiffPair()")
   (constraint clearance (min 0.3mm)))
+(rule "HDMI TMDS entry pair gap at J73"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && (A.NetName == 'HDMI_CLK_*' || A.NetName == 'HDMI_D0_*' || A.NetName == 'HDMI_D1_*' || A.NetName == 'HDMI_D2_*') && A.enclosedByArea('J73_TMDS_ENTRY')")
+  (constraint diff_pair_gap (min 0.2mm) (opt 0.2mm) (max 0.901mm)))
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))
