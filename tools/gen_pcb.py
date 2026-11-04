@@ -28,6 +28,14 @@ RGMII_WIDTH = 0.125
 # The HDMI TMDS_33 pairs are 100 ohm differential too and share the class's
 # outer-layer geometry and rules (HDMI 1.4: 100 ohm +/-15 %).
 LVDS_PATTERNS = ('LINK_*', 'HDMI_CLK_*', 'HDMI_D0_*', 'HDMI_D1_*', 'HDMI_D2_*')
+# J73's pads are 0.5 mm pitch: a 0.099 mm track entering one is 0.3005 mm from
+# its neighbours, under the 0.31 mm pair rule, whatever its path. The exception
+# is limited to these nets, to J73's pads, and to tracks wholly inside a rule
+# area the board owns: F.Cu x 234.95-239.85, y 214.19-214.45. If that area is
+# missing the condition is false and the 0.31 mm rule applies, so it fails loudly.
+HDMI_TMDS_PATTERNS = ('HDMI_CLK_*', 'HDMI_D0_*', 'HDMI_D1_*', 'HDMI_D2_*')
+HDMI_ENTRY_AREA = 'J73_TMDS_ENTRY'
+HDMI_ENTRY_CLEARANCE = 0.3
 MDI_PATTERNS = ('ETH_MDI*',)
 RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'PHY_RX_CTL')
 # The SDR SDRAM bus (W9825G6KH-6, 3.3 V single-ended, target 100 MHz CL3) uses
@@ -37,6 +45,7 @@ SDRAM_PATTERNS = ('SDRAM_*',)
 GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'SDRAM', 'PSRAM', 'AUX_5A', 'PWR_3A', 'EXT_2A')
 
 
+TMDS_NETS = ' || '.join(f"A.NetName == '{p}'" for p in HDMI_TMDS_PATTERNS)
 POWER_HEADERS = ' || '.join(f"B.Reference == '{r}'" for r in
                           ('J53', 'J62', 'J54', 'J63', 'J55', 'J64', 'J56', 'J65', 'J57', 'J58'))
 
@@ -122,11 +131,18 @@ def emit_rules():
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint disallow track))
 # Keep other copper >= ~4 dielectric heights away from the pair tracks for
-# the non-coplanar model. Tracks only: the 0.4 mm QFN pads and the jack pins
-# set their own spacing.
+# the non-coplanar model. Pads are not held to it as the first item, but a pair
+# track is held to it against any pad.
 (rule "100R clearance to other copper"
   (condition "A.Type == 'Track' && (A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')) && !AB.isCoupledDiffPair()")
   (constraint clearance (min 0.31mm)))
+# J73 pad entry: at 0.5 mm pitch a 0.099 mm track entering a pad is 0.3005 mm from
+# the next pad, so 0.31 mm cannot be met. HDMI TMDS tracks wholly inside the
+# {HDMI_ENTRY_AREA} rule area, against J73's pads only. Must follow the rule above.
+(rule "HDMI TMDS entry to J73 pads"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && ({TMDS_NETS}) && A.enclosedByArea('{HDMI_ENTRY_AREA}') && B.Type == 'Pad' && B.memberOfFootprint('J73') && !AB.isCoupledDiffPair()")
+  (constraint clearance (min {HDMI_ENTRY_CLEARANCE}mm)))
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))

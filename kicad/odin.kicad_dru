@@ -38,11 +38,18 @@
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint disallow track))
 # Keep other copper >= ~4 dielectric heights away from the pair tracks for
-# the non-coplanar model. Tracks only: the 0.4 mm QFN pads and the jack pins
-# set their own spacing.
+# the non-coplanar model. Pads are not held to it as the first item, but a pair
+# track is held to it against any pad.
 (rule "100R clearance to other copper"
   (condition "A.Type == 'Track' && (A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')) && !AB.isCoupledDiffPair()")
   (constraint clearance (min 0.31mm)))
+# J73 pad entry: at 0.5 mm pitch a 0.099 mm track entering a pad is 0.3005 mm from
+# the next pad, so 0.31 mm cannot be met. HDMI TMDS tracks wholly inside the
+# J73_TMDS_ENTRY rule area, against J73's pads only. Must follow the rule above.
+(rule "HDMI TMDS entry to J73 pads"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && (A.NetName == 'HDMI_CLK_*' || A.NetName == 'HDMI_D0_*' || A.NetName == 'HDMI_D1_*' || A.NetName == 'HDMI_D2_*') && A.enclosedByArea('J73_TMDS_ENTRY') && B.Type == 'Pad' && B.memberOfFootprint('J73') && !AB.isCoupledDiffPair()")
+  (constraint clearance (min 0.3mm)))
 (rule "100R intra-pair skew"
   (condition "A.hasNetclass('LVDS_100R') || A.hasNetclass('MDI_100R')")
   (constraint skew (max 0.1mm) (within_diff_pairs)))

@@ -99,7 +99,7 @@ The contract and how to rerun it are in [`gateware/sdram100/`](../gateware/sdram
 | Class | Nets | Rules |
 | --- | --- | --- |
 | Default | other nets | 0.15 mm clearance, 0.2 mm track, 0.45/0.20 mm via |
-| LVDS_100R | `LINK_*` | outer layers only; 0.099 mm width; 0.200 mm coupled gap; ≤ 0.1 mm intra-pair skew; pair tracks ≥ 0.31 mm from other copper |
+| LVDS_100R | `LINK_*`, `HDMI_CLK_*`, `HDMI_D0`–`D2_*` | outer layers only; 0.099 mm width; 0.200 mm coupled gap; ≤ 0.1 mm intra-pair skew; pair tracks ≥ 0.31 mm from other copper, with the one J73 exception below |
 | MDI_100R | `ETH_MDI*` | same geometry and rules as LVDS_100R |
 | RGMII | `PHY_TXC`, `PHY_TXD?`, `PHY_TX_CTL`, `PHY_RXC`, `PHY_RXD?`, `PHY_RX_CTL` | 0.125 mm width |
 | SDRAM | `SDRAM_*` | 0.125 mm width; timing limits above |
@@ -107,9 +107,20 @@ The contract and how to rerun it are in [`gateware/sdram100/`](../gateware/sdram
 | AUX_5A | `AUX_RAIL` | 2.0 mm width, 1.0/0.5 mm vias |
 
 Skew is checked within each P/N pair. The 0.31 mm clearance (about four
-dielectric heights) keeps other copper from loading the non-coplanar model;
-it applies to the pair tracks, not to the 0.4 mm-pitch PHY pads or the jack
-pins, which set their own spacing.
+dielectric heights) keeps other copper from loading the non-coplanar model. It
+holds a pair track against any foreign copper, pads included, so a track
+entering fine-pitch pads can fall under it; the 0.4 mm-pitch PHY pads have not
+been routed yet.
+
+**J73 exception.** At 0.5 mm pitch a 0.099 mm track entering a J73 pad is
+0.3005 mm from the next pad, so 0.31 mm cannot be met there. The rule `HDMI TMDS
+entry to J73 pads` allows 0.300 mm on F.Cu only, for a track on an `HDMI_CLK_*`
+or `HDMI_D0`–`D2_*` net, wholly inside the board's `J73_TMDS_ENTRY` rule area
+(x 234.95–239.85, y 214.19–214.45), against a J73 pad, not between coupled
+partners. Width, coupled gap, skew and 0.31 mm everywhere else are unchanged.
+Without the area the rule never applies and the entries fail. It says nothing
+about HDMI electrical compliance, which remains unverified.
+
 Inner-layer tracks are prohibited for the 100 Ω classes because the geometry
 is calculated only for the outer layers. Plane transitions still need ground
 stitching vias beside the signal vias. Board minimum track width is

@@ -119581,6 +119581,14 @@
 		(uuid "1dd4b0df-1188-46bb-aa8c-19bfc3f5d0f0")
 	)
 	(segment
+		(start 235.15 214.25)
+		(end 235.1504 214.36)
+		(width 0.099)
+		(layer "F.Cu")
+		(net 610)
+		(uuid "86053d96-3ba3-4a80-a5a0-87b01fcef67a")
+	)
+	(segment
 		(start 233.905 212.75)
 		(end 235.09 214.1)
 		(width 0.099)
@@ -119988,6 +119996,14 @@
 		(net 611)
 		(uuid "89cd5af3-68e0-4b02-95d1-5b3ab61bb11a")
 	)
+	(segment
+		(start 236.15 214.25)
+		(end 236.15 214.36)
+		(width 0.099)
+		(layer "F.Cu")
+		(net 611)
+		(uuid "c168373a-1b4b-4da0-8c96-170ff2106c88")
+	)
 	(via
 		(at 234.455 210.7)
 		(size 0.45)
@@ -120163,6 +120179,14 @@
 		(layer "F.Cu")
 		(net 613)
 		(uuid "915a4717-4152-43ab-88d3-e9e717537974")
+	)
+	(segment
+		(start 236.65 214.25)
+		(end 236.6504 214.36)
+		(width 0.099)
+		(layer "F.Cu")
+		(net 613)
+		(uuid "df76c1df-7804-46c4-b2e7-1c1e8d23ae90")
 	)
 	(segment
 		(start 225.2 157.84)
@@ -120437,6 +120461,14 @@
 		(uuid "898af9cb-ccb2-4fbb-9ecf-aaf30fdb4834")
 	)
 	(segment
+		(start 237.65 214.25)
+		(end 237.65 214.36)
+		(width 0.099)
+		(layer "F.Cu")
+		(net 614)
+		(uuid "9495ecc3-86c4-4a85-9fc5-ce8a3e9cbbdf")
+	)
+	(segment
 		(start 225.2 156.84)
 		(end 225.7 157.34)
 		(width 0.099)
@@ -120595,6 +120627,14 @@
 		(layer "F.Cu")
 		(net 615)
 		(uuid "5434211f-7697-4922-a4ae-30aa6a091027")
+	)
+	(segment
+		(start 238.15 214.25)
+		(end 238.1504 214.36)
+		(width 0.099)
+		(layer "F.Cu")
+		(net 615)
+		(uuid "7dd57072-a807-4066-8f2f-ccff306beeaa")
 	)
 	(segment
 		(start 237.075 211.88)
@@ -120869,6 +120909,14 @@
 		(uuid "9abb2390-aa1b-4da7-840d-7f53fdec2feb")
 	)
 	(segment
+		(start 239.15 214.25)
+		(end 239.15 214.36)
+		(width 0.099)
+		(layer "F.Cu")
+		(net 616)
+		(uuid "9b6c8e68-5061-41bc-b5f2-dc45d40958de")
+	)
+	(segment
 		(start 237.705 210.7)
 		(end 237.725 211.88)
 		(width 0.099)
@@ -121019,6 +121067,14 @@
 		(layer "F.Cu")
 		(net 617)
 		(uuid "328381e0-4f41-4df8-9887-ca3caf054692")
+	)
+	(segment
+		(start 239.65 214.25)
+		(end 239.6504 214.36)
+		(width 0.099)
+		(layer "F.Cu")
+		(net 617)
+		(uuid "aec3037e-fb45-48bb-b86e-7f668fb66f26")
 	)
 	(segment
 		(start 239.55 214)
@@ -121275,6 +121331,14 @@
 		(layer "F.Cu")
 		(net 618)
 		(uuid "4cd8a873-fb9a-49b5-ad82-47c01f33db3f")
+	)
+	(segment
+		(start 240.71 214.36)
+		(end 240.71 214.47)
+		(width 0.099)
+		(layer "F.Cu")
+		(net 618)
+		(uuid "a6a43bd0-245d-493d-9f51-203509c7242d")
 	)
 	(segment
 		(start 239.025 211.88)
@@ -128117,226 +128181,35 @@
 		(uuid "bf6bbe9e-f802-4aed-9513-c150d64b720e")
 	)
 	(zone
-		(net 615)
-		(net_name "HDMI_D1_N")
+		(net 0)
+		(net_name "")
 		(layer "F.Cu")
-		(uuid "1a730d75-947e-4412-a67a-3117cceedeb4")
-		(name "J73 pad taper")
+		(uuid "eda01712-dae4-4887-af15-cdd08f323f45")
+		(name "J73_TMDS_ENTRY")
 		(hatch edge 0.5)
-		(priority 10)
-		(connect_pads yes
-			(clearance 0.15)
+		(connect_pads
+			(clearance 0)
 		)
-		(min_thickness 0.09)
+		(min_thickness 0.25)
 		(filled_areas_thickness no)
-		(fill yes
+		(keepout
+			(tracks allowed)
+			(vias allowed)
+			(pads allowed)
+			(copperpour allowed)
+			(footprints allowed)
+		)
+		(placement
+			(enabled no)
+			(sheetname "")
+		)
+		(fill
 			(thermal_gap 0.5)
 			(thermal_bridge_width 0.5)
 		)
 		(polygon
 			(pts
-				(xy 238.095 214.23) (xy 238.205 214.23) (xy 238.3 214.355) (xy 238.3 214.45) (xy 238 214.45) (xy 238 214.355)
-			)
-		)
-		(filled_polygon
-			(layer "F.Cu")
-			(pts
-				(xy 238.214288 214.242887) (xy 238.218204 214.247373) (xy 238.291031 214.343199) (xy 238.3 214.369822)
-				(xy 238.3 214.406) (xy 238.287113 214.437113) (xy 238.256 214.45) (xy 238.044 214.45) (xy 238.012887 214.437113)
-				(xy 238 214.406) (xy 238 214.369822) (xy 238.008968 214.343199) (xy 238.081794 214.247375) (xy 238.11088 214.230403)
-				(xy 238.116825 214.23) (xy 238.183175 214.23)
-			)
-		)
-	)
-	(zone
-		(net 611)
-		(net_name "HDMI_CLK_P")
-		(layer "F.Cu")
-		(uuid "22421d2b-a3e3-4ae2-a3b9-f79d4f89245b")
-		(name "J73 pad taper")
-		(hatch edge 0.5)
-		(priority 10)
-		(connect_pads yes
-			(clearance 0.15)
-		)
-		(min_thickness 0.09)
-		(filled_areas_thickness no)
-		(fill yes
-			(thermal_gap 0.5)
-			(thermal_bridge_width 0.5)
-		)
-		(polygon
-			(pts
-				(xy 236.095 214.23) (xy 236.205 214.23) (xy 236.3 214.355) (xy 236.3 214.45) (xy 236 214.45) (xy 236 214.355)
-			)
-		)
-		(filled_polygon
-			(layer "F.Cu")
-			(pts
-				(xy 236.214288 214.242887) (xy 236.218204 214.247373) (xy 236.291031 214.343199) (xy 236.3 214.369822)
-				(xy 236.3 214.406) (xy 236.287113 214.437113) (xy 236.256 214.45) (xy 236.044 214.45) (xy 236.012887 214.437113)
-				(xy 236 214.406) (xy 236 214.369822) (xy 236.008968 214.343199) (xy 236.081794 214.247375) (xy 236.11088 214.230403)
-				(xy 236.116825 214.23) (xy 236.183175 214.23)
-			)
-		)
-	)
-	(zone
-		(net 616)
-		(net_name "HDMI_D1_P")
-		(layer "F.Cu")
-		(uuid "31608f06-a4a9-46dd-9f54-060440381023")
-		(name "J73 pad taper")
-		(hatch edge 0.5)
-		(priority 10)
-		(connect_pads yes
-			(clearance 0.15)
-		)
-		(min_thickness 0.09)
-		(filled_areas_thickness no)
-		(fill yes
-			(thermal_gap 0.5)
-			(thermal_bridge_width 0.5)
-		)
-		(polygon
-			(pts
-				(xy 239.095 214.23) (xy 239.205 214.23) (xy 239.3 214.355) (xy 239.3 214.45) (xy 239 214.45) (xy 239 214.355)
-			)
-		)
-		(filled_polygon
-			(layer "F.Cu")
-			(pts
-				(xy 239.214288 214.242887) (xy 239.218204 214.247373) (xy 239.291031 214.343199) (xy 239.3 214.369822)
-				(xy 239.3 214.406) (xy 239.287113 214.437113) (xy 239.256 214.45) (xy 239.044 214.45) (xy 239.012887 214.437113)
-				(xy 239 214.406) (xy 239 214.369822) (xy 239.008968 214.343199) (xy 239.081794 214.247375) (xy 239.11088 214.230403)
-				(xy 239.116825 214.23) (xy 239.183175 214.23)
-			)
-		)
-	)
-	(zone
-		(net 617)
-		(net_name "HDMI_D2_N")
-		(layer "F.Cu")
-		(uuid "8f531e76-ce41-41a9-be9d-d9fad5cba430")
-		(name "J73 pad taper")
-		(hatch edge 0.5)
-		(priority 10)
-		(connect_pads yes
-			(clearance 0.15)
-		)
-		(min_thickness 0.09)
-		(filled_areas_thickness no)
-		(fill yes
-			(thermal_gap 0.5)
-			(thermal_bridge_width 0.5)
-		)
-		(polygon
-			(pts
-				(xy 239.595 214.23) (xy 239.705 214.23) (xy 239.8 214.355) (xy 239.8 214.45) (xy 239.5 214.45) (xy 239.5 214.355)
-			)
-		)
-		(filled_polygon
-			(layer "F.Cu")
-			(pts
-				(xy 239.714288 214.242887) (xy 239.718204 214.247373) (xy 239.791031 214.343199) (xy 239.8 214.369822)
-				(xy 239.8 214.406) (xy 239.787113 214.437113) (xy 239.756 214.45) (xy 239.544 214.45) (xy 239.512887 214.437113)
-				(xy 239.5 214.406) (xy 239.5 214.369822) (xy 239.508968 214.343199) (xy 239.581794 214.247375) (xy 239.61088 214.230403)
-				(xy 239.616825 214.23) (xy 239.683175 214.23)
-			)
-		)
-	)
-	(zone
-		(net 613)
-		(net_name "HDMI_D0_N")
-		(layer "F.Cu")
-		(uuid "bd118026-fc3b-4898-bb21-41a85c956e73")
-		(name "J73 pad taper")
-		(hatch edge 0.5)
-		(priority 10)
-		(connect_pads yes
-			(clearance 0.15)
-		)
-		(min_thickness 0.09)
-		(filled_areas_thickness no)
-		(fill yes
-			(thermal_gap 0.5)
-			(thermal_bridge_width 0.5)
-		)
-		(polygon
-			(pts
-				(xy 236.595 214.23) (xy 236.705 214.23) (xy 236.8 214.355) (xy 236.8 214.45) (xy 236.5 214.45) (xy 236.5 214.355)
-			)
-		)
-		(filled_polygon
-			(layer "F.Cu")
-			(pts
-				(xy 236.714288 214.242887) (xy 236.718204 214.247373) (xy 236.791031 214.343199) (xy 236.8 214.369822)
-				(xy 236.8 214.406) (xy 236.787113 214.437113) (xy 236.756 214.45) (xy 236.544 214.45) (xy 236.512887 214.437113)
-				(xy 236.5 214.406) (xy 236.5 214.369822) (xy 236.508968 214.343199) (xy 236.581794 214.247375) (xy 236.61088 214.230403)
-				(xy 236.616825 214.23) (xy 236.683175 214.23)
-			)
-		)
-	)
-	(zone
-		(net 610)
-		(net_name "HDMI_CLK_N")
-		(layer "F.Cu")
-		(uuid "caca68cf-b2e6-4681-b266-f8a11ba155eb")
-		(name "J73 pad taper")
-		(hatch edge 0.5)
-		(priority 10)
-		(connect_pads yes
-			(clearance 0.15)
-		)
-		(min_thickness 0.09)
-		(filled_areas_thickness no)
-		(fill yes
-			(thermal_gap 0.5)
-			(thermal_bridge_width 0.5)
-		)
-		(polygon
-			(pts
-				(xy 235.095 214.23) (xy 235.205 214.23) (xy 235.3 214.355) (xy 235.3 214.45) (xy 235 214.45) (xy 235 214.355)
-			)
-		)
-		(filled_polygon
-			(layer "F.Cu")
-			(pts
-				(xy 235.214288 214.242887) (xy 235.218204 214.247373) (xy 235.291031 214.343199) (xy 235.3 214.369822)
-				(xy 235.3 214.406) (xy 235.287113 214.437113) (xy 235.256 214.45) (xy 235.044 214.45) (xy 235.012887 214.437113)
-				(xy 235 214.406) (xy 235 214.369822) (xy 235.008968 214.343199) (xy 235.081794 214.247375) (xy 235.11088 214.230403)
-				(xy 235.116825 214.23) (xy 235.183175 214.23)
-			)
-		)
-	)
-	(zone
-		(net 614)
-		(net_name "HDMI_D0_P")
-		(layer "F.Cu")
-		(uuid "d774c054-3218-4c28-959f-c159639a2d58")
-		(name "J73 pad taper")
-		(hatch edge 0.5)
-		(priority 10)
-		(connect_pads yes
-			(clearance 0.15)
-		)
-		(min_thickness 0.09)
-		(filled_areas_thickness no)
-		(fill yes
-			(thermal_gap 0.5)
-			(thermal_bridge_width 0.5)
-		)
-		(polygon
-			(pts
-				(xy 237.595 214.23) (xy 237.705 214.23) (xy 237.8 214.355) (xy 237.8 214.45) (xy 237.5 214.45) (xy 237.5 214.355)
-			)
-		)
-		(filled_polygon
-			(layer "F.Cu")
-			(pts
-				(xy 237.714288 214.242887) (xy 237.718204 214.247373) (xy 237.791031 214.343199) (xy 237.8 214.369822)
-				(xy 237.8 214.406) (xy 237.787113 214.437113) (xy 237.756 214.45) (xy 237.544 214.45) (xy 237.512887 214.437113)
-				(xy 237.5 214.406) (xy 237.5 214.369822) (xy 237.508968 214.343199) (xy 237.581794 214.247375) (xy 237.61088 214.230403)
-				(xy 237.616825 214.23) (xy 237.683175 214.23)
+				(xy 234.95 214.19) (xy 239.85 214.19) (xy 239.85 214.45) (xy 234.95 214.45)
 			)
 		)
 	)
