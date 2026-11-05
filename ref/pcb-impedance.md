@@ -72,10 +72,12 @@ no mask) gives 52.6 Ω at 0.12 mm, 50.6 Ω at 0.13 mm, 48.7 Ω at 0.14 mm;
 solder mask lowers a microstrip a few ohm, so the class is set to
 **0.125 mm**. This is an estimate: run JLC's single-ended coated-microstrip
 calculator with the inputs above before ordering and correct `RGMII_WIDTH`
-in `tools/gen_pcb.py` if it disagrees. RGMII cares more about matching than
-about 50 Ω exactly: keep TXD[3:0]/TX_CTL within a few millimetres of TXC and
-RXD[3:0]/RX_CTL of RXC, by hand (KiCad has no bus-skew rule); the PHY's
-strapped 2 ns delays supply the clock skew.
+in `tools/gen_pcb.py` if it disagrees. The field solve below gives 48.4 Ω outer and 49.1 Ω
+inner at 0.125 mm. RGMII timing is set by the derived delay limits, not by
+millimetres: each group is checked against its own clock in
+[`gateware/rgmii1000/`](../gateware/rgmii1000/README.md), where the routed
+data-to-clock delays are shown with the FPGA package included. The PHY's
+strapped 2 ns delays supply the clock skew; no serpentine on the clock.
 
 ## 50 Ω single-ended: SDRAM, target 100 MHz CL3
 

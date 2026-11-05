@@ -43,8 +43,11 @@ source; the three marked **[verify]** are not in the Realtek datasheet (rev
 | CLKOUT | — | — | — | floating (Table 2); outputs 125 MHz by default, clear PHYCR2 from gateware |
 
 RGMII delays: TXDLY = 1 and RXDLY = 1 strap the PHY's 2 ns delays on (Table 6),
-so the fabric drives TXC and samples RXC without its own delay. Ball numbers
-are in `ref/ballmap.md`.
+so the fabric drives TXC edge-aligned with no shifted clock. RX still needs a
+fixed delay on each data ball: BUFIO insertion delay would otherwise put the
+capture clock past the PHY's window. See the
+[RGMII profile](../gateware/rgmii1000/README.md). Ball numbers are in
+`ref/ballmap.md`.
 
 ## Straps (Table 10, Table 11, §7.8, §7.9)
 

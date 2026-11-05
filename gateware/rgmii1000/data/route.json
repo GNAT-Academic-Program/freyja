@@ -1,0 +1,1201 @@
+{
+ "board_sha256": "7a17e3a03a645723e6af3dd3050ac41d6bd568faa597ffb2f20c0ea3c649f980",
+ "driver": "LVCMOS25_F_8_HR",
+ "nets": {
+  "PHY_TXC": {
+   "mm": {
+    "F.Cu": 4.66,
+    "In2": 20.567,
+    "B.Cu": 35.236
+   },
+   "length": 60.463,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 400.09,
+   "ball": "C24",
+   "pin": "20",
+   "pkg_ps": [
+    140.9,
+    142.3
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "In2",
+     20.567
+    ],
+    [
+     "via",
+     "B.Cu-In2"
+    ],
+    [
+     "B.Cu",
+     35.236
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     3.953
+    ]
+   ],
+   "sim": {
+    "slow_2pF": {
+     "r": {
+      "flight": 0.614,
+      "settle": 0.786,
+      "edge_20_80": 0.549,
+      "vmax": 2.75,
+      "vmin": 0.0,
+      "ringback": 0.003
+     },
+     "f": {
+      "flight": 0.6065,
+      "settle": 0.7982,
+      "edge_20_80": 0.51,
+      "vmax": 2.38,
+      "vmin": -0.31,
+      "ringback": 0.001
+     }
+    },
+    "slow_5pF": {
+     "r": {
+      "flight": 0.7502,
+      "settle": 0.948,
+      "edge_20_80": 0.627,
+      "vmax": 2.77,
+      "vmin": 0.0,
+      "ringback": 0.003
+     },
+     "f": {
+      "flight": 0.7348,
+      "settle": 0.9602,
+      "edge_20_80": 0.596,
+      "vmax": 2.38,
+      "vmin": -0.25,
+      "ringback": 0.004
+     }
+    },
+    "fast_2pF": {
+     "r": {
+      "flight": 0.5662,
+      "settle": 3.058,
+      "edge_20_80": 0.322,
+      "vmax": 4.11,
+      "vmin": 0.0,
+      "ringback": -0.131
+     },
+     "f": {
+      "flight": 0.5673,
+      "settle": 3.143,
+      "edge_20_80": 0.303,
+      "vmax": 2.62,
+      "vmin": -1.48,
+      "ringback": -0.308
+     }
+    },
+    "fast_5pF": {
+     "r": {
+      "flight": 0.6653,
+      "settle": 3.506,
+      "edge_20_80": 0.368,
+      "vmax": 4.13,
+      "vmin": 0.0,
+      "ringback": -0.068
+     },
+     "f": {
+      "flight": 0.6716,
+      "settle": 3.629,
+      "edge_20_80": 0.357,
+      "vmax": 2.62,
+      "vmin": -1.42,
+      "ringback": -0.21
+     }
+    }
+   }
+  },
+  "PHY_TXD0": {
+   "mm": {
+    "F.Cu": 1.615,
+    "In2": 19.522,
+    "B.Cu": 29.383
+   },
+   "length": 50.52,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 340.48,
+   "ball": "B24",
+   "pin": "18",
+   "pkg_ps": [
+    143.5,
+    144.9
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "In2",
+     19.522
+    ],
+    [
+     "via",
+     "B.Cu-In2"
+    ],
+    [
+     "B.Cu",
+     29.383
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     0.907
+    ]
+   ],
+   "sim": {
+    "slow_2pF": {
+     "r": {
+      "flight": 0.5434,
+      "settle": 0.72,
+      "edge_20_80": 0.559,
+      "vmax": 2.57,
+      "vmin": 0.0,
+      "ringback": 0.001
+     },
+     "f": {
+      "flight": 0.5333,
+      "settle": 0.7322,
+      "edge_20_80": 0.522,
+      "vmax": 2.38,
+      "vmin": -0.14,
+      "ringback": 0.001
+     }
+    },
+    "slow_5pF": {
+     "r": {
+      "flight": 0.6827,
+      "settle": 0.886,
+      "edge_20_80": 0.637,
+      "vmax": 2.61,
+      "vmin": 0.0,
+      "ringback": 0.003
+     },
+     "f": {
+      "flight": 0.6648,
+      "settle": 0.9002,
+      "edge_20_80": 0.614,
+      "vmax": 2.38,
+      "vmin": -0.1,
+      "ringback": 0.003
+     }
+    },
+    "fast_2pF": {
+     "r": {
+      "flight": 0.5007,
+      "settle": 0.584,
+      "edge_20_80": 0.319,
+      "vmax": 3.98,
+      "vmin": 0.0,
+      "ringback": 0.006
+     },
+     "f": {
+      "flight": 0.5006,
+      "settle": 2.721,
+      "edge_20_80": 0.299,
+      "vmax": 2.62,
+      "vmin": -1.35,
+      "ringback": -0.194
+     }
+    },
+    "fast_5pF": {
+     "r": {
+      "flight": 0.6002,
+      "settle": 0.696,
+      "edge_20_80": 0.364,
+      "vmax": 4.01,
+      "vmin": 0.0,
+      "ringback": 0.009
+     },
+     "f": {
+      "flight": 0.6055,
+      "settle": 3.169,
+      "edge_20_80": 0.355,
+      "vmax": 2.62,
+      "vmin": -1.3,
+      "ringback": -0.095
+     }
+    }
+   }
+  },
+  "PHY_TXD1": {
+   "mm": {
+    "F.Cu": 3.449,
+    "In2": 17.609,
+    "B.Cu": 34.197
+   },
+   "length": 55.256,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 366.24,
+   "ball": "C22",
+   "pin": "17",
+   "pkg_ps": [
+    150.2,
+    151.7
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "In2",
+     17.609
+    ],
+    [
+     "via",
+     "B.Cu-In2"
+    ],
+    [
+     "B.Cu",
+     34.197
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     2.742
+    ]
+   ],
+   "sim": {
+    "slow_2pF": {
+     "r": {
+      "flight": 0.5848,
+      "settle": 0.756,
+      "edge_20_80": 0.55,
+      "vmax": 2.71,
+      "vmin": 0.0,
+      "ringback": 0.0
+     },
+     "f": {
+      "flight": 0.5768,
+      "settle": 0.7702,
+      "edge_20_80": 0.512,
+      "vmax": 2.38,
+      "vmin": -0.28,
+      "ringback": 0.002
+     }
+    },
+    "slow_5pF": {
+     "r": {
+      "flight": 0.7217,
+      "settle": 0.92,
+      "edge_20_80": 0.628,
+      "vmax": 2.73,
+      "vmin": 0.0,
+      "ringback": 0.002
+     },
+     "f": {
+      "flight": 0.7058,
+      "settle": 0.9322,
+      "edge_20_80": 0.6,
+      "vmax": 2.38,
+      "vmin": -0.22,
+      "ringback": 0.001
+     }
+    },
+    "fast_2pF": {
+     "r": {
+      "flight": 0.5422,
+      "settle": 2.92,
+      "edge_20_80": 0.322,
+      "vmax": 4.1,
+      "vmin": 0.0,
+      "ringback": -0.116
+     },
+     "f": {
+      "flight": 0.543,
+      "settle": 3.011,
+      "edge_20_80": 0.303,
+      "vmax": 2.62,
+      "vmin": -1.48,
+      "ringback": -0.3
+     }
+    },
+    "fast_5pF": {
+     "r": {
+      "flight": 0.6414,
+      "settle": 3.348,
+      "edge_20_80": 0.368,
+      "vmax": 4.11,
+      "vmin": 0.0,
+      "ringback": -0.038
+     },
+     "f": {
+      "flight": 0.6477,
+      "settle": 3.511,
+      "edge_20_80": 0.358,
+      "vmax": 2.62,
+      "vmin": -1.41,
+      "ringback": -0.182
+     }
+    }
+   }
+  },
+  "PHY_TXD2": {
+   "mm": {
+    "F.Cu": 1.701,
+    "In2": 19.525,
+    "B.Cu": 30.684
+   },
+   "length": 51.911,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 348.66,
+   "ball": "C23",
+   "pin": "16",
+   "pkg_ps": [
+    114.2,
+    115.3
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "In2",
+     19.525
+    ],
+    [
+     "via",
+     "B.Cu-In2"
+    ],
+    [
+     "B.Cu",
+     30.684
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     0.994
+    ]
+   ],
+   "sim": {
+    "slow_2pF": {
+     "r": {
+      "flight": 0.5187,
+      "settle": 0.698,
+      "edge_20_80": 0.562,
+      "vmax": 2.51,
+      "vmin": 0.0,
+      "ringback": 0.003
+     },
+     "f": {
+      "flight": 0.5077,
+      "settle": 0.7102,
+      "edge_20_80": 0.525,
+      "vmax": 2.38,
+      "vmin": -0.07,
+      "ringback": 0.004
+     }
+    },
+    "slow_5pF": {
+     "r": {
+      "flight": 0.6584,
+      "settle": 0.862,
+      "edge_20_80": 0.64,
+      "vmax": 2.55,
+      "vmin": 0.0,
+      "ringback": 0.001
+     },
+     "f": {
+      "flight": 0.6398,
+      "settle": 0.8762,
+      "edge_20_80": 0.617,
+      "vmax": 2.38,
+      "vmin": -0.04,
+      "ringback": 0.0
+     }
+    },
+    "fast_2pF": {
+     "r": {
+      "flight": 0.4756,
+      "settle": 0.558,
+      "edge_20_80": 0.316,
+      "vmax": 3.92,
+      "vmin": 0.0,
+      "ringback": 0.006
+     },
+     "f": {
+      "flight": 0.4753,
+      "settle": 2.561,
+      "edge_20_80": 0.295,
+      "vmax": 2.62,
+      "vmin": -1.27,
+      "ringback": -0.133
+     }
+    },
+    "fast_5pF": {
+     "r": {
+      "flight": 0.5751,
+      "settle": 0.67,
+      "edge_20_80": 0.362,
+      "vmax": 3.94,
+      "vmin": 0.0,
+      "ringback": 0.007
+     },
+     "f": {
+      "flight": 0.58,
+      "settle": 2.963,
+      "edge_20_80": 0.352,
+      "vmax": 2.62,
+      "vmin": -1.23,
+      "ringback": -0.046
+     }
+    }
+   }
+  },
+  "PHY_TXD3": {
+   "mm": {
+    "F.Cu": 2.644,
+    "In2": 17.325,
+    "B.Cu": 37.386
+   },
+   "length": 57.356,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 378.28,
+   "ball": "C21",
+   "pin": "15",
+   "pkg_ps": [
+    124.2,
+    125.4
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "In2",
+     17.325
+    ],
+    [
+     "via",
+     "B.Cu-In2"
+    ],
+    [
+     "B.Cu",
+     37.386
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     1.937
+    ]
+   ],
+   "sim": {
+    "slow_2pF": {
+     "r": {
+      "flight": 0.5655,
+      "settle": 0.74,
+      "edge_20_80": 0.553,
+      "vmax": 2.64,
+      "vmin": 0.0,
+      "ringback": 0.003
+     },
+     "f": {
+      "flight": 0.5566,
+      "settle": 0.7522,
+      "edge_20_80": 0.514,
+      "vmax": 2.38,
+      "vmin": -0.2,
+      "ringback": 0.004
+     }
+    },
+    "slow_5pF": {
+     "r": {
+      "flight": 0.7029,
+      "settle": 0.904,
+      "edge_20_80": 0.632,
+      "vmax": 2.67,
+      "vmin": 0.0,
+      "ringback": 0.003
+     },
+     "f": {
+      "flight": 0.6863,
+      "settle": 0.9162,
+      "edge_20_80": 0.604,
+      "vmax": 2.38,
+      "vmin": -0.15,
+      "ringback": 0.003
+     }
+    },
+    "fast_2pF": {
+     "r": {
+      "flight": 0.519,
+      "settle": 2.744,
+      "edge_20_80": 0.318,
+      "vmax": 4.02,
+      "vmin": 0.0,
+      "ringback": -0.031
+     },
+     "f": {
+      "flight": 0.5196,
+      "settle": 2.857,
+      "edge_20_80": 0.298,
+      "vmax": 2.62,
+      "vmin": -1.39,
+      "ringback": -0.225
+     }
+    },
+    "fast_5pF": {
+     "r": {
+      "flight": 0.6181,
+      "settle": 0.712,
+      "edge_20_80": 0.364,
+      "vmax": 4.04,
+      "vmin": 0.0,
+      "ringback": 0.001
+     },
+     "f": {
+      "flight": 0.6238,
+      "settle": 3.313,
+      "edge_20_80": 0.353,
+      "vmax": 2.62,
+      "vmin": -1.33,
+      "ringback": -0.133
+     }
+    }
+   }
+  },
+  "PHY_TX_CTL": {
+   "mm": {
+    "F.Cu": 3.208,
+    "In2": 19.476,
+    "B.Cu": 29.055
+   },
+   "length": 51.739,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 347.6,
+   "ball": "B21",
+   "pin": "19",
+   "pkg_ps": [
+    109.9,
+    111.0
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "In2",
+     19.476
+    ],
+    [
+     "via",
+     "B.Cu-In2"
+    ],
+    [
+     "B.Cu",
+     29.055
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     2.501
+    ]
+   ],
+   "sim": {
+    "slow_2pF": {
+     "r": {
+      "flight": 0.5231,
+      "settle": 0.694,
+      "edge_20_80": 0.546,
+      "vmax": 2.6,
+      "vmin": 0.0,
+      "ringback": 0.001
+     },
+     "f": {
+      "flight": 0.5146,
+      "settle": 0.7082,
+      "edge_20_80": 0.508,
+      "vmax": 2.38,
+      "vmin": -0.18,
+      "ringback": 0.004
+     }
+    },
+    "slow_5pF": {
+     "r": {
+      "flight": 0.6609,
+      "settle": 0.858,
+      "edge_20_80": 0.625,
+      "vmax": 2.63,
+      "vmin": 0.0,
+      "ringback": 0.001
+     },
+     "f": {
+      "flight": 0.6444,
+      "settle": 0.8722,
+      "edge_20_80": 0.598,
+      "vmax": 2.38,
+      "vmin": -0.13,
+      "ringback": 0.001
+     }
+    },
+    "fast_2pF": {
+     "r": {
+      "flight": 0.4802,
+      "settle": 2.54,
+      "edge_20_80": 0.317,
+      "vmax": 3.99,
+      "vmin": 0.0,
+      "ringback": -0.012
+     },
+     "f": {
+      "flight": 0.481,
+      "settle": 2.677,
+      "edge_20_80": 0.296,
+      "vmax": 2.62,
+      "vmin": -1.38,
+      "ringback": -0.219
+     }
+    },
+    "fast_5pF": {
+     "r": {
+      "flight": 0.5794,
+      "settle": 0.674,
+      "edge_20_80": 0.363,
+      "vmax": 4.01,
+      "vmin": 0.0,
+      "ringback": 0.004
+     },
+     "f": {
+      "flight": 0.5851,
+      "settle": 3.135,
+      "edge_20_80": 0.351,
+      "vmax": 2.62,
+      "vmin": -1.32,
+      "ringback": -0.104
+     }
+    }
+   }
+  },
+  "PHY_RXC": {
+   "mm": {
+    "F.Cu": 8.277,
+    "B.Cu": 35.304,
+    "In2": 3.537
+   },
+   "length": 47.119,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 303.06,
+   "ball": "D19",
+   "pin": "27",
+   "pkg_ps": [
+    97.3,
+    98.2
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "B.Cu",
+     35.304
+    ],
+    [
+     "via",
+     "B.Cu-In2"
+    ],
+    [
+     "In2",
+     3.537
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "F.Cu",
+     7.57
+    ]
+   ]
+  },
+  "PHY_RXD0": {
+   "mm": {
+    "F.Cu": 9.899,
+    "In5": 5.414,
+    "B.Cu": 30.933
+   },
+   "length": 46.246,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 299.97,
+   "ball": "C19",
+   "pin": "25",
+   "pkg_ps": [
+    102.8,
+    103.8
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In5"
+    ],
+    [
+     "In5",
+     5.414
+    ],
+    [
+     "via",
+     "B.Cu-In5"
+    ],
+    [
+     "B.Cu",
+     30.933
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     9.192
+    ]
+   ]
+  },
+  "PHY_RXD1": {
+   "mm": {
+    "F.Cu": 7.689,
+    "In5": 5.414,
+    "B.Cu": 32.501
+   },
+   "length": 45.605,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 296.2,
+   "ball": "H17",
+   "pin": "24",
+   "pkg_ps": [
+    27.7,
+    27.9
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In5"
+    ],
+    [
+     "In5",
+     5.414
+    ],
+    [
+     "via",
+     "B.Cu-In5"
+    ],
+    [
+     "B.Cu",
+     32.501
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     6.982
+    ]
+   ]
+  },
+  "PHY_RXD2": {
+   "mm": {
+    "F.Cu": 9.842,
+    "B.Cu": 42.634
+   },
+   "length": 52.476,
+   "vias": 2,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 330.7,
+   "ball": "E22",
+   "pin": "23",
+   "pkg_ps": [
+    113.2,
+    114.3
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "B.Cu",
+     42.634
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     9.135
+    ]
+   ]
+  },
+  "PHY_RXD3": {
+   "mm": {
+    "F.Cu": 9.136,
+    "In5": 13.618,
+    "B.Cu": 24.657
+   },
+   "length": 47.41,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 315.76,
+   "ball": "B19",
+   "pin": "22",
+   "pkg_ps": [
+    123.3,
+    124.5
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In5"
+    ],
+    [
+     "In5",
+     13.618
+    ],
+    [
+     "via",
+     "B.Cu-In5"
+    ],
+    [
+     "B.Cu",
+     24.657
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     8.429
+    ]
+   ]
+  },
+  "PHY_RX_CTL": {
+   "mm": {
+    "F.Cu": 36.079
+   },
+   "length": 36.079,
+   "vias": 0,
+   "barrel_mm": 0,
+   "nominal_ps": 212.14,
+   "ball": "A19",
+   "pin": "26",
+   "pkg_ps": [
+    121.5,
+    122.7
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     36.079
+    ]
+   ]
+  },
+  "PHY_MDC": {
+   "mm": {
+    "F.Cu": 6.412,
+    "In2": 7.414,
+    "B.Cu": 43.615
+   },
+   "length": 57.442,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 367.98,
+   "ball": "C17",
+   "pin": "13",
+   "pkg_ps": [
+    105.5,
+    106.6
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "In2",
+     7.414
+    ],
+    [
+     "via",
+     "B.Cu-In2"
+    ],
+    [
+     "B.Cu",
+     43.615
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     5.705
+    ]
+   ]
+  },
+  "PHY_MDIO": {
+   "mm": {
+    "F.Cu": 5.206,
+    "In2": 8.414,
+    "B.Cu": 40.519
+   },
+   "length": 54.14,
+   "vias": 3,
+   "barrel_mm": 3.1772,
+   "nominal_ps": 349.66,
+   "ball": "B17",
+   "pin": "14",
+   "pkg_ps": [
+    110.7,
+    111.8
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     0.707
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "In2",
+     8.414
+    ],
+    [
+     "via",
+     "B.Cu-In2"
+    ],
+    [
+     "B.Cu",
+     40.519
+    ],
+    [
+     "via",
+     "B.Cu-F.Cu"
+    ],
+    [
+     "F.Cu",
+     4.499
+    ]
+   ]
+  },
+  "PHY_RESET_N": {
+   "mm": {
+    "F.Cu": 63.946
+   },
+   "length": 63.946,
+   "vias": 0,
+   "barrel_mm": 0,
+   "nominal_ps": 376.0,
+   "ball": "G1",
+   "pin": "12",
+   "pkg_ps": [
+    166.2,
+    167.8
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     63.946
+    ]
+   ]
+  },
+  "PHY_INT_N": {
+   "mm": {
+    "F.Cu": 54.4,
+    "In2": 12.738
+   },
+   "length": 67.138,
+   "vias": 2,
+   "barrel_mm": 0.4334,
+   "nominal_ps": 411.68,
+   "ball": "G2",
+   "pin": "31",
+   "pkg_ps": [
+    166.7,
+    168.4
+   ],
+   "sections": [
+    [
+     "F.Cu",
+     47.573
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "In2",
+     12.738
+    ],
+    [
+     "via",
+     "F.Cu-In2"
+    ],
+    [
+     "F.Cu",
+     6.826
+    ]
+   ]
+  }
+ },
+ "tx": {
+  "PHY_TXD0": {
+   "lo": -0.0854,
+   "hi": -0.0521,
+   "nominal_line_ps": -59.61
+  },
+  "PHY_TXD1": {
+   "lo": -0.0444,
+   "hi": -0.0131,
+   "nominal_line_ps": -33.85
+  },
+  "PHY_TXD2": {
+   "lo": -0.1104,
+   "hi": -0.0764,
+   "nominal_line_ps": -51.43
+  },
+  "PHY_TXD3": {
+   "lo": -0.0639,
+   "hi": -0.0319,
+   "nominal_line_ps": -21.81
+  },
+  "PHY_TX_CTL": {
+   "lo": -0.1058,
+   "hi": -0.0739,
+   "nominal_line_ps": -52.49
+  }
+ },
+ "rx": {
+  "PHY_RXD0": {
+   "lo": 0.0008,
+   "hi": 0.0041,
+   "line_ps": [
+    -3.75,
+    -2.38
+   ]
+  },
+  "PHY_RXD1": {
+   "lo": -0.0781,
+   "hi": -0.0755,
+   "line_ps": [
+    -7.6,
+    -6.06
+   ]
+  },
+  "PHY_RXD2": {
+   "lo": 0.0408,
+   "hi": 0.0464,
+   "line_ps": [
+    25.8,
+    29.35
+   ]
+  },
+  "PHY_RXD3": {
+   "lo": 0.0348,
+   "hi": 0.043,
+   "line_ps": [
+    9.71,
+    15.79
+   ]
+  },
+  "PHY_RX_CTL": {
+   "lo": -0.0691,
+   "hi": -0.0638,
+   "line_ps": [
+    -92.42,
+    -89.23
+   ]
+  }
+ }
+}

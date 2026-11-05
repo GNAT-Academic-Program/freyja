@@ -784,6 +784,48 @@ Through vias are barred within 0.5845 mm of the LINK lanes on B.Cu, a band acros
 
 *Still unverified:* the Realtek layout guide was not available; C241's 3.86 mm path and pin 29's via distance rest on the LINK lanes staying; LED wiring is about 40 mm each on In5, under the jack; decoupling effectiveness, crystal behaviour, LED polarity on a real part and PHY operation need the bench.
 
+**RGMII and management routed, U1 to U30 (2026-11-04).** All 16 nets connect: 41 pads, including every strap and pull branch, KiCad 0 unconnected on the 12 RGMII nets and on the 4 management nets, each group alone, from 12 and 4. **TX timing is provisional: Realtek publishes neither the tolerance of the internal TXC delay nor an input window for `TXDLY = 1`.** RX is calculated positive with named allowances. Nothing has been measured. The contract, fixture, constraints and results are in [`gateware/rgmii1000/`](gateware/rgmii1000/README.md). The global `+2V5` feeder is still open, as planned.
+
+*Timing basis, rev 1.7 Table 60.* `TXDLY` and `RXDLY` read 1 from the straps. TX: the FPGA launches clock and data together and sends no shifted clock; TskewT, ±0.5 ns "without delay integrated", is held at U30's pins, board included. RX: TsetupT and TholdT, 1.2 ns, at U30's pins. The nominal 2 ns appears nowhere in the constraints and no clock serpentine was added. Vivado 2026.1 on `xc7a100tfgg676-2`, both DDR edges, min and max, slow and fast corners, all registers checked in the IOBs; RX modelled on its own received clock.
+
+| Check, ns | TX | RX |
+|---|---:|---:|
+| Worst setup slack | +0.169 (TXD1) | +0.149 (RXD3) |
+| Worst hold slack | +0.100 (TX_CTL) | +0.211 (RXD1) |
+| Room for board and package, data minus clock, tightest net | −0.206 to +0.156 | −0.389 to +0.292, less a ±0.1 allowance |
+| Routed, data minus clock, across the group | −0.110 to −0.013 | −0.078 to +0.046 |
+
+*Two results that change the implementation.* RX needs a fixed IDELAY of 11 taps on each data ball, with a 200 MHz IDELAYCTRL: direct BUFIO capture fails hold by 1.02 ns. `ref/network.md` said the fabric needs no delay of its own and is corrected. TX is LVCMOS25, 8 mA, fast slew, chosen on the routed TXC against Table 60's 0.75 ns edge: 4 mA fast reaches 2.38 ns and 8 mA slow 1.06 ns; 12 mA rings harder; 8 mA slow on data alone fails the limit by 0.536 ns. The SDRAM settings were not reused.
+
+| Net | Ball, pin | Length, mm | By layer, mm | Vias | Line, ps | Package, ps |
+|---|---|---:|---|---:|---:|---:|
+| TXC | C24, 20 | 60.46 | F 4.66, In2 20.57, B 35.24 | 3 | 400.1 | 141 |
+| TXD0 | B24, 18 | 50.52 | F 1.62, In2 19.52, B 29.38 | 3 | 340.5 | 144 |
+| TXD1 | C22, 17 | 55.26 | F 3.45, In2 17.61, B 34.20 | 3 | 366.2 | 151 |
+| TXD2 | C23, 16 | 51.91 | F 1.70, In2 19.53, B 30.68 | 3 | 348.7 | 115 |
+| TXD3 | C21, 15 | 57.36 | F 2.64, In2 17.33, B 37.39 | 3 | 378.3 | 125 |
+| TX_CTL | B21, 19 | 51.74 | F 3.21, In2 19.48, B 29.06 | 3 | 347.6 | 110 |
+| RXC | D19, 27 | 47.12 | F 8.28, In2 3.54, B 35.30 | 3 | 303.1 | 98 |
+| RXD0 | C19, 25 | 46.25 | F 9.90, In5 5.41, B 30.93 | 3 | 300.0 | 103 |
+| RXD1 | H17, 24 | 45.61 | F 7.69, In5 5.41, B 32.50 | 3 | 296.2 | 28 |
+| RXD2 | E22, 23 | 52.48 | F 9.84, B 42.63 | 2 | 330.7 | 114 |
+| RXD3 | B19, 22 | 47.41 | F 9.14, In5 13.62, B 24.66 | 3 | 315.8 | 124 |
+| RX_CTL | A19, 26 | 36.08 | F 36.08 | 0 | 212.1 | 122 |
+| MDC | C17, 13 | 57.44 | F 6.41, In2 7.41, B 43.62 | 3 | | |
+| MDIO | B17, 14 | 54.14 | F 5.21, In2 8.41, B 40.52 | 3 | | |
+| RESET_N | G1, 12 | 63.95 | F 63.95 | 0 | | |
+| INT_N | G2, 31 | 67.14 | F 54.40, In2 12.74 | 2 | | |
+
+Ball and pin agree with the netlist and `ref/freya.xdc`. TX and RX are each matched to their own clock within the derived limits, not to each other, and no length was added for matching. TXC is the longest of its group because the natural lane order puts it at the outside; RX_CTL is 91 ps short of RXC because it has no vias and no detour, and sits inside the limit. Line delay uses the field solve: 0.125 mm is 48.4 ohm on F and B, 49.1 ohm on In2 and In5, a calculation and not a fabricator's result. Barrels are 6.97 ps/mm, assumed.
+
+*Layout.* TX balls lie west of RX balls while TX pins lie east of RX pins, so the groups swap between U1 and U30. In2 and In5 are closed by the SDRAM lanes between them, and F.Cu by decoupling, so the crossing is on B.Cu, spread across x 210.4 to 219 between the rows of reserved capacitor vias and x 210.4 to 217 further south. TX leaves its balls on In2 and hops to B.Cu at y 160 to 166; RX uses In5 or B.Cu in the ball field and B.Cu south, with the vias at U30 fanned so each B lane stays in order. RX_CTL has a clear path on F.Cu and takes it, through R137's pad, zero vias, F.Cu over In1 throughout. RESET_N takes the east side of U1 and under U32's body on F.Cu, zero vias. INT_N does the same as far as y 187, then In2 under both RGMII groups. Reserved via sites of other nets were kept: two of my first sites, (204.7, 158.34) and (216.7, 158.34), sat on `+2V5` and `+1V2_MGT` reservations, which plain DRC cannot see and the stress copy did; `PHY_TXC`, `PHY_TX_CTL`, `PHY_TXD1` and `PHY_MDIO` moved. No reservation stub was imported; all 12 RGMII nets are 0.125 mm throughout; MDC and MDIO are 0.125 mm except 0.1 mm on their F.Cu lanes to the pins; RESET_N and INT_N are 0.1 mm on F.Cu, and INT_N 0.125 mm on In2.
+
+*Return paths.* Of the 40 vias on these nets, 14 keep their reference and 26 change In1 to In6. 25 of the 26 have a GND via within 2.0 mm, the figure chosen earlier; `PHY_TX_CTL` at (217.45, 165.9) has 2.08 mm. Five GND vias were added: two on reserved sites, (216.4, 167.69) and (217.95, 163.44), without connecting their capacitors, and new ones at (215.3, 194.1), (213.9, 194.97) and (212.02, 185.0). On the refilled In1 and In6, every void crossing of these nets is at its own via; one own via, `PHY_MDC` at (217.2, 196.3), merges with the `+2V5` via at (216.95, 195.6), crossed only as the track leaves it. Each GND plane stays one piece, `+3V3` and `+1V0` one piece each.
+
+*Checks.* HEAD against the commit board: 307 tracks and 45 vias added, nothing removed, no footprint moved, every kept track and via byte-identical, five zones refilled with no outline change, no rule, stackup or net changed. Tracks 2278 to 2585, vias 551 to 596, ratsnest 1137 to 1121. **0 DRC errors, 0 parity with H4 at either position**, warnings unchanged, no dangling copper, fresh refills byte-identical. Earlier connectivity preserved, by KiCad on each group: LINK 0, SDRAM 0, PSRAM 0, MDI 0, the other PHY nets 0, `+1V8_IO` 0, HDMI 15 unchanged, and GND, `+3V3`, `+2V5` and `+1V0` unchanged at 280, 120, 20 and 40. Reservation stress copy: 34 errors before and 33 after, none with these nets. The owner's H4 move, its fills and `.prl` remain uncommitted. Evidence: `~/freyja-review/rgmii-2026-11-04/`, image `images/closeup.png`.
+
+*Unresolved.* (1) U30's receiver in `TXDLY = 1`, as above; this is the missing term for TX. (2) TX rings in the fast corner at U30: up to 4.13 V and −1.48 V with no clamps modelled, against Table 54's −0.2 to 2.8 V for the 2.5 V RGMII supply, and up to 0.31 V inside VIL and VIH. It does not re-cross 1.25 V. No series resistor exists on these nets, so if measurement confirms it the fix is a schematic change. (3) U30's output is unmodelled, covered by a ±0.1 ns allowance. (4) IDELAY pattern jitter is not in the report, and DS181 is not in the repository. (5) X4 jitter, crosstalk, simultaneous switching, 10/100 modes and via stubs are unassessed. (6) `tools/gen_pcb.py` still generates the comment "length-match by hand" in `odin.kicad_dru`; it is superseded by the profile and was left for the next rules change. (7) The `+2V5` feeder from the rest of the rail to U30's In5 bus is the next chunk.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule

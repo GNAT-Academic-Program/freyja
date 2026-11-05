@@ -1,0 +1,11 @@
+net,dir,limit_lo,limit_hi,board_lo,board_hi,setup_slack,setup_corner,hold_slack,hold_corner
+PHY_RXD0,rx,-0.484,0.308,0.0008,0.0041,0.204,Fast,0.385,Slow
+PHY_RXD1,rx,-0.389,0.397,-0.0781,-0.0755,0.372,Fast,0.211,Slow
+PHY_RXD2,rx,-0.474,0.311,0.0408,0.0464,0.165,Fast,0.415,Slow
+PHY_RXD3,rx,-0.498,0.292,0.0348,0.043,0.149,Fast,0.433,Slow
+PHY_RX_CTL,rx,-0.496,0.294,-0.0691,-0.0638,0.258,Fast,0.327,Slow
+PHY_TXD0,tx,-0.249,0.159,-0.0854,-0.0521,0.211,Slow,0.164,Slow
+PHY_TXD1,tx,-0.252,0.156,-0.0444,-0.0131,0.169,Slow,0.208,Slow
+PHY_TXD2,tx,-0.216,0.193,-0.1104,-0.0764,0.269,Slow,0.106,Slow
+PHY_TXD3,tx,-0.221,0.188,-0.0639,-0.0319,0.22,Slow,0.157,Slow
+PHY_TX_CTL,tx,-0.206,0.203,-0.1058,-0.0739,0.277,Slow,0.1,Slow

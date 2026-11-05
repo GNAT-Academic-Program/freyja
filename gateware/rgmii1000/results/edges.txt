@@ -1,0 +1,16 @@
+tx setup Slow launch rise PHY_TXD1                   launch c125_u rise@0.000ns  capture txc fall@4.000ns   req   4.000 slack   0.169
+tx setup Slow launch fall PHY_TXD1                   launch c125_u fall@4.000ns  capture txc rise@8.000ns   req   4.000 slack   0.169
+tx hold  Slow launch rise PHY_TX_CTL                 launch c125_u rise@0.000ns  capture txc rise@0.000ns   req   0.000 slack   0.100
+tx hold  Slow launch fall PHY_TX_CTL                 launch c125_u fall@4.000ns  capture txc fall@4.000ns   req   0.000 slack   0.100
+rx setup Slow capture rise rx3/D                      launch phy_rxc fall@4.000ns capture phy_rxc rise@8.000ns req   4.000 slack   1.050
+rx setup Slow capture fall rx3/D                      launch phy_rxc rise@0.000ns capture phy_rxc fall@4.000ns req   4.000 slack   1.050
+rx hold  Slow capture rise rx1/D                      launch phy_rxc rise@0.000ns capture phy_rxc rise@0.000ns req   0.000 slack   0.211
+rx hold  Slow capture fall rx1/D                      launch phy_rxc fall@4.000ns capture phy_rxc fall@4.000ns req   0.000 slack   0.211
+tx setup Fast launch rise PHY_TXD1                   launch c125_u rise@0.000ns  capture txc fall@4.000ns   req   4.000 slack   0.197
+tx setup Fast launch fall PHY_TXD1                   launch c125_u fall@4.000ns  capture txc rise@8.000ns   req   4.000 slack   0.197
+tx hold  Fast launch rise PHY_TX_CTL                 launch c125_u rise@0.000ns  capture txc rise@0.000ns   req   0.000 slack   0.136
+tx hold  Fast launch fall PHY_TX_CTL                 launch c125_u fall@4.000ns  capture txc fall@4.000ns   req   0.000 slack   0.136
+rx setup Fast capture rise rx3/D                      launch phy_rxc fall@4.000ns capture phy_rxc rise@8.000ns req   4.000 slack   0.149
+rx setup Fast capture fall rx3/D                      launch phy_rxc rise@0.000ns capture phy_rxc fall@4.000ns req   4.000 slack   0.149
+rx hold  Fast capture rise rx1/D                      launch phy_rxc rise@0.000ns capture phy_rxc rise@0.000ns req   0.000 slack   0.609
+rx hold  Fast capture fall rx1/D                      launch phy_rxc fall@4.000ns capture phy_rxc fall@4.000ns req   0.000 slack   0.609

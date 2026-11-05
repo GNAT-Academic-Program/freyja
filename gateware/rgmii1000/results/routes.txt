@@ -1,0 +1,18 @@
+PHY_TXC C24 pin 20 60.463 mm {'F.Cu': 4.66, 'In2': 20.567, 'B.Cu': 35.236} vias 3 ps 400.09
+PHY_TXD0 B24 pin 18 50.52 mm {'F.Cu': 1.615, 'In2': 19.522, 'B.Cu': 29.383} vias 3 ps 340.48
+PHY_TXD1 C22 pin 17 55.256 mm {'F.Cu': 3.449, 'In2': 17.609, 'B.Cu': 34.197} vias 3 ps 366.24
+PHY_TXD2 C23 pin 16 51.911 mm {'F.Cu': 1.701, 'In2': 19.525, 'B.Cu': 30.684} vias 3 ps 348.66
+PHY_TXD3 C21 pin 15 57.356 mm {'F.Cu': 2.644, 'In2': 17.325, 'B.Cu': 37.386} vias 3 ps 378.28
+PHY_TX_CTL B21 pin 19 51.739 mm {'F.Cu': 3.208, 'In2': 19.476, 'B.Cu': 29.055} vias 3 ps 347.6
+PHY_RXC D19 pin 27 47.119 mm {'F.Cu': 8.277, 'B.Cu': 35.304, 'In2': 3.537} vias 3 ps 303.06
+PHY_RXD0 C19 pin 25 46.246 mm {'F.Cu': 9.899, 'In5': 5.414, 'B.Cu': 30.933} vias 3 ps 299.97
+PHY_RXD1 H17 pin 24 45.605 mm {'F.Cu': 7.689, 'In5': 5.414, 'B.Cu': 32.501} vias 3 ps 296.2
+PHY_RXD2 E22 pin 23 52.476 mm {'F.Cu': 9.842, 'B.Cu': 42.634} vias 2 ps 330.7
+PHY_RXD3 B19 pin 22 47.41 mm {'F.Cu': 9.136, 'In5': 13.618, 'B.Cu': 24.657} vias 3 ps 315.76
+PHY_RX_CTL A19 pin 26 36.079 mm {'F.Cu': 36.079} vias 0 ps 212.14
+PHY_MDC C17 pin 13 57.442 mm {'F.Cu': 6.412, 'In2': 7.414, 'B.Cu': 43.615} vias 3 ps 367.98
+PHY_MDIO B17 pin 14 54.14 mm {'F.Cu': 5.206, 'In2': 8.414, 'B.Cu': 40.519} vias 3 ps 349.66
+PHY_RESET_N G1 pin 12 63.946 mm {'F.Cu': 63.946} vias 0 ps 376.0
+PHY_INT_N G2 pin 31 67.138 mm {'F.Cu': 54.4, 'In2': 12.738} vias 2 ps 411.68
+tx {"PHY_TXD0": {"lo": -0.0854, "hi": -0.0521, "nominal_line_ps": -59.61}, "PHY_TXD1": {"lo": -0.0444, "hi": -
+rx {"PHY_RXD0": {"lo": 0.0008, "hi": 0.0041, "line_ps": [-3.75, -2.38]}, "PHY_RXD1": {"lo": -0.0781, "hi": -0.

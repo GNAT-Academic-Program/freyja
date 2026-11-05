@@ -1,0 +1,69 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (lin64) Build 6511674 Tue Jun 16 11:01:26 MDT 2026
+| Date         : Wed Nov  4 22:29:27 2026
+| Host         : ohenley-desktop running 64-bit Ubuntu 26.04.1 LTS
+| Command      : report_timing -setup -corner Slow -from PHY_RX_CTL -file rx_setup_path.txt
+| Design       : top
+| Device       : 7a100t-fgg676
+| Speed File   : -2  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             1.104ns  (required time - arrival time)
+  Source:                 PHY_RXD0
+                            (input port clocked by phy_rxc  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            rx0/D
+                            (rising edge-triggered cell IDDR clocked by phy_rxc  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             phy_rxc
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (phy_rxc fall@4.000ns - phy_rxc rise@0.000ns)
+  Data Path Delay:        2.974ns  (logic 2.974ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           2  (IBUF=1 IDELAYE2=1)
+  Input Delay:            2.904ns
+  Clock Path Skew:        3.029ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.029ns = ( 7.029 - 4.000 ) 
+    Source Clock Delay      (SCD):    0.000ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock phy_rxc rise edge)    0.000     0.000 r  <hidden>
+                         input delay                  2.904     2.904    <hidden>
+    C19                                               0.000     2.904 r  PHY_RXD0
+                         net (fo=0)                   0.000     2.904    PHY_RXD0
+    C19                  IBUF (Prop_ibuf_I_O)         1.300     4.204 r  PHY_RXD0_IBUF_inst/O
+                         net (fo=1, routed)           0.000     4.204    PHY_RXD0_IBUF
+    IDELAY_X0Y173        IDELAYE2 (Prop_idelaye2_IDATAIN_DATAOUT)
+                                                      1.674     5.878 r  dly0/DATAOUT
+                         net (fo=1, routed)           0.000     5.878    rx_d_0
+    ILOGIC_X0Y173        IDDR                                         r  rx0/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock phy_rxc fall edge)    4.000     4.000 f  <hidden>
+    D19                                               0.000     4.000 f  PHY_RXC
+                         net (fo=0)                   0.000     4.000    PHY_RXC
+    D19                  IBUF (Prop_ibuf_I_O)         1.234     5.234 f  rxc_ibuf/O
+                         net (fo=2, routed)           0.341     5.575    rxc_i
+    BUFIO_X0Y13          BUFIO (Prop_bufio_I_O)       1.223     6.798 f  rxc_bufio/O
+                         net (fo=5, routed)           0.231     7.029    rxc_io
+    ILOGIC_X0Y173        IDDR                                         f  rx0/C
+                         clock pessimism              0.000     7.029    <hidden>
+                         clock uncertainty           -0.035     6.993    <hidden>
+    ILOGIC_X0Y173        IDDR (Setup_iddr_C_D)       -0.012     6.981    rx0
+  -------------------------------------------------------------------
+                         required time                          6.981    <hidden>
+                         arrival time                          -5.878    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  1.104    <hidden>
+
+
+
+
