@@ -1018,6 +1018,58 @@ U16, L6, C204, C205 and every other footprint stayed; locks and the `island U16`
 
 **Island profile file repaired (2026-11-05).** `tools/island_profiles.yaml` loads again. Two `source:` values held an unquoted colon followed by a space, which YAML reads as a second mapping: the TPS25942A entry, the one known, and behind it the TPS564201 entry, which the parser could not reach until the first was fixed. Both values are now double-quoted and nothing else in the file changed: 2 of 342 lines. Through its normal consumer, `islands.load_profiles`, the file gives 13 profiles; each of the two parsed `source` strings equals the text that was on its line, character for character; all 13 `source` values match their own lines; and `profile_for` selects a profile for the fitted parts of every family, none left unused. No placement was run, no island regenerated, and the board, schematic and netlist are untouched. The TLV62569 rule's placement defect recorded above is not repaired by this: it is a rule that parses and places wrongly.
 
+**`+1V8` behind FB1 routed, with `MON_1V8` (2026-11-05).** All 18 pads of `+1V8` reach FB1.2 by copper and all 3 pads of `MON_1V8` are joined. The eleven capacitor grounds reach In1, In4 and In6. `+1V8` and `+1V8_IO` meet only through FB1. **`+5V` is still unrouted, so U14 has no input and the rail is not powered in layout terms.**
+
+*Endpoints, from the netlist and the board, which agree.* `+1V8`, 18: FB1.2; U1 J9, L9, N9, R9, U9 (VCCAUX) and M12 (VCCADC_0); C319 (47 uF), C320 to C322 (4.7 uF), C323 to C327 (0.47 uF), C328 (100 nF); R87.1. `MON_1V8`, 3: R87.2 (1k), C229.1 (100 nF), U7.55 (GPIO44/ADC4). C319 to C328 are the expected decouplers. Neither net had any copper.
+
+*Route.*
+
+| Section | Layer, width | Notes |
+|---|---|---|
+| FB1.2 to two vias at (196.2, 130.0), (197.2, 130.0) | F.Cu 0.6 mm | east of the `+1V8_IO` feed on B.Cu at x 195.4; FB1.1's copper untouched |
+| Trunk east, y 127.89, x 197.5 to 218.8 | In5, 1.0 mm, 23.5 mm | between In4 and In6, in the lane between the two reserved via rows of the north capacitors. B.Cu is closed here by the `+1V8_IO` feeds at x 195.4 and 198.92 and the `+2V5` lane at x 210 to 213 |
+| Two vias at (217.8, 127.89), (218.8, 127.89), then trunk to (223.8, 131.575) | B.Cu, 1.0 mm | 35 um copper from here on |
+| Two necks between the reserved power vias of C383, C374, C384 | B.Cu, 0.45 mm, 5.5 and 2.0 mm | the only way into the ball field that keeps those reservations |
+| NE block of the ball field to U9's via (217.7, 142.34) | B.Cu, 1.0 mm | that block is unconnected balls; no signal lane is taken |
+| Ladder on the VCCAUX column | B.Cu, 0.22 mm | lanes on ball columns 9 and 8, y 142.84 to 150.84, each dogbone via tied to both; M12 by the row lane y 147.84 |
+| Six dogbones | F.Cu, 0.2 mm | the reserved sites, all six used |
+| East capacitors C323 to C326 | B.Cu 1.0 mm to one via at (228.35, 140.865), then F.Cu 0.3 mm between the capacitor pads | J5A and J5B take 48 slot signals east across this strip, so nothing here runs north to south on an inner layer or B.Cu |
+| South capacitors C319 to C321 | B.Cu 0.22 mm lane, 14.2 mm, from J9's via down ball column 10 to C321's reserved via; F.Cu 0.5 mm bar joining the three | |
+| South-west capacitors C322, C327, C328 | 32 mm from C320: F.Cu and In2, 0.15 to 0.3 mm, four vias; F.Cu bars between the three | see below |
+| Monitor branch to R87.1 | In2 0.2 mm, 19.9 mm, from the FB1 vias; one via beside R87 | its own branch: it reads the bead's output and carries no load current |
+| `MON_1V8` | F.Cu: R87.2 to C229.1 0.25 mm; one 0.1 mm lane to U7.55 | lane on the south side of the gap between C121 and C226, so one more lane, pin 56 `MON_1V0`, still fits |
+
+Reservations: of the 13 reserved `+1V8` via sites, 7 are used (six balls, C321). The other six capacitors join on F.Cu and need none. All 7 reserved GND sites are used; C321's already held an accepted GND via, which now serves it. C323, C324, C325 and C229 had none and got measured new sites. No footprint moved.
+
+*Sizing and DC drop.* Load from `ref/power-budget.md`: 0.180 A for VCCAUX and VCCADC, an estimate, inside the 0.308 A board load on U14. Copper at 25 C, 1.72e-8 ohm m; F.Cu and B.Cu 35 um, **In2 and In5 15.2 um, the board's own stackup value**; vias 0.20 mm drill with an assumed 18 um barrel; FB1 at its 50 mohm maximum. Regulated point C201.1, as for `+1V8_IO`.
+
+| Case | To FB1.1 | Bead | FB1.2 to worst ball | Worst ball, total |
+|---|---:|---:|---:|---:|
+| Board load 0.308 A, 0.18 A shared by the six balls | 8.6 mV | 9.0 mV | 7.8 mV (M12) | **25.4 mV** |
+| Same, all 0.18 A drawn at J9, a bound | 8.6 | 9.0 | 9.3 | 26.8 mV |
+| Both selectors also exporting 0.6 A at 1.8 V, 1.508 A | 24.8 | 9.0 | 7.8 | 41.6 mV |
+| Same, all at J9 | 24.8 | 9.0 | 9.3 | 43.1 mV |
+
+FB1.2 to each ball alone is 41 to 54 mohm. The most loaded new track is the In5 trunk, 0.18 A against 0.65 A for 10 C by IPC-2221; the lanes carry at most 0.09 A against 0.80 A; the two FB1 vias share the 0.18 A.
+
+Against the FPGA limits, VCCAUX and VCCADC 1.71 to 1.89 V: U14's feedback is 0.588 to 0.612 V (SLVSDG1C, electrical characteristics) and R61, R62 are 1 % parts (C25803, C23184), so the output is 1.743 to 1.863 V, 1.802 V nominal.
+- Nominal: 1.777 V at the worst ball at board load, 1.761 V with both selectors exporting.
+- Regulator at its low limit, board load: **1.718 V, 8 mV above the minimum** (6 mV with all the current at J9).
+- Regulator at its low limit, both selectors exporting: **1.701 V, 9 mV below the minimum.** The new copper is 7.8 mV of that; with none at all it would still be 1.709 V. This case is set by the regulator tolerance, the existing `+1V8_IO` trunk and the bead, not by this chunk.
+- High side: 1.863 V at no load, 27 mV under the maximum.
+
+Ripple, load regulation, temperature and transients are not in these figures. No simulation was started and no value changed.
+
+*The three south-west capacitors: connected, but poorly placed for this job.* C322, C327 and C328 stand 17 to 23 mm from the balls, behind the capacitor field. No single layer reaches them. The link found is the shortest over four layers and is long and narrow by necessity; it carries no DC load. Its vias at (203.45, 170.69), (205.0, 164.84) and (211.5, 170.84) are the only pockets in that field, each about 0.02 mm over the clearance rule. C327's reserved via site was not used: it sits 0.012 mm over the rule from `SDRAM_A2` and beside `LINK_P_TXD_P`; the cluster's via is at (199.95, 167.65) instead, 0.165 mm over. A route through U1's south-west quadrant has cleaner via sites but takes a B.Cu lane from the unrouted slot A to D balls, so it was not used. These three add little at the balls from where they stand; moving them next to C319 to C321 or to the east column would be the owner's decision.
+
+*Plane openings under accepted routes.* 17 new `+1V8` vias open In1, In3, In4 and In6; the 10 new GND vias open In3 only. For every accepted track on a layer that uses an opened plane and passes within 1.2 mm, 94 pairs, the centre line and both edges were sampled before and after: **no accepted track lost copper beneath it.** Openings do come close to track edges, all at the south-west link: (205.0, 164.84) is 0.017 mm from `SDRAM_A4` on In2 and `SDRAM_A5` on In5 and 0.222 mm from `LINK_Q_TXD_N`; (211.5, 170.84) is 0.018 mm from `PHY_RXD1` and 0.108 mm from `PHY_RXC` on B.Cu; (203.45, 170.69) is 0.108 mm from `SDRAM_A6` and 0.171 mm from `LINK_Q_TXD_P`. The six ball vias are 0.265 mm from the SDRAM DQ dogbones beside them, as every dogbone on this lattice is. Return current was not simulated.
+
+*What this closes for later routing.* In5 along y 127.89 from x 197 to 219 is now a wall as B.Cu already is at y 122 to 126: signals crossing north to south there have In2 and F.Cu. `CFG_M0`, `CFG_M1`, `CFG_M2` must cross the NE block on In2 or In5. `JTAG_TCK`, `JTAG_TMS` and `CFG_CCLK` lose B.Cu eastward past ball column 10, rows y 151.84 to 159.69. The remaining 577 reserved vias and 577 stubs were added to a scratch copy of the commit board: 31 DRC errors, every one already present at HEAD, none naming the new copper. The current list is `~/freyja-review/1v8-2026-11-05/tmp/res_no1v8.json`.
+
+*A correction that reaches back.* Earlier DC figures in this file took inner copper as 17.5 um. The stackup in the board says 15.2 um, so drops on In2 and In5 in those entries are up to 15 % low: the `+2V5` bus and the regulator sense lines. They were not recomputed here.
+
+*Checks.* On a copy first, then transferred. HEAD against the commit board: 122 tracks and 27 vias added (`+1V8` 106 and 17, GND 11 and 10, `MON_1V8` 5), nothing removed; no footprint text changed; every kept track and via byte-identical; header, stackup, rules, nets, groups and drawings byte-identical; five zones refilled with no outline or setting changed. Tracks 2835 to 2957, vias 660 to 687, ratsnest 1053 to 1023. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical. By KiCad on each net alone: `+1V8` 0 of 18 and `MON_1V8` 0 of 3 unconnected; GND 255 to 244, exactly the eleven grounds; `+2V5`, `+1V8_IO`, RGMII, management, LINK, SDRAM, PSRAM, MDI and other PHY nets still 0, HDMI 15, `+3V3` 120, `+1V0` 40. Each plane one piece. In the DC model, with FB1 taken out no `+1V8` pad reaches `+1V8_IO`, and R87.1 sits at FB1.2's potential. `silk_overlap` is at KiCad's 199 limit, so warnings were compared in six cropped windows around the new F.Cu copper: identical item for item; every other warning type is below the limit and identical on the whole board. Strict gate electrical and mechanical PASS, stackup guard and ERC pass on the live tree. Evidence: `~/freyja-review/1v8-2026-11-05/`. Nothing measured on hardware.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule
@@ -1031,7 +1083,8 @@ J19/J20 selector pins, FB1.1 and the R61 sense. Their 16 local decoupling GND pa
 have vias into In1, In4 and In6. No footprint, rule, plane or accepted signal
 copper changed. This completes rail distribution only: U14's +5V input, SW and FB
 nets, the upstream +5V supply and the +1V8 network behind FB1 are not routed, so
-the rail is not yet powered in layout terms.
+the rail is not yet powered in layout terms. (Since then, 2026-11-05: U14's SW
+and FB, and the +1V8 network behind FB1, entries above. +5V is still open.)
 
 Sizing is from `ref/power-budget.md` and copper of 1 oz outer, 0.5 oz inner.
 Board load is 0.308 A. Connector exports are not in that figure, so J19 and J20
