@@ -175,7 +175,7 @@ LMR33630:
       place: {side: FB, face: {FB: N}, outside: upper divider at FB}
 
 TPS25942:
-  source: TPS25942A datasheet SLVSCE9D, 12.1 Layout Guidelines and 12.2 Figure 88 Board Layout; pin table section 6 (RVC WQFN-20: 1 DMODE, 2 PGOOD, 3 PGTH, 4-8 OUT, 9-13 IN, 14 EN/UVLO, 15 OVP, 16 GND, 17 ILIM, 18 dVdT, 19 IMON, 20 FLT)
+  source: "TPS25942A datasheet SLVSCE9D, 12.1 Layout Guidelines and 12.2 Figure 88 Board Layout; pin table section 6 (RVC WQFN-20: 1 DMODE, 2 PGOOD, 3 PGTH, 4-8 OUT, 9-13 IN, 14 EN/UVLO, 15 OVP, 16 GND, 17 ILIM, 18 dVdT, 19 IMON, 20 FLT)"
   pins: {UVLO: 14, OVP: 15, FLT: 20, IN: 11, OUT: 6, DVDT: 18, GND: 16, ILIM: 17, IMON: 19}
   # Directions are the imported footprint's at rotation 0: pins 1 to 6 along
   # the S edge (DMODE, PGOOD, PGTH, OUT x3), 7 to 10 up the E side (OUT, OUT,
@@ -207,7 +207,7 @@ TPS25942:
       place: {side: OVP, outside: UVLO string resistors at pin 14 along the N edge, overhang: 0.3}
 
 TPS564201:
-  source: TPS564201 datasheet SLVSDJ7B, 10.1 Layout Guidelines (1 to 10) and 10.2 Layout Example; pin table section 5 (DDC SOT-23-6: 1 GND, 2 SW, 3 VIN, 4 VFB, 5 EN, 6 VBST)
+  source: "TPS564201 datasheet SLVSDJ7B, 10.1 Layout Guidelines (1 to 10) and 10.2 Layout Example; pin table section 5 (DDC SOT-23-6: 1 GND, 2 SW, 3 VIN, 4 VFB, 5 EN, 6 VBST)"
   pins: {GND: 1, SW: 2, VIN: 3, VFB: 4, EN: 5, VBST: 6}
   # SOT-23-6: GND, SW, VIN down one side, VFB, EN, VBST down the other.
   # 10.1: input and output capacitors as close as possible (2), the input
