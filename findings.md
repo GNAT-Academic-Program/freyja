@@ -1203,6 +1203,49 @@ The 2 % reference alone takes 48 of the 60 mV window. With a 0.1 % divider and f
 
 *Applied.* `tools/design.py` holds the pair and both part numbers, with the reason. Regenerated from it: `kicad/power.kicad_sch` (R59 and R91 change places within U13's group, because the generator orders parts by value), `kicad/odin.net`, `ref/bom-jlcpcb.csv`, `ref/parts-guide.md` and `ref/jlc-stock.md`. The board was synchronised with `load_pcb.py` on a copy with `update_silkscreen.py` held back: R59 and R60 differ in value, description and a hidden part-number field, nothing else; `check_positions.py` reports 0 moved of 561; pads, nets and every track, via and fill are byte-identical, fresh refills too. `ref/power-budget.md` does not change. `gateware/rgmii1000/README.md` named the old 1 % bound in one sentence; it now gives this one, and its conclusion, that no ball goes as low as the Slow corner's 2.375 V at DC, holds with 23 mV where it did not before. 0 DRC errors, 0 parity with H4 at either position; the sixteen tracked net groups unchanged, `+2V5` 27 of 27; strict gate electrical and mechanical PASS, stackup guard and ERC pass on the live tree. Evidence: `~/freyja-review/u13-divider-2026-11-05/`, `scripts/u13budget.py` and `reports/u13budget.txt`. Nothing measured on hardware.
 
+**Unused GTP supplies: AMD's fully-unused connection prepared as a review copy, not applied (2026-11-05).** The live board, schematic and netlist are unchanged. A complete copy of the repository with the change is in `~/freyja-review/gtp-unused-2026-11-05/repo`, on top of the U13 divider commit.
+
+*The correction.* Earlier entries and `tools/design.py` say the unused transceivers must stay powered, citing UG482 Tables 5-5 and 5-6. Those tables are for a power supply group or a quad that is partly used. UG482 v1.9 (December 19, 2016), "Unused GTP Quad Power Supply Group", Table 5-4, p. 223: if none of the quads in a power supply group is used, MGTAVCC to GND, MGTAVTT to GND, MGTREFCLKP/N float, MGTRXP/N to GND, MGTTXP/N float, MGTRREF to GND; its note says this is the only case in which MGTRREF may be grounded. Table 5-2, p. 220: on the XC7A100T-FGG676 quad MGT213 is group G10 and MGT216 is group G11, one quad each.
+
+*Balls, from AMD's `xc7a100tfgg676pkg.txt` and matching the board's U1 pad for pad, 64 in all.*
+
+| | G10, quad 213 | G11, quad 216 | Review copy |
+|---|---|---|---|
+| MGTAVCC | AA10 AA12 AC9 AC11 AC13 | D9 D11 D13 F10 F12 | GND, was `+1V0_MGT` |
+| MGTAVTT | AD7 AD15 AE8 AE10 AE12 AE14 | B8 B10 B12 B14 C7 C15 | GND, was `+1V2_MGT` |
+| MGTRREF | AF15 | A15 | GND, was through R89, R35 to `+1V2_MGT` |
+| MGTPRXP/N | AC12 AC14 AD12 AD14 AE11 AE13 AF11 AF13 | A11 A13 B11 B13 C12 C14 D12 D14 | GND, as before |
+| MGTPTXP/N | AC8 AC10 AD8 AD10 AE7 AE9 AF7 AF9 | A7 A9 B7 B9 C8 C10 D8 D10 | no net, as before |
+| MGTREFCLK0/1 P/N | AA11 AA13 AB11 AB13 | E11 E13 F11 F13 | no net, as before |
+
+*Both groups qualify.* Hardware: every TX and reference-clock ball of both quads has no net and no copper; there is no transceiver connector and no reference oscillator; the four nets `+1V0_MGT`, `+1V2_MGT`, `MGTRREF` and `MGTRREF_213` reach only U1 and the parts listed below. Gateware: `gateware/gate`, `rgmii1000` and `sdram100` instantiate no GTPE2_COMMON, GTPE2_CHANNEL or IBUFDS_GTE2 and no constraint file names an MGT pin, so no reference-clock buffer feeds the fabric; the fabric clock is X4 on bank 14. `EN_1V2` reaches only U7 pin 26, R93 and U16. Nothing else on the board draws from either supply. **What it costs: with these balls on GND neither quad can be used on this board, whatever the bitstream.**
+
+*Affected parts, 37, all removed; nothing added.*
+
+| Circuit | Parts |
+|---|---|
+| U16 cell, `+5V` to `+1V2_MGT` | U16, L6, R63, R64, R93 (enable pull-down), C204, C205, C206, C270 |
+| MGTAVCC filter off `+1V0` | L9, C224 |
+| Calibration resistors | R35 (quad 216), R89 (quad 213) |
+| MGTAVCC capacitors | C370 to C379 (100 nF), C392 (4.7 uF) |
+| MGTAVTT capacitors | C380 to C391 (100 nF), C393 (4.7 uF) |
+
+The sources are disconnected, not renamed: L9 was the only path from `+1V0` to the MGTAVCC balls and U16 the only source of `+1V2_MGT`; both are gone with every part on those nets, and U16's `+5V` input node goes with it. U7 pin 26 (GPIO25) is left without a net; firmware outside this repository must no longer expect an enable there. Designators are consumed, not reused: every other part keeps its reference, value, footprint, nets and position (`scripts/cmp_design.py`, `check_positions.py` 0 moved of 524). 557 parts become 520.
+
+*Copper.* Removed: the 44 tracks and 9 vias of U16's cell, which is all the copper those nets had: `+1V2_MGT` 9 tracks and 2 vias, `EN_1V2` 13 and 2 including the In2 run to U7 pin 26, `FB+1V2_MGT` 5, `SW+1V2_MGT` 1, the cell's `+5V` node 5, its ground stubs 11 with 5 vias. Added: 24 ground dogbones, 0.2 mm on F.Cu, each to a 0.45 / 0.20 mm via at the site already reserved for that ball, for the 22 supply and 2 MGTRREF balls; the 16 RX balls had theirs. Tracks 2935 to 2915, vias 684 to 699. Each of the 40 grounded balls has a via standing in solid fill on In1, In4 and In6. `+5V` now has 25 pads, `+1V0` 40. Island U16's group with its frame and notes on User.Comments is gone; island U1 keeps 114 of 142 items. No silkscreen drawing was touched.
+
+*Planes.* Each GND plane gains 1.81 mm2. In3 gains 1.31 mm2 of `+3V3` net and its `+1V0` island loses 7.81 mm2 to 20 of the new clearance holes and stays one piece. No accepted track lost plane copper beneath it (centre line and both edges sampled). Thirteen of the In3 openings lie beside accepted In2 tracks, 0.057 mm from the track edge at the nearest: PHY_TXC passes four of them, PHY_MDC, PHY_MDIO, SDRAM_DQ2, DQ4 and DQ6 the others. In2 is 0.10 mm from In1, which is untouched there, and 0.21 mm from In3. The same sites were reserved for supply vias, which would have opened In1 as well. Not modelled; for the reviewer, given how thin TXC's margin is. The alternative that leaves In3 alone is to tie each ball to a neighbouring ground ball on F.Cu.
+
+*Budget, `ref/power-budget.md` in the copy.* `+1V0` 2.150 A to 2.050 A, U15 at 51 % of 4 A; `+1V2_MGT`, 0.150 A, and U16 gone; `+5V` 0.840 A to 0.773 A, U11 at 26 % of 3 A; light mode 7.32 W to 6.99 W, full 18.92 W to 18.59 W, the same sources fit as before. U15's output loses the 10.4 uF behind L9; U16's capacitor row, one of the bench qualification items, goes. BOM: the `100 1%` and 1 uH lines disappear, six lines shorten.
+
+*What this closes if accepted.* U16's MGTAVTT window, which no part with a 2 % reference could meet (entry above), the onward `+1V2_MGT` and `+1V0_MGT` routing, the `+5V` entry at C270.1, and 74 fanout reservations: 24 used here and 50 that belonged to the removed capacitors, leaving 503. The capacitor rows north and south of U1 and U16's cell are free land.
+
+*Checks, all on the copy.* Fresh refill byte-identical. 0 DRC errors, 0 parity, with H4 at either position; ERC pass; stackup guard pass; strict gate electrical and mechanical PASS, 520 of 520 parts described; no dangling copper. KiCad drops the seven empty nets on save and renumbers the rest, so the board file differs on many lines; compared with net names in place of numbers, every kept track, via, footprint, zone outline, drawing and setting is identical, U1 differs in 24 pad nets and U7 in one. Completed groups unchanged: `+1V8` 18 of 18, `MON_1V8` 3 of 3, `+2V5` 27 of 27, `+1V8_IO` 40 of 40, RGMII, management, LINK, SDRAM, PSRAM, MDI and the other PHY nets complete, HDMI 15 open as before; GND open items 244 to 219, the removed capacitors' pads. Warnings: none new on the whole board or in three cropped windows; eight gone, all at removed parts. Stress copy with the remaining reservations: 30 errors, all among the 32 present before. `check_connector_rework.py` and `audit_easyeda.py` report the same findings as on the live tree.
+
+*Not reconciled in the copy.* `kicad/odin.kicad_pro` still lists net-class entries for the nets that no longer exist (rules were not touched); `floorplan.md`, `ref/island-layouts.md`, `tools/city.py`, `ref/city/plan.yaml` and the island drawings still name U16; the unused `+1V0_MGT` and `+1V2_MGT` power symbols stay in `kicad/odin.kicad_sym`. `update_silkscreen.py` was not run. The netlist in the copy carries the copy's path and is exported again on transfer.
+
+Evidence: `~/freyja-review/gtp-unused-2026-11-05/`: `datasheets/` (UG482 v1.9, the package file), `scripts/edit_sources.py`, `stage_a.py`, `verify_gtp.py`, `reports/`, `review.patch` for the text sources, `final/review.kicad_pcb`, `images/before_after.png`. Nothing measured on hardware.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule
