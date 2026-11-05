@@ -117,8 +117,9 @@ to ground through a capacitor.
   4.7 µF C242 on pin 30. Through vias are barred within 0.5845 mm of the LINK
   lanes on B.Cu, which cross north-west of U30, so pins 28 and 29 reach their
   vias 2.7–3.0 mm away; see [findings](../findings.md).
-- `+2V5` has a local In5 bus for pin 28, C236, C237, R134, R135, R139 and R140;
-  its feeder from the rest of the rail is not routed yet.
+- `+2V5` has a local In5 bus for pin 28, C236, C237, R134, R135, R139 and R140,
+  fed from L4.1 by B.Cu and a 0.2 mm In2 lane to the via at (207.95, 189.5). U13's
+  own input, SW and FB are not routed yet; see [findings](../findings.md).
 - Crystal: shortest possible loop between X3, its two 18 pF capacitors and
   pins 36/37, ground fill underneath; 0 Ω in series with XTAL_OUT becomes a
   real value only if the measured drive exceeds 0.5 mW (Table 56).
