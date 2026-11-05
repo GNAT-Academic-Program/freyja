@@ -824,7 +824,25 @@ Ball and pin agree with the netlist and `ref/freya.xdc`. TX and RX are each matc
 
 *Checks.* HEAD against the commit board: 307 tracks and 45 vias added, nothing removed, no footprint moved, every kept track and via byte-identical, five zones refilled with no outline change, no rule, stackup or net changed. Tracks 2278 to 2585, vias 551 to 596, ratsnest 1137 to 1121. **0 DRC errors, 0 parity with H4 at either position**, warnings unchanged, no dangling copper, fresh refills byte-identical. Earlier connectivity preserved, by KiCad on each group: LINK 0, SDRAM 0, PSRAM 0, MDI 0, the other PHY nets 0, `+1V8_IO` 0, HDMI 15 unchanged, and GND, `+3V3`, `+2V5` and `+1V0` unchanged at 280, 120, 20 and 40. Reservation stress copy: 34 errors before and 33 after, none with these nets. The owner's H4 move, its fills and `.prl` remain uncommitted. Evidence: `~/freyja-review/rgmii-2026-11-04/`, image `images/closeup.png`.
 
-*Unresolved.* (1) U30's receiver in `TXDLY = 1`, as above; this is the missing term for TX. (2) TX rings in the fast corner at U30: up to 4.13 V and −1.48 V with no clamps modelled, against Table 54's −0.2 to 2.8 V for the 2.5 V RGMII supply, and up to 0.31 V inside VIL and VIH. It does not re-cross 1.25 V. No series resistor exists on these nets, so if measurement confirms it the fix is a schematic change. (3) U30's output is unmodelled, covered by a ±0.1 ns allowance. (4) IDELAY pattern jitter is not in the report, and DS181 is not in the repository. (5) X4 jitter, crosstalk, simultaneous switching, 10/100 modes and via stubs are unassessed. (6) `tools/gen_pcb.py` still generates the comment "length-match by hand" in `odin.kicad_dru`; it is superseded by the profile and was left for the next rules change. (7) The `+2V5` feeder from the rest of the rail to U30's In5 bus is the next chunk.
+*Unresolved.* (1) U30's receiver in `TXDLY = 1`, as above; this is the missing term for TX. (2) TX rings in the fast corner at U30: up to 4.13 V and −1.48 V in unclamped simulation, and up to 0.31 V inside VIL and VIH. It does not re-cross 1.25 V. Damping check below. (3) U30's output is unmodelled, covered by a ±0.1 ns allowance. (4) IDELAY pattern jitter is not in the report, and DS181 is not in the repository. (5) X4 jitter, crosstalk, simultaneous switching, 10/100 modes and via stubs are unassessed. (6) `tools/gen_pcb.py` still generates the comment "length-match by hand" in `odin.kicad_dru`; it is superseded by the profile and was left for the next rules change. (7) The `+2V5` feeder from the rest of the rail to U30's In5 bus is the next chunk.
+
+**TX series damping checked: no resistors added, board unchanged (2026-11-05).** With footprints fixed, no site exists for six resistors near the FPGA, so the live board, schematic, netlist and rules are as committed in `46791f3`. Full table in [`gateware/rgmii1000/`](gateware/rgmii1000/README.md).
+
+*Correction.* Table 54's −0.2 to 2.8 V row is labelled "Supply Voltage 2.5V", so the earlier comparison of simulated pin voltages against it was wrong. Rev 1.7 has no RGMII input-voltage, overshoot, undershoot or clamp-current limit; its only "Input Voltage" rows are 3.3 V and 1.0 V DC. Table 58 gives VIH 1.7 V, VIL 0.7 V. So no transient pass or fail can be stated for these pins, and the simulated voltages are unclamped results, not predicted hardware voltages.
+
+*What limits placement.* No through via is legal west of x 210.4, because the LINK pairs on B.Cu bar it. South of U1, an 0402 with its courtyard fits in one spot before y 169, between the capacitor rows; C301's body and U10 fill y 171 to 185. A pocket near (219, 171) has via sites for one or two nets. An 0201 does not change this. Length before the resistor matters: on TXC, 10 ohm clears the ringback from about 26 mm or nearer and leaves 0.08 V at 38 mm.
+
+| Worst over corners, 2 and 5 pF, both edges, unclamped | Today | At U30, 4 mm before the pin: TXC 33, data 47 | B.Cu at the hop vias, 18-22 mm from the ball: TXC 10, data 22 |
+|---|---:|---:|---:|
+| Allowed now? | | Yes, no via added | **No: second-side assembly** |
+| TXC edge, limit 0.75 ns | 0.63 | 0.74 | 0.71 |
+| TXC peak, V | 4.13, −1.48 | 3.93, −1.29 | 3.85, −1.23 |
+| TXC ringback, V | 0.31 | **0.05** | 0 |
+| Data peak, V | 4.11, −1.48 | 3.82, −1.18 | 3.56, −0.94 |
+| Data ringback, V | 0.30 | 0 | 0 |
+| TX setup, hold, ns | +0.169, +0.100 | +0.108, +0.130 | +0.094, +0.142 |
+
+TXC's 0.75 ns edge is the limit in both: 47 ohm at U30 reaches 0.79 ns and 22 ohm at the hop 0.80 ns. Neither site was laid out. The site at U30 filters what reaches the pin, without damping the line, so it is not the source damping asked for. Evidence: `~/freyja-review/txdamp-2026-11-05/`, image `images/placement.png`. Remaining assumptions are unchanged: unpublished TX-delay tolerance and input window, no RXC jitter figure, unmodelled U30 driver, IDELAY pattern jitter. The `+2V5` feeder is still next.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair

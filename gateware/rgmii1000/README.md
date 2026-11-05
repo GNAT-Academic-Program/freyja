@@ -78,13 +78,40 @@ then the check.
 Using 8 mA slow on data alone, with 8 mA fast on TXC, fails the TX setup limit by 0.536 ns in the Slow corner, because the
 slow buffers' asymmetry reaches the ±0.5 ns window. The SDRAM profile's 8 mA slow bus is therefore not reused here.
 
+## Series damping check
+
+`damping.py`, `results/damping.txt`. Same driver and routed sections, 8 mA fast, Slow and Fast corners, 2 and 5 pF, both edges,
+resistor at its real distance along the route. Unclamped. Timing is the no-board limit minus the routed term, which is the
+arithmetic the constraints use: with no resistor it gives +0.171 and +0.098 against the fixture's +0.169 and +0.100.
+
+**No resistors were added: fixed footprints leave no site near the FPGA for six.** No through via is legal west of x 210.4,
+because the LINK pairs on B.Cu bar it. South of U1, an 0402 with its courtyard fits in one spot before y 169, between the
+capacitor rows; C301's body and U10 fill y 171 to 185. A pocket near (219, 171) has via sites for one or two nets, and 0201 does
+not change this. The sites that remain are below.
+
+| Worst over all corners and loads | Today | At U30, 4 mm before the pin: TXC 33, data 47 | B.Cu at the hop vias, 18-22 mm from the ball: TXC 10, data 22 |
+|---|---:|---:|---:|
+| Allowed now? | | Yes, footprints fixed, no via added | **No: second-side assembly** |
+| TXC edge, limit 0.75 ns | 0.63 | 0.74 | 0.71 |
+| TXC peak, unclamped | 4.13, −1.48 | 3.93, −1.29 | 3.85, −1.23 |
+| TXC ringback inside VIH, VIL | 0.31 | **0.05** | 0 |
+| Data peak, unclamped | 4.11, −1.48 | 3.82, −1.18 | 3.56, −0.94 |
+| Data ringback | 0.30 | 0 | 0 |
+| TX setup, hold | +0.169, +0.100 | +0.108, +0.130 | +0.094, +0.142 |
+
+TXC is the limit in both: 47 ohm at U30 reaches 0.79 ns, and 22 ohm at the hop 0.80 ns. Neither site was laid out; both are fit
+and simulation results. At U30 the resistor does not damp the line, since the driver still sees the same mismatch; it filters
+what reaches the pin, and it would limit clamp current, which is not quantified here. Parts near the FPGA would need a footprint move, which this
+check was told not to make.
+
 ## Assumptions and what is not established
 
 - **U30's receiver in `TXDLY = 1`:** no tolerance for the 2 ns and no input window published. This is the missing term that keeps TX provisional.
-- **Fast-corner ringing on TX at U30:** up to 4.13 V and −1.48 V with no clamps modelled, against Table 54's −0.2 to 2.8 V rating for the 2.5 V RGMII supply (no separate input rating is listed), and ringback up to 0.31 V inside VIH 1.7 V and VIL 0.7 V. It stays clear of mid-supply, so it does not cross 1.25 V. Upper estimates: U30's input clamps and capacitance are unpublished, 2 to 5 pF is an assumption, and there is no series resistor on the board.
+- **Fast-corner ringing on TX at U30:** unclamped simulation reaches 4.13 V and −1.48 V at the pin, with ringback up to 0.31 V inside VIH 1.7 V and VIL 0.7 V. It does not cross 1.25 V. These are not predicted hardware voltages: U30's input clamps and capacitance are unpublished, and 2 to 5 pF is an assumption. A real pin would clamp, and carry the clamp current instead. See the damping check below.
+- **No published signal-pin limit for these inputs:** rev 1.7 Table 54's −0.2 to 2.8 V row is labelled *Supply Voltage 2.5V*. It is not an input-pin rating. The table's only "Input Voltage" rows are for 3.3 V and 1.0 V DC inputs. Table 58 gives VIH 1.7 V and VIL 0.7 V for 2.5 V I/O. The datasheet gives no RGMII input-voltage, overshoot, undershoot or clamp-current limit, so no transient pass or fail can be stated for these pins.
 - **U30's output into the real line:** no IBIS model. Covered by the ±0.1 ns allowance, which is a judgement rather than a figure.
 - **IDELAY pattern-dependent jitter:** not in Vivado's report and not taken from a data sheet here, since DS181 is not in the repository. It comes out of the RX margin.
-- **Jitter:** X4 (C717684) is assumed at 200 ps peak to peak, as in the SDRAM profile; Table 60 gives no RXC jitter.
+- **Jitter:** X4 (C717684) is assumed at 200 ps peak to peak, as in the SDRAM profile. Table 60 gives no RXC jitter, so RX carries no term for it.
 - **Via delays:** barrels at 6.97 ps/mm, assumed, with no via stub or return-path effect. Layer delays are from the field solve in `../sdram100/results/fieldsolve.txt`.
 - **Not assessed:** crosstalk between lanes at 0.28 mm pitch, simultaneous-switching noise, and 10/100 modes, where Table 60's skew limits do not apply.
 - **Hardware:** none of this has been measured.
@@ -101,6 +128,7 @@ python3 gateware/rgmii1000/mkprofile.py                     # top.v, *.xdc
 vivado -mode batch -nojournal -nolog -source gateware/rgmii1000/run.tcl -tclargs /tmp/lim
 vivado -mode batch -nojournal -nolog -source gateware/rgmii1000/run.tcl
 python3 gateware/rgmii1000/margins.py /tmp/lim gateware/rgmii1000/build
+python3 gateware/rgmii1000/damping.py /tmp/b.kicad_pcb > gateware/rgmii1000/results/damping.txt   # 8 minutes
 ```
 
 Run Vivado from a scratch directory: it leaves `.Xil/` and `clockInfo.txt` there. Products go to `build/` (ignored).
