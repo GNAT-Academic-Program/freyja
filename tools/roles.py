@@ -62,12 +62,6 @@ GROUP = {
         'a level (PHY reset, SDRAM CS/CKE, MRAM and microSD CS, the 5 V bus '
         'OE, the PSRAM clock and data) has its own resistor, and nothing '
         'fights it. DONE lights D1 through Q4 once a design is running.',
-    'GTP calibration':
-        'The XC7A100T has two quads of multi-gigabit transceivers (GTP). '
-        'Rev A uses none of them, but UG482 Tables 5-5 and 5-6 still want '
-        'their supplies powered, their receive inputs grounded and one 100 '
-        'ohm 1 % calibration resistor per quad to MGTAVTT. These two '
-        'resistors are that.',
     'X4 system clock':
         'The FPGA\'s own clock. X4 runs at 50 MHz from power-on and enters '
         'bank 14 on a clock-capable (MRCC) ball, so it can feed an MMCM and '
@@ -140,8 +134,6 @@ SUPPLY = {
     'VCCAUX': ('+1V8', 'the FPGA auxiliary circuits (clocking, I/O pre-drivers)'),
     'VCCADC': ('+1V8', 'the FPGA\'s on-chip ADC (XADC)'),
     'VCCO_0': ('+3V3', 'configuration bank 0'),
-    '+1V0_MGT': ('+1V0_MGT', 'the unused but powered transceivers (MGTAVCC)'),
-    '+1V2_MGT': ('+1V2_MGT', 'the unused but powered transceivers (MGTAVTT)'),
 }
 
 def _decap_group(g):
@@ -157,9 +149,7 @@ def _decap_group(g):
                 'and 4 x 0.47 uF, UG483 Table 2-2. They keep the bank\'s supply '
                 'steady while its outputs switch. Placement rule: ref/decoupling.md.')
     rail, what = SUPPLY[sup]
-    src = ('the MGT supplies are UG482\'s, not in UG483 Table 2-2: one 100 nF per '
-           'ball plus 4.7 uF' if 'MGT' in sup else
-           'quantities from UG483 Table 2-2, row FGG676 / XC7A100T' if sup != 'VCCADC'
+    src = ('quantities from UG483 Table 2-2, row FGG676 / XC7A100T' if sup != 'VCCADC'
            else 'not in UG483 Table 2-2; one 100 nF bypass')
     return (f'Decoupling for {sup} ({rail}), which powers {what}; {src}. '
             'Placement rule: ref/decoupling.md.')
@@ -235,8 +225,6 @@ NET = {
     'CFG_INIT_B': 'keeps INIT_B released; it goes low on a configuration error',
     'PUDC_B': 'PUDC_B high: no I/O pull-ups during configuration, the external resistors set every line (UG470)',
     'DONE_LED_A': 'sets D1\'s current',
-    'MGTRREF': 'calibration resistor for GTP quad 216 (UG482 Figure 5-1)',
-    'MGTRREF_213': 'calibration resistor for GTP quad 213 (UG482 Table 5-5)',
     'SYS_CLK': 'damps ringing on the clock line',
     'SDRAM_CLK': 'damps ringing on the SDRAM clock (22 ohm at the FPGA)',
     'SD_CS': 'SPI mode: CS (DAT3) idles high so the card does not select',
@@ -344,20 +332,12 @@ GROUP.update({
         'VCCAUX\'s 1.71 V minimum). The 10 uF and 100 nF sit at U14\'s '
         'output beside its own capacitors; VCCAUX keeps its UG483 decoupling '
         'on the +1V8 side.',
-    'U16  5V to +1V2_MGT':
-        'Small switching regulator that makes +1V2_MGT from +5V for the FPGA '
-        'transceivers\' MGTAVTT supply. The transceivers are unused in rev A '
-        'but must stay powered. Enabled by the board controller (EN_1V2).',
     'U15  5V to +1V0  (4A FPGA core supply)':
         'The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail '
         'on the board. Enabled by the board controller (EN_1V0) once +5V is '
         'settled above its 4.5 V minimum; firmware watches the rail through '
         'MON_1V0 (the part has no power-good pin). The feedback resistors '
         'set 1.0 V; the bootstrap capacitor feeds its high-side driver.',
-    'MGTAVCC filter':
-        'A small inductor and capacitor that make +1V0_MGT from +1V0: the '
-        'same voltage, with the core\'s switching noise filtered out, for the '
-        'transceivers\' MGTAVCC supply.',
     'extension power protection control':
         'Shared control for the four protected extension supplies (U21-U24). '
         'EXT_EN, from the board controller, turns them all on; the pull-down '
@@ -393,7 +373,7 @@ GROUP.update({
         'nF capacitor on each input steadies the reading. MON_1V8 reads +1V8 '
         'itself, the FPGA\'s VCCAUX behind the bead, so an open bead shows; '
         'the two jumpered domains are measured so firmware knows how J19/J20 '
-        'are set. +1V2_MGT is the one rail not measured. Firmware uses this '
+        'are set. Firmware uses this '
         'to check each regulator came up before enabling the next.',
     'AUX IN':
         'Optional extra power for extensions that need more than 5 V (motors, '
@@ -592,7 +572,6 @@ PART.update({
     'U12': ('3.3 V regulator, always on', 'TI LMR33630, 3 A switching regulator: VSYS to +3V3. Enable tied to its input, so it starts by itself.'),
     'U13': ('2.5 V regulator', 'TI TLV62569, 2 A switching regulator: +5V to +2V5.'),
     'U14': ('1.8 V regulator, always on', 'TI TLV62569, 2 A switching regulator: +5V to +1V8_IO (bank 13, the 1.8 V memory) and, through FB1, +1V8 (VCCAUX, VCCADC). Enable tied to +5V.'),
-    'U16': ('1.2 V transceiver regulator', 'TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT.'),
     'U15': ('FPGA core regulator', 'TI TPS564201, 4 A switching regulator: +5V to +1V0 for the FPGA core. Needs +5V at 4.5 V or more.'),
     'U21': ('extension 5 V switch', 'TI TPS22950C load switch: +5V to every slot\'s 5 V pin, about 2 A limit (1.5-2.5 A), reverse blocking.'),
     'U22': ('extension 3.3 V switch', 'TI TPS22950C load switch: +3V3 to every slot\'s 3.3 V pin, about 1 A limit (0.75-1.25 A).'),

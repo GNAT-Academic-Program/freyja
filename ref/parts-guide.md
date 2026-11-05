@@ -8,8 +8,8 @@ What every part on the board is for. The same text is in the schematic
 the PCB (select a footprint, Description field). Start with the sheet
 you care about; within it, groups appear in schematic order.
 
-- [FPGA](#fpga) (111 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
-- [Power](#power) (135 parts): Inputs, the regulators that make every rail, extension power protection.
+- [FPGA](#fpga) (85 parts): The Artix-7 itself, its decoupling, how it boots and its clock.
+- [Power](#power) (124 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (75 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (100 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
@@ -202,44 +202,6 @@ Bulk capacitor shared by every FPGA I/O bank powered from VCCIO_2: UG483 Table 2
 |---|---|---|
 | C369 | 47uF 6.3V | 47uF 6.3V FPGA decoupling on VCCO group VCCIO_2 (VCCIO_2), UG483 |
 
-### decap +1V0_MGT
-
-Decoupling for +1V0_MGT (+1V0_MGT), which powers the unused but powered transceivers (MGTAVCC); the MGT supplies are UG482's, not in UG483 Table 2-2: one 100 nF per ball plus 4.7 uF. Placement rule: ref/decoupling.md.
-
-| Ref | Value | What it does |
-|---|---|---|
-| C370 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C371 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C372 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C373 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C374 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C375 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C376 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C377 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C378 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C379 | 100nF | 100nF FPGA decoupling on +1V0_MGT, UG483 |
-| C392 | 4.7uF | 4.7uF FPGA decoupling on +1V0_MGT, UG483 |
-
-### decap +1V2_MGT
-
-Decoupling for +1V2_MGT (+1V2_MGT), which powers the unused but powered transceivers (MGTAVTT); the MGT supplies are UG482's, not in UG483 Table 2-2: one 100 nF per ball plus 4.7 uF. Placement rule: ref/decoupling.md.
-
-| Ref | Value | What it does |
-|---|---|---|
-| C380 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C381 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C382 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C383 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C384 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C385 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C386 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C387 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C388 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C389 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C390 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C391 | 100nF | 100nF FPGA decoupling on +1V2_MGT, UG483 |
-| C393 | 4.7uF | 4.7uF FPGA decoupling on +1V2_MGT, UG483 |
-
 ### decap VCCO group +1V8_IO
 
 Bulk capacitor shared by every FPGA I/O bank powered from +1V8_IO: UG483 Table 2-2 note 3 asks one 47 uF per group of up to four banks on one voltage. See ref/decoupling.md.
@@ -264,15 +226,6 @@ How the FPGA loads its design at power-on. M[2:0] = 001 selects master SPI: the 
 | R6 | 1k | 1k pull-up of PUDC_B to +3V3, for U1 (FPGA): PUDC_B high: no I/O pull-ups during configuration, the external resistors set every line (UG470) |
 | R7 | 330 | 330 resistor from DONE_LED_A to +3V3, for D1 (FPGA DONE LED): sets D1's current |
 | R98 | 4.7k | 4.7k pull-up of CFG_DONE to +3V3, for Q4 (DONE LED driver) |
-
-### GTP calibration
-
-The XC7A100T has two quads of multi-gigabit transceivers (GTP). Rev A uses none of them, but UG482 Tables 5-5 and 5-6 still want their supplies powered, their receive inputs grounded and one 100 ohm 1 % calibration resistor per quad to MGTAVTT. These two resistors are that.
-
-| Ref | Value | What it does |
-|---|---|---|
-| R35 | 100 1% | 100 1% resistor from MGTRREF to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 216 (UG482 Figure 5-1) |
-| R89 | 100 1% | 100 1% resistor from MGTRREF_213 to +1V2_MGT, for U1 (FPGA): calibration resistor for GTP quad 213 (UG482 Table 5-5) |
 
 ### X4 system clock
 
@@ -384,22 +337,6 @@ Small switching regulator that makes 1.8 V from +5V. Its output node is +1V8_IO:
 | R61 | 102k 0.1% | 102k 0.1% resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage |
 | R62 | 49.9k 0.1% | 49.9k 0.1% resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
-### U16  5V to +1V2_MGT
-
-Small switching regulator that makes +1V2_MGT from +5V for the FPGA transceivers' MGTAVTT supply. The transceivers are unused in rev A but must stay powered. Enabled by the board controller (EN_1V2).
-
-| Ref | Value | What it does |
-|---|---|---|
-| U16 | TLV62569PDRLR | 1.2 V transceiver regulator: TI TLV62569, 2 A switching regulator: +5V to +1V2_MGT. |
-| C204 | 22uF | 22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator) |
-| C205 | 22uF | 22uF bypass on +1V2_MGT, for U16 (1.2 V transceiver regulator) |
-| C206 | 100nF | 100nF bypass on +5V, for U16 (1.2 V transceiver regulator) |
-| C270 | 4.7uF | 4.7uF bypass on +5V, for U16 (1.2 V transceiver regulator) |
-| L6 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V2_MGT and SW+1V2_MGT, for U16 (1.2 V transceiver regulator): regulator switching node |
-| R63 | 100k | 100k resistor from FB+1V2_MGT to +1V2_MGT, for U16 (1.2 V transceiver regulator): feedback divider, sets the regulator's output voltage |
-| R64 | 100k | 100k resistor from FB+1V2_MGT to GND, for U16 (1.2 V transceiver regulator): feedback divider, sets the regulator's output voltage |
-| R93 | 100k | 100k pull-down on EN_1V2, for U7 (board controller): keeps the regulator off until the board controller enables it |
-
 ### U15  5V to +1V0  (4A FPGA core supply)
 
 The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail on the board. Enabled by the board controller (EN_1V0) once +5V is settled above its 4.5 V minimum; firmware watches the rail through MON_1V0 (the part has no power-good pin). The feedback resistors set 1.0 V; the bootstrap capacitor feeds its high-side driver.
@@ -470,18 +407,9 @@ Switch for the PIN V supply of slots E-H (the voltage chosen on J20). It is bias
 | C275 | 1nF 50V | 1nF 50V filter capacitor on U24_CT, for U24 (slots E-H PIN V switch): sets how fast U24 ramps its output, about 1.2 ms at 3.3 V (TPS22975 CT) |
 | C276 | 1uF | 1uF bypass on VCCIO_2_EXT, for U24 (slots E-H PIN V switch) |
 
-### MGTAVCC filter
-
-A small inductor and capacitor that make +1V0_MGT from +1V0: the same voltage, with the core's switching noise filtered out, for the transceivers' MGTAVCC supply.
-
-| Ref | Value | What it does |
-|---|---|---|
-| C224 | 4.7uF | 4.7uF bypass on +1V0_MGT |
-| L9 | 1uH VLS252010HBX-1R0M-1 | 1uH VLS252010HBX-1R0M-1 inductor between +1V0 and +1V0_MGT |
-
 ### rail monitors
 
-Lets the board controller measure every supply. Each rail goes to one of its eight analog inputs (ADC), which read 0-3.3 V. Rails at or below 3.3 V go through a 1 k resistor that protects the pin; VSYS and +5V are higher, so two resistors divide them down first. A 100 nF capacitor on each input steadies the reading. MON_1V8 reads +1V8 itself, the FPGA's VCCAUX behind the bead, so an open bead shows; the two jumpered domains are measured so firmware knows how J19/J20 are set. +1V2_MGT is the one rail not measured. Firmware uses this to check each regulator came up before enabling the next.
+Lets the board controller measure every supply. Each rail goes to one of its eight analog inputs (ADC), which read 0-3.3 V. Rails at or below 3.3 V go through a 1 k resistor that protects the pin; VSYS and +5V are higher, so two resistors divide them down first. A 100 nF capacitor on each input steadies the reading. MON_1V8 reads +1V8 itself, the FPGA's VCCAUX behind the bead, so an open bead shows; the two jumpered domains are measured so firmware knows how J19/J20 are set. Firmware uses this to check each regulator came up before enabling the next.
 
 | Ref | Value | What it does |
 |---|---|---|

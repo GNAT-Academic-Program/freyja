@@ -30,14 +30,12 @@ RAILS  = {'+1V0':'power:+1V0', '+1V1':'power:+1V1', '+1V8':'power:+1V8',
           '+5V_BUCK':'odin:+5V_BUCK',
           'VSYS':'odin:VSYS', 'VBUS':'power:VBUS',
           'VCCIO_1':'odin:VCCIO_1', 'VCCIO_2':'odin:VCCIO_2',
-          '+1V0_MGT':'odin:+1V0_MGT', '+1V2_MGT':'odin:+1V2_MGT',
           'SUP_VREG_AVDD':'odin:SUP_VREG_AVDD',
           'AUX_RAIL':'odin:AUX_RAIL'}
 PWRSYM = dict(RAILS); PWRSYM['GND'] = 'power:GND'
 # a rail's flag belongs on the page where that rail is actually made
 RAIL_HOME = {'GND':'Power', 'VSYS':'Power', '+5V':'Power', '+5V_BUCK':'Power', '+3V3':'Power',
              '+2V5':'Power', '+1V8':'Power', '+1V8_IO':'Power', '+1V0':'Power',
-             '+1V2_MGT':'Power', '+1V0_MGT':'Power',
              '+1V1':'Supervisor', 'VBUS':'Supervisor',
              'SUP_VREG_AVDD':'Supervisor',
              'AUX_RAIL':'Power',

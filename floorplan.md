@@ -93,7 +93,8 @@ placement, not a measured contract.
   wants the corner between banks 14 and 35. The MRAM and the microSD socket
   take bank 14 balls in columns 22-26; the socket is an edge connector.
 - The BGA sits below centre to leave the network strip; the GTP corner is
-  unused in rev A (powered, RX grounded).
+  unused in rev A and cannot be used on it: both supply groups, RX and
+  MGTRREF are on GND (UG482 v1.9 Table 5-4), TX and reference clocks open.
 - USB-C keeps the top-right corner: VBUS parts, PD sink and the regulator
   row anchor there, one entry point for all power.
 - X4, the 50 MHz fabric oscillator, sits at U1's left, outside the
@@ -103,7 +104,7 @@ placement, not a measured contract.
   the +3V3 pads the two share) and reseats X4, R147 and C246 together
   (re-audit 2026-10-29, item 58).
 - U34, the +5V source mux, is the junction every ampere of regulated 5 V
-  passes through (U11 -> U34 -> U15/U14/U16 and +5V_EXT): the city pulls it
+  passes through (U11 -> U34 -> U15/U14 and +5V_EXT): the city pulls it
   to U11 first and to the top power door second, and its IN2 bypass is at
   its own pin with U11's bulk beside it (item 57).
 
@@ -253,13 +254,14 @@ middle column hold only the unused transceiver balls, so no signal escapes
 there and power can enter without blocking one. The right side is taken on
 In3 by VCCIO_2 and the slot E-H escape, the left by VCCIO_1 and slots A-D,
 the bottom-left corner by bank 16. So the regulators line up at the doors:
-U16 (1.2 V), U15 (1.0 V core) and U14 (1.8 V) in a row above the FPGA, U15
+U15 (1.0 V core) and U14 (1.8 V) in a row above the FPGA (U16, 1.2 V for
+the transceivers, stood at the row's left end until 2026-11-05), U15
 centred on the 1.0 V balls (within 1.3 mm), U11 (5 V) right above them,
 U13 (2.5 V) below the FPGA beside the PHY. In3 carries +3V3 as the
 background, a short wide +1V0 area straight down the middle column, +2V5 up
 from below and left under the bank 16 corner, VCCIO_1/VCCIO_2 under their
-slot sides; +1V8 and the two transceiver rails go on In5 (their balls are
-mixed into the 1.0 V ones). The city gaps look large because the FPGA box
+slot sides; +1V8 goes on In5 (its balls are mixed into the 1.0 V ones).
+The two transceiver rails are gone: their balls are on GND. The city gaps look large because the FPGA box
 includes its whole decoupling ring; they close when compacted by hand.
 
 X4 and R147 (`RESEAT`) now sit on the FPGA's left, at the SYS_CLK ball,

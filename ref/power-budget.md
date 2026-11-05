@@ -6,7 +6,7 @@
 
 USB-C can start at 4.75 V. The SS54 OR diode plus USB eFuse model loses
 0.48 V at 0.6 A, leaving **4.27 V**. In full mode at 9 V
-the OR diode carries 2.34 A (1.17 W) on USB-PD 9V / 2.34 A (1.17 W) on USB-PD 9V/3A / 2.34 A (1.17 W) on J50 VIN:
+the OR diode carries 2.30 A (1.15 W) on USB-PD 9V / 2.30 A (1.15 W) on USB-PD 9V/3A / 2.30 A (1.15 W) on J50 VIN:
 the SS54 (SMA, 5 A) wants its copper; give D3 and D4 a wide VSYS pour. The screw input is
 **9–21 V DC**. U11/U12 are LMR33630 devices (3.8–36 V operating, 400 kHz)
 and cover the full VSYS envelope. Both have EN tied to VIN: +3V3, +5V and the
@@ -46,7 +46,6 @@ LM5157 SW pin is gone with the converter.
 | `U13` | `TLV62569PDRLR` | +5V | +2V5 | 2.5–5.5 V | 2 A |
 | `U14` | `TLV62569PDRLR` | +5V | +1V8_IO | 2.5–5.5 V | 2 A |
 | `U15` | `TPS564201DDCR` | +5V | +1V0 | 4.5–17 V | 4 A |
-| `U16` | `TLV62569PDRLR` | +5V | +1V2_MGT | 2.5–5.5 V | 2 A |
 
 ## Board loads per regulator
 
@@ -56,23 +55,20 @@ are not in these numbers.
 
 | Ref | Output | Board load | Recovery | Rating | Used |
 |---|---|---:|---:|---:|---:|
-| `U11` | +5V | 0.840 A | 0.025 A | 3 A | 28 % |
+| `U11` | +5V | 0.773 A | 0.025 A | 3 A | 26 % |
 | `U12` | +3V3 | 0.946 A | 0.240 A | 3 A | 32 % |
 | `U13` | +2V5 | 0.140 A | 0.000 A | 2 A | 7 % |
 | `U14` | +1V8_IO | 0.308 A | 0.056 A | 2 A | 15 % |
-| `U15` | +1V0 | 2.150 A | 0.000 A | 4 A | 54 % |
-| `U16` | +1V2_MGT | 0.150 A | 0.000 A | 2 A | 8 % |
+| `U15` | +1V0 | 2.050 A | 0.000 A | 4 A | 51 % |
 
 | Rail | Load | Current | Recovery | Basis | Note |
 |---|---|---:|---:|---|---|
 | +1V0 | XC7A100T VCCINT, busy design | 2.000 A | off | estimate | planning allowance for a design that keeps the four PSRAM ports, the SDRAM, the PHY and HDMI busy at once (raised from 1.5 A, 2026-11-03); replace with an AMD XPE result |
 | +1V0 | VCCBRAM | 0.050 A | off | estimate | share of the 0.25 W AUX/BRAM line |
-| +1V0 | +1V0_MGT (MGTAVCC, filtered off +1V0) | 0.100 A | off | estimate | 2 lanes, share of the 0.4 W transceiver line |
 | +1V8_IO | XC7A100T VCCAUX and VCCADC (+1V8, through FB1) | 0.180 A | 0.0500 A | estimate | pre-bitstream planning allowance; replace with an AMD XPE result. Recovery: unconfigured quiescent ICCAUXQ, planning figure [verify DS181] |
 | +1V8_IO | FPGA bank 13 VCCO and its I/O | 0.100 A | 0.0050 A | estimate | one third of the 1.0 W VCCO/IO line, as for bank 14; recovery: VCCO quiescent |
 | +1V8_IO | PSRAM x4 APS6404L-SQN-SN, all reading | 0.028 A | 0.0008 A | datasheet | APS6404L-SQN datasheet rev 4.0 Table 9 (p. 26): ICC read/write 7 mA max per chip, output load not included; standby ISBSTD 200 uA each |
 | +1V8_IO | U9/U10 VCCA, quiescent | 0.000 A | 0.0001 A | datasheet | SN74LVC8T245 SCES584D 5.5: ICCA 8 uA max per device at 5 V; switching current is counted in the bank 13 line |
-| +1V2_MGT | MGTAVTT, 2 lanes | 0.150 A | off | estimate | share of the 0.4 W transceiver line |
 | +3V3 | RP2350B supervisor + boot flash | 0.070 A | 0.0700 A | estimate | ref/power-input.md: 0.2 W; the controller runs in recovery |
 | +3V3 | FPGA bank 14 VCCO and its I/O | 0.100 A | 0.0050 A | estimate | one third of the 1.0 W VCCO/IO line; recovery: VCCO quiescent, core off |
 | +3V3 | config flash W25Q256, program | 0.030 A | 0.0001 A | datasheet | W25Q256JV: 25 mA page-program peak; standby under 100 uA [verify W25Q256JV 9.3] |
@@ -94,8 +90,8 @@ are not in these numbers.
 | +5V | U9/U10 VCCB | 0.020 A | 0.0010 A | estimate | quiescent translator supply |
 | +5V | HDMI 5 V to the monitor through U31 | 0.055 A | 0.0000 A | datasheet | TPD12S016 5V_OUT current limit, SLLSE96F; U31 is off in recovery |
 
-Recovery is the controller alone with the FPGA unconfigured: +1V0, +2V5 and
-+1V2_MGT are held off, everything on +3V3, +1V8_IO and +5V is still
+Recovery is the controller alone with the FPGA unconfigured: +1V0 and +2V5
+are held off, everything on +3V3, +1V8_IO and +5V is still
 powered and listed at its standby or reset current (datasheet where one
 exists, a planning figure marked [verify] otherwise), never at zero.
 
@@ -109,12 +105,11 @@ bead or inductor are frequency-dependent and listed beside, not added.
 
 | Ref | Node | Direct COUT | Validated | Behind a filter | Status | Datasheet |
 |---|---|---:|---:|---|---|---|
-| `U11` | +5V_BUCK | 67.0 uF | 880 uF | 81.8 uF on +5V behind U34 | inside | SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF |
+| `U11` | +5V_BUCK | 67.0 uF | 880 uF | 77.0 uF on +5V behind U34 | inside | SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF |
 | `U12` | +3V3 | 221.3 uF | 880 uF | - | inside | SNVSAN3F 9.2.2.5: 4 x 22 uF at 400 kHz (Table 9-2), at most 10 x the design value or 1000 uF |
 | `U13` | +2V5 | 103.4 uF | 47 uF | - | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
 | `U14` | +1V8_IO | 113.0 uF | 47 uF | 63.5 uF on +1V8 behind FB1 | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
-| `U15` | +1V0 | 506.9 uF | 68 uF | 10.4 uF on +1V0_MGT behind L9 | **beyond: bench qualification** | TPS564201 SLVSDJ7B Table 2: 20-68 uF, L 1.5-4.7 uH at 1 V |
-| `U16` | +1V2_MGT | 49.9 uF | 47 uF | - | **beyond: bench qualification** | SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF |
+| `U15` | +1V0 | 506.9 uF | 68 uF | - | **beyond: bench qualification** | TPS564201 SLVSDJ7B Table 2: 20-68 uF, L 1.5-4.7 uH at 1 V |
 
 "Beyond" means the datasheet has not validated this much output
 capacitance, not that the regulator oscillates. Qualification is on the
@@ -134,12 +129,11 @@ that is the figure checked against saturation.
 
 | Ref | Inductor | Load | Ripple | Peak | Peak, envelope | Isat | |
 |---|---|---:|---:|---:|---:|---:|---|
-| `U11` | `SWPA6045S4R7MT` | 2.84 A | 1.18 A | 3.43 A | 4.11 A at 21 V | 4.97 A | PASS |
+| `U11` | `SWPA6045S4R7MT` | 2.77 A | 1.18 A | 3.36 A | 4.04 A at 21 V | 4.97 A | PASS |
 | `U12` | `SWPA6045S4R7MT` | 2.95 A | 1.11 A | 3.50 A | 3.87 A at 21 V | 4.97 A | PASS |
 | `U13` | `SRN4018-2R2M` | 0.14 A | 0.38 A | 0.33 A | 0.40 A at 5.5 V | 3 A | PASS |
 | `U14` | `SRN4018-2R2M` | 0.31 A | 0.35 A | 0.48 A | 0.54 A at 5.5 V | 3 A | PASS |
-| `U15` | `SWPA6045S4R7MT` | 2.15 A | 0.30 A | 2.30 A | 2.34 A at 5.5 V | 4.97 A | PASS |
-| `U16` | `SRN4018-2R2M` | 0.15 A | 0.28 A | 0.29 A | 0.33 A at 5.5 V | 3 A | PASS |
+| `U15` | `SWPA6045S4R7MT` | 2.05 A | 0.30 A | 2.20 A | 2.24 A at 5.5 V | 4.97 A | PASS |
 
 ## Input source envelope (findings 46)
 
@@ -158,18 +152,18 @@ that is the figure checked against saturation.
 | recovery | USB-PD 9V | 9 V | 0.91 W | 0.11 A | 1.67 A | fits | U26 0.11 A of 2.79 A |
 | recovery | USB-PD 9V/3A | 9 V | 0.91 W | 0.11 A | 3.00 A | fits | U26 0.11 A of 2.79 A |
 | recovery | J50 VIN | 9 V | 0.91 W | 0.11 A | 3.00 A | fits | D4 path, no limiter of its own |
-| light | USB 2.0 port | 4.75 V | 7.32 W | 1.61 A | 0.50 A | **does not fit** | U34 0.88 A of 2.00 A + U26 0.73 A of 2.79 A |
-| light | USB-C 5V/1.5A | 4.75 V | 7.32 W | 1.61 A | 1.50 A | **does not fit** | U34 0.88 A of 2.00 A + U26 0.73 A of 2.79 A |
-| light | USB-C 5V/3A | 4.75 V | 7.32 W | 1.61 A | 3.00 A | fits | U34 0.88 A of 2.00 A + U26 0.73 A of 2.79 A |
-| light | USB-PD 9V | 9 V | 7.32 W | 0.90 A | 1.67 A | fits | U26 0.90 A of 2.79 A |
-| light | USB-PD 9V/3A | 9 V | 7.32 W | 0.90 A | 3.00 A | fits | U26 0.90 A of 2.79 A |
-| light | J50 VIN | 9 V | 7.32 W | 0.90 A | 3.00 A | fits | D4 path, no limiter of its own |
-| full | USB 2.0 port | 4.75 V | 18.92 W | 4.21 A | 0.50 A | **does not fit** | U34 1.94 A of 2.00 A + U26 2.27 A of 2.79 A |
-| full | USB-C 5V/1.5A | 4.75 V | 18.92 W | 4.21 A | 1.50 A | **does not fit** | U34 1.94 A of 2.00 A + U26 2.27 A of 2.79 A |
-| full | USB-C 5V/3A | 4.75 V | 18.92 W | 4.21 A | 3.00 A | **does not fit** | U34 1.94 A of 2.00 A + U26 2.27 A of 2.79 A |
-| full | USB-PD 9V | 9 V | 18.92 W | 2.34 A | 1.67 A | **does not fit** | U26 2.34 A of 2.79 A |
-| full | USB-PD 9V/3A | 9 V | 18.92 W | 2.34 A | 3.00 A | fits | U26 2.34 A of 2.79 A |
-| full | J50 VIN | 9 V | 18.92 W | 2.34 A | 3.00 A | fits | D4 path, no limiter of its own |
+| light | USB 2.0 port | 4.75 V | 6.99 W | 1.54 A | 0.50 A | **does not fit** | U34 0.81 A of 2.00 A + U26 0.73 A of 2.79 A |
+| light | USB-C 5V/1.5A | 4.75 V | 6.99 W | 1.54 A | 1.50 A | **does not fit** | U34 0.81 A of 2.00 A + U26 0.73 A of 2.79 A |
+| light | USB-C 5V/3A | 4.75 V | 6.99 W | 1.54 A | 3.00 A | fits | U34 0.81 A of 2.00 A + U26 0.73 A of 2.79 A |
+| light | USB-PD 9V | 9 V | 6.99 W | 0.86 A | 1.67 A | fits | U26 0.86 A of 2.79 A |
+| light | USB-PD 9V/3A | 9 V | 6.99 W | 0.86 A | 3.00 A | fits | U26 0.86 A of 2.79 A |
+| light | J50 VIN | 9 V | 6.99 W | 0.86 A | 3.00 A | fits | D4 path, no limiter of its own |
+| full | USB 2.0 port | 4.75 V | 18.59 W | 4.14 A | 0.50 A | **does not fit** | U34 1.87 A of 2.00 A + U26 2.27 A of 2.79 A |
+| full | USB-C 5V/1.5A | 4.75 V | 18.59 W | 4.14 A | 1.50 A | **does not fit** | U34 1.87 A of 2.00 A + U26 2.27 A of 2.79 A |
+| full | USB-C 5V/3A | 4.75 V | 18.59 W | 4.14 A | 3.00 A | **does not fit** | U34 1.87 A of 2.00 A + U26 2.27 A of 2.79 A |
+| full | USB-PD 9V | 9 V | 18.59 W | 2.30 A | 1.67 A | **does not fit** | U26 2.30 A of 2.79 A |
+| full | USB-PD 9V/3A | 9 V | 18.59 W | 2.30 A | 3.00 A | fits | U26 2.30 A of 2.79 A |
+| full | J50 VIN | 9 V | 18.59 W | 2.30 A | 3.00 A | fits | D4 path, no limiter of its own |
 
 Modes: *recovery* is the controller alone with the FPGA unconfigured (the
 recovery column of the load table); *light* is every board load with no
@@ -219,7 +213,7 @@ not control it and nothing on the base board draws from it. Capacitors on
 ## Base-board load model retained
 
 The per-load estimates are retained in `LOADS`; cascaded 90%-efficient
-conversion gives 0.840 A on +5V and
+conversion gives 0.773 A on +5V and
 0.946 A on +3V3 before connector exports. FPGA values
 are planning estimates pending AMD XPE.
 The two VCCIO domains and the separate 3V3 export share U12's 3 A ceiling;

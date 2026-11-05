@@ -56,10 +56,6 @@
 <text x="487.0" y="297.0" font-size="7" font-family="monospace" fill="#a33">config flash</text>
 <circle cx="210.0" cy="385.0" r="2.5" fill="#a33"/>
 <text x="214.0" y="388.0" font-size="7" font-family="monospace" fill="#a33">U15  5V to +1V0  (4A F</text>
-<circle cx="252.0" cy="308.0" r="2.5" fill="#a33"/>
-<text x="256.0" y="311.0" font-size="7" font-family="monospace" fill="#a33">MGTAVCC filter</text>
-<circle cx="210.0" cy="308.0" r="2.5" fill="#a33"/>
-<text x="214.0" y="311.0" font-size="7" font-family="monospace" fill="#a33">U16  5V to +1V2_MGT</text>
 <circle cx="210.0" cy="462.0" r="2.5" fill="#a33"/>
 <text x="214.0" y="465.0" font-size="7" font-family="monospace" fill="#a33">U14  5V to +1V8</text>
 <circle cx="210.0" cy="504.0" r="2.5" fill="#a33"/>
@@ -92,8 +88,6 @@
 <text x="179.0" y="157.0" font-size="7" font-family="monospace" fill="#a33">LINK P</text>
 <circle cx="299.6" cy="154.0" r="2.5" fill="#a33"/>
 <text x="303.6" y="157.0" font-size="7" font-family="monospace" fill="#a33">LINK Q</text>
-<circle cx="252.0" cy="336.0" r="2.5" fill="#a33"/>
-<text x="256.0" y="339.0" font-size="7" font-family="monospace" fill="#a33">GTP calibration</text>
 <circle cx="350.0" cy="322.0" r="2.5" fill="#a33"/>
 <text x="354.0" y="325.0" font-size="7" font-family="monospace" fill="#a33">system clock</text>
 <circle cx="168.0" cy="616.0" r="2.5" fill="#a33"/>

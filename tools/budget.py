@@ -32,7 +32,7 @@ I_U34_MIN, I_U34_TYP = 2.00, 2.50     # TPS2121 44.2k RILM, SLVSEA3F Table 7.5
 ETA = 0.90                            # planning efficiency per conversion stage
 # Rails whose regulator is held off in recovery mode (EN low from the
 # controller's reset state): nothing on them draws in recovery.
-RECOVERY_OFF = {'+1V0', '+2V5', '+1V2_MGT'}
+RECOVERY_OFF = {'+1V0', '+2V5'}
 
 # Connector exports: planning allowances per protected bus, each the switch's
 # typical limit or, for the PIN V domains, one slot fuse's hold current.
@@ -87,8 +87,8 @@ INDUCTOR = {
 }
 
 # (rail, load, active current, recovery current, basis, note)
-# Recovery is the controller alone with the FPGA unconfigured, +1V0/+2V5/
-# +1V2_MGT held off, the PHY in reset, the memories idle on their always-on
+# Recovery is the controller alone with the FPGA unconfigured, +1V0 and
+# +2V5 held off, the PHY in reset, the memories idle on their always-on
 # rails: standby or reset currents, never zero for a part that is powered,
 # never the active figure (findings, re-audit 2026-10-29).
 LOADS = [
@@ -97,8 +97,8 @@ LOADS = [
      'planning allowance for a design that keeps the four PSRAM ports, the SDRAM, '
      'the PHY and HDMI busy at once (raised from 1.5 A, 2026-11-03); replace with an AMD XPE result'),
     ('+1V0', 'VCCBRAM', 0.05, 0.0, 'estimate', 'share of the 0.25 W AUX/BRAM line'),
-    ('+1V0', '+1V0_MGT (MGTAVCC, filtered off +1V0)', 0.10, 0.0, 'estimate',
-     '2 lanes, share of the 0.4 W transceiver line'),
+    # MGTAVCC and MGTAVTT are grounded (UG482 v1.9 Table 5-4): the 0.10 A
+    # and 0.15 A transceiver allowances and U16 are gone.
     # ---- +1V8_IO: U14's output. VCCAUX/VCCADC hang off it as +1V8 through
     # a bead; bank 13 and the 1.8 V memory are on the node itself.
     ('+1V8_IO', 'XC7A100T VCCAUX and VCCADC (+1V8, through FB1)', 0.18, 0.05, 'estimate',
@@ -112,9 +112,6 @@ LOADS = [
     ('+1V8_IO', 'U9/U10 VCCA, quiescent', 0.0001, 0.0001, 'datasheet',
      'SN74LVC8T245 SCES584D 5.5: ICCA 8 uA max per device at 5 V; '
      'switching current is counted in the bank 13 line'),
-    # ---- +1V2_MGT
-    ('+1V2_MGT', 'MGTAVTT, 2 lanes', 0.15, 0.0, 'estimate',
-     'share of the 0.4 W transceiver line'),
     # ---- +3V3, the crowded one
     ('+3V3', 'RP2350B supervisor + boot flash', 0.07, 0.07, 'estimate',
      'ref/power-input.md: 0.2 W; the controller runs in recovery'),
@@ -174,7 +171,6 @@ REGULATORS = [
     ('U13', 'TLV62569PDRLR', '+5V', '+2V5', 2.5, 5.5, 2.0),
     ('U14', 'TLV62569PDRLR', '+5V', '+1V8_IO', 2.5, 5.5, 2.0),
     ('U15', 'TPS564201DDCR', '+5V', '+1V0', 4.5, 17.0, 4.0),
-    ('U16', 'TLV62569PDRLR', '+5V', '+1V2_MGT', 2.5, 5.5, 2.0),
 ]
 # Per regulator: the net its capacitors sit on, inductor key, switching
 # frequency, and what the datasheet has actually validated for COUT
@@ -192,12 +188,10 @@ REG_DETAIL = {
                 cout_ok=47e-6, cite='SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF'),
     'U15': dict(vin_max=5.5, node='+1V0', ind='4.7uH', fsw=560e3, vin=5.0,
                 cout_ok=68e-6, cite='TPS564201 SLVSDJ7B Table 2: 20-68 uF, L 1.5-4.7 uH at 1 V'),
-    'U16': dict(vin_max=5.5, node='+1V2_MGT', ind='2.2uH', fsw=1.5e6, vin=5.0,
-                cout_ok=47e-6, cite='SLVSDG1C 8.2.2.5: 10-47 uF, Table 4 up to 2 x 22 uF'),
 }
 # Rails that hang off a regulator node through a bead or inductor: their
 # capacitance is a frequency-dependent load, listed beside the direct sum.
-BEHIND = {'+1V8_IO': ('+1V8', 'FB1'), '+1V0': ('+1V0_MGT', 'L9')}
+BEHIND = {'+1V8_IO': ('+1V8', 'FB1')}
 
 
 def _farads(value):
@@ -249,7 +243,7 @@ def inductor_rows(parts):
     rows = []
     for ref, part, _src, out, _lo, _hi, _cap in REGULATORS:
         d = REG_DETAIL[ref]; ind = INDUCTOR[d['ind']]
-        vout = {'+5V': 5.0, '+3V3': 3.3, '+2V5': 2.5, '+1V8_IO': 1.8, '+1V0': 1.0, '+1V2_MGT': 1.2}[out]
+        vout = {'+5V': 5.0, '+3V3': 3.3, '+2V5': 2.5, '+1V8_IO': 1.8, '+1V0': 1.0}[out]
         iload = loads[out] + export_on(out)
         ripple = vout * (1 - vout / d['vin']) / (ind['l'] * d['fsw'])
         ripple_env = vout * (1 - vout / d['vin_max']) / (ind['l'] * L_TOL * d['fsw'])
@@ -326,9 +320,9 @@ def or_diode_rows():
 
 def board_loads():
     own = {rail: sum(amps for r, _, amps, _rec, _k, _n in LOADS if r == rail)
-           for rail in ('+5V', '+3V3', '+2V5', '+1V8_IO', '+1V0', '+1V1', '+1V2_MGT')}
+           for rail in ('+5V', '+3V3', '+2V5', '+1V8_IO', '+1V0', '+1V1')}
     own['+5V'] += sum(own[r]*v/(4.7*0.90) for r,v in
-                     (('+2V5',2.5),('+1V8_IO',1.8),('+1V0',1),('+1V2_MGT',1.2)))
+                     (('+2V5',2.5),('+1V8_IO',1.8),('+1V0',1)))
     own['+3V3'] += own['+1V1']*1.1/(3.3*0.90)
     return own
 
@@ -337,9 +331,9 @@ def recovery_loads():
     are zero whatever their line says."""
     own = {rail: (0.0 if rail in RECOVERY_OFF else
                   sum(rec for r, _, _a, rec, _k, _n in LOADS if r == rail))
-           for rail in ('+5V', '+3V3', '+2V5', '+1V8_IO', '+1V0', '+1V1', '+1V2_MGT')}
+           for rail in ('+5V', '+3V3', '+2V5', '+1V8_IO', '+1V0', '+1V1')}
     own['+5V'] += sum(own[r]*v/(4.7*0.90) for r,v in
-                     (('+2V5',2.5),('+1V8_IO',1.8),('+1V0',1),('+1V2_MGT',1.2)))
+                     (('+2V5',2.5),('+1V8_IO',1.8),('+1V0',1)))
     own['+3V3'] += own['+1V1']*1.1/(3.3*0.90)
     return own
 
@@ -463,8 +457,8 @@ are not in these numbers.
 |---|---|---:|---:|---|---|
 {lines}
 
-Recovery is the controller alone with the FPGA unconfigured: +1V0, +2V5 and
-+1V2_MGT are held off, everything on +3V3, +1V8_IO and +5V is still
+Recovery is the controller alone with the FPGA unconfigured: +1V0 and +2V5
+are held off, everything on +3V3, +1V8_IO and +5V is still
 powered and listed at its standby or reset current (datasheet where one
 exists, a planning figure marked [verify] otherwise), never at zero.
 

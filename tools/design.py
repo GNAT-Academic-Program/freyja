@@ -264,8 +264,8 @@ def adc_divider(name, vnom, vabsmax, rtop=100e3):
     return rt_lab, rb_lab
 
 # ---------------------------------------------------------------- rails
-VSYS, V5, V33, V25, V18, V10, V12MGT = 'VSYS', '+5V', '+3V3', '+2V5', '+1V8', '+1V0', '+1V2_MGT'
-V10MGT, GND = '+1V0_MGT', 'GND'
+VSYS, V5, V33, V25, V18, V10 = 'VSYS', '+5V', '+3V3', '+2V5', '+1V8', '+1V0'
+GND = 'GND'
 V5BUCK = '+5V_BUCK'     # U11's output node; U34 selects it or VBUS onto +5V
 # U14's output node. +1V8 proper is only VCCAUX and VCCADC, behind a bead, so
 # the FPGA's internal supplies do not share copper with 1.8 V I/O loads.
@@ -294,7 +294,8 @@ def build():
 
     # FPGA decoupling per UG483 v1.14 Table 2-2, row FGG676 / XC7A100T, in
     # the packages of Table 2-5. Note 2 of the table leaves MGTAVCC/MGTAVTT
-    # to UG482: those stay as fitted (one 100nF per ball plus one 4.7uF).
+    # to UG482: both supply groups are unused and grounded (UG482 Table
+    # 5-4), so they have no capacitors; C370..C393 are not fitted.
     # Note 3: one 47uF per group of up to four VCCO banks on one voltage.
     # These parts are not the 0402s they replace, so they take explicit
     # 300-series refs and must not inherit the old positions on the board;
@@ -343,16 +344,13 @@ def build():
             for _ in range(-(-len(vcco_groups[rail]) // 4)):
                 decap(f'decap VCCO group {rail}', rail, '47uF 6.3V', C1210)
     group_caps([r for r in GROUP_ORDER if r in vcco_groups])
-    # MGTAVCC / MGTAVTT, as fitted before (UG482 territory, not re-derived)
-    mgt_balls = [(b, net_for(b, n, assigned)) for bank, lst in
-                 list(io.items()) + list(other.items()) for b, n in lst
-                 if net_for(b, n, assigned) in (V10MGT, V12MGT)]
-    for ball, rail in mgt_balls:
-        decap(f'decap {rail}', rail, '100nF', C0402, lcsc='C1525')
-    for rail in (V10MGT, V12MGT):
-        decap(f'decap {rail}', rail, '4.7uF', C0603, lcsc='C277476')
+    # MGTAVCC and MGTAVTT are grounded (UG482 Table 5-4). Their 22 x 100 nF
+    # and 2 x 4.7 uF were C370..C393; the numbers are consumed so C394
+    # keeps its designator.
+    MGT_DECAPS_GONE = 24
+    decap_n[0] += MGT_DECAPS_GONE
     group_caps([r for r in vcco_groups if r not in GROUP_ORDER])
-    decap_refs = decap_n[0] - 300
+    decap_refs = decap_n[0] - 300 - MGT_DECAPS_GONE
 
     d.group('config straps (UG470)')
     # config straps (UG470)
@@ -425,20 +423,21 @@ def build():
     # the I2C expander that used to carry them is gone (owner, 2026-10-30:
     # an extended part plus passives for four lines the RP2350 has spare).
     # U15's power-good left with the SY8047 (the TPS564201 has none; MON_1V0
-    # reads the rail). Spare: 19, 20, 23, 26, 28, 29, 30, 38, 39.
+    # reads the rail). GPIO25 was EN_1V2 until U16 went with the grounded
+    # GTP supplies. Spare: 19, 20, 23, 25, 26, 28, 29, 30, 38, 39.
     gp = {0:'SUP_JTAG_TCK', 1:'SUP_JTAG_TMS', 2:'SUP_JTAG_TDI', 3:'SUP_JTAG_TDO',
           4:'SUP_PROG_B', 5:'SUP_INIT_B', 6:'SUP_DONE', 10:'SUP_CCLK',
           9:'SUP_FCS_B', 11:'SUP_FD0', 12:'SUP_FD1', 13:'SUP_FD2', 7:'SUP_FD3',
           15:'SUP_DBG_TCK', 16:'SUP_DBG_TMS', 17:'SUP_DBG_TDI', 18:'SUP_DBG_TDO',
           32:'SUP_UART_TX', 33:'SUP_UART_RX',
-          21:'VBUS5_ST', 22:'EN_2V5', 24:'EN_1V0', 25:'EN_1V2',
+          21:'VBUS5_ST', 22:'EN_2V5', 24:'EN_1V0',
           27:'PD_REQ_9V', 14:'PD_SDA', 31:'PD_SCL',
           8:'EXT_EN', 34:'EXT_FAULT',
           35:'LED_HEARTBEAT_N', 36:'LED_USER1_N', 37:'LED_USER2_N'}
     for g, n in gp.items(): sup[f'GPIO{g}'] = n
     # ADC0-7 (GPIO40-47): MON_1V8 reads +1V8 itself, VCCAUX behind FB1, not
     # the regulator side of the bead (item 50); the two jumpered domains are
-    # measured so firmware knows the J19/J20 setting. +1V2_MGT is not measured.
+    # measured so firmware knows the J19/J20 setting.
     for a, n in enumerate(['MON_VSYS','MON_5V','MON_3V3','MON_2V5','MON_1V8','MON_1V0',
                            'MON_VCCIO_1','MON_VCCIO_2']):
         sup[f'GPIO{40+a}/ADC{a}'] = n
@@ -734,16 +733,18 @@ def build():
                '5': V18IO, '6': net}, 'C65114')
         for _ in range(2): d.C('22uF', net, GND, C0805)
 
-    # ------------------------------------------------ GTP: unused, powered
-    # Rev A carries no transceiver load. UG482 Tables 5-5/5-6: MGTAVCC and
-    # MGTAVTT stay powered, RX inputs are grounded (gen_sch.py), TX and
-    # reference clocks float, and each quad keeps its 100 ohm 1% RCAL to
-    # MGTAVTT (UG482 Figure 5-1). The former Fast Links sheet's sequential
-    # refs are consumed in place so every later part keeps its designator.
+    # ------------------------------------------------ GTP: unused, grounded
+    # Rev A uses no transceiver in either power supply group (G10 = quad
+    # 213, G11 = quad 216, UG482 v1.9 Table 5-2), so both follow Table 5-4:
+    # MGTAVCC, MGTAVTT and MGTRREF to GND, RX to GND, TX and reference
+    # clocks floating (gen_sch.py). Nothing is fitted for them: the 100 ohm
+    # resistors (R35, R89), U16's cell, the MGTAVCC filter and the supply
+    # capacitors are gone and their sequential refs are consumed in place,
+    # like the former Fast Links sheet's, so every later part keeps its
+    # designator.
     d.sheet('FPGA')
-    d.group('GTP calibration')
     d.reserve('C', 4)                 # X2 decoupling and refclk AC coupling
-    d.R('100 1%', 'MGTRREF', '+1V2_MGT', R0603)
+    d.reserve('R', 1)                 # R35, quad 216 calibration resistor
     d.reserve('R', 1); d.reserve('C', 1)        # SFP power gate
     # The status expander (U17, PCF8574 on I2C1) and its passives are gone:
     # two bus pull-ups, two SFP ports' worth of parts, its 100 nF and the
@@ -865,8 +866,7 @@ def build():
     # instead of NC and stays unconnected, as the datasheet's pin table
     # says for an unused PG (the rails are read by the ADC monitors).
     for ref, rail, en, vtgt in (('U13', V25, 'EN_2V5', 2.5),
-                                ('U14', V18IO, V5, 1.8),
-                                ('U16', V12MGT, 'EN_1V2', 1.2)):
+                                ('U14', V18IO, V5, 1.8)):
         top, bot, act = fb_divider(vtgt, 0.600)   # TLV62569 Vfb = 0.600 V
         if ref == 'U14':
             # 2026-11-05: 102k / 49.9k at 0.1 %, 1.826 V nominal, instead of
@@ -904,6 +904,9 @@ def build():
         d.R(top, rail, fb, R0603); d.R(bot, fb, GND, R0603)
         for _ in range(2): d.C('22uF', rail, GND, C0805)
         d.C('100nF', V5, GND)
+    # U16, the 1.2 V MGTAVTT regulator, is not fitted (UG482 Table 5-4):
+    # L6, R63, R64, C204, C205 and C206 are consumed.
+    d.reserve('L', 1); d.reserve('R', 2); d.reserve('C', 3)
     # FPGA core supply: TI TPS564201 (SLVSDJ7B) since 2026-10-30, the
     # 4 A D-CAP2 buck the JLCPCB library has (the SY8047 is not in it).
     # SOT-23-6 (DDC): 1 GND, 2 SW, 3 VIN, 4 VFB, 5 EN, 6 VBST. 4.5-17 V in
@@ -1001,9 +1004,9 @@ def build():
     d.reserve('R', 3)       # former R78..R80
     d.reserve('C', 2)       # former C222..C223
 
-    d.group('MGTAVCC filter')
-    # MGTAVCC 1.0V filtered off +1V0
-    d.L('1uH', V10MGT, V10); d.C('4.7uF', V10MGT, GND, C0603)
+    # The MGTAVCC filter off +1V0 (L9, C224) is not fitted: MGTAVCC is
+    # grounded (UG482 Table 5-4).
+    d.reserve('L', 1); d.reserve('C', 1)
     d.group('rail monitors')
     # Rail monitors into the supervisor ADC. The two rails that can sit above
     # +3V3 are divided; the dividers are sized from the absolute maximum the
@@ -1025,19 +1028,16 @@ def build():
     for mon in ('MON_VSYS', 'MON_5V', 'MON_3V3', 'MON_2V5', 'MON_1V8', 'MON_1V0'):
         d.C('100nF', mon, GND)
 
-    # Appended to preserve existing reference designators. Quad 213 keeps
-    # its own RCAL: UG482 Table 5-5.
-    d.sheet('FPGA')
-    d.group('GTP calibration')
-    d.R('100 1%', 'MGTRREF_213', V12MGT, R0603)
+    # R89, quad 213's calibration resistor: not fitted (UG482 Table 5-4).
+    d.reserve('R', 1)
 
     # Append to preserve existing designators; render each pulldown with its
     # regulator. Hold EN low while RP2350 GPIOs are high-Z (reset/BOOTSEL),
     # including EN_5V, whose TPS54202 has an internal enable pull-up.
     d.sheet('Power')
     for ref, en in (('U11', None), ('U13', 'EN_2V5'), ('U14', None),
-                    ('U16', 'EN_1V2'), ('U15', 'EN_1V0')):
-        if en is None:          # U11 and U14 are always on (item 34)
+                    ('U16', None), ('U15', 'EN_1V0')):
+        if en is None:          # U11 and U14 are always on (item 34); U16 and its R93 are not fitted
             d.reserve('R', 1); continue
         d.group(next(p['group'] for p in d.parts if p['ref'] == ref))
         d.R('100k', en, GND, R0603)
@@ -1468,9 +1468,10 @@ def build():
     # across VIN/GND). The 100 nF already on each TLV62569 is HF bypass only.
     d.group('U11  VSYS to +5V')
     d.C('10uF', VSYS, GND, C1210)
-    for ref, rail in (('U13', V25), ('U14', V18IO), ('U16', V12MGT)):
+    for ref, rail in (('U13', V25), ('U14', V18IO)):
         d.group(f'{ref}  5V to {rail}')
         d.C('4.7uF', V5, GND, C0603)
+    d.reserve('C', 1)                              # C270, U16's input capacitor
 
     # ---- USB D+/D- series resistors at the controller (item 36)
     # Hardware design with RP2350, section 5.1: 27 ohm in each line, close
@@ -1646,7 +1647,7 @@ def build():
     # Sequential C refs must never run into the explicit 300-series decaps.
     if d._n['C'] >= 300:
         raise ValueError(f"sequential C refs reached C{d._n['C']}; the FPGA decaps start at C301")
-    print(f'FPGA decoupling: {decap_refs} parts, C301..C{300 + decap_refs}')
+    print(f'FPGA decoupling: {decap_refs} parts, C301..C{300 + decap_refs + 24}, C370..C393 not fitted')
 
     # Nothing ships unqualified: every non-generic part must carry a real MPN,
     # package and rating in tools/qualified.py, fitted with the footprint

@@ -20,7 +20,7 @@ def uid(*a):
     return str(uuid.UUID(hashlib.md5(('odin'+''.join(map(str,a))).encode()).hexdigest()))
 
 RAIL = {'VCCINT':'+1V0', 'VCCBRAM':'+1V0', 'VCCAUX':'+1V8', 'VCCADC':'+1V8',
-        'MGTAVCC':'+1V0_MGT', 'MGTAVTT':'+1V2_MGT',
+        'MGTAVCC':'GND', 'MGTAVTT':'GND',     # both GTP supply groups unused: UG482 Table 5-4
         'VCCO_0':'+3V3', 'VCCO_12':'+3V3', 'VCCO_13':'+1V8_IO', 'VCCO_14':'+3V3',
         'VCCO_15':'VCCIO_1', 'VCCO_16':'+2V5', 'VCCO_34':'VCCIO_2',
         'VCCO_35':'+3V3', 'VCCO_33':'+3V3',
@@ -39,13 +39,16 @@ def net_for(ball, name, assigned):
     for k, v in RAIL.items():
         if n.startswith(k): return v
     if name in CFG: return CFG[name]
-    # UG482 Tables 5-5/5-6: both GTP quads (213 and 216) are unused in
-    # rev A but stay powered. Unused RX pins go to GND; TX and reference
-    # clock pins float. Each quad keeps its own calibration resistor to
-    # MGTAVTT: MGTRREF (quad 216, R35) and MGTRREF_213.
+    # UG482 v1.9 Table 5-2: on the XC7A100T-FGG676 quad 213 is power supply
+    # group G10 and quad 216 is group G11. Neither group has a transceiver
+    # in use, so Table 5-4 (p. 223) applies to both: MGTAVCC and MGTAVTT to
+    # GND (RAIL above), MGTRREF to GND, which its note allows in this case
+    # only, RX to GND, reference clock and TX pins floating. Tables 5-5 and
+    # 5-6, which keep the supplies and the 100 ohm resistor, are for a
+    # group or a quad that is partly used.
     if n.startswith('MGT'):
         bare, _, quad = n.rpartition('_')
-        if bare == 'MGTRREF': return 'MGTRREF_213' if quad == '213' else 'MGTRREF'
+        if bare == 'MGTRREF': return 'GND'
         if bare.startswith(('MGTPRXP', 'MGTPRXN')): return 'GND'
         return None
     return None                      # unassigned HR I/O -> no-connect

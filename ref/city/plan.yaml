@@ -61,7 +61,6 @@ islands:
   U13: {from: [744.80, 184.38], to: [755.41, 170.64], turn: 0.0, why: "2.5 V regulator beside the PHY, under the FPGA"}
   U14: {from: [786.07, 81.03], to: [786.07, 81.03], turn: 0.0, why: "door"}
   U15: {from: [768.86, 78.88], to: [768.86, 78.89], turn: 0.0, why: "door"}
-  U16: {from: [751.65, 80.30], to: [751.65, 80.30], turn: 0.0, why: "door"}
   U17: {from: [828.34, 146.90], to: [835.54, 155.24], turn: 0.0, why: "wired"}
   U18: {from: [809.37, 51.42], to: [842.55, 55.36], turn: 0.0, why: "USB story: PD negotiator beside the eFuse, CC lines short"}
   U20: {from: [670.60, 222.23], to: [703.30, 196.06], turn: 0.0, why: "service corner: JTAG switch beside its header"}

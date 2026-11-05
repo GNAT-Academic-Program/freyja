@@ -122,7 +122,7 @@ VARIANTS = {
 #     mux U34, so the 21 V bus never leaves the USB corner where it enters
 #     (U26 under USB-C; J50's D4 at the top-left is the other source) and
 #     U11 -> U34 stays short. U13 (2.5 V) stays at the PHY, its load, as the
-#     bottom door. The FPGA door (U16, U15, U14, U34) is the regulator row;
+#     bottom door. The FPGA door (U15, U14, U34) is the regulator row;
 #     the two VSYS cells hang one step below its right end.
 VARIANTS['districts'] = dict(
     VARIANTS['best'],
@@ -166,7 +166,7 @@ VARIANTS['districts'] = dict(
         ('U5', dict(x=('left_of', 'U4'), y=('top', 'U4')), 'PSRAM block: cell 3, bottom row'),
         # serial memory shelf: config flash and MRAM continue the door row
         # leftwards (both on the FPGA's left half, SPI, 4-6 lines each)
-        ('U6', dict(x=('left_of', 'U16'), y=('bottom', 'U16')), 'serial memory shelf: config flash at the door row left end'),
+        ('U6', dict(x=('left_of', 'U15'), y=('bottom', 'U15')), 'serial memory shelf: config flash at the door row left end'),
         ('U33', dict(x=('left_of', 'U6'), y=('bottom', 'U6')), 'serial memory shelf: MRAM beside the flash'),
         # the PHY straight above its jack
         ('U30', dict(x=('centre', 'J70'), y=('above', 'J70')), 'PHY above the Ethernet jack, MDI pairs straight down'),
@@ -180,7 +180,7 @@ VARIANTS['districts'] = dict(
         'LED DASHBOARD': ['D1'],
         'USB POWER IN': ['J1', 'U26', 'U18', 'U34'],
         'VSYS CONVERTERS': ['U11', 'U12'],
-        'FPGA POWER DOOR': ['U16', 'U15', 'U14'],
+        'FPGA POWER DOOR': ['U15', 'U14'],
         'PSRAM': ['U2', 'U3', 'U4', 'U5'],
         'SERIAL MEMORY': ['U6', 'U33'],
         'NETWORK': ['U30', 'J70', 'U13'],
@@ -233,11 +233,11 @@ CRITICAL = {
 # Per side: blocks in order left to right, the block aligned on the column,
 # and the net whose balls set the column (their mean x).
 DOORS = {
-    'top': (['U16', 'U15', 'U14', 'U34'], 'U15', '+1V0',
+    'top': (['U15', 'U14', 'U34'], 'U15', '+1V0',
             '1.0 V core (U15, 4 A) straight down the middle column on In3; 1.8 V (U14) '
-            'and 1.2 V (U16) beside it, fed on In5 through the same door; the +5V mux '
+            'beside it, fed on In5 through the same door; the +5V mux '
             'U34 closes the row on the USB side and U11, pulled to it by the CRITICAL '
-            'link, sits against it, so U11 -> U34 -> the three 5 V converters is one '
+            'link, sits against it, so U11 -> U34 -> the two 5 V converters is one '
             'path along the door. U11 in the row itself pushed U26 away from J1 (right '
             'end) or PSRAM U2 off the bank-13 side (left end); U34 at the left end sent '
             'U11 onto the PSRAM side too (re-audit 2026-10-29, item 57)'),

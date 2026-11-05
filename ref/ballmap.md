@@ -289,11 +289,14 @@ the package's two outer rows.
 | A4 | `HDMI_SCL` | IO_L16N_T2_35 |
 | C2 | `HDMI_SDA` | IO_L19P_T3_35 |
 
-## GTP banks 213 and 216 — unused, powered
+## GTP banks 213 and 216 — unused, grounded
 
-Rev A has no transceiver load. Both quads keep MGTAVCC/MGTAVTT powered,
-all RX pins to GND, TX and reference-clock pins floating, and one 100 ohm
-1% RCAL each to +1V2_MGT (UG482 Tables 5-5/5-6).
+Rev A uses no transceiver. Quad 213 is power supply group G10 and quad 216
+group G11 (UG482 v1.9 Table 5-2); with both groups unused, Table 5-4 applies:
+MGTAVCC, MGTAVTT and MGTRREF to GND, all RX pins to GND, TX and
+reference-clock pins floating. Neither quad can be used on rev A: a transceiver
+needs its supply group powered and MGTRREF on its 100 ohm resistor, and this board
+has neither the regulator, the filter, the resistors nor the copper.
 
 | Ball | Name |
 |---|---|

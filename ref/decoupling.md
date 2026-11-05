@@ -17,9 +17,11 @@ against a newer UG483 or a measured PDN.
 | VCCO, each I/O bank 13, 14, 15, 16, 34, 35 | bank rail | 2 x 4.7 uF, 4 x 0.47 uF |
 | VCCO, per voltage group of up to four banks (note 3) | group rail | 1 x 47 uF |
 
-Note 2 of the table excludes MGTAVCC and MGTAVTT: those are UG482's. They stay
-as fitted before this change, one 100 nF 0402 per ball (10 + 12) and one
-4.7 uF 0603 per rail. Not re-derived. VCCADC is not in the table; its single
+Note 2 of the table excludes MGTAVCC and MGTAVTT: those are UG482's. Both GTP
+power supply groups are unused and grounded (UG482 v1.9 Table 5-4), so they
+have no capacitors: the former one 100 nF 0402 per ball (10 + 12) and one
+4.7 uF 0603 per rail, C370..C393, are not fitted and their designators stay
+unused. VCCADC is not in the table; its single
 100 nF 0402 on `+1V8` stays.
 
 Banks 12 and 33 exist in the FGG676 ball list but have only VCCO balls on the
@@ -32,8 +34,9 @@ Voltage groups today: `+3V3` = banks 14 and 35 (one 47 uF, C366), `VCCIO_1`
 computed from `gen_sch.RAIL`; a bank that moves to another rail regroups its
 47 uF automatically.
 
-Total: 15 + 3 + 9 + 1 + 36 + 3 = 67 UG483 parts, plus 24 MGT and 1 VCCADC
-= 92. The previous scheme was 96 x 100 nF plus 14 x 4.7 uF (110).
+Total: 15 + 3 + 9 + 1 + 36 + 3 = 67 UG483 parts, plus 1 VCCADC = 68; 92
+with the 24 MGT capacitors that are no longer fitted. `tools/design.py` prints
+the current count. The previous scheme was 96 x 100 nF plus 14 x 4.7 uF (110).
 
 ## Packages and parts: UG483 Table 2-5
 
@@ -71,7 +74,7 @@ The board is assembled on one side; nothing goes under the package on B.Cu.
   `tools/alloc.py`; see [the historical plan](../archive/history/rev-a-plan.md)
   for that ball-to-edge map. **The live U1 is rotated 90 degrees as of
   2026-11-03**; use its actual PCB pads rather than this old orientation.
-- The MGT 100 nF 0402s keep the same ring rule on the GTP corner.
+- The GTP supply balls are grounded and have no capacitors.
 
 New references initially enter the import band outside the board. At the
 2026-11-03 cleanup all footprint origins are inside the outline's bounding

@@ -987,24 +987,6 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "ISL27_U16_5V_TO_1V2_MGT",
-        "pcb_color": "rgba(61, 36, 242, 0.800)",
-        "priority": 10027,
-        "schematic_color": "rgba(61, 36, 242, 0.800)",
-        "track_width": 0.2,
-        "via_diameter": 0.45,
-        "via_drill": 0.2,
-        "wire_width": 6
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.15,
-        "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
         "name": "ISL28_CRYSTAL_RP_008280_",
         "pcb_color": "rgba(71, 242, 36, 0.800)",
         "priority": 10028,
@@ -1549,42 +1531,6 @@
         "pcb_color": "rgba(242, 36, 226, 0.800)",
         "priority": 10058,
         "schematic_color": "rgba(242, 36, 226, 0.800)",
-        "track_width": 0.2,
-        "via_diameter": 0.45,
-        "via_drill": 0.2,
-        "wire_width": 6
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.15,
-        "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "ISL59_GTP_CALIBRATION",
-        "pcb_color": "rgba(36, 242, 197, 0.800)",
-        "priority": 10059,
-        "schematic_color": "rgba(36, 242, 197, 0.800)",
-        "track_width": 0.2,
-        "via_diameter": 0.45,
-        "via_drill": 0.2,
-        "wire_width": 6
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.15,
-        "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "ISL60_GTP_CALIBRATION",
-        "pcb_color": "rgba(242, 137, 36, 0.800)",
-        "priority": 10060,
-        "schematic_color": "rgba(242, 137, 36, 0.800)",
         "track_width": 0.2,
         "via_diameter": 0.45,
         "via_drill": 0.2,
@@ -2412,18 +2358,6 @@
         "pattern": "SW+1V8"
       },
       {
-        "netclass": "ISL27_U16_5V_TO_1V2_MGT",
-        "pattern": "EN_1V2"
-      },
-      {
-        "netclass": "ISL27_U16_5V_TO_1V2_MGT",
-        "pattern": "FB+1V2_MGT"
-      },
-      {
-        "netclass": "ISL27_U16_5V_TO_1V2_MGT",
-        "pattern": "SW+1V2_MGT"
-      },
-      {
         "netclass": "ISL28_CRYSTAL_RP_008280_",
         "pattern": "SUP_XIN"
       },
@@ -2754,14 +2688,6 @@
       {
         "netclass": "ISL58_SERIES_RESISTORS_T",
         "pattern": "SUP_UART_RX"
-      },
-      {
-        "netclass": "ISL59_GTP_CALIBRATION",
-        "pattern": "MGTRREF"
-      },
-      {
-        "netclass": "ISL60_GTP_CALIBRATION",
-        "pattern": "MGTRREF_213"
       },
       {
         "netclass": "ISL61_U30_GIGABIT_PHY",
