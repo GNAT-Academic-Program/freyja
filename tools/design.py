@@ -149,6 +149,8 @@ class Design:
             (R0402, '1k'):   'C11702',
             (R0402, '4.7k'): 'C25900',
             (R0402, '100k'): 'C25741',
+            # Uniroyal 0402WGF330JTCE: F is +-1 %, 330J is 33.0 ohm; +-100 ppm/C.
+            # R208's TXC edge margin in gateware/rgmii1000 assumes this 1 %.
             (R0402, '33'):   'C25105',
         }.get((fp, val), '')
         return self.add(self.seq('R'), 'Device:R', val, fp, {'1': a, '2': b},

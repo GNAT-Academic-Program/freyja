@@ -31,7 +31,11 @@ DROPS = (('board only, 0.14 A', 6.7, 8.5, 7.7), ('J19 at 2.5 V, 0.74 A', 12.2, 1
          ('J20 at 2.5 V, 0.74 A', 14.0, 21.9, 15.0), ('both selectors, 1.34 A', 19.5, 27.4, 20.5))
 # DVDD_RG minus VCCO is the ball's drop minus U30's drop: U30 sits higher than a ball that has dropped more.
 HIGHEST = max(hi - u for _, _, hi, u in DROPS) / 1000
-TOL = 0.05      # C25105, 0402WGF330JTCE, the J code
+# R208 is C25105, Uniroyal 0402WGF330JTCE. Uniroyal's part number key: 7th code F = +-1 %; 330J is 330 x 10^-1 = 33.0 ohm, the J
+# there is the multiplier and not a tolerance. JLCPCB's library row agrees: +-1 %, +-100 ppm/C. 1 % is the tolerance as delivered.
+# The temperature coefficient is shown separately for a 60 C rise; solder shift, load life and the part's parasitics are not in it.
+TOL = 0.01
+TCR, RISE = 100e-6, 60.
 
 
 def edges(t, v, e, phy):
@@ -126,7 +130,8 @@ def main():
         c, name, kd, kz = CORNERS[0]
         print('R ohm   DVDD_RG-VCCO mV | one edge: rise_ns fall_ns margin_ps | 125 MHz: rise_ns fall_ns margin_ps')
         d = fl.Driver(m, c)
-        for R, off in ((ohms, 0.), (ohms, HIGHEST), (ohms * 1.01, HIGHEST), (ohms * (1 + TOL), 0.), (ohms * (1 + TOL), HIGHEST)):
+        hot = (1 + TOL) * (1 + TCR * RISE)
+        for R, off in ((ohms, 0.), (ohms, HIGHEST), (ohms * (1 + TOL), 0.), (ohms * (1 + TOL), HIGHEST), (ohms * hot, HIGHEST)):
             _, _, _, (ar, _) = case(m, c, kd, kz, secs, idx, R, Zp, tp, 5e-12, 'r', off)
             _, _, _, (af, _) = case(m, c, kd, kz, secs, idx, R, Zp, tp, 5e-12, 'f', off)
             p = periodic(d, [(Zp, tp)] + r.sections(secs, kz, kd), 5e-12, (idx, R), d.Vcc + off)
@@ -141,7 +146,10 @@ def main():
 
         worst_edge = lambda R, Cl, off: max(case(m, c, kd, kz, secs, idx, R, Zp, tp, Cl, e, off)[3][0]['edge'] for e in 'rf')
         print(f"Load reaching {LIMIT} ns: {bisect(lambda q: worst_edge(ohms, q * 1e-12, 0.), 2, 12):.2f} pF at nominal R, equal supplies; "
-              f"{bisect(lambda q: worst_edge(ohms * (1 + TOL), q * 1e-12, HIGHEST), 2, 12):.2f} pF at R +5 %, offset {HIGHEST * 1000:+.1f} mV")
+              f"{bisect(lambda q: worst_edge(ohms * (1 + TOL), q * 1e-12, HIGHEST), 2, 12):.2f} pF at R +{TOL * 100:g} %, offset {HIGHEST * 1000:+.1f} mV")
+        rl = bisect(lambda q: worst_edge(q, 5e-12, HIGHEST), ohms, ohms * 1.2)
+        print(f"R208 reaching {LIMIT} ns at 5 pF, offset {HIGHEST * 1000:+.1f} mV: {rl:.2f} ohm, {(rl / ohms - 1) * 100:+.1f} %. "
+              f"The part is +-{TOL * 100:g} % as delivered and +-{TCR * 1e6:g} ppm/C; the last row above adds {RISE:g} C of that.")
         print(f"DVDD_RG above VCCO reaching {LIMIT} ns at 5 pF, nominal R: {bisect(lambda q: worst_edge(ohms, 5e-12, q / 1000), 0, 200):.1f} mV")
         print()
     print('Fixed 0.5 and 2.0 V against this Slow corner would need DVDD_RG 125 mV above VCCO on one net: not a state of this board, so not evaluated.')

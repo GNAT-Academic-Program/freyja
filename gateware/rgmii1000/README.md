@@ -122,10 +122,11 @@ them: DVDD_RG minus VCCO is −1.0 to +6.9 mV DC on the routed rail, the top of 
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Equal supplies, one edge | 2.375 | 2.3750 | 0.4750, 1.9000 | 2.371, 0.002 | 0.7416 | 0.7243 | **+8.4** |
 | DC offset +6.9 mV, one edge | 2.375 | 2.3819 | 0.4764, 1.9055 | 2.371, 0.002 | 0.7443 | 0.7264 | +5.7 |
-| R208 +5 %, equal supplies, one edge | 2.375 | 2.3750 | 0.4750, 1.9000 | | 0.7476 | 0.7309 | +2.4 |
-| R208 +5 %, DC offset +6.9 mV, one edge | 2.375 | 2.3819 | 0.4764, 1.9055 | | 0.7504 | 0.7330 | **−0.4** |
+| R208 +1 %, equal supplies, one edge | 2.375 | 2.3750 | 0.4750, 1.9000 | | 0.7428 | 0.7256 | +7.2 |
+| R208 +1 %, DC offset +6.9 mV, one edge | 2.375 | 2.3819 | 0.4764, 1.9055 | | 0.7455 | 0.7277 | **+4.5** |
+| R208 +1 % and 60 °C at 100 ppm/°C, DC offset +6.9 mV, one edge | 2.375 | 2.3819 | 0.4764, 1.9055 | | 0.7462 | 0.7285 | +3.8 |
 | Equal supplies, 125 MHz | 2.375 | 2.3750 | 0.4750, 1.9000 | | 0.7149 | 0.7223 | +27.7 |
-| R208 +5 %, DC offset +6.9 mV, 125 MHz | 2.375 | 2.3819 | 0.4764, 1.9055 | | 0.7254 | 0.7320 | +18.0 |
+| R208 +1 %, DC offset +6.9 mV, 125 MHz | 2.375 | 2.3819 | 0.4764, 1.9055 | | 0.7191 | 0.7261 | +23.9 |
 
 VCCO in each corner is the IBIS voltage range, the only voltages its tables exist at. Typ, 2.5 V, is 0.539 and 0.524 ns at 5 pF;
 Fast, 2.625 V, 0.446 and 0.442 ns. The settled level is the mean of the last 5 ns of a 60 ns window, with no ripple left, and sits
@@ -133,9 +134,16 @@ up to 7 mV below VCCO in the model. U13's setpoint is 2.4987 V at C198.1, bounde
 with the DC drop no ball goes below 2.385 V: the Slow corner's 2.375 V is lower than this rail reaches at DC. Transients are not modelled.
 
 **This passes and is not robust.** R208 stays 33 ohm. The margin is single picoseconds at an assumed 5 pF: the limit is reached at
-5.16 pF, or 4.99 pF with R208 at +5 % and the DC offset, where one edge from a settled line ends 0.4 ps over. C25105's 5 % is read
-from the `J` in its part number; a 1 % part would leave +4.5 ps in that stack. A running clock has about 20 ps more. Rise and fall on the
-bench, at U30's pin, are what close this.
+5.16 pF, or 5.08 pF with R208 at +1 % and the DC offset. With the offset, R208 itself would have to reach 34.55 ohm, +4.7 %, to use the
+margin up. A running clock has about 20 ps more. Rise and fall on the bench, at U30's pin, are what close this.
+
+**R208 is already a 1 % part; no part was changed.** It is C25105, Uniroyal 0402WGF330JTCE, the same line as every other 33 ohm 0402
+here. Uniroyal's part-number key gives the 7th code as tolerance, `F` = ±1 %, and `330J` as 330 × 10⁻¹ = 33.0 ohm: that `J` is a
+multiplier. An earlier version of this section read it as a 5 % code and reported a −0.4 ps stack from it; that stack does not
+exist for this part. JLCPCB's library row agrees: ±1 %, ±100 ppm/°C, 0402, basic, SMT. YAGEO RC0402FR-0733RL, C138002, was checked
+as the alternative: also ±1 % and ±100 ppm/°C, same 1.0 × 0.5 mm body for the same land, in stock for SMT, but an extended line, so
+it adds a fee and no tolerance. **1 % is the resistance as delivered, not a complete allowance:** 100 ppm/°C adds 0.6 % over 60 °C,
+shown above, and solder shift, load life and the part's own parasitics are not in these figures.
 
 The earlier 0.793 ns, between fixed 0.5 and 2.0 V, is withdrawn: it set a 2.375 V signal against 2.5 V thresholds, which needs DVDD_RG
 125 mV above VCCO on one net. The comparison of 22 ohm against it does not apply, and 18 and 22 ohm were not needed. The earlier
