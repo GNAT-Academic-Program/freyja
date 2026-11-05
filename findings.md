@@ -1182,6 +1182,27 @@ The 2 % reference alone takes 48 of the 60 mV window. With a 0.1 % divider and f
 
 *What only hardware can settle.* None of this is transient closure. Left for measurement: U14's output at C319 with the FPGA unconfigured and with each selector loaded; loop stability and load-step response of whichever part drives 113 uF plus 63.5 uF behind the bead; U14's start-up into that capacitance; the feedback voltage over temperature, which no table here guarantees; ripple at the VCCAUX balls. Datasheets used are in `~/freyja-review/regcheck-2026-11-05/datasheets/`, the arithmetic in `scripts/regbudget.py` and `reports/regbudget.txt` there.
 
+**U13 feedback divider changed to 0.1 % parts (2026-11-05).** R59 is 100k and R60 31.6k as before, now both 0.1 % and 25 ppm/C: YAGEO RT0603BRD07100KL, C122538, and RT0603BRD0731K6L, C705766, on the same 0603 lands. The nominal setpoint stays 2.4987 V. No footprint moved and no copper changed. JLCPCB lists both as extended SMT parts; the 2026-11-05 snapshot has 1 363 538 and 3818 in stock, and its process field for C705766 is empty, so `ref/jlc-stock.md` prints "?" there, while JLCPCB's own part page on the same day says SMT with 2337 in stock.
+
+*Limits, with what is guaranteed kept apart from what is typical.* Guaranteed: VFB 0.588 to 0.612 V at 5 V in and 25 C (SLVSDG1C 6.5), the resistors' tolerance and temperature coefficient, both adverse over 60 K, and bank 16's 2.375 to 2.625 V (DS181 v1.27.1 Table 2, note 5). Typical and taken once each: 0.1 % of VFB for temperature and line (Figure 3; TI gives no limit over temperature) and 0.2 % load regulation in the 1.34 A case (Figure 10). Estimates: the loads of `tools/budget.py`, 18 um via barrels, copper at 85 C. Drops are from the saved copper with 15.2 um inner layers.
+
+| 85 C, lowest output | Before, 1 % | Now, 0.1 % |
+|---|---:|---:|
+| Regulator, lowest / nominal / highest | 2.388 / 2.499 / 2.614 V | 2.437 / 2.499 / 2.561 V |
+| The same from the guaranteed terms alone | 2.390 to 2.612 V | 2.440 to 2.558 V |
+| Bank 16 balls, board load 0.14 A | 2.377 V, +2 mV | 2.426 V, **+51 mV** |
+| Bank 16 balls, J19 alone exporting at 2.5 V | 2.370 V, -5 mV | 2.419 V, +44 mV |
+| Bank 16 balls, J20 alone exporting | 2.360 V, -15 mV | 2.410 V, +35 mV |
+| Bank 16 balls, both exporting, 1.34 A | 2.349 V, **-26 mV** | 2.398 V, **+23 mV** |
+| U30 pin 28 (DVDD_RG), both exporting | 2.357 V | 2.407 V |
+| J19.3, J19 alone / both exporting | 2.349 / 2.337 V | 2.398 / 2.386 V, 23 / 11 mV left for the `VCCIO_1` copper |
+| J20.3, J20 alone / both exporting | 2.334 / 2.323 V | 2.384 / 2.372 V, 9 mV left / **3 mV short** |
+| Highest output, light load | 2.614 V, 11 mV under 2.625 V | 2.561 V, **64 mV** under |
+
+*What it does not close.* With both selectors at 2.5 V and both exports at the full allowance of `tools/budget.py`, kept as it is, J20.3 stands at 2.372 V before any `VCCIO_2` copper, so bank 34 at 2.5 V under full export from both selectors is still below 2.375 V, and with J20 alone that copper has 9 mV. J20.3 is the far end of the rail, 60 mV below the regulator at 85 C with both exporting. A setpoint step to 102k / 31.6k would add 37 mV and leave 25 mV at the top; it was not taken, the nominal setpoint was to stay. So the `VCCIO_2` routing inherits no allowance at 2.5 V: J20's 2.5 V position under full export from both selectors stays outside the recommended window unless the `+2V5` feed to J20.3 is lowered in resistance or the setpoint is raised. The power-save rise at light load is not bounded by the datasheet; by the same scaling as for U14 it is 5 to 18 mV, against 64 mV of room. The limits of U30's DVDD_RG are not in the repository. Nothing here is transient closure: loop stability into 103 uF, start-up and ripple remain for hardware.
+
+*Applied.* `tools/design.py` holds the pair and both part numbers, with the reason. Regenerated from it: `kicad/power.kicad_sch` (R59 and R91 change places within U13's group, because the generator orders parts by value), `kicad/odin.net`, `ref/bom-jlcpcb.csv`, `ref/parts-guide.md` and `ref/jlc-stock.md`. The board was synchronised with `load_pcb.py` on a copy with `update_silkscreen.py` held back: R59 and R60 differ in value, description and a hidden part-number field, nothing else; `check_positions.py` reports 0 moved of 561; pads, nets and every track, via and fill are byte-identical, fresh refills too. `ref/power-budget.md` does not change. `gateware/rgmii1000/README.md` named the old 1 % bound in one sentence; it now gives this one, and its conclusion, that no ball goes as low as the Slow corner's 2.375 V at DC, holds with 23 mV where it did not before. 0 DRC errors, 0 parity with H4 at either position; the sixteen tracked net groups unchanged, `+2V5` 27 of 27; strict gate electrical and mechanical PASS, stackup guard and ERC pass on the live tree. Evidence: `~/freyja-review/u13-divider-2026-11-05/`, `scripts/u13budget.py` and `reports/u13budget.txt`. Nothing measured on hardware.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule

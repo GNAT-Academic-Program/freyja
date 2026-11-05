@@ -4,10 +4,10 @@ Library snapshot 2026-11-05 (CDFER/jlcpcb-parts-database from yaqwsx/jlcparts, i
 
 ## Summary
 
-- Numbered lines: 71; absent from the library snapshot: 1 (C5360304 U2,U3,U4,U5).
+- Numbered lines: 73; absent from the library snapshot: 1 (C5360304 U2,U3,U4,U5).
 - Stock below 3 x need: 0 (none).
-- Extended (fee) lines among the numbered: 57; basic: 12; preferred: 1.
-- Generic lines: 41; with a library part of the same value and package: 41; without any: 0 (none).
+- Extended (fee) lines among the numbered: 59; basic: 12; preferred: 1.
+- Generic lines: 40; with a library part of the same value and package: 40; without any: 0 (none).
 
 ## Numbered lines
 
@@ -58,6 +58,8 @@ Library snapshot 2026-11-05 (CDFER/jlcpcb-parts-database from yaqwsx/jlcparts, i
 | C11702 | basic | SMT | 14385321 | 110 | 20 | 0.0036 | 0402WGF1001TCE 0402 | R1,R2,R3,R6,R9,R10,R12,R128,R129,R130,R132 |
 | C25900 | basic | SMT | 16063321 | 160 | 20 | 0.0023 | 0402WGF4701TCE 0402 | R4,R5,R98,R133,R135,R136,R137,R138,R139,R140,R141,R142,R143,R172,R203,R204 |
 | C25105 | basic | SMT | 1399949 | 460 | 20 | 0.0012 | 0402WGF330JTCE 0402 | R8,R14,R15,R16,R17,R18,R19,R20,R21,R22,R23,R24,R25,R26,R27,R28,R29,R30,R31,R32,R104,R105,R106,R107,R108,R109,R110,R111,R112,R113,R114,R115,R116,R117,R118,R119,R120,R121,R122,R123,R124,R125,R126,R127,R147,R208 |
+| C122538 | extended | SMT | 1363538 | 10 | 20 | 0.0323 | RT0603BRD07100KL 0603 | R59 |
+| C705766 | extended | ? | 3818 | 10 | 1 | 0.0361 | RT0603BRD0731K6L 0603 | R60 |
 | C861068 | extended | SMT | 9171 | 10 | 20 | 0.0369 | RT0603BRD07102KL 0603 | R61 |
 | C705780 | extended | SMT | 152922 | 10 | 20 | 0.0394 | RT0603BRD0749K9L 0603 | R62 |
 | C25741 | basic | SMT | 9721665 | 30 | 20 | 0.0015 | 0402WGF1003TCE 0402 | R148,R149,R173 |
@@ -107,9 +109,8 @@ Library snapshot 2026-11-05 (CDFER/jlcpcb-parts-database from yaqwsx/jlcparts, i
 | 24.9k | R_0603_1608Metric | 20 | C25962 0603WAF2492T5E | extended | 844322 | 1% | R51,R56 |
 | 14.7k | R_0603_1608Metric | 10 | C705725 RT0603BRD0714K7L | extended | 36776 | 1% | R52 |
 | 29.4k | R_0603_1608Metric | 10 | C22974 0603WAF2942T5E | extended | 72669 | 1% | R54 |
-| 100k | R_0603_1608Metric | 150 | C25803 0603WAF1003T5E | basic | 19748113 | 1% | R55,R57,R59,R63,R64,R72,R81,R83,R91,R93,R94,R162,R164,R166,R201 |
+| 100k | R_0603_1608Metric | 140 | C25803 0603WAF1003T5E | basic | 19748113 | 1% | R55,R57,R63,R64,R72,R81,R83,R91,R93,R94,R162,R164,R166,R201 |
 | 43.2k | R_0603_1608Metric | 10 | C23053 0603WAF4322T5E | extended | 39600 | 1% | R58 |
-| 31.6k | R_0603_1608Metric | 10 | C25967 0603WAF3162T5E | extended | 138410 | 1% | R60 |
 | 3.09k | R_0603_1608Metric | 10 | C843947 CRCW06033K09FKEA | extended | 26118 | 1% | R67 |
 | 604 | R_0603_1608Metric | 10 | C32183 0603WAF6040T5E | extended | 69242 | 1% | R74 |
 | 1.15k | R_0603_1608Metric | 10 | C22834 0603WAF1151T5E | extended | 16873 | 1% | R75 |

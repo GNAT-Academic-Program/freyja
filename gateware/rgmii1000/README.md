@@ -130,8 +130,9 @@ them: DVDD_RG minus VCCO is −1.0 to +6.9 mV DC on the routed rail, the top of 
 
 VCCO in each corner is the IBIS voltage range, the only voltages its tables exist at. Typ, 2.5 V, is 0.539 and 0.524 ns at 5 pF;
 Fast, 2.625 V, 0.446 and 0.442 ns. The settled level is the mean of the last 5 ns of a 60 ns window, with no ripple left, and sits
-up to 7 mV below VCCO in the model. U13's setpoint is 2.4987 V at C198.1, bounded by VFB and 1 % resistors at 2.412 to 2.588 V, so
-with the DC drop no ball goes below 2.385 V: the Slow corner's 2.375 V is lower than this rail reaches at DC. Transients are not modelled.
+up to 7 mV below VCCO in the model. U13's setpoint is 2.4987 V at C198.1. With the 0.1 % divider fitted on 2026-11-05 and every static term stacked (`findings.md`,
+that date) the regulator gives 2.437 to 2.561 V and no bank 16 ball goes below 2.398 V with both selectors exporting at 85 C: the Slow
+corner's 2.375 V is lower than this rail reaches at DC. With the earlier 1 % pair that did not hold. Transients are not modelled.
 
 **This passes and is not robust.** R208 stays 33 ohm. The margin is single picoseconds at an assumed 5 pF: the limit is reached at
 5.16 pF, or 5.08 pF with R208 at +1 % and the DC offset. With the offset, R208 itself would have to reach 34.55 ohm, +4.7 %, to use the

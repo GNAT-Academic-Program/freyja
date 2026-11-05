@@ -34793,7 +34793,7 @@
 		(layer "F.Cu")
 		(uuid "582d39f3-7ee3-4316-81e0-d71b51cae9ec")
 		(at 160.655 107.3)
-		(descr "31.6k resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage")
+		(descr "31.6k 0.1% resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R60"
 			(at 0 -1.43 0)
@@ -34806,7 +34806,7 @@
 				)
 			)
 		)
-		(property "Value" "31.6k"
+		(property "Value" "31.6k 0.1%"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "9b07a213-781a-4287-8265-91b2c64b8d68")
@@ -34829,11 +34829,23 @@
 				)
 			)
 		)
-		(property "Description" "31.6k resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage"
+		(property "Description" "31.6k 0.1% resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "72ad82dd-40dd-4012-8af3-816317df6c28")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C705766"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f36fc91f-d3b3-43c6-b4c7-ff8a28d769cb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -92946,7 +92958,7 @@
 		(layer "F.Cu")
 		(uuid "cd2301e4-cb4c-43f9-bc2b-d4bf17629c76")
 		(at 160.655 108.87 180)
-		(descr "100k resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage")
+		(descr "100k 0.1% resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R59"
 			(at 0 -1.43 0)
@@ -92959,7 +92971,7 @@
 				)
 			)
 		)
-		(property "Value" "100k"
+		(property "Value" "100k 0.1%"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "ed1816e1-671c-47f8-aca4-c9d6e38bfa2e")
@@ -92982,11 +92994,23 @@
 				)
 			)
 		)
-		(property "Description" "100k resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage"
+		(property "Description" "100k 0.1% resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c50bce7e-4925-4a0e-8395-6b99f7d0a0cb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C122538"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a2773767-d1ff-40df-9c94-bd623b10cb0e")
 			(effects
 				(font
 					(size 1.27 1.27)

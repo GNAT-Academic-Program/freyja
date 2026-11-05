@@ -365,8 +365,8 @@ Small switching regulator that makes +2V5 from +5V for FPGA bank 16 (network) an
 | C200 | 100nF | 100nF bypass on +5V, for U13 (2.5 V regulator) |
 | C268 | 4.7uF | 4.7uF bypass on +5V, for U13 (2.5 V regulator) |
 | L4 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +2V5 and SW+2V5, for U13 (2.5 V regulator): regulator switching node |
-| R59 | 100k | 100k resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage |
-| R60 | 31.6k | 31.6k resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage |
+| R59 | 100k 0.1% | 100k 0.1% resistor from FB+2V5 to +2V5, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage |
+| R60 | 31.6k 0.1% | 31.6k 0.1% resistor from FB+2V5 to GND, for U13 (2.5 V regulator): feedback divider, sets the regulator's output voltage |
 | R91 | 100k | 100k pull-down on EN_2V5, for U7 (board controller): keeps the regulator off until the board controller enables it |
 
 ### U14  5V to +1V8_IO

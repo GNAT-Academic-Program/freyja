@@ -157,6 +157,9 @@ class Design:
             # both figures, so the matcher must not pick a 1 % part.
             (R0603, '102k 0.1%'):  'C861068',
             (R0603, '49.9k 0.1%'): 'C705780',
+            # U13's: the same series (RT0603BRD07100KL, RT0603BRD0731K6L).
+            (R0603, '100k 0.1%'):  'C122538',
+            (R0603, '31.6k 0.1%'): 'C705766',
         }.get((fp, val), '')
         return self.add(self.seq('R'), 'Device:R', val, fp, {'1': a, '2': b},
                         lcsc=lcsc, dnp=dnp)
@@ -879,6 +882,18 @@ def build():
             # Arithmetic and assumptions: findings.md, 2026-11-05.
             top, bot = '102k 0.1%', '49.9k 0.1%'
             act = 0.600 * (1 + 102.0 / 49.9)
+        if ref == 'U13':
+            # 2026-11-05: the same 100k / 31.6k, 2.499 V nominal, at 0.1 %
+            # and 25 ppm/C instead of 1 %. Bank 16 VCCO takes 2.375 to
+            # 2.625 V (DS181 Table 2, note 5) and its balls sit 34 mV below
+            # the regulator at 85 C with both PIN V selectors exporting at
+            # 2.5 V. With VFB at 0.588 to 0.612 V (SLVSDG1C 6.5, 25 C) and
+            # the divider's tolerance and drift the 1 % pair left the worst
+            # ball 26 mV under the minimum and 11 mV under the maximum;
+            # this pair leaves 23 mV and 64 mV. Arithmetic and assumptions:
+            # findings.md, 2026-11-05.
+            assert (top, bot) == ('100k', '31.6k')
+            top, bot = '100k 0.1%', '31.6k 0.1%'
         RAIL_CHECK.append((rail, vtgt, act, top, bot))
         d.group(f'{ref}  5V to {rail}')
         fb = f'FB{rail}'; sw = f'SW{rail}'
