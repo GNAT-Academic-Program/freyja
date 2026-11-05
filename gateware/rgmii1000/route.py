@@ -4,8 +4,8 @@
     python3 gateware/rgmii1000/route.py board.kicad_pcb [gateware/rgmii1000/data/route.json]
 
 Walks each net from ball to pin on the saved board, so the numbers are of the copper, not of a plan.
-TX: AMD IBIS driver through the package and the routed sections into a lumped C at the pin, using the
-engine in ../sdram100/flight.py. Flight is the 1.25 V crossing at U30 minus the driver's own crossing
+TX: AMD IBIS driver through the package, the routed sections and the 33 or 47 ohm at U30 into a lumped C at
+the pin, using the engine in ../sdram100/flight.py. Flight is the 1.25 V crossing at U30 minus the driver's own crossing
 into its IBIS test load, the condition of Vivado's OBUF delay, so the package is inside it.
 RX: no RTL8211F IBIS model exists, so line delay only, plus the FPGA package from data/pkg_delay.csv.
 Per-layer delay from ../sdram100/results/fieldsolve.txt; barrels at 6.97 ps/mm, assumed, not a via solve.
@@ -73,8 +73,31 @@ def sections(secs, kz, kd):
     return out
 
 
-def tx_flight(secs, ball, driver_name):
-    """Per corner and load: flight, edge rate, overshoot and ringback at U30."""
+def leg(b, fp, n):
+    """The route of FPGA net n, ball to U30 pin, as one list of sections.
+
+    A TX net runs ball, n, resistor, n_U30, pin. Returns sections, the index of the last section before the
+    resistor (None without one), its ohms, reference and centre-to-centre distance from the pin, and the U1 and U30 pads.
+    The 1.02 mm between the resistor's pad centres counts as F.Cu after the resistor.
+    """
+    xy = lambda p: (round(p.GetPosition().x / 1e6, 3), round(p.GetPosition().y / 1e6, 3))
+    ball = next(p for p in fp['U1'].Pads() if p.GetNetname() == n)
+    nets = {p.GetNetname(): p for p in fp['U30'].Pads()}
+    if n in nets:
+        return fl.walk(b, n, xy(ball), xy(nets[n]))[0], None, None, None, None, ball, nets[n]
+    pin = nets[n + '_U30']
+    res = next(f for f in fp.values() if {p.GetNetname() for p in f.Pads()} == {n, n + '_U30'})
+    a = next(p for p in res.Pads() if p.GetNetname() == n)
+    c = next(p for p in res.Pads() if p.GetNetname() == n + '_U30')
+    s1 = fl.walk(b, n, xy(ball), xy(a))[0]
+    s2 = fl.walk(b, n + '_U30', xy(c), xy(pin))[0]
+    pitch = math.dist(xy(a), xy(c))
+    near = sum(d for k, d in s2 if k != 'via')
+    return s1 + [('F.Cu', pitch)] + s2, len(s1), float(res.GetValue().split()[0]), res.GetReference(), near + pitch / 2, ball, pin
+
+
+def tx_flight(secs, ball, driver_name, rs=None):
+    """Per corner and load: flight, edge rate, overshoot and ringback at U30. rs is (index, ohms) from leg()."""
     Lp, Cp = fl.pkg()
     L, C = Lp[ball], Cp[ball]
     Zp, tp = math.sqrt(L / C), math.sqrt(L * C)
@@ -87,7 +110,7 @@ def tx_flight(secs, ball, driver_name):
             key = f'{name}_{int(Cl * 1e12)}pF'
             row = {}
             for e in 'rf':
-                t, v, _ = fl.sim(d, e, [(Zp, tp)] + sections(secs, kz, kd), Cl, tend=8e-9)
+                t, v, _ = fl.sim(d, e, [(Zp, tp)] + sections(secs, kz, kd), Cl, tend=8e-9, Rseries=rs)
                 a = fl.cross(t, v, .2 * d.Vcc if e == 'r' else .8 * d.Vcc, e)
                 b = fl.cross(t, v, .8 * d.Vcc if e == 'r' else .2 * d.Vcc, e)
                 first = fl.cross(t, v, 1.7 if e == 'r' else .7, e)
@@ -108,9 +131,6 @@ def main():
     driver = os.environ.get('DRIVER', 'LVCMOS25_F_8_HR')
     b = pcbnew.LoadBoard(board)
     fp = {f.GetReference(): f for f in b.GetFootprints()}
-    xy = lambda p: (round(p.GetPosition().x / 1e6, 3), round(p.GetPosition().y / 1e6, 3))
-    u1 = {p.GetNetname(): p for p in fp['U1'].Pads()}
-    u30 = {p.GetNetname(): p for p in fp['U30'].Pads()}
     pkg = {}
     for line in open(os.path.join(HERE, 'data', 'pkg_delay.csv')):
         if not line.startswith('#'):
@@ -119,14 +139,17 @@ def main():
     nets = {}
     for n in [CLK['tx']] + TX + [CLK['rx']] + RX + MGMT:
         # flight.walk expects F.Cu ends at the pads; every net here starts and ends on F.Cu
-        secs, _ = fl.walk(b, n, xy(u1[n]), xy(u30[n]))
+        secs, idx, ohms, ref, near, bp, pp = leg(b, fp, n)
+        rs = (idx, ohms) if ohms else None
         row, corners = describe(secs)
-        ball = u1[n].GetNumber()
-        row.update(ball=ball, pin=u30[n].GetNumber(), pkg_ps=[round(v * 1000, 1) for v in pkg[ball]],
+        ball = bp.GetNumber()
+        row.update(ball=ball, pin=pp.GetNumber(), pkg_ps=[round(v * 1000, 1) for v in pkg[ball]],
                    sections=[(k, round(d, 3)) if k != 'via' else ('via', '-'.join(sorted(d))) for k, d in secs])
+        if ohms:
+            row['resistor'] = dict(ref=ref, ohms=ohms, centre_from_pin_mm=round(near, 3))
         row['_corners'] = {f'{a}{c}': v for (a, c), v in corners.items()}
         if n in TX or n == CLK['tx']:
-            row['sim'] = tx_flight(secs, ball, driver)
+            row['sim'] = tx_flight(secs, ball, driver, rs)
         nets[n] = row
         print(n, ball, 'pin', row['pin'], row['length'], 'mm', row['mm'], 'vias', row['vias'], 'ps', row['nominal_ps'], flush=True)
     res = dict(board_sha256=hashlib.sha256(open(board, 'rb').read()).hexdigest(), driver=driver, nets=nets, tx={}, rx={})

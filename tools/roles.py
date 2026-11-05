@@ -83,6 +83,11 @@ GROUP = {
         '+2V5 and makes its own 1.0 V core supply with an internal LDO (the '
         'FD variant, so no inductor). The capacitors here bypass those '
         'supplies (RTL8211F datasheet rev 1.7, Table 9).',
+    'U30 TX input resistors':
+        'One series resistor per RGMII transmit line, at U30\'s end of the route: 33 ohm '
+        'on TXC, 47 ohm on TXD0-3 and TX_CTL. They slow and filter what reaches the '
+        'PHY\'s inputs without damping the line, so they are not source termination; the '
+        'FPGA side of each keeps its allocated net name.',
     'PHY straps and LEDs':
         'Resistors that configure U30 at reset and drive its LEDs. During '
         'reset the PHY reads the level on several output pins as '
@@ -244,6 +249,12 @@ NET = {
     'MRAM_HOLD': 'hold released: transfers never pause',
     'SDRAM_CS_N': 'keeps the SDRAM deselected until a design drives CS',
     'SDRAM_CKE': 'holds the SDRAM clock disabled (power-down) until a design drives CKE',
+    'PHY_TXC_U30': 'filters TXC at U30\'s pin, about 4 mm from it: not source termination (gateware/rgmii1000)',
+    'PHY_TX_CTL_U30': 'filters TX_CTL at U30\'s pin, about 4 mm from it: not source termination (gateware/rgmii1000)',
+    'PHY_TXD0_U30': 'filters TXD0 at U30\'s pin, about 4 mm from it: not source termination (gateware/rgmii1000)',
+    'PHY_TXD1_U30': 'filters TXD1 at U30\'s pin, about 4 mm from it: not source termination (gateware/rgmii1000)',
+    'PHY_TXD2_U30': 'filters TXD2 at U30\'s pin, about 4 mm from it: not source termination (gateware/rgmii1000)',
+    'PHY_TXD3_U30': 'filters TXD3 at U30\'s pin, about 4 mm from it: not source termination (gateware/rgmii1000)',
     'PHY_RSET': 'sets U30\'s transmit bias current (2.49 k 1 %, [verify] ref/network.md)',
     'PHY_1V0': 'U30\'s internal 1.0 V LDO output; feeds only its own core pins',
     'PHY_RESET_N': 'holds U30 in reset until the FPGA drives it (Table 53 note 5)',

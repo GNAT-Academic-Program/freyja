@@ -8,26 +8,26 @@ set_property SLEW FAST [get_ports {PHY_TXC PHY_TXD0 PHY_TXD1 PHY_TXD2 PHY_TXD3 P
 # TX: skew-based, edge-aligned at the FPGA, both TXC edges. Data launched on a TXC edge must reach U30 within
 # TskewT of that same edge. The half-cycle setup relation exists only to express the limit: setup slack = TskewT - skew.
 create_generated_clock -name txc -source [get_pins txc_oddr/C] -divide_by 1 [get_ports PHY_TXC]
-set_output_delay -clock txc -max 3.448 [get_ports PHY_TXD0]
-set_output_delay -clock txc -min 0.415 [get_ports PHY_TXD0]
-set_output_delay -clock txc -clock_fall -max 3.448 [get_ports PHY_TXD0] -add_delay
-set_output_delay -clock txc -clock_fall -min 0.415 [get_ports PHY_TXD0] -add_delay
-set_output_delay -clock txc -max 3.487 [get_ports PHY_TXD1]
-set_output_delay -clock txc -min 0.456 [get_ports PHY_TXD1]
-set_output_delay -clock txc -clock_fall -max 3.487 [get_ports PHY_TXD1] -add_delay
-set_output_delay -clock txc -clock_fall -min 0.456 [get_ports PHY_TXD1] -add_delay
-set_output_delay -clock txc -max 3.424 [get_ports PHY_TXD2]
-set_output_delay -clock txc -min 0.390 [get_ports PHY_TXD2]
-set_output_delay -clock txc -clock_fall -max 3.424 [get_ports PHY_TXD2] -add_delay
-set_output_delay -clock txc -clock_fall -min 0.390 [get_ports PHY_TXD2] -add_delay
-set_output_delay -clock txc -max 3.468 [get_ports PHY_TXD3]
-set_output_delay -clock txc -min 0.436 [get_ports PHY_TXD3]
-set_output_delay -clock txc -clock_fall -max 3.468 [get_ports PHY_TXD3] -add_delay
-set_output_delay -clock txc -clock_fall -min 0.436 [get_ports PHY_TXD3] -add_delay
-set_output_delay -clock txc -max 3.426 [get_ports PHY_TX_CTL]
-set_output_delay -clock txc -min 0.394 [get_ports PHY_TX_CTL]
-set_output_delay -clock txc -clock_fall -max 3.426 [get_ports PHY_TX_CTL] -add_delay
-set_output_delay -clock txc -clock_fall -min 0.394 [get_ports PHY_TX_CTL] -add_delay
+set_output_delay -clock txc -max 3.511 [get_ports PHY_TXD0]
+set_output_delay -clock txc -min 0.439 [get_ports PHY_TXD0]
+set_output_delay -clock txc -clock_fall -max 3.511 [get_ports PHY_TXD0] -add_delay
+set_output_delay -clock txc -clock_fall -min 0.439 [get_ports PHY_TXD0] -add_delay
+set_output_delay -clock txc -max 3.552 [get_ports PHY_TXD1]
+set_output_delay -clock txc -min 0.488 [get_ports PHY_TXD1]
+set_output_delay -clock txc -clock_fall -max 3.552 [get_ports PHY_TXD1] -add_delay
+set_output_delay -clock txc -clock_fall -min 0.488 [get_ports PHY_TXD1] -add_delay
+set_output_delay -clock txc -max 3.498 [get_ports PHY_TXD2]
+set_output_delay -clock txc -min 0.422 [get_ports PHY_TXD2]
+set_output_delay -clock txc -clock_fall -max 3.498 [get_ports PHY_TXD2] -add_delay
+set_output_delay -clock txc -clock_fall -min 0.422 [get_ports PHY_TXD2] -add_delay
+set_output_delay -clock txc -max 3.532 [get_ports PHY_TXD3]
+set_output_delay -clock txc -min 0.462 [get_ports PHY_TXD3]
+set_output_delay -clock txc -clock_fall -max 3.532 [get_ports PHY_TXD3] -add_delay
+set_output_delay -clock txc -clock_fall -min 0.462 [get_ports PHY_TXD3] -add_delay
+set_output_delay -clock txc -max 3.498 [get_ports PHY_TX_CTL]
+set_output_delay -clock txc -min 0.432 [get_ports PHY_TX_CTL]
+set_output_delay -clock txc -clock_fall -max 3.498 [get_ports PHY_TX_CTL] -add_delay
+set_output_delay -clock txc -clock_fall -min 0.432 [get_ports PHY_TX_CTL] -add_delay
 # RX: the received clock only. Data launched by one RXC edge is valid TholdT after it and TsetupT before the next,
 # at U30. max = T/2 - TsetupT + (data - clock) high; min = TholdT + (data - clock) low. No jitter term: Table 60 gives none.
 create_clock -period 8.000 -name phy_rxc [get_ports PHY_RXC]

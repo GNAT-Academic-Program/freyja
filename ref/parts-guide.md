@@ -13,7 +13,7 @@ you care about; within it, groups appear in schematic order.
 - [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (75 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
 - [Slots](#slots) (100 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
-- [Network](#network) (39 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
+- [Network](#network) (45 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
 - [Video](#video) (8 parts): HDMI output straight from the FPGA, with its protection chip.
 
 ## FPGA
@@ -1282,6 +1282,19 @@ The second link port, wired as the mirror of LINK P so a straight cable from a P
 | D22 | TPD4E1U06DBVR | LINK Q ESD, pins 1-2 and 3-6: TI TPD4E1U06 four-line ESD clamp (0.8 pF) on LINK Q's incoming clock and data pairs. |
 | D23 | TPD4E1U06DBVR | LINK Q ESD, pins 4-5 and 7-8: TI TPD4E1U06 four-line ESD clamp (0.8 pF) on LINK Q's outgoing clock and data pairs. |
 | J72 | LINK Q | LINK Q jack: Plain shielded RJ45 (no magnetics) carrying four LVDS pairs of link port Q, mirrored from P. Not an Ethernet port. |
+
+### U30 TX input resistors
+
+One series resistor per RGMII transmit line, at U30's end of the route: 33 ohm on TXC, 47 ohm on TXD0-3 and TX_CTL. They slow and filter what reaches the PHY's inputs without damping the line, so they are not source termination; the FPGA side of each keeps its allocated net name.
+
+| Ref | Value | What it does |
+|---|---|---|
+| R208 | 33 | 33 series resistor between PHY_TXC and PHY_TXC_U30, for U30 (gigabit Ethernet PHY): filters TXC at U30's pin, about 4 mm from it: not source termination (gateware/rgmii1000) |
+| R209 | 47 | 47 series resistor between PHY_TX_CTL and PHY_TX_CTL_U30, for U30 (gigabit Ethernet PHY): filters TX_CTL at U30's pin, about 4 mm from it: not source termination (gateware/rgmii1000) |
+| R210 | 47 | 47 series resistor between PHY_TXD0 and PHY_TXD0_U30, for U30 (gigabit Ethernet PHY): filters TXD0 at U30's pin, about 4 mm from it: not source termination (gateware/rgmii1000) |
+| R211 | 47 | 47 series resistor between PHY_TXD1 and PHY_TXD1_U30, for U30 (gigabit Ethernet PHY): filters TXD1 at U30's pin, about 4 mm from it: not source termination (gateware/rgmii1000) |
+| R212 | 47 | 47 series resistor between PHY_TXD2 and PHY_TXD2_U30, for U30 (gigabit Ethernet PHY): filters TXD2 at U30's pin, about 4 mm from it: not source termination (gateware/rgmii1000) |
+| R213 | 47 | 47 series resistor between PHY_TXD3 and PHY_TXD3_U30, for U30 (gigabit Ethernet PHY): filters TXD3 at U30's pin, about 4 mm from it: not source termination (gateware/rgmii1000) |
 
 ## Video
 

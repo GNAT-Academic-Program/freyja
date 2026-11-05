@@ -65,7 +65,8 @@ MDI_LAUNCH_PAIR_CLEARANCE = 0.16
 # MDI tracks beside them: 0.2786 mm at worst, measured. Both tracks wholly inside the area, on
 # PHY_1V0 only; a via keeps 0.31.
 MDI_LAUNCH_SUPPLY_CLEARANCE = 0.27
-RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'PHY_RX_CTL')
+RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'PHY_RX_CTL',
+                  'PHY_TXC_U30', 'PHY_TXD?_U30', 'PHY_TX_CTL_U30')
 # The SDR SDRAM bus (W9825G6KH-6, 3.3 V single-ended, target 100 MHz CL3) uses
 # 0.125 mm, about 50 ohm on all four signal layers; CLK has its 22 ohm at the
 # FPGA. Delay limits, not equal lengths: see ref/pcb-impedance.md.
@@ -137,9 +138,9 @@ def emit_rules():
 (rule "extension buses 2A"
   (condition "A.hasNetclass('EXT_2A')")
   (constraint track_width (min 1.0mm) (opt 1.0mm)))
-# RGMII: about 50 ohm on the outer layers; keep the twelve lines the same
-# width and length-match TXD[3:0]/TX_CTL to TXC and RXD[3:0]/RX_CTL to RXC
-# by hand (KiCad has no bus-skew rule); the PHY's 2 ns delays do the rest.
+# RGMII: about 50 ohm on all four signal layers. Timing is set by the derived
+# delay limits in gateware/rgmii1000, not by equal lengths. The U30 side of each
+# TX resistor is in this class too.
 (rule "RGMII width"
   (condition "A.hasNetclass('RGMII')")
   (constraint track_width (min {RGMII_WIDTH}mm) (opt {RGMII_WIDTH}mm)))

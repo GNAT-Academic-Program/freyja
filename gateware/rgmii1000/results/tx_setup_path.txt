@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2026.1 (lin64) Build 6511674 Tue Jun 16 11:01:26 MDT 2026
-| Date         : Wed Nov  4 22:29:27 2026
+| Date         : Thu Nov  5 08:39:18 2026
 | Host         : ohenley-desktop running 64-bit Ubuntu 26.04.1 LTS
 | Command      : report_timing -setup -corner Slow -to PHY_RX_CTL -file tx_setup_path.txt
 | Design       : top
@@ -12,7 +12,7 @@ Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanc
 
 Timing Report
 
-Slack (MET) :             0.211ns  (required time - arrival time)
+Slack (MET) :             0.148ns  (required time - arrival time)
   Source:                 tx0/C
                             (falling edge-triggered cell ODDR clocked by c125_u  {rise@0.000ns fall@4.000ns period=8.000ns})
   Destination:            PHY_TXD0
@@ -22,7 +22,7 @@ Slack (MET) :             0.211ns  (required time - arrival time)
   Requirement:            4.000ns  (txc rise@8.000ns - c125_u fall@4.000ns)
   Data Path Delay:        2.862ns  (logic 2.861ns (99.965%)  route 0.001ns (0.035%))
   Logic Levels:           1  (OBUF=1)
-  Output Delay:           3.448ns
+  Output Delay:           3.511ns
   Clock Path Skew:        2.606ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    1.833ns = ( 9.833 - 8.000 ) 
     Source Clock Delay      (SCD):    -0.316ns = ( 3.684 - 4.000 ) 
@@ -70,12 +70,12 @@ Slack (MET) :             0.211ns  (required time - arrival time)
     C24                                                               r  PHY_TXC
                          clock pessimism              0.458    10.290    <hidden>
                          clock uncertainty           -0.085    10.206    <hidden>
-                         output delay                -3.448     6.758    <hidden>
+                         output delay                -3.511     6.695    <hidden>
   -------------------------------------------------------------------
-                         required time                          6.758    <hidden>
+                         required time                          6.695    <hidden>
                          arrival time                          -6.547    <hidden>
   -------------------------------------------------------------------
-                         slack                                  0.211    <hidden>
+                         slack                                  0.148    <hidden>
 
 
 

@@ -110,7 +110,7 @@ The contract and how to rerun it are in [`gateware/sdram100/`](../gateware/sdram
 | Default | other nets | 0.15 mm clearance, 0.2 mm track, 0.45/0.20 mm via |
 | LVDS_100R | `LINK_*`, `HDMI_CLK_*`, `HDMI_D0`–`D2_*` | outer layers only; 0.099 mm width; 0.200 mm coupled gap; ≤ 0.1 mm intra-pair skew; pair tracks ≥ 0.31 mm from other copper, with the one J73 exception below |
 | MDI_100R | `ETH_MDI*` | same geometry and rules as LVDS_100R |
-| RGMII | `PHY_TXC`, `PHY_TXD?`, `PHY_TX_CTL`, `PHY_RXC`, `PHY_RXD?`, `PHY_RX_CTL` | 0.125 mm width |
+| RGMII | `PHY_TXC`, `PHY_TXD?`, `PHY_TX_CTL`, `PHY_TXC_U30`, `PHY_TXD?_U30`, `PHY_TX_CTL_U30`, `PHY_RXC`, `PHY_RXD?`, `PHY_RX_CTL` | 0.125 mm width |
 | SDRAM | `SDRAM_*` | 0.125 mm width; timing limits above |
 | PSRAM | `PSRAM*`, including chip-side `_MEM` nets | 0.1 mm minimum and preferred width |
 | AUX_5A | `AUX_RAIL` | 2.0 mm width, 1.0/0.5 mm vias |

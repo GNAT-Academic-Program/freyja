@@ -10,6 +10,9 @@ Sites:
   hop   on B.Cu just after the In2-to-B via: no via added. Needs second-side assembly, which the board does not have.
 Results are unclamped: U30's input clamps and capacitance are unpublished, so voltages are not predictions of a pin.
 Reads a board, never writes one.
+
+Record of the choice, run on commit f2ff108, before the resistors existed. It expects no resistor on the route, so it
+does not run on later boards: results/damping.txt stays as written, and txsi.py checks the laid-out copper.
 """
 import importlib.util
 import json

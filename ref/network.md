@@ -35,7 +35,7 @@ source; the three marked **[verify]** are not in the Realtek datasheet (rev
 
 | PHY pin | Net | Bank | Level | Note |
 |---|---|---|---|---|
-| TXC, TXD[3:0], TXCTL | `PHY_TXC`, `PHY_TXD0..3`, `PHY_TX_CTL` | 16 | 2.5 V | fabric → PHY |
+| TXC, TXD[3:0], TXCTL | `PHY_TXC_U30`, `PHY_TXD0..3_U30`, `PHY_TX_CTL_U30` at the PHY; `PHY_TXC`, `PHY_TXD0..3`, `PHY_TX_CTL` at the FPGA | 16 | 2.5 V | fabric → PHY, through R208 (33 Ω, TXC) and R209–R213 (47 Ω) at U30's end |
 | RXC, RXD[3:0], RXCTL | `PHY_RXC`, `PHY_RXD0..3`, `PHY_RX_CTL` | 16 | 2.5 V | PHY → fabric; `PHY_RXC` on an MRCC ball |
 | MDC, MDIO | `PHY_MDC`, `PHY_MDIO` | 16 | DVDD_RG = 2.5 V (Table 58) | 1.5 kΩ pull-up to `+2V5` (§7.11.2) |
 | PHYRSTB | `PHY_RESET_N` | 35 | 3.3 V (Table 58 note) | 1 kΩ pull-down; LVCMOS33 output |
@@ -107,8 +107,10 @@ to ground through a capacitor.
   net; MDI2 stays on F.Cu and is the only pair on F.Cu under the jack body: see
   [findings](../findings.md). No keepout is drawn under the jack, which does not
   establish that copper there is electrically suitable.
-- RGMII: length-match TXD[3:0]/TXCTL to TXC and RXD[3:0]/RXCTL to RXC within
-  a few millimetres; the PHY's internal 2 ns delays do the rest.
+- RGMII: routed against the derived delay limits in the
+  [RGMII profile](../gateware/rgmii1000/README.md), not to equal lengths. TX runs
+  through R208–R213 at U30's end, 2.0–5.7 mm from the pins. These filter what
+  reaches the pins; they are not source termination.
 - The LDO output `PHY_1V0` is a local rail: keep its capacitors within a few
   millimetres of pins 30, 3, 8, 21, 38 and give the exposed pad a via field.
   As routed: C240 on pin 3, C239 on pin 8, C238 on pin 21, C241 on pin 38,

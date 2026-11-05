@@ -2832,6 +2832,18 @@
         "pattern": "PHY_RX_CTL"
       },
       {
+        "netclass": "RGMII",
+        "pattern": "PHY_TXC_U30"
+      },
+      {
+        "netclass": "RGMII",
+        "pattern": "PHY_TXD?_U30"
+      },
+      {
+        "netclass": "RGMII",
+        "pattern": "PHY_TX_CTL_U30"
+      },
+      {
         "netclass": "SDRAM",
         "pattern": "SDRAM_*"
       },

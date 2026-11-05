@@ -1,9 +1,9 @@
-PHY_TXC C24 pin 20 60.463 mm {'F.Cu': 4.66, 'In2': 20.567, 'B.Cu': 35.236} vias 3 ps 400.09
-PHY_TXD0 B24 pin 18 50.52 mm {'F.Cu': 1.615, 'In2': 19.522, 'B.Cu': 29.383} vias 3 ps 340.48
-PHY_TXD1 C22 pin 17 55.256 mm {'F.Cu': 3.449, 'In2': 17.609, 'B.Cu': 34.197} vias 3 ps 366.24
-PHY_TXD2 C23 pin 16 51.911 mm {'F.Cu': 1.701, 'In2': 19.525, 'B.Cu': 30.684} vias 3 ps 348.66
-PHY_TXD3 C21 pin 15 57.356 mm {'F.Cu': 2.644, 'In2': 17.325, 'B.Cu': 37.386} vias 3 ps 378.28
-PHY_TX_CTL B21 pin 19 51.739 mm {'F.Cu': 3.208, 'In2': 19.476, 'B.Cu': 29.055} vias 3 ps 347.6
+PHY_TXC C24 pin 20 59.778 mm {'F.Cu': 7.814, 'In2': 20.567, 'B.Cu': 31.396} vias 3 ps 396.06
+PHY_TXD0 B24 pin 18 50.425 mm {'F.Cu': 4.987, 'In2': 19.522, 'B.Cu': 25.917} vias 3 ps 339.93
+PHY_TXD1 C22 pin 17 55.328 mm {'F.Cu': 6.228, 'In2': 17.609, 'B.Cu': 31.491} vias 3 ps 366.67
+PHY_TXD2 C23 pin 16 53.331 mm {'F.Cu': 4.177, 'In2': 19.525, 'B.Cu': 29.63} vias 3 ps 357.01
+PHY_TXD3 C21 pin 15 57.61 mm {'F.Cu': 4.021, 'In2': 17.325, 'B.Cu': 36.264} vias 3 ps 379.78
+PHY_TX_CTL B21 pin 19 52.719 mm {'F.Cu': 6.855, 'In2': 19.476, 'B.Cu': 26.388} vias 3 ps 353.36
 PHY_RXC D19 pin 27 47.119 mm {'F.Cu': 8.277, 'B.Cu': 35.304, 'In2': 3.537} vias 3 ps 303.06
 PHY_RXD0 C19 pin 25 46.246 mm {'F.Cu': 9.899, 'In5': 5.414, 'B.Cu': 30.933} vias 3 ps 299.97
 PHY_RXD1 H17 pin 24 45.605 mm {'F.Cu': 7.689, 'In5': 5.414, 'B.Cu': 32.501} vias 3 ps 296.2
@@ -14,5 +14,5 @@ PHY_MDC C17 pin 13 57.442 mm {'F.Cu': 6.412, 'In2': 7.414, 'B.Cu': 43.615} vias 
 PHY_MDIO B17 pin 14 54.14 mm {'F.Cu': 5.206, 'In2': 8.414, 'B.Cu': 40.519} vias 3 ps 349.66
 PHY_RESET_N G1 pin 12 63.946 mm {'F.Cu': 63.946} vias 0 ps 376.0
 PHY_INT_N G2 pin 31 67.138 mm {'F.Cu': 54.4, 'In2': 12.738} vias 2 ps 411.68
-tx {"PHY_TXD0": {"lo": -0.0854, "hi": -0.0521, "nominal_line_ps": -59.61}, "PHY_TXD1": {"lo": -0.0444, "hi": -
-rx {"PHY_RXD0": {"lo": 0.0008, "hi": 0.0041, "line_ps": [-3.75, -2.38]}, "PHY_RXD1": {"lo": -0.0781, "hi": -0.
+tx {"PHY_TXD0": {"lo": -0.0611, "hi": 0.0113, "nominal_line_ps": -56.13}, "PHY_TXD1": {"lo": -0.0124, "hi": 0.0519, "nominal_line_ps": -29.39}, "PHY_TXD2": {"lo": -0.0784, "hi": -0.0021, "nominal_line_ps": -39.05}, "PHY_TXD3": {"lo": -0.0385, "hi": 0.0319, "nominal_line_ps": -16.28}, "PHY_TX_CTL": {"lo": -0.0679, "hi": -0.0018, "nominal_line_ps": -42.7}}
+rx {"PHY_RXD0": {"lo": 0.0008, "hi": 0.0041, "line_ps": [-3.75, -2.38]}, "PHY_RXD1": {"lo": -0.0781, "hi": -0.0755, "line_ps": [-7.6, -6.06]}, "PHY_RXD2": {"lo": 0.0408, "hi": 0.0464, "line_ps": [25.8, 29.35]}, "PHY_RXD3": {"lo": 0.0348, "hi": 0.043, "line_ps": [9.71, 15.79]}, "PHY_RX_CTL": {"lo": -0.0691, "hi": -0.0638, "line_ps": [-92.42, -89.23]}}

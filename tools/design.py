@@ -1094,8 +1094,9 @@ def build():
            'GND': GND,
            'PHYRSTB': 'PHY_RESET_N', 'INTB/PMEB': 'PHY_INT_N',
            'MDC': 'PHY_MDC', 'MDIO': 'PHY_MDIO',
-           'TXC': 'PHY_TXC', 'TXCTL': 'PHY_TX_CTL',
-           'TXD0': 'PHY_TXD0', 'TXD1': 'PHY_TXD1', 'TXD2': 'PHY_TXD2', 'TXD3': 'PHY_TXD3',
+           'TXC': 'PHY_TXC_U30', 'TXCTL': 'PHY_TX_CTL_U30',
+           'TXD0': 'PHY_TXD0_U30', 'TXD1': 'PHY_TXD1_U30',
+           'TXD2': 'PHY_TXD2_U30', 'TXD3': 'PHY_TXD3_U30',
            'PHYAD1/RXC': 'PHY_RXC', 'PHYAD2/RXCTL': 'PHY_RX_CTL',
            'RXDLY/RXD0': 'PHY_RXD0', 'TXDLY/RXD1': 'PHY_RXD1',
            'PLLOFF/RXD2': 'PHY_RXD2', 'PHYAD0/RXD3': 'PHY_RXD3',
@@ -1578,6 +1579,17 @@ def build():
     d.sheet('Power')
     d.group('input OR-ing')
     d.R('10k', 'VBUS_IMON', GND, R0603)
+
+    # ---- TX resistors at U30's end (2026-11-05), appended so no earlier
+    # designator moves. Receiver-end filtering of what reaches the pins, not
+    # source termination: the FPGA still sees the same mismatch. The FPGA side
+    # keeps PHY_TXC and friends, so ball allocation and XDC do not change.
+    # Values from the routed sweep in gateware/rgmii1000.
+    d.sheet('Network')
+    d.group('U30 TX input resistors')
+    d.R('33', 'PHY_TXC', 'PHY_TXC_U30')
+    for net in ('PHY_TX_CTL', 'PHY_TXD0', 'PHY_TXD1', 'PHY_TXD2', 'PHY_TXD3'):
+        d.R('47', net, net + '_U30')
 
     # Mandatory connector-accounting gate. A post is a ground probe/key, not
     # a mated contact; each section separately has four signal grounds plus
