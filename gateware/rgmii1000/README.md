@@ -116,7 +116,9 @@ about 4 mm from the pin; the fan-out and the B.Cu lane order set the rest, and n
 
 **TXC's edge against U30's own supply: 33 ohm passes, narrowly.** The thresholds are 0.2 and 0.8 of DVDD_RG, never taken from
 the waveform. Bank 16's VCCO balls and U30 pin 28 are one net, `+2V5`, so the two supplies differ only by the copper between
-them: DVDD_RG minus VCCO is −1.0 to +6.9 mV DC on the routed rail, the top of that range with a selector loaded through J20.
+them: DVDD_RG minus VCCO is −1.0 to +6.9 mV DC on the routed rail, the top of that range with a selector loaded through J20. Since the
+`+2V5` feeder repair of 2026-11-05 the range is −1.2 to +3.8 mV, +4.7 mV with the copper at 85 °C; the +6.9 mV rows below stand as an
+upper bound and were not re-run.
 
 | Slow, 5 pF, the limiting case | VCCO, V | DVDD_RG, V | Thresholds, V | Settled high, low, V | Rise, ns | Fall, ns | Margin, ps |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -131,7 +133,8 @@ them: DVDD_RG minus VCCO is −1.0 to +6.9 mV DC on the routed rail, the top of 
 VCCO in each corner is the IBIS voltage range, the only voltages its tables exist at. Typ, 2.5 V, is 0.539 and 0.524 ns at 5 pF;
 Fast, 2.625 V, 0.446 and 0.442 ns. The settled level is the mean of the last 5 ns of a 60 ns window, with no ripple left, and sits
 up to 7 mV below VCCO in the model. U13's setpoint is 2.4987 V at C198.1. With the 0.1 % divider fitted on 2026-11-05 and every static term stacked (`findings.md`,
-that date) the regulator gives 2.437 to 2.561 V and no bank 16 ball goes below 2.398 V with both selectors exporting at 85 C: the Slow
+that date) the regulator gives 2.437 to 2.561 V and no bank 16 ball goes below 2.410 V with both selectors exporting at 85 C
+(2.398 V before the feeder repair of the same day): the Slow
 corner's 2.375 V is lower than this rail reaches at DC. With the earlier 1 % pair that did not hold. Transients are not modelled.
 
 **This passes and is not robust.** R208 stays 33 ohm. The margin is single picoseconds at an assumed 5 pF: the limit is reached at
