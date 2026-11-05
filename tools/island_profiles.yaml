@@ -50,8 +50,8 @@ TLV62569:
     # Known defect, found when U13 and U14 were routed (findings.md, 2026-11-05): on the DRL
     # package VIN (3) and GND (2) are neighbours in one pin row, so "VIN flank" leaves the
     # 100 nF beside the package with +5V at the SW pin. It belongs across pins 3 and 2,
-    # outward from the row, with the 4.7 uF behind or beside it. U13 and U14 were corrected
-    # by hand on the board; U16 still has it. Do not re-run those islands from this profile.
+    # outward from the row, with the 4.7 uF behind or beside it. U13, U14 and U16 were all
+    # corrected by hand on the board. Do not re-run those islands from this profile.
     - name: input cap on the VIN flank, GND toward the GND pin row
       match: {cap_between: [VIN, GND]}
       place: {flank: VIN, face: {GND: S}}
