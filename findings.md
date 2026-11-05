@@ -1123,6 +1123,65 @@ The 0.20 mm that remains is the ball's own dogbone. C328 is still 33.5 mm of cop
 
 *Checks.* On a copy first, then transferred. The three footprints differ only in position and angle lines; group `island U1`, locks, values and every other footprint unchanged; every kept track and via byte-identical; header, stackup, rules, nets and drawings byte-identical; five zones refilled with no outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical. By KiCad on each net alone: `+1V8` 0 of 18, `MON_1V8` 0 of 3, `+1V8_IO` 0 of 40 unconnected; GND 244 and 244; every other group unchanged. Eleven of eleven capacitor grounds on In1, In4 and In6. The DC model still has `+1V8` in one piece behind FB1 and the drops to the balls are unchanged, 25.4 and 41.6 mV, so the voltage window in the entry above stands. The 577 reserved vias and stubs on a scratch copy give 32 errors before and after, none on the new copper; one pair of reserved SDRAM stubs at (201.2, 144.84) is reported in place of another. Warnings compared in cropped windows around the new site, the old site and U14: identical, and no silkscreen lies in the new site. Strict gate electrical and mechanical PASS, stackup guard and ERC pass on the live tree. `ref/islands/U1.svg` still draws the three at their old sites; no placement tool was run. Close-up: `~/freyja-review/1v8-margin-2026-11-05/images/close_up.png`. Nothing measured on hardware.
 
+**Forced-PWM regulators checked for U14 and U16; no part changed (2026-11-05).** Neither candidate could be fitted without an assumption its datasheet does not support, and for U16 no part with a 2 % reference closes the window. The comparison, the three budgets and the corrections recommended are below. Board, schematic, netlist and BOM are untouched.
+
+| | TLV62569PDRLR, fitted | TLV62569APDRLR | TPS62A0569APDRLR |
+|---|---|---|---|
+| Datasheet | SLVSDG1C | SLVSE95B | SLUSG30A, December 2025, revised February 2026 |
+| Pins 1 to 6, SOT-563 | FB, GND, VIN, SW, EN, PG | the same | the same |
+| Unused PG | open, as fitted | leave floating | float or GND |
+| Light load | power save below about 0.45 A | forced PWM | forced PWM |
+| Feedback, guaranteed | 0.588 to 0.612 V at 25 C, 5 V in | 0.588 to 0.612 V at 25 C, 5 V in | 588 to 612 mV, "PWM mode, 25 C" |
+| Feedback over temperature | typical curve only, Figure 3 | typical curve only, Figure 2 | **no table line and no curve**; the front page says "2% feedback accuracy including temperature effects" |
+| Switching frequency | 1.5 MHz | 1.5 MHz | 2.4 MHz |
+| Inductors in TI's matrix | 1 and 2.2 uH | **1 uH only** | 0.47, 1 and 2.2 uH; effective 0.4 to 2.5 uH |
+| Output capacitance | 10 to 47 uF | 22 to 47 uF | 10 to 90 uF effective; matrix up to 4 x 22 uF |
+| Soft start, prebiased start | 0.9 ms, yes | 0.9 ms, yes | 0.6 ms, yes |
+| Output discharge when off | none | none | active, 68 mA typical through SW |
+| Current limit | 2.5 A minimum | 3 A minimum | 2.3 A minimum, 3.4 A typical; hiccup after 32 limit cycles, also during start-up |
+| Junction to ambient | 146 C/W | 143 C/W | 157 C/W |
+| Input current with no load | 35 uA | about 6.5 mA at 5 V, Figure 7, typical | not given for forced PWM |
+| JLCPCB, 2026-11-05 snapshot | C398364, 6107 | C398366, 8836 | C54220884, 168 |
+
+*What the candidates do and do not give.* Both remove the power-save rise, the one term in U14's maximum that no datasheet bounds. Neither gives a guaranteed feedback limit over temperature: the TPS62A0569's only feedback line is conditioned "PWM mode, 25 C", so its front-page claim is not in its own table. The TLV62569A is proven by TI only with 1 uH and 22 to 47 uF; L4, L5 and L6 are 2.2 uH (SRN4018-2R2M), so it would need three inductors changed as well. The TPS62A0569A lists 2.2 uH: "++" with 22 or 2 x 22 uF from 1.2 V, "+" at 1.8 V and above, which TI defines as stable on its board but possibly needing adaptation.
+
+*U14, every load, with the divider fitted in 1eb285c.* Stacked as before: feedback limit, 0.1 % taken once for temperature and line, 0.1 % resistors with drift over 60 K, 0.2 % load regulation at 1.5 A, copper and bead at 85 C. The minimum is the same for all three parts:
+
+| Case, 85 C | Worst VCCAUX ball | Bank 13 | PSRAM | U9, U10 | J19.5, and what is left to 1.71 V for the copper to bank 15 | J20.5, and to bank 34 |
+|---|---:|---:|---:|---:|---|---|
+| Both selectors exporting, 1.508 A | 1.727 V, +17 mV | 1.748 V | 1.735 V | 1.732 V | 1.725 V, **15 mV** | 1.746 V, 36 mV |
+| J19 alone exporting, 0.908 A | 1.732 V, +22 mV | 1.753 V | 1.740 V | 1.736 V | 1.730 V, 20 mV | 1.780 V, 70 mV |
+| J20 alone exporting, 0.908 A | 1.750 V, +40 mV | 1.769 V | 1.771 V | 1.771 V | 1.771 V, 61 mV | 1.750 V, 40 mV |
+| Board load, 0.308 A | 1.751 V, +41 mV | 1.770 V | 1.772 V | 1.772 V | 1.772 V, 62 mV | 1.782 V, 72 mV |
+
+J19 exporting alone costs almost as much as both, because its current shares the north trunk with the feed to FB1. **The `VCCIO_1` copper from J19 to bank 15 has 15 mV to spend at 0.1 A of bank current with both selectors exporting, and `VCCIO_2` 36 mV; the export pins have no stated tolerance and take whatever U23, U24 and the slot fuses leave.** That allowance is now a routing requirement for those two nets.
+
+The maximum at light load is 1.871 V at the regulator, 19 mV under 1.89 V. With the fitted part the power-save rise comes out of that, 4 to 18 mV by the earlier estimate and not bounded. With either forced-PWM part the whole 19 mV is left for ripple and overshoot, 21 mV if the TPS62A0569's front page is taken at its word. So a forced-PWM part does clearly improve U14's maximum.
+
+*Why U14 was not changed.* The node carries 113 uF directly and 63.5 uF more behind FB1 (`ref/power-budget.md`). That is above the TPS62A0569A's 90 uF effective maximum and above its matrix; TI asks for a Bode plot outside it. The fitted part is further outside its own 10 to 47 uF, which is already listed for the bench, so the swap would narrow the gap, not close it. Its light-load input current is not published, and U14 runs in recovery on a weak USB port, where the TLV62569A's figure would be 6.5 mA. JLCPCB holds 168 pieces of a part released in December 2025. **Recommended: TPS62A0569APDRLR in U14's existing pads, with the divider as fitted, once loop stability with this capacitance and its no-load input current have been measured on a board or TI's evaluation module.** No copper changes for it. Removing FPGA decoupling to fit a regulator's range is not proposed.
+
+*U16, before onward routing.* MGTAVTT is 1.17 to 1.23 V, absolute maximum 1.32 V (DS181 v1.27.1, Tables 1 and 2). The transceivers are unused but powered in rev A and the rail is not routed beyond C205.
+
+| U16 arrangement | Regulator output | To 1.17 V, before any copper drop | To 1.23 V |
+|---|---|---:|---:|
+| Fitted: TLV62569PDRLR, 100k / 100k at 1 % | 1.156 to 1.245 V | **-14 mV** | **-15 mV**, before a power-save rise of 10 to 18 mV by estimate |
+| Fitted part, 100k / 100k at 0.1 %, 25 ppm/C | 1.172 to 1.228 V | +1.9 mV | +1.7 mV, before the same rise |
+| Forced PWM, divider at 1 % | 1.156 to 1.245 V | -14 mV | -15 mV |
+| Forced PWM, divider at 0.1 % | 1.172 to 1.228 V | +1.9 mV | +1.7 mV |
+
+The 2 % reference alone takes 48 of the 60 mV window. With a 0.1 % divider and forced PWM, 3.6 mV in all is left for copper drop, ripple and the temperature term no datasheet guarantees, so **none of the three parts closes MGTAVTT's window, and forced PWM is not the correction for U16.** At 0.15 A that 3.6 mV is 24 mohm of copper with nothing left over. The limiting inequality is reference tolerance against a 2.5 % window. Two ways on, for the owner: accept the rail outside the recommended window while the transceivers are unused, in which case only the 1.32 V absolute maximum matters and the fitted arrangement is 75 mV under it before the rise; or, before the transceivers are used, a regulator with 1 % or better feedback accuracy over temperature, a 0.1 % divider and its sense taken at the load, which is a different part and outside this comparison. Either way the copper is the same: route `+1V2_MGT` for the lowest practical resistance. A 0.1 % divider at R63 and R64 (100k, C122538) would bring the regulator itself inside the window and costs one extended line; it was not fitted because by itself it leaves the rise in place.
+
+*U13, brief check: it fails too.* Bank 16 VCCO is 2.5 V at 5 %, 2.375 to 2.625 V (DS181 Table 2, note 5); the limits of U30's DVDD_RG are not in the repository. Drops recomputed with 15.2 um inner copper: 27.6 mV at the worst bank 16 ball with both selectors at 2.5 V, 34.2 mV at 85 C; J20.3 48.7 and 60.2 mV, where the earlier entry had 48.6 mV with 17.5 um.
+
+| U13 divider | Regulator | Bank 16 balls, board load, 85 C | Both selectors at 2.5 V, 85 C | Maximum, before the power-save rise |
+|---|---|---:|---:|---:|
+| Fitted: 100k / 31.6k at 1 % | 2.388 to 2.614 V | 2.377 V, +2 mV | **2.349 V, -26 mV** | 2.614 V, 11 mV left |
+| 100k / 31.6k at 0.1 %, 25 ppm/C | 2.437 to 2.561 V | 2.426 V, +51 mV | 2.398 V, +23 mV | 2.561 V, 64 mV left |
+
+**Recommended for U13: the same two values at 0.1 %, 25 ppm/C: 100k C122538 and 31.6k C705766 (RT0603BRD0731K6L, 3818 in stock), no setpoint change.** With both selectors exporting, J20.3 is then at 2.372 V, 3 mV under 2.375 V before the `VCCIO_2` copper, so banks at 2.5 V under full export stay marginal; 102k / 31.6k would add 37 mV there and still leave 25 mV at the top. Not applied: U13 was to be checked, not changed.
+
+*What only hardware can settle.* None of this is transient closure. Left for measurement: U14's output at C319 with the FPGA unconfigured and with each selector loaded; loop stability and load-step response of whichever part drives 113 uF plus 63.5 uF behind the bead; U14's start-up into that capacitance; the feedback voltage over temperature, which no table here guarantees; ripple at the VCCAUX balls. Datasheets used are in `~/freyja-review/regcheck-2026-11-05/datasheets/`, the arithmetic in `scripts/regbudget.py` and `reports/regbudget.txt` there.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule
