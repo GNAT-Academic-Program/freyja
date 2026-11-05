@@ -84,7 +84,8 @@ profile's 8 mA slow bus is therefore not reused here.
 ## TX resistors on the laid-out copper
 
 `txsi.py`, `results/txsi.txt`, on the committed copper: 8 mA fast, Slow and Fast corners, 2 and 5 pF, both edges, unclamped at
-U30. The comparison that chose the values is `damping.py`, `results/damping.txt`, run on commit f2ff108, before layout.
+U30. `txcedge.py`, `results/txcedge.txt`, measures TXC's edge against U30's supply. The comparison that chose the values is
+`damping.py`, `results/damping.txt`, run on commit f2ff108, before layout.
 
 **Layout.** One-sided, no footprint moved, three vias per net as before, B.Cu lane order at y 188 unchanged. The target was
 about 4 mm from the pin; the fan-out and the B.Cu lane order set the rest, and no wider search was made.
@@ -100,30 +101,53 @@ about 4 mm from the pin; the fan-out and the B.Cu lane order set the rest, and n
 
 | Worst over corners and loads | Before | Now | Limit or level |
 |---|---:|---:|---|
-| TXC edge, 20-80 % of that corner's swing | 0.63 | **0.742** | 0.75 ns, Table 60 |
-| TXC edge, fixed 0.5 to 2.0 V | | 0.793 | See below |
+| TXC edge, 0.2 to 0.8 of DVDD_RG, one edge | 0.63 | **0.742** | 0.75 ns, Table 60; see below |
+| The same, 125 MHz clock | | 0.722 | |
 | TXC time from VIL to VIH | | 0.501 | |
 | Return inside VIH or VIL after first crossing, TXC, one edge | 0.31 | 0.043 V | Table 58, 1.7 and 0.7 V |
 | The same, TXC, 125 MHz square wave | | 0.090 V | |
 | The same, data | 0.30 | 0 | |
 | Reversal on the way through the VIL to VIH band | | 0 | |
 | 1.25 V re-crossings, any net | 0 | 0 | Not a pass in itself |
-| Settled at the valid level, TXC, after its 1.25 V crossing | | 2.41 ns, one edge; 2.26 ns, square wave | Next edge leaves 4 ns after this one starts |
+| Settled at the valid level, TXC, after its 1.25 V crossing | | 2.41 ns, one edge; 2.44 ns, square wave | Next edge crosses 1.25 V 4 ns after this one |
 | Peaks, TXC, unclamped | 4.13, −1.48 | 3.92, −1.28 | No limit published |
 | Peaks, data, unclamped | 4.11, −1.48 | 3.84, −1.20 | No limit published |
 | TX setup, hold, both DDR edges, Vivado | +0.169, +0.100 | +0.104, +0.138 | |
 
-**The edge limit passes only on one reading of Table 60.** Rev 1.7 says "20%~80%" and does not say of what. The swing at the
-pin in the Slow corner is 0 to 2.375 V, the corner's own VCC, so 20-80 % of that swing is 0.475 to 1.900 V: 0.742 ns, the
-same arithmetic as the sweep that chose 33 ohm. Between fixed 0.5 and 2.0 V, 20-80 % of nominal 2.5 V, Slow corner, 5 pF
-reaches 0.793 ns; at 4 pF it is 0.735 ns, and 22 ohm is the highest of the values tried that passes at 5 pF, at 0.749 ns.
-The 5 pF is an assumption and nothing was found to tell which reading Realtek means.
+**TXC's edge against U30's own supply: 33 ohm passes, narrowly.** The thresholds are 0.2 and 0.8 of DVDD_RG, never taken from
+the waveform. Bank 16's VCCO balls and U30 pin 28 are one net, `+2V5`, so the two supplies differ only by the copper between
+them: DVDD_RG minus VCCO is −1.0 to +6.9 mV DC on the routed rail, the top of that range with a selector loaded through J20.
+
+| Slow, 5 pF, the limiting case | VCCO, V | DVDD_RG, V | Thresholds, V | Settled high, low, V | Rise, ns | Fall, ns | Margin, ps |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Equal supplies, one edge | 2.375 | 2.3750 | 0.4750, 1.9000 | 2.371, 0.002 | 0.7416 | 0.7243 | **+8.4** |
+| DC offset +6.9 mV, one edge | 2.375 | 2.3819 | 0.4764, 1.9055 | 2.371, 0.002 | 0.7443 | 0.7264 | +5.7 |
+| R208 +5 %, equal supplies, one edge | 2.375 | 2.3750 | 0.4750, 1.9000 | | 0.7476 | 0.7309 | +2.4 |
+| R208 +5 %, DC offset +6.9 mV, one edge | 2.375 | 2.3819 | 0.4764, 1.9055 | | 0.7504 | 0.7330 | **−0.4** |
+| Equal supplies, 125 MHz | 2.375 | 2.3750 | 0.4750, 1.9000 | | 0.7149 | 0.7223 | +27.7 |
+| R208 +5 %, DC offset +6.9 mV, 125 MHz | 2.375 | 2.3819 | 0.4764, 1.9055 | | 0.7254 | 0.7320 | +18.0 |
+
+VCCO in each corner is the IBIS voltage range, the only voltages its tables exist at. Typ, 2.5 V, is 0.539 and 0.524 ns at 5 pF;
+Fast, 2.625 V, 0.446 and 0.442 ns. The settled level is the mean of the last 5 ns of a 60 ns window, with no ripple left, and sits
+up to 7 mV below VCCO in the model. U13's setpoint is 2.4987 V at C198.1, bounded by VFB and 1 % resistors at 2.412 to 2.588 V, so
+with the DC drop no ball goes below 2.385 V: the Slow corner's 2.375 V is lower than this rail reaches at DC. Transients are not modelled.
+
+**This passes and is not robust.** R208 stays 33 ohm. The margin is single picoseconds at an assumed 5 pF: the limit is reached at
+5.16 pF, or 4.99 pF with R208 at +5 % and the DC offset, where one edge from a settled line ends 0.4 ps over. C25105's 5 % is read
+from the `J` in its part number; a 1 % part would leave +4.5 ps in that stack. A running clock has about 20 ps more. Rise and fall on the
+bench, at U30's pin, are what close this.
+
+The earlier 0.793 ns, between fixed 0.5 and 2.0 V, is withdrawn: it set a 2.375 V signal against 2.5 V thresholds, which needs DVDD_RG
+125 mV above VCCO on one net. The comparison of 22 ohm against it does not apply, and 18 and 22 ohm were not needed. The earlier
+description of 0.742 ns as 20-80 % of "the swing" was also wrong: the thresholds were 0.2 and 0.8 of the corner's VCC, as here.
 
 **What the earlier "0.05 V" measures.** One figure, from one case: `damping.py`, TXC, 33 ohm 4 mm from the pin, Fast corner,
 2 pF, a single falling edge from a settled line. The lumped pin first goes below VIL 0.7 V, undershoots to −1.29 V, and 2.17 ns
 after that first crossing rings back up to 0.752 V. So 0.05 V is how far the modelled pin returns above VIL. Every other corner,
 load and edge stays outside the band. On the laid-out copper the same case is 0.043 V, peaking 2.01 ns after the first crossing
-and inside the band for 0.29 ns. With a 125 MHz square wave instead of one edge it is 0.090 V.
+and inside the band for 0.29 ns. With a 125 MHz square wave instead of one edge it is 0.090 V, 1.92 ns after the first crossing and
+inside the band for 0.42 ns. The square-wave windows are now cut at the pin: cut at the driver they lost the end of each half period,
+since an edge takes about 1.8 ns to arrive, which understated TXC's settling as 2.26 ns. It is 2.44 ns. The 0.090 V did not change.
 
 It is not a noise margin or a receiver result. The model has no U30 clamps, an assumed C and lossless lines; a clamp would
 change both the undershoot and the rebound. VIL says only that a level above it is not guaranteed low, and U30's actual threshold,
@@ -132,7 +156,8 @@ since 1.25 V is a model reference and not a published switching point.
 
 **Pattern shift, not in the setup and hold above.** Vivado's terms use the isolated edge. In the square wave the 1.25 V crossing
 moves by up to +0.049 ns on TXC and +0.034 ns on data in the Slow corner, 5 pF, and −0.052 and −0.048 ns in the Fast corner, 2 pF.
-Clock against data in one corner and load is at most about 0.055 ns, which stays inside the margins but uses part of them.
+Clock against data in one corner and load is at most about 0.055 ns. Taking all of it off both worst slacks, whichever corner they
+occur in, leaves setup +0.049 and hold +0.083 ns: inside the margins, using about half of setup's.
 Duty cycle at the pin in this model is 49.9 to 52.4 %, against Duty_G 45 to 55 %, from an ideal launch: it omits the FPGA's own
 duty distortion and any jitter. This is a square wave on data too, not a worst-case pattern.
 
@@ -141,6 +166,7 @@ reaches the pin and would limit clamp current, which is not quantified.
 
 ## Assumptions and what is not established
 
+- **TXC edge margin:** single picoseconds in the Slow corner at an assumed 5 pF, on lossless lines with R208's parasitics left out. U30's input capacitance is unpublished. See the resistor section above.
 - **U30's receiver in `TXDLY = 1`:** no tolerance for the 2 ns and no input window published. This is the missing term that keeps TX provisional.
 - **Fast-corner ringing on TX at U30:** unclamped simulation reaches 3.92 V and −1.28 V at the pin. These are not predicted hardware voltages: U30's input clamps and capacitance are unpublished, and 2 to 5 pF is an assumption. A real pin would clamp, and carry the clamp current instead. See the resistor section above.
 - **No published signal-pin limit for these inputs:** rev 1.7 Table 54's −0.2 to 2.8 V row is labelled *Supply Voltage 2.5V*. It is not an input-pin rating. The table's only "Input Voltage" rows are for 3.3 V and 1.0 V DC inputs. Table 58 gives VIH 1.7 V and VIL 0.7 V for 2.5 V I/O. The datasheet gives no RGMII input-voltage, overshoot, undershoot or clamp-current limit, so no transient pass or fail can be stated for these pins.
@@ -164,6 +190,7 @@ vivado -mode batch -nojournal -nolog -source gateware/rgmii1000/run.tcl -tclargs
 vivado -mode batch -nojournal -nolog -source gateware/rgmii1000/run.tcl
 python3 gateware/rgmii1000/margins.py /tmp/lim gateware/rgmii1000/build
 python3 gateware/rgmii1000/txsi.py /tmp/b.kicad_pcb > gateware/rgmii1000/results/txsi.txt         # 1 minute
+python3 gateware/rgmii1000/txcedge.py /tmp/b.kicad_pcb > gateware/rgmii1000/results/txcedge.txt   # 1 minute; ohm values may follow the board
 git show f2ff108:kicad/odin.kicad_pcb > /tmp/old.kicad_pcb  # damping.py is the record of the choice and runs only on this board
 python3 gateware/rgmii1000/damping.py /tmp/old.kicad_pcb > gateware/rgmii1000/results/damping.txt   # 8 minutes
 ```

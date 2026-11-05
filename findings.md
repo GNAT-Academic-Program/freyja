@@ -854,14 +854,13 @@ TXC's 0.75 ns edge is the limit in both: 47 ohm at U30 reaches 0.79 ns and 22 oh
 
 | Check | Result | Against |
 |---|---:|---|
-| TXC edge, 20-80 % of that corner's swing | 0.742 ns | 0.75 ns, Table 60 |
-| TXC edge, fixed 0.5 to 2.0 V, Slow, 5 pF | **0.793 ns** | 0.75 ns if this is what Realtek means; 0.735 at 4 pF |
+| TXC edge, 0.2 to 0.8 of the corner's VCC | 0.742 ns | 0.75 ns, Table 60 |
 | TXC return inside VIL after first crossing | 0.043 V one edge, 0.090 V at 125 MHz | VIL 0.7 V, Table 58; rising edges and all data 0 |
 | TXC settled at the valid level, after its 1.25 V crossing | 2.41 ns | Next edge leaves 4 ns after this one starts |
 | TX setup, hold, both DDR edges, Vivado | +0.104 (TXD1), +0.138 ns (TXD2) | RX unchanged, +0.149, +0.211 |
 | Peaks, unclamped | 3.92, −1.28 V | No limit published |
 
-Rev 1.7 does not say what 20 % and 80 % are of. 20-80 % of the swing actually at the pin passes, and it is the arithmetic that chose 33 ohm, so the resistors were transferred; the fixed-level reading fails at 5 pF, an assumed capacitance, and 22 ohm is the highest value tried that passes it there. **The owner may want to weigh this.**
+This entry first also recorded 0.793 ns between fixed 0.5 and 2.0 V and called 0.742 ns 20-80 % of "the swing"; see "TXC edge measured against DVDD_RG" below, which withdraws the first and corrects the second.
 
 *The earlier 0.05 V.* One case only: TXC, 33 ohm at 4 mm, Fast corner, 2 pF, a single falling edge from a settled line. The lumped pin goes below VIL 0.7 V, undershoots to −1.29 V, and 2.17 ns after that first crossing rings back to 0.752 V, so 0.05 V is how far it returns above VIL. It is not a noise margin or a receiver result: the model has no U30 clamps, an assumed C and lossless lines. On this copper it is 0.043 V, 0.29 ns long, and 0.090 V with a square wave. No re-crossing of 1.25 V is reported, and that does not establish clock integrity: 1.25 V is a model reference, and U30's threshold, hysteresis and sensitivity to a short excursion are unpublished.
 
@@ -891,6 +890,26 @@ Most loaded against IPC-2221 at 10 C rise: the F.Cu source bar, 1.34 A in 1.0 mm
 *Still open, separately.* U13.3 `+5V` with C200 and C268, with the whole `+5V` net still unrouted; `SW+2V5`, U13.4 to L4.2; `FB+2V5`, U13.1, R59.2, R60.1; `EN_2V5`, U7.22, U13.5, R91.1; and grounds U13.2, R60.2, R91.2, C200.2, C268.2. B.Cu is now also walled by the north row and the x 172.95 and x 178 columns, so slot signals crossing them need In2 or In5.
 
 *Checks.* The resistor commit against this one: 126 tracks and 41 vias added, nothing removed, no footprint changed, every kept track and via byte-identical, five zones refilled with no outline change, no rule or stackup change. Tracks 2608 to 2734, vias 597 to 638, ratsnest 1121 to 1092. **0 DRC errors, 0 parity with H4 at either position**, warnings unchanged, no dangling copper, fresh refills byte-identical. By KiCad on each group, unchanged: RGMII TX and RX, management, LINK, SDRAM, PSRAM, MDI, other PHY nets and `+1V8_IO` 0, HDMI 15, `+3V3` 120, `+1V0` 40. Each GND plane one piece, `+3V3` and `+1V0` one piece each; on refilled In1 and In6, every void crossing by RGMII or management is at the net's own via. Reservation stress copy: 32 errors before and after, none new on these nets; it found my first east feeder over two reserved sites, (212.25, 130.29) and (212.25, 132.49), and that lane now passes them at x 212.85. TX route and timing are identical on this board. `gate.py --strict` passes; `check_connector_rework.py` stops at the same H1-H4 assertion and `audit_easyeda.py` at its listed failures. The owner's H4 move, its fills and `.prl` remain uncommitted. Evidence: `~/freyja-review/r2v5-2026-11-05/`, image `images/result.png`.
+
+**TXC edge measured against DVDD_RG (2026-11-05).** R208 stays 33 ohm: the edge passes with 0.2 and 0.8 of U30's DVDD_RG as thresholds, none taken from the waveform, but by single picoseconds at an assumed load, so **this is not robust electrical closure**. No schematic, BOM, footprint, copper, rule or constraint changed; `txcedge.py` and `gateware/rgmii1000/README.md` carry the numbers.
+
+Bank 16's VCCO balls and U30 pin 28 are one net, `+2V5`, in `kicad/odin.net`. From the table in the `+2V5` entry, DVDD_RG minus VCCO is −1.0 to +6.9 mV DC. VCCO in the sweep is the IBIS range, 2.375, 2.5 and 2.625 V; U13's setpoint is 2.4987 V, bounded at 2.412 to 2.588 V by VFB 0.588 to 0.612 V (SLVSDG1C) and 1 % R59 and R60; Realtek's RGMII supply range is 2.25 to 2.75 V (rev 1.7 Table 55, 58).
+
+| TXC, Slow corner, 5 pF | DVDD_RG, V | Rise, ns | Fall, ns | Margin to 0.75 ns, ps |
+|---|---:|---:|---:|---:|
+| Equal supplies, one edge | 2.3750 | 0.7416 | 0.7243 | **+8.4** |
+| DC offset +6.9 mV, one edge | 2.3819 | 0.7443 | 0.7264 | +5.7 |
+| R208 +5 %, DC offset +6.9 mV, one edge | 2.3819 | 0.7504 | 0.7330 | **−0.4** |
+| Equal supplies, 125 MHz | 2.3750 | 0.7149 | 0.7223 | +27.7 |
+| R208 +5 %, DC offset +6.9 mV, 125 MHz | 2.3819 | 0.7254 | 0.7320 | +18.0 |
+
+Settled levels are 2.371 and 0.002 V Slow, 2.493 and 0.000 V Typ, 2.619 and 0.000 V Fast, from the last 5 ns of a 60 ns window with no ripple left. The limit is reached at 5.16 pF, or 4.99 pF with R208 at +5 % and the offset. That stack ends 0.4 ps over on one edge from a settled line, and is the only negative case found; C25105's 5 % is read from the `J` in its part number, and a 1 % part would leave +4.5 ps. 18 and 22 ohm were not compared, since 33 ohm passes. Typ and Fast have over 200 ps.
+
+*Withdrawn and corrected.* The 0.793 ns set a 2.375 V signal against 2.5 V thresholds, which needs 125 mV between two pins of one net; so the "owner's decision" asked with it, and 22 ohm's 0.749 ns, no longer apply. The 0.742 ns was reported as 20-80 % of "the swing"; it was always 0.2 and 0.8 of the corner's VCC. And `txsi.py` cut its 125 MHz windows at the driver, though an edge reaches the pin about 1.8 ns later, so each lost the end of its half period. Cut at the pin, with a settled cycle shown unchanged from the one before: TXC's return inside VIL stays 0.090 V, now also known to be 1.92 ns after the first crossing and 0.42 ns long; its settling is 2.44 ns, not 2.26 ns, 1.56 ns before the next edge crosses 1.25 V; on data, one flight figure moves by 0.1 ps and returns stay 0. No 1.25 V re-crossing, which still does not establish clock integrity.
+
+*Unchanged, still open.* Setup +0.104 and hold +0.138 ns from Vivado, as R208 did not change; with the whole 0.055 ns pattern shift taken off both, whichever corner they occur in, +0.049 and +0.083 ns. A worst-case data pattern is not simulated. Ethernet TX stays provisional: Realtek publishes no tolerance for the TX delay, no input window for `TXDLY = 1`, no input capacitance, threshold, hysteresis or clamp, and no RGMII input-voltage, overshoot or clamp-current limit. Peaks of 3.92 and −1.28 V are unclamped model results. Lines are lossless, R208's parasitics and transient supply differences are left out, and the IBIS tables have no slow process at the rail's actual 2.5 V. Nothing has been measured on hardware.
+
+*Checks.* `txcedge.py` on the committed board reproduces `txsi.py`'s 0.742 ns, and each edge is cross-checked by a plain first-crossing routine. `txsi.py`'s single-edge rows are unchanged. The first draft of the offset had the wrong sign and its "settled" level was an 8 ns sample of ringing; both were found and fixed before these figures. Board and `.prl` hashes unchanged, `gate.py --strict` passes.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair

@@ -5,11 +5,14 @@
 
 Same sweep as route.py: AMD IBIS 8 mA fast, Slow and Fast corners, 2 and 5 pF, both edges. Levels are Realtek rev 1.7
 Table 58 for a 2.5 V pad, VIH 1.7 V and VIL 0.7 V; edge limits are Table 60's tR and tF, 20 % to 80 %, 0.75 ns, which
-the table gives only for TXC and RXC. The table does not say 20 % of what, so both readings are computed: the corner's
-own VCC (route.py's figure) and nominal 2.5 V, 0.5 to 2.0 V.
+the table gives only for TXC and RXC. The edge column is 0.2 and 0.8 of the corner's VCC, which is U30's DVDD_RG to within
+the +2V5 DC offset; txcedge.py resolves that and is the figure to quote. The nominal column, fixed 0.5 and 2.0 V, mixes a
+2.375 V signal with 2.5 V thresholds in the Slow corner, which one net cannot do; it is kept only to match earlier records.
 
 Two stimuli. One edge from a settled line, the case route.py and the timing use. And a 125 MHz square wave, 4 ns per
-level, four cycles, measuring the last: this catches residue left by the previous edge.
+level, measuring a settled cycle: this catches residue left by the previous edge. Its windows are cut at the pin, not at
+the driver, because an edge takes about 1.8 ns to reach the pin and a window cut at the driver loses the end of the half
+period, where the ring-back is.
 
 Unclamped at U30, lossless lines, a lumped C: U30's clamps and capacitance are unpublished, so voltages here are model
 results, not pin predictions. Reads a board, never writes one.
@@ -142,13 +145,27 @@ def square(d, ss, Cl, rs, cycles=4, dt=2e-12):
     return np.arange(steps) * dt - t0, out
 
 
+def pin_windows(d, ss, Cl, rs, cycles=6):
+    """A square wave and, per edge, a half period as the pin sees it: from 1 ns before this edge's 1.25 V crossing to 1 ns
+    before the next edge's, and the same half period one cycle earlier. The last cycle is kept out, so nothing is cut by the end
+    of the simulation."""
+    t, v = square(d, ss, Cl, rs, cycles=cycles)
+    w = 2 * (cycles - 2) * HALF
+    win = {}
+    for e, k in (('r', 0), ('f', 1)):
+        ti, vi, _ = fl.sim(d, e, ss, Cl, tend=8e-9, Rseries=rs)
+        s = w + k * HALF + fl.cross(ti, vi, VMID, e) - 1e-9
+        win[e] = ((t >= s) & (t < s + HALF), (t >= s - 2 * HALF) & (t < s - HALF))
+    return t, v, win
+
+
 def main():
     b = pcbnew.LoadBoard(sys.argv[1])
     fp = {f.GetReference(): f for f in b.GetFootprints()}
     Lp, Cp = fl.pkg()
     m = fl.model(DRIVER)
     print(f'{DRIVER}. Single edge from a settled line, 8 ns window. Voltages unclamped at U30.')
-    print('edge: 20-80 % of the corner\'s own VCC / of 2.5 V nominal. band: VIL to VIH. depth: deepest return inside VIH or VIL after the first crossing.')
+    print('edge: 0.2-0.8 of the corner\'s own VCC, see txcedge.py / fixed 0.5-2.0 V, not a state of this board. band: VIL to VIH. depth: deepest return inside VIH or VIL after the first crossing.')
     print('dur: total time back inside the band. settle: last moment outside the valid level, after the 1.25 V crossing. rev: reversal on the way through the band.')
     print('net         R     from pin mm | corner load edge | edge_ns  nominal  band_ns   Vmax   Vmin  depth_V  when_ns  dur_ns  settle_ns  rev_V  1.25V_recross')
     worst = {}
@@ -178,11 +195,9 @@ def main():
             d = fl.Driver(m, c)
             ss = [(Zp, tp)] + r.sections(secs, kz, kd)
             for Cl in r.CASES:
-                t, v = square(d, ss, Cl, rs)
-                # last full cycle: rising edge starts at 6 half periods
-                w0, w1, w2 = 6 * HALF, 7 * HALF, 8 * HALF
-                ir = (t >= w0) & (t < w1)
-                ifl = (t >= w1) & (t < w2)
+                t, v, win = pin_windows(d, ss, Cl, rs)
+                w0, w1 = 2 * 4 * HALF, 2 * 4 * HALF + HALF
+                ir, ifl = win['r'][0], win['f'][0]
                 ar = analyse(t[ir], v[ir], 'r', d.Vcc)
                 af = analyse(t[ifl], v[ifl], 'f', d.Vcc)
                 # delay of the same edge in the square wave against the isolated edge
@@ -194,7 +209,7 @@ def main():
                 pr.append(dict(corner=name, Cl=Cl, ar=ar, af=af, dr=dr, df=df, duty=duty))
         per[n] = pr
     print()
-    print('Square wave, 125 MHz, last of four cycles. dflight: 1.25 V crossing against the isolated edge. settle: as above; the next edge leaves 4 ns after this one starts.')
+    print('Square wave, 125 MHz, a settled cycle, half periods cut at the pin. dflight: 1.25 V crossing against the isolated edge. settle: as above; the next edge crosses 1.25 V 4 ns after this one.')
     print('net         corner load | edge_r edge_f | depth_r depth_f | settle_r settle_f | dflight_r dflight_f | duty_%  | Vmax Vmin')
     for n in NETS:
         for p in per[n]:

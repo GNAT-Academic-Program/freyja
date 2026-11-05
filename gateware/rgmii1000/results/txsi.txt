@@ -1,5 +1,5 @@
 LVCMOS25_F_8_HR. Single edge from a settled line, 8 ns window. Voltages unclamped at U30.
-edge: 20-80 % of the corner's own VCC / of 2.5 V nominal. band: VIL to VIH. depth: deepest return inside VIH or VIL after the first crossing.
+edge: 0.2-0.8 of the corner's own VCC, see txcedge.py / fixed 0.5-2.0 V, not a state of this board. band: VIL to VIH. depth: deepest return inside VIH or VIL after the first crossing.
 dur: total time back inside the band. settle: last moment outside the valid level, after the 1.25 V crossing. rev: reversal on the way through the band.
 net         R     from pin mm | corner load edge | edge_ns  nominal  band_ns   Vmax   Vmin  depth_V  when_ns  dur_ns  settle_ns  rev_V  1.25V_recross
 PHY_TXC     R208  33  5.65 | slow 2pF r |  0.593   0.630   0.400   2.67   0.00   0.000   0.000   0.000    0.184  0.000  False
@@ -51,11 +51,11 @@ PHY_TXD3    R213  47  2.05 | fast 2pF f |  0.341   0.319   0.205   2.62  -1.16  
 PHY_TXD3    R213  47  2.05 | fast 5pF r |  0.463   0.443   0.285   3.43   0.00   0.000   0.000   0.000    0.123  0.000  False
 PHY_TXD3    R213  47  2.05 | fast 5pF f |  0.463   0.436   0.282   2.62  -0.77   0.000   0.000   0.000    0.155  0.000  False
 
-Square wave, 125 MHz, last of four cycles. dflight: 1.25 V crossing against the isolated edge. settle: as above; the next edge leaves 4 ns after this one starts.
+Square wave, 125 MHz, a settled cycle, half periods cut at the pin. dflight: 1.25 V crossing against the isolated edge. settle: as above; the next edge crosses 1.25 V 4 ns after this one.
 net         corner load | edge_r edge_f | depth_r depth_f | settle_r settle_f | dflight_r dflight_f | duty_%  | Vmax Vmin
 PHY_TXC     slow 2pF | 0.556 0.515 | 0.000 0.000 | 0.173 0.193 | -0.0230 -0.0245 | 50.30 | 2.67 -0.25
 PHY_TXC     slow 5pF | 0.715 0.722 | 0.000 0.000 | 0.225 0.271 | +0.0492 +0.0317 | 49.92 | 2.64 -0.17
-PHY_TXC     fast 2pF | 0.302 0.282 | 0.000 0.090 | 0.082 2.263 | -0.0515 -0.0370 | 52.13 | 4.05 -1.36
+PHY_TXC     fast 2pF | 0.302 0.282 | 0.000 0.090 | 0.082 2.437 | -0.0515 -0.0370 | 52.13 | 4.05 -1.36
 PHY_TXC     fast 5pF | 0.476 0.437 | 0.000 0.000 | 0.124 0.146 | -0.0013 -0.0181 | 51.85 | 3.59 -0.98
 PHY_TX_CTL  slow 2pF | 0.609 0.572 | 0.000 0.000 | 0.190 0.216 | -0.0124 -0.0151 | 50.27 | 2.53 -0.09
 PHY_TX_CTL  slow 5pF | 0.791 0.787 | 0.000 0.000 | 0.252 0.298 | +0.0196 +0.0062 | 49.90 | 2.49 -0.08
@@ -65,7 +65,7 @@ PHY_TXD0    slow 2pF | 0.615 0.578 | 0.000 0.000 | 0.193 0.220 | -0.0095 -0.0152
 PHY_TXD0    slow 5pF | 0.797 0.794 | 0.000 0.000 | 0.253 0.301 | +0.0191 +0.0071 | 49.92 | 2.49 -0.07
 PHY_TXD0    fast 2pF | 0.338 0.365 | 0.000 0.000 | 0.090 0.121 | -0.0391 -0.0064 | 52.35 | 3.75 -0.98
 PHY_TXD0    fast 5pF | 0.463 0.447 | 0.000 0.000 | 0.124 0.152 | -0.0198 -0.0188 | 52.11 | 3.35 -0.71
-PHY_TXD1    slow 2pF | 0.584 0.544 | 0.000 0.000 | 0.181 0.205 | -0.0207 -0.0232 | 50.27 | 2.62 -0.18
+PHY_TXD1    slow 2pF | 0.584 0.544 | 0.000 0.000 | 0.181 0.205 | -0.0206 -0.0232 | 50.27 | 2.62 -0.18
 PHY_TXD1    slow 5pF | 0.770 0.770 | 0.000 0.000 | 0.242 0.290 | +0.0339 +0.0190 | 49.91 | 2.56 -0.12
 PHY_TXD1    fast 2pF | 0.319 0.315 | 0.000 0.000 | 0.086 0.106 | -0.0471 -0.0281 | 52.20 | 3.93 -1.21
 PHY_TXD1    fast 5pF | 0.493 0.463 | 0.000 0.000 | 0.131 0.156 | -0.0112 -0.0197 | 51.99 | 3.42 -0.81
