@@ -1097,6 +1097,32 @@ Tighter resistors alone do not reach the minimum, and the higher setpoint with 1
 
 *Applied.* `tools/design.py` holds the pair and both part numbers, with the reason. Regenerated from it: `kicad/power.kicad_sch` (R61 and R62 move within U14's group, because the generator orders parts by value), `kicad/odin.net`, `ref/bom-jlcpcb.csv`, `ref/parts-guide.md`, and `ref/jlc-stock.md` against the 2026-11-05 library snapshot, which also brings in R208 to R213. The board was synchronised with `load_pcb.py` on a copy with `update_silkscreen.py` held back: R61 and R62 differ in value, description and a hidden part-number field, nothing else; positions, pads, nets and every track, via and fill are byte-identical. `ref/power-budget.md` does not change: the budget works from nominal rail voltages. 0 DRC errors, 0 parity with H4 at either position; strict gate electrical and mechanical PASS, stackup guard and ERC pass on the live tree. Evidence: `~/freyja-review/1v8-margin-2026-11-05/`, `scripts/vbudget.py` and `reports/vbudget.txt`. Nothing measured on hardware.
 
+**C322, C327 and C328 moved to the east side (2026-11-05).** The three distant `+1V8` capacitors now stand in a row above C323, beside the east capacitors, and the south-west link described two entries above is gone with its four vias. Values and footprints are unchanged; no other part moved.
+
+| Part | From | To | Moved, mm |
+|---|---|---|---:|
+| C322, 4.7 uF | (200.468, 169.865), -90 | (235.310, 136.120), 90 | 48.5 |
+| C327, 0.47 uF | (202.528, 169.645), -90 | (237.160, 136.295), 90 | 48.1 |
+| C328, 100 nF | (197.678, 165.125), -90 | (238.490, 136.590), 90 | 49.8 |
+
+*Why there.* The land east of C307 and above C323, x 234.3 to 241.1, y 130.0 to 137.9, held no part, copper, silkscreen or reservation, and it adjoins `+1V8` copper that reaches the balls by the 1.0 mm B.Cu trunk. Nearer land is taken: the column at x 227 to 230 by the other rails' capacitors, and the gap of about 1.9 mm beside R1, R2, R3, R5 and R19 was left for those resistors' supply vias. No wider search was run.
+
+*Connections, before and after.* Shortest copper path from pad 1 to a ball, the narrowest track on it and its DC resistance at 25 C:
+
+| Part | Before | After | GND stub, before and after |
+|---|---|---|---|
+| C322 to the nearest VCCAUX ball | 51.4 mm, 0.15 mm, 183 mohm | **22.0 mm, 0.20 mm, 18 mohm** | 0.90, 0.97 mm |
+| C327 to the nearest VCCAUX ball | 53.4 mm, 0.15 mm, 185 mohm | **23.8 mm, 0.20 mm, 20 mohm** | 0.88, 0.92 mm |
+| C328 to M12, VCCADC | 63.7 mm, 0.15 mm, 207 mohm | **33.5 mm, 0.20 mm, 40 mohm** | 0.59, 0.81 mm |
+
+The 0.20 mm that remains is the ball's own dogbone. C328 is still 33.5 mm of copper from M12: M12 is an inner ball, 11 mm from the nearest edge of the ball field, and every capacitor is on F.Cu. C323 gains as well, 23 to 16 mohm.
+
+*Copper.* The three pad 1s lie on one line at y 137.07: an F.Cu bar along them, 0.5 and 0.4 mm, and a 0.5 mm link 1.6 mm straight down from C322.1 into C323.1. One new via at (233.9, 138.6), in the bar between C324.1 and C323.1, and a 0.9 mm B.Cu lane, 6.5 mm, east to west from the east via at (228.35, 140.865): the five capacitors here no longer depend on the 0.3 mm F.Cu link alone. Each ground pad has its own via, at (235.31, 134.2), (237.16, 134.6) and (238.49, 135.3). Removed, and nothing else: the 27 tracks and 4 vias of the south-west link and its bars, and the three old ground stubs with their vias. Tracks 2957 to 2935, vias 687 to 684.
+
+*Reference planes.* The link's vias at (203.45, 170.69), (205.0, 164.84) and (211.5, 170.84), whose openings came within 0.02 mm of `SDRAM_A4`, `SDRAM_A5` and `PHY_RXD1` and within 0.17 to 0.22 mm of two LINK Q tracks, no longer exist: each GND plane gains 1.78 mm2 there. The one new `+1V8` via opens In1, In3, In4 and In6 under its own bar; no accepted signal track runs within 1.2 mm of any new via.
+
+*Checks.* On a copy first, then transferred. The three footprints differ only in position and angle lines; group `island U1`, locks, values and every other footprint unchanged; every kept track and via byte-identical; header, stackup, rules, nets and drawings byte-identical; five zones refilled with no outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical. By KiCad on each net alone: `+1V8` 0 of 18, `MON_1V8` 0 of 3, `+1V8_IO` 0 of 40 unconnected; GND 244 and 244; every other group unchanged. Eleven of eleven capacitor grounds on In1, In4 and In6. The DC model still has `+1V8` in one piece behind FB1 and the drops to the balls are unchanged, 25.4 and 41.6 mV, so the voltage window in the entry above stands. The 577 reserved vias and stubs on a scratch copy give 32 errors before and after, none on the new copper; one pair of reserved SDRAM stubs at (201.2, 144.84) is reported in place of another. Warnings compared in cropped windows around the new site, the old site and U14: identical, and no silkscreen lies in the new site. Strict gate electrical and mechanical PASS, stackup guard and ERC pass on the live tree. `ref/islands/U1.svg` still draws the three at their old sites; no placement tool was run. Close-up: `~/freyja-review/1v8-margin-2026-11-05/images/close_up.png`. Nothing measured on hardware.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule
