@@ -381,8 +381,8 @@ Small switching regulator that makes 1.8 V from +5V. Its output node is +1V8_IO:
 | C203 | 100nF | 100nF bypass on +5V, for U14 (1.8 V regulator, always on) |
 | C269 | 4.7uF | 4.7uF bypass on +5V, for U14 (1.8 V regulator, always on) |
 | L5 | 2.2uH SRN4018-2R2M | 2.2uH SRN4018-2R2M inductor between +1V8_IO and SW+1V8_IO, for U14 (1.8 V regulator, always on): regulator switching node |
-| R61 | 100k | 100k resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage |
-| R62 | 49.9k | 49.9k resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R61 | 102k 0.1% | 102k 0.1% resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R62 | 49.9k 0.1% | 49.9k 0.1% resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
 ### U16  5V to +1V2_MGT
 

@@ -152,6 +152,11 @@ class Design:
             # Uniroyal 0402WGF330JTCE: F is +-1 %, 330J is 33.0 ohm; +-100 ppm/C.
             # R208's TXC edge margin in gateware/rgmii1000 assumes this 1 %.
             (R0402, '33'):   'C25105',
+            # U14's feedback divider: YAGEO thin film, +-0.1 %, +-25 ppm/C
+            # (RT0603BRD07102KL, RT0603BRD0749K9L). The rail's window needs
+            # both figures, so the matcher must not pick a 1 % part.
+            (R0603, '102k 0.1%'):  'C861068',
+            (R0603, '49.9k 0.1%'): 'C705780',
         }.get((fp, val), '')
         return self.add(self.seq('R'), 'Device:R', val, fp, {'1': a, '2': b},
                         lcsc=lcsc, dnp=dnp)
@@ -860,6 +865,20 @@ def build():
                                 ('U14', V18IO, V5, 1.8),
                                 ('U16', V12MGT, 'EN_1V2', 1.2)):
         top, bot, act = fb_divider(vtgt, 0.600)   # TLV62569 Vfb = 0.600 V
+        if ref == 'U14':
+            # 2026-11-05: 102k / 49.9k at 0.1 %, 1.826 V nominal, instead of
+            # 100k / 49.9k at 1 %. VCCAUX and VCCADC take 1.71 to 1.89 V and
+            # sit behind the +1V8_IO trunk, FB1 and the +1V8 copper: 52 mV
+            # at 85 C with both PIN V selectors exporting at 1.8 V. With VFB
+            # at 0.588 to 0.612 V (SLVSDG1C 6.5, 25 C) and the divider's
+            # tolerance and drift, the 1 % pair left the worst ball 37 mV
+            # under the minimum; this pair leaves it 17 mV over, and the
+            # regulator's highest output 19 mV under the maximum before the
+            # power-save rise at light load (SLVSDG1C 7.3.1), which the 1 %
+            # pair left 10 mV. The next E96 ratio down is the old one.
+            # Arithmetic and assumptions: findings.md, 2026-11-05.
+            top, bot = '102k 0.1%', '49.9k 0.1%'
+            act = 0.600 * (1 + 102.0 / 49.9)
         RAIL_CHECK.append((rail, vtgt, act, top, bot))
         d.group(f'{ref}  5V to {rail}')
         fb = f'FB{rail}'; sw = f'SW{rail}'

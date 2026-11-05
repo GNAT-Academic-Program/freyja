@@ -32909,7 +32909,7 @@
 		(layer "F.Cu")
 		(uuid "540c6eb6-cc5a-4827-8ff4-278616277863")
 		(at 252.9 107.94 -90)
-		(descr "49.9k resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage")
+		(descr "49.9k 0.1% resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R62"
 			(at 0 -1.43 270)
@@ -32922,7 +32922,7 @@
 				)
 			)
 		)
-		(property "Value" "49.9k"
+		(property "Value" "49.9k 0.1%"
 			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "fb56ce52-8850-45a2-bf17-b75aa2f919c1")
@@ -32945,11 +32945,23 @@
 				)
 			)
 		)
-		(property "Description" "49.9k resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage"
+		(property "Description" "49.9k 0.1% resistor from FB+1V8_IO to GND, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0384e36f-d979-4cc1-8c11-cae6835f182f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C705780"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3a0fb671-e856-4633-b997-91b4b4a691fb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -103053,7 +103065,7 @@
 		(layer "F.Cu")
 		(uuid "ee7acb1d-c22a-47cf-98ae-d0dae494d640")
 		(at 254.509 108.418 90)
-		(descr "100k resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage")
+		(descr "102k 0.1% resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage")
 		(tags "resistor")
 		(property "Reference" "R61"
 			(at 0 -1.43 270)
@@ -103066,7 +103078,7 @@
 				)
 			)
 		)
-		(property "Value" "100k"
+		(property "Value" "102k 0.1%"
 			(at 0 1.43 270)
 			(layer "F.Fab")
 			(uuid "70e07abc-d30f-40f6-b5ff-bb66e572debe")
@@ -103089,11 +103101,23 @@
 				)
 			)
 		)
-		(property "Description" "100k resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage"
+		(property "Description" "102k 0.1% resistor from FB+1V8_IO to +1V8_IO, for U14 (1.8 V regulator, always on): feedback divider, sets the regulator's output voltage"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "d6f5c66c-5b11-4737-a8e5-c706f6b043f9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C861068"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cce7aef4-3d27-4146-9361-499db9a5b227")
 			(effects
 				(font
 					(size 1.27 1.27)
