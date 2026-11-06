@@ -1282,7 +1282,7 @@ Drops below C198.1 with both exporting: bank 16 34.2 to 21.7 mV, U30 pin 28 25.6
 
 *Allowance for the unrouted `VCCIO_2`.* The 23 mV at J20.3 is not the bank's margin. Between J20.3 and the bank 34 balls K4, L1, M8, N5, P2 and T6 stand the shunt on pins 3-4 and the `VCCIO_2` copper, and what is then left is all there is for ripple and transients.
 
-- **Shunt, 12 mV assumed.** All 0.6 A passes through it. No shunt is in the BOM; 20 mohm is the usual limit for a 2.54 mm shunt and is an assumption to replace with the chosen part's figure [verify].
+- **Shunt, 12 mV assumed.** All 0.6 A passes through it. No shunt is in the BOM; 20 mohm is the usual limit for a 2.54 mm shunt and is an assumption to replace with the chosen part's figure [verify]. *Superseded the same day: a shunt was named in the assembly checklist, a Samtec part is now selected, and 20 mohm for the complete path is a requirement to measure, not a part figure; see the selector hardware entry below.*
 - **Copper, 6 mV: the requirement.** From J20.4 to the worst bank 34 ball no more than 60 mohm at 85 C for the bank's 0.1 A, an estimate from `tools/budget.py`. The export branch to U24 must leave at the selector pins and share no copper with the bank feed: 10 mohm shared with the 0.5 A export costs another 5 mV. The balls are 46 to 52 mm north and 21 to 28 mm west of J20. Over 85 mm, 1.5 mm on an outer layer or 3.5 mm on an inner one is 34 mohm, 3.4 mV, which leaves 2.6 mV inside the ball field; 1.0 mm outer is 52 mohm and leaves 0.8 mV, too little for 0.2 mm dogbone lanes. On B.Cu pin 4 is now enclosed by the two `+2V5` lanes, so `VCCIO_2` leaves the pins on F.Cu, where C165 and C166 stand, or on an inner layer.
 - **Left after both: 5 mV with both selectors exporting, 14 mV with J20 alone.**
 
@@ -1299,6 +1299,47 @@ Drops below C198.1 with both exporting: bank 16 34.2 to 21.7 mV, U30 pin 28 25.6
 *Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Against it: only `+2V5` tracks and vias added, exactly the nine planned tracks removed, every kept track, via and footprint byte-identical, net table identical with no renumbering, header, stackup, rules, groups and drawings byte-identical, four zones refilled with no outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected count 945 before and after. By KiCad on each net alone: `+2V5` 0 of 27, `+1V8` 0 of 18, `MON_1V8` 0 of 3, `+1V8_IO` 0 of 40, RGMII, management, LINK, SDRAM, PSRAM, MDI and the other PHY nets 0, HDMI 15, GND 219, `+3V3` 120, `+1V0` 39, all as before. Warnings of every type below KiCad's 199 limit identical item for item on the whole board; silkscreen compared in four cropped windows, west neck, north trunk, east neck and J20, identical. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. No KiCad process or lock when the board was transferred. No generator, placement tool or silkscreen updater was run.
 
 Evidence: `~/freyja-review/j20-feeder-2026-11-05/`: `scripts/plan.py` (the copper, by element), `dc.py`, `budget.py`, `sections.py`, `cum.sh`, `final.sh`, `stress.sh`, `reports/`, `final/commit.kicad_pcb` and `working.kicad_pcb`, `images/before_after.png`, `images/close_up.png`.
+
+**Selector hardware for J19 and J20: shunt selected, resistance not specified by any maker, qualification hold kept (2026-11-05).** One Samtec SNT-100-BK-G on each of J19 and J20, hand-fitted; the fitted header, BOOMELE 2.54-2*3P (C65114), stays. No maker publishes a maximum for the complete path between the two PCB pads, so the 20 mohm of the previous entry is not replaced by a part figure: it becomes a requirement to measure, and nothing here is a measured resistance. No schematic, netlist, board or JLCPCB BOM line changed.
+
+*What was already in the repository.* The previous entry said no shunt was in the BOM. The assembly checklist did name one, XFCN F254D-02-PT-B (C501335), as a loose accessory for all selectors, thirteen of them from the time of the twelve 2x3 selectors. It is not in `ref/bom-jlcpcb.csv`, which lists only placed parts.
+
+*What the documents give.*
+
+| | Fitted header, BOOMELE 2.54-2*3P | XFCN F254D-02-PT-B | Samtec SNT-100-BK-G |
+|---|---|---|---|
+| Source | drawing 2.54-2*NP H2.54 L11.2, 2026-01-16 | drawing rev A1, 2024 | catalogue page F-226, print SNT-100-XX-X-X, reports 105265 and 90410 |
+| Post or lead | 0.64 mm square, 5.8 ± 0.2 mm above the body, no tolerance on the section | not stated | accepts 0.64 mm square, 4.32 mm minimum insertion |
+| Material, plating | brass, "gold plated", no thickness, no underplate named | phosphor bronze, "matte tin or gold plated over nickel", no thickness | phosphor bronze, 10 µin gold in the contact area; underplate not stated |
+| Current | 3 A, no temperature | 3 A, no temperature | 4.3 A per pin at a 30 C rise, 20 % derated, one neighbour powered; 5.0 A derated at 85 C ambient, 4.3 A at 95 C; measured on SNT-100-YW-G with TSW-102-08-L-S, EIA-364-70 |
+| Temperature | −55 to 105 C | −40 to 105 C | −55 to 125 C with gold |
+| Resistance | "contact resistance ≤ 20 mohm" | "contact resistance 20 mohm max" | none in the catalogue page, the print or either report |
+| Method, mate, conditioning for that figure | none | none | not applicable |
+| Mating cycles | none | none | none |
+| Other | | | vibration 15 g, 10 to 2000 Hz, 4 h per axis, 100 mA: no interruption over 1 µs (report 90410, 1990) |
+
+*Why the Samtec shunt.* Fit on the fitted posts can be checked from documents: 0.64 mm square both sides, 5.6 mm of post at the low limit against 4.32 mm needed, the post shorter than the 6.10 mm body, gold on gold. Its plating is defined and its current is measured at temperature, 5.0 A at 85 C against 0.6 A here. The XFCN drawing leaves tin or gold open, and tin against a gold post is a fretting pair; it stays for J52, which carries a signal. What Samtec does not give is the same thing the others do not give: resistance and mating life. Distributor listings quote 5 mohm for the SNT and 15 mohm for TE and Amphenol shunts; none of those figures is in a maker's document I could open, none names a method, and none is used here.
+
+*The complete path.* Pad, post, interface, shunt bridge, interface, post, pad. The two 20 mohm figures cannot be added into a maximum for it and cannot be read as one either. The header's is for one pin in an unnamed socket. The shunt's is on unnamed pins and does not say whether it is across the shunt or per contact. Neither says initial or after conditioning. Read as one figure per interface, the path is 40 mohm plus metal, 24 mV at 0.6 A, more than either selector has. Read as the whole shunt, 20 mohm plus two posts. By calculation only: the two brass posts are about 1.6 mohm at 20 C, 0.41 mm2 over about 5 mm each; the phosphor-bronze bridge is of the same order; the two gold interfaces cannot be calculated. So a few milliohms is plausible and 20 mohm is not excluded. **There is no supported maximum, initial or after conditioning, and no typical measurement, for any of the three parts.**
+
+*The requirement, from the voltage budget and not from a data sheet.* All 0.6 A of a selector passes through the path: 0.1 A of bank and the 0.5 A PIN V allowance. On the copper as committed, at 85 C, regulator at its low limit, with 6 mV kept for the VCCIO copper to the bank (60 mohm at 0.1 A):
+
+| Position and case | At the selector pin, above the bank's minimum | Left with 10 mohm | 20 mohm | 30 mohm | Path resistance for 0 mV |
+|---|---:|---:|---:|---:|---:|
+| J20 2.5 V, both exporting | 23.1 mV | 11.1 | 5.1 | −0.9 | 28.6 mohm |
+| J20 2.5 V, alone | 31.8 mV | 19.8 | 13.8 | 7.8 | 43.0 mohm |
+| J19 2.5 V, both exporting | 18.2 mV | 6.2 | 0.2 | −5.8 | 20.4 mohm |
+| J19 2.5 V, alone | 26.9 mV | 14.9 | 8.9 | 2.9 | 34.8 mohm |
+| J20 1.8 V, both exporting | 36 mV | 24 | 18 | 12 | 50 mohm |
+| J19 1.8 V, both exporting | 15 mV | 3 | −3 | −9 | 15 mohm |
+
+The 1.8 V rows are U14's figures from the forced-PWM entry, not recalculated. **Requirement: 20 mohm or less between the pads at 0.6 A and 85 C, after conditioning.** At that value J20's 2.5 V position keeps 5 mV with both exporting. J19's 2.5 V position keeps nothing until its branch is repaired, the next entry. J19's 1.8 V position with both exporting does not hold at 20 mohm: it needs 15 mohm for nothing left, or less `VCCIO_1` copper than the 6 mV allowed, or more from the `+1V8_IO` branch to J19, which is U14's rail and was not touched.
+
+*Qualification hold.* Before the 2.5 V or 1.8 V position is relied on: four-wire between the pad pairs 1-2, 3-4 and 5-6 on the back of an assembled board, at 0.6 A, as fitted, after 25 moves between positions, and at temperature. 25 is a proposal for the owner to set; no document supports a cycle count. The figure found replaces 20 mohm in the table above. This stands beside U14's hold, which is unchanged: TPS62A0569APDRLR remains recommended and not fitted until loop stability into 113 uF plus 63.5 uF and its no-load input current are measured.
+
+*If the fitted header fails.* Samtec HTSW-103-07-L-D fits the same footprint and position: 0.64 mm square posts on the 2.54 mm grid, 5.84 mm above the body, 2.54 mm tail for a 1.6 mm board, recommended hole 1.02 ± 0.03 mm against 1.05 mm drilled, 10 µin gold on the post, lead-free solderable body. It is the post family and plating the shunt's current rating was measured on. Its posts are phosphor bronze, so more metal resistance than brass, and Samtec gives no resistance for the pair either: the swap would define the plating and not remove the measurement. Not applied.
+
+*Recorded.* `tools/qualified.py`: J19 and J20's entry now carries the header's figures, the shunt, what is not specified and the requirement; `ref/qualified-parts.md` regenerated, one row. `ref/jlcpcb-import-checklist.md`: two SNT-100-BK-G as hand-fitted parts with their position, 3.3 V on pins 1-2 as `ref/freya.xdc` assumes, the J52 shunt reduced to one, the hold, and the stale "twelve 2x3 selectors" row corrected to two. `ref/bom-jlcpcb.csv` is unchanged because JLCPCB does not place a shunt. `tools/roles.py` and the parts guide were left: their text is copied into the schematic and the board's description fields, and neither was to change here. Strict gate electrical and mechanical PASS, stackup guard and ERC pass. Documents and arithmetic in `~/freyja-review/selector-2026-11-05`. Owner's H4 move, its fills and `.prl` left out. Nothing measured on hardware.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair

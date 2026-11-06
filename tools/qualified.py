@@ -292,8 +292,25 @@ PARTS = {
     pinmap='single grounded key/probe post', src='BOOMELE drawing; LCSC C51353'),
   'EasyEDA:Header-Male-2.54_2x3': dict(
     mpn='2.54-2*3P', pkg='2x3 male selector header, 2.54 mm, THT',
-    fp='EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1', rating='selector only',
-    pinmap='odd/even pin pairs by physical column', src='BOOMELE drawing; LCSC C65114'),
+    fp='EasyEDA:HDR-TH_6P-P2.54-V-M-R2-C3-S2.54-1',
+    rating='PIN V selector, 0.6 A through one shunt (0.1 A bank, 0.5 A export). '
+           'Header drawing: 3 A, contact resistance <= 20 mohm with no method, mate '
+           'or conditioning named, 0.64 mm square brass post, gold plated with no '
+           'thickness given, 5.8 +/- 0.2 mm above the body, -55 to 105 C. Shunt, '
+           'one per header, hand-fitted, not in the JLCPCB BOM: Samtec SNT-100-BK-G, '
+           '0.64 mm square lead, 4.32 mm minimum insertion, 10 uin gold in the '
+           'contact area, 4.3 A per pin at a 30 C rise and 5.0 A derated at '
+           '85 C on a gold TSW post (report 105265), -55 to 125 C. NOT SPECIFIED by '
+           'either maker: resistance of the complete path between the two PCB pads '
+           '(post, interface, bridge, interface, post) and mating cycles. Requirement '
+           'from the voltage budget, to be measured before the 2.5 V and 1.8 V '
+           'positions are relied on: <= 20 mohm pad to pad at 0.6 A and 85 C after '
+           'conditioning (findings.md, selector hardware)',
+    pinmap='odd/even pin pairs by physical column: 1-2 +3V3, 3-4 +2V5, 5-6 +1V8_IO, '
+           'even pins VCCIO',
+    src='BOOMELE drawing 2.54-2*NP H2.54 L11.2 (2026-01-16), LCSC C65114; Samtec '
+        'catalogue page F-226, print SNT-100-XX-X-X, test reports 105265 (current) '
+        'and 90410 (vibration)'),
   'EasyEDA:PZ254V-11-02P': dict(
     mpn='PZ254V-11-02P', pkg='1x2 male selector header, 2.54 mm, THT',
     fp='EasyEDA:HDR-TH_2P-P2.54-V-M', rating='selector only',

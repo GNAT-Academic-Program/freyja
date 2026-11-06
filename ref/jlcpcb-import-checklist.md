@@ -65,7 +65,8 @@ against the manufacturer datasheet.
 | 1 | `BM03B-SRSS-TB(LF)(SN)` | keyed controller SWD header | `C160389` — imported and linked |
 | 1 | `KF301-5.0-2P` | 9–21 V external power terminal | `C474881` — imported and linked |
 | 4 | `F.0603.00025/P2-0603G1TS2-06T-002` | green DONE, heartbeat and two user LEDs | `C7496818` — imported and linked |
-| 13 | `F254D-02-PT-B` | removable 2.54 mm selector shunts | `C501335` — imported; loose accessory |
+| 1 | `F254D-02-PT-B` | external-JTAG jumper shunt for J52, signal only, hand-fitted | `C501335` — imported; loose accessory |
+| 2 | `SNT-100-BK-G` (Samtec) | PIN VOLTAGE selector shunts, one on J19 and one on J20, hand-fitted | not a JLCPCB assembly part; see [Selector shunts](#selector-shunts-hand-fitted-2026-11-05) |
 | 1 | `RTL8211FDI-CG` | gigabit Ethernet PHY (LDO model, industrial grade) | `C692886` — imported 2026-10-30 with easyeda2kicad, pin names identical to the C2687133 import checked against datasheet rev 1.7 |
 | 1 | `HR911130A` | ETH 1000Base-T magjack with LEDs | `C54408` — imported 2026-10-23, pin names checked against the HanRun drawing |
 | 2 | `R-RJ45R08P-B000` (Ckmtw) | LINK P / LINK Q plain shielded jacks, tab up | `C386756` — imported 2026-10-30, land checked against the Ckmtw drawing |
@@ -109,8 +110,36 @@ as files; `tools/audit_easyeda.py` only checks parts the design fits.
 | two 5V-bus 2x8 signal sockets | `C3975153` — imported and linked |
 | 2x8 through-hole signal sockets | `C2897409` — imported and linked |
 | ten 21 mm cut-to-1P key posts | `C51353` — imported; custom single-pad cut footprint |
-| twelve 2x3 selectors | `C65114` — imported and linked; `C501335` shunts are loose accessories |
+| two 2x3 PIN VOLTAGE selectors, J19 and J20 | `C65114` — imported and linked; one Samtec `SNT-100-BK-G` shunt each, hand-fitted |
 | one 1x2 external-JTAG selector | `C492401` — imported and linked; uses a `C501335` shunt |
+
+## Selector shunts, hand-fitted (2026-11-05)
+
+The shunts are not soldered and are not in `ref/bom-jlcpcb.csv`, which lists
+only what JLCPCB places. Order them with the boards and fit them by hand
+after assembly.
+
+| Qty per board | Part | Where | Fit |
+|---:|---|---|---|
+| 1 | Samtec `SNT-100-BK-G`, black, 10 µin gold | J19, A-D PIN VOLTAGE | across pins 1-2, the 3.3 V position |
+| 1 | Samtec `SNT-100-BK-G`, black, 10 µin gold | J20, E-H PIN VOLTAGE | across pins 1-2, the 3.3 V position |
+| 1 | XFCN `F254D-02-PT-B`, `C501335` | J52, EXT JTAG | left off; fitted only to hand JTAG to J2 |
+
+- 3.3 V is the position `ref/freya.xdc` assumes for banks 15 and 34. One
+  shunt per header, one position only, moved with the board unpowered.
+- Do not substitute the J52 shunt on J19 or J20. Its drawing allows matte tin
+  or gold and gives no thickness; the selector carries up to 0.6 A and its
+  resistance is part of the bank's voltage budget.
+- Push the shunt down to the header body. The posts stand 5.8 ± 0.2 mm; the
+  shunt needs 4.32 mm of post.
+- **Qualification hold.** No maker gives the resistance of the complete path
+  between the two PCB pads. Before the 2.5 V or 1.8 V position is relied on,
+  measure it four-wire at the pads on the back of an assembled board, at
+  0.6 A: as fitted, after 25 moves between positions, and warm. The budget in
+  [findings](../findings.md) needs 20 mΩ or less at 85 °C. If the fitted
+  header does not meet it, Samtec `HTSW-103-07-L-D` takes the same holes and
+  position: 0.64 mm square posts with 10 µin gold, the post family and
+  plating Samtec rated this shunt on. It is not fitted.
 
 ## PSRAM series resistors
 
