@@ -1288,7 +1288,7 @@ Drops below C198.1 with both exporting: bank 16 34.2 to 21.7 mV, U30 pin 28 25.6
 
 *Ripple and transients, separately.* At the bottom, 5 mV with both exporting and 14 mV with J20 alone, once the shunt and the copper have taken the figures above. At the top nothing changed: 2.561 V, 64 mV under 2.625 V, less a power-save rise the datasheet does not bound, 5 to 18 mV by the earlier scaling. Switching ripple in PWM is about 1 mV on these capacitors by calculation. A load step of the 0.5 A export, loop stability into 103 uF and start-up were not analysed; they remain for hardware, and 5 mV will not hold a load step. **So J20's 2.5 V position under full export from both selectors now holds at DC with a practical allowance for the shunt and the `VCCIO_2` copper; it is not transient closure.**
 
-*J19, checked and not repaired.* J19.3 gains 7 mV from the shared sections and is now the lower of the two pins with both exporting: +18 mV, 6 mV after the same 12 mV shunt, which is the whole of a 60 mohm `VCCIO_1` feed and leaves nothing for ripple. With J19 alone it has +27 mV. Its limit is its own branch, the 1.0 mm B.Cu column x 172.95, 25 mV over 69 mm, and the single 0.4 mm entry lane. That branch is not part of J20's feeder and was left. On a scratch copy, the 1.3 mm that fits between J3A, J3B and the `+1V8_IO` column, with a second entry lane, brings J19.3 to 31.1 mV, 2.401 V, +26 mV with both exporting; not laid out further and not checked by DRC. **Open for the owner: the same repair on J19's branch before `VCCIO_1` is routed.**
+*J19, checked and not repaired.* J19.3 gains 7 mV from the shared sections and is now the lower of the two pins with both exporting: +18 mV, 6 mV after the same 12 mV shunt, which is the whole of a 60 mohm `VCCIO_1` feed and leaves nothing for ripple. With J19 alone it has +27 mV. Its limit is its own branch, the 1.0 mm B.Cu column x 172.95, 25 mV over 69 mm, and the single 0.4 mm entry lane. That branch is not part of J20's feeder and was left. On a scratch copy, the 1.3 mm that fits between J3A, J3B and the `+1V8_IO` column, with a second entry lane, brings J19.3 to 31.1 mV, 2.401 V, +26 mV with both exporting; not laid out further and not checked by DRC. **Open for the owner: the same repair on J19's branch before `VCCIO_1` is routed.** *Done the same day on B.Cu only, 32.4 mV; see the J19 branch entry below.*
 
 *What still limits J20, if more is wanted.* The path is 57 mohm for the selector's 0.6 A. Each further millivolt needs 1.7 mohm less in the sections that carry 0.6 A or 0.75 mohm less in the west neck and the cell. In order of size: the east trunk, 10.6 mV, held to 2.3 mm by the slot strips' pads on one side and the fuse via column on the other; the north trunk, 8.9 mV, which could only gain on In2 and would then close both inner layers to crossings; the west neck, 5.2 mV; the cell's bar and vias, 3.5 mV, cell copper that was to stay, where doubling the 1.0 mm bar south of C198 would return about 1.3 mV to every load. No setpoint change is proposed. If the bench shows the 5 mV is not enough, 102k / 31.6k remains the next step, +37 mV at the bottom and 27 mV left at the top before the power-save rise.
 
@@ -1340,6 +1340,81 @@ The 1.8 V rows are U14's figures from the forced-PWM entry, not recalculated. **
 *If the fitted header fails.* Samtec HTSW-103-07-L-D fits the same footprint and position: 0.64 mm square posts on the 2.54 mm grid, 5.84 mm above the body, 2.54 mm tail for a 1.6 mm board, recommended hole 1.02 ± 0.03 mm against 1.05 mm drilled, 10 µin gold on the post, lead-free solderable body. It is the post family and plating the shunt's current rating was measured on. Its posts are phosphor bronze, so more metal resistance than brass, and Samtec gives no resistance for the pair either: the swap would define the plating and not remove the measurement. Not applied.
 
 *Recorded.* `tools/qualified.py`: J19 and J20's entry now carries the header's figures, the shunt, what is not specified and the requirement; `ref/qualified-parts.md` regenerated, one row. `ref/jlcpcb-import-checklist.md`: two SNT-100-BK-G as hand-fitted parts with their position, 3.3 V on pins 1-2 as `ref/freya.xdc` assumes, the J52 shunt reduced to one, the hold, and the stale "twelve 2x3 selectors" row corrected to two. `ref/bom-jlcpcb.csv` is unchanged because JLCPCB does not place a shunt. `tools/roles.py` and the parts guide were left: their text is copied into the schematic and the board's description fields, and neither was to change here. Strict gate electrical and mechanical PASS, stackup guard and ERC pass. Documents and arithmetic in `~/freyja-review/selector-2026-11-05`. Owner's H4 move, its fills and `.prl` left out. Nothing measured on hardware.
+
+**`+2V5` branch to J19 widened on B.Cu (2026-11-05).** With both selectors exporting at 2.5 V and the copper at 85 C, J19.3 was 38.9 mV below C198.1 and is 32.4 mV: 2.400 V at the regulator's low limit, 24.8 mV above bank 15's 2.375 V where it had 18.2 mV. With J19 alone, +33.5 mV where +26.9 mV. Five tracks on B.Cu replace four; no via, no other layer, nothing in the north band. Divider, setpoint, loads and export allowances unchanged; regulator cell, sense takeoff at C198.1, every footprint and all signal copper untouched. J20, bank 16 and U30 are as they were.
+
+*Access first, before any copper.* The missing connections were rebuilt from the saved copper, because KiCad's DRC report stops at 499 unconnected items; 569 on nets without a plane. Capacity is the number of 0.20 mm tracks at 0.15 mm clearance that can cross a wall side by side on a 0.35 mm grid, orthogonal steps only, against every pad, track, via and reserved via, in a window reaching beyond both faces so a corridor that dead-ends behind the wall does not count; zones are closed at their sides. Both simplifications make the figure low.
+
+| North band, y 122.4 to 125.8 (B.Cu trunks, In5 trunk), x | Missing connections crossing | In2 tracks, 3 mm / 7 mm window | F.Cu tracks, 3 mm / 7 mm | Via sites within 7 mm, north / south |
+|---|---:|---:|---:|---:|
+| 172.4 to 180 | 6 | 15 / 15 | 7 / 7 | 93 / 8 |
+| 180 to 190 | 13 | 20 / 18 | 0 / 0 | 44 / 56 |
+| 190 to 200 | 12 | 23 / 15 | 10 / 3 | 48 / 41 |
+| 200 to 210 | 2 | 20 / 20 | 13 / 8 | 75 / 52 |
+| 210 to 220 | 6 | 14 / 15 | 5 / 3 | 76 / 30 |
+| 220 to 230 | 4 | 30 / 28 | 6 / 6 | 62 / 79 |
+| 230 to 241.2 | 10 | 24 / 24 | 13 / 13 | 103 / 118 |
+| Total | 53 | 146 / 135 | 54 / 40 | 501 / 384 |
+
+In2 has room in every zone. Two places are thin and were already so: under U7's passives, x 180 to 190, F.Cu has no crossing and only 2 via sites stand within 3 mm of the north face, so those 13 connections enter In2 further north; and south of the band at x 172.4 to 180, 8 via sites within 7 mm, where U6 and the `+1V8_IO` branches stand, so the six connections there stay on In2 past it. The previous entry said 30 nets with pads on both sides; 53 missing connections cross on a straight line, the eight slot A lines from J3A and the eight slot E lines from J5A among them. Through the J53 and J3A pin field west of x 172.4, 6 cross against 17 on In2 and 6 on F.Cu.
+
+| Wall beside J3A and J3B, x 172.3 to 177.0 (`+2V5` and `+1V8_IO` on B.Cu), y | Missing connections crossing | In2 | In5 | F.Cu |
+|---|---:|---:|---:|---:|
+| 128 to 140 | 8 | 7 | 7 | 5 |
+| 140 to 150 | 8 | 6 | 6 | 0 |
+| 150 to 160 | 6 | 5 | 5 | 2 |
+| 160 to 170 | 7 | 5 | 5 | 5 |
+| 170 to 180 | 6 | 6 | 6 | 2 |
+| 180 to 195 | 7 | 17 | 17 | 14 |
+| Total | 42 | 46 | 46 | 28 |
+
+Zone by zone neither inner layer carries the crossings alone, 8 against 6 at y 140 to 150 and 7 against 5 at 160 to 170; the slot A to D lines need both, two tracks per pin gap. **So nothing was added on In2 or In5 along J19's column**, which would have taken half of that, and the repair is B.Cu only, where the old column already closed the layer. Capacity through both walls is the same before and after, zone for zone.
+
+*What was applied.*
+
+| Section to J19.3, both exporting, 85 C | Before | After | What changed |
+|---|---:|---:|---|
+| Cell bar and vias, shared | 3.5 mV | 3.5 mV | untouched |
+| West neck through the J53 and J3A pins, shared | 5.3 mV | 5.3 mV | untouched |
+| Column east of J3A and J3B, B.Cu | 25.2 mV, 42.0 mohm, 1.0 mm, with its foot | 20.2 mV, 33.7 mohm, 1.21 mm | one track x 172.945, y 124.94 to 194.6 |
+| Foot and entry at J19 | 4.9 mV, one 0.4 mm lane | 3.3 mV, foot 1.0 and lanes 2.3 | foot 1.0 mm extended west to x 167.68, second 0.4 mm lane between pins 2 and 4 |
+| J19.3 | 38.9 mV | 32.4 mV | |
+
+1.21 mm is the widest straight track the lane takes with 0.2 mm on each side: the J3 pin pads on the west, the sixteen ground vias at x 174.0 to 175.05 down to y 160, and below y 178.2 the `+1V8_IO` column, which stood 0.3 mm from the old track. No via site is lost: none existed between the pads and the old track, and the ground-via line keeps its distance. The two lanes fill the 0.74 mm gaps either side of pin 4 with 0.17 mm to the pads, as the old lane did. Tracks 2935 to 2936.
+
+*Not taken.* Widening to about 2 mm in the two stretches without vias, y 127.6 to 133.6 and 160.3 to 176.5: about 2 mV more, at the cost of the via sites beside R156, R57 and C283 and two reserved ground vias. An inner layer under the column, about 12 mV: see the wall above. The scratch estimate of the previous entry, 1.33 mm and 31.1 mV, did not hold 0.2 mm to the ground via at (174.0, 141.04).
+
+*Every load, 85 C, regulator at its low limit, 2.4370 V and 2.4321 V in the 1.34 A case.*
+
+| Case | Bank 16 balls | U30 pin 28 | J19.3 | J20.3 |
+|---|---|---|---|---|
+| Board load, 0.14 A | 2.4277 V, +52.7 mV | 2.4283 V | 2.4361 V | 2.4356 V |
+| J19 alone exporting, 0.74 A | 2.4239 V, +48.9 mV | 2.4245 V | 2.4085 V, **+33.5 mV** (was +26.9) | 2.4318 V |
+| J20 alone exporting, 0.74 A | 2.4191 V, +44.1 mV | 2.4238 V | 2.4324 V | 2.4068 V, +31.8 mV |
+| Both exporting, 1.34 A | 2.4104 V, +35.4 mV | 2.4151 V | 2.3998 V, **+24.8 mV** (was +18.2) | 2.3981 V, +23.1 mV |
+
+*Beyond the selector pins, to banks 15 and 34.* In series: the selector, all 0.6 A, and the VCCIO copper, the bank's 0.1 A. With the requirement of the selector entry, 20 mohm between the pads, and 6 mV of copper:
+
+| Bank, case | At the pin | Selector, 20 mohm required | VCCIO copper, 60 mohm allowed | Left at the worst ball | Selector resistance for nothing left |
+|---|---:|---:|---:|---:|---:|
+| Bank 15 through J19, both exporting | 24.8 mV | 12 mV | 6 mV | **6.8 mV** (was 0.2) | 31.3 mohm |
+| Bank 15 through J19, alone | 33.5 mV | 12 mV | 6 mV | 15.5 mV | 45.8 mohm |
+| Bank 34 through J20, both exporting | 23.1 mV | 12 mV | 6 mV | 5.1 mV | 28.5 mohm |
+| Bank 34 through J20, alone | 31.8 mV | 12 mV | 6 mV | 13.8 mV | 43.0 mohm |
+
+At 10 mohm the two worst rows have 12.8 and 11.1 mV. The selector figure is a requirement awaiting measurement, not a property of the parts.
+
+*Allowance for the unrouted `VCCIO_1`: 60 mohm, 6 mV, from J19's even pins to the worst of the bank 15 balls F26, G23, H20, J17, K14 and M18.* On the board as it stands a single 1.5 mm track finds a legal way on In2 from pin 6 to the bank's decoupling at C344, 55.3 mm, 51.6 mohm at 85 C, 5.2 mV; at 1.0 mm it is 77 mohm, too much, and at 2.0 mm one width does not pass end to end. That shows a corridor exists today; it is not a route, reserves nothing, and leaves 8 mohm for the fan-in to the six balls, so the real net wants the wide part wider or on two layers. On B.Cu pin 4 is now enclosed, as at J20: `VCCIO_1` leaves the pins on F.Cu, where C163, C164 and U23 stand, or inside. **Split at the selector:** one bar across pins 2, 4 and 6; the export branch leaves its west end at pin 2 for U23, 4 mm away; the bank feeder leaves its east end at pin 6. In every shunt position the 0.5 A then shares no copper with the bank's 0.1 A beyond the pad it enters by. J20 is the mirror image: export from pin 6 east to U24, bank feeder from pin 2 west. 10 mohm shared with the export costs the bank 5 mV.
+
+*Ripple and transients, separately.* What the static budget leaves at the bottom: 6.8 mV for bank 15 and 5.1 mV for bank 34 with both exporting, 15.5 and 13.8 mV with one. At the top nothing changed: 2.561 V, 64 mV under 2.625 V, less a power-save rise the datasheet does not bound, 5 to 18 mV by the earlier scaling. PWM ripple about 1 mV by calculation. A load step of the 0.5 A export, loop stability into 103 uF and start-up are not analysed and remain for hardware. This is DC closure with a practical allowance, conditional on the selector measurement.
+
+*1.8 V position, U14's rail, not touched.* J19.5 still has 15 mV with both exporting: 3 mV short with a 20 mohm selector and 6 mV of copper, closed only by a selector of 15 mohm or less, by less `VCCIO_1` copper, or by the same kind of repair on the `+1V8_IO` column beside this one. U14's hold stands: TPS62A0569APDRLR recommended and not fitted until loop stability and no-load input current are measured.
+
+*Planes and reservations.* No via was added, so no plane lost copper: every plane has the same area and is one piece, and no track's reference changed. With the 503 reservations on scratch copies the board gives 33 errors before and 32 after. The difference is the SDRAM_A5, A6 and A11 stub shorts at (200.7 to 202.2, 143.8 to 145.3), which KiCad reports against a different neighbouring item from run to run; by type and net pair the 19 distinct signatures are identical, none names `+2V5`, and none lies in the window of the column.
+
+*Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Against it: five `+2V5` tracks added, exactly the four planned tracks removed, every kept track, via and footprint byte-identical, net table identical, header, stackup, rules, groups and drawings byte-identical; no zone outline or setting changed, and with H4 at its committed position no fill changed either. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected count 945 before and after. By KiCad on each net alone: `+2V5` 0 of 27, `+1V8` 0 of 18, `MON_1V8` 0 of 3, `+1V8_IO` 0 of 40, RGMII, management, LINK, SDRAM, PSRAM, MDI and the other PHY nets 0, HDMI 15, GND 219, `+3V3` 120, `+1V0` 39, all as before. Warnings below KiCad's 199 limit identical item for item; silkscreen compared in two cropped windows along the column and at J19, identical. Most loaded track 56 % of IPC-2221 at a 10 C rise, the cell's F.Cu bar, unchanged. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. The PCB editor had the board open while this was prepared; nothing was written until the owner closed it, the lock was gone and the board on disk was still byte-identical to the one validated against. No generator, placement tool or silkscreen updater was run.
+
+*Evidence.* `~/freyja-review/j19-feeder-2026-11-05`: `README.md`, plans, scripts, the commit and working boards, DRC reports, corridor tables, the budget and DC results, `images/before_after.png` and `images/close_up.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
