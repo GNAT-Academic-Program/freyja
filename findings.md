@@ -1280,7 +1280,7 @@ Evidence: `~/freyja-review/gtp-unused-2026-11-05/` for the review: `datasheets/`
 
 Drops below C198.1 with both exporting: bank 16 34.2 to 21.7 mV, U30 pin 28 25.6 to 17.1 mV, J19.3 45.8 to 38.9 mV, J20.3 61.2 to 34.0 mV. DVDD_RG minus VCCO, which `gateware/rgmii1000` took as −1.0 to +6.9 mV, is now −1.2 to +3.8 mV at 25 C and +4.7 mV at most at 85 C, so its +6.9 mV rows stand as an upper bound; the profile was not re-run.
 
-*Allowance for the unrouted `VCCIO_2`.* The 23 mV at J20.3 is not the bank's margin. Between J20.3 and the bank 34 balls K4, L1, M8, N5, P2 and T6 stand the shunt on pins 3-4 and the `VCCIO_2` copper, and what is then left is all there is for ripple and transients.
+*Routed 2026-11-06, entry "`VCCIO_1` and `VCCIO_2` routed" below: 4.8 mV to the worst ball.* *Allowance for the unrouted `VCCIO_2`.* The 23 mV at J20.3 is not the bank's margin. Between J20.3 and the bank 34 balls K4, L1, M8, N5, P2 and T6 stand the shunt on pins 3-4 and the `VCCIO_2` copper, and what is then left is all there is for ripple and transients.
 
 - **Shunt, 12 mV assumed.** All 0.6 A passes through it. No shunt is in the BOM; 20 mohm is the usual limit for a 2.54 mm shunt and is an assumption to replace with the chosen part's figure [verify]. *Superseded the same day: a shunt was named in the assembly checklist, a Samtec part is now selected, and 20 mohm for the complete path is a requirement to measure, not a part figure; see the selector hardware entry below.*
 - **Copper, 6 mV: the requirement.** From J20.4 to the worst bank 34 ball no more than 60 mohm at 85 C for the bank's 0.1 A, an estimate from `tools/budget.py`. The export branch to U24 must leave at the selector pins and share no copper with the bank feed: 10 mohm shared with the 0.5 A export costs another 5 mV. The balls are 46 to 52 mm north and 21 to 28 mm west of J20. Over 85 mm, 1.5 mm on an outer layer or 3.5 mm on an inner one is 34 mohm, 3.4 mV, which leaves 2.6 mV inside the ball field; 1.0 mm outer is 52 mohm and leaves 0.8 mV, too little for 0.2 mm dogbone lanes. On B.Cu pin 4 is now enclosed by the two `+2V5` lanes, so `VCCIO_2` leaves the pins on F.Cu, where C165 and C166 stand, or on an inner layer.
@@ -1404,7 +1404,7 @@ Zone by zone neither inner layer carries the crossings alone, 8 against 6 at y 1
 
 At 10 mohm the two worst rows have 12.8 and 11.1 mV. The selector figure is a requirement awaiting measurement, not a property of the parts.
 
-*Allowance for the unrouted `VCCIO_1`: 60 mohm, 6 mV, from J19's even pins to the worst of the bank 15 balls F26, G23, H20, J17, K14 and M18.* On the board as it stands a single 1.5 mm track finds a legal way on In2 from pin 6 to the bank's decoupling at C344, 55.3 mm, 51.6 mohm at 85 C, 5.2 mV; at 1.0 mm it is 77 mohm, too much, and at 2.0 mm one width does not pass end to end. That shows a corridor exists today; it is not a route, reserves nothing, and leaves 8 mohm for the fan-in to the six balls, so the real net wants the wide part wider or on two layers. On B.Cu pin 4 is now enclosed, as at J20: `VCCIO_1` leaves the pins on F.Cu, where C163, C164 and U23 stand, or inside. **Split at the selector:** one bar across pins 2, 4 and 6; the export branch leaves its west end at pin 2 for U23, 4 mm away; the bank feeder leaves its east end at pin 6. In every shunt position the 0.5 A then shares no copper with the bank's 0.1 A beyond the pad it enters by. J20 is the mirror image: export from pin 6 east to U24, bank feeder from pin 2 west. 10 mohm shared with the export costs the bank 5 mV.
+*Routed 2026-11-06, entry below: 4.9 mV to the worst ball.* *Allowance for the unrouted `VCCIO_1`: 60 mohm, 6 mV, from J19's even pins to the worst of the bank 15 balls F26, G23, H20, J17, K14 and M18.* On the board as it stands a single 1.5 mm track finds a legal way on In2 from pin 6 to the bank's decoupling at C344, 55.3 mm, 51.6 mohm at 85 C, 5.2 mV; at 1.0 mm it is 77 mohm, too much, and at 2.0 mm one width does not pass end to end. That shows a corridor exists today; it is not a route, reserves nothing, and leaves 8 mohm for the fan-in to the six balls, so the real net wants the wide part wider or on two layers. On B.Cu pin 4 is now enclosed, as at J20: `VCCIO_1` leaves the pins on F.Cu, where C163, C164 and U23 stand, or inside. **Split at the selector:** one bar across pins 2, 4 and 6; the export branch leaves its west end at pin 2 for U23, 4 mm away; the bank feeder leaves its east end at pin 6. In every shunt position the 0.5 A then shares no copper with the bank's 0.1 A beyond the pad it enters by. J20 is the mirror image: export from pin 6 east to U24, bank feeder from pin 2 west. 10 mohm shared with the export costs the bank 5 mV.
 
 *Ripple and transients, separately.* What the static budget leaves at the bottom: 6.8 mV for bank 15 and 5.1 mV for bank 34 with both exporting, 15.5 and 13.8 mV with one. At the top nothing changed: 2.561 V, 64 mV under 2.625 V, less a power-save rise the datasheet does not bound, 5 to 18 mV by the earlier scaling. PWM ripple about 1 mV by calculation. A load step of the 0.5 A export, loop stability into 103 uF and start-up are not analysed and remain for hardware. This is DC closure with a practical allowance, conditional on the selector measurement.
 
@@ -1415,6 +1415,113 @@ At 10 mohm the two worst rows have 12.8 and 11.1 mV. The selector figure is a re
 *Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Against it: five `+2V5` tracks added, exactly the four planned tracks removed, every kept track, via and footprint byte-identical, net table identical, header, stackup, rules, groups and drawings byte-identical; no zone outline or setting changed, and with H4 at its committed position no fill changed either. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected count 945 before and after. By KiCad on each net alone: `+2V5` 0 of 27, `+1V8` 0 of 18, `MON_1V8` 0 of 3, `+1V8_IO` 0 of 40, RGMII, management, LINK, SDRAM, PSRAM, MDI and the other PHY nets 0, HDMI 15, GND 219, `+3V3` 120, `+1V0` 39, all as before. Warnings below KiCad's 199 limit identical item for item; silkscreen compared in two cropped windows along the column and at J19, identical. Most loaded track 56 % of IPC-2221 at a 10 C rise, the cell's F.Cu bar, unchanged. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. The PCB editor had the board open while this was prepared; nothing was written until the owner closed it, the lock was gone and the board on disk was still byte-identical to the one validated against. No generator, placement tool or silkscreen updater was run.
 
 *Evidence.* `~/freyja-review/j19-feeder-2026-11-05`: `README.md`, plans, scripts, the commit and working boards, DRC reports, corridor tables, the budget and DC results, `images/before_after.png` and `images/close_up.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
+
+**`VCCIO_1` and `VCCIO_2` routed: J19 to bank 15, J20 to bank 34 (2026-11-06).** Both nets are complete: 22 of 22 pads each, both monitor branches 3 of 3, and the 26 associated ground pads reach the planes. With the copper at 85 C and the bank's 0.100 A, the worst ball is **4.9 mV below the selector pin on bank 15 and 4.8 mV on bank 34, against the 6 mV target, in each of the three shunt positions and with the 0.5 A export flowing**. 238 tracks and 64 vias added, nothing removed. No footprint, setpoint, export allowance, selector requirement, regulator cell, sense takeoff, feeder or accepted signal track changed. The switched export nets and the switch controls are not routed.
+
+*Endpoints, from the board and the netlist, same set.*
+
+| | `VCCIO_1`, J19, bank 15 | `VCCIO_2`, J20, bank 34 |
+|---|---|---|
+| Selector pins 2, 4, 6 | 3 | 3 |
+| Selector bulk, 22 uF | C163, C164 | C165, C166 |
+| Switch input pins 1, 2 and its 1 uF | U23, C220 | U24, C221 |
+| VCCO balls | F26, G23, H20, J17, K14, M18 | K4, L1, M8, N5, P2, T6 |
+| Bank capacitors | C342, C343 4.7 uF; C344 to C347 0.47 uF; C367 47 uF | C354, C355 4.7 uF; C356 to C359 0.47 uF; C369 47 uF |
+| Monitor resistor, rail side | R198.1 | R199.1 |
+| Pads | 22 of 22 | 22 of 22 |
+| Monitor branch | `MON_VCCIO_1`: R198.2, C277.1, U7.57, 3 of 3 | `MON_VCCIO_2`: R199.2, C278.1, U7.58, 3 of 3 |
+| Grounds | the 10 capacitors, C277, U23 pin 5 and pad 9 | the 10 capacitors, C278, U24 pin 5 and pad 9 |
+
+`GND` goes from 219 to 193 pads without copper, the 26 above. U7's own grounds are not part of this.
+
+*Overview.*
+
+| Section | `VCCIO_1` | `VCCIO_2` |
+|---|---|---|
+| Bar across pins 2, 4, 6 | 1.6 mm on F.Cu, In2 and In5 | 1.6 mm on F.Cu and In5 |
+| Export branch, as far as the switch input | from pin 2, the west end: 1.2 mm F.Cu to C220.1, 0.5 mm to U23 pins 1 and 2 | from pin 6, the east end: 1.5 mm F.Cu north and east round R73, 0.5 mm to U24 pins 1 and 2; C221.1 by a 0.3 mm track between C276's pads |
+| Bank feeder leaves | pin 6, the east end | pin 2, the west end |
+| Past the existing trunks | F.Cu 2.0 mm at x 173.9 between J3B/J19 and J7/J57, over the `+2V5` and `+1V8_IO` columns; three vias at y 187.75 | In5 2.0 mm with 1.6 mm of B.Cu beside it for 5.4 mm, into In5 2.3 mm exactly under the `+2V5` B.Cu trunk at x 247.9, y 187.7 to 147.8 |
+| Trunk | B.Cu 2.2 mm along y 187.5 between U22 and J7, then 2.0 mm up x 194.4 under U9's west end, 39.5 mm | that In5 trunk, 39.9 mm, one layer |
+| Crossing | the `+2V5` feeder on B.Cu at y 163: two vias each side, 1.6 mm on F.Cu and In2 | the J5A/J5B pin field: In5 0.6 mm in gap rows 147.798 and 150.338 through the east column, a via in each cell, row 147.798 on four layers through the west column |
+| To the bank's capacitors | In2 1.7 mm under C342 to C344, fingers to their three reserved vias | B.Cu 2.0 mm along y 147.25, 1.2 mm through the capacitor via column at y 148.59; F.Cu 1.0 mm to C369.1 |
+| Balls | F26 on F.Cu from C343; B.Cu 0.22 mm on rows 153.84 (G23) and 151.84 (H20, J17); In2 0.22 mm G23 to H20 to J17 to K14 and J17 to M18 | B.Cu 0.22 mm on row 148.84 (L1, K4, N5, M8) and on row 144.84 from C359's via (P2, T6) |
+| Sense line to the monitor resistor | In2 0.10 mm from M18's via through the north-west of the ball field, then 0.15 mm beside the `+1V8` sense lane across the north band, via beside R198.1 | In5 from C354's via, 0.10 mm in the strip between the `+2V5` and `+1V8` In5 trunks, then In2 beside the other two lanes, via beside R199.1 |
+
+Every ball uses its reserved dogbone. Both monitor branches leave U7 through the gap between C119 and C121 as two 0.09 mm tracks; `MON_VCCIO_1` then changes to In2 for 2 mm to pass under the `MON_1V8` track, which lies between its pin and its parts.
+
+*Voltage drop, selector pin to ball, from the saved copper.* Outer copper 35 um, inner 15.2 um, via barrels 18 um on a 0.20 mm drill, assumed, each barrel on the stackup's depths. A through-hole pin joins its layers; the bar is the copper drawn between the pins, centre to centre. Source: the even pin the shunt lands on. Loads: the bank's 0.100 A, an estimate from `tools/budget.py`, split evenly over its six balls as bank 16 was; the 0.500 A export allowance leaving at the switch's two input pins. Nodal solution, 85 C:
+
+| Shunt position | Bank 15: F26, G23, H20, J17, K14, M18 | Worst | Bank 34: K4, L1, M8, N5, P2, T6 | Worst |
+|---|---|---:|---|---:|
+| 3.3 V, pin 2 | 3.04, 3.56, 4.05, 4.43, 4.91, 4.91 mV | **4.91 mV** | 4.45, 4.03, 4.63, 4.54, 4.43, 4.66 mV | 4.66 mV |
+| 2.5 V, pin 4 | 2.99, 3.51, 4.00, 4.38, 4.86, 4.86 mV | 4.86 mV | 4.51, 4.10, 4.70, 4.61, 4.50, 4.72 mV | 4.72 mV |
+| 1.8 V, pin 6 | 2.94, 3.46, 3.95, 4.33, 4.80, 4.80 mV | 4.80 mV | 4.57, 4.16, 4.76, 4.67, 4.55, 4.78 mV | **4.78 mV** |
+| Left of 6 mV | | 1.1 mV | | 1.2 mV |
+| At 25 C | | 3.97, 3.93, 3.89 mV | | 3.77, 3.82, 3.87 mV |
+
+The figures are the same to 0.01 mV with the export switched off: in no position does the export's 0.5 A share copper with the bank's 0.1 A beyond the pin it enters by. The bar costs the bank 0.10 mV at J19 in the 3.3 V position and 0.13 mV at J20 in the 1.8 V position, where the bank's current crosses it. The switch input pin is 2.0 to 2.5 mV below the source pin at U23 and 2.2 to 2.8 mV at U24 at 0.5 A. Most loaded track 35 % of IPC-2221 at a 10 C rise, the 0.5 mm entries to the switch pins; most loaded via 0.06 A.
+
+| To the worst ball, 85 C | `VCCIO_1`, pin 2 to K14 | `VCCIO_2`, pin 6 to T6 |
+|---|---:|---:|
+| Bar | 0.10 mV | 0.13 mV |
+| From the pin to the trunk | 0.54 mV | 0.45 mV |
+| Trunk | 1.14 mV, 11.5 mohm | **2.27 mV, 22.7 mohm** |
+| Crossing | 0.20 mV | 0.67 mV |
+| To the capacitors and their vias | 1.08 mV | 0.72 mV |
+| Lanes to the ball, via and dogbone | **1.85 mV** | 0.54 mV |
+| Total | 4.91 mV | 4.78 mV |
+
+*Limiting sections.* Bank 34: the trunk on one inner layer. In2 beside it would take 1.1 mV off; it was left free, see access. Bank 15: the one 0.22 mm B.Cu lane that carries four balls 10 mm into the field, and the In2 links behind it, which are thin copper. A second B.Cu row would lower it and take one more of the five rows the slot signals have left there; not taken.
+
+*Voltage budget per setting, worst ball of each bank.* The pin figures are those of the earlier entries, regulator at its low limit, copper at 85 C; the selector is the requirement of 20 mohm between the pads at 0.6 A, 12 mV, awaiting measurement; the copper is now the routed figure and no longer the 6 mV allowance.
+
+| Setting, case | At the pin, above the bank's minimum | Selector, required | Copper, routed | Left at the worst ball | Selector resistance for nothing left |
+|---|---:|---:|---:|---:|---:|
+| 2.5 V, bank 15, both exporting | 24.8 mV | 12 mV | 4.9 mV | **7.9 mV** (6.8 with the allowance) | 33 mohm |
+| 2.5 V, bank 15, J19 alone | 33.5 mV | 12 mV | 4.9 mV | 16.6 mV | 48 mohm |
+| 2.5 V, bank 34, both exporting | 23.1 mV | 12 mV | 4.7 mV | **6.4 mV** (5.1) | 31 mohm |
+| 2.5 V, bank 34, J20 alone | 31.8 mV | 12 mV | 4.7 mV | 15.1 mV | 45 mohm |
+| 1.8 V, bank 15, both exporting | 15 mV | 12 mV | 4.8 mV | **1.8 mV short** (3 short) | 17 mohm |
+| 1.8 V, bank 15, J19 alone | 20 mV | 12 mV | 4.8 mV | 3.2 mV | 25 mohm |
+| 1.8 V, bank 34, both exporting | 36 mV | 12 mV | 4.8 mV | 19.2 mV | 52 mohm |
+| 1.8 V, bank 34, J20 alone | 40 mV | 12 mV | 4.8 mV | 23.2 mV | 59 mohm |
+| 3.3 V, either bank | not drawn up | 12 mV | 4.9 and 4.7 mV | open | |
+
+The 3.3 V position is the one `ref/freya.xdc` assumes and has no figure at the pin: U12's cell and its connection to In3 are unrouted, 120 of 153 `+3V3` pads have no copper, and no entry carries U12's window to J19.1 or J20.1. Its copper beyond the pin is routed and inside the target; the rest is open.
+
+*Kept open, not changed to obtain a pass.* The selector's 20 mohm is a requirement, not a property: four-wire at the pads, as fitted, after 25 moves and at temperature. Bank 15 at 1.8 V with both selectors exporting closes only with a selector of 17 mohm or less, or with the repair of the `+1V8_IO` column beside J19 that the J19 entry names; it was 15 mohm with the allowance. **U14's hold stands: TPS62A0569APDRLR recommended and not fitted until loop stability into 113 uF plus 63.5 uF and no-load input current are measured.** U13 and U14's power-save rise at light load is not bounded by the datasheet, 5 to 18 mV by the earlier scaling, and comes out of the top of each window, which this copper does not touch. A load step of the 0.5 A export, loop stability and start-up are not analysed: this is DC closure. The bank's 0.1 A is an estimate and its even split over six balls an assumption.
+
+*Access, before and after.* Capacity as in the J19 entry: 0.20 mm tracks at 0.15 mm on a 0.35 mm grid, low by construction. Missing connections rebuilt from the saved copper, 569 before and 523 now on nets without a plane.
+
+| Place | Missing connections crossing | Before | After |
+|---|---:|---|---|
+| North band, y 122.4 to 125.8, 3 mm window | 51 | F.Cu 54, In2 146, via sites south 121 | F.Cu 54, In2 143, via sites south 114 |
+| North band, 7 mm window | | F.Cu 40, In2 135 | F.Cu 40, In2 128 |
+| Wall beside J3A and J3B, x 172.3 to 177.0 | 41 | F.Cu 28, In2 46, In5 46 | F.Cu 20, In2 46, In5 46 |
+| J5A and J5B pin field | 20 | F.Cu 28, In2 32, In5 32 | F.Cu 25, In2 29, In5 11: the trunk closes In5 east of the field from y 147.8 to 187.7 |
+| Strip under the `+2V5` east trunk, y 149 to 190 | 7 | F.Cu 24, In2 30, In5 30 | F.Cu 23, **In2 30**, In5 0 |
+| B.Cu band north of J7, y 186.4 to 188.6 | 12 | F.Cu 7, In2 7, In5 7, B.Cu 7 | F.Cu 6, In2 7, In5 7, B.Cu 0 |
+| B.Cu column under U9, x 193.2 to 195.6 | 7 | F.Cu 44, In2 61, In5 54, via sites west 85 | F.Cu 41, In2 56, In5 51, via sites west 55 |
+| In2 beside the PSRAM resistor vias, x 190.5 | 21 | In2 4, In5 3, B.Cu 0 | the same |
+| Bank 34 east face, rows 142.84 to 150.84: free 0.10 mm row lanes into the field, and of those open in front | 34 | In2 6 and 4, In5 7 and 5, B.Cu 9 and 6 | In2 6 and 4, In5 7 and 5, **B.Cu 5 and 4** |
+| Bank 15 west face, rows 146.84 to 154.84 | 38 | In2 0, In5 0, B.Cu 7 and 2 | In2 0, In5 0, **B.Cu 5 and 2** |
+
+What was done for it. The wall beside J3A and J3B keeps both inner layers: `VCCIO_1` passes it on F.Cu and takes eight F.Cu crossings at its south end. `VCCIO_2`'s trunk lies under a B.Cu trunk that already closed the layer, costs no via site there, and uses one inner layer: **In2 under the fuses of slots E to H stays free for the export buses**, which have no other layer there. No bar stands in front of either bank face: the bank 34 capacitors are fed along the rows, and bank 15's capacitor column is fed on In2, which has no row left at that face, so B.Cu in front of it is as open as it was. Both sense lines run where an existing trunk or lane already closes the layer. A first layout that did none of this measured 4.2 and 3.6 mV and was not kept.
+
+*For the owner, found on the way and not changed.*
+
+- **Bank 15's slot signals have five B.Cu rows at the west face and nothing else there.** 38 missing connections cross that face. In2 and In5 have no free row at that face, all taken by accepted PSRAM and SDRAM lanes; B.Cu had seven rows before this chunk and two are now `VCCIO_1`'s, the two its capacitor vias already stood on. This is older than this chunk and decides the slot A to D escape.
+- **C346 and C347 are connected but no longer decouple the bank.** No legal 0.2 mm link was found on In2, In5 or B.Cu from their reserved vias to the nearest ball vias, J17's and K14's, searched over x 203 to 218, y 147 to 163: accepted LINK, RGMII and SDRAM lanes fill the columns between. They hang on C367 by F.Cu, 11.5 mm and 22 mm with one In2 hop, and C367 on the trunk by 12 mm of 0.4 mm F.Cu. At 0.125 mm a 17 mm path with three more vias exists and was not taken. Bank 15's close capacitors are C342, C343 and C344; C345 joins C344 by 7 mm of 0.2 mm F.Cu under C340 and C338, the shortest legal link found; its reserved via is not used. Moving the three is the owner's call.
+- **At U24 the two capacitors stand on the wrong sides.** C221, the input capacitor, is under output pins 7 and 8, and C276, the output capacitor, under input pins 1 and 2; U23 has them the right way round. C221.1 is reached by the 0.3 mm track between C276's pads. Exchanging the two positions would correct it.
+- For the export chunk: 0.8 mm via sites and a 1.0 mm inner track are free beside U23's and U24's output pins and beside C273.1 and C276.1 (`reports/takeoff.txt`). A 1.0 mm track centred on pins 7 and 8 of either switch comes 0.125 mm from pin 6, so the EXT_2A width cannot land on those pads without a local rule.
+- `MON_1V0` on U7 pin 56 cannot pass on F.Cu between R199 and the `MON_1V8` track, 0.34 mm. `MON_VCCIO_1`'s first via stands at (195.02, 110.08) so that a via site remains at (195.02, 110.70) for it.
+
+*Planes and reservations.* 64 new vias, 28 on reserved sites and 36 on new ones. Every plane is one piece: In1, In4 and In6 lose 17.84 mm2 each, In3 `+3V3` 25.98 mm2 and the `+1V0` island 2.45 mm2. Of 140 pairs of an accepted track and a plane within 1.2 mm of a new via, none lost copper under its centre line or edges. At the reserved sites beside them the new plane openings come to 0.007 mm from the edges of `SDRAM_A3` and `SDRAM_BA1` on In5; not modelled. The reservation list is now `tmp/res_vccio.json` in the evidence folder, 471 vias: 28 of the 503 are real, and four sites are released, C345's two and the unused ones of C346.1 and C347.1. With reservations on scratch copies the board gives 33 errors before and 31 after; by type and net pair 19 signatures before and 18 after, none new, the missing one an SDRAM stub crossing that KiCad reports against a different neighbour from run to run; none names these nets.
+
+*Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Against it: 238 tracks and 64 vias added on `VCCIO_1`, `VCCIO_2`, `MON_VCCIO_1`, `MON_VCCIO_2` and `GND`, nothing removed, every existing track, via and footprint byte-identical, net table identical, header, stackup, rules, groups and drawings byte-identical, no zone outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected 945 to 873. By KiCad on each net alone: the four nets 0; `+2V5` 0 of 27, `+1V8` 0 of 18, `MON_1V8` 0 of 3, `+1V8_IO` 0 of 40, RGMII, management, LINK, SDRAM, PSRAM, MDI and the other PHY nets 0, HDMI 15, `+3V3` 120, `+1V0` 39, all as before; `GND` 193. Warnings below KiCad's 199 limit identical item for item; silkscreen compared in six cropped windows, identical. Smallest margin of any planned item 0.005 mm beyond the 0.15 mm rule. Tracks 2936 to 3174, vias 703 to 767. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree; every schematic, the netlist, project, rules and libraries unchanged by hash. The PCB editor had the board open while this was prepared; nothing was written until the owner closed it, the lock was gone and the board on disk was still byte-identical to the one validated against. No generator, placement tool or silkscreen updater was run.
+
+*Evidence.* `~/freyja-review/vccio-2026-11-06`: `README.md`, the three plans and their scripts, the commit and working boards, DRC reports, the DC results at 25 and 85 C with the path to the worst ball, corridor and row tables, `images/overview.png` and five detail figures. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
