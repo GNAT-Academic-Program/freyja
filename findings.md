@@ -106,6 +106,149 @@ above. The impedance reference still labels RGMII geometry as an estimate;
 FPGA power and prototype measurements remain qualifications, not cleanup fixes.
 Cleanup made no circuit or library edits.
 
+## 2026-11-07 FPGA datasheet/manual assessment
+
+A consolidated review of the XC7A100T-2FGG676I subsystem against the full AMD
+specification (DS181 + UG470/471/472/474/476/478/482/483) and all board docs.
+**No confirmed hard spec violation.** The I/O standard choices, config straps,
+decoupling and unused-GTP grounding are all approved AMD combinations. What
+follows are dated qualification gaps and notes, each small and separately
+actionable. None requires a schematic correction before the prototype.
+
+### 60. FIXED-at-review — no architectural blocker in the FPGA subsystem
+
+The topology is specification-correct: bank 13 @ 1.8 V (PSRAM + 5 V
+translators), bank 16 @ 2.5 V (RGMII + LVDS_25 with DIFF_TERM), bank 35 @ 3.3 V
+(TMDS_33 HDMI), banks 15/34 selectable, bank 14 @ 3.3 V (config). M[2:0]=001
+master SPI, CFGBVS=VCCO, CONFIG_VOLTAGE 3.3, SPIx4 in `ref/freya.xdc`. The
+UG483 Table 2-2 decoupling set is fitted. Both unused GTP quads follow UG482
+Tables 5-5/5-6. This is the baseline these findings assume.
+
+### 61. FIXED-at-review — decoupling, config strings, and pin allocation agree with the manuals
+
+`ref/decoupling.md` matches UG483 Table 2-2 counts; `tools/alloc.py` keeps the
+three input clocks (SYS_CLK, PHY_RXC, LINK receives) on MRCC/SRCC pins and
+verifies the whole allocation to a routed bitstream via `gateware/gate`.
+`CFGBVS=VCCO` with bank-14 VCCO at +3V3 is self-consistent. No change required.
+
+### 62. open — VCCO vs VCCAUX sequencing must be scoped at Tj=125 °C
+
+DS181 Table 7 limits VCCO−VCCAUX ≤ 2.625 V for 3.3 V HR banks beyond the per-cycle
+allowance (500 ms at 100 °C; **no stated allowance at 125 °C**). The rails are
+always-on and co-sourced, so normal operation is safe, but measure the
+power-down / recovery / blank-flash case on the prototype with a scope at
+Tj=125 °C and confirm discharge against the bound (findings 34's open item).
+
+### 63. open — replace the FPGA power estimates with AMD XPE
+
+`power-budget.md` plans 2.0 A VCCINT and 0.18 A VCCAUX+VCCADC as estimates. The
+fitted 4 A core rail is comfortable, but run AMD XPE on a representative busy
+design and replace the numbers before fab sign-off. The 1 V rail has little
+steady-state margin after tolerances and copper, so XPE is the correct evidence.
+
+### 64. open — qualify the regulator output networks (findings 40)
+
+U13/U14/U16 (and U15 at ~507 µF for +1V0) carry output capacitance beyond their
+vendor's example tables. This is a control-loop qualification gap, not
+instability; verify startup, load step and loop phase margin at every jumper
+position without removing FPGA decoupling.
+
+### 65. open — bank 16 SSO: FAST RGMII coexists with LVDS_25 receivers
+
+UG471's "combine standards in a bank / SSO" governs the mix of FAST-slew RGMII
+and sensitive LVDS_25 link inputs on bank 16. Keep the LVDS pairs on solid 2.5 V
+and GND returns away from the switching RGMII I/O, and verify the bank plane can
+source the SSO transient without disturbing the LVDS_25 receiver common-mode.
+Recommendation: consider SLOW slew for the LVDS drivers if the link rate allows.
+
+### 66. open — ODELAY unavailable in HR banks; use IDELAY for receive tuning
+
+UG471 Table 1-1: ODELAY is N/A in HR banks. This board is all HR, so PSRAM
+(SDRAM) transmit skew must be built with ODDR + MMCM phase, and receive tuning
+must use IDELAYE2. RGMII is handled by the PHY's strapped 2 ns delays. Add this
+IDELAY-yes/ODELAY-no note to `ref/psram.md` and the gateware notes.
+
+### 67. open — interface timing budgets are not yet defined (findings 47)
+
+The Vivado gate is deliberately false-pathed, so it proves legal balls/IO, not
+I/O timing. Define real budgets (flight time, clock-to-data, setup/hold, skew,
+allowed via/layer changes) for PSRAM, SDRAM, RGMII, LVDS and HDMI before sign-off.
+RGMII requires manual length-matching (TXC↔TXD/TX_CTL, RXC↔RXD/RX_CTL); the
+harness has no bus-skew rule.
+
+### 68. open — LVDS link absolute-swing rule is a real constraint, not caution
+
+DC-coupled LVDS_25 bounded by DS181 VIN (−0.2 to VCCO+0.55 V) and UG471's receive
+VICM window. The far board must be powered before connecting (link-ports.md
+rule). Reinforce this at the receiver-differential level and keep the STP-only,
+both-boards-powered requirement.
+
+### 69. open — inner-layer impedance and USB 90 Ω need closing
+
+The 100 Ω differential geometry is outer-layer only (LVDS_100R/MDI_100R forbid
+inner-layer pair tracks). The RGMII/SDRAM 0.125 mm is an outer-layer estimate (no
+JLC single-ended run exists). The USB-C pair has no dedicated net class. Run JLC's
+single-ended calculator, recalibrate any pair moved inner, and add a USB 90 Ω
+class if the USB pair is routed differentially.
+
+### 70. open — BGA escape depth must be trial-routed
+
+80 assigned signal balls sit at depth ≥ 7 (63 are allocation choices). With the
+three inner signal layers plus F.Cu, escape is plausible but untrialled. Trial-
+route the dense PSRAM (24 signals) and core-supply corridors, reserving the
+power-door columns for core power.
+
+### 71. note — unmeasured +1V2_MGT is acceptable only while GTP unused
+
+No GTP load and no telemetry on the 1.2 V MGT rail (findings 50). Fine for a
+static powered quad; becomes a qualification item if GTP is ever used.
+
+### 72. option — ground the unused GTP group to remove U16
+
+UG482 Table 5-4 permits grounding MGTAVCC/MGTAVTT/MGTRREF and removing the
+associated regulator/filtering. Worth evaluating if rev A truly never uses GTP.
+Do not ground only one supply or mix the two prescribed schemes.
+
+### 73. doc — fold the gateware boot obligations together
+
+PSRAM 150 µs wait + 66h/99h reset, PHY 10 ms reset then 72 ms before MDIO,
+SDRAM ODDR forwarded clock, LVDS IBUFDS/DIFF_TERM, HDMI OBUFDS TMDS_33, SD_CD
+PULLUP currently live across several docs. Consolidate these in one gateware
+note so the bridge from board to a working bitstream is explicit.
+
+### 74. doc — reconcile remaining stale prose (findings 48)
+
+`user-manual.md` still calls the network edge "top" and offers full export on
+PD9; `floorplan.md` retains an outdated left-side X4 description. Bring these in
+step with the current city placement during normal documentation cleanup.
+
+### 75. note — VCCBATT is tied to GND: deliberate, but record the key-retention consequence
+
+`tools/gen_sch.py` maps `VCCBATT_0` (ball G14) to GND (`RAIL VCCBATT = GND`).
+On 7-series this is a valid, standard configuration, but it has a specific
+consequence worth writing down rather than leaving incidental: it disables the
+**battery-backed** bitstream decryption key retention. The volatile
+(unencrypted / no battery) key area is used instead, so any AES-decrypt key
+cannot survive power-off without an external battery on VCCBATT. For an open FPGA
+development board this is almost certainly the intended position (bitstreams are
+not typically encrypted on a hobby/teaching board), and it is not a defect —
+the pins and `ballmap.md` correctly list `VCCBATT_0` at G14. Record the decision
+in `ref/ballmap.md` or `parts-guide.md` so a future revision does not
+incidentally re-expect keys to survive power loss. No wiring change required.
+
+### 76. VERIFIED-SAFE at review — the unpowered-bank-16 RGMII case is inherently gated
+
+Considered as a candidate finding: in recovery bank 16 (VCCO = +2V5) is off
+(`EN_2V5` from the supervisor, 100k pulldown), while the PHY's RGMII I/O may be
+driven. Checked against the actual wiring, this is **safe by construction**:
+the PHY's `DVDD_RG` (the RGMII/MDIO pad supply) is on the **same +2V5 rail
+(`V25`) as bank 16** (`design.py` U30: `DVDD_RG = V25`, `VCCO_16 = +2V5`), and
+`PHYRSTB` is held low (1k pulldown, Table 53 note 5 case II) until +2V5 is up.
+So the PHY's RGMII outputs cannot be actively driven high into an unpowered
+bank 16; the two sides power together. This is **not** the LBDS-link case
+(findings 68), where the far side is an independently powered source. Closed at
+review; no action required.
+
 ## Dated review record — historical
 
 Everything below records earlier revisions, including completed tasks and
