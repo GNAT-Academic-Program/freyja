@@ -21,6 +21,23 @@
   (layer "F.Cu")
   (condition "A.Type == 'Track' && A.NetName == '+5V_BUCK' && A.enclosedByArea('U11_SENSE')")
   (constraint track_width (min 0.2mm) (opt 0.2mm)))
+# U34's input pins: a +5V_BUCK or VBUS track on F.Cu wholly inside U34_NECK_IN2 or
+# U34_NECK_IN1, the pin's own neck, may be 0.5 mm: the 0.40 mm pin has another net 0.30 mm
+# away on both sides, so the class width cannot reach it. Everything beyond the neck keeps "input path 3A".
+(rule "U34 input pin necks"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && (A.NetName == '+5V_BUCK' || A.NetName == 'VBUS') && (A.enclosedByArea('U34_NECK_IN2') || A.enclosedByArea('U34_NECK_IN1'))")
+  (constraint track_width (min 0.5mm) (opt 0.5mm)))
+# U34's VBUS divider taps (R162.1, R164.1, 50 uA each): VBUS tracks wholly inside U34_VBUS_TAPS (F.Cu) or
+# U34_VBUS_TAPS_IN2 (In2) may be 0.25 mm. The areas hold nothing but the taps.
+(rule "U34 VBUS divider taps"
+  (condition "A.Type == 'Track' && A.NetName == 'VBUS' && (A.enclosedByArea('U34_VBUS_TAPS') || A.enclosedByArea('U34_VBUS_TAPS_IN2'))")
+  (constraint track_width (min 0.25mm) (opt 0.25mm)))
+# Q7's gate divider reads VIN_EXT through R201 (100k, 0.2 mA at 21 V): a VIN_EXT track wholly inside VIN_EXT_TAP,
+# the 0.5 mm strip along that one route, may be 0.2 mm. The input path from J50 keeps "input path 3A".
+(rule "VIN_EXT tap to Q7's divider"
+  (condition "A.Type == 'Track' && A.NetName == 'VIN_EXT' && A.enclosedByArea('VIN_EXT_TAP')")
+  (constraint track_width (min 0.2mm) (opt 0.2mm)))
 # RGMII: about 50 ohm on all four signal layers. Timing is set by the derived
 # delay limits in gateware/rgmii1000, not by equal lengths. The U30 side of each
 # TX resistor is in this class too.

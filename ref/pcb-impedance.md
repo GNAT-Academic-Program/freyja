@@ -161,6 +161,18 @@ any other layer and the same track outside the area keep 1.5 mm. Without the are
 rule never applies and the branch fails. The rule follows `input path 3A` in the file
 because KiCad lets the later rule win. See [findings](../findings.md).
 
+**U34 exceptions (2026-11-09).** U34's IN1 (`VBUS`) and IN2 (`+5V_BUCK`) are 0.40 x 1.05 mm
+pins with a pin of another net 0.30 mm away on both sides, so no 1.5 mm copper can touch
+them. `U34 input pin necks` allows 0.5 mm for a `VBUS` or `+5V_BUCK` track on F.Cu wholly
+inside `U34_NECK_IN1` or `U34_NECK_IN2`, the pin's own neck into the 1.5 mm copper and the
+0.8 mm via beside it. `U34 VBUS divider taps` allows 0.25 mm for `VBUS` wholly inside
+`U34_VBUS_TAPS` (F.Cu stubs into R162.1 and R164.1) or `U34_VBUS_TAPS_IN2` (the In2 hop from
+the IN1 via): the two 100k dividers draw 50 uA each. `VIN_EXT tap to Q7's divider` allows
+0.2 mm for `VIN_EXT` wholly inside `VIN_EXT_TAP`, the 0.5 mm strip on F.Cu and In5 from D8.1
+to R201.1 (0.2 mA at 21 V). Every other track on those nets, the same tracks outside the
+areas and every other PWR_3A net keep 1.5 mm; clearances are unchanged. Tests: evidence
+`~/freyja-review/u34-2026-11-09/reports/ruletests.txt`.
+
 Inner-layer tracks are prohibited for the 100 Ω classes because the geometry
 is calculated only for the outer layers. Plane transitions still need ground
 stitching vias beside the signal vias. Board minimum track width is

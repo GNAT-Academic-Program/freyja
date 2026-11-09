@@ -46,10 +46,10 @@ This manual is for using the board. If you are designing an extension, read
 6. Plug in one simple extension and test it before adding the next.
 
 Use a USB-PD charger of 27 W or more (9 V at 3 A) when the board carries
-displays, speakers or motors: that carries the extension rails, all but
-about one watt of them at once. A
-15 W charger or a 3 A computer port runs the whole board with light
-extensions; a plain 500 mA port runs the board controller alone.
+displays, speakers or motors: that carries the extension rails. Export
+budget not qualified for rev A. A 15 W charger or a 3 A computer port runs
+the whole board with light extensions; a plain 500 mA port runs the board
+controller alone.
 
 Odin asks USB-C for 5 V by default and for 9 V only once the board controller
 is running and has decided to; its pins cannot form any higher request.
@@ -67,8 +67,8 @@ power. Connect **9–21 V** to the pin marked `+` and supply ground to `GND`.
 USB-C may remain connected; while the optional input is powered, Odin runs
 from it and uses USB only to talk to the computer. Never exceed 21 V.
 Full extension power (every connector rail loaded at once) needs this
-input; a 27 W USB-PD charger carries all but about one watt of it, a 15 W
-charger the board and part of the extensions. See [power-budget.md](power-budget.md).
+input. Export budget not qualified for rev A; a 15 W charger carries the
+board and part of the extensions. See [power-budget.md](power-budget.md).
 
 ## The extension idea, from zero
 

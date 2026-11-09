@@ -35,9 +35,8 @@ the PD power rules), PD_STATUS1 what a plain Type-C source advertises at
 5 V (default, 1.5 A, 2.4 A or 3 A), VBUS5_ST says which input feeds +5V,
 MON_VSYS says J50 is present. Since 2026-11-03 the budget plans on firmware
 reading those registers: a 5 V source is 500 mA until PD_STATUS1 says 1.5 A
-or 3 A, a 9 V contract carries what PD_STATUS0 reports (15 W floor; at 27 W
-full export less about 1 W, the board's input limiter guarantees no more);
-see [power-budget.md](power-budget.md).
+or 3 A, a 9 V contract carries what PD_STATUS0 reports (15 W floor; export
+budget not qualified for rev A); see [power-budget.md](power-budget.md).
 
 J68 AUX IN is a separate 9-28 V raw input feeding `AUX_RAIL` and the ten
 slot AUX branch PTCs, nothing else. It does not power the supervisor or

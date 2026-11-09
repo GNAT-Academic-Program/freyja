@@ -42,9 +42,9 @@ active reverse blocking. Do not backfeed any connector power pin. The input
 envelope per source profile and operating mode is in
 [power-budget.md](power-budget.md): a plain USB 2.0 port carries the
 controller alone, a 3 A Type-C port or a 15 W PD charger the whole board,
-J50 the full extension export, and a 27 W PD charger (9 V at 3 A) all of
-it but about 1 W. USB into VSYS is limited by U26 at about 3 A (29.4k,
-2.79 A guaranteed), and full export from 9 V is 2.9 A.
+J50 the full extension export. Export budget not qualified for rev A. USB
+into VSYS is limited by U26 at about 3 A (29.4k, 2.79 A guaranteed), and
+full export from 9 V is 2.9 A.
 
 ## VIN and VSYS component audit
 
