@@ -23,7 +23,10 @@ and 561 placed footprints including four board-only mounting holes. All
 assembly is on F.Cu. **Routing is unfinished.** All four PSRAM ports, their
 ground connections and return stitching, the `+1V8_IO` distribution, the SDRAM,
 the four HDMI pairs, LINK P and Q, the four Ethernet pairs and U30's local supplies,
-straps and crystal are on the board; counts and open issues are in
+straps and crystal are on the board, and since 2026-11-09 the regulator cells
+U11 to U15, the `+1V0`, `+1V8`, `+2V5`, `VCCIO_1` and `VCCIO_2` distributions,
+U34's source-select cell with its control lines, the `+5V` distribution and
+its monitor; counts, the remaining-net inventory and open issues are in
 [current findings](findings.md). The gate reports DRC and unrouted items
 without gating them, so a passing gate is not a fabrication pass.
 
