@@ -1515,7 +1515,7 @@ What was done for it. The wall beside J3A and J3B keeps both inner layers: `VCCI
 - *Corrected 2026-11-09, entry "Four capacitors corrected" below: both now stand over the In2 feeder at the south-west corner of U1.* **C346 and C347 are connected but no longer decouple the bank.** No legal 0.2 mm link was found on In2, In5 or B.Cu from their reserved vias to the nearest ball vias, J17's and K14's, searched over x 203 to 218, y 147 to 163: accepted LINK, RGMII and SDRAM lanes fill the columns between. They hang on C367 by F.Cu, 11.5 mm and 22 mm with one In2 hop, and C367 on the trunk by 12 mm of 0.4 mm F.Cu. At 0.125 mm a 17 mm path with three more vias exists and was not taken. Bank 15's close capacitors are C342, C343 and C344; C345 joins C344 by 7 mm of 0.2 mm F.Cu under C340 and C338, the shortest legal link found; its reserved via is not used. Moving the three is the owner's call.
 - *Corrected 2026-11-09, same entry; exchanging the two would not have been enough, both stood at the wrong end of the package as well.* **At U24 the two capacitors stand on the wrong sides.** C221, the input capacitor, is under output pins 7 and 8, and C276, the output capacitor, under input pins 1 and 2; U23 has them the right way round. C221.1 is reached by the 0.3 mm track between C276's pads. Exchanging the two positions would correct it.
 - For the export chunk: 0.8 mm via sites and a 1.0 mm inner track are free beside U23's and U24's output pins and beside C273.1 and C276.1 (`reports/takeoff.txt`). A 1.0 mm track centred on pins 7 and 8 of either switch comes 0.125 mm from pin 6, so the EXT_2A width cannot land on those pads without a local rule. *At U24 this is now done within the rule, entry of 2026-11-09 below: a 1.0 mm patch over pins 7 and 8 and two 0.8 mm vias; the sites named here beside C276.1 no longer apply, C276 has moved.*
-- `MON_1V0` on U7 pin 56 cannot pass on F.Cu between R199 and the `MON_1V8` track, 0.34 mm. `MON_VCCIO_1`'s first via stands at (195.02, 110.08) so that a via site remains at (195.02, 110.70) for it.
+- `MON_1V0` on U7 pin 56 cannot pass on F.Cu between R199 and the `MON_1V8` track, 0.34 mm. `MON_VCCIO_1`'s first via stands at (195.02, 110.08) so that a via site remains at (195.02, 110.70) for it. *That site cannot be reached from pin 56 on F.Cu; `MON_1V0` is routed on In5 from a via inside U7's pad ring, entry of 2026-11-09, `+1V0` distribution.*
 
 *Planes and reservations.* 64 new vias, 28 on reserved sites and 36 on new ones. Every plane is one piece: In1, In4 and In6 lose 17.84 mm2 each, In3 `+3V3` 25.98 mm2 and the `+1V0` island 2.45 mm2. Of 140 pairs of an accepted track and a plane within 1.2 mm of a new via, none lost copper under its centre line or edges. At the reserved sites beside them the new plane openings come to 0.007 mm from the edges of `SDRAM_A3` and `SDRAM_BA1` on In5; not modelled. The reservation list is now `tmp/res_vccio.json` in the evidence folder, 471 vias: 28 of the 503 are real, and four sites are released, C345's two and the unused ones of C346.1 and C347.1. With reservations on scratch copies the board gives 33 errors before and 31 after; by type and net pair 19 signatures before and 18 after, none new, the missing one an SDRAM stub crossing that KiCad reports against a different neighbour from run to run; none names these nets.
 
@@ -1605,7 +1605,7 @@ Bank 15 gains 0.08 mV because C346's and C347's links lie in parallel with the f
 
 *Evidence.* `~/freyja-review/caps-2026-11-09`: `README.md`, the two plans and their scripts, commit and working boards, DRC reports, paths before and after (`reports/loops.txt`), DC results at 25 and 85 C, what is left for the later nets (`reports/later.txt`), corridor and row tables, UG483 v1.14 as downloaded, `images/close_up.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
-**U15's cell routed: `+5V` to `+1V0`, the FPGA core regulator (2026-11-09).** SW, bootstrap, feedback and enable are complete, the cell's input and output nodes and its seven grounds are connected, and the output reaches the `+1V0` island on In3 through six vias. Six passives moved; U15, L7, C212 and R94 did not. R67 and R68 are now 0.1 %, same values. Global `+5V` and the core fanout are not routed. **Start-up, load step and loop stability into this output network are not established by any of this and stay a bench hold.**
+**U15's cell routed: `+5V` to `+1V0`, the FPGA core regulator (2026-11-09).** SW, bootstrap, feedback and enable are complete, the cell's input and output nodes and its seven grounds are connected, and the output reaches the `+1V0` island on In3 through six vias. Six passives moved; U15, L7, C212 and R94 did not. R67 and R68 are now 0.1 %, same values. Global `+5V` and the core fanout are not routed. **Start-up, load step and loop stability into this output network are not established by any of this and stay a bench hold.** *The core fanout is the next entry; the feedback takeoff described here has since moved to V10's ball via, and the budget and the 330 uF branch figure below are replaced there.*
 
 *Preflight.*
 
@@ -1689,6 +1689,95 @@ Two thirds of it is inside the ball field, where the island is perforated. VCCIN
 *Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Routing was accepted against the unchanged schematic, then the board was synced to the new netlist with the silkscreen updater held back: 0 footprints moved by the sync, R67 and R68 differ in value, description and part number and in nothing else. Against the starting board: six footprints moved, same footprint, side, pads and pad nets; 40 tracks and 19 vias added on the cell's nets and `GND`, nothing removed; every other footprint, track and via byte-identical, net table, stackup, rules, groups and drawings byte-identical, no zone outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected 870 to 851. Every tracked group unchanged, `VCCIO_1` and `VCCIO_2` 22 of 22. Smallest margin of a planned item 0.012 mm beyond the rule, the Kelvin track beside C285. Tracks 3175 to 3215, vias 769 to 788. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. Regenerated from `tools/design.py`: `power.kicad_sch`, `odin.net`, the BOM, the parts guide and the stock list; every other sheet, the project, rules and libraries unchanged by hash. No KiCad process and no lock before or after. No placement generator or silkscreen updater was run; the moves are in `tmp/plan_A.json`.
 
 *Evidence.* `~/freyja-review/u15-2026-11-09`: `README.md`, plans and scripts, routed, commit and working boards, DRC reports, the island solution at 25 and 85 C, the loop comparison, SLVA546, SLVSDJ7B, DS181, the library snapshot, `images/close_up.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
+
+**`+1V0` distribution routed: the island to the 17 core balls, its capacitors and the monitor (2026-11-09).** All 40 pads on `+1V0` and all 3 on `MON_1V0` connect, and the 18 capacitor ground pads that had no copper reach the planes. The feedback takeoff moved from the island's north-east bay to V10's ball via, the first VCCINT ball on the feed side. With 2.05 A and copper at 85 C the worst ball is at **0.9650 V, 15.0 mV above 0.95 V, with the ground return counted**; at the old takeoff it would have been 6.8 mV. At light load every ball is at the takeoff, 1.0157 V at most, 34.3 mV below 1.05 V. No footprint moved; U15's label moved clear of the cell. Global `+5V` is not routed. **Start-up, load step and loop stability stay a bench hold; nothing here closes them.**
+
+*Endpoints, from the board and the netlist.* 40 nodes in `odin.net`, 40 pads on the board, the same set: 17 balls, 20 capacitors, L7.1, R67.1, R88.1. Before this chunk L7.1, C211.1, C212.1 and R67.1 were on copper. `MON_1V0`: R88.2, C230.1, U7 pin 56, none connected.
+
+| Group | Pads | How |
+|---|---|---|
+| VCCINT balls J11 J13 K10 K12 L11 L13 M10 P10 T10 T12 U11 V10 V12 | 13 | reserved dogbones, 0.2 mm, each on its own via into the island |
+| VCCBRAM balls N13 R13 U13 W13 | 4 | the same |
+| C302 to C306, C310, C311, C313 to C315, C317, C318 | 12 | reserved vias; stubs 0.4 mm where 0.2 mm was reserved |
+| C316, 100 uF | 1 | reserved via and a second 1.0 mm west of it, 0.6 mm from the pad |
+| C301, 330 uF | 1 | the revised reserved landing (211.5, 174.5), clear of LINK, and a second via at (211.45, 173.55), 0.6 mm from the pad |
+| C312, west of the outline | 1 | 7.7 mm of 0.6 mm F.Cu to C302.1 |
+| C309, C307, C308, east of the outline | 3 | one In2 lane from U11's ball via, then In2 to a via at each |
+| L7.1, C211.1, C212.1 | 3 | the cell, unchanged |
+| R67.1 | 1 | the new sense line, below |
+| R88.1 | 1 | 8.4 mm of 0.2 mm F.Cu from L7.1's pad, no via |
+| `MON_1V0` | 3 of 3 | via inside U7's pad ring, In5 to C230.1, In5 to R88.2 |
+| Capacitor grounds | 18 | C301 to C318, a via each: 16 reserved sites, of which C314's already held a ground via, and two new for C307 and C308 |
+
+*Outside the outline.* Four capacitors stand where the island is not, and the outline was kept.
+
+- **C312**, 6.9 mm west. Its reserved via at (196.15, 164.14) has no island under it and is released. The capacitor joins C302.1 on F.Cu and shares C302's via; no second via site exists beside C302.
+- **C309, C307, C308**, 7 to 13 mm east. One 0.22 mm lane on In2 along ball row 141.84, from U11's ball via at (215.7, 142.34) to C309's reserved via, 12.6 mm; then 0.3 mm on In2 to a via west of C307.1 at (230.6, 136.55) and to C308. The lane is 80 mohm, so these three are the weakest decouplers on the rail by a wide margin: that is their placement, not something copper can mend.
+- **C308 is enclosed on F.Cu by `VCCIO_2`** on three sides, 0.23 mm from its pads. Its via stands between its own pads, against pad 1, at (232.2, 142.73): 0.20 mm from the ground pad, tented, under the body. This is the one landing here that wants the fabricator's eye. The alternative was to move accepted `VCCIO_2` copper.
+- **`MON_1V0`.** U7 pin 56 has no way out on F.Cu: the `MON_VCCIO_1` and `MON_1V8` tracks close in front of it with 0.145 mm between them. The via site kept at (195.02, 110.70) for it in the VCCIO entry cannot be reached from the pin, and is not used. The net leaves west into the pad ring, a via at (191.25, 111.3), 5.2 mm on In5 to a via at C230.1, 7.4 mm on In5 to a via at R88.2. In5 was empty there.
+- **R88.1** takes the cell's output node at L7.1's pad, so the supervisor reads the regulator's output, 11 mV above the takeoff at full load.
+
+*Vias, fill, necks.* 43 vias on `+1V0`. 39 stand in the island's fill, each with copper all round it 0.10 mm outside its pad, on the board and on the stress copy. KiCad joins vias to a zone solidly; thermal spokes exist only at pads, and no `+1V0` pad is on In3, so there are none. The other four are outside the fill on purpose: the sense via and the three east capacitors on their In2 feeder. The island is one piece, 639.0 to 634.5 mm2, the difference being ground vias. Copper width across it, row by row, with every reserved via of the other nets in place: 3.9 mm of the outline's 8.0 at the north-face via row, **2.3 mm of 6.0 inside the core block at y 145.24**, 2.2 mm of 7.0 at the south-face row, where only capacitor current passes. The voltage figures below are solved from that fill, so these necks are in them.
+
+*Feedback takeoff, compared.* Same model for every row: 2.05 A, 85 C, the ground return below included.
+
+| Feedback taken at | Below the cell's output node | Worst VCCINT ball below it | Left above 0.95 V | If In1 alone carried the return |
+|---|---:|---:|---:|---:|
+| Old site, (220.1, 121.95), north-east bay | 3.2 mV | 13.4 mV | 6.8 mV | 4.0 mV |
+| C304's via at the north face, F.Cu only | 5.2 mV | 11.4 mV | 8.9 mV | 6.1 mV |
+| Island neck, (219.7, 138.34) | 8.5 mV | 8.1 mV | 12.1 mV | 9.3 mV |
+| **V10's ball via, as routed** | **11.3 mV** | **5.3 mV** | **15.0 mV** | **12.2 mV** |
+| T10's via | 12.7 mV | 3.9 mV | 16.3 mV | 13.6 mV |
+| P10's via | 14.1 mV | 2.5 mV | 17.7 mV | 14.9 mV |
+| M10's via | 15.4 mV | 1.2 mV | 19.0 mV | 16.3 mV |
+
+The old site does not meet 10 mV once the ground return and the real split of the load are counted, and the north face does not either. V10 is the first site that meets it under the harsher ground figure as well, and the last that needs no lane inside the core block: T10, P10 and M10 cost a lane down ball column 217.2 past the configuration balls for 1.3 to 4 mV.
+
+Route: R67.1, 9.7 mm of 0.15 mm F.Cu south beside C304, a via at (221.5, 132.7), then 12.7 mm of 0.125 mm on In2 down ball column 221.2 and along row 140.84 into V10's via. The via stands 0.28 mm outside the island's fill: a `+1V0` via inside the outline joins the island where it stands and would itself be the takeoff. The line carries 76 uA through 0.18 ohm. It touches `+1V0` copper at V10's via only: the smallest gap to other `+1V0` copper on its layers is 0.33 mm, and with its last segment deleted KiCad drops R67.1 from the net. The old via and its two track segments are removed. The VFB node, R67, R68 and the feedback ground track to pin 1's pad are untouched.
+
+*Static budget at the balls.* Load from `tools/budget.py`: 2.000 A VCCINT, a planning allowance, over its 13 balls, 0.154 A each; 0.050 A VCCBRAM over its 4, 0.0125 A each; evenly within each rail, an assumption. The island as a sheet from its fill on the stress copy, 15.2 um, 0.05 mm raster; each of the six output vias and each ball via as a barrel, 1.5 mohm from F.Cu to In3 with 18 um plating assumed; each dogbone 1.5 mohm.
+
+| 85 C, 2.05 A | |
+|---|---|
+| Regulator at the takeoff, 0.1 % divider, 60 K of drift | 0.9741 / 0.9948 / 1.0157 V |
+| Takeoff below the cell's output node | 11.3 mV |
+| VCCINT balls below the takeoff | 0.5 to 5.3 mV, worst J11 |
+| VCCBRAM balls | 0.7 mV above (W13) to 3.4 mV below (N13) |
+| Ground balls of the core block above U15 pin 1's pad | 3.3 to 3.8 mV |
+| **Loaded minimum, worst VCCINT ball** | **0.9650 V, 15.0 mV above 0.95 V** |
+| Loaded minimum, worst VCCBRAM ball | 0.9668 V, 16.8 mV |
+| **Light-load maximum, every ball** | **1.0157 V, 34.3 mV below 1.05 V** |
+| Copper at 25 C | 16.7 mV left |
+
+- *Ground return: included, and bounded separately.* The regulator holds the takeoff against pin 1's pad, where the feedback ground is taken, so what the return current drops between the FPGA's ground balls and that pad comes off the ball voltage. Solved with In1, In4 and In6 as sheets from their fills, joined at the 202 ground vias between the cell and the BGA, all 2.05 A entering at the 28 ground balls of the core block and returned to pin 1: 3.3 to 3.8 mV. In fact the share that flows while the high-side switch is on, about a fifth, returns to the `+5V` source instead. With In1 alone and the other two planes absent, 6.6 mV: that is the bound, and the last column of the table above. **1.65 mV of the 3.8 is pin 1's 0.85 mm strip and its three vias**, inside the accepted cell and outside the Kelvin point.
+- *Light load.* No drop on either side, so the maximum is the regulator's. The TPS564201 skips pulses at light load, which raises the mean by about half a pulse's ripple: 0.3 mV with the whole network, 3 mV if the cell's 44 uF took the pulse alone. Arithmetic, not a datasheet bound. Under load the highest ball, W13, is 0.7 mV above the takeoff less the ground figure, below the light-load case.
+- *How firm.* Split evenly over all 17 balls instead, the worst ball is 4.7 mV below the takeoff; on the board as it stands today, without the reserved vias, 4.8 mV. Each further ampere costs 4.4 mV at the worst ball.
+- *What limits it now.* On the supply side the perforated core block, 2.3 mm of copper across; on the ground side pin 1's strip and vias. The target is met, so no setpoint or power-stage change was made or is proposed.
+
+*The 330 uF branch, as routed.* Island from the cell's output node to C301's two vias: **17.3 mohm at 85 C**, 14.0 mohm at 25 C. Two barrels in parallel 0.8 mohm, F.Cu between the vias and the pad 0.15 mohm: 18.2 mohm before the part's own ESR, 25 mohm at most. From the load's balls to C301, 8.6 mohm. The U15 entry's "7.3 mohm of plane away" was the potential at C301 under load divided by the load current, which is only the part of the path the load shares, 7.8 mohm by this solution; it is not the branch's resistance, and it is corrected here. Nothing was sized to a stability figure.
+
+The same borrowed model as before, TI's SLVA546 with the TPS54325's parameters, was rerun on the routed network as a resistive multiport, capacitor by capacitor (`scripts/loop2.py`). Feedback at V10's via: 42 to 46 degrees for a polymer ESR of 6 to 25 mohm, crossing at 28 to 35 kHz; 39.5 to 47.6 with the stand-in gain halved or doubled or the zero moved; 21 without the polymer. At the old site the same network gives 47 to 50, at the cell's output node 49 to 53. So the load-side takeoff costs 2 to 7 degrees in this model and stays above TI's own lowest-pole corner under the same assumption, 28. The parameters are another part's: this compares takeoffs, it qualifies nothing.
+
+*Access.* Tables before and after in `reports/corridors_*.txt`.
+
+- *East of the island, y 133 to 142.* The sense lane and the east lane are both on In2, side by side, so In5 is whole there. Across ball column 221.2: In2 11 lanes to 0, In5 11 kept, for 6 connections that cross by straight line, `CFG_M0`, `CFG_M1`, `CFG_M2`, `CFG_INIT_B`, `JTAG_TCK`, `JTAG_TMS`. At the east face north of bank 34: In2 13 to 8, In5 8 and B.Cu 9 kept, for 13.
+- *Bank faces.* Bank 34 east face In2 6, In5 7, B.Cu 5; bank 15 west face In2 0, In5 0, B.Cu 5: both unchanged.
+- *C312's link.* It closes the one F.Cu lane that passed the `+2V5` capacitor row between x 196.6 and 203.3: F.Cu 1 to 0, In2 3 kept, In5 and B.Cu 0 as before. Nine `BUS5V0` connections cross there by straight line and four lanes did not carry them before either. F.Cu was the layer with least to lose; In2 has the three lanes, In5 the LINK lanes, B.Cu the `+2V5` trunk.
+- *North band.* 3 mm window: F.Cu 46 to 48, In2 139 to 141, the old sense via being gone; 7 mm window: In2 128 to 125, F.Cu 34 to 36; 51 crossings. Every other table identical.
+
+*Planes, reservations, silkscreen.* 57 vias: 47 on reserved sites and 10 on new ones. Every plane one piece. In1, In4 and In6 lose 17.8 mm2 each, `+3V3` 6.1 mm2. Of 260 pairs of an accepted track and a plane within 1.2 mm of a new via, none lost copper beneath it. The two vias at C301 are 0.95 mm apart and their openings do not merge. Reservations 471 to 422, 48 used and C312.1's released: `tmp/res_core.json`. Stress copies 31 errors before and 33 after, all between x 199.7 and 203.2, y 143.8 and 145.8, the known SDRAM stubs, KiCad naming other members of the same overlaps; none names `+1V0` or `MON_1V0`. U15's "1V0 SUPPLY / FPGA CORE" label moved from across the cell to (199.4, 123.9), south-west of it: six silk overlaps and one silk-over-copper warning gone, nothing new in five cropped windows. `update_silkscreen.py` would put it back.
+
+*Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Against it: 84 tracks and 57 vias added on `+1V0`, `MON_1V0` and `GND`; 2 tracks and 1 via removed, the old sense; U15 differs in one line, its label's position; every other footprint, track and via byte-identical; net table, stackup, rules, groups and drawings byte-identical; no zone outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected 851 to 795. Every tracked group unchanged; `GND` 185 to 167 without copper. Smallest margin of a planned item 0.002 mm beyond the rule, C314.1's reserved via beside `PHY_MDIO`. Tracks 3215 to 3297, vias 788 to 844. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. Schematic, netlist, project, rules and libraries unchanged by hash. No KiCad process and no lock before or after. No generator, placement tool or silkscreen updater was run.
+
+*Still open.*
+
+- Start-up into the full bank, load step at the core capacitors, loop margin: the bench hold of the U15 entry, unchanged. The takeoff is now 5.5 mohm of island behind the cell's 44 uF, which the bench should know.
+- The 2.000 A is a planning allowance, not an XPE result; the split within each rail is assumed even; barrel plating is assumed 18 um.
+- Global `+5V`: the entry points of the U15 entry stand, two via sites at (210.85, 121.0) and (210.85, 121.8).
+- C308's via between its pads, for the fabricator.
+- C307, C308 and C309 behind 80 mohm and 12.6 mm of lane; C312 behind 7.7 mm of F.Cu. Moving them nearer the core block is the owner's call.
+
+*Evidence.* `~/freyja-review/core-2026-11-09`: `README.md`, the plan and scripts, commit and working boards, DRC reports, the island and ground solutions, the takeoff comparison, the port resistances and the loop comparison, corridor tables, `images/overview.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
