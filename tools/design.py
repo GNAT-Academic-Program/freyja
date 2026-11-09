@@ -163,6 +163,9 @@ class Design:
             # U15's: the same series (RT0603BRD073K09L, RT0603BRD0710KL).
             (R0603, '3.09k 0.1%'): 'C861371',
             (R0603, '10k 0.1%'):   'C95204',
+            # U11's lower resistor, the same series (RT0603BRD0724K9L); its
+            # upper one is the 100k above.
+            (R0603, '24.9k 0.1%'): 'C136967',
         }.get((fp, val), '')
         return self.add(self.seq('R'), 'Device:R', val, fp, {'1': a, '2': b},
                         lcsc=lcsc, dnp=dnp)
@@ -842,7 +845,15 @@ def build():
            'BOOT': 'BOOT_5V', 'VCC': 'U11_VCC', 'PG': ''}, 'C841384')
     d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('4.7uH', V5BUCK, 'SW_5V')
     rt, rb, act = fb_divider(5.0, 1.0)            # LMR33630 VREF = 1.0 V
-    d.R(rt, V5BUCK, 'FB_5V', R0603); d.R(rb, 'FB_5V', GND, R0603)
+    # 2026-11-09: the same 100k / 24.9k, 5.016 V nominal, at 0.1 % and
+    # 25 ppm/C instead of 1 %. With VFB at 0.985 to 1.015 V (SNVSAN3F 7.5)
+    # the 1 % pair gives 4.816 to 5.224 V at the sense point, this pair
+    # 4.921 to 5.112 V. The 105 mV at the bottom is what the +5V feeder may
+    # drop on its way to U15, which needs 4.5 V, behind U34's 85 mohm
+    # (SLVSEA3F 7.5, -40 to 85 C): 80 mV left with the 1 % pair at full
+    # export, 185 mV with this one. Arithmetic and assumptions:
+    # findings.md, 2026-11-09.
+    d.R(rt + ' 0.1%', V5BUCK, 'FB_5V', R0603); d.R(rb + ' 0.1%', 'FB_5V', GND, R0603)
     RAIL_CHECK.append(('+5V', 5.0, act, rt, rb))
     for _ in range(3): d.C('22uF', V5BUCK, GND, C0805)
     # 5V -> the low rails

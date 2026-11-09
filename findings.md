@@ -1834,6 +1834,83 @@ Courtyards keep 0.26 mm or more to every neighbour, the spacing the rows already
 
 *Evidence.* `~/freyja-review/corecaps-2026-11-09`: `README.md`, plans and scripts, commit and working boards, DRC reports, the comparison table, C308's mask and paste check, the recalculated island and ground solutions, corridor tables, `images/before_after.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
+**U11's cell routed: `VSYS` to `+5V_BUCK`, the 5 V regulator (2026-11-09).** Switching node, bootstrap, VCC bypass and feedback are complete; the input node, the output node and nine grounds are connected; the exposed pad has its vias and heat-spreading copper. Six passives moved; U11, L2 and the three output capacitors did not. R55 and R56 are now 0.1 %, same values. `VSYS` does not reach the cell yet and `+5V_BUCK` does not reach U34: both are the next chunks. EN stays on VIN and PG stays open. **Two things below are holds, not passes: at the top of the `VSYS` range the full export current is not guaranteed by the datasheet's limits with this inductor, and start-up, load step, loop stability and temperature are for the bench.**
+
+*Preflight.*
+
+- *Part and pins.* LMR33630ADDAR, the 400 kHz version in the HSOIC-8 DDA package. TI SNVSAN3F Table 6-1: 1 PGND, 2 VIN, 3 EN, 4 PG, 5 FB, 6 VCC, 7 BOOT, 8 SW, exposed pad AGND and heat. The board's pads carry `GND`, `VSYS`, `VSYS`, none, `FB_5V`, `U11_VCC`, `BOOT_5V`, `SW_5V`, and pad 9 `GND`, in that order. The pad is the analog ground, "all electrical parameters are measured with respect to this pin"; pin 1 is the power ground.
+- *Parts against the netlist*, all equal: L2 4.7 uH SWPA6045S4R7MT between `SW_5V` and `+5V_BUCK`; C267 10 uF 50 V and C282 220 nF 50 V from `VSYS` to ground; C189, C190, C191 22 uF from `+5V_BUCK` to ground; C188 100 nF from `BOOT_5V` to `SW_5V`; C281 1 uF on `U11_VCC`; R55 100k from `+5V_BUCK` to `FB_5V`, R56 24.9k from `FB_5V` to ground. These are Table 9-2's values except the inductor, 8 uH there, and the output bank, 4 x 22 uF there.
+- *Load,* `tools/budget.py` after the GTP removal: 0.773 A for the board, 2.773 A with the 2 A `+5V_EXT` export, against the device's 3 A. On a plain 5 V source U11 carries nothing: it cannot make 5 V from less, and U34 passes `VBUS` to the rail. U34's own limit, 2.00 A minimum and 2.50 A typical, stands between U11 and the rail.
+- *Current limit against the ripple, guaranteed figures.* High-side limit 3.85 A minimum, 4.5 typical, 5.05 maximum. The output the limit guarantees is 3.85 A less half the ripple.
+
+| `VSYS` | L | fSW | Ripple | Guaranteed output | 2.773 A |
+|---|---|---|---:|---:|---|
+| 9 V | 4.7 uH | 400 kHz | 1.18 A | 3.26 A | yes |
+| 9 V | -20 % | 340 kHz | 1.74 A | 2.98 A | yes |
+| 12 V | -20 % | 400 kHz | 1.94 A | 2.88 A | yes |
+| 15 V | -20 % | 400 kHz | 2.22 A | 2.74 A | short 0.03 A |
+| 21 V | 4.7 uH | 400 kHz | 2.03 A | 2.84 A | yes |
+| 21 V | -20 % | 400 kHz | 2.53 A | 2.58 A | **short 0.19 A** |
+| 21 V | -20 % | 340 kHz | 2.98 A | 2.36 A | **short 0.41 A** |
+
+  **So the board load is covered everywhere, and the full export is covered at the 9 V planning input; above about 14 V it rests on the typical limit, not the guaranteed one.** With TI's 8 uH the ripple at 21 V is 1.19 A and the question does not arise. The inductor value was not changed: that is the owner's.
+- *Inductor.* Ripple at 9 V is 39 % of 3 A, inside TI's 20 to 40 %; at 21 V 68 %, 84 % with the inductance 20 % low. Equation 5 asks 3.5 uH at 400 kHz and 4.1 uH at the 340 kHz minimum; the part is 3.76 uH at -20 %. Saturation 4.97 A guaranteed against a current limit that can be 5.05 A: TI asks ideally at least the limit, and never less than the low-side limit's 4.1 A. Heating: 2.9 A rms against 3.30 A; 0.26 W in 34 mohm.
+- *Output capacitance: nominal, effective, connected.* 67 uF nominal on `+5V_BUCK`: 3 x 22 uF at the cell and C280's 1 uF at U34. Behind U34, when it passes this input, 77 uF more on `+5V`. TI's 400 kHz design is 4 x 22 uF, 52 uF effective at least for its 2 A step, and at most ten times the design value. The 22 uF is a 25 V X5R 0805; at 5 V it keeps perhaps half to two thirds by my estimate, not read from the maker's curve, so the cell alone is near TI's minimum and the rail behind U34 is what carries it over.
+- *Regulator tolerance, guaranteed.* VFB 0.985 to 1.015 V over -40 to 125 C junction. With the fitted 1 % thick-film pair and 60 K of drift the sense point is 4.816 to 5.224 V; with 0.1 % and 25 ppm/C, 4.921 to 5.112 V.
+- *Losses and heat, preliminary.* The DDA package's switches are 95 and 66 mohm typical, 160 and 110 mohm maximum; the front page's 75 and 50 mohm are the other package. At 2.77 A: 0.7 W typical to 1.1 W at the maximum resistance, from 9 V and from 21 V alike. For 125 C junction that asks 57 K/W to ambient at 60 C, 35 K/W at 85 C; junction to board is 13.6 K/W, 15 K. TI's 42.9 K/W is a JEDEC comparison figure and TI says not to design with it.
+
+*Divider.* The substitution is material here and was made: R55 YAGEO RT0603BRD07100KL, C122538, and R56 RT0603BRD0724K9L, C136967, both 0.1 % and 25 ppm/C, the series U13 to U15 use; 5745 of the 24.9k in stock on 2026-11-08. Same values, same footprints, 5.016 V nominal. The tightest `+5V` consumer is U15, 4.5 V at its input. Behind U34's 85 mohm (SLVSEA3F 7.5, -40 to 85 C) at 2.77 A the 1 % pair left 80 mV for the whole `+5V` feeder to U15; this pair leaves 185 mV.
+
+*Layout.* TI 10.1 and Figure 10-2, which is this cell turned 180 degrees: pin 1 south-east, pin 8 south-west, the inductor south.
+
+| Part | Was | Is | Why |
+|---|---|---|---|
+| C282, 220 nF | (233.1, 122.525), 0 | (231.95, 121.875), -90 | across pins 2 and 1; it lay with its `VSYS` pad in front of the ground pin |
+| C267, 10 uF | (233.7, 119.9), 0 | (234.6, 121.3), -90 | behind C282, the same way up |
+| C188, bootstrap | (223.4, 122.6), -90 | (223.3, 121.875), -90 | each pad level with its pin, 7 and 8 |
+| C281, VCC | (222.4, 120.8), 180 | (222.6, 119.96), 180 | level with pin 6 |
+| R55, 100k | (222.4, 119.0), 0 | (225.45, 117.2), 180 | north of pin 5, its output end towards the sense |
+| R56, 24.9k | (222.4, 117.4), 180 | (222.3, 118.3), 180 | west of pin 5 |
+
+- *Width rule.* `VSYS` and `+5V_BUCK` are in class PWR_3A: every track on them is 1.5 mm or wider, the sense branch included. No rule was added or relaxed.
+- *Input loop.* Pins 2 and 3, VIN and EN, lie under one 1.5 mm patch, so EN is tied to VIN at the pins. C282's pads are 1.65 mm from pins 2 and 1, centre to centre: the loop is 1.7 by 1.3 mm on F.Cu over In1. C267 is 2.9 mm further on the same two strips.
+- *Power ground.* Pin 1, C282.2, C267.2 and the three output capacitors' ground pads are one F.Cu strip. Its vias stand where they can: two east of C267 at (236.3, 121.1) and (236.3, 122.0), three beside C191 and C190 at x 235.7. Nearer is not possible: pin 1 and the strip lie over the `+2V5` and `+1V8_IO` trunks on B.Cu and In5, y 122.45 to 125.6, which bar every through via there.
+- *Exposed pad.* Twelve vias under it, 3 by 4, into In1, In4 and In6; all at y 122.0 or north of it for the same trunks. F.Cu leaves the pad's north end, 1.2 mm wide, with two more vias. On B.Cu a spreader of 0.8 mm tracks joins all fourteen, 4.8 by 4.4 mm under the package. The pad and pin 1 meet in the planes, not on F.Cu, as TI's 10.1.1 has it. The vias stand in the paste area with their far side tented.
+- *Switch node and bootstrap.* SW is one 1.3 mm track, 1.0 mm between the edge of pin 8 and the inductor's pad. C188 is 0.64 mm from pins 7 and 8.
+- *VCC.* C281.1 is 0.43 mm from pin 6; its ground has its own via at (221.7, 120.9).
+- *Feedback.* The FB node is pin 5, with R55.2 0.7 mm north of its pad and R56.1 0.7 mm west of it. R56's ground has its own via at (221.5, 117.2). The output is sensed at the south end of the capacitor bar, not at the inductor: 3.2 mm of F.Cu west to a via at (229.75, 129.85), 13.8 mm on In2 north along x 229.75 under the inductor's output pad and the east pins, 3.5 mm west along y 116.1, a via at (226.3, 116.1) beside R55.1. In1 lies between it and everything on F.Cu.
+- *Why that sense route.* The first version ran the sense west round the inductor on In2. It passed DRC and closed the north band: an east-west run on In2 within 7 mm of the band left 2 lanes of 25 between x 220 and 230. This one crosses the band once, beside the pad's via array, so the two share one shadow.
+
+| Net | Pads | |
+|---|---|---|
+| `SW_5V` | 3 of 3 | U11.8, L2.2, C188.2 |
+| `BOOT_5V` | 2 of 2 | U11.7, C188.1 |
+| `FB_5V` | 3 of 3 | U11.5, R55.2, R56.1 |
+| `U11_VCC` | 2 of 2 | U11.6, C281.1 |
+| `VSYS`, local node | 4 | U11.2, U11.3, C282.1, C267.1; 12 missing connections to 9 |
+| `+5V_BUCK` | 5 of 7 | L2.1, C189.1, C190.1, C191.1, R55.1; U34.2 and C280.1 are the onward chunk |
+| `GND` | 9 | U11.1, U11.9, C282.2, C267.2, C189.2, C190.2, C191.2, C281.2, R56.2; 167 to 158 |
+
+*Connection points for the next chunks.*
+
+- **`VSYS` in:** at C267.1 from the north. Three sites for 0.8 mm vias at (233.75, 118.35), (234.75, 118.35) and (235.75, 118.35), 0.87 mm or more beyond the rule. A track of 3.2 mm or more reaches them from C186 on In2 and on B.Cu; F.Cu passes 1.1 mm.
+- **`+5V_BUCK` on to U34.2 and C280.1,** 24 mm north: from the south end of the output bar, south of the trunks. Three 0.8 mm sites at (231.55, 131.3), (233.0, 131.6) and (234.45, 131.3). In2 passes 3.2 mm or more from there to C280; B.Cu is closed by the trunks.
+
+*Access.* North band, x 172.4 to 241.2, 51 crossings: In2 139 lanes to 119 in the 3 mm window and 124 to 106 in the 7 mm one; F.Cu 48 to 42 and 36 to 28. The cost is local: x 220 to 230 In2 30 to 16 for 2 crossings, x 230 to 240 In2 24 to 18 and F.Cu 12 to 6 for 9. Every other corridor table is identical.
+
+*Planes, reservations, silkscreen.* 23 vias, none on a reserved site, list unchanged at 422. Every plane one piece: In1, In4 and In6 lose 0.9 mm2 each, the two sense vias; `+3V3` on In3 loses 11.8 mm2, mostly one opening under the pad's array; the `+1V0` island is untouched. No accepted track is within 1.2 mm of a new via on a layer that uses those planes. Stress copies 33 errors before and 32 after, the same 19 signatures, none naming the cell's nets. One cropped window over the cell: no silkscreen warning before or after; U11's "5V SUPPLY" label was not moved.
+
+*Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Routing was accepted against the unchanged schematic, then synced to the new netlist with the silkscreen updater held back: 0 footprints moved by the sync, R55 and R56 differ in value, description and part number and in nothing else. Against the starting board: six footprints moved, same footprint, side, pads and pad nets; 56 tracks and 23 vias added on the cell's nets and `GND`, nothing removed; every other footprint, track and via byte-identical; net table, stackup, rules, groups and drawings byte-identical; no zone outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected 795 to 773. Every tracked group unchanged. Smallest margin of a planned item 0.070 mm beyond the rule, the `VSYS` patch beside pins 1 and 4. Tracks 3292 to 3348, vias 847 to 870. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. Regenerated from `tools/design.py`: `power.kicad_sch`, `odin.net`, the BOM, the parts guide and the stock list; every other sheet, the project, rules and libraries unchanged by hash. No KiCad process and no lock before or after. No placement generator or silkscreen updater was run; the moves are in `tmp/plan_A.json`.
+
+*Holds and dependencies.*
+
+- Full export above about 14 V in: the table above. Either a larger inductance on L2's footprint or a measurement of the limit on the built boards closes it.
+- Start-up into the rail behind U34, a load step, loop margin with 67 uF nominal at the cell: bench.
+- Case temperature at full export from 9 V and from 21 V; solder under the pad with twelve vias in the paste area.
+- `VSYS` feeder and `+5V_BUCK` to U34: not routed, so the cell is not powered in layout terms.
+
+*Evidence.* `~/freyja-review/u11-2026-11-09`: `README.md`, plans and scripts, routed, commit and working boards, DRC reports, the preflight arithmetic, corridor tables, SNVSAN3F and SLVSEA3F, `images/u11.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule

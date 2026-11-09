@@ -285,8 +285,8 @@ Switching regulator (buck converter) that makes +5V from VSYS. It runs whenever 
 | C281 | 1uF | 1uF bypass on U11_VCC, for U11 (5 V regulator, always on): U11's internal 5 V regulator output, its own 1 uF; drives nothing else |
 | C282 | 220nF 50V | 220nF 50V bypass on VSYS, for U11 (5 V regulator, always on) |
 | L2 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node |
-| R55 | 100k | 100k series resistor between +5V_BUCK and FB_5V, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
-| R56 | 24.9k | 24.9k resistor from FB_5V to GND, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R55 | 100k 0.1% | 100k 0.1% series resistor between +5V_BUCK and FB_5V, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R56 | 24.9k 0.1% | 24.9k 0.1% resistor from FB_5V to GND, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
 ### U12  VSYS to +3V3  (always on)
 
