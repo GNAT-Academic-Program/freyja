@@ -283,7 +283,7 @@ GROUP.update({
         'and, as a backstop, if VBUS rises above about 5.6 V unasked or goes '
         'away. The choice is wired, not firmware: dividers and two small '
         'transistors. The chip blocks current flowing backwards into either '
-        'source, limits the rail current to about 2.5 A and ramps it up '
+        'source, limits the rail current to about 3.5 A and ramps it up '
         'gently. ST tells the board controller which source is in use.',
     'Q6  mux hold: 9 V request':
         'Keeps U34 on U11 around a 9 V negotiation. The controller\'s 9 V '
@@ -632,7 +632,7 @@ NET.update({
     'EXT_PRESENT': 'Q7\'s gate: 100k/33k from the screw input, on above 3.2-6 V of VIN_EXT',
     'VBUS5_CP2': 'U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover',
     'VBUS5_OV1': 'U34 VBUS overvoltage backstop: VBUS is dropped above 5.3-5.9 V (5.63 V typical) if a source raises it unasked',
-    'VBUS5_ILIM': 'sets U34\'s current limit, about 2.5 A',
+    'VBUS5_ILIM': 'sets U34\'s current limit, about 3.5 A (3.0 to 4.1 A)',
     'VBUS5_SS': 'sets how fast U34 ramps the +5V rail, about 780 V/s',
     'VBUS5_ST': 'U34 status to the board controller: low when U11 feeds +5V',
     'PD_REQ_9V': 'raised by the board controller while it asks U18 for 9 V; holds the +5V mux on U11 through D24/Q6',

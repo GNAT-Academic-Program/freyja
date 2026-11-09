@@ -284,7 +284,7 @@ Switching regulator (buck converter) that makes +5V from VSYS. It runs whenever 
 | C267 | 10uF 50V | 10uF 50V bypass on VSYS, for U11 (5 V regulator, always on) |
 | C281 | 1uF | 1uF bypass on U11_VCC, for U11 (5 V regulator, always on): U11's internal 5 V regulator output, its own 1 uF; drives nothing else |
 | C282 | 220nF 50V | 220nF 50V bypass on VSYS, for U11 (5 V regulator, always on) |
-| L2 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node |
+| L2 | 10uH MWSA0603S-100MT | 10uH MWSA0603S-100MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node |
 | R55 | 100k 0.1% | 100k 0.1% series resistor between +5V_BUCK and FB_5V, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
 | R56 | 24.9k 0.1% | 24.9k 0.1% resistor from FB_5V to GND, for U11 (5 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
@@ -302,7 +302,7 @@ Switching regulator that makes +3V3 from VSYS. It has no enable: it starts as so
 | C197 | 22uF | 22uF bypass on +3V3, for U12 (3.3 V regulator, always on) |
 | C283 | 1uF | 1uF bypass on U12_VCC, for U12 (3.3 V regulator, always on): U12's internal 5 V regulator output, its own 1 uF; drives nothing else |
 | C284 | 220nF 50V | 220nF 50V bypass on VSYS, for U12 (3.3 V regulator, always on) |
-| L3 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node |
+| L3 | 10uH MWSA0603S-100MT | 10uH MWSA0603S-100MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node |
 | R57 | 100k 0.1% | 100k 0.1% series resistor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
 | R58 | 43.2k 0.1% | 43.2k 0.1% resistor from FB_3V3 to GND, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
@@ -452,7 +452,7 @@ The split between +1V8_IO and +1V8. VCCAUX and VCCADC are the FPGA's internal su
 
 ### U34  +5V source select
 
-Chooses what feeds the +5V rail: USB power straight from the connector, or U11. A regulator cannot make 5 V out of 5 V, so on a plain 5 V USB source the mux passes VBUS to the rail. It hands the rail to U11 while the board controller asks the charger for 9 V and for a few seconds after (Q6), while the screw input is powered (Q7), and, as a backstop, if VBUS rises above about 5.6 V unasked or goes away. The choice is wired, not firmware: dividers and two small transistors. The chip blocks current flowing backwards into either source, limits the rail current to about 2.5 A and ramps it up gently. ST tells the board controller which source is in use.
+Chooses what feeds the +5V rail: USB power straight from the connector, or U11. A regulator cannot make 5 V out of 5 V, so on a plain 5 V USB source the mux passes VBUS to the rail. It hands the rail to U11 while the board controller asks the charger for 9 V and for a few seconds after (Q6), while the screw input is powered (Q7), and, as a backstop, if VBUS rises above about 5.6 V unasked or goes away. The choice is wired, not firmware: dividers and two small transistors. The chip blocks current flowing backwards into either source, limits the rail current to about 3.5 A and ramps it up gently. ST tells the board controller which source is in use.
 
 | Ref | Value | What it does |
 |---|---|---|
@@ -468,7 +468,7 @@ Chooses what feeds the +5V rail: USB power straight from the connector, or U11. 
 | R165 | 23.2k | 23.2k resistor from VBUS5_OV1 to GND, for U34 (+5V source mux): U34 VBUS overvoltage backstop: VBUS is dropped above 5.3-5.9 V (5.63 V typical) if a source raises it unasked |
 | R166 | 100k | 100k resistor from VBUS5_CP2 to +3V3, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover |
 | R167 | 56.2k | 56.2k resistor from VBUS5_CP2 to GND, for U34 (+5V source mux): U34 comparison level, 1.19 V from +3V3; enables the 5 us switchover |
-| R168 | 44.2k | 44.2k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 2.5 A |
+| R168 | 29.4k | 29.4k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 3.5 A (3.0 to 4.1 A) |
 | R169 | 10k | 10k resistor from VBUS5_ST to +3V3, for U7 (board controller): U34 status to the board controller: low when U11 feeds +5V |
 
 ### Q6  mux hold: 9 V request

@@ -13480,7 +13480,7 @@
 		(layer "F.Cu")
 		(uuid "24959646-1c6e-4526-a8b3-dd75fda10463")
 		(at 234.87 101.54 90)
-		(descr "44.2k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 2.5 A")
+		(descr "29.4k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 3.5 A (3.0 to 4.1 A)")
 		(tags "resistor")
 		(property "Reference" "R168"
 			(at 0 -1.43 90)
@@ -13493,7 +13493,7 @@
 				)
 			)
 		)
-		(property "Value" "44.2k"
+		(property "Value" "29.4k"
 			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "3b1eb6e4-14f9-43d5-9231-0bf0a83b410a")
@@ -13516,7 +13516,7 @@
 				)
 			)
 		)
-		(property "Description" "44.2k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 2.5 A"
+		(property "Description" "29.4k resistor from VBUS5_ILIM to GND, for U34 (+5V source mux): sets U34's current limit, about 3.5 A (3.0 to 4.1 A)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -46545,219 +46545,6 @@
 			)
 		)
 	)
-	(footprint "EasyEDA:IND-SMD_L6.0-W6.0_SWPA6045S"
-		(layer "F.Cu")
-		(uuid "82e2cbf5-0401-4842-8261-73da3aade355")
-		(at 228 126.3 180)
-		(descr "4.7uH SWPA6045S4R7MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node")
-		(property "Reference" "L2"
-			(at 0 -4 0)
-			(layer "F.Fab")
-			(uuid "b584b292-41ba-4ad4-9051-65090acfd4a0")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Value" "4.7uH SWPA6045S4R7MT"
-			(at 0 4 0)
-			(layer "F.Fab")
-			(uuid "b73c0db3-e537-44a6-8984-3e005a8eca78")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5d1cfb66-74a4-4069-bfa0-2647ccdf554c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Description" "4.7uH SWPA6045S4R7MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "85d611ab-9ffc-410f-b006-88337773fd54")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC Part" "C78804"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c4d2b860-0a5d-4c75-8724-67aa9695ee12")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(attr smd)
-		(fp_line
-			(start 3.08 3.08)
-			(end 3.08 2.66)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "99fc5aac-46c0-470d-b4f0-b4fb0bb8432c")
-		)
-		(fp_line
-			(start 3.08 -3.08)
-			(end 3.08 -2.66)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "d119a5c2-2b89-4f15-bcb3-5bffd18da0bf")
-		)
-		(fp_line
-			(start -3.08 3.08)
-			(end 3.08 3.08)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "0c0c9591-efb9-4725-9ad3-62bb3606e8c1")
-		)
-		(fp_line
-			(start -3.08 2.66)
-			(end -3.08 3.08)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "9050ce70-7f14-46e4-91af-d0076793df17")
-		)
-		(fp_line
-			(start -3.08 -2.66)
-			(end -3.08 -3.08)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "9ef3659b-1093-48b9-a8c8-d9c3dc663649")
-		)
-		(fp_line
-			(start -3.08 -3.08)
-			(end 3.08 -3.08)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "2f3a3b1a-f5bf-4d30-8344-26e5dc0cb9ea")
-		)
-		(fp_circle
-			(center -2.97 2.97)
-			(end -2.94 2.97)
-			(stroke
-				(width 0.06)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.SilkS")
-			(uuid "77c3b4da-3ed5-40fe-9075-d37039005635")
-		)
-		(fp_line
-			(start 3 3)
-			(end -3 3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "22db6cec-31c4-459e-b5d6-a293b495d561")
-		)
-		(fp_line
-			(start 3 -3)
-			(end 3 3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "92519d3f-8a8a-40d1-82cc-7840fbc1ee0e")
-		)
-		(fp_line
-			(start -3 3)
-			(end -3 -3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "b5494928-2d2c-42ce-8018-89daef3291e6")
-		)
-		(fp_line
-			(start -3 -3)
-			(end 3 -3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "49dca0cd-4ca4-4892-a518-4a36b3a4b904")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(uuid "65d75067-c59d-4775-a49f-456fad1821b2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(pad "1" smd rect
-			(at -2.6 0)
-			(size 2.474 5.02)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 679 "+5V_BUCK")
-			(uuid "7f1fea9b-ad8c-4174-b569-d8a9b6e7735b")
-		)
-		(pad "2" smd rect
-			(at 2.6 0)
-			(size 2.474 5.02)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 146 "SW_5V")
-			(uuid "cbf1362a-2c35-40e2-9d11-e05f32367c0f")
-		)
-		(embedded_fonts no)
-		(model "${KICAD_3RD_PARTY}/EasyEDA.3dshapes/IND-SMD_L6.0-W6.0-H4.5.wrl"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 270)
-			)
-		)
-	)
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "8339a5b5-5fdf-464a-9311-5161f6c3a4e7")
@@ -59207,6 +58994,257 @@
 			)
 		)
 	)
+	(footprint "EasyEDA:IND-SMD_L7.0-W6.6_MWSA0603S"
+		(layer "F.Cu")
+		(uuid "a2896d60-212f-4a9d-a19e-e580df9bd653")
+		(at 227.6 126.95 180)
+		(descr "10uH MWSA0603S-100MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node")
+		(property "Reference" "L2"
+			(at 0 -4.3 180)
+			(layer "F.Fab")
+			(uuid "804574b1-2f6f-4f12-9386-c3273f905cb3")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "10uH MWSA0603S-100MT"
+			(at 0 4.3 180)
+			(layer "F.Fab")
+			(uuid "fb16bf36-0b2b-4547-a1bc-b00d1fdf58dd")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f7cee47b-6087-4a3b-ba9b-183b00f56a27")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" "10uH MWSA0603S-100MT inductor between +5V_BUCK and SW_5V, for U11 (5 V regulator, always on): regulator switching node"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "50b468cd-1a21-48e9-b741-5a7f066006fc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C132141"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3bbb3eb7-5b6b-4a08-8b3f-c34a2e9a138c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(attr smd)
+		(fp_line
+			(start 3.58 3.38)
+			(end 3.58 2.8)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "ec77ddb2-87f2-470d-b965-40d9d633c19e")
+		)
+		(fp_line
+			(start 3.58 -3.38)
+			(end 3.58 -2.8)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "95dba8ae-dc51-4cc0-9ccb-9adcfc994afa")
+		)
+		(fp_line
+			(start 2.8 3.38)
+			(end 3.58 3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "810c74f2-0a81-4d9c-be13-c65947644faa")
+		)
+		(fp_line
+			(start 2.8 -3.38)
+			(end 3.58 -3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "579515d0-88ff-4144-bdf9-05f6fb49fc15")
+		)
+		(fp_line
+			(start -3.58 3.38)
+			(end -2.8 3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "9ee88ac4-b2a6-4461-91a3-ff6bab493dca")
+		)
+		(fp_line
+			(start -3.58 2.8)
+			(end -3.58 3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "6946fbf9-45ff-4e45-9277-8953ef00a5ce")
+		)
+		(fp_line
+			(start -3.58 -2.8)
+			(end -3.58 -3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "00f19d3b-2c68-4f34-9eeb-e25d602fd464")
+		)
+		(fp_line
+			(start -3.58 -3.38)
+			(end -2.8 -3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "dfc9b155-27b0-4738-847b-41759d90151e")
+		)
+		(fp_line
+			(start 4.25 3.45)
+			(end -4.25 3.45)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "b10b25af-f8c3-4cbf-9d68-12ce7a0d36b3")
+		)
+		(fp_line
+			(start 4.25 -3.45)
+			(end 4.25 3.45)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "a7fff1fa-a73e-489f-8129-f95e674945cf")
+		)
+		(fp_line
+			(start -4.25 3.45)
+			(end -4.25 -3.45)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "140f4eae-22fa-49df-991b-40a032ab46a5")
+		)
+		(fp_line
+			(start -4.25 -3.45)
+			(end 4.25 -3.45)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "6f0534f4-711a-4d1a-bd1b-b45480a56b29")
+		)
+		(fp_line
+			(start 3.5 3.3)
+			(end -3.5 3.3)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "2fe28616-2ad7-4990-9571-ae9cd0d011fa")
+		)
+		(fp_line
+			(start 3.5 -3.3)
+			(end 3.5 3.3)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "4e1f8111-4fe5-49e2-893a-e30c9260a3b5")
+		)
+		(fp_line
+			(start -3.5 3.3)
+			(end -3.5 -3.3)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "bcecd683-a3d4-4784-9ff1-18b1dbb1037b")
+		)
+		(fp_line
+			(start -3.5 -3.3)
+			(end 3.5 -3.3)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "3e7e3464-eb47-47c0-af20-e799645fc24e")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(uuid "a89d566d-86b0-48c9-9310-081a443aa00c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(pad "1" smd rect
+			(at -3.025 0)
+			(size 2.35 3.5)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 679 "+5V_BUCK")
+			(uuid "5bd52912-d40c-4dcb-a805-1d832b625c4c")
+		)
+		(pad "2" smd rect
+			(at 3.025 0)
+			(size 2.35 3.5)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 146 "SW_5V")
+			(uuid "362cf17f-4c43-4a6a-831b-68312ac0a758")
+		)
+		(embedded_fonts no)
+	)
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "a332ec8f-a074-4149-8ed9-874b8be45f14")
@@ -63491,6 +63529,257 @@
 			)
 		)
 	)
+	(footprint "EasyEDA:IND-SMD_L7.0-W6.6_MWSA0603S"
+		(layer "F.Cu")
+		(uuid "abb53819-fb5d-4801-b864-128740336b36")
+		(at 180.9 179.425 180)
+		(descr "10uH MWSA0603S-100MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node")
+		(property "Reference" "L3"
+			(at 0 -4.3 180)
+			(layer "F.Fab")
+			(uuid "66a082dc-439f-474b-974c-3b3dec9dee34")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "10uH MWSA0603S-100MT"
+			(at 0 4.3 180)
+			(layer "F.Fab")
+			(uuid "ef105dfd-119a-43b7-968f-f36b57d4af19")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2a1a40ca-21dc-4142-ab3a-a12b99203a95")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" "10uH MWSA0603S-100MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "88c2430c-7098-49e8-ac49-aff125cfad78")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C132141"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91743781-a5d3-4342-a5ff-69313b285f29")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(attr smd)
+		(fp_line
+			(start 3.58 3.38)
+			(end 3.58 2.8)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "56ff1ddf-c877-4ada-98b1-d538679bfb78")
+		)
+		(fp_line
+			(start 3.58 -3.38)
+			(end 3.58 -2.8)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "8ed4d9aa-0d65-4c7a-9c2c-895f28b1ede9")
+		)
+		(fp_line
+			(start 2.8 3.38)
+			(end 3.58 3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "66f8e3fd-1dbe-4bbf-8d0b-58286c890e69")
+		)
+		(fp_line
+			(start 2.8 -3.38)
+			(end 3.58 -3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "7c67e9b7-36c9-4099-bccd-854c2de4b0fa")
+		)
+		(fp_line
+			(start -3.58 3.38)
+			(end -2.8 3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "723202a7-182f-4301-86fc-3503d7dbeb29")
+		)
+		(fp_line
+			(start -3.58 2.8)
+			(end -3.58 3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "27d7aa54-4852-455e-9b1e-5c774baa05ab")
+		)
+		(fp_line
+			(start -3.58 -2.8)
+			(end -3.58 -3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "c25f7b43-90bb-472c-ae1c-7b22174fe40e")
+		)
+		(fp_line
+			(start -3.58 -3.38)
+			(end -2.8 -3.38)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "282b7025-dab7-4d0a-811f-e61edd8530c1")
+		)
+		(fp_line
+			(start 4.25 3.45)
+			(end -4.25 3.45)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "e5bda588-89bb-4710-853f-db79b1725777")
+		)
+		(fp_line
+			(start 4.25 -3.45)
+			(end 4.25 3.45)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "48671762-7f17-4d95-86cd-276bd0a967f5")
+		)
+		(fp_line
+			(start -4.25 3.45)
+			(end -4.25 -3.45)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "1dd7506f-9682-48de-87a1-50b605c661f3")
+		)
+		(fp_line
+			(start -4.25 -3.45)
+			(end 4.25 -3.45)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "e5d92adc-7971-4756-8bef-c614d8f27978")
+		)
+		(fp_line
+			(start 3.5 3.3)
+			(end -3.5 3.3)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "564e2805-5d7b-45d2-b7e4-55e278ee1db2")
+		)
+		(fp_line
+			(start 3.5 -3.3)
+			(end 3.5 3.3)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "d6ee3b19-ddd4-4b68-b479-b75d9b7a5ecf")
+		)
+		(fp_line
+			(start -3.5 3.3)
+			(end -3.5 -3.3)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "77e9f20e-01f1-409e-a931-6a849f814279")
+		)
+		(fp_line
+			(start -3.5 -3.3)
+			(end 3.5 -3.3)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "0c62c2ab-a1dc-4ea4-bd46-bfe18f7847b7")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(uuid "bca52016-43f7-40d3-a406-f07a1135848e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(pad "1" smd rect
+			(at -3.025 0)
+			(size 2.35 3.5)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 5 "+3V3")
+			(uuid "c65774c9-2a10-49ee-9f27-0bd988be0c14")
+		)
+		(pad "2" smd rect
+			(at 3.025 0)
+			(size 2.35 3.5)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 145 "SW_3V3")
+			(uuid "c4169564-2163-4a92-989d-a405f97b9fe6")
+		)
+		(embedded_fonts no)
+	)
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "abf68181-9e9b-4a8e-8c9b-bfaf59216d1f")
@@ -66154,219 +66443,6 @@
 			)
 			(rotate
 				(xyz 0 0 0)
-			)
-		)
-	)
-	(footprint "EasyEDA:IND-SMD_L6.0-W6.0_SWPA6045S"
-		(layer "F.Cu")
-		(uuid "b43e4911-f465-489e-893e-58d17815e344")
-		(at 181 178.9 180)
-		(descr "4.7uH SWPA6045S4R7MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node")
-		(property "Reference" "L3"
-			(at 0 -4 180)
-			(layer "F.Fab")
-			(uuid "5c8d0b8c-63b5-4105-8ad0-1a1edf80e7f2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Value" "4.7uH SWPA6045S4R7MT"
-			(at 0 4 180)
-			(layer "F.Fab")
-			(uuid "22d7eb92-5991-4a6c-9215-09d15241a383")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 180)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a9f46ee1-5788-4cc3-9b17-dc766e0d966a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Description" "4.7uH SWPA6045S4R7MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node"
-			(at 0 0 180)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "49064578-8efc-433a-8ca3-3afe74639f89")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC Part" "C78804"
-			(at 0 0 180)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2c1e125e-4cc8-41bd-8a5c-2b52a9132922")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(attr smd)
-		(fp_line
-			(start 3.08 3.08)
-			(end 3.08 2.66)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "daf262ae-5815-493c-8ca9-a53da2441d3c")
-		)
-		(fp_line
-			(start 3.08 -3.08)
-			(end 3.08 -2.66)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "302aa4ce-7ad2-4d49-b7c8-35096242e6cb")
-		)
-		(fp_line
-			(start -3.08 3.08)
-			(end 3.08 3.08)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "fef30655-6782-42bf-b1df-e228f3c9a1bc")
-		)
-		(fp_line
-			(start -3.08 2.66)
-			(end -3.08 3.08)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "48b7ff80-d9b2-4b75-8f09-24f57afd224c")
-		)
-		(fp_line
-			(start -3.08 -2.66)
-			(end -3.08 -3.08)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "d01e23a6-1385-4615-8f19-dc4cf229fd60")
-		)
-		(fp_line
-			(start -3.08 -3.08)
-			(end 3.08 -3.08)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "93adae66-90bf-45af-a90c-011f18019a7a")
-		)
-		(fp_circle
-			(center -2.97 2.97)
-			(end -2.94 2.97)
-			(stroke
-				(width 0.06)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.SilkS")
-			(uuid "d6c1e8a3-bd01-460f-83c8-76e87af95a07")
-		)
-		(fp_line
-			(start 3 3)
-			(end -3 3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "52e1cc64-bbec-477e-a0aa-30547594a15d")
-		)
-		(fp_line
-			(start 3 -3)
-			(end 3 3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "77823e7d-6f35-489a-a787-a86ce92c3939")
-		)
-		(fp_line
-			(start -3 3)
-			(end -3 -3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "1b71267b-1a3c-4e6b-9238-5903f7f786a9")
-		)
-		(fp_line
-			(start -3 -3)
-			(end 3 -3)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "af00ab58-22ee-4c64-924e-fe3af618ba93")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 0 0 180)
-			(layer "F.Fab")
-			(uuid "8f58e977-8157-410a-ae3e-aaaf85d3601f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(pad "1" smd rect
-			(at -2.6 0)
-			(size 2.474 5.02)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 5 "+3V3")
-			(uuid "c0d2e7ca-af36-42ec-8a5f-eaa3cbb8e634")
-		)
-		(pad "2" smd rect
-			(at 2.6 0)
-			(size 2.474 5.02)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 145 "SW_3V3")
-			(uuid "df0a53c0-db8b-47e6-943c-9a4255eed006")
-		)
-		(embedded_fonts no)
-		(model "${KICAD_3RD_PARTY}/EasyEDA.3dshapes/IND-SMD_L6.0-W6.0-H4.5.wrl"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 270)
 			)
 		)
 	)
@@ -109845,14 +109921,6 @@
 		(uuid "9b69fb37-f146-4bc4-a5df-41346e648f5b")
 	)
 	(segment
-		(start 183.6 177.35)
-		(end 186.25 177.35)
-		(width 1.5)
-		(layer "F.Cu")
-		(net 5)
-		(uuid "9c32ca6e-f4eb-4ff9-9952-bf1275f830e5")
-	)
-	(segment
 		(start 238 172.49)
 		(end 238.72 172.5)
 		(width 0.3)
@@ -109899,6 +109967,14 @@
 		(layer "F.Cu")
 		(net 5)
 		(uuid "b44bb677-20d7-4a81-b012-4f7b0d073da8")
+	)
+	(segment
+		(start 183.925 177.875)
+		(end 186.25 177.875)
+		(width 1.5)
+		(layer "F.Cu")
+		(net 5)
+		(uuid "b78b2a18-6a79-4503-985f-6892e0283402")
 	)
 	(segment
 		(start 207.6575 192.595)
@@ -120102,11 +120178,11 @@
 	)
 	(segment
 		(start 178.2 174.985)
-		(end 178.4 177.1)
+		(end 178.2 178.175)
 		(width 1.3)
 		(layer "F.Cu")
 		(net 145)
-		(uuid "9b299c1a-cb99-480e-a406-d956293f853f")
+		(uuid "59e9da11-c444-4627-9e90-9817a170d2d7")
 	)
 	(segment
 		(start 178.2 174.985)
@@ -120126,11 +120202,11 @@
 	)
 	(segment
 		(start 224.9 122.51)
-		(end 225.1 124.6)
+		(end 224.9 125.7)
 		(width 1.3)
 		(layer "F.Cu")
 		(net 146)
-		(uuid "d1ee8f80-3c84-4f55-8ded-fd5fdb013be7")
+		(uuid "5923a7e5-687b-486c-a14d-5080081ad1a5")
 	)
 	(segment
 		(start 195.4 159.85)
@@ -140365,14 +140441,6 @@
 		(uuid "85697b6d-2ca7-4298-a686-27d34d965f83")
 	)
 	(segment
-		(start 230.6 124.8)
-		(end 232.95 124.8)
-		(width 1.5)
-		(layer "F.Cu")
-		(net 679)
-		(uuid "9cc1a1c4-c508-4944-9dbf-b7ad67a62c0e")
-	)
-	(segment
 		(start 230.6 126.9)
 		(end 232.95 126.9)
 		(width 1.5)
@@ -140387,6 +140455,14 @@
 		(layer "F.Cu")
 		(net 679)
 		(uuid "c0cf4ea4-ff27-4e45-a5f9-52e16c362bb2")
+	)
+	(segment
+		(start 230.625 125.3625)
+		(end 232.95 125.3625)
+		(width 1.5)
+		(layer "F.Cu")
+		(net 679)
+		(uuid "fca4aa0c-aeec-4fac-b30c-30726aae24f2")
 	)
 	(segment
 		(start 195.02 111.6)
@@ -185083,8 +185159,8 @@
 		(members "0300b92e-2901-4150-9c23-b5a4c67f4b40" "171a6cc4-8cc3-467a-bb6c-fec80149283c"
 			"23b3fc49-7749-4328-a1db-ed9f0fb50ca3" "47b24bf6-6244-40e9-9091-9b278e9327c8"
 			"5dccd64b-ff7e-4952-907a-968e1b85f36f" "6f46a07f-acb1-46f5-b313-92ebd00b7709"
-			"7b69b182-9bb2-495c-88aa-94b5e5da14c7" "82e2cbf5-0401-4842-8261-73da3aade355"
-			"8b8a52e4-8d2c-4afb-aa9b-2b5d38a76054" "9839af6f-34d3-43da-8988-9e2ba16a7fc9"
+			"7b69b182-9bb2-495c-88aa-94b5e5da14c7" "8b8a52e4-8d2c-4afb-aa9b-2b5d38a76054"
+			"9839af6f-34d3-43da-8988-9e2ba16a7fc9" "a2896d60-212f-4a9d-a19e-e580df9bd653"
 			"a683adfd-5974-4cd1-b47c-6da53214b68e" "b49d8d33-a84c-4b39-9074-a743e9a6ea84"
 			"d6edac5b-e0c1-4c5d-9536-9146de7be84c" "e520bad8-ed8f-44e8-82ef-bb7bc6d00bb6"
 			"e60e3c57-1730-4b09-9b07-bb8d55b6eeb8"
@@ -185304,7 +185380,7 @@
 			"4787daea-36ee-46fc-bead-4e8a39a0aa44" "50702e98-bfe2-45ef-af98-82eac22f908a"
 			"5c3e4dcb-0b0e-42b6-a658-bc0881ac5326" "839da46b-aa1c-465e-8d37-1de6684738ad"
 			"8962a969-ac15-40b3-9a6a-5dc2fb225370" "a5149a9f-6064-47ac-ae83-f6ba7370c7e0"
-			"b43e4911-f465-489e-893e-58d17815e344" "b609a720-91da-43cd-9937-3265448bb3f3"
+			"abb53819-fb5d-4801-b864-128740336b36" "b609a720-91da-43cd-9937-3265448bb3f3"
 			"b9224232-9a3b-41ad-a313-393cf2e1b641" "c1d79671-1381-4c8a-b500-ada2e776df75"
 			"cea31f41-6fd9-41f1-9ef1-a6be32504d80" "e587e79a-d364-4ad3-b434-1d8bc43efbb9"
 			"f7fe2f06-a8cc-494f-bf7a-029de11fade0"

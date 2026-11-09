@@ -55,12 +55,12 @@ against the manufacturer datasheet.
 | 1 | `AOTA-B201610S3R3-101-T` | controller 1.1 V inductor | C42411119 |
 | 0 | `VLS252010HBX-1R0M-1` | FPGA transceiver filter, no longer fitted (L9 removed 2026-11-05) | `C88211` — imported, library entry kept |
 | 2 | `SRN4018-2R2M` | 2.5/1.8 V supply inductors | `C913207` — imported and linked |
-| 1 | `SWPA6045S4R7MT` | FPGA 1.0 V supply inductor (L7, same part as L2/L3) | `C78804` |
+| 1 | `SWPA6045S4R7MT` | FPGA 1.0 V supply inductor (L7; L2 and L3 until 2026-11-09) | `C78804` — imported 2026-10-30, Sunlord SWPA6045S catalog |
 | 10 | `SMD1206B020TF/24` | 12 V slot PTC, 200 mA | `C269111` — imported and linked |
 | 20 | `SMD1206B050TF` | 5 V and pin-voltage PTC, 500 mA | `C269115` — imported and linked |
 | 10 | `BSMD1206-030-16V` | 3.3 V slot PTC, 300 mA | `C22378340` — imported and linked |
 | 2 | `SRN6045TA-100M` | 5 V and 12 V supply inductors | C2046332 |
-| 2 | `SWPA6045S4R7MT` | 5 V and 3.3 V supply inductors (L2, L3) | `C78804` — imported 2026-10-30, Sunlord SWPA6045S catalog |
+| 2 | `MWSA0603S-100MT` | 5 V and 3.3 V supply inductors (L2, L3), 10 uH | `C132141` — imported 2026-11-09; land drawn to Sunlord's MWSA-S catalog pattern, I 2.35 / J 3.7 / H 3.5, a little larger than the import's 2.15 x 3.32 mm pads |
 | 1 | `2.54-2*5P` | keyed FPGA JTAG header | `C5665` — imported and linked |
 | 1 | `BM03B-SRSS-TB(LF)(SN)` | keyed controller SWD header | `C160389` — imported and linked |
 | 1 | `KF301-5.0-2P` | 9–21 V external power terminal | `C474881` — imported and linked |

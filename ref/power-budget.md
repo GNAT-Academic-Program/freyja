@@ -6,7 +6,7 @@
 
 USB-C can start at 4.75 V. The SS54 OR diode plus USB eFuse model loses
 0.48 V at 0.6 A, leaving **4.27 V**. In full mode at 9 V
-the OR diode carries 2.30 A (1.15 W) on USB-PD 9V / 2.30 A (1.15 W) on USB-PD 9V/3A / 2.30 A (1.15 W) on J50 VIN:
+the OR diode carries 2.91 A (1.46 W) on USB-PD 9V / 2.91 A (1.46 W) on USB-PD 9V/3A / 2.91 A (1.46 W) on J50 VIN:
 the SS54 (SMA, 5 A) wants its copper; give D3 and D4 a wide VSYS pour. The screw input is
 **9–21 V DC**. U11/U12 are LMR33630 devices (3.8–36 V operating, 400 kHz)
 and cover the full VSYS envelope. Both have EN tied to VIN: +3V3, +5V and the
@@ -28,8 +28,10 @@ minimum input since 2026-10-30): firmware asks for 9 V before it enables
 EXT_EN, and enables EN_1V0 only once the source is settled (9 V granted,
 or a 5 V source confirmed: 4.75 V less U34's drop is 4.69 V).
 Both of U34's inputs block reverse current and the rail is limited to
-2.5 A typical. U26 limits the USB path into VSYS to 3.03 A typical
-(2.79 A minimum), the Type-C cable figure.
+3.55 A typical (2.99 A at least, 4.10 A at most; 29.4k). At full
+export the rail carries 2.77 A through it: 277 mV and 0.77 W at its
+125 C on-resistance, 56 K above ambient on TI's comparison board. U26 limits
+the USB path into VSYS to 3.03 A typical (2.79 A minimum), the Type-C cable figure.
 
 The VIN clamp is SMBJ22A: 22 V standoff and 35.5 V maximum rated pulse clamp.
 The LMR33630's 38 V absolute maximum on VIN is the lowest limit after D4.
@@ -129,11 +131,27 @@ that is the figure checked against saturation.
 
 | Ref | Inductor | Load | Ripple | Peak | Peak, envelope | Isat | |
 |---|---|---:|---:|---:|---:|---:|---|
-| `U11` | `SWPA6045S4R7MT` | 2.77 A | 1.18 A | 3.36 A | 4.04 A at 21 V | 4.97 A | PASS |
-| `U12` | `SWPA6045S4R7MT` | 2.95 A | 1.11 A | 3.50 A | 3.87 A at 21 V | 4.97 A | PASS |
+| `U11` | `MWSA0603S-100MT` | 2.77 A | 0.56 A | 3.05 A | 3.37 A at 21 V | 4.4 A | PASS |
+| `U12` | `MWSA0603S-100MT` | 2.95 A | 0.52 A | 3.21 A | 3.38 A at 21 V | 4.4 A | PASS |
 | `U13` | `SRN4018-2R2M` | 0.14 A | 0.38 A | 0.33 A | 0.40 A at 5.5 V | 3 A | PASS |
 | `U14` | `SRN4018-2R2M` | 0.31 A | 0.35 A | 0.48 A | 0.54 A at 5.5 V | 3 A | PASS |
 | `U15` | `SWPA6045S4R7MT` | 2.05 A | 0.30 A | 2.20 A | 2.24 A at 5.5 V | 4.97 A | PASS |
+
+## Output the current limit guarantees
+
+U11 and U12 limit the inductor's peak current. The output they deliver without
+touching that limit is the average current whose peak is the limit's minimum,
+3.85 A, so the ripple decides it. Worst part of everything at once: the
+inductance at -20 % with the guaranteed saturation current, the switching
+frequency at its 340 kHz minimum, the setpoint at its upper limit, the
+switches at their maximum resistance and the inductor's copper at 85 C. The
+last column is what remains of the inductance at the limit's maximum,
+5.05 A, where a fault takes the inductor.
+
+| Ref | Inductor | Declared load | Guaranteed output | at the top of the range | Margin | rms against the 20 K rating | Inductance at the maximum limit | |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| `U11` | `MWSA0603S-100MT` | 2.77 A | 3.38 A at 9 V | 2.91 A at 21 V | +0.13 A | 2.82 A of 3.80 A | 5.1 uH | PASS |
+| `U12` | `MWSA0603S-100MT` | 2.95 A | 3.33 A at 9 V | 3.10 A at 21 V | +0.16 A | 2.98 A of 3.80 A | 5.1 uH | PASS |
 
 ## Input source envelope (findings 46)
 
@@ -146,24 +164,24 @@ that is the figure checked against saturation.
 
 | Mode | Source | V | Board + export power | Current at the connector | Source or hardware limit | | Path |
 |---|---|---:|---:|---:|---:|---|---|
-| recovery | USB 2.0 port | 4.75 V | 0.91 W | 0.21 A | 0.50 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 2.79 A |
-| recovery | USB-C 5V/1.5A | 4.75 V | 0.91 W | 0.21 A | 1.50 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 2.79 A |
-| recovery | USB-C 5V/3A | 4.75 V | 0.91 W | 0.21 A | 3.00 A | fits | U34 0.03 A of 2.00 A + U26 0.18 A of 2.79 A |
+| recovery | USB 2.0 port | 4.75 V | 0.91 W | 0.21 A | 0.50 A | fits | U34 0.03 A of 2.99 A + U26 0.18 A of 2.79 A |
+| recovery | USB-C 5V/1.5A | 4.75 V | 0.91 W | 0.21 A | 1.50 A | fits | U34 0.03 A of 2.99 A + U26 0.18 A of 2.79 A |
+| recovery | USB-C 5V/3A | 4.75 V | 0.91 W | 0.21 A | 3.00 A | fits | U34 0.03 A of 2.99 A + U26 0.18 A of 2.79 A |
 | recovery | USB-PD 9V | 9 V | 0.91 W | 0.11 A | 1.67 A | fits | U26 0.11 A of 2.79 A |
 | recovery | USB-PD 9V/3A | 9 V | 0.91 W | 0.11 A | 3.00 A | fits | U26 0.11 A of 2.79 A |
 | recovery | J50 VIN | 9 V | 0.91 W | 0.11 A | 3.00 A | fits | D4 path, no limiter of its own |
-| light | USB 2.0 port | 4.75 V | 6.99 W | 1.54 A | 0.50 A | **does not fit** | U34 0.81 A of 2.00 A + U26 0.73 A of 2.79 A |
-| light | USB-C 5V/1.5A | 4.75 V | 6.99 W | 1.54 A | 1.50 A | **does not fit** | U34 0.81 A of 2.00 A + U26 0.73 A of 2.79 A |
-| light | USB-C 5V/3A | 4.75 V | 6.99 W | 1.54 A | 3.00 A | fits | U34 0.81 A of 2.00 A + U26 0.73 A of 2.79 A |
+| light | USB 2.0 port | 4.75 V | 6.99 W | 1.54 A | 0.50 A | **does not fit** | U34 0.81 A of 2.99 A + U26 0.73 A of 2.79 A |
+| light | USB-C 5V/1.5A | 4.75 V | 6.99 W | 1.54 A | 1.50 A | **does not fit** | U34 0.81 A of 2.99 A + U26 0.73 A of 2.79 A |
+| light | USB-C 5V/3A | 4.75 V | 6.99 W | 1.54 A | 3.00 A | fits | U34 0.81 A of 2.99 A + U26 0.73 A of 2.79 A |
 | light | USB-PD 9V | 9 V | 6.99 W | 0.86 A | 1.67 A | fits | U26 0.86 A of 2.79 A |
 | light | USB-PD 9V/3A | 9 V | 6.99 W | 0.86 A | 3.00 A | fits | U26 0.86 A of 2.79 A |
 | light | J50 VIN | 9 V | 6.99 W | 0.86 A | 3.00 A | fits | D4 path, no limiter of its own |
-| full | USB 2.0 port | 4.75 V | 18.59 W | 4.14 A | 0.50 A | **does not fit** | U34 1.87 A of 2.00 A + U26 2.27 A of 2.79 A |
-| full | USB-C 5V/1.5A | 4.75 V | 18.59 W | 4.14 A | 1.50 A | **does not fit** | U34 1.87 A of 2.00 A + U26 2.27 A of 2.79 A |
-| full | USB-C 5V/3A | 4.75 V | 18.59 W | 4.14 A | 3.00 A | **does not fit** | U34 1.87 A of 2.00 A + U26 2.27 A of 2.79 A |
-| full | USB-PD 9V | 9 V | 18.59 W | 2.30 A | 1.67 A | **does not fit** | U26 2.30 A of 2.79 A |
-| full | USB-PD 9V/3A | 9 V | 18.59 W | 2.30 A | 3.00 A | fits | U26 2.30 A of 2.79 A |
-| full | J50 VIN | 9 V | 18.59 W | 2.30 A | 3.00 A | fits | D4 path, no limiter of its own |
+| full | USB 2.0 port | 4.75 V | 23.59 W | 5.19 A | 0.50 A | **does not fit** | U34 2.92 A of 2.99 A + U26 2.27 A of 2.79 A |
+| full | USB-C 5V/1.5A | 4.75 V | 23.59 W | 5.19 A | 1.50 A | **does not fit** | U34 2.92 A of 2.99 A + U26 2.27 A of 2.79 A |
+| full | USB-C 5V/3A | 4.75 V | 23.59 W | 5.19 A | 3.00 A | **does not fit** | U34 2.92 A of 2.99 A + U26 2.27 A of 2.79 A |
+| full | USB-PD 9V | 9 V | 23.59 W | 2.91 A | 1.67 A | **does not fit** | U26 2.91 A of 2.79 A |
+| full | USB-PD 9V/3A | 9 V | 23.59 W | 2.91 A | 3.00 A | **rationed** | U26 2.91 A of 2.79 A |
+| full | J50 VIN | 9 V | 23.59 W | 2.91 A | 3.00 A | fits | D4 path, no limiter of its own |
 
 Modes: *recovery* is the controller alone with the FPGA unconfigured (the
 recovery column of the load table); *light* is every board load with no
@@ -189,17 +207,21 @@ with the CH224K. The rules:
    +3V3 with no switch; ports rarely police that step; rev B item).
 2. A 1.5 A or 3 A advertisement is believed. Light mode (every board load,
    no export) fits a 3 A port; a 5 V source never carries full export: the
-   +5V side passes U34 (2.0 A minimum) and the whole port is 15 W.
-3. A granted 9 V is at least 15 W: light mode. With PD_SRC_CURRENT at 3 A
-   (any 27 W or larger charger) full export fits, inside U26's
-   2.79 A minimum limit. Between the two, firmware rations EXT_EN to
-   (granted current x 9 V x 0.9) less the board load.
+   whole port is 15 W. That is firmware's rule to keep: U34 limits at
+   2.99 to 4.10 A, which is no port's advertisement, and no
+   limiter on the board ever knew one.
+3. A granted 9 V is at least 15 W: light mode. Above that firmware rations
+   EXT_EN to (the smaller of the granted current and U26's 2.79 A
+   minimum limit) x 9 V x 0.9, less the board load. With PD_SRC_CURRENT at
+   3 A (any 27 W or larger charger) that is 15.6 W of the 16.6 W
+   of export allowances: full export is 2.91 A at the connector,
+   inside the charger's 3 A and 0.12 A above what U26 guarantees.
 4. J50 (detected on MON_VSYS) carries full mode from 9 V up.
 
 The hardware limits (U26, U34, U21, U22, the PTCs) protect the board and the
 connector, not the source. The contract checked by `budget.py`: recovery
 fits a USB 2.0 port; light fits a 3 A Type-C port and the 15 W PD floor;
-full fits a 27 W PD charger and J50.
+full fits J50; a 27 W PD charger carries full export less 1.0 W.
 
 ## AUX: raw pass-through, no converter
 

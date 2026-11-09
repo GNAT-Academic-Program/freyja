@@ -796,8 +796,12 @@ def build():
     # string at 5 V, far above the 100 nA pin leakage, 5.3 V on EN at 20 V
     # (20 V absolute). ILIM = 89 / R(kohm) (Equation 4): 29.4k = 3.03 A
     # typical, +/-8 % (2.79-3.27 A; the 24.9k row of 7.5 reads 3.25-3.81 A
-    # at 3.53), the Type-C cable figure, so a 27 W PD charger carries full
-    # export (2026-11-03, was 44.2k = 2.01 A). dVdT: 1 uA
+    # at 3.53), the Type-C cable figure (2026-11-03, was 44.2k = 2.01 A).
+    # Full export from a 9 V contract is 2.91 A at the connector with the
+    # +5V export at its declared 2 A: inside a 27 W charger's 3 A, 0.12 A
+    # above this minimum, so firmware rations it (budget.py RATIONED,
+    # 2026-11-09; the claim that a 27 W charger carries full export rested
+    # on that export counted at 1 A). dVdT: 1 uA
     # into the capacitor with a gain of 12 (Equation 1), 10 nF = 1.2 V/ms,
     # so charging the 44 uF VSYS bulk draws about 53 mA. IMON sources
     # 52 uA/A (Equation 7): 10k makes 0.52 V/A, a probe point, no ADC on it.
@@ -836,16 +840,24 @@ def build():
     # rated for the input (the 10 uF 50 V 1210 each has) plus a 220 nF
     # 50 V X7R as close as possible (appended below), RFBT 100 k and RFBB
     # from Equation 3 (Table 9-2: 24.9k for 5 V, 43.2k for 3.3 V, no CFF
-    # at 100 k). 4.7 uH stays: Equation 5's minimum is 3.5 uH at 5 V and
-    # 2.3 uH at 3.3 V; ripple is 39 % / 37 % of 3 A at the 9 V planning
-    # input (the 20-40 % guidance) and 68 % / 56 % at 21 V, where
-    # budget.py checks the peak against saturation. Its output node is
-    # +5V_BUCK; U34 joins it to the +5V rail.
+    # at 100 k). Inductor, 2026-11-09: 10 uH, Sunlord MWSA0603S-100MT, on
+    # both regulators. The device limits the inductor's peak current at
+    # 3.85 A minimum (7.5), so the output it guarantees is that peak less
+    # half the ripple. With the 4.7 uH fitted before, a part at -20 % and
+    # the frequency at its 340 kHz minimum left 2.05 A (5 V) and 2.44 A
+    # (3.3 V) at 21 V in, against 2.77 A and 2.95 A declared with every
+    # export. Table 9-2's 8 uH and 6.8 uH are not enough either on those
+    # terms (8.2 uH: 2.72 A; 6.8 uH: 2.83 A). 10 uH leaves 2.91 A and
+    # 3.10 A at 21 V and 3.38 / 3.33 A at 9 V; ripple is 0.6 A at 9 V,
+    # 20 % of 3 A, the low end of the 20-40 % guidance, and Equation 5's
+    # minimum (3.5 and 2.3 uH) is far below. The arithmetic is executable:
+    # budget.py guaranteed_output(). Its output node is +5V_BUCK; U34
+    # joins it to the +5V rail.
     d.group('U11  VSYS to +5V')
     d.add('U11', 'Regulator_Switching:LMR33630ADDA', 'LMR33630ADDAR', HSOP8_DDA,
           {'VIN': VSYS, 'GND': GND, 'FB': 'FB_5V', 'EN': VSYS, 'SW': 'SW_5V',
            'BOOT': 'BOOT_5V', 'VCC': 'U11_VCC', 'PG': ''}, 'C841384')
-    d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('4.7uH', V5BUCK, 'SW_5V')
+    d.C('100nF', 'BOOT_5V', 'SW_5V'); d.L('10uH', V5BUCK, 'SW_5V')
     rt, rb, act = fb_divider(5.0, 1.0)            # LMR33630 VREF = 1.0 V
     # 2026-11-09: the same 100k / 24.9k, 5.016 V nominal, at 0.1 % and
     # 25 ppm/C instead of 1 %. With VFB at 0.985 to 1.015 V (SNVSAN3F 7.5)
@@ -853,8 +865,10 @@ def build():
     # 4.921 to 5.112 V. The 105 mV at the bottom is what the +5V feeder may
     # drop on its way to U15, which needs 4.5 V, behind U34's 85 mohm
     # (SLVSEA3F 7.5, -40 to 85 C): 80 mV left with the 1 % pair at full
-    # export, 185 mV with this one. Arithmetic and assumptions:
-    # findings.md, 2026-11-09.
+    # export, 185 mV with this one. Later the same day: at full export
+    # U34's junction is above 85 C, where 7.5 allows 100 mohm, and the
+    # sense reads the first output capacitor: 141 mV. Arithmetic and
+    # assumptions: findings.md, 2026-11-09.
     d.R(rt + ' 0.1%', V5BUCK, 'FB_5V', R0603); d.R(rb + ' 0.1%', 'FB_5V', GND, R0603)
     RAIL_CHECK.append(('+5V', 5.0, act, rt, rb))
     for _ in range(3): d.C('22uF', V5BUCK, GND, C0805)
@@ -870,7 +884,7 @@ def build():
           {'VIN': VSYS, 'GND': GND, 'FB': 'FB_3V3', 'EN': VSYS, 'SW': 'SW_3V3',
            'BOOT': 'BOOT_3V3', 'VCC': 'U12_VCC', 'PG': ''}, 'C841384')
     d.C('10uF', VSYS, GND, C1210)
-    d.C('100nF', 'BOOT_3V3', 'SW_3V3'); d.L('4.7uH', V33, 'SW_3V3')
+    d.C('100nF', 'BOOT_3V3', 'SW_3V3'); d.L('10uH', V33, 'SW_3V3')
     # 2026-11-09: the same 100k / 43.2k, 3.315 V nominal, at 0.1 % and
     # 25 ppm/C instead of 1 %. With VFB at 0.985 to 1.015 V (SNVSAN3F 7.5)
     # the 1 % pair gives 3.193 to 3.441 V at the sense point, this pair
@@ -941,7 +955,7 @@ def build():
     # 1 nF are gone (MON_1V0 reads the rail), EN "must be pulled up to
     # enable" (VENH 1.6 V, EN_1V0 from the controller with its 100k
     # pull-down). Table 2, 1 V row: R1 3.09k / R2 10k (0.995 V), L 1.5 to
-    # 4.7 uH (4.7 uH taken: L7 is the 6045 part L2/L3 use, Isat 4.97 A
+    # 4.7 uH (4.7 uH taken: L7 is the 6045 part L2/L3 used until 2026-11-09, Isat 4.97 A
     # guaranteed for the 4 A class, ripple 0.31 A at 5.5 V in), COUT 20 to
     # 68 uF (2 x 22 uF here, the FPGA decoupling beyond it is the known
     # bench item). 8.2.2.4: 10 uF or more at VIN (the 22 uF) and an
@@ -1453,8 +1467,13 @@ def build():
     #   OV2 to GND (U11 is regulated), CP2 above the reference whenever +3V3
     #   is up enables the fast switchover (tSW 5 us typical, SLVSEA3F 7.5;
     #   100 us with CP2 low; no PD transition can happen before +3V3 exists);
-    #   RILM 44.2k: 2.5 A typical (2.0-3.0 A, Table 7.5), above the 1.72 A
-    #   worst-case rail load, below the 5 A connector contacts;
+    #   RILM 29.4k since 2026-11-09: 3.55 A typical by Equation 2; Table 7.5
+    #   reads 3.0 / 3.5 / 4.0 A at 29.8k, so 2.99 A at least and 4.10 A at
+    #   most with the resistor's 1 % and its drift. The rail carries 2.77 A
+    #   at full export (0.77 A board, 2 A +5V_EXT), which the 44.2k fitted
+    #   before, 2.0 A minimum, did not guarantee: it dated from a 1 A
+    #   export. 4.10 A is inside the device's 4.5 A rating and below the
+    #   5 A connector contacts; the same value as U26's R54;
     #   CSS 100 nF: about 780 V/s at 5 V (Table 9-1), 80 mA into the rail's
     #   ~100 uF.
     # While Q6 or Q7 holds PR1 low on a plain 5 V VBUS, IN2 is U11 in its
@@ -1474,7 +1493,7 @@ def build():
     d.R('100k', 'VBUS', 'VBUS5_PR1', R0603); d.R('36.5k', 'VBUS5_PR1', GND, R0603)
     d.R('100k', 'VBUS', 'VBUS5_OV1', R0603); d.R('23.2k', 'VBUS5_OV1', GND, R0603)
     d.R('100k', V33, 'VBUS5_CP2', R0603); d.R('56.2k', 'VBUS5_CP2', GND, R0603)
-    d.R('44.2k', 'VBUS5_ILIM', GND, R0603)
+    d.R('29.4k', 'VBUS5_ILIM', GND, R0603)
     d.C('100nF', 'VBUS5_SS', GND)
     d.R('10k', V33, 'VBUS5_ST', R0603)
     d.C('100nF', 'VBUS', GND)          # IN1 bypass; the 10 uF attach allowance is at U26

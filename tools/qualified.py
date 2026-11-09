@@ -109,9 +109,10 @@ PARTS = {
            'SMBJ22A 35.5 V clamp), 3 A, 400 kHz, VREF 1.0 V (0.985-1.015). '
            'EN tied to VIN (Table 6-1), PG open, 1 uF on VCC, 100 nF CBOOT, '
            '10 uF 50 V + 220 nF 50 V at VIN, 100k/24.9k (5 V) and 100k/43.2k '
-           '(3.3 V) from Table 9-2, 4.7 uH above the 3.5 / 2.3 uH minimum of '
-           'Equation 5, 3 x 22 uF out (Table 9-2 lists 4 x 22 uF at 400 kHz; '
-           'the rails carry more bulk downstream)',
+           '(3.3 V) from Table 9-2, 10 uH (Table 9-2 lists 8 and 6.8 uH; 10 uH '
+           'is what lets the 3.85 A minimum current limit guarantee the declared '
+           'loads up to 21 V in, budget.py), 3 x 22 uF out (Table 9-2 lists '
+           '4 x 22 uF at 400 kHz; the rails carry more bulk downstream)',
     pinmap='KiCad Regulator_Switching symbol against SNVSAN3F Table 6-1 (HSOIC): '
            '1 PGND, 2 VIN, 3 EN, 4 PG, 5 FB, 6 VCC, 7 BOOT, 8 SW, pad AGND (pin 9); '
            'the C841384 import has pads 1-4 down the left, 5-8 up the right, a '
@@ -189,7 +190,7 @@ PARTS = {
   'Device:D_Schottky': dict(
     mpn='SS54', pkg='SMA / DO-214AC', fp='EasyEDA:SMA_L4.3-W2.6-LS5.2-RD',
     rating='40 V, 5 A, Vf 0.55 V at 5 A (about 0.45 V at 0.6 A). D3/D4 OR the '
-           'two base-board inputs; full export at 9 V is about 2.3 A through '
+           'two base-board inputs; full export at 9 V is about 2.9 A through '
            'one of them (budget.py). SS34 (3 A) until 2026-11-03, same land',
     pinmap='2-pin polarised', src='generic SS54, JLCPCB basic C22452'),
   'Device:D_Zener': dict(
@@ -219,8 +220,9 @@ PARTS = {
     mpn='TPS2121RUXR', pkg='VQFN-HR-12, 2 x 2.5 mm, 0.5 mm pitch (TI RUX, MPQF508)',
     fp='Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm',
     rating='2.8-22 V on IN1/IN2 (24 V absolute), 4.5 A, 56 mohm; reverse '
-           'current blocking on both channels; 44.2k ILIM = 2.5 A typical '
-           '(2.0-3.0 A); 100 nF SS = about 780 V/s; 5 us fast switchover with '
+           'current blocking on both channels; 29.4k ILIM = 3.55 A typical '
+           '(2.99-4.10 A with the resistor\'s 1 % and drift; 44.2k = 2.0-3.0 A '
+           'until 2026-11-09); 100 nF SS = about 780 V/s; 5 us fast switchover with '
            'CP2 above 1.06 V. IN1 = VBUS, selected between 4.44 V (PR1 > CP2) '
            'and 5.63 V (OV1); IN2 = U11, always valid; OUT = +5V',
     pinmap='SLVSEA3F Figure 6-2 and Pin Functions: 1 OUT, 2 IN2, 3 CP2, 4 OV2, '

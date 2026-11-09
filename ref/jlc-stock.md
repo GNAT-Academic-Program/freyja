@@ -4,10 +4,10 @@ Library snapshot 2026-11-08 (CDFER/jlcpcb-parts-database from yaqwsx/jlcparts, i
 
 ## Summary
 
-- Numbered lines: 76; absent from the library snapshot: 1 (C5360304 U2,U3,U4,U5).
+- Numbered lines: 77; absent from the library snapshot: 1 (C5360304 U2,U3,U4,U5).
 - Stock below 3 x need: 0 (none).
-- Extended (fee) lines among the numbered: 62; basic: 12; preferred: 1.
-- Generic lines: 37; with a library part of the same value and package: 37; without any: 0 (none).
+- Extended (fee) lines among the numbered: 63; basic: 12; preferred: 1.
+- Generic lines: 36; with a library part of the same value and package: 36; without any: 0 (none).
 
 ## Numbered lines
 
@@ -50,8 +50,9 @@ Library snapshot 2026-11-08 (CDFER/jlcpcb-parts-database from yaqwsx/jlcparts, i
 | C427307 | extended | ? | 1508 | 10 | 1 | 0.6213 | 10029449-111RLF SMD | J73 |
 | C91145 | extended | SMT | 188028 | 10 | 1 | 0.1935 | TF-01A SMD | J74 |
 | C42411119 | extended | SMT | 119 | 10 | 5 | 0.2853 | AOTA-B201610S3R3-101-T 0806 | L1 |
-| C78804 | extended | SMT | 31986 | 30 | 5 | 0.0828 | SWPA6045S4R7MT SMD,6x6mm | L2,L3,L7 |
+| C132141 | extended | SMT | 34223 | 20 | 5 | 0.0943 | MWSA0603S-100MT SMD,7x6.6mm | L2,L3 |
 | C913207 | extended | SMT | 2255 | 20 | 5 | 0.3526 | SRN4018-2R2M SMD,4x4mm | L4,L5 |
+| C78804 | extended | SMT | 31986 | 10 | 5 | 0.0828 | SWPA6045S4R7MT SMD,6x6mm | L7 |
 | C51353 | extended | THT | 1335 | 100 | 2 | 0.2841 | 2.54-1*40P针21MM 插件,P=2.54mm | MK65,MK66,MK67,MK68,MK69,MK70,MK71,MK72,MK76,MK77 |
 | C82045 | extended | SMT | 483922 | 30 | 5 | 0.044 | BSS138LT1G SOT-23 | Q4,Q6,Q7 |
 | C11702 | basic | SMT | 14385321 | 110 | 20 | 0.0036 | 0402WGF1001TCE 0402 | R1,R2,R3,R6,R9,R10,R12,R128,R129,R130,R132 |
@@ -110,7 +111,7 @@ Library snapshot 2026-11-08 (CDFER/jlcpcb-parts-database from yaqwsx/jlcparts, i
 | 110k | R_0603_1608Metric | 10 | C25805 0603WAF1103T5E | preferred | 224683 | 1% | R50 |
 | 24.9k | R_0603_1608Metric | 10 | C25962 0603WAF2492T5E | extended | 844322 | 1% | R51 |
 | 14.7k | R_0603_1608Metric | 10 | C705725 RT0603BRD0714K7L | extended | 36776 | 1% | R52 |
-| 29.4k | R_0603_1608Metric | 10 | C22974 0603WAF2942T5E | extended | 72669 | 1% | R54 |
+| 29.4k | R_0603_1608Metric | 20 | C22974 0603WAF2942T5E | extended | 72669 | 1% | R54,R168 |
 | 100k | R_0603_1608Metric | 90 | C25803 0603WAF1003T5E | basic | 19748113 | 1% | R72,R81,R83,R91,R94,R162,R164,R166,R201 |
 | 604 | R_0603_1608Metric | 10 | C32183 0603WAF6040T5E | extended | 69242 | 1% | R74 |
 | 1.15k | R_0603_1608Metric | 10 | C22834 0603WAF1151T5E | extended | 16873 | 1% | R75 |
@@ -125,7 +126,6 @@ Library snapshot 2026-11-08 (CDFER/jlcpcb-parts-database from yaqwsx/jlcparts, i
 | 36.5k | R_0603_1608Metric | 10 | C23029 0603WAF3652T5E | extended | 106696 | 1% | R163 |
 | 23.2k | R_0603_1608Metric | 10 | C23346 0603WAF2322T5E | extended | 139283 | 1% | R165 |
 | 56.2k | R_0603_1608Metric | 10 | C321949 RS-03K5622FT | extended | 51943 | 1% | R167 |
-| 44.2k | R_0603_1608Metric | 10 | C855860 AT0603BRD0744K2L | extended | 8778 | 1% | R168 |
 | 27 | R_0402_1005Metric | 20 | C138021 RC0402FR-0727RL | extended | 58304 | 1% | R170,R171 |
 | 470k | R_0603_1608Metric | 10 | C23178 0603WAF4703T5E | basic | 1322160 | 1% | R200 |
 | 33k | R_0603_1608Metric | 10 | C4216 0603WAF3302T5E | basic | 3644037 | 1% | R202 |

@@ -1904,7 +1904,7 @@ Courtyards keep 0.26 mm or more to every neighbour, the spacing the rows already
 
 *Holds and dependencies.*
 
-- Full export above about 14 V in: the table above. Either a larger inductance on L2's footprint or a measurement of the limit on the built boards closes it.
+- Full export above about 14 V in: the table above. Either a larger inductance on L2's footprint or a measurement of the limit on the built boards closes it. *Closed by a 10 uH inductor on its own land: entry "Full export covered" below.*
 - Start-up into the rail behind U34, a load step, loop margin with 67 uF nominal at the cell: bench.
 - Case temperature at full export from 9 V and from 21 V; solder under the pad with twelve vias in the paste area.
 - `VSYS` feeder and `+5V_BUCK` to U34: not routed, so the cell is not powered in layout terms.
@@ -1966,7 +1966,7 @@ Courtyards keep 0.26 mm or more to every neighbour, the spacing the rows already
 
 *Holds and dependencies.*
 
-- Full export with a low inductor at high input, as above; the board load is not in question.
+- Full export with a low inductor at high input, as above; the board load is not in question. *Closed the same way, entry "Full export covered" below.*
 - Start-up from a weak 5 V port into the whole `+3V3` net, a load step, loop margin: bench. This rail feeds the supervisor.
 - Case temperature at full export; inductor temperature at 3.0 A rms.
 - The output vias into the plane and the `VSYS` feeder: until both exist the cell is not powered in layout terms.
@@ -2030,6 +2030,84 @@ Courtyards keep 0.26 mm or more to every neighbour, the spacing the rows already
 *Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Against it: 5 tracks and 2 vias removed and 6 tracks added, all on `+5V_BUCK`; one rule area added; every footprint, every other track and via, the net table, stackup, groups, drawings and the other rule areas byte-identical; no zone outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected 751 before and after, every tracked group unchanged, `+5V_BUCK` 5 of 7 as before. Tracks 3401 to 3402, vias 889 to 887. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. Changed by hash: the board, the rule file, `tools/gen_pcb.py`, `ref/pcb-impedance.md` and this file; project file, schematics, netlist and libraries unchanged. No KiCad process and no lock before or after. No generator was run on the live tree; no placement tool or silkscreen updater was run.
 
 *Evidence.* `~/freyja-review/sense-2026-11-09`: `README.md`, plan and scripts, commit and working boards, DRC reports, rule tests, `reports/quiet.txt`, corridor tables. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
+
+**Full export covered: L2 and L3 are 10 uH, U34's limit resistor is 29.4k (2026-11-09).** Three parts changed, two tracks replaced in each cell, no capacitor moved. With every export at its declared allowance U11 carries 2.773 A and U12 2.946 A. On guaranteed figures alone the 4.7 uH parts left 2.05 A and 2.44 A at 21 V in; the new ones leave **2.91 A and 3.10 A, 0.13 and 0.16 A to spare**, and 3.38 and 3.33 A at 9 V. U34 stood at 2.0 A guaranteed in a rail that carries 2.773 A; it is now **2.99 A at least, 4.10 A at most**. **One thing came out that no part here settles: full export from a 27 W charger does not fit U26's guaranteed limit, and the budget had hidden it. It is now stated as a ration, and it is the owner's to decide.**
+
+| Ref | Was | Is |
+|---|---|---|
+| L2, L3 | 4.7 uH Sunlord SWPA6045S4R7MT, C78804, 6.0 x 6.0 x 4.5 mm | 10 uH Sunlord MWSA0603S-100MT, C132141, 6.6 x 7.0 x 2.8 mm, new footprint `EasyEDA:IND-SMD_L7.0-W6.6_MWSA0603S` |
+| R168, U34's limit | 44.2k, C855860 | 29.4k 1 %, C22974, the part R54 already is |
+
+L7 keeps the 4.7 uH part. The BOM loses the 44.2k line and gains the inductor's.
+
+*The budget, from the source.* `tools/budget.py` declares 0.773 A of board load on `+5V` (U15 0.485, U14 0.131, U13 0.083, HDMI 0.055, translators 0.020) and 2.0 A for `+5V_EXT`; 0.946 A on `+3V3` and 2.0 A for `+3V3_EXT` and both `VCCIO` exports. All of the `+5V` current passes U11, then U34. No allowance was changed.
+
+- **The full-export row had counted the `+5V` export at 1 A.** `mode_rows()` carried a literal 1 A from 2026-10-29; the allowance became 2 A on 2026-11-03 and that line was not touched. It now sums the declared allowances: 23.59 W, 2.91 A at 9 V by the tool's method, where it showed 18.59 W and 2.30 A.
+- **27 W charger.** 2.91 A is inside the charger's 3 A and 0.12 A above U26's 2.79 A minimum limit. The row passed only with the stale figure. It is now `RATIONED`, printed by the tool and in `ref/power-budget.md`: firmware holds the exports to the smaller of the granted current and U26's minimum, 15.6 W of the 16.6 W by the planning method. With D3's and U26's drop and the converters' losses counted, 2.79 A at 9 V carries **12.8 to 13.9 W of exports**, not 15.6. Raising U26's limit to cover it would put its maximum above the 3 A of an unmarked cable; not done, not authorized here.
+- **J50 at exactly 9.0 V.** 2.91 A by the tool's method, which takes 90 % a stage and no diode. With D4's 0.5 V and the losses below it is 3.09 A typical, 3.23 A worst case, above the 3 A planning figure; under 3 A from about 9.7 V up; 2.37 A at 12 V, 1.35 A at 21 V. Nothing limits that path; D4 is a 5 A part and a 1.5 mm track at 3.2 A is about 11 K of rise. The supply has to deliver it.
+- A 5 V source still never carries full export: 5.19 A against a 3 A port. That rests on the port's 15 W and on firmware, as it always did; U34's limit was never a port's advertisement. Source selection is untouched: PR1, CP2, OV1, Q6, Q7 and their dividers are as they were.
+
+*U34, TPS2121, SLVSEA3F.* Fitted 44.2k: 2.0 / 2.5 / 3.0 A (7.5), a value from the 1 A export. The limit is one resistor for both inputs.
+
+| Resistor | Typical, Equation 2 | Guaranteed, resistor's 1 % and 100 ppm/C over 60 K included | Against 2.773 A |
+|---|---:|---:|---:|
+| 44.2k, was | 2.50 A | 2.00 to 3.00 A | short 0.77 A |
+| 29.8k, the table's row | 3.51 A | 3.00 to 4.00 A | +0.23 A |
+| **29.4k, fitted** | 3.55 A | **2.99 to 4.10 A** | **+0.22 A, 8 %** |
+| 30.1k / 28.7k | 3.48 / 3.62 A | 2.93 to 4.02 / 3.06 to 4.19 A | +0.16 / +0.28 A |
+
+- *Minimum usable.* 2.99 A, read from the table's 29.8k row scaled by Equation 2's exponent; between rows TI gives no band, 29.4k is 1.3 % from one. A 0.1 % part would add 0.03 A; not needed, so R168 shares R54's line.
+- *Maximum in a fault.* 4.10 A sustained, inside the device's 4.5 A and the connector's 5 A; fast trip at 2.4 times the limit, 7.2 to 9.8 A for a microsecond, then 25 ms off; thermal shutdown ends a held fault. **`+5V` copper, not yet routed, must take 4.10 A, not 3.0 A.** `VBUS`'s 1.5 mm at 4.10 A is about 19 K of rise.
+- *Drop and heat at 2.773 A.* 236 mV and 0.65 W at 85 mohm, the limit to 85 C; 277 mV and 0.77 W at 100 mohm, the limit to 125 C. On TI's 72.2 K/W comparison board that is 47 to 56 K: **junction about 112 C at 60 C ambient, 125 C reached near 68 C ambient.** U34's own copper is the U34 chunk's and decides this.
+- **Correction to U11's entry:** the 185 mV left for the `+5V` feeder to U15 used 85 mohm. At full export the junction is above 85 C, so 100 mohm applies: with the sense now 3 mV before the bar's end, **141 mV**; 182 mV only below 85 C.
+- *Downstream.* U13, U14, U15 and U31 limit their own outputs; nothing on `+5V` relied on a 3.0 A ceiling. U21 limits at 1.54 to 2.46 A: a slot load at its top puts 3.23 A on the rail, above U11's rating and U34's minimum, so one of them acts first and the whole rail sags. With 44.2k that began at 1.23 A of export; now it begins at 2.22 A, beyond the declared 2.0 A. It is not selectivity, and no resistor value gives it while U11 is a 3 A part.
+
+*Inductors: what decides.* The LMR33630 limits the inductor's peak at 3.85 A minimum (SNVSAN3F 7.5), so the output it guarantees is the average whose peak is 3.85 A. Taken together: inductance at -20 %, the guaranteed saturation current, 340 kHz, the setpoint at its upper limit (5.112 and 3.376 V), the switches at 160 and 110 mohm, the inductor's copper at 85 C. Sunlord's catalogues give a guaranteed and a typical column; the JLCPCB library quotes the typical one. Isat is a 30 % fall of inductance. The fall below it is modelled as L0 (1 - 0.3 (i / Isat)^1.4); Sunlord's typical curve of the 6R8 part fits 1.6, which loses less. That the worst part has both the low inductance and the lowest Isat is my assumption, the pessimistic one. `scripts/select_l.py`; the same arithmetic is now `guaranteed_output()` in `tools/budget.py` and gated.
+
+| Part | Guaranteed Isat / Irms (20 K) | DCR max | U11 at 21 V, load 2.773 A | U12 at 21 V, load 2.946 A |
+|---|---|---:|---:|---:|
+| SWPA6045S4R7MT, was | 4.97 / 3.30 A | 34 mohm | 2.05 A, short 0.73 | 2.44 A, short 0.50 |
+| SWPA6045S6R8MT, same land | 3.87 / 2.70 A | 44 | 2.46 A | 2.76 A |
+| MWSA0603S-6R8MT, TI's 3.3 V value | 4.80 / 4.20 A | 48 | 2.54 A | 2.83 A, short 0.12 |
+| MWSA0603S-8R2MT, TI's 5 V value | 4.40 / 4.20 A | 60 | 2.72 A, short 0.05 | 2.96 A, +0.01 |
+| **MWSA0603S-100MT** | **4.40 / 3.80 A** | **68** | **2.91 A, +0.13** | **3.10 A, +0.16** |
+| MWSA0605S-100MT, 4.8 mm high | 4.24 / 3.80 A | 60 | 2.90 A | 3.10 A |
+| MWSA0804S-100MT, 8.8 x 8.2 mm | 7.00 / 5.50 A | 59 | 3.00 A, +0.23 | 3.19 A, +0.24 |
+| MWSA1004S-100MT, 10 x 11 mm | 6.80 / 6.90 A | 30 | 3.01 A, +0.24 | 3.20 A, +0.25 |
+| Bourns SRN6045TA-100M, 6 x 6 mm | typical only: 4.6 / 3.2 A for 40 K | 62 | not taken | not taken |
+
+  **TI's 8 uH and 6.8 uH do not cover the declared loads on these terms; 10 uH does.** The smallest part that does is taken. The two larger ones give 0.1 A more and need the output capacitors moved; the 1004S alone would also halve the copper loss.
+
+- *Heating.* 2.82 A rms (U11) and 2.98 A (U12) against 3.80 A guaranteed for a 20 K rise: about 14 and 15 K. Copper loss 0.68 and 0.75 W at 68 mohm and 85 C, where the 4.7 uH part had 0.34 and 0.38 W. **That is the price: about 0.35 W more in each cell at full export.** Efficiency at 9 V and full export, by arithmetic: U11 91.6 % typical, 88.7 % worst case; U12 87.9 and 83.3 %. The IC's own loss is unchanged, 0.7 to 1.2 W; the 57 and 54 K/W to a 60 C ambient asked for in the cells' entries stand.
+- *Saturation and faults.* TI 9.2.2.4: at least the low-side limit's 4.1 A, ideally the high-side limit's 5.05 A, relaxed for soft-saturating cores. 4.40 A guaranteed clears the first and not the second, as the fitted part's 4.97 A did not. The difference is the material: the worst moulded part still has 6.0 uH at 3.85 A, 5.6 uH at its Isat and **5.1 uH at 5.05 A**, more than the 4.7 uH ferrite part had with no current. One minimum on-time of 108 ns at 21 V adds 0.45 A there, so a short peaks near 5.5 A with 4.7 uH left; then the valley limit and hiccup, 94 ms. No measured curve of a minimum part exists.
+- *Ripple.* 0.56 A (U11) and 0.52 A (U12) at 9 V, 19 and 17 % of 3 A, at the low end of TI's 20 to 40 %; 0.95 and 0.70 A at 21 V. Equation 5's minimum, 3.5 and 2.3 uH, is far below. **U12 from a 5 V source, `VSYS` 4.27 to 4.8 V: 0.19 to 0.26 A, 6 to 9 % of 3 A, under TI's "no less than about 10 %" for the current-mode loop; 0.15 A with a +20 % part.** The 4.7 uH gave 0.39 to 0.55 A. The load there is the recovery or light one. Watch SW for jitter on a plain USB port: bench.
+- *Output capacitors.* Unchanged: 3 x 22 uF and 1 uF at U11 with 77 uF more behind U34; 3 x 22 uF at U12, 221 uF on the net once it is joined to the plane. TI's table pairs 4 x 22 uF with 8 and 6.8 uH. Ripple voltage halves: 15 and 9 mV across the cell's capacitors at 21 V where 31 and 20. The L-C corner falls from 12 to 8.5 kHz at the cells, 5.5 and 4.1 kHz with the nets. **A load step overshoots about twice as far:** the 2 A of exports switched off at once, before the loop reacts, 47 mV into 85 uF effective on `+5V_BUCK` and `+5V` and 40 mV into 150 uF on `+3V3`, where 22 and 19 mV; the `+3V3` banks have 89 mV above the setpoint's upper limit. Effective capacitances are my estimates. The bench hold on start-up, load step and loop margin stands and now carries this.
+
+*Layout.* The body is 0.6 mm longer along the cell than the 6 x 6 mm part and would have met the regulator's package end. Each inductor moved 0.65 mm away from its regulator and onto its centre line: L2 (228.0, 126.3) to (227.6, 126.95), L3 (181.0, 178.9) to (180.9, 179.425), rotation unchanged. Courtyards: 0.36 mm to the regulator, 0.05 mm to the 220 nF's corner, 0.26 mm to the output capacitors, 0.16 mm to R5.
+
+- *Land.* Sunlord's recommended pattern, I 2.35 / J 3.7 / H 3.5: pads 2.35 x 3.5 mm on 6.05 mm centres. The JLCPCB footprint for C132141 has 2.15 x 3.32 mm pads on 5.83 mm; the maker's is taken, 0.7 mm of toe instead of 0.49. Symbol and footprint are in the `EasyEDA` library with the part number; the library audit prints the failures it printed before and none for these.
+- *Copper.* The pads are 1.52 mm shorter than the old ones, so two tracks in each cell no longer ended inside a pad and were replaced: the switch-node track, now straight from pin 8 into the pad, 1.3 mm wide, **2.39 mm from pad to pad where 0.98 and 1.1 mm**; and the first output link, one 1.5 mm track whose ends lie inside the inductor's pad and inside the first capacitor's, at y 125.36 and y 177.875. The second link, the bar, both sense branches, every ground and every via are untouched.
+- *U11's sense after the move.* Still starts inside C189.1 alone, 0.31 mm from the new link; `SW_5V` is now 3.55 mm away at pin 8, L2.2's pad further; In1 unbroken under it; six 0.2 mm tracks in `U11_SENSE` and four 1.5 mm ones outside. With the two links as they now stand the bar's south end is 2.8 mV below the sensed point at 2.773 A and 85 C.
+
+*Access.* Every lane count on every wall is identical. Via sites: north band, south face, x 220 to 230, 19 to 25 in the 3 mm window and 65 to 70 in the 7 mm one, where the shorter pads end; **beside L3 towards J3B, 13 to 7**, where L3.2's pad now reaches 0.46 mm further west, for 24 connections that cross the cell.
+
+*Planes, reservations, silkscreen.* No via added or removed; every plane byte-identical in area and one piece. Reservations 419, unchanged; stress copies 32 errors before and after, the same 19 signatures. Two cropped windows: 9 warnings to 3 at U11 and 6 to 1 at U12, none new; the old part's outline lay on the regulators' silkscreen. No label moved.
+
+*Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Sources edited on a scratch tree, sheets and netlist regenerated there: three components differ, L2, L3 and R168, and the net connectivity is identical. The board was synced to that netlist with the silkscreen updater held back, 0 footprints moved by the sync, then L2 and L3 were moved. Against the starting board: L2 and L3 replaced and moved, R168 different in value and description only, the two island groups naming the new footprints, 4 tracks removed and 4 added on `SW_5V`, `+5V_BUCK`, `SW_3V3` and `+3V3`; every other footprint, track and via byte-identical; net table, stackup, rule areas and drawings byte-identical; no zone outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected 751 before and after, every tracked group unchanged. Tracks 3402, vias 887, both unchanged. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree; `budget.py` now also gates the guaranteed output, the rms rating and U34's limit. Regenerated from `tools/design.py`: `power.kicad_sch`, `odin.net`, the BOM, the parts guide, the stock list, the power budget, the qualified-parts table. Edited by hand: `ref/power.md`, `ref/power-input.md`, `ref/user-manual.md` and the import checklist, where they stated the 2.5 A limit, the inductors or the 27 W row; `ref/user-manual.pdf` was not rebuilt. Project file, rule file and every other sheet unchanged by hash. No KiCad process and no lock before or after. No placement generator or silkscreen updater was run.
+
+*Thermal assumptions used.* Ambient 60 C for junction figures; copper at 85 C for every resistance; U34 on TI's 72.2 K/W JEDEC figure, which TI gives for comparison; the inductor's rise scaled from Sunlord's 20 K rating, measured by them at 20 C in free air; the regulators as in their cells' entries. None is a measurement of this board.
+
+*Holds and decisions.*
+
+- **Owner: the 27 W row.** Accept the ration as stated, or change what the documents promise. `tools/budget.py` `RATIONED`, `ref/power-budget.md` rule 3, and one sentence each in `ref/power.md`, `ref/power-input.md` and `ref/user-manual.md` now say "all but about 1 W"; by the fuller arithmetic it is 3 to 4 W.
+- J50 at 9.0 V needs 3.1 to 3.2 A for full export.
+- U34 at full export above about 68 C ambient; its copper; `+5V` copper for 4.10 A; 141 mV for the feeder to U15.
+- U12 on a 5 V source: ripple under TI's guidance. Bench.
+- Load step, start-up, loop margin, temperature, and FB noise from the F.Cu sense: bench, as before, now with twice the overshoot.
+- Ripple current at 21 V on the first boards against the 0.95 and 0.70 A nominal: the bias model has no maker's minimum curve behind it.
+- Via sites beside L3 towards J3B, 13 to 7.
+
+*Evidence.* `~/freyja-review/export-2026-11-09`: `README.md`, `scripts/select_l.py` and `reports/select_l.txt`, `scripts/chain.py` and `reports/chain.txt`, the source edit scripts, plans, commit and working boards, DRC reports, corridor tables, the Sunlord MWSA-S and SWPA catalogues and the Bourns sheet in `docs/`, **close-up `images/u11_after.png`**. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
