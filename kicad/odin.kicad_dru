@@ -14,6 +14,13 @@
 (rule "extension buses 2A"
   (condition "A.hasNetclass('EXT_2A')")
   (constraint track_width (min 1.0mm) (opt 1.0mm)))
+# U11's output sense: a +5V_BUCK track on F.Cu wholly inside the U11_SENSE rule area, the
+# 0.5 mm strip from C189.1 under U11 to R55.1, may be 0.2 mm. It carries the divider's
+# 40 uA. Every other +5V_BUCK track keeps "input path 3A". Later rules win, so this follows it.
+(rule "U11 output sense branch"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == '+5V_BUCK' && A.enclosedByArea('U11_SENSE')")
+  (constraint track_width (min 0.2mm) (opt 0.2mm)))
 # RGMII: about 50 ohm on all four signal layers. Timing is set by the derived
 # delay limits in gateware/rgmii1000, not by equal lengths. The U30 side of each
 # TX resistor is in this class too.

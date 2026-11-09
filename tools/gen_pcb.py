@@ -71,6 +71,19 @@ RGMII_PATTERNS = ('PHY_TXC', 'PHY_TXD?', 'PHY_TX_CTL', 'PHY_RXC', 'PHY_RXD?', 'P
 # 0.125 mm, about 50 ohm on all four signal layers; CLK has its 22 ohm at the
 # FPGA. Delay limits, not equal lengths: see ref/pcb-impedance.md.
 SDRAM_PATTERNS = ('SDRAM_*',)
+# +5V_BUCK is in PWR_3A, 1.5 mm or wider, and that holds for its load path: L2, the
+# output capacitors and the way on to U34. U11's feedback sense branch is on the same
+# net and carries the divider's 40 uA. On F.Cu it runs from C189.1 between pin 1 and
+# L2, under the package between the exposed pad and the tips of pins 1 to 4, and round
+# the pad's north vias to R55.1; 0.8 mm is all the package leaves, so the branch is
+# 0.2 mm. The exception is limited to this net, to F.Cu, and to tracks wholly inside a
+# rule area the board owns: a strip 0.5 mm wide along that route, in which nothing
+# 1.5 mm wide fits, so the load path cannot use it. Clearances are not changed. The
+# rule stands after "input path 3A" because KiCad lets the later rule win. If the area
+# is missing the condition is false and 1.5 mm applies, so the branch fails loudly.
+U11_SENSE_NET = '+5V_BUCK'
+U11_SENSE_AREA = 'U11_SENSE'
+U11_SENSE_WIDTH = 0.2
 GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'SDRAM', 'PSRAM', 'AUX_5A', 'PWR_3A', 'EXT_2A')
 
 
@@ -138,6 +151,13 @@ def emit_rules():
 (rule "extension buses 2A"
   (condition "A.hasNetclass('EXT_2A')")
   (constraint track_width (min 1.0mm) (opt 1.0mm)))
+# U11's output sense: a {U11_SENSE_NET} track on F.Cu wholly inside the {U11_SENSE_AREA} rule area, the
+# 0.5 mm strip from C189.1 under U11 to R55.1, may be {U11_SENSE_WIDTH} mm. It carries the divider's
+# 40 uA. Every other {U11_SENSE_NET} track keeps "input path 3A". Later rules win, so this follows it.
+(rule "U11 output sense branch"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == '{U11_SENSE_NET}' && A.enclosedByArea('{U11_SENSE_AREA}')")
+  (constraint track_width (min {U11_SENSE_WIDTH}mm) (opt {U11_SENSE_WIDTH}mm)))
 # RGMII: about 50 ohm on all four signal layers. Timing is set by the derived
 # delay limits in gateware/rgmii1000, not by equal lengths. The U30 side of each
 # TX resistor is in this class too.

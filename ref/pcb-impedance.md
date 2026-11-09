@@ -114,6 +114,8 @@ The contract and how to rerun it are in [`gateware/sdram100/`](../gateware/sdram
 | SDRAM | `SDRAM_*` | 0.125 mm width; timing limits above |
 | PSRAM | `PSRAM*`, including chip-side `_MEM` nets | 0.1 mm minimum and preferred width |
 | AUX_5A | `AUX_RAIL` | 2.0 mm width, 1.0/0.5 mm vias |
+| PWR_3A | `VBUS`, `VBUS_SS`, `VSYS`, `VIN_EXT`, `+5V_BUCK` | 1.5 mm width, 0.8/0.4 mm vias; the one U11 sense exception below |
+| EXT_2A | `+5V_EXT`, `+3V3_EXT`, `VCCIO_1_EXT`, `VCCIO_2_EXT` | 1.0 mm width, 0.8/0.4 mm vias |
 
 Skew is checked within each P/N pair. It sums track length and via barrels between
 the connected layers, as lengths: it knows no layer delay and cannot see a through-hole
@@ -148,6 +150,16 @@ of another MDI pair, not coupled partners; `MDI launch to PHY_1V0 exits` allows 
 against a `PHY_1V0` track also wholly inside the area, for supply pins 3 and 8. A
 `PHY_1V0` via, every other net, and the same tracks outside the area keep 0.31 mm. See
 [findings](../findings.md).
+
+**U11 sense exception.** `+5V_BUCK` is in PWR_3A, and 1.5 mm holds for its load path:
+L2, the output capacitors and the way on to U34. U11's feedback sense branch is on the
+same net and carries the divider's 40 uA. `U11 output sense branch` allows 0.2 mm for a
+`+5V_BUCK` track on F.Cu wholly inside the board's `U11_SENSE` rule area, a strip 0.5 mm
+wide from C189.1 under U11 to R55.1 (x 226.025–233.0, y 116.325–124.4). Nothing 1.5 mm
+wide fits in the strip. Clearances are unchanged; every other PWR_3A net, `+5V_BUCK` on
+any other layer and the same track outside the area keep 1.5 mm. Without the area the
+rule never applies and the branch fails. The rule follows `input path 3A` in the file
+because KiCad lets the later rule win. See [findings](../findings.md).
 
 Inner-layer tracks are prohibited for the 100 Ω classes because the geometry
 is calculated only for the outer layers. Plane transitions still need ground

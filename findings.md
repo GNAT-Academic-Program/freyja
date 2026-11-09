@@ -1834,7 +1834,7 @@ Courtyards keep 0.26 mm or more to every neighbour, the spacing the rows already
 
 *Evidence.* `~/freyja-review/corecaps-2026-11-09`: `README.md`, plans and scripts, commit and working boards, DRC reports, the comparison table, C308's mask and paste check, the recalculated island and ground solutions, corridor tables, `images/before_after.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
-**U11's cell routed: `VSYS` to `+5V_BUCK`, the 5 V regulator (2026-11-09).** Switching node, bootstrap, VCC bypass and feedback are complete; the input node, the output node and nine grounds are connected; the exposed pad has its vias and heat-spreading copper. Six passives moved; U11, L2 and the three output capacitors did not. R55 and R56 are now 0.1 %, same values. `VSYS` does not reach the cell yet and `+5V_BUCK` does not reach U34: both are the next chunks. EN stays on VIN and PG stays open. **Two things below are holds, not passes: at the top of the `VSYS` range the full export current is not guaranteed by the datasheet's limits with this inductor, and start-up, load step, loop stability and temperature are for the bench.**
+**U11's cell routed: `VSYS` to `+5V_BUCK`, the 5 V regulator (2026-11-09).** Switching node, bootstrap, VCC bypass and feedback are complete; the input node, the output node and nine grounds are connected; the exposed pad has its vias and heat-spreading copper. Six passives moved; U11, L2 and the three output capacitors did not. R55 and R56 are now 0.1 %, same values. `VSYS` does not reach the cell yet and `+5V_BUCK` does not reach U34: both are the next chunks. EN stays on VIN and PG stays open. **Two things below are holds, not passes: at the top of the `VSYS` range the full export current is not guaranteed by the datasheet's limits with this inductor, and start-up, load step, loop stability and temperature are for the bench.** *The sense route described here, on In2, was replaced the same day by one on F.Cu: entry "U11's sense moved to F.Cu" below.*
 
 *Preflight.*
 
@@ -1938,7 +1938,7 @@ Courtyards keep 0.26 mm or more to every neighbour, the spacing the rows already
 | R58, 43.2k | (177.3, 169.675), 180 | (175.6, 170.77), 180 | west of pin 5 |
 
 - *No `+3V3` via.* A through via on `+3V3` joins the In3 plane where it stands. A sense with two vias, which is how this cell was first drawn, would have tied the output to the plane through one 0.45 mm via and made R57 read the plane instead of the capacitors, and DRC would have called `+3V3` more complete for it. Joining the output to the plane is the next chunk's, so the cell has none.
-- *Sense on F.Cu.* One 0.2 mm track, 13.8 mm, from C197.1, the first output capacitor's pad: north, west above the inductor's output pad, north under the package in the 0.8 mm between the exposed pad and the tips of pins 1 to 4, 0.3 mm from each, and west to R57.1. `+3V3` has no width rule, so this is allowed here. **For U11 the same route would need the 1.5 mm rule lifted for the sense branch alone; it would give back about six In2 lanes at the north band. Not done, the owner's call.**
+- *Sense on F.Cu.* One 0.2 mm track, 13.8 mm, from C197.1, the first output capacitor's pad: north, west above the inductor's output pad, north under the package in the 0.8 mm between the exposed pad and the tips of pins 1 to 4, 0.3 mm from each, and west to R57.1. `+3V3` has no width rule, so this is allowed here. **For U11 the same route would need the 1.5 mm rule lifted for the sense branch alone; it would give back about six In2 lanes at the north band. Not done, the owner's call.** *Done since: next entry.*
 - *Slot lanes.* The lines of slots C and D leave J3B eastwards on In2 and In5 through this cell. Nothing of the cell is on In2 or In5. The pad's twelve vias stand in four east-west rows 1.0 mm apart, so a lane fits between rows; the two power-ground vias east of C192 are in line with the south row; the three output-ground vias are one row south of C195. The two vias inside the wall beside J3B, C283's ground at (174.5, 171.93) and R58's at (174.45, 169.39), stand in line with J3B's pin rows, where no lane can run. C283's old reserved site at (174.25, 172.99) lay in a lane gap and is released.
 - *Input loop, grounds, switch node, VCC, FB node:* as U11's, to within 0.01 mm. C284's pads are 1.66 mm from pins 2 and 1; SW is 1.1 mm from pin to inductor pad; R57.2 and R58.1 are 0.7 mm from pin 5; C283.1 0.43 mm from pin 6. Here no trunk lies under the input capacitors, so the power-ground vias stand directly east of C192.
 - *Exposed pad.* Twelve vias into In1, In4 and In6 and a B.Cu spreader of 0.8 mm tracks, 4.6 by 3.8 mm. No F.Cu out of the pad's north end: the sense passes there.
@@ -1972,6 +1972,64 @@ Courtyards keep 0.26 mm or more to every neighbour, the spacing the rows already
 - The output vias into the plane and the `VSYS` feeder: until both exist the cell is not powered in layout terms.
 
 *Evidence.* `~/freyja-review/u12-2026-11-09`: `README.md`, plans and scripts, routed, commit and working boards, DRC reports, corridor tables, `images/u12.png`; the preflight arithmetic and the datasheets are in the U11 folder. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
+
+**U11's sense moved to F.Cu under a local width rule (2026-11-09).** The 1.5 mm sense on In2 and its two vias are gone. The branch is now one 0.2 mm F.Cu track, 14.55 mm, from C189.1 to R55.1 with no via, allowed by one new rule that applies to `+5V_BUCK` on F.Cu inside one named strip and to nothing else. The load path keeps 1.5 mm. No footprint moved. North band In2: 119 lanes to 126, and 106 to 116 in the wider window.
+
+*Rule.* `U11 output sense branch`, in `tools/gen_pcb.py` and `kicad/odin.kicad_dru`, directly after `input path 3A` because KiCad lets the later rule win: a track on net `+5V_BUCK`, on F.Cu, wholly inside the rule area `U11_SENSE`, may be 0.2 mm. The area is board-owned, F.Cu only, forbids nothing: the branch's centre line widened to 0.5 mm, 7.47 mm2, x 226.025 to 233.0, y 116.325 to 124.4. It reaches 0.33 mm into C189.1's pad, where the branch starts, and into nothing else of the load path; a 1.5 mm track cannot lie inside a 0.5 mm strip. No clearance rule, net class or project setting changed: the generator's project output equals the live project file as sets, and only its rule file was taken, as before.
+
+*Tests,* each on a scratch copy with one change, `reports/ruletests.txt`:
+
+| Case | Result |
+|---|---|
+| Board as built | 0 errors |
+| Area deleted, or renamed | the six segments fail, 1.5 mm required |
+| New board under the old rule file | the same six errors |
+| Old board under the new rule file | 0 errors |
+| 0.2 mm `+5V_BUCK` on F.Cu outside any area; 1.49 mm outside | fails; 1.5 mm passes |
+| 0.2 mm `+5V_BUCK` leaving the strip by 0.4 mm, or with one edge 0.05 mm outside | fails |
+| 1.49 mm `+5V_BUCK` crossing the strip | fails; 1.5 mm passes |
+| 0.2 mm `+5V_BUCK` on In2 or B.Cu under the same outline | fails |
+| 0.2 mm `VSYS`, `VBUS`, `VBUS_SS`, `VIN_EXT` inside the strip | fail, 1.5 mm required |
+| 0.2 mm `+5V_EXT` inside; `AUX_RAIL` inside | fail, 1.0 mm and 2.0 mm required |
+| `+5V` and `SDRAM_CLK` inside | unchanged: 0.2 mm passes as anywhere, 0.08 and 0.10 mm fail at their own minimums |
+| 0.19 mm `+5V_BUCK` inside; the real branch at 0.19 mm | fails, 0.2 mm required |
+| `+5V_BUCK` inside at 0.10 mm from a ground track; at 0.16 mm | clearance error; passes |
+
+  The free tracks stood on a patch with no copper within 3 mm on F.Cu, In2 or B.Cu, under a second strip of the same name, and each kept its net after the connectivity build. A 0.5 mm track that fills the strip passes: that is the widest the exception can reach.
+
+*Route.* (232.75, 124.2) inside C189.1, 0.125 mm from its top edge; north to y 123.5; west between pin 1's ground copper and L2's output pad to (229.5, 123.5); a 45 degree corner; north along x 229.2 under the package, between the exposed pad and the tips of pins 1 to 4; west along y 116.575 above the round end of the pad's north ground copper and its two vias, below Q7.3; south into R55.1's centre. The pad's north copper and vias stay.
+
+- *Takeoff.* The In2 route read the south end of the capacitor bar. On F.Cu the branch cannot get there: the two 1.5 mm links from L2.1 to the bar are the same net and lie across the way. So it reads C189.1, the first output capacitor, as U12's reads C197.1. With 2.773 A leaving the bar's south end and the copper at 85 C, that end is about 3 mV below the sensed point (0.4 square of link and twice 1.4 squares of bar at 0.62 mohm a square, 35 um): the 185 mV left for the `+5V` feeder becomes 182 mV. **The onward copper to U34 must still leave from the bar's south end, and nothing may join the branch inside the strip.**
+- *One point of contact.* The rule does not check copper of the branch's own net. Measured: 0.19 mm to L2.1's pad, the nearest; with the first segment deleted R55.1 falls off the net, 2 missing connections become 3.
+- *Margins against other nets,* beyond the 0.15 mm rule: 0.10 mm at the exposed pad and at the `VSYS` patch over pins 2 and 3, 0.25 mm of gap each; 0.20 mm at pin 4; 0.33 and 0.36 mm at Q7.3 and Q7.1.
+
+*Is it quiet.* Measured from the saved board, `reports/quiet.txt`:
+
+- `SW_5V`: nearest copper 2.53 mm, L2.2's pad; pin 8 is 3.55 mm away with the grounded exposed pad between. `BOOT_5V`: 3.55 mm, pin 7. No `SW_5V` or `BOOT_5V` copper on any other layer within 1.5 mm in plan view.
+- In1, 0.076 mm below, is unbroken under the whole branch: 2196 samples on the centre line and both edges, none without copper; no via of another net within 1.0 mm.
+- Neighbours on F.Cu within 0.5 mm: ground for 7.4 mm of the 14.55; `VSYS` at pins 2 and 3 for 2.8 mm at 0.25 mm; the unused PG pad; Q7.3 `VBUS5_PR1` for 1.4 mm at 0.475 mm. Below In1 only `+2V5`, `+1V8_IO` and ground, on B.Cu and In5.
+- The branch is the low-impedance end of the divider, held by the output capacitors; the sensitive node is FB, and pin 5, R55.2 and R56.1 are untouched. The 2.8 mm beside pins 1 and 2 lies beside the input loop. By arithmetic, not measured: about 40 pH between that loop and the branch over its plane, some tens of millivolts for the few nanoseconds of an edge, in series with 100k into the FB pin. **A scope on FB and on the output at full load from 21 V is the check; it joins the cell's bench hold.** The In2 route lay under In1 and was better shielded; this one is 7 mm shorter and has no via.
+
+*Removed.* On In2 (229.75, 129.85) to (229.75, 116.1) to (226.3, 116.1), 1.5 mm; the vias at both ends; R55.1's 1.5 mm stub to the north via; and the bar's 0.85 mm stub and 3.2 mm turn west to the south via, which would have dangled.
+
+*Recovered crossing capacity,* north band x 172.4 to 241.2, 49 connections still to cross it, 2 of them in x 220 to 230 and 9 in x 230 to 240:
+
+| | Before the cell | With the In2 sense | Now |
+|---|---:|---:|---:|
+| In2, 3 mm window | 139 | 119 | 126 |
+| In2, 7 mm window | 124 | 106 | 116 |
+| In2, x 220 to 230 | 30 / 25 | 16 / 13 | 20 / 20 |
+| In2, x 230 to 240 | 24 / 24 | 18 / 18 | 21 / 21 |
+| F.Cu, 3 mm / 7 mm | 48 / 36 | 42 / 28 | 41 / 27 |
+| Via sites, 7 mm, north / south face | 449 / 354 | 419 / 329 | 427 / 348 |
+
+  Seven and ten In2 lanes come back; one F.Cu lane goes, in x 220 to 230, where the branch runs east-west at y 123.5. What is still missing against the board before the cell is the exposed pad's via array and the ground vias. Every other corridor table is identical.
+
+*Planes, reservations, silkscreen.* No new via. In1, In4, In6 and `+3V3` on In3 each gain 0.89 mm2 where the two vias stood; every plane one piece. Reservations unchanged, 419; stress copies 33 errors before and 32 after, all between x 199.7 and 203.2, y 143.84 and 145.84, the known SDRAM stubs, none naming the cell's nets; KiCad reports one of those overlaps under another type on the second copy. One cropped window over the cell: 7 and 2 silkscreen warnings before and after, item for item.
+
+*Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Against it: 5 tracks and 2 vias removed and 6 tracks added, all on `+5V_BUCK`; one rule area added; every footprint, every other track and via, the net table, stackup, groups, drawings and the other rule areas byte-identical; no zone outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected 751 before and after, every tracked group unchanged, `+5V_BUCK` 5 of 7 as before. Tracks 3401 to 3402, vias 889 to 887. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. Changed by hash: the board, the rule file, `tools/gen_pcb.py`, `ref/pcb-impedance.md` and this file; project file, schematics, netlist and libraries unchanged. No KiCad process and no lock before or after. No generator was run on the live tree; no placement tool or silkscreen updater was run.
+
+*Evidence.* `~/freyja-review/sense-2026-11-09`: `README.md`, plan and scripts, commit and working boards, DRC reports, rule tests, `reports/quiet.txt`, corridor tables. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
