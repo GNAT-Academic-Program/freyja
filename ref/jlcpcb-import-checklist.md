@@ -133,13 +133,27 @@ after assembly.
 - Push the shunt down to the header body. The posts stand 5.8 ± 0.2 mm; the
   shunt needs 4.32 mm of post.
 - **Qualification hold.** No maker gives the resistance of the complete path
-  between the two PCB pads. Before the 2.5 V or 1.8 V position is relied on,
-  measure it four-wire at the pads on the back of an assembled board, at
-  0.6 A: as fitted, after 25 moves between positions, and warm. The budget in
-  [findings](../findings.md) needs 20 mΩ or less at 85 °C. If the fitted
-  header does not meet it, Samtec `HTSW-103-07-L-D` takes the same holes and
-  position: 0.64 mm square posts with 10 µin gold, the post family and
-  plating Samtec rated this shunt on. It is not fitted.
+  between the two PCB pads. Before the 2.5 V or 1.8 V position is relied on:
+  use 25 complete removal/reinsertion cycles as a provisional prototype
+  check, with the board unpowered during mating. Measure assembled
+  pad-to-pad resistance four-wire before and after conditioning, at the
+  stated current and temperature. This is not a lifetime qualification.
+  - Current and temperature: 0.6 A, 85 °C. Requirement, unchanged: 20 mΩ or
+    less in both readings.
+  - Pairs, on J19 and on J20, with the shunt on the pair: pins 1-2 (3.3 V),
+    3-4 (2.5 V) and 5-6 (1.8 V), at the two pads of the pair on the back of
+    the assembled board. Read as fitted, take the shunt off completely and
+    push it back down 25 times, read again. Each pair gets its own 25
+    cycles; note it if one shunt served all three pairs of a header.
+  - Enter the twelve readings for both selectors in the table of the entry
+    "Selector check set" in [findings](../findings.md).
+  - A pass does not close bank 15 at 1.8 V with both selectors exporting:
+    that case is 1.8 mV short at 20 mΩ, would need 17 mΩ or less on J19
+    pins 5-6 for its DC figure alone, and its transient terms and U14's
+    hold stay open.
+  - If the fitted header does not meet 20 mΩ, Samtec `HTSW-103-07-L-D` takes
+    the same holes and position: 0.64 mm square posts with 10 µin gold, the
+    post family and plating Samtec rated this shunt on. It is not fitted.
 
 ## PSRAM series resistors
 
