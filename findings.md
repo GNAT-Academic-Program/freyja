@@ -1911,6 +1911,68 @@ Courtyards keep 0.26 mm or more to every neighbour, the spacing the rows already
 
 *Evidence.* `~/freyja-review/u11-2026-11-09`: `README.md`, plans and scripts, routed, commit and working boards, DRC reports, the preflight arithmetic, corridor tables, SNVSAN3F and SLVSEA3F, `images/u11.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
+**U12's cell routed: `VSYS` to `+3V3`, the always-on 3.3 V regulator (2026-11-09).** Switching node, bootstrap, VCC bypass and feedback are complete; the input node, the output node and nine grounds are connected; the exposed pad has its vias and a heat spreader. Nine passives moved; U12 and L3 did not. R57 and R58 are now 0.1 %, same values. **The output is not yet joined to the `+3V3` plane, on purpose: there is no `+3V3` via in the cell.** `VSYS` does not reach it either. EN stays on VIN and PG stays open. The same holds as U11's: the guaranteed current limit against this inductor at high input, and the bench for start-up, load step, loop and temperature.
+
+*Preflight.* Part, package and pin table as for U11, the entry above; the board's pads carry `GND`, `VSYS`, `VSYS`, none, `FB_3V3`, `U12_VCC`, `BOOT_3V3`, `SW_3V3`, and pad 9 `GND`.
+
+- *Parts against the netlist*, all equal: L3 4.7 uH SWPA6045S4R7MT between `SW_3V3` and `+3V3`; C192 10 uF 50 V and C284 220 nF 50 V on `VSYS`; C195, C196, C197 22 uF on `+3V3`; C193 100 nF bootstrap; C283 1 uF on `U12_VCC`; R57 100k from `+3V3` to `FB_3V3`, R58 43.2k to ground. Table 9-2's values except the inductor, 6.8 uH there, and the bank, 4 x 22 uF there.
+- *Load,* `tools/budget.py`: 0.946 A for the board, 2.946 A with every export at 3.3 V, the 1 A `+3V3_EXT` and both 0.5 A `VCCIO` exports, against the device's 3 A.
+- *Current limit against the ripple, guaranteed figures.* Ripple 1.11 A at 9 V, 37 % of 3 A; 1.48 A at 21 V. Output guaranteed by the 3.85 A limit: 3.29 A at 9 V and 3.11 A at 21 V with 4.7 uH nominal, both above 2.946 A. With the inductance 20 % low: 3.16 A at 9 V, 2.99 A at 15 V, **2.93 A at 21 V, short 0.02 A; with the frequency at its 340 kHz minimum as well, 2.76 A, short 0.18 A,** and short 0.03 A already at 12 V. The board load alone is covered everywhere by a wide margin.
+- *Inductor.* Equation 5 asks 2.3 uH, 2.7 uH at 340 kHz; 3.76 uH at -20 % clears it. Saturation and the limit as for U11. Heating is the closer figure here: 3.0 A rms against 3.30 A, 0.30 W.
+- *Output capacitance.* 66 uF nominal at the cell. The whole `+3V3` net is 221.3 uF nominal, the decoupling of every 3.3 V part, and reaches the regulator through the plane once the output is joined to it. TI's design is 88 uF nominal and allows ten times that.
+- *Regulator tolerance, guaranteed.* With the fitted 1 % pair and 60 K of drift 3.193 to 3.441 V at the sense point; with 0.1 % and 25 ppm/C, 3.254 to 3.376 V. The FPGA's 3.3 V banks take 3.135 to 3.465 V (DS181 v1.27.1 Table 2, note 5).
+- *Losses and heat, preliminary.* 0.7 W typical to 1.2 W at the maximum on-resistance at 2.95 A; 54 K/W to ambient at 60 C, 33 K/W at 85 C; 16 K from junction to the board under it.
+
+*Divider.* Material, and made: the room to the banks' limits goes from 58 mV below and 24 mV above to 119 and 89 mV, before any drop in the plane or ripple. R57 YAGEO RT0603BRD07100KL, C122538; R58 RT0603BRD0743K2L, C861404, 6370 in stock on 2026-11-08; 0.1 %, 25 ppm/C, 3.315 V nominal as before.
+
+*Layout.* The same arrangement as U11's, with three differences that come from where the cell stands.
+
+| Part | Was | Is | Why |
+|---|---|---|---|
+| C284, 220 nF | (186.3, 173.7), 0 | (185.25, 174.355), -90 | across pins 2 and 1 |
+| C192, 10 uF | (187.1, 171.1), 0 | (187.9, 173.78), -90 | behind C284, the same way up |
+| C197, C196, C195 | y 176.1, 178.3, 180.5 | y 177.35, 179.55, 181.75 | 1.25 mm south: the input capacitors need the room beside pin 1 |
+| C193, bootstrap | (176.4, 174.3), 180 | (176.6, 174.355), -90 | each pad level with its pin |
+| C283, VCC | (175.8, 173.0), 180 | (175.9, 172.44), 180 | level with pin 6 |
+| R57, 100k | (175.8, 171.4), 0 | (178.75, 169.67), 180 | north of pin 5 |
+| R58, 43.2k | (177.3, 169.675), 180 | (175.6, 170.77), 180 | west of pin 5 |
+
+- *No `+3V3` via.* A through via on `+3V3` joins the In3 plane where it stands. A sense with two vias, which is how this cell was first drawn, would have tied the output to the plane through one 0.45 mm via and made R57 read the plane instead of the capacitors, and DRC would have called `+3V3` more complete for it. Joining the output to the plane is the next chunk's, so the cell has none.
+- *Sense on F.Cu.* One 0.2 mm track, 13.8 mm, from C197.1, the first output capacitor's pad: north, west above the inductor's output pad, north under the package in the 0.8 mm between the exposed pad and the tips of pins 1 to 4, 0.3 mm from each, and west to R57.1. `+3V3` has no width rule, so this is allowed here. **For U11 the same route would need the 1.5 mm rule lifted for the sense branch alone; it would give back about six In2 lanes at the north band. Not done, the owner's call.**
+- *Slot lanes.* The lines of slots C and D leave J3B eastwards on In2 and In5 through this cell. Nothing of the cell is on In2 or In5. The pad's twelve vias stand in four east-west rows 1.0 mm apart, so a lane fits between rows; the two power-ground vias east of C192 are in line with the south row; the three output-ground vias are one row south of C195. The two vias inside the wall beside J3B, C283's ground at (174.5, 171.93) and R58's at (174.45, 169.39), stand in line with J3B's pin rows, where no lane can run. C283's old reserved site at (174.25, 172.99) lay in a lane gap and is released.
+- *Input loop, grounds, switch node, VCC, FB node:* as U11's, to within 0.01 mm. C284's pads are 1.66 mm from pins 2 and 1; SW is 1.1 mm from pin to inductor pad; R57.2 and R58.1 are 0.7 mm from pin 5; C283.1 0.43 mm from pin 6. Here no trunk lies under the input capacitors, so the power-ground vias stand directly east of C192.
+- *Exposed pad.* Twelve vias into In1, In4 and In6 and a B.Cu spreader of 0.8 mm tracks, 4.6 by 3.8 mm. No F.Cu out of the pad's north end: the sense passes there.
+
+| Net | Pads | |
+|---|---|---|
+| `SW_3V3` | 3 of 3 | U12.8, L3.2, C193.2 |
+| `BOOT_3V3` | 2 of 2 | U12.7, C193.1 |
+| `FB_3V3` | 3 of 3 | U12.5, R57.2, R58.1 |
+| `U12_VCC` | 2 of 2 | U12.6, C283.1 |
+| `VSYS`, local node | 4 | U12.2, U12.3, C284.1, C192.1; 9 missing connections to 6 |
+| `+3V3`, local node | 5 | L3.1, C195.1, C196.1, C197.1, R57.1, on F.Cu only; 120 missing to 116 |
+| `GND` | 9 | U12.1, U12.9, C284.2, C192.2, C195.2, C196.2, C197.2, C283.2, R58.2; 158 to 149 |
+
+*Connection points for the next chunks.*
+
+- **`+3V3` into the plane:** six sites for 0.45 mm vias on the output bar and beside it, between the capacitor pads and at its south end: (186.25, 178.45), (186.25, 180.65), (186.25, 183.0), (185.3, 183.0), (185.15, 178.45), (185.15, 180.65). Each is 0.63 mm or more beyond the rule on all four signal layers and has plane copper under it; the `+3V3` plane is one piece. The sense stays where it is, on the bank.
+- **`VSYS` in:** at C192.1 from the north, three sites for 0.8 mm vias at (187.0, 170.75), (188.0, 170.75) and (189.0, 170.75). From the north 3.2 mm passes on In2 and In5 and 3.17 mm on B.Cu; from the east 1.5 mm on In2 and In5.
+
+*Access.* The wall beside J3A and J3B: In2 46 and In5 46, unchanged; F.Cu 20 to 18, the two lanes between R58 and C283. Across the cell, x 177.5 to 191.5, y 160 to 190: In2 71 lanes to 64, In5 69 to 62, B.Cu 26 to 23, F.Cu 19 to 17, for 24 connections that cross it by straight line. The north band and every other table are identical.
+
+*Planes, reservations, silkscreen.* 19 vias, all ground, none on a reserved site. Reservations 422 to 419: the ground sites of C192, C284 and C283 at their old places are released, `tmp/res_u12.json`. Ground vias open no ground plane; `+3V3` on In3 loses 8.7 mm2 and stays one piece; no accepted track is near a new via. Stress copies 32 errors before and 33 after, the same 19 signatures, none naming the cell's nets. One cropped window: U12's "3V3 SUPPLY / ALWAYS ON" label no longer lies on C192, two warnings gone, none new; the label was not moved.
+
+*Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Routing was accepted against the unchanged schematic, then synced to the new netlist with the silkscreen updater held back: 0 footprints moved by the sync, R57 and R58 differ in value, description and part number only. Against the starting board: nine footprints moved, same footprint, side, pads and pad nets; 53 tracks and 19 vias added on the cell's nets and `GND`, nothing removed; every other footprint, track and via byte-identical; net table, stackup, rules, groups and drawings byte-identical; no zone outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected 773 to 751. Every tracked group unchanged. Smallest margin of a planned item 0.050 mm beyond the rule, the sense under the package. Tracks 3348 to 3401, vias 870 to 889. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. Regenerated from `tools/design.py`: `power.kicad_sch`, `odin.net`, the BOM, the parts guide and the stock list. No KiCad process and no lock before or after. No placement generator or silkscreen updater was run.
+
+*Holds and dependencies.*
+
+- Full export with a low inductor at high input, as above; the board load is not in question.
+- Start-up from a weak 5 V port into the whole `+3V3` net, a load step, loop margin: bench. This rail feeds the supervisor.
+- Case temperature at full export; inductor temperature at 3.0 A rms.
+- The output vias into the plane and the `VSYS` feeder: until both exist the cell is not powered in layout terms.
+
+*Evidence.* `~/freyja-review/u12-2026-11-09`: `README.md`, plans and scripts, routed, commit and working boards, DRC reports, corridor tables, `images/u12.png`; the preflight arithmetic and the datasheets are in the U11 folder. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule

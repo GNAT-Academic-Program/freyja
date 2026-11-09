@@ -166,6 +166,8 @@ class Design:
             # U11's lower resistor, the same series (RT0603BRD0724K9L); its
             # upper one is the 100k above.
             (R0603, '24.9k 0.1%'): 'C136967',
+            # U12's lower resistor, the same series (RT0603BRD0743K2L).
+            (R0603, '43.2k 0.1%'): 'C861404',
         }.get((fp, val), '')
         return self.add(self.seq('R'), 'Device:R', val, fp, {'1': a, '2': b},
                         lcsc=lcsc, dnp=dnp)
@@ -869,7 +871,14 @@ def build():
            'BOOT': 'BOOT_3V3', 'VCC': 'U12_VCC', 'PG': ''}, 'C841384')
     d.C('10uF', VSYS, GND, C1210)
     d.C('100nF', 'BOOT_3V3', 'SW_3V3'); d.L('4.7uH', V33, 'SW_3V3')
-    d.R(rt3, V33, 'FB_3V3', R0603); d.R(rb3, 'FB_3V3', GND, R0603)
+    # 2026-11-09: the same 100k / 43.2k, 3.315 V nominal, at 0.1 % and
+    # 25 ppm/C instead of 1 %. With VFB at 0.985 to 1.015 V (SNVSAN3F 7.5)
+    # the 1 % pair gives 3.193 to 3.441 V at the sense point, this pair
+    # 3.254 to 3.376 V, against the 3.135 to 3.465 V of the 3.3 V banks
+    # (DS181 Table 2): 58 and 24 mV of room become 119 and 89 mV, before
+    # any drop in the plane. Arithmetic and assumptions: findings.md,
+    # 2026-11-09.
+    d.R(rt3 + ' 0.1%', V33, 'FB_3V3', R0603); d.R(rb3 + ' 0.1%', 'FB_3V3', GND, R0603)
     d.reserve('C', 1)                              # the AP63300's 56 pF feed-forward
     for _ in range(3): d.C('22uF', V33, GND, C0805)
 

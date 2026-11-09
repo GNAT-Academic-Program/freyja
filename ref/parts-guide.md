@@ -303,8 +303,8 @@ Switching regulator that makes +3V3 from VSYS. It has no enable: it starts as so
 | C283 | 1uF | 1uF bypass on U12_VCC, for U12 (3.3 V regulator, always on): U12's internal 5 V regulator output, its own 1 uF; drives nothing else |
 | C284 | 220nF 50V | 220nF 50V bypass on VSYS, for U12 (3.3 V regulator, always on) |
 | L3 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +3V3 and SW_3V3, for U12 (3.3 V regulator, always on): regulator switching node |
-| R57 | 100k | 100k series resistor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
-| R58 | 43.2k | 43.2k resistor from FB_3V3 to GND, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R57 | 100k 0.1% | 100k 0.1% series resistor between +3V3 and FB_3V3, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
+| R58 | 43.2k 0.1% | 43.2k 0.1% resistor from FB_3V3 to GND, for U12 (3.3 V regulator, always on): feedback divider, sets the regulator's output voltage |
 
 ### U13  5V to +2V5
 
