@@ -350,8 +350,8 @@ The FPGA core supply: up to 4 A at 1.0 V from +5V, the heaviest rail on the boar
 | C285 | 100nF | 100nF capacitor between BST+1V0 and SW+1V0, for U15 (FPGA core regulator): U15 bootstrap: 100 nF to SW feeds its high-side gate driver; regulator switching node |
 | C286 | 100nF | 100nF bypass on +5V, for U15 (FPGA core regulator) |
 | L7 | 4.7uH SWPA6045S4R7MT | 4.7uH SWPA6045S4R7MT inductor between +1V0 and SW+1V0, for U15 (FPGA core regulator): regulator switching node |
-| R67 | 3.09k | 3.09k resistor from FB+1V0 to +1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
-| R68 | 10k | 10k resistor from FB+1V0 to GND, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
+| R67 | 3.09k 0.1% | 3.09k 0.1% resistor from FB+1V0 to +1V0, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
+| R68 | 10k 0.1% | 10k 0.1% resistor from FB+1V0 to GND, for U15 (FPGA core regulator): feedback divider, sets the regulator's output voltage |
 | R94 | 100k | 100k pull-down on EN_1V0, for U7 (board controller): keeps the regulator off until the board controller enables it |
 
 ### extension power protection control

@@ -160,6 +160,9 @@ class Design:
             # U13's: the same series (RT0603BRD07100KL, RT0603BRD0731K6L).
             (R0603, '100k 0.1%'):  'C122538',
             (R0603, '31.6k 0.1%'): 'C705766',
+            # U15's: the same series (RT0603BRD073K09L, RT0603BRD0710KL).
+            (R0603, '3.09k 0.1%'): 'C861371',
+            (R0603, '10k 0.1%'):   'C95204',
         }.get((fp, val), '')
         return self.add(self.seq('R'), 'Device:R', val, fp, {'1': a, '2': b},
                         lcsc=lcsc, dnp=dnp)
@@ -936,7 +939,15 @@ def build():
     d.reserve('R', 1); d.reserve('C', 1)          # SVIN 10 R and 1 uF
     d.reserve('C', 1); d.reserve('R', 1)          # SS 1 nF, PG 100k
     d.L('4.7uH', V10, 'SW+1V0')
-    d.R(rt1, V10, 'FB+1V0', R0603); d.R(rb1, 'FB+1V0', GND, R0603)
+    # 2026-11-09: the same 3.09k / 10k, 0.995 V nominal, at 0.1 % and
+    # 25 ppm/C instead of 1 %. VCCINT and VCCBRAM take 0.95 to 1.05 V
+    # (DS181 Table 2) and the worst core ball sits about 13 mV below the
+    # feedback takeoff at 2.05 A and 85 C, through the In3 island as
+    # outlined. With VFB at 0.745 to 0.775 V (SLVSDJ7B 6.5) and the
+    # divider's tolerance and drift the 1 % pair left that ball 5 mV above
+    # the minimum; this pair leaves 11 mV. Arithmetic and assumptions:
+    # findings.md, 2026-11-09.
+    d.R(rt1 + ' 0.1%', V10, 'FB+1V0', R0603); d.R(rb1 + ' 0.1%', 'FB+1V0', GND, R0603)
     d.reserve('C', 1)                             # 22 pF feed-forward
     for _ in range(2): d.C('22uF', V10, GND, C0805)
     # U19's +12V output fed only U25 and the ten per-zone AUX selectors. Those

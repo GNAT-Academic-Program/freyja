@@ -1605,6 +1605,91 @@ Bank 15 gains 0.08 mV because C346's and C347's links lie in parallel with the f
 
 *Evidence.* `~/freyja-review/caps-2026-11-09`: `README.md`, the two plans and their scripts, commit and working boards, DRC reports, paths before and after (`reports/loops.txt`), DC results at 25 and 85 C, what is left for the later nets (`reports/later.txt`), corridor and row tables, UG483 v1.14 as downloaded, `images/close_up.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
+**U15's cell routed: `+5V` to `+1V0`, the FPGA core regulator (2026-11-09).** SW, bootstrap, feedback and enable are complete, the cell's input and output nodes and its seven grounds are connected, and the output reaches the `+1V0` island on In3 through six vias. Six passives moved; U15, L7, C212 and R94 did not. R67 and R68 are now 0.1 %, same values. Global `+5V` and the core fanout are not routed. **Start-up, load step and loop stability into this output network are not established by any of this and stay a bench hold.**
+
+*Preflight.*
+
+- *Pins.* TPS564201, SLVSDJ7B section 5, DDC top view: 1 GND, 2 SW, 3 VIN, 4 VFB, 5 EN, 6 VBST. The board's pads carry `GND`, `SW+1V0`, `+5V`, `FB+1V0`, `EN_1V0`, `BST+1V0` in that order.
+- *Parts against the netlist*, all equal: U15 TPS564201DDCR; L7 4.7 uH SWPA6045S4R7MT between `SW+1V0` and `+1V0`; C207 22 uF and C286 100 nF from `+5V` to ground; C211 and C212 22 uF from `+1V0` to ground; C285 100 nF from `BST+1V0` to `SW+1V0`; R67 3.09k from `+1V0` to `FB+1V0`, R68 10k from `FB+1V0` to ground; R94 100k from `EN_1V0` to ground. The 22 uF is Murata GRM21BR61E226ME44L, 25 V X5R.
+- *Load.* 2.050 A from `tools/budget.py` as it stands after the GTP removal: 2.000 A VCCINT, a planning allowance, and 0.050 A VCCBRAM. Not the earlier 2.150 A.
+- *Inductor.* Ripple 0.30 A at 5 V in, 0.39 A at 5.5 V with the inductance 20 % low; peak 2.24 A against 4.97 A guaranteed saturation, 2.05 A against the 3.30 A heating rating, DCR 34 mohm at most. U15's valley limit is 4.2 A at least. At the regulator's own 4 A the heating rating would be exceeded: this cell is a 3.3 A cell, which the budget does not approach.
+- *Regulator tolerance.* VFB 0.745 / 0.760 / 0.775 V over -40 to 125 C junction, 2 % each way, specified at 12 V in, 1.05 V out, continuous mode; TI gives no line figure for 5 V in. With 3.09k / 10k the nominal is 0.995 V.
+- *Output network: nominal, effective, distributed.* TI's Table 2 covers 20 to 68 uF with 1.5 to 4.7 uH, a double pole between 8.9 and 29 kHz. Nominal here 506.9 uF: the cell's 2 x 22 uF and, on the island, 330 uF polymer tantalum, 100 uF, 6 x 4.7 uF and 10 x 0.47 uF, the UG483 set. Effective at 1 V about 480 uF by my estimate of the ceramics' bias loss, not read from Murata's curves. Double pole with 4.7 uH about 3.4 kHz, 2.6 times below TI's lowest. Distributed: only the 44 uF stands at the cell. The 100 uF is 0.9 mohm of island away, the north-face 4.7 uF 1 to 2 mohm, and the 330 uF is at the island's far end, 7.3 mohm of plane away, with up to 25 mohm of its own ESR.
+- *What that means for the loop, by TI's published model and not by measurement.* SLVA546 gives D-CAP2 as plant double pole, one zero from the ripple injection and a delay, and publishes the two parameters for the TPS54325 and TPS53114 only, not for the TPS564201. With the TPS54325's 1.05 V row as a stand-in (`scripts/loop.py`), TI's own typical circuit comes out at 41 degrees of phase margin and TI's lowest-pole corner, 4.7 uH with 68 uF, at 28 degrees. The fitted network comes out at 38 to 49 degrees with the polymer's ESR between 6 and 25 mohm, crossing at 26 to 34 kHz where TI's circuits cross at 66 to 135 kHz; with the stand-in gain halved or doubled or the zero moved, 33 to 52 degrees, never below TI's lowest corner under the same assumption. Without the polymer branch the same ceramics give 21 degrees. **So extra capacitance is not harmless here, and it is not shown unstable either: the margin rests on the series resistance of the 330 uF branch, and the parameters are another part's.**
+- *Start-up, by arithmetic.* Soft start 1.0 ms, inside DS181's 0.2 to 50 ms ramp. Charging 480 to 545 uF in 1 ms takes 0.48 to 0.54 A; DS181's power-on current for the XC7A100T adds about 0.39 A; under 1 A against the 4.2 A limit.
+- *Hold.* The existing line of `ref/power-budget.md`, "beyond: bench qualification", stands and is the hold for this rail: start-up into the full bank with the FPGA unconfigured and configuring, a load step read at the core capacitors, and loop margin if it can be measured. Nothing found requires a different power stage before layout, so none was laid out. **Prepared, not applied:** Sunlord SWPA6045S2R2NT, C36500, 2.2 uH, TI's typical value, on L7's footprint: 7.4 A saturation, 4.6 A heating, 18 mohm, 2313 in stock on 2026-11-08; ripple 0.65 A; the same model gives 50 to 55 degrees. A value-only change if the bench asks for it.
+
+*Layout.* TI 10.1: input and output capacitors close, SW short and wide, no switching current under the device, a separate VOUT path to the upper resistor, a Kelvin ground for the feedback, VFB node small.
+
+| Part | Was | Is | Why |
+|---|---|---|---|
+| C286, 100 nF input | (213.14, 122.7), -90 | (213.1, 122.1), 180 | `+5V` pad 0.9 mm from pin 3 |
+| C207, 22 uF input | (211.24, 122.1), -90 | (213.0, 123.65), 180 | `+5V` pad 1.7 mm from pin 3; it stood 3.2 mm away with its ground pad over the `+2V5` trunks, where no via can go |
+| C285, bootstrap | (215.74, 118.7), 180 | (216.05, 119.05), 180 | 1.2 mm from pin 6 |
+| C211, 22 uF output | (204.74, 121.9), -90 | (207.3, 121.2), 0 | beside L7.1; its ground pad was over the trunks too |
+| R67, 3.09k | (207.0, 121.8), -90 | (218.35, 124.22), 180 | at pin 4; the VFB node would have been 9 mm long |
+| R68, 10k | (208.8, 121.8), 90 | (218.35, 122.65), 0 | its VFB pad on pin 4's pad |
+
+- *Switch node.* F.Cu only: from pin 2 west and north into L7.2, 1.0 mm wide, 2.2 mm of centre line between the pads. L7's pad stands 0.27 mm north of pin 1, so SW passes pin 1's west end.
+- *Power ground.* Pin 1 leaves north between L7's pad and C285 on a 0.85 mm strip with three vias. Nothing of the power path is under the package.
+- *Input loop.* Pin 3 to C286 and C207, their ground pads to two vias 0.7 mm west of C286, return in In1, 0.11 mm below, to the three pin 1 vias 3.5 mm away. SW lies between pins 1 and 3 on F.Cu, so the loop cannot close on the surface; it closes in the plane under it.
+- *Bootstrap.* C285.1 to pin 6, 1.2 mm. C285.2 to pin 2 by a 0.25 mm track 2.6 mm long under the package: gate-drive current only.
+- *Feedback.* VFB node: pin 4, R68.1 on it, 1.6 mm to R67.2; In1 under it; SW on the far side of the package. Sense: R67.1 by 2.4 mm to its own via into the island at (220.1, 121.95), in a bay of the island that carries no load current. Ground: R68.2 has no via; a 0.125 mm track 10.5 mm long ties it to the inner end of pin 1's pad, under the package beside the bootstrap track, north round C285 and down the east side past R94. It carries the divider's 76 uA.
+- *Enable.* U7 pin 25, a via inside U7's pad ring at (184.96, 117.45), In5 along y 117.3 under L7, down U15's east side, a via between pin 5 and R94.1; 35.8 mm on In5. R94 pulls it down at the pin. The In2 lane the removed `EN_1V2` used is closed by the three sense lanes at x 196.4 to 197.2; In5 was free.
+- *Output.* L7.1, C212.1 and C211.1 on 1.0 to 1.4 mm of F.Cu; six vias on a 1.0 mm pitch at x 203.8, 204.8, 205.8 and y 120.1, 121.1 into In3, 1.0 mm clear of the trunks. They share the load between 0.17 and 0.60 A.
+
+| Net | Pads | |
+|---|---|---|
+| `SW+1V0` | 3 of 3 | U15.2, L7.2, C285.2 |
+| `BST+1V0` | 2 of 2 | U15.6, C285.1 |
+| `FB+1V0` | 3 of 3 | U15.4, R68.1, R67.2 |
+| `EN_1V0` | 3 of 3 | U15.5, R94.1, U7.25 |
+| `+5V`, local node | 3 | U15.3, C286.1, C207.1; `+5V` 19 missing connections to 17 |
+| `+1V0` | 4 | L7.1, C212.1, C211.1 and R67.1, joined by the island; 39 pads without copper to 36 |
+| `GND` | 7 | U15.1, C207.2, C286.2, C211.2, C212.2, R94.2 by vias, R68.2 by its track; 192 to 185 |
+
+*Onward budget, preliminary, DC only.* The island was solved as a sheet from its fill on a copy holding all 471 reserved vias, so the holes of the later fanout are in it: 15.2 um copper, 0.05 mm raster, 2.050 A split evenly over the 17 core ball vias, an assumption (`scripts/island.py`).
+
+| | 85 C | 25 C |
+|---|---:|---:|
+| Feedback takeoff below the output vias | 2.6 mV | 2.1 mV |
+| North-face capacitors C303 to C306 below the output vias | 2.6 to 4.7 mV | |
+| First core ball W13 | 10.3 mV | 8.4 mV |
+| Worst core balls J11, K12, and the 330 uF beyond them | 15.1 mV, 7.4 mohm | 12.3 mV |
+| **Worst ball below the takeoff** | **12.6 mV, 6.1 mohm** | 10.2 mV |
+| With its via barrel and dogbone, estimated | 13.0 mV, 6.3 mohm | |
+
+Two thirds of it is inside the ball field, where the island is perforated. VCCINT and VCCBRAM take 0.95 to 1.05 V (DS181 v1.27.1, Table 2).
+
+| At the takeoff and at the worst ball | 1 % pair, 100 ppm/C, as fitted | 0.1 % pair, 25 ppm/C |
+|---|---:|---:|
+| Minimum at the takeoff, tolerance and 60 C of drift | 0.9678 V | 0.9740 V |
+| Maximum at the takeoff | 1.0221 V | 1.0157 V |
+| Worst ball, 2.05 A, 85 C | 0.9549 V | 0.9611 V |
+| **Left above 0.95 V for load steps, ripple and error** | **4.9 mV** | **11.1 mV** |
+| Left below 1.05 V at no load | 27.9 mV | 34.3 mV |
+| Feeder and fanout resistance for nothing left | 8.7 mohm | 11.7 mohm |
+| For 10 mV left | 3.8 mohm | **6.8 mohm** |
+
+**Allowance for the next chunks: 6.8 mohm from the takeoff to the worst core ball, ball via and dogbone included, if 10 mV is to remain. The island as outlined already takes 6.3 mohm of it; each further milliohm costs 2.05 mV.** The 10 mV is my figure, for the owner to set. What would return margin: taking the feedback from a core ball via once the fanout exists, up to 10 mV, at the price of a 27 mm sense lane through the ball field; R67.1's track is 2.4 mm long, so it can be re-pointed. Or a load figure from AMD's XPE in place of the 2.000 A allowance.
+
+*Divider.* On that budget the substitution the owner allowed is material, 4.9 to 11.1 mV, and was made: R67 YAGEO RT0603BRD073K09L, C861371, and R68 RT0603BRD0710KL, C95204, both 0.1 % and 25 ppm/C, the series U13 and U14 use; 2432 and 2.1 million in stock on 2026-11-08, SMT. Same values, same footprints, setpoint 0.995 V unchanged. The 10k becomes an extended line; the 3.09k already was one.
+
+*Connection points for the next chunks.*
+
+- **`+5V`:** the local node is U15.3, C286.1 and C207.1. Two via sites are free 1.1 mm west of the input ground vias, (210.85, 121.0) and (210.85, 121.8); from them 0.6 mm of F.Cu passes round the south of C207 into C207.1, 7.4 mm. A track up to 1.58 mm reaches the sites from the east on B.Cu or on In2, where U11's cell and U34 stand. A site under U15 beside pin 3 also exists and is not preferred.
+- **`+1V0`:** the island is fed. Left: the 17 core balls and the capacitors on their reserved vias; C307, C308, C309 and C312, which stand outside the island's outline; the monitor resistor R88.1 at (201.1, 109.0), north-west of the island; and `MON_1V0`, three pads.
+
+*Access.* North band, 3 mm window: In2 143 to 139 lanes for 51 crossings, F.Cu 54 to 46, via sites on the north face 168 to 145; 7 mm window: In2 128 unchanged, F.Cu 40 to 34, via sites 501 to 447. Every other corridor table is unchanged. The cell takes the north face from x 203.6 to 220.3; nothing was added in the band itself, and the EN lane is north of it.
+
+*Silkscreen, two cropped windows.* U15's own "1V0 SUPPLY / FPGA CORE" label lies across the cell: C286's and R68's silk lines now cross it and C207's no longer does, two warnings new and one gone. Nothing else changed; no label was moved.
+
+*Planes and reservations.* 19 vias, none on a reserved site, list unchanged at 471. Every plane one piece; In1, In4 and In6 lose 4.0 mm2 each, the island 4.9 mm2 to the ground vias, `+3V3` 0.4 mm2. No accepted track within 1.2 mm of a new via lost copper beneath it. KiCad's isolated-copper warning for the island is gone, as intended. Stress copies 33 errors before and after, the same 19 signatures, none naming the cell's nets.
+
+*Checks.* On a copy first, then transferred. The live board at the start was the committed board with the owner's H4 position and its refill, byte for byte. Routing was accepted against the unchanged schematic, then the board was synced to the new netlist with the silkscreen updater held back: 0 footprints moved by the sync, R67 and R68 differ in value, description and part number and in nothing else. Against the starting board: six footprints moved, same footprint, side, pads and pad nets; 40 tracks and 19 vias added on the cell's nets and `GND`, nothing removed; every other footprint, track and via byte-identical, net table, stackup, rules, groups and drawings byte-identical, no zone outline or setting changed. **0 DRC errors, 0 parity with H4 at either position**, no dangling copper, fresh refills byte-identical, unconnected 870 to 851. Every tracked group unchanged, `VCCIO_1` and `VCCIO_2` 22 of 22. Smallest margin of a planned item 0.012 mm beyond the rule, the Kelvin track beside C285. Tracks 3175 to 3215, vias 769 to 788. Strict gate electrical and mechanical PASS, stackup guard and ERC pass, on the live tree. Regenerated from `tools/design.py`: `power.kicad_sch`, `odin.net`, the BOM, the parts guide and the stock list; every other sheet, the project, rules and libraries unchanged by hash. No KiCad process and no lock before or after. No placement generator or silkscreen updater was run; the moves are in `tmp/plan_A.json`.
+
+*Evidence.* `~/freyja-review/u15-2026-11-09`: `README.md`, plans and scripts, routed, commit and working boards, DRC reports, the island solution at 25 and 85 C, the loop comparison, SLVA546, SLVSDJ7B, DS181, the library snapshot, `images/close_up.png`. Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule
