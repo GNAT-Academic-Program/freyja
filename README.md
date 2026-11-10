@@ -27,7 +27,10 @@ straps and crystal are on the board, and since 2026-11-09 the regulator cells
 U11 to U15, the `+1V0`, `+1V8`, `+2V5`, `VCCIO_1` and `VCCIO_2` distributions,
 U34's source-select cell with its control lines, the `+5V` distribution and
 its monitor, and the power-input tree (J50 and USB-C to `VSYS`, `VBUS` to U26
-and U34, `VSYS` to U11 and U12, U26's and U18's islands); counts, the remaining-net inventory and open issues are in
+and U34, `VSYS` to U11 and U12, U26's and U18's islands), and since 2026-11-10 the
+board controller's bring-up set (U7's regulator, crystal, flash, +3V3 and +1V1, the
+USB data pair, the supervisor JTAG and sideband, the FPGA configuration straps
+and configuration flash, the system clock); counts, the remaining-net inventory and open issues are in
 [current findings](findings.md). The gate reports DRC and unrouted items
 without gating them, so a passing gate is not a fabrication pass.
 

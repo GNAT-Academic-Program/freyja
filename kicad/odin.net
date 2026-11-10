@@ -1,7 +1,7 @@
 (export (version "E")
   (design
     (source "/home/ohenley/freyja/kicad/odin.kicad_sch")
-    (date "2026-11-09T14:57:24-0500")
+    (date "2026-11-09T23:58:56-0500")
     (tool "Eeschema 9.0.8+dfsg-1")
     (sheet (number "1") (name "/") (tstamps "/")
       (title_block
@@ -10494,7 +10494,7 @@
       (node (ref "C128") (pin "1") (pintype "passive"))
       (node (ref "C129") (pin "1") (pintype "passive"))
       (node (ref "C131") (pin "1") (pintype "passive"))
-      (node (ref "L1") (pin "1") (pinfunction "1") (pintype "passive"))
+      (node (ref "L1") (pin "2") (pinfunction "2") (pintype "passive"))
       (node (ref "U7") (pin "10") (pinfunction "DVDD") (pintype "power_in"))
       (node (ref "U7") (pin "32") (pinfunction "DVDD") (pintype "passive"))
       (node (ref "U7") (pin "51") (pinfunction "DVDD") (pintype "passive"))
@@ -12874,7 +12874,7 @@
       (node (ref "R15") (pin "1") (pintype "passive"))
       (node (ref "U7") (pin "78") (pinfunction "GPIO1") (pintype "bidirectional")))
     (net (code "448") (name "SUP_LX") (class "Default")
-      (node (ref "L1") (pin "2") (pinfunction "2") (pintype "passive"))
+      (node (ref "L1") (pin "1") (pinfunction "1") (pintype "passive"))
       (node (ref "U7") (pin "63") (pinfunction "VREG_LX") (pintype "power_out")))
     (net (code "449") (name "SUP_PROG_B") (class "Default")
       (node (ref "R18") (pin "1") (pintype "passive"))

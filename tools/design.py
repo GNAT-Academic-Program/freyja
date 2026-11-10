@@ -467,7 +467,9 @@ def build():
     d.C('4.7uF', '+1V1', GND, C0603)           # C7, the regulator output
     d.R('33', V33, 'SUP_VREG_AVDD', R0402)     # R3, RC filter for the
     d.C('4.7uF', 'SUP_VREG_AVDD', GND, C0603)  # C9, analogue supply
-    d.L('3.3uH', '+1V1', 'SUP_LX')             # L1, mandated by RP-008280
+    d.L('3.3uH', 'SUP_LX', '+1V1')             # L1, mandated by RP-008280; pin 2 is the
+    # end with the white polarity dot on the imported footprint (the dot sits
+    # at pad 2), and RP2350 datasheet Figure 26 puts that dot at the +1V1 pad
     d.group('crystal (RP-008280 s4)')
     # Raspberry Pi "insist (well, strongly suggest)" on this exact crystal and
     # damping resistor: 12MHz ABM8-272-T3, 10pF load, 50R max ESR, with two
