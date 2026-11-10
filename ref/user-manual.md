@@ -51,6 +51,12 @@ budget not qualified for rev A. A 15 W charger or a 3 A computer port runs
 the whole board with light extensions; a plain 500 mA port runs the board
 controller alone.
 
+On rev A a 5 V USB source supports the board's own load only; extension
+loads at full +3V3 current need 9 V USB-PD or the optional power input
+(computed, not measured: with 4.5 V at the connector, the 3.3 V regulator's
+input sits at about 4.00 V at the board's own 0.95 A of +3V3 but falls to
+3.49-3.55 V at the full 2.95 A, below its 3.8 V minimum).
+
 Odin asks USB-C for 5 V by default and for 9 V only once the board controller
 is running and has decided to; its pins cannot form any higher request.
 While it asks, the board's 5 V runs a little low for under a second;

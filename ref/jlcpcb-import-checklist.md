@@ -23,6 +23,16 @@ An imported symbol and footprint are evidence, not proof. Before use, Odin
 must compare pin numbers, exposed pads, package dimensions and orientation
 against the manufacturer datasheet.
 
+## Order-time checks
+
+- **L1 orientation (AOTA-B201610S3R3-101-T, RP2350 regulator inductor).** In
+  the JLCPCB placement preview, confirm the part's white polarity dot sits at
+  pad 2, the `+1V1` pad (the west pad, toward C131), as the
+  Abracon drawing marks the dot and RP2350 datasheet Figures 25, 26 and 28
+  require it at the output side. The board's silkscreen dot is beside that pad,
+  on its west side. Reject the preview if the reel orientation puts the dot at
+  pad 1 (`SUP_LX`).
+
 ## Imported parts
 
 | Qty | Manufacturer part number | Used for | Known LCSC number |

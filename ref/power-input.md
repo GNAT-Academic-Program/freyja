@@ -9,7 +9,12 @@ the USB-to-VSYS path to about 3 A typical (29.4k since 2026-11-03, the Type-C ca
 limiting (1.2 V/ms), undervoltage lockout at 3.7 V, overvoltage cut-off at
 10 V and reverse blocking. Its absolute maximum is 20 V, so the VBUS TVS D7 is
 an SMBJ12A, 19.9 V clamp at full surge, 12 V standoff above the 9 V contract. U11 and U12 are LMR33630 devices with EN tied to VIN: +3V3, +5V and the
-1.8 V rail are present whenever the board has power. On a plain 5 V source
+1.8 V rail are present whenever the board has power. On rev A a 5 V USB
+source supports the board's own load only; extension loads at full +3V3
+current need 9 V PD or the J50 input (computed, not measured: at 4.5 V on
+VBUS, VSYS at U12 is about 4.00-4.02 V at the board's own 0.95 A of +3V3 and
+3.49-3.55 V at the full 2.95 A, against U12's 3.8 V minimum, through U26 at
+42-58 mohm, D3 and 120 mohm of copper at 85 C). On a plain 5 V source
 U34 (TPS2121) passes VBUS to the +5V rail directly. The rail is handed to
 U11 by intent, not by a voltage threshold (findings items 52, 53): Q6 holds
 the mux on U11 while the controller asks for 9 V and for 2-7 s after it

@@ -30,7 +30,9 @@ its monitor, and the power-input tree (J50 and USB-C to `VSYS`, `VBUS` to U26
 and U34, `VSYS` to U11 and U12, U26's and U18's islands), and since 2026-11-10 the
 board controller's bring-up set (U7's regulator, crystal, flash, +3V3 and +1V1, the
 USB data pair, the supervisor JTAG and sideband, the FPGA configuration straps
-and configuration flash, the system clock); counts, the remaining-net inventory and open issues are in
+and configuration flash, the system clock), then its leftovers (SWD, RUN, UART, heartbeat LED, the USB
+TVS, `EXT_EN` to U22), the `DBG_TCK`/`DBG_TDO` and FPGA-to-supervisor UART links, and every `+3V3` and ground
+plane connection but C121's; counts, the remaining-net inventory and open issues are in
 [current findings](findings.md). The gate reports DRC and unrouted items
 without gating them, so a passing gate is not a fabrication pass.
 
