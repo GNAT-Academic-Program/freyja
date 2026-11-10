@@ -26,7 +26,8 @@ the four HDMI pairs, LINK P and Q, the four Ethernet pairs and U30's local suppl
 straps and crystal are on the board, and since 2026-11-09 the regulator cells
 U11 to U15, the `+1V0`, `+1V8`, `+2V5`, `VCCIO_1` and `VCCIO_2` distributions,
 U34's source-select cell with its control lines, the `+5V` distribution and
-its monitor; counts, the remaining-net inventory and open issues are in
+its monitor, and the power-input tree (J50 and USB-C to `VSYS`, `VBUS` to U26
+and U34, `VSYS` to U11 and U12, U26's and U18's islands); counts, the remaining-net inventory and open issues are in
 [current findings](findings.md). The gate reports DRC and unrouted items
 without gating them, so a passing gate is not a fabrication pass.
 

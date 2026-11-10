@@ -38,6 +38,37 @@
 (rule "VIN_EXT tap to Q7's divider"
   (condition "A.Type == 'Track' && A.NetName == 'VIN_EXT' && A.enclosedByArea('VIN_EXT_TAP')")
   (constraint track_width (min 0.2mm) (opt 0.2mm)))
+# J1's VBUS pad pairs: a VBUS track on F.Cu wholly inside J1_VBUS_NECK_W or J1_VBUS_NECK_E may be 0.6 mm,
+# the 0.60 mm pad's own neck into the 1.5 mm copper below it (GND 0.20 mm and a CC pad 0.25 mm beside the pad).
+(rule "J1 VBUS pin necks"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'VBUS' && (A.enclosedByArea('J1_VBUS_NECK_W') || A.enclosedByArea('J1_VBUS_NECK_E'))")
+  (constraint track_width (min 0.6mm) (opt 0.6mm)))
+# U18's VIN pin (0.28 x 0.67 mm, 0.5 mm pitch): a VBUS track on F.Cu wholly inside U18_VIN_NECK may be 0.28 mm.
+(rule "U18 VIN pin neck"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'VBUS' && A.enclosedByArea('U18_VIN_NECK')")
+  (constraint track_width (min 0.28mm) (opt 0.28mm)))
+# U26's IN pins 9 and 10 (0.28 x 0.67 mm, 0.5 mm pitch, OUT pin 8 beside pin 9): a VBUS track on F.Cu wholly inside
+# U26_IN_NECKS may be 0.28 mm. Pins 11 to 13 are covered by the 1.5 mm bar.
+(rule "U26 IN pin necks"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'VBUS' && A.enclosedByArea('U26_IN_NECKS')")
+  (constraint track_width (min 0.28mm) (opt 0.28mm)))
+# U26's OUT pins 7 and 8 (north face): a VBUS_SS track on F.Cu wholly inside U26_OUT_NECKS may be 0.28 mm.
+(rule "U26 OUT pin necks"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'VBUS_SS' && A.enclosedByArea('U26_OUT_NECKS')")
+  (constraint track_width (min 0.28mm) (opt 0.28mm)))
+# R50 (110k) reads VBUS for U26's UVLO and OVP thresholds, 33 uA: a VBUS track on F.Cu wholly inside U26_VBUS_TAP may be 0.2 mm.
+(rule "U26 VBUS divider tap"
+  (layer "F.Cu")
+  (condition "A.Type == 'Track' && A.NetName == 'VBUS' && A.enclosedByArea('U26_VBUS_TAP')")
+  (constraint track_width (min 0.2mm) (opt 0.2mm)))
+# R81 (100k) reads VSYS for the controller's monitor, 80 uA: a VSYS track wholly inside VSYS_MON_TAP (F.Cu and In2) may be 0.2 mm.
+(rule "VSYS monitor tap"
+  (condition "A.Type == 'Track' && A.NetName == 'VSYS' && A.enclosedByArea('VSYS_MON_TAP')")
+  (constraint track_width (min 0.2mm) (opt 0.2mm)))
 # RGMII: about 50 ohm on all four signal layers. Timing is set by the derived
 # delay limits in gateware/rgmii1000, not by equal lengths. The U30 side of each
 # TX resistor is in this class too.

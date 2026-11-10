@@ -114,7 +114,7 @@ The contract and how to rerun it are in [`gateware/sdram100/`](../gateware/sdram
 | SDRAM | `SDRAM_*` | 0.125 mm width; timing limits above |
 | PSRAM | `PSRAM*`, including chip-side `_MEM` nets | 0.1 mm minimum and preferred width |
 | AUX_5A | `AUX_RAIL` | 2.0 mm width, 1.0/0.5 mm vias |
-| PWR_3A | `VBUS`, `VBUS_SS`, `VSYS`, `VIN_EXT`, `+5V_BUCK` | 1.5 mm width, 0.8/0.4 mm vias; the one U11 sense exception below |
+| PWR_3A | `VBUS`, `VBUS_SS`, `VSYS`, `VIN_EXT`, `+5V_BUCK` | 1.5 mm width, 0.8/0.4 mm vias; the U11 sense, U34, J1, U18, U26 and monitor-tap exceptions below |
 | EXT_2A | `+5V_EXT`, `+3V3_EXT`, `VCCIO_1_EXT`, `VCCIO_2_EXT` | 1.0 mm width, 0.8/0.4 mm vias |
 
 Skew is checked within each P/N pair. It sums track length and via barrels between
@@ -172,6 +172,22 @@ the IN1 via): the two 100k dividers draw 50 uA each. `VIN_EXT tap to Q7's divide
 to R201.1 (0.2 mA at 21 V). Every other track on those nets, the same tracks outside the
 areas and every other PWR_3A net keep 1.5 mm; clearances are unchanged. Tests: evidence
 `~/freyja-review/u34-2026-11-09/reports/ruletests.txt`.
+
+**Input-tree exceptions (2026-11-09).** Pin and divider geometry again, each a rule
+area the board owns and a rule after the U34 ones. `J1 VBUS pin necks`: `VBUS` on F.Cu
+wholly inside `J1_VBUS_NECK_W` or `J1_VBUS_NECK_E` may be 0.6 mm; J1's 0.60 x 1.45 mm
+`VBUS` pads have GND 0.20 mm and a CC pad 0.25 mm beside them, and the areas allow at
+most 0.875 mm of neck beyond the pad (0.27 and 0.18 mm built). `U18 VIN pin neck`:
+0.28 mm inside `U18_VIN_NECK` for the HUSB238's 0.28 x 0.67 mm pin on 0.5 mm pitch, at
+most 0.98 mm. `U26 IN pin necks`: 0.28 mm inside `U26_IN_NECKS` for the TPS25942A's IN
+pins 9 and 10, at most 0.77 mm; `U26 OUT pin necks`: `VBUS_SS` 0.28 mm inside
+`U26_OUT_NECKS` for OUT pins 7 and 8, one track along their tips into the 1.5 mm bar.
+`U26 VBUS divider tap`: 0.2 mm inside `U26_VBUS_TAP`, R50's 33 uA. `VSYS monitor tap`:
+`VSYS` 0.2 mm inside `VSYS_MON_TAP` on F.Cu and In2, R81's 80 uA. The U34 neck areas
+`U34_NECK_IN1` and `U34_NECK_IN2` are shrunk to the tracks: at most 0.73 and 0.82 mm of
+neck beyond the pad (0.37 and 0.58 mm built). Every other track on those nets, the same
+tracks outside the areas and every other PWR_3A net keep 1.5 mm; clearances are
+unchanged. Tests: evidence `~/freyja-review/input-2026-11-09/reports/ruletests.txt`.
 
 Inner-layer tracks are prohibited for the 100 Ω classes because the geometry
 is calculated only for the outer layers. Plane transitions still need ground
