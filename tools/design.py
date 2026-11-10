@@ -75,7 +75,7 @@ class Design:
         self.cur = name; self.grp = name
     def group(self, name):
         self.grp = name
-    def add(self, ref, lib_id, value, fp, conn, lcsc='', dnp=False, fp_ok=''):
+    def add(self, ref, lib_id, value, fp, conn, lcsc='', dnp=False, fp_ok='', bom=True):
         if any(q['ref'] == ref for q in self.parts):
             raise ValueError(f"duplicate designator {ref}")
         if not fp_ok: self._check_package(ref, lib_id, fp)
@@ -92,7 +92,7 @@ class Design:
         if missing: raise KeyError(f"{ref} {lib_id}: no such pin {missing}; "
                                    f"have {sorted(sym['pins'])[:14]}")
         self.parts.append(dict(ref=ref, lib_id=lib_id, value=value, fp=fp,
-                               pins=pins, lcsc=lcsc, dnp=dnp, sym=sym,
+                               pins=pins, lcsc=lcsc, dnp=dnp, sym=sym, bom=bom,
                                sheet=self.cur, group=self.grp))
         return ref
     @staticmethod
@@ -1705,6 +1705,17 @@ def build():
     if d._n['C'] >= 300:
         raise ValueError(f"sequential C refs reached C{d._n['C']}; the FPGA decaps start at C301")
     print(f'FPGA decoupling: {decap_refs} parts, C301..C{300 + decap_refs + 24}, C370..C393 not fitted')
+
+    # ---- mounting holes (2026-11-10). The four M3 holes were board-only
+    # items, which left the PCB with four references the netlist did not
+    # have. They are in the netlist now, where the board has them (H1 and H2
+    # at the top corners, H3 and H4 at the bottom). Unplated, no net and
+    # nothing to assemble: bom=False keeps them out of the BOM.
+    d.sheet('Slots')
+    d.group('mounting holes')
+    for ref in ('H1', 'H2', 'H3', 'H4'):
+        d.add(ref, 'Mechanical:MountingHole', 'MountingHole_3.2mm_M3',
+              'MountingHole:MountingHole_3.2mm_M3', {}, bom=False)
 
     # Nothing ships unqualified: every non-generic part must carry a real MPN,
     # package and rating in tools/qualified.py, fitted with the footprint

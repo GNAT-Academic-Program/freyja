@@ -3,7 +3,7 @@
 Open **[odin.kicad_pro](odin.kicad_pro)** in KiCad 9. The hardware is **FREYA
 HW 0.1.0-proto.1**, XC7A100T-2FGG676I + RP2350B; `odin` is the retained project
 basename. **[odin.kicad_pcb](odin.kicad_pcb) is the authoritative manual
-layout.** Preserve its placement, routing, outline, zones and board-only holes.
+layout.** Preserve its placement, routing, outline, zones and mounting holes.
 
 Use the single [current workflow](../ref/ide-agent-prompt.md) for ownership,
 checks, regeneration side effects and the recurring cleanup checkpoint.
@@ -61,7 +61,7 @@ and optional stock 3D models come from the KiCad installation. The small
 
 The outline is 100 × 140 mm with 2 mm corner chamfers, eight layers, ENIG,
 nominal 1.6 mm, JLC08161H-1080A: S / GND / S / PWR / GND / S / GND / S. The PCB
-has 561 footprints (557 schematic parts plus H1–H4), all origins in the
+has 524 footprints, one per netlist part (the mounting holes H1–H4 included since 2026-11-10), all origins in the
 outline's bounding box and all assembly on F.Cu. Five zones: GND on In1/In4/In6,
 and +3V3 plus the +1V0 island on In3. Routing is under way and unfinished;
 current counts are in [findings](../findings.md). At the 2026-11-03 cleanup

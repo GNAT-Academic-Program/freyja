@@ -12,7 +12,7 @@ you care about; within it, groups appear in schematic order.
 - [Power](#power) (124 parts): Inputs, the regulators that make every rail, extension power protection.
 - [Memory](#memory) (83 parts): Four PSRAM chips for working memory and the flash the FPGA boots from.
 - [Supervisor](#supervisor) (75 parts): The RP2350B board controller: USB, power sequencing, programming the FPGA.
-- [Slots](#slots) (100 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
+- [Slots](#slots) (104 parts): The ten extension ports: connectors, per-slot fuses, 5 V level shifting.
 - [Network](#network) (45 parts): Gigabit Ethernet (PHY and jack) and the two raw LVDS link ports.
 - [Video](#video) (8 parts): HDMI output straight from the FPGA, with its protection chip.
 
@@ -1125,6 +1125,17 @@ Jumper that picks the signal voltage of slots E-H (J20): 3.3, 2.5 or 1.8 V for F
 | J20 | 2.54-2*3P | E-H PIN VOLTAGE jumper: 2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots E-H. |
 | C165 | 22uF | 22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper) |
 | C166 | 22uF | 22uF bypass on VCCIO_2, for J20 (E-H PIN VOLTAGE jumper) |
+
+### mounting holes
+
+Four unplated M3 holes near the corners. They carry no net and are not assembled; they sit in the netlist so the board and the schematic list the same parts.
+
+| Ref | Value | What it does |
+|---|---|---|
+| H1 | MountingHole_3.2mm_M3 | mounting hole, top left: M3 clearance hole, unplated and on no net: for a standoff or a case screw. |
+| H2 | MountingHole_3.2mm_M3 | mounting hole, top right: M3 clearance hole, unplated and on no net: for a standoff or a case screw. |
+| H3 | MountingHole_3.2mm_M3 | mounting hole, bottom right: M3 clearance hole, unplated and on no net: for a standoff or a case screw. |
+| H4 | MountingHole_3.2mm_M3 | mounting hole, bottom left: M3 clearance hole, unplated and on no net: for a standoff or a case screw. |
 
 ## Network
 

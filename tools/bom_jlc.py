@@ -17,7 +17,7 @@ from design import build
 BOARDS = 10
 
 def rows():
-    parts = [p for p in build().parts if not p.get('dnp')]
+    parts = [p for p in build().parts if not p.get('dnp') and p.get('bom', True)]
     groups = {}
     for p in parts:
         key = (p['value'], p['fp'], p['lcsc'])

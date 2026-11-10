@@ -58,7 +58,10 @@ def main():
     assert rail_users == {'J68'} | aux_fuses, rail_users
     assert {p.GetNumber():p.GetNetname() for p in fps['J68'].Pads()} == {
         '1':'AUX_RAIL','2':'GND'}
-    assert not ({'J60','J61','SH1','SH2','X2','U27','Q1','FB1','FB2'} & fps.keys())
+    assert not ({'J60','J61','SH1','SH2','X2','U27','Q1','FB2'} & fps.keys())
+    # FB1 left with the SFP links (a9486a0); the reference was reused on 2026-10-29
+    # (b89c38a) for the +1V8 to VCCAUX bead, so only that bead may carry it.
+    assert 'FB1' not in fps or fps['FB1'].GetValue() == '120R 2A BLM18PG121SN1D', fps['FB1'].GetValue()
     assert {'J70','J71','J72','U30','X3'} <= fps.keys()
     for ref in ('J71','J72'):
         assert {p.GetNumber() for p in fps[ref].Pads() if p.GetNumber()} == {str(i) for i in range(1,11)}, ref

@@ -2438,6 +2438,14 @@ The router (`scripts/rr.py`, negotiated congestion over F.Cu, In2, In5 and B.Cu 
 
 Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
+**Housekeeping after the signal batch (2026-11-10).** No board change.
+
+- *D3/D4.* The correct part is **SS54, LCSC C22452**: the 2026-11-03 change from SS34 (C8678) to SS54 for the 2.9 A full-export case is recorded in `tools/design.py`, `ref/qualified-parts.md`, the BOM, `ref/jlc-stock.md` and the board's own D3/D4 fields, and the land is the same SMA pattern. Only the imported footprint file still carried the SS34 import's tag: `easyeda/EasyEDA.pretty/SMA_L4.3-W2.6-LS5.2-RD.kicad_mod` now says `LCSC Part` C22452 and `descr` SS54, so footprint and design agree. `tools/audit_easyeda.py` still fails on two missing imported symbols, C22452 (D3, D4) and C269119 (F2 to F38): importing them needs the EasyEDA import flow, not done here. DRC warnings unchanged (no new footprint mismatch).
+- *H1 to H4.* In the netlist source now: `tools/design.py` adds them on the Slots sheet, group "mounting holes", `Mechanical:MountingHole`, value and footprint as on the board, `bom=False`; `tools/gen_project.py` writes `in_bom no` for such parts and `tools/bom_jlc.py` leaves them out (BOM unchanged); `tools/qualified.py` and `tools/roles.py` carry their entries. Sheet, netlist, parts guide and qualified-parts table regenerated. Positions untouched; parity 0 (the board matches parts by reference). `tools/check_connector_rework.py` then stopped at a stale assertion: FB1 must be absent. FB1 and FB2 left with the SFP links (a9486a0, 2026-10-23); the reference was reused on 2026-10-29 (b89c38a) for the +1V8 to VCCAUX bead BLM18PG121SN1D. The assertion now keeps FB2 and the other removed parts absent and allows FB1 only as that bead. The checker passes: 524 references, values, footprints and pad nets, ground accounting, AUX topology.
+- *Copper weight.* No ball-field routing layer is 2 oz: F.Cu 0.0350 mm and B.Cu 0.0350 mm (1 oz), In2 and In5 0.0152 mm (0.5 oz), matching the JLC08161H-1080A template. `tools/check_stackup.py` now prints these four and fails if any of them reaches 0.070 mm.
+
+Strict gate, stackup guard and ERC pass; `check_connector_rework.py` passes; `audit_easyeda.py` fails only on the two symbol imports above. Owner's H4 move, its fills and `.prl` left out of the commit.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule

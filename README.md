@@ -18,8 +18,8 @@ Open **[`kicad/odin.kicad_pro`](kicad/odin.kicad_pro)** in KiCad 9.
 See [the project map](kicad/README.md) and the single
 [current workflow](ref/ide-agent-prompt.md) before editing or regenerating.
 
-The board is 100 × 140 mm with eight copper layers, 557 schematic components
-and 561 placed footprints including four board-only mounting holes. All
+The board is 100 × 140 mm with eight copper layers and 524 parts, each in the
+netlist and placed on the PCB, the four mounting holes H1–H4 included. All
 assembly is on F.Cu. **Routing is unfinished.** All four PSRAM ports, their
 ground connections and return stitching, the `+1V8_IO` distribution, the SDRAM,
 the four HDMI pairs, LINK P and Q, the four Ethernet pairs and U30's local supplies,

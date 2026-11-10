@@ -22,6 +22,7 @@ from gen_pcb import SETUP, OUT, sexpr_block
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / 'ref' / 'jlc08161h-1080a-stackup.json'
 FIELDS = ('thickness', 'material', 'epsilon_r', 'loss_tangent')
+FINE_LAYERS = ('F.Cu', 'In2.Cu', 'In5.Cu', 'B.Cu')    # the signal layers that carry U1's ball-field routing
 
 
 def parse(text):
@@ -117,6 +118,13 @@ def main():
     want = template()
     have = compare('board after a pcbnew load and save', saved, want, problems)
     compare('tools/gen_pcb.py SETUP', stackup(SETUP), want, problems)
+    # Ball-field fine routing (0.09 mm tracks, 0.0889 mm inside U1_BALL_FIELD) is etched on the four signal
+    # layers; none of them may be specified as 2 oz (0.070 mm) copper. All four are 1 oz or lighter.
+    for name, kind, subs in have:
+        if kind == 'copper' and name in FINE_LAYERS and sum(x['thickness'] for x in subs) >= .070 - 1e-6:
+            problems.append(f'{name}: {sum(x["thickness"] for x in subs):.4f} mm copper (2 oz) on a ball-field routing layer')
+    fine = ', '.join(f'{n} {sum(x["thickness"] for x in subs):.4f}' for n, k, subs in have if k == 'copper' and n in FINE_LAYERS)
+    print(f'ball-field routing layers, copper mm: {fine}')
     copper = sum(s['thickness'] for _, k, subs in have if k == 'copper' for s in subs)
     dielectric = sum(s['thickness'] for _, k, subs in have if k != 'copper' for s in subs)
     mask = sum(s.get('thickness', 0) for _, k, subs in saved if 'Mask' in k for s in subs)

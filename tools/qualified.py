@@ -502,6 +502,13 @@ for _ref in (f'F{n}' for n in range(4, 41, 4)):
 for _slot in 'ABCDEFGHLM':
     PARTS[f'MK{ord(_slot)}'] = PARTS['EasyEDA:2.54mmlength21mm']
 
+# Mounting holes: a bare 3.2 mm unplated hole, nothing assembled.
+PARTS['Mechanical:MountingHole'] = dict(
+    mpn='none (unplated hole)', pkg='3.2 mm NPTH for M3, no pad',
+    fp='MountingHole:MountingHole_3.2mm_M3',
+    rating='mechanical only, no net', pinmap='no pins',
+    src='KiCad MountingHole_3.2mm_M3')
+
 # Connectors and keying posts: generic 2.54 mm headers, qualified as a class
 # rather than one line each, because there is nothing to get wrong beyond the
 # pin count and the pitch, and both are in the footprint name.

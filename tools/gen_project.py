@@ -179,7 +179,7 @@ def render_sheet(name, parts, root_uuid, sheet_uuid):
 
     for p, u, ox, oy in placed:
         body.append(f'\t(symbol (lib_id "{p["lib_id"]}") (at {ox} {oy} 0) (unit {u})')
-        body.append('\t\t(exclude_from_sim no) (in_bom yes) (on_board yes) '
+        body.append(f'\t\t(exclude_from_sim no) (in_bom {"yes" if p.get("bom", True) else "no"}) (on_board yes) '
                     f'(dnp {"yes" if p["dnp"] else "no"})')
         body.append(f'\t\t(uuid "{uid(p["ref"], u)}")')
         ey = extent(p['lib_id'], u)[1]

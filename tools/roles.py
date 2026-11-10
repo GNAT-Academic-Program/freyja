@@ -612,6 +612,10 @@ PART.update({
     'J19': ('A-D PIN VOLTAGE jumper', '2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots A-D.'),
     'J20': ('E-H PIN VOLTAGE jumper', '2x3 header: one shunt selects 3.3, 2.5 or 1.8 V for slots E-H.'),
 })
+for _h, _where in (('H1', 'top left'), ('H2', 'top right'), ('H3', 'bottom right'), ('H4', 'bottom left')):
+    PART[_h] = (f'mounting hole, {_where}', 'M3 clearance hole, unplated and on no net: for a standoff or a case screw.')
+GROUP['mounting holes'] = ('Four unplated M3 holes near the corners. They carry no net and are not '
+                           'assembled; they sit in the netlist so the board and the schematic list the same parts.')
 for _s, _j in {'A':'J53', 'B':'J62', 'C':'J54', 'D':'J63', 'E':'J55',
                'F':'J64', 'G':'J56', 'H':'J65', 'L':'J57', 'M':'J58'}.items():
     PART[_j] = (f'slot {_s} power socket',
