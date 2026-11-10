@@ -118,6 +118,16 @@ U26_VBUS_TAP_AREA = 'U26_VBUS_TAP'
 U26_VBUS_TAP_WIDTH = 0.2
 VSYS_MON_TAP_AREA = 'VSYS_MON_TAP'
 VSYS_MON_TAP_WIDTH = 0.2
+# U1's ball field (FGG676, 1.0 mm pitch, 0.45 mm ball pads and 0.45/0.2 mm dogbone vias): adjacent vias leave
+# 0.55 mm, so at the 0.15 mm default one track passes between them. At 0.0889 mm, the board minimum, two 0.09 mm
+# tracks pass, each 0.1 mm off the channel centre: 0.104 mm between them, 0.133 mm to each via's copper and
+# 0.258 mm to each drilled hole. The rule area is the package body, 27 x 27 mm about U1's centre; only items wholly
+# inside it are held to the lower value against each other, so any item partly or wholly outside keeps "Default
+# clearance". The hole-to-copper minimum (0.25 mm) is a separate constraint and is not relaxed, and the 100 ohm pair
+# classes are left out: their tracks keep 0.31 mm by the rule further down and their vias keep 0.15 mm.
+U1_FIELD_AREA = 'U1_BALL_FIELD'
+U1_FIELD_CLEARANCE = 0.0889
+U1_FIELD_BODY = (199.2, 132.84, 226.2, 159.84)   # x0, y0, x1, y1 of the area the board owns (U1 at 212.7, 146.34)
 GENERATED = ('MGT_100R', 'LVDS_100R', 'MDI_100R', 'RGMII', 'SDRAM', 'PSRAM', 'AUX_5A', 'PWR_3A', 'EXT_2A')
 
 
@@ -173,6 +183,12 @@ def emit_rules():
 (version 1)
 (rule "Default clearance"
   (constraint clearance (min 0.15mm)))
+# U1's ball field: items wholly inside {U1_FIELD_AREA} (the package body) keep {U1_FIELD_CLEARANCE} mm from each other, so two
+# 0.09 mm tracks pass between adjacent ball vias. Anything partly outside keeps 0.15 mm; hole clearance is unchanged;
+# the 100 ohm pair classes are excluded. If the area is missing the condition is false and 0.15 mm applies.
+(rule "U1 ball field"
+  (condition "A.enclosedByArea('{U1_FIELD_AREA}') && B.enclosedByArea('{U1_FIELD_AREA}') && !A.hasNetclass('LVDS_100R') && !B.hasNetclass('LVDS_100R') && !A.hasNetclass('MDI_100R') && !B.hasNetclass('MDI_100R')")
+  (constraint clearance (min {U1_FIELD_CLEARANCE}mm)))
 (rule "PSRAM minimum width"
   (condition "A.hasNetclass('PSRAM')")
   (constraint track_width (min 0.1mm) (opt 0.1mm)))

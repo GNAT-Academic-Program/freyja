@@ -163,7 +163,7 @@ SD_CD is the socket's detect switch, read with the FPGA's pull-up.
 | N22 | `DBG_TMS` |
 | M20 | `DBG_TDI` |
 | L20 | `DBG_TDO` |
-| P20 | `SB_UART_RX` |
+| R18 | `SB_UART_RX` |
 | P21 | `SB_UART_TX` |
 
 ## Extension slots

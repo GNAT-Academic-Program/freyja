@@ -107,7 +107,7 @@ The contract and how to rerun it are in [`gateware/sdram100/`](../gateware/sdram
 
 | Class | Nets | Rules |
 | --- | --- | --- |
-| Default | other nets | 0.15 mm clearance, 0.2 mm track, 0.45/0.20 mm via |
+| Default | other nets | 0.15 mm clearance (0.0889 mm between items wholly inside U1's ball field, below), 0.2 mm track, 0.45/0.20 mm via |
 | LVDS_100R | `LINK_*`, `HDMI_CLK_*`, `HDMI_D0`–`D2_*` | outer layers only; 0.099 mm width; 0.200 mm coupled gap; ≤ 0.1 mm intra-pair skew; pair tracks ≥ 0.31 mm from other copper, with the one J73 exception below |
 | MDI_100R | `ETH_MDI*` | same geometry and rules as LVDS_100R |
 | RGMII | `PHY_TXC`, `PHY_TXD?`, `PHY_TX_CTL`, `PHY_TXC_U30`, `PHY_TXD?_U30`, `PHY_TX_CTL_U30`, `PHY_RXC`, `PHY_RXD?`, `PHY_RX_CTL` | 0.125 mm width |
@@ -188,6 +188,17 @@ pins 9 and 10, at most 0.77 mm; `U26 OUT pin necks`: `VBUS_SS` 0.28 mm inside
 neck beyond the pad (0.37 and 0.58 mm built). Every other track on those nets, the same
 tracks outside the areas and every other PWR_3A net keep 1.5 mm; clearances are
 unchanged. Tests: evidence `~/freyja-review/input-2026-11-09/reports/ruletests.txt`.
+
+**U1 ball-field exception (2026-11-10).** The FGG676's 0.45 mm dogbone vias on the 1.0 mm
+lattice leave 0.55 mm, so at 0.15 mm one track passes between two of them. Rule `U1 ball
+field`: items wholly inside the rule area `U1_BALL_FIELD`, the 27 x 27 mm package body
+(x 199.2 to 226.2, y 132.84 to 159.84), keep 0.0889 mm from each other, so two 0.09 mm tracks
+pass 0.1 mm either side of a channel centre (0.104 mm apart, 0.133 mm from each via, 0.258 mm
+from each hole). Anything partly or wholly outside keeps 0.15 mm, the 0.25 mm hole clearance
+is unchanged, and the LVDS_100R and MDI_100R classes are left out (their tracks keep 0.31 mm,
+their vias 0.15 mm). Built: 255 new segments, 281.5 mm, wholly inside the area, of which 54
+(61.9 mm) come closer than 0.15 mm to another net, at 0.110 mm or more. Tests: evidence
+`~/freyja-review/escape-2026-11-10/reports/ruletest_drc.json`.
 
 Inner-layer tracks are prohibited for the 100 Ω classes because the geometry
 is calculated only for the outer layers. Plane transitions still need ground

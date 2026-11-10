@@ -32,6 +32,9 @@ CONFIG_USE = OrderedDict([
     ('P18', 'FLASH_CS_B'),    ('P15', 'PUDC_B'),
 ])
 SIDEBAND = ['DBG_TCK', 'DBG_TMS', 'DBG_TDI', 'DBG_TDO', 'SB_UART_RX', 'SB_UART_TX']
+# Sideband balls moved after layout (2026-11-10 escape batch): P20 has no way out of the package past the
+# PSRAM, SDRAM and debug lanes; R18 (IO_25_14, plain user I/O, free) reaches R31 at the supervisor. P20 stays free.
+SIDEBAND_MOVES = OrderedDict([('SB_UART_RX', 'R18')])
 # Both 5 V buses live in bank 13 (+1V8_IO, the bottom-right of the package,
 # facing the bottom edge where J7/J8 sit) with the four PSRAMs. Bank 14
 # keeps the sideband, the flash and the fabric clock. Direct slots: A-D bank
@@ -189,6 +192,11 @@ def assign():
     pool14 = [b for pr in _take(fp14, used, 12) for b in pr]
     sb = [b for pr in _take(fp14, used, 3) for b in pr]
     for b, n in zip(sb, SIDEBAND): net[b] = n
+    for n, b in SIDEBAND_MOVES.items():
+        i = SIDEBAND.index(n)
+        if b in used or b in net or not names.get(b, '').endswith('_14') or re.search(r'[MS]RCC|VREF|CSI_B|EMCCLK|_D\d\d|_A\d\d', names[b]):
+            raise RuntimeError(f'{n}: {b} is not a free, plain bank 14 ball')
+        del net[sb[i]]; used.add(b); net[b] = n; sb[i] = b
 
     # ---- bank 13: the PSRAMs on their hand-chosen balls, before the buses
     # take the rest of the bank.

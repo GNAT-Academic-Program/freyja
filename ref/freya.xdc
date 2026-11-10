@@ -143,7 +143,7 @@ set_property -dict {PACKAGE_PIN W20 IOSTANDARD LVCMOS18} [get_ports {PSRAM3_SCK}
 # ---- PUDC
 set_property -dict {PACKAGE_PIN P15 IOSTANDARD LVCMOS33} [get_ports {PUDC_B}]   ;# bank 14 IO_L3P_T0_DQS_PUDC_B_14
 # ---- SB
-set_property -dict {PACKAGE_PIN P20 IOSTANDARD LVCMOS33} [get_ports {SB_UART_RX}]   ;# bank 14 IO_L14P_T2_SRCC_14
+set_property -dict {PACKAGE_PIN R18 IOSTANDARD LVCMOS33} [get_ports {SB_UART_RX}]   ;# bank 14 IO_25_14
 set_property -dict {PACKAGE_PIN P21 IOSTANDARD LVCMOS33} [get_ports {SB_UART_TX}]   ;# bank 14 IO_L14N_T2_SRCC_14
 # ---- SD
 set_property -dict {PACKAGE_PIN T23 IOSTANDARD LVCMOS33} [get_ports {SD_CD}]   ;# bank 14 IO_L24P_T3_A01_D17_14

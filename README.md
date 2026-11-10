@@ -32,7 +32,11 @@ board controller's bring-up set (U7's regulator, crystal, flash, +3V3 and +1V1, 
 USB data pair, the supervisor JTAG and sideband, the FPGA configuration straps
 and configuration flash, the system clock), then its leftovers (SWD, RUN, UART, heartbeat LED, the USB
 TVS, `EXT_EN` to U22), the `DBG_TCK`/`DBG_TDO` and FPGA-to-supervisor UART links, and every `+3V3` and ground
-plane connection but C121's; counts, the remaining-net inventory and open issues are in
+plane connection, then the first FPGA escape batch: the UART's receive line (on a moved ball), 16 of the 48
+slot E to H lines and 2 of slots A to D, the microSD and MRAM pull-ups with two lines of each to the FPGA,
+both buffered buses' connector side and three lines of bus 1's FPGA side, HDMI management but `HDMI_SDA`,
+and `MON_2V5`. Most of the west half of the FPGA has no way out past the
+finished memory routes; counts, the per-face escape results, the remaining-net inventory and open issues are in
 [current findings](findings.md). The gate reports DRC and unrouted items
 without gating them, so a passing gate is not a fabrication pass.
 
