@@ -181,10 +181,10 @@ an optional capability rather than part of the basic connector UX.
 | **B** | 15 | J19, H19, L17, L18, K20, J20, J18, H18, G20, G21, K21, J21 |
 | **C** | 15 | H21, H22, J23, H23, G22, F22, J24, H24, F23, E23, K22, K23 |
 | **D** | 15 | G24, F24, E25, D25, E26, D26, H26, G26, G25, F25, J25, J26 |
-| **E** | 34 | K3, J3, M7, L7, M4, L4, L5, K5, N7, N6, M6, M5 |
-| **F** | 34 | K1, J1, L3, K2, N1, M1, H2, H1, M2, L2, N3, N2 |
-| **G** | 34 | R3, P3, P4, N4, R1, P1, T4, T3, T2, R2, U2, U1 |
-| **H** | 34 | P6, P5, T5, R5, U6, U5, R8, P8, R7, R6, T8, T7 |
+| **E** | 34 | U2, U1, U6, U5, T4, T3, T8, T7, T2, R2, T5, R5 |
+| **F** | 34 | R7, R6, R1, P1, R3, P3, R8, P8, P6, P5, P4, N4 |
+| **G** | 34 | N3, N2, N7, N6, N1, M1, M6, M5, M2, L2, M4, L4 |
+| **H** | 34 | M7, L7, L3, K2, L5, K5, K1, J1, K3, J3, H2, H1 |
 
 The two 5V buses are buffered; A-H are direct. U17, U24 are their direction controls. Together the buses cost **20** FPGA I/O for 16 connector signals.
 
@@ -287,7 +287,7 @@ the package's two outer rows.
 | B4 | `HDMI_HPD` | IO_L16P_T2_35 |
 | E2 | `HDMI_LS_OE` | IO_L22N_T3_35 |
 | A4 | `HDMI_SCL` | IO_L16N_T2_35 |
-| C2 | `HDMI_SDA` | IO_L19P_T3_35 |
+| F4 | `HDMI_SDA` | IO_L11N_T1_SRCC_35 |
 
 ## GTP banks 213 and 216 — unused, grounded
 

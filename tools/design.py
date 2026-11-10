@@ -613,9 +613,14 @@ def build():
         d.group(f'5V BUS {bus} converter')
         conn = {'V_{CCA}': V18IO, 'V_{CCB}': V5, 'GND': GND,
                 'DIR': f'BUS5V{bus}_DIR', '~{OE}': f'BUS5V{bus}_OE_N'}
+        # Bus 1's channels run in reverse (2026-11-10 signal batch): U10's B pins
+        # 14..21 (B8..B1) then sit in J8's order, PIN0 to PIN7 left to right, and
+        # no connector-side line crosses another. Same chip, same DIR and OE, same
+        # logical bit on the same J8 pin; only the channel each bit uses changes.
         for i in range(8):
-            conn[f'A{i+1}'] = f'BUS5V{bus}_IO{i}'
-            conn[f'B{i+1}'] = f'BUS5V{bus}_PIN{i}'
+            ch = 8 - i if bus == 1 else i + 1
+            conn[f'A{ch}'] = f'BUS5V{bus}_IO{i}'
+            conn[f'B{ch}'] = f'BUS5V{bus}_PIN{i}'
         d.add(ref, 'Logic_LevelTranslator:SN74LVC8T245', 'SN74LVC8T245PWR',
               TSSOP24_XLATE, conn, 'C27643')
         d.C('100nF', V18IO, GND); d.C('100nF', V5, GND)

@@ -2385,6 +2385,59 @@ The lane tables are in `reports/esc_*.txt` and `tmp/scan0.json` (lane reach per 
 
 Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
 
+**Signal batch: coordinated escape rework on a revised allocation, prototype mode (2026-11-10).** Built on 6ebbbf0 on copies, then transferred. Unconnected 220 to 187: signal and monitor 107 to 74, export power 113 unchanged. Tracks 5830 to 6754, vias 1487 to 1561; 0 DRC errors, 0 parity issues, no dangling copper, warning counts unchanged (silk over copper 100, silk overlap at the 199 cap, text height 4, footprint mismatch 3); fresh refill byte-identical; strict gate, stackup guard, ERC and the Vivado allocation gate pass (bitstream, 0 warnings). Evidence `~/freyja-review/rework-2026-11-10` (README there; `scripts/build.sh` replays `tmp/plans`).
+
+*Result by group, connections.*
+
+| group | open at start | completed | left |
+|---|---|---|---|
+| slots E to H (J5A, J5B) | 32 | 43 nets complete (the 16 earlier routes replaced) | 5 |
+| slots A to D (J3A, J3B) | 46 | 0 (`SLOTC_IO9`, `SLOTD_IO4` removed, see the debug pair) | 48 |
+| buffered buses | 20 | bus 1 connector side 6 of 8 (was 5 of 8) | 19 |
+| debug JTAG pair | 2 | 2 | 0 |
+| microSD | 3 | 3 | 0 |
+| MRAM | 2 | `MRAM_SI` | `MRAM_CS` |
+| `HDMI_SDA` | 1 | 1 | 0 |
+| `MON_3V3` | 1 | 0 | 1 |
+
+*Memory rework: tried, not applied.* The authorised SDRAM detour does not fit, so no SDRAM or PSRAM copper changed and every memory endpoint is still connected (SDRAM and PSRAM nets: 0 open). The nine lanes (`SDRAM_A0`, `A4`, `A5`, `A8`, `A9`, `A11`, `A12`, `BA0`, `BA1`), removed on a scratch copy and routed first with every other net fixed: out of bank 14's west face and south outside the package, 2 of 9 (122 and 129 mm, 13 and 14 vias); through the package interior east of bank 15, 1 of 9 (115 mm, 17 vias); on In5 only through bank 15, freeing In2 and B there, 3 or 4 of 9 with slots A to D at 6. The west corridor beside the face already holds `SDRAM_A1`, `A2`, `A6`, `A7` on In5, `VCCIO_1`'s In2 bar and the PSRAM fan, and the package interior is closed by the core vias and the data and JTAG lanes. Flight times are therefore unchanged and `gateware/sdram100` still applies as committed (no SDRAM copper moved, so `flight.py` was not rerun). The PSRAM lanes were not rerouted: the bus lines must cross the whole PSRAM fan, the SDRAM band and the bank 15 fan-out to reach U9/U10 at y 178; with slots A to D left out entirely, both buses still reach only about 4 of their 20 FPGA-side connections (bus 1's three earlier lines removed for the test), so releasing the bus rows alone would not complete a bus, and a PSRAM rework large enough would re-route most of the fan.
+
+*Allocation changes* (`tools/alloc.py`, `tools/design.py`; `kicad/fpga.kicad_sch`, `kicad/slots.kicad_sch`, `kicad/odin.net`, `ref/ballmap.md` and `ref/freya.xdc` regenerated; on the board only the pad nets of U1 and U10 changed).
+
+- Bank 34, `SLOT_PAIR_ORDER`: the 24 pairs dealt out again so their order along the east face follows J5 north to south. E and F now own the northern rows, G and H the southern ones. Same pairs, P and N balls, bank and `VCCO`; logical slot and bit names and connector pins unchanged. E: U2/U1, U6/U5, T4/T3, T8/T7, T2/R2, T5/R5 (IO0/1 to IO10/11); F: R7/R6, R1/P1, R3/P3, R8/P8, P6/P5, P4/N4; G: N3/N2, N7/N6, N1/M1, M6/M5, M2/L2, M4/L4; H: M7/L7, L3/K2, L5/K5, K1/J1, K3/J3, H2/H1.
+- `HDMI_SDA`: C2 to F4 (`IO_L11N_T1_SRCC_35`, same 3.3 V bank; G4, its P ball, stays free for a clock input). C2 is now free.
+- Bus 1: U10's channels run in reverse (bit k on A(8-k) and B(8-k), same chip, same DIR and OE), so U10's B pins sit in J8's order. Its bits moved within bank 13 so the three routed FPGA lines keep their copper: IO0 AC24, IO1 AB24, IO2 AB25, IO3 Y25, IO4 AA25, IO5 V24, IO6 W24, IO7 AA24 (`BUS_BALL_ORDER`). Those three routes are byte-identical, renamed IO7, IO6, IO5 to IO0, IO1, IO2. Bus 0, banks 14 and 15 unchanged: their permutations add nothing while the west face is closed.
+
+*Escape result per bank face, open balls at the start of the batch* (planner: the previous batch's straight-lane escape plan, ball, dogbone, lane out of the package body, with the copper as it was; "after the memory detours" is the same plan with the nine SDRAM lanes removed, since the detours themselves do not fit).
+
+| face | open balls | planner: escape the package | planner after the memory detours | routed out (complete) | not escaped |
+|---|---|---|---|---|---|
+| bank 15 west face, slots A to D | 48 | 5 | 11 | 0 | 48 |
+| bank 34 east face, slots E to H | 48 | 44 | 44 | 43 | 5 |
+| bank 14 west and north, debug, microSD, MRAM | 7 | 1 | 3 | 6 | 1 |
+| bank 13 west and north, both buses | 17 | 1 | 1 | 0 | 17 |
+| bank 35 south-east, `HDMI_SDA` | 1 | 1 | 1 | 1 | 0 |
+
+The router (`scripts/rr.py`, negotiated congestion over F.Cu, In2, In5 and B.Cu with the ball-field clearances, dogbone vias on the lattice, new vias 0.46 mm from fast lines outside the package) does better than the straight-lane planner where lines can turn, which is why bank 14 and bank 34 route more than the planner escapes. Groups were routed together in two stages, east and north (slots E to H, `HDMI_SDA`, microSD) then west (debug pair, MRAM, bus 1 connector side, slots A to D), each from several orders and settings, keeping the best.
+
+*Two-way trades.* (1) The debug pair, `MRAM_CS` and the two old slot C/D routes share one exit, B.Cu at the package's south-west corner: with `SLOTC_IO9` and `SLOTD_IO4` kept, one debug line and no MRAM line fit; removing them completes the debug JTAG pair and `MRAM_SI`. Same count, one whole interface; slots C and D are open either way. (2) C125 moved (182.06, 122.30) to (182.15, 122.15), 0.17 mm, the nearest courtyard-clean site that leaves the debug lines' F.Cu way past R28/R29; its +3V3 and GND stubs re-made to the same two vias; 4.05 mm from U7 pin 24, was 4.2. The `VSYS` monitor tap is unchanged (not needed).
+
+*Fine routing.* The ball-field rule is unchanged: 191 new segments, 170.3 mm, inside `U1_BALL_FIELD` come closer than 0.15 mm to another net, the smallest gap **0.094 mm**, above JLCPCB's 0.09 mm multilayer figure but below the 0.110 mm of the last batch. Three via-to-via channels carry two tracks. Fine routing stays inside the package body; LVDS and MDI pairs keep their 0.31 mm.
+
+*Checks on the copper.* Removed copper only on the reworked nets (the 18 earlier slot routes, bus 1's connector side, C125's two stubs); no other item changed but the three renamed bus 1 routes, geometry identical. Plane pieces unchanged; every +3V3 and GND island lands in its plane's main piece. Reference planes: for the 152 fast nets, the length of track within 1.5 mm of any of the 131 new vias with no plane copper under its centre or either edge is unchanged (`reports/ref_under.txt`). Route lengths: slots E to H 21.5 to 52.6 mm, 1 to 6 vias; `HDMI_SDA` 62.7 mm, 2 vias; microSD 60.2 to 80.4 mm, 6 to 8 vias; debug pair 70.2 and 76.2 mm, 5 and 6 vias (round the south-west corner); `MRAM_SI` 41.0 mm, 5 vias; bus 1 connector side 16.9 to 24.5 mm. Nets re-opened by design: `SLOTC_IO9`, `SLOTD_IO4` (removed), `SLOTE_IO3`, `SLOTF_IO10` (complete before on other balls), `BUS5V1_IO5` to `IO7` and `BUS5V1_PIN0`, `PIN1` (the names now on other balls and pins).
+
+*Leftovers, with endpoints and one alternative per group.* Close-ups with notes: `images/left_AD.png`, `left_bus.png`, `left_EH.png`, `left_MON3V3.png`.
+
+- Slots A to D, 48: every ball of bank 15 to its J3A/J3B pin as in `ref/ballmap.md` (the list with endpoints: `reports/leftovers.txt`). Obstruction: the nine SDRAM lanes run along ball columns 200.2 to 207.25 on In2 and In5 through bank 15; beyond the face `SDRAM_A1`, `A2`, `A6`, `A7` hold In5 at x 196 to 198, `VCCIO_1`'s 1.7 mm In2 bar holds x 196.05 to 197.75, y 152.6 to 160.2, the `+1V8_IO` spine F.Cu at x 198.92, and B.Cu has `VCCIO_1`'s fingers and the debug lanes; the one exit, the south-west corner, carries the debug pair and `MRAM_SI`. Measured on scratch copies, router, slots A to D alone without the debug pair: as built 3 to 6; without `VCCIO_1`'s In2 bar 7; without the four outside SDRAM lanes 5; without both 9; without the nine lanes inside bank 15, 15 to 24; without all thirteen address lanes and the bar, 28 to 32. With the debug pair and `MRAM_SI` in, 0. So the address bus is the main obstruction but not the only one: the lines to J3A also cross the PSRAM fan. Alternative (a design decision, SDRAM balls being reserved this round): move the SDRAM address and bank bus off bank 14's west face, nine lines onto bank 35's free balls beside U32 (tested: 4 of 9 fit as the data and HDMI lanes run today, so the data bus would be re-planned with them), and bring `VCCIO_1` in under the package instead of along the west face; then plan slots A to D as one group, with slots A and B given their own way across the PSRAM fan.
+- Buses, 19: bus 0 FPGA side `BUS5V0_IO0` to `IO7`, `DIR`, `OE_N` (balls V26, W26, AB26, AC26, U25, U26, W25, Y26, U24, V23 to U9 pins 3 to 10, 2 and the `OE_N` copper at (200.10, 181.09)); bus 1 `IO3` to `IO7`, `DIR`, `OE_N` (Y25, AA25, V24, W24, AA24, U17, W23 to U10 pins 7 to 3, 2 and (215.05, 182.99)); `BUS5V1_PIN0`, `PIN1` (U10.14, U10.15 to J8.1, J8.2). Obstruction: bank 13's corner faces north-west, U9/U10 sit at the south edge; every FPGA-side line crosses the PSRAM fan (48 lanes on In2, In5 and B.Cu), then the bank 15 fan-out. Tested alternative, both buses on bank 16's twenty free balls facing south with VCCA on `+2V5`: 8 of 20, not enough. Alternative to decide: move U9 and U10 with their decoupling next to bank 13's corner (north-west of the package) so the 1.8 V side is short and only the 5 V side runs to J7/J8; not tested here.
+- Slots E to H, 5: `SLOTE_IO3` U1.U5 to J5A.29, `SLOTF_IO9` U1.P5 to J5A.3, `SLOTF_IO10` U1.P4 to J5A.2, `SLOTH_IO9` U1.J3 to J5B.3, `SLOTH_IO10` U1.H2 to J5B.2. Obstruction (`images/left_EH.png`): bank 34's rows J to L are crossed on In2, In5 and B.Cu by the SDRAM data, mask, clock and CKE lanes and the FPGA JTAG lanes, and `VCCIO_2`'s B.Cu bar sits at y 147.5, so those balls leave on F.Cu only; the face carries 43. Alternative: re-route `SDRAM_DQ8`, `DQ10`, `DQ11` (B.Cu, rows J to H) out of the channels in front of H2 and J3; finished memory, owner's decision.
+- `MRAM_CS`, 1: U1.K25 to R154.2. Shares the south-west exit with the debug pair (see the trade). Alternative: give it the exit instead of `DBG_TDI` (MRAM is a populate option).
+- `MON_3V3`, 1: U7.53 to the C227.1/R85.2 copper. Moving `MON_5V`'s ring via, as authorised, is not enough: C227 and R85 sit in an F.Cu pocket walled by the U7 capacitors' GND bar and no legal via site exists in it; the nearest site, (195.90, 116.90), is blocked only by `CFG_DONE`'s B.Cu segment (0.104 mm short), and the one clear site lands on R85.2's pad. `MON_5V` therefore unchanged. Alternative: shift `CFG_DONE`'s B.Cu segment 0.15 mm there and drop `MON_3V3` through that via from a ring via at pin 53 (unroutable so far only because of that via).
+
+*Failing independent checkers (unchanged here).* `tools/audit_easyeda.py` fails as before (C269119 fuses, D3/D4); `tools/check_connector_rework.py` stops at H1 to H4. Both are addressed in the housekeeping commit that follows.
+
+Owner's H4 move, its fills and `.prl` left out of the commit. Nothing measured on hardware.
+
 **Timing and signal integrity remain unverified.** No length tuning; 33 ohm is
 provisional. Lengths are not delays, because these routes mix layers. Pair
 impedance through the transitions and stitching is not modelled, and rule

@@ -39,6 +39,22 @@ SIDEBAND_MOVES = OrderedDict([('SB_UART_RX', 'R18')])
 # facing the bottom edge where J7/J8 sit) with the four PSRAMs. Bank 14
 # keeps the sideband, the flash and the fabric clock. Direct slots: A-D bank
 # 15, E-H bank 34.
+# Slot pair order after layout (2026-11-10 signal batch). Inside bank 34 the twelve pairs the bank already
+# carries are dealt out again so that, along the east face the lines leave by, the pairs follow J5's order
+# north to south (E IO0/1 ... H IO10/11): E and F now sit on the northern ball rows and G and H on the
+# southern ones, so the lines to J5A and J5B no longer cross in front of the face. Same pairs, same P and N
+# balls, same bank and VCCO; only which slot bit a pair carries changes. Sorted by the pair's mean ball row,
+# ties by depth from the face. Bank 15 (A-D) keeps its order: its lines cannot leave the package yet.
+SLOT_PAIR_ORDER = OrderedDict([
+    ('E', ['U2', 'U6', 'T4', 'T8', 'T2', 'T5']),
+    ('F', ['R7', 'R1', 'R3', 'R8', 'P6', 'P4']),
+    ('G', ['N3', 'N7', 'N1', 'M6', 'M2', 'M4']),
+    ('H', ['M7', 'L3', 'L5', 'K1', 'K3', 'H2']),
+])
+# Bus 1's bits after layout (2026-11-10 signal batch). U10's channels now run in reverse (tools/design.py),
+# so bit k uses A(8-k): the three routed balls AC24, AB24 and AB25 reach pins 10, 9 and 8 (A8, A7, A6) and
+# carry bits 0, 1 and 2 there. The other five bits keep the remaining balls of the bus in their old order.
+BUS_BALL_ORDER = OrderedDict([('M', ['AC24', 'AB24', 'AB25', 'Y25', 'AA25', 'V24', 'W24', 'AA24'])])
 SLOT_BANK = OrderedDict([('L', '13'), ('M', '13'),
                          ('A', '15'), ('B', '15'), ('C', '15'), ('D', '15'),
                          ('E', '34'), ('F', '34'), ('G', '34'), ('H', '34')])
@@ -107,6 +123,10 @@ PSRAM_BANK = '13'
 # PHY control lines (PHY_CTL) share the bank.
 HDMI_PAIRS = ['CLK', 'D0', 'D1', 'D2']
 HDMI_SINGLES = ['HDMI_HPD', 'HDMI_SCL', 'HDMI_SDA', 'HDMI_CEC', 'HDMI_CT_HPD', 'HDMI_LS_OE']
+# Moved after layout (2026-11-10 signal batch): C2's four dogbone sites carry SDRAM_CS_N, SDRAM_RAS_N, +3V3 and
+# HDMI_CEC and C1 beside it is HDMI_D0_P, so HDMI_SDA had no way out. F4 (IO_L11N_T1_SRCC_35) is free, in the same
+# 3.3 V bank, and reaches U31 on two vias; its P ball G4 stays free for a clock input.
+HDMI_MOVES = OrderedDict([('HDMI_SDA', 'F4')])
 
 def load():
     io, other = defaultdict(list), defaultdict(list)
@@ -228,6 +248,21 @@ def assign():
                 net[ball] = f'BUS5V{bus}_IO{i}'
             else:
                 net[ball] = f'SLOT{s}_IO{i}'
+    for bk in ('34',):
+        group = [x for x, b in SLOT_BANK.items() if b == bk]
+        have = {pr[0]: pr for x in group for pr in slots[x][1]}
+        want = [p for x in group for p in SLOT_PAIR_ORDER[x]]
+        if sorted(want) != sorted(have):
+            raise RuntimeError(f'SLOT_PAIR_ORDER for bank {bk} is not a permutation of the bank\'s slot pairs')
+        for x in group:
+            prs = [have[p] for p in SLOT_PAIR_ORDER[x]]
+            slots[x] = (bk, prs)
+            for i, ball in enumerate(b for pr in prs for b in pr): net[ball] = f'SLOT{x}_IO{i}'
+    for x, order in BUS_BALL_ORDER.items():
+        bk, prs = slots[x]; have = [b for pr in prs for b in pr]
+        if sorted(have) != sorted(order):
+            raise RuntimeError(f'BUS_BALL_ORDER for {x} is not a permutation of the bus\'s balls')
+        for i, ball in enumerate(order): net[ball] = f'BUS5V{0 if x == "L" else 1}_IO{i}'
     # One direction control and one active-low enable per bus, low speed,
     # in the buses' bank.
     for n in ('BUS5V0_DIR', 'BUS5V1_DIR', 'BUS5V0_OE_N', 'BUS5V1_OE_N'):
@@ -262,6 +297,10 @@ def assign():
     # balls sit deep in the package
     ctl = [x for pr in _take(fp35, used, (len(HDMI_SINGLES) + 1) // 2) for x in pr]
     for b, n in zip(ctl, HDMI_SINGLES): net[b] = n
+    for n, b in HDMI_MOVES.items():
+        if b in used or b in net or not names.get(b, '').endswith('_35'):
+            raise RuntimeError(f'{n}: {b} is not a free bank 35 ball')
+        old = next(x for x, y in net.items() if y == n); del net[old]; used.discard(old); used.add(b); net[b] = n
     # the PHY control lines, after HDMI so its pairs are the ones they were
     for n, b in PHY_CTL.items():
         if not names.get(b, '').endswith('_' + PHY_CTL_BANK) or b in used:
