@@ -26,8 +26,6 @@ LIMIT_MM = 10.0
 ALLOWED = {
     ('AUX_RAIL', 'B.Cu'): 'AUX trunk in its reserved lane beside the east 1.8 V strip',
     ('+1V0', 'In2_signal'): 'core regulator sense line from ball V10 (no load current)',
-    # temporary, candidates for In3
-    ('VCCIO_1', 'B.Cu'): 'bridges 6 and 7 from the VCCIO_1 lane to the FPGA entry and the bulk capacitors',
 }
 POWER_CLASSES = {'PWR_3A', 'AUX_5A', 'EXT_2A'}
 POWER_NAME = re.compile(r'^(\+.*|VBUS|VSYS|VIN_EXT|AUX_RAIL|PHY_1V0|VCCIO_\d(_EXT)?|SLOT_[A-Z]_(5V|3V3|AUX|PIN_VOLTAGE))$')
