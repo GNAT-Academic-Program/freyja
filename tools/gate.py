@@ -4,12 +4,13 @@
     python3 tools/gate.py
 
 Read-only. Runs, in order: design.py / budget.py / qualified.py build checks,
-check_stackup.py, check_erc.py, netlist export to a scratch file compared with kicad/odin.net,
+check_stackup.py, check_erc.py, check_power_layers.py (no power rail on a signal layer over 10 mm),
+netlist export to a scratch file compared with kicad/odin.net,
 ref/freya.xdc compared with a fresh gen_xdc export, DRC with schematic
 parity, place.py --check, depth.py.
 
 Two verdicts, printed separately so neither hides the other:
-  GATE electrical  - build, ERC, netlist/XDC/guide drift, schematic parity
+  GATE electrical  - build, ERC, netlist/XDC/guide drift, schematic parity, power rails on signal layers
   GATE mechanical  - place.py --check (the connector lattice contract)
 The exit code is 1 if the electrical gate fails; with --strict also if the
 mechanical one does. DRC violations and unrouted counts are reported, not
@@ -99,6 +100,14 @@ def main():
 
         r = run([PY, 'tools/check_erc.py'])
         print('check_erc.py   exit', r.returncode, '|', r.stdout.strip().splitlines()[-1] if r.stdout.strip() else r.stderr.strip()[-200:])
+        if r.returncode: ok = False
+
+        # power rails stay on the power layer: no chain of rail copper over 10 mm on a signal layer
+        r = run([PY, 'tools/check_power_layers.py'])
+        lines = [l for l in r.stdout.strip().splitlines() if l.strip()]
+        print('check_power_layers exit', r.returncode, '|', lines[-1] if lines else r.stderr.strip()[-200:])
+        for l in lines[:-1]:
+            if l.startswith('FAIL'): print('   ' + l)
         if r.returncode: ok = False
 
         drc = os.path.join(tmp, 'drc.json')
