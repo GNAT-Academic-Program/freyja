@@ -97,3 +97,16 @@ limits, direct wiring and references an extension builder can understand.
 - [RGMII profile, 1000 Mb/s](gateware/rgmii1000/README.md): timing contract, fixture and constraints for U30, separate from the allocation gate.
 - [Current status and chronological findings](findings.md). Its older numbered findings are dated history, not a fresh open-task list.
 - [Archive index and provenance](archive/README.md): old Altium/EasyEDA exports, extraction reports, superseded workflow/plans, dated review evidence and Vivado scratch outputs. [Salvage rationale](ref/salvage-from-odin0.md) retains useful earlier engineering decisions.
+
+
+std::vector<int> a; --- stree
+
+
+
+std::vector<int> b; --- forge
+
+type int_vector std::vector<int, float>;
+
+
+a: int_vector;
+b: int_vector;
