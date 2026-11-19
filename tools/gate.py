@@ -102,7 +102,7 @@ def main():
         print('check_erc.py   exit', r.returncode, '|', r.stdout.strip().splitlines()[-1] if r.stdout.strip() else r.stderr.strip()[-200:])
         if r.returncode: ok = False
 
-        # power rails stay on the power layer: no chain of rail copper over 10 mm on a signal layer
+        # power rails stay on the power layer: no rail copper run over 10 mm between two vias or pads on a signal layer
         r = run([PY, 'tools/check_power_layers.py'])
         lines = [l for l in r.stdout.strip().splitlines() if l.strip()]
         print('check_power_layers exit', r.returncode, '|', lines[-1] if lines else r.stderr.strip()[-200:])
